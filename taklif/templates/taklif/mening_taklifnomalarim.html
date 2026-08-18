@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Mening taklifnomalarim" %} — Taklifnoma365{% endblock %}
+
+{% block extra_style %}
+.ust-qator { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+.orqaga-link { color: #f5efe0; opacity: .7; text-decoration: none; font-size: .88rem; }
+.orqaga-link:hover { opacity: 1; }
+.til-forma select {
+    width: auto; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25);
+    font-size: .8rem; background: #0f2027; color: #f5efe0;
+}
+
+h1 { text-align: center; margin-top: 26px; font-weight: normal; }
+h1::after { content: ""; display: block; width: 48px; height: 2px; background: #c9a227; margin: 12px auto 0; }
+p.izoh { text-align: center; opacity: .7; margin-bottom: 30px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.karta {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 18px;
+    transition: border-color .2s;
+}
+.karta:hover { border-color: rgba(201,162,39,.4); }
+.karta .nomi { font-weight: bold; font-size: 1.1rem; margin-bottom: 4px; }
+.karta .marosim { opacity: .65; font-size: .8rem; text-transform: uppercase; letter-spacing: 1px; }
+.karta .sana { opacity: .7; font-size: .85rem; margin: 8px 0 14px; }
+.holat { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: .75rem; margin-bottom: 14px; }
+.holat.tolangan { background: rgba(126,217,87,.18); color: #7ed957; }
+.holat.kutilmoqda { background: rgba(244,201,93,.18); color: #f4c95d; }
+.tugmalar { display: flex; gap: 8px; flex-wrap: wrap; }
+.tugma {
+    display: inline-block; padding: 8px 14px; border-radius: 20px; font-size: .82rem;
+    border: 1px solid #c9a227; color: #c9a227; text-decoration: none;
+}
+.tugma:hover { background: #c9a227; color: #0f2027; }
+.bosh { text-align: center; opacity: .65; margin-top: 40px; }
+.yaratish-tugma {
+    display: block; width: fit-content; margin: 0 auto 34px; padding: 14px 28px;
+    border-radius: 30px; background: #c9a227; color: #0f2027; text-decoration: none; font-weight: bold;
+}
+{% endblock %}
+
+{% block content %}
+<div class="ust-qator">
+    <a class="orqaga-link" href="{% url 'taklif:bosh_sahifa' %}">&larr; {% trans "Bosh sahifa" %}</a>
+    {% include "taklif/_til_almashtirish.html" %}
+</div>
+{% include "taklif/_sayt_musiqa.html" %}
+
+<h1>{% trans "Mening taklifnomalarim" %}</h1>
+<p class="izoh">
+    {% trans "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni ko'rsatadi — ularni solishtirib, eng yoqqanini tanlashingiz mumkin." %}
+</p>
+
+<a class="yaratish-tugma" href="{% url 'taklif:shablon_tanlash' %}">+ {% trans "Yana bitta yaratish" %}</a>
+
+{% if taklifnomalar %}
+<div class="grid">
+    {% for t in taklifnomalar %}
+    <div class="karta">
+        <div class="marosim">{{ t.get_marosim_turi_display }}</div>
+        <div class="nomi">{{ t.sarlavha }}</div>
+        <div class="sana">{{ t.sana|date:"d.m.Y, H:i" }} · {{ t.shablon.nomi }}</div>
+        {% if t.tolangan %}
+        <span class="holat tolangan">✅ {% trans "Faollashtirilgan" %}</span>
+        {% else %}
+        <span class="holat kutilmoqda">⏳ {% trans "To'lov kutilmoqda" %}</span>
+        {% endif %}
+        <div class="tugmalar">
+            <a class="tugma" href="{{ t.get_absolute_url }}">{% trans "Ko'rish" %}</a>
+            {% if not t.tolangan %}
+            <a class="tugma" href="{% url 'taklif:yoqdi' t.slug %}">{% trans "Yoqdi" %}</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="bosh">{% trans "Siz hali hech qanday taklifnoma yaratmagansiz." %}</p>
+{% endif %}
+{% endblock %}

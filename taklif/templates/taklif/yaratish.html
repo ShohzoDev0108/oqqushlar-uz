@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Taklifnoma yaratish" %} — {{ shablon.nomi }}{% endblock %}
+
+{% block extra_style %}
+.ust-qator { display: flex; justify-content: flex-end; margin-top: 6px; }
+.til-forma select {
+    width: auto; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25);
+    font-size: .8rem; background: #0f2027; color: #f5efe0;
+}
+h1 { text-align: center; margin-top: 20px; }
+p.izoh { text-align: center; opacity: .7; margin-bottom: 20px; }
+label { display: block; margin: 14px 0 4px; font-size: .9rem; opacity: .85; }
+input, select, textarea {
+    width: 100%; padding: 11px; border-radius: 8px; border: none; font-family: inherit;
+}
+.xato { color: #ff6b6b; font-size: .82rem; margin-top: 4px; }
+.non-field-xato { background: rgba(255,107,107,.15); padding: 10px; border-radius: 8px; margin-bottom: 14px; }
+.yordam { opacity: .55; font-size: .78rem; margin-top: 3px; }
+button[type="submit"] {
+    margin-top: 22px; padding: 14px 22px; border-radius: 8px; border: none;
+    background: #c9a227; color: #0f2027; font-weight: bold; cursor: pointer; width: 100%;
+}
+.orqaga { display: block; text-align: center; margin-top: 16px; opacity: .6; }
+.manzil-qatori { display: flex; align-items: stretch; }
+.manzil-qatori .prefiks {
+    display: flex; align-items: center; padding: 0 10px; border-radius: 8px 0 0 8px;
+    background: rgba(255,255,255,.08); opacity: .7; font-size: .85rem; white-space: nowrap;
+}
+.manzil-qatori input { border-radius: 0 8px 8px 0; }
+{% endblock %}
+
+{% block content %}
+<div class="ust-qator">{% include "taklif/_til_almashtirish.html" %}</div>
+{% include "taklif/_sayt_musiqa.html" %}
+<h1>{{ shablon.nomi }} {% trans "shabloni" %}</h1>
+<p class="izoh">{% trans "Ma'lumotlaringizni to'ldiring. Yuborgach — o'zingiz uchun link tayyor bo'ladi (hali hech kimga ochiq emas)." %}</p>
+
+{% if form.non_field_errors %}
+<div class="non-field-xato">{{ form.non_field_errors }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+    <div {% if field.name == "ism_2" %}id="ism2-qatori"{% endif %}>
+        <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+        {% if field.name == "slug" %}
+        <div class="manzil-qatori">
+            <span class="prefiks">{{ request.get_host }}/</span>
+            {{ field }}
+        </div>
+        {% else %}
+        {{ field }}
+        {% endif %}
+        {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
+        {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
+    </div>
+    {% endfor %}
+
+    <div>
+        <label for="rasmlar">{% blocktrans with soni=maksimal_rasmlar_soni %}Rasmlar (eng ko'pi bilan {{ soni }} ta, ixtiyoriy){% endblocktrans %}</label>
+        <input type="file" id="rasmlar" name="rasmlar" accept="image/*" multiple>
+        <div class="yordam" id="rasmlar-soni"></div>
+    </div>
+
+    <button type="submit">{% trans "Taklifnomani yaratish" %}</button>
+</form>
+
+<a class="orqaga" href="{% url 'taklif:shablon_tanlash' %}">&larr; {% trans "Boshqa shablon tanlash" %}</a>
+
+<script>
+(function () {
+    // Marosim turiga qarab 2-ism maydonini ko'rsatish/yashirish —
+    // masalan "to'y"da ikkala ism kerak, "tug'ilgan kun"da bittasi yetarli.
+    var ikkiIsmliTurlar = {{ ikki_ismli_turlar|safe|default:"[]" }};
+    var marosimEl = document.getElementById('id_marosim_turi');
+    var ism2Qatori = document.getElementById('ism2-qatori');
+
+    function ism2niYangila() {
+        if (!marosimEl || !ism2Qatori) { return; }
+        var kerak = ikkiIsmliTurlar.indexOf(marosimEl.value) !== -1;
+        ism2Qatori.style.display = kerak ? '' : 'none';
+    }
+
+    if (marosimEl) {
+        marosimEl.addEventListener('change', ism2niYangila);
+        ism2niYangila();
+    }
+
+    // Ism(lar) yozilganda "manzil (link)" maydonini avtomatik taklif qilamiz —
+    // mijoz qo'lda formatlash haqida o'ylamasin.
+    // Agar mijoz link maydonini o'zi qo'lda tahrirlasa, avtomatik taklifni to'xtatamiz.
+    var ism1El = document.getElementById('id_ism_1');
+    var ism2El = document.getElementById('id_ism_2');
+    var slugEl = document.getElementById('id_slug');
+    if (!ism1El || !slugEl) { return; }
+
+    var qoldaTahrirlandi = slugEl.value.trim().length > 0;
+
+    function sodda_slug(matn) {
+        return matn
+            .toLowerCase()
+            .trim()
+            .replace(/['’ʻ`]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function yangila() {
+        if (qoldaTahrirlandi) { return; }
+        var manba = ism2El && ism2El.value ? (ism1El.value + '-' + ism2El.value) : ism1El.value;
+        slugEl.value = sodda_slug(manba);
+    }
+
+    slugEl.addEventListener('input', function () { qoldaTahrirlandi = true; });
+    ism1El.addEventListener('input', yangila);
+    if (ism2El) { ism2El.addEventListener('input', yangila); }
+})();
+
+(function () {
+    // Rasmlar sonini eng ko'pi bilan {{ maksimal_rasmlar_soni }} tagacha cheklaymiz.
+    // (Server tomonida ham cheklangan — bu faqat mijozga tezroq bildirish uchun.)
+    var maksimal = {{ maksimal_rasmlar_soni }};
+    var rasmlarEl = document.getElementById('rasmlar');
+    var soniEl = document.getElementById('rasmlar-soni');
+    if (!rasmlarEl) { return; }
+
+    var LIMIT_XABARI = "{% filter escapejs %}{% blocktrans with soni=maksimal_rasmlar_soni %}Eng ko'pi bilan {{ soni }} ta rasm tanlashingiz mumkin. Iltimos, qaytadan tanlang.{% endblocktrans %}{% endfilter %}";
+
+    rasmlarEl.addEventListener('change', function () {
+        var tanlangan = rasmlarEl.files.length;
+        if (tanlangan > maksimal) {
+            alert(LIMIT_XABARI);
+            rasmlarEl.value = '';
+            if (soniEl) { soniEl.textContent = ''; }
+            return;
+        }
+        if (soniEl) {
+            soniEl.textContent = tanlangan ? tanlangan + ' / ' + maksimal : '';
+        }
+    });
+})();
+</script>
+{% endblock %}

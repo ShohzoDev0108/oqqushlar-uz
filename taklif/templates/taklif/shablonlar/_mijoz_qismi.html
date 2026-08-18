@@ -1,0 +1,27 @@
+{% load i18n %}
+{% comment %}
+Barcha yangi shablonlar uchun umumiy yuqori qism: til tanlash, "hali
+faollashtirilmagan" banneri, mijoz paneli (Yoqdi/Qayta yaratish/Mening
+taklifnomalarim) va fon musiqasi elementi. Ranglar har bir shablonning
+o'z CSS'ida (--asos, --banner-fon va h.k. o'zgaruvchilari orqali) beriladi.
+{% endcomment %}
+<div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+
+{% if not taklifnoma.tolangan and not mehmon %}
+<div class="faollashtirilmagan-banner">
+    {% trans "Bu — sizning shaxsiy oldindan ko'rish havolangiz, hali ommaviy emas." %}
+    {% blocktrans %}Faollashtirish uchun Telegram orqali{% endblocktrans %}
+    <a href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank">{{ admin_telegram }}</a>
+    {% trans "bilan bog'laning." %}
+</div>
+<div class="mijoz-panel">
+    <a class="mp-tugma yoqdi" href="{% url 'taklif:yoqdi' taklifnoma.slug %}">{% if taklifnoma.yoqdi_bosildi %}✅ {% trans "Yoqdi (yuborildi)" %}{% else %}💛 {% trans "Yoqdi — adminga yozish" %}{% endif %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:shablon_tanlash' %}">🔄 {% trans "Qayta yaratish" %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Mening taklifnomalarim" %}</a>
+</div>
+{% endif %}
+
+{% if taklifnoma.musiqa_manbai %}
+<audio id="fon-musiqa" src="{{ taklifnoma.musiqa_manbai }}" loop preload="auto"></audio>
+<button id="musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">🎵</button>
+{% endif %}

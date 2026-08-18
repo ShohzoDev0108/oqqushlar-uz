@@ -1,0 +1,356 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ taklifnoma.sarlavha }}{% endblock %}
+
+{% block extra_style %}
+body { background: #fdfaf4; color: #2b2b2b; }
+.wrapper { max-width: 640px; }
+
+.til-qatori { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+.til-forma select {
+    width: auto; padding: 6px 10px; border-radius: 6px; border: 1px solid #e8ddc7;
+    font-size: .8rem; background: #fff; color: #2b2b2b;
+}
+
+.faollashtirilmagan-banner {
+    background: #f4c95d; color: #2b2b2b; text-align: center;
+    padding: 10px 16px; font-size: .85rem; border-radius: 8px; margin-bottom: 16px;
+}
+.faollashtirilmagan-banner a { color: #2b2b2b; font-weight: bold; }
+
+.mijoz-panel { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.mp-tugma {
+    display: inline-block; padding: 8px 14px; border-radius: 20px; font-size: .82rem;
+    background: #fff; border: 1px solid #8a6d3b; color: #8a6d3b; text-decoration: none;
+}
+.mp-tugma:hover { background: #8a6d3b; color: #fff; }
+.mp-tugma.yoqdi { border-color: #c9a227; color: #8a6d3b; font-weight: bold; }
+
+.hero { text-align: center; padding: 30px 0; border-bottom: 2px solid #e8ddc7; margin-bottom: 20px; }
+.hero .kichik { letter-spacing: 2px; text-transform: uppercase; opacity: .6; font-size: .75rem; }
+.hero h1 { font-size: 2.2rem; margin: 6px 0; color: #8a6d3b; }
+.hero .sana-matn { opacity: .7; }
+
+.bolim { margin: 26px 0; }
+.bolim h2 { font-size: 1.2rem; color: #8a6d3b; border-bottom: 1px solid #e8ddc7; padding-bottom: 6px; }
+
+.countdown { display: flex; justify-content: center; gap: 14px; margin: 10px 0; }
+.countdown div { text-align: center; }
+.countdown .son { font-size: 1.5rem; font-weight: bold; color: #8a6d3b; }
+
+.blok { background: #fff; border: 1px solid #e8ddc7; border-radius: 10px; padding: 18px; }
+.tafsilot-row { padding: 6px 0; }
+.tafsilot-row .label { opacity: .55; font-size: .78rem; display: block; }
+
+.xarita-tugma, .telegram-tugma {
+    display: inline-block; margin-top: 10px; padding: 9px 18px; border-radius: 6px;
+    border: 1px solid #8a6d3b; color: #8a6d3b; text-decoration: none; font-size: .88rem;
+}
+
+label { display: block; margin: 10px 0 4px; font-size: .88rem; }
+input, select, textarea {
+    width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #e8ddc7; font-family: inherit;
+}
+button[type="submit"] {
+    margin-top: 14px; padding: 12px 20px; border-radius: 6px; border: none;
+    background: #8a6d3b; color: #fff; font-weight: bold; cursor: pointer; width: 100%;
+}
+
+.mehmon-list { list-style: none; padding: 0; margin: 0; }
+.mehmon-list li { padding: 8px 0; border-bottom: 1px dashed #e8ddc7; }
+
+.karta {
+    font-family: monospace; cursor: pointer; display: inline-block;
+    background: #f4ecd8; padding: 8px 14px; border-radius: 6px;
+}
+
+.galereya { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+.galereya img { width: 100%; height: 120px; object-fit: cover; border-radius: 6px; }
+
+footer { text-align: center; padding: 24px 0; opacity: .5; font-size: .8rem; }
+
+.musiqa-pleer {
+    display: flex; align-items: center; gap: 12px;
+    background: #fff; border: 1px solid #e8ddc7; border-radius: 30px;
+    padding: 8px 18px 8px 8px; margin-bottom: 16px;
+}
+.musiqa-tugma {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: #8a6d3b; color: #fff; cursor: pointer; font-size: 0;
+    display: flex; align-items: center; justify-content: center; transition: background .2s;
+}
+.musiqa-tugma:hover { background: #6f5730; }
+.musiqa-tugma .ikon-oynat { width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 11px; border-color: transparent transparent transparent #fff; margin-left: 2px; }
+.musiqa-tugma .ikon-pauza { width: 10px; height: 12px; border-left: 3px solid #fff; border-right: 3px solid #fff; display: none; }
+.musiqa-tugma.ijroda .ikon-oynat { display: none; }
+.musiqa-tugma.ijroda .ikon-pauza { display: block; }
+.musiqa-progress-blok { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.musiqa-progress {
+    flex: 1; height: 5px; background: #e8ddc7; border-radius: 3px;
+    position: relative; cursor: pointer;
+}
+.musiqa-progress-toldi { position: absolute; inset: 0; width: 0%; background: #c9a227; border-radius: 3px; }
+.musiqa-progress-nuqta {
+    position: absolute; top: 50%; left: 0%; width: 12px; height: 12px; border-radius: 50%;
+    background: #8a6d3b; transform: translate(-50%, -50%); box-shadow: 0 0 0 2px #fff;
+}
+.musiqa-vaqt { font-size: .74rem; opacity: .6; white-space: nowrap; font-variant-numeric: tabular-nums; }
+{% endblock %}
+
+{% block content %}
+<div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+
+{% if not taklifnoma.tolangan and not mehmon %}
+<div class="faollashtirilmagan-banner">
+    {% trans "Bu — sizning shaxsiy oldindan ko'rish havolangiz, hali ommaviy emas." %}
+    {% blocktrans %}Faollashtirish uchun Telegram orqali{% endblocktrans %}
+    <a href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank">{{ admin_telegram }}</a>
+    {% trans "bilan bog'laning." %}
+</div>
+<div class="mijoz-panel">
+    <a class="mp-tugma yoqdi" href="{% url 'taklif:yoqdi' taklifnoma.slug %}">{% if taklifnoma.yoqdi_bosildi %}✅ {% trans "Yoqdi (yuborildi)" %}{% else %}💛 {% trans "Yoqdi — adminga yozish" %}{% endif %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:shablon_tanlash' %}">🔄 {% trans "Qayta yaratish" %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Mening taklifnomalarim" %}</a>
+</div>
+{% endif %}
+
+{% if taklifnoma.musiqa_manbai %}
+<audio id="fon-musiqa" src="{{ taklifnoma.musiqa_manbai }}" preload="metadata"></audio>
+<div class="musiqa-pleer">
+    <button id="musiqa-tugma" class="musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">
+        <span class="ikon-oynat"></span><span class="ikon-pauza"></span>
+    </button>
+    <div class="musiqa-progress-blok">
+        <div id="musiqa-progress" class="musiqa-progress">
+            <div id="musiqa-progress-toldi" class="musiqa-progress-toldi"></div>
+            <div id="musiqa-progress-nuqta" class="musiqa-progress-nuqta"></div>
+        </div>
+        <span id="musiqa-vaqt" class="musiqa-vaqt">0:00 / 0:00</span>
+    </div>
+</div>
+{% endif %}
+
+<div class="hero">
+    {% if mehmon %}
+    <div class="kichik">{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}{% endblocktrans %}</div>
+    {% else %}
+    <div class="kichik">{{ taklifnoma.get_marosim_turi_display }} {% trans "taklifnomasi" %}</div>
+    {% endif %}
+    <h1>{{ taklifnoma.sarlavha }}</h1>
+    <div class="sana-matn">{{ taklifnoma.sana|date:"d-F, Y" }}</div>
+</div>
+
+<div class="bolim">
+    <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">
+        <div><div class="son" id="kun">--</div><div>{% trans "kun" %}</div></div>
+        <div><div class="son" id="soat">--</div><div>{% trans "soat" %}</div></div>
+        <div><div class="son" id="minut">--</div><div>{% trans "minut" %}</div></div>
+        <div><div class="son" id="sekund">--</div><div>{% trans "sekund" %}</div></div>
+    </div>
+    <p id="countdown-matn" style="text-align:center; opacity:.7;"></p>
+</div>
+
+{% if taklifnoma.matn %}
+<div class="bolim"><div class="blok">{{ taklifnoma.matn|linebreaks }}</div></div>
+{% endif %}
+
+{% if rasmlar %}
+<div class="bolim">
+    <h2>{% trans "Fotolavha" %}</h2>
+    <div class="galereya">
+        {% for r in rasmlar %}
+        <img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}">
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="bolim">
+    <h2>{% trans "Tadbir tafsilotlari" %}</h2>
+    <div class="blok">
+        <div class="tafsilot-row"><span class="label">{% trans "Sana va vaqt" %}</span>{{ taklifnoma.sana|date:"d.m.Y, H:i" }}</div>
+        {% if taklifnoma.toyxona %}<div class="tafsilot-row"><span class="label">{% trans "To'yxona" %}</span>{{ taklifnoma.toyxona }}</div>{% endif %}
+        {% if taklifnoma.manzil %}<div class="tafsilot-row"><span class="label">{% trans "Manzil" %}</span>{{ taklifnoma.manzil }}</div>{% endif %}
+        {% if taklifnoma.kiyim_kodi %}<div class="tafsilot-row"><span class="label">{% trans "Kiyinish kodi" %}</span>{{ taklifnoma.kiyim_kodi }}</div>{% endif %}
+    </div>
+    {% if taklifnoma.xarita_link %}
+    <p><a class="xarita-tugma" href="{{ taklifnoma.xarita_link }}" target="_blank" rel="noopener">{% trans "Xaritada ko'rish" %}</a></p>
+    {% endif %}
+</div>
+
+{% if taklifnoma.sovga_karta %}
+<div class="bolim">
+    <h2>{% trans "Tabrik sovg'asi" %}</h2>
+    <div class="blok">
+        <p style="opacity:.7; margin-top:0;">{% trans "Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:" %}</p>
+        {% trans "Nusxalandi!" as NUSXALANDI_MATNI %}
+        <span class="karta" onclick="navigator.clipboard.writeText('{{ taklifnoma.sovga_karta }}'); this.textContent='{{ NUSXALANDI_MATNI|escapejs }}';">{{ taklifnoma.sovga_karta }}</span>
+    </div>
+</div>
+{% endif %}
+
+<div class="bolim">
+    <h2>{% trans "RSVP — kelasizmi?" %}</h2>
+    <div class="blok">
+        <form method="post" action="{% url 'taklif:rsvp_submit' taklifnoma.slug %}">
+            {% csrf_token %}
+            {% if mehmon %}<input type="hidden" name="mehmon_slug" value="{{ mehmon.slug }}">{% endif %}
+            <label for="ism">{% trans "Ismingiz" %}</label>
+            <input type="text" id="ism" name="ism" value="{{ mehmon.ism|default:'' }}" required>
+
+            <label for="mehmonlar_soni">{% trans "Nechta kishi bo'lasiz?" %}</label>
+            <select id="mehmonlar_soni" name="mehmonlar_soni">
+                <option value="1">1</option><option value="2">2</option>
+                <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            </select>
+
+            <label for="keladi">{% trans "Kelasizmi?" %}</label>
+            <select id="keladi" name="keladi">
+                <option value="ha">{% trans "Ha, albatta kelaman" %}</option>
+                <option value="yoq">{% trans "Afsuski, kela olmayman" %}</option>
+            </select>
+
+            <label for="izoh">{% trans "Izoh (ixtiyoriy)" %}</label>
+            <textarea id="izoh" name="izoh" rows="2"></textarea>
+
+            <button type="submit">{% trans "Yuborish" %}</button>
+        </form>
+    </div>
+</div>
+
+<div class="bolim">
+    <h2>{% trans "Mehmonlar" %}</h2>
+    <p style="opacity:.7;">{% blocktrans with soni=mehmonlar_jami %}Hozircha <strong>{{ soni }}</strong> kishi kelishini tasdiqladi{% endblocktrans %}</p>
+    {% if mehmonlar %}
+    <ul class="mehmon-list">
+        {% for m in mehmonlar %}
+        <li>{% blocktrans with ism=m.ism soni=m.mehmonlar_soni %}{{ ism }} — {{ soni }} kishi{% endblocktrans %}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% if taklifnoma.telegram_link %}
+<div class="bolim">
+    <div class="blok" style="text-align:center;">
+        <p style="opacity:.7; margin-top:0;">{% trans "Yangiliklar uchun Telegram guruhimizga qo'shiling" %}</p>
+        <a class="telegram-tugma" href="{{ taklifnoma.telegram_link }}" target="_blank" rel="noopener">{% trans "Telegram guruhi" %}</a>
+    </div>
+</div>
+{% endif %}
+
+<footer>{{ taklifnoma.sarlavha }} — {{ taklifnoma.sana|date:"Y" }}</footer>
+
+{% trans "Baxtli oilamizga" as SO_BAXTLI %}
+{% trans "yil" as SO_YIL %}
+{% trans "kun" as SO_KUN %}
+{% trans "bo'ldi" as SO_BOLDI %}
+{% trans "Marosimgacha" as SO_MAROSIMGACHA %}
+<script>
+(function () {
+    var el = document.getElementById('countdown');
+    var target = new Date(el.dataset.sana).getTime();
+    var matnEl = document.getElementById('countdown-matn');
+
+    var SO = {
+        baxtli: "{{ SO_BAXTLI|escapejs }}",
+        yil: "{{ SO_YIL|escapejs }}",
+        kun: "{{ SO_KUN|escapejs }}",
+        boldi: "{{ SO_BOLDI|escapejs }}",
+        marosimgacha: "{{ SO_MAROSIMGACHA|escapejs }}"
+    };
+
+    function tick() {
+        var endi = new Date().getTime();
+        var farq = target - endi;
+
+        if (farq <= 0) {
+            // Tadbir sanasi allaqachon o'tgan — endi vaqtni orqaga emas,
+            // to'g'ri, ya'ni o'tgan vaqtni oldinga qarab sanaymiz.
+            var otgan = endi - target;
+            var kun = Math.floor(otgan / 86400000);
+            var soat = Math.floor((otgan % 86400000) / 3600000);
+            var minut = Math.floor((otgan % 3600000) / 60000);
+            var sekund = Math.floor((otgan % 60000) / 1000);
+            var yil = Math.floor(kun / 365);
+            document.getElementById('kun').textContent = kun;
+            document.getElementById('soat').textContent = soat;
+            document.getElementById('minut').textContent = minut;
+            document.getElementById('sekund').textContent = sekund;
+            matnEl.textContent = yil > 0
+                ? SO.baxtli + ": " + yil + " " + SO.yil + " " + (kun % 365) + " " + SO.kun + " " + SO.boldi
+                : SO.baxtli + ": " + kun + " " + SO.kun + " " + SO.boldi;
+            return;
+        }
+
+        document.getElementById('kun').textContent = Math.floor(farq / 86400000);
+        document.getElementById('soat').textContent = Math.floor((farq % 86400000) / 3600000);
+        document.getElementById('minut').textContent = Math.floor((farq % 3600000) / 60000);
+        document.getElementById('sekund').textContent = Math.floor((farq % 60000) / 1000);
+        matnEl.textContent = SO.marosimgacha;
+    }
+    tick();
+    setInterval(tick, 1000);
+})();
+
+(function () {
+    // Nafis, mavzuga mos musiqa pleeri — brauzerning standart (qo'pol) audio
+    // panelini o'ziga xos dizayn bilan almashtiradi.
+    var musiqa = document.getElementById('fon-musiqa');
+    var tugma = document.getElementById('musiqa-tugma');
+    var progress = document.getElementById('musiqa-progress');
+    var progressToldi = document.getElementById('musiqa-progress-toldi');
+    var progressNuqta = document.getElementById('musiqa-progress-nuqta');
+    var vaqtEl = document.getElementById('musiqa-vaqt');
+    if (!musiqa || !tugma) { return; }
+
+    function vaqtFormat(soniya) {
+        if (!isFinite(soniya) || soniya < 0) { soniya = 0; }
+        var m = Math.floor(soniya / 60);
+        var s = Math.floor(soniya % 60);
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function progressniYangila() {
+        var davomiylik = musiqa.duration || 0;
+        var foiz = davomiylik ? (musiqa.currentTime / davomiylik) * 100 : 0;
+        progressToldi.style.width = foiz + '%';
+        progressNuqta.style.left = foiz + '%';
+        vaqtEl.textContent = vaqtFormat(musiqa.currentTime) + ' / ' + vaqtFormat(davomiylik);
+    }
+
+    tugma.addEventListener('click', function () {
+        if (musiqa.paused) {
+            var ijro = musiqa.play();
+            if (ijro && ijro.catch) {
+                ijro.catch(function (xato) {
+                    console.warn('Musiqani ijro etib bo\'lmadi:', xato);
+                });
+            }
+        } else {
+            musiqa.pause();
+        }
+    });
+
+    musiqa.addEventListener('play', function () { tugma.classList.add('ijroda'); });
+    musiqa.addEventListener('pause', function () { tugma.classList.remove('ijroda'); });
+    musiqa.addEventListener('timeupdate', progressniYangila);
+    musiqa.addEventListener('loadedmetadata', progressniYangila);
+
+    if (progress) {
+        progress.addEventListener('click', function (hodisa) {
+            var davomiylik = musiqa.duration;
+            if (!davomiylik) { return; }
+            var chegaralar = progress.getBoundingClientRect();
+            var nisbat = (hodisa.clientX - chegaralar.left) / chegaralar.width;
+            nisbat = Math.min(1, Math.max(0, nisbat));
+            musiqa.currentTime = nisbat * davomiylik;
+            progressniYangila();
+        });
+    }
+
+    progressniYangila();
+})();
+</script>
+{% endblock %}

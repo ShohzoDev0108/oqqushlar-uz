@@ -1,0 +1,22 @@
+{% load i18n %}
+{% comment %}
+3D konvert-ochilish kirish ekrani. "Taklifnomani ochish" bosilganda konvert
+qopqog'i 3D aylanib ochiladi, ichidan xat ko'tariladi, so'ng parda yo'qoladi
+(JS mantiq _skript.html'da). Ranglar shablon CSS o'zgaruvchilari orqali.
+{% endcomment %}
+<div id="parda">
+    <div class="konvert" id="konvert">
+        <div class="konvert-orqa"></div>
+        <div class="konvert-xat">
+            {% if mehmon %}
+            <h2>{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}</h2>
+            {% else %}
+            <h2>{% trans "Sizga taklifnoma keldi" %}</h2>
+            {% endif %}
+            <p>{{ taklifnoma.sarlavha }}</p>
+        </div>
+        <div class="konvert-old"></div>
+        <div class="konvert-qopqoq"><span class="muhr">❖</span></div>
+    </div>
+    <button id="ochish-tugma" type="button">{% trans "Taklifnomani ochish" %}</button>
+</div>

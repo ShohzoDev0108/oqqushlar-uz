@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Statistika — {{ taklifnoma.sarlavha }}{% endblock %}
+
+{% block extra_style %}
+h1 { font-size: 1.6rem; }
+.karta-blok { display: flex; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
+.karta { background: rgba(255,255,255,.08); border-radius: 12px; padding: 16px 20px; flex: 1; min-width: 140px; }
+.karta .son { font-size: 1.8rem; font-weight: bold; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.ha { color: #7ed957; }
+.yoq { color: #ff6b6b; }
+h2 { font-size: 1.1rem; margin-top: 40px; }
+.mehmon-link { font-family: monospace; font-size: .8rem; opacity: .85; cursor: pointer; }
+.korilgan-belgi { font-size: .85rem; }
+{% endblock %}
+
+{% block content %}
+<p><a href="{{ taklifnoma.get_absolute_url }}" style="color:#c9a227;">&larr; Ochiq sahifani ko'rish</a></p>
+<h1>{{ taklifnoma.sarlavha }} — statistika</h1>
+<p style="opacity:.7; font-size:.85rem;">Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang.</p>
+
+<div class="karta-blok">
+    <div class="karta"><div class="son">{{ taklifnoma.korishlar }}</div><div>ko'rishlar</div></div>
+    <div class="karta"><div class="son">{{ javoblar.count }}</div><div>javoblar</div></div>
+    <div class="karta"><div class="son ha">{{ keladiganlar_soni }}</div><div>keladi (mehmon)</div></div>
+    <div class="karta"><div class="son yoq">{{ kelmaydiganlar_soni }}</div><div>kelmaydi</div></div>
+</div>
+
+<table>
+    <thead>
+        <tr><th>Ism</th><th>Holat</th><th>Mehmonlar soni</th><th>Izoh</th><th>Sana</th></tr>
+    </thead>
+    <tbody>
+        {% for j in javoblar %}
+        <tr>
+            <td>{{ j.ism }}</td>
+            <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}Keladi{% else %}Kelmaydi{% endif %}</td>
+            <td>{{ j.mehmonlar_soni }}</td>
+            <td>{{ j.izoh|default:"—" }}</td>
+            <td>{{ j.yaratilgan|date:"d.m.Y H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Hozircha javoblar yo'q.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Mehmonlar uchun shaxsiy linklar</h2>
+<p style="opacity:.7; font-size:.85rem;">Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring.</p>
+<table>
+    <thead>
+        <tr><th>Ism</th><th>Ko'rdimi</th><th>Link</th></tr>
+    </thead>
+    <tbody>
+        {% for m in mehmonlar %}
+        <tr>
+            <td>{{ m.ism }}</td>
+            <td class="korilgan-belgi">{% if m.korilgan %}✅ ko'rdi{% else %}— hali ko'rmagan{% endif %}</td>
+            <td>
+                <span class="mehmon-link" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent='Nusxalandi!';">{{ m.get_absolute_url }}</span>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida "Mehmonlar" bo'limidan qo'shing.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

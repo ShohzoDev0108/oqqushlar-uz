@@ -1,0 +1,131 @@
+{% load i18n %}
+{% comment %}
+Barcha yangi shablonlar uchun umumiy kontent bo'limlari (countdown, tabrik
+matni, galereya, tafsilotlar, sovg'a, RSVP, mehmonlar, Telegram). Ko'rinish
+har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
+".muted" klassi bilan belgilanadi.
+{% endcomment %}
+
+<div class="bolim" data-anim>
+    <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">
+        <div><div class="son" id="kun">--</div><div>{% trans "kun" %}</div></div>
+        <div><div class="son" id="soat">--</div><div>{% trans "soat" %}</div></div>
+        <div><div class="son" id="minut">--</div><div>{% trans "minut" %}</div></div>
+        <div><div class="son" id="sekund">--</div><div>{% trans "sekund" %}</div></div>
+    </div>
+    <p id="countdown-matn" class="countdown-matn"></p>
+</div>
+
+{% if taklifnoma.matn %}
+<div class="bolim" data-anim>
+    <div class="blok" style="text-align:center;">{{ taklifnoma.matn|linebreaks }}</div>
+</div>
+{% endif %}
+
+{% if rasmlar %}
+<div class="bolim" data-anim>
+    <h2>{% trans "Fotolavha" %}</h2>
+    <div class="galereya">
+        {% for r in rasmlar %}
+        <img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}">
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="bolim" data-anim>
+    <h2>{% trans "Tadbir tafsilotlari" %}</h2>
+    <div class="blok">
+        <div class="tafsilot-row">
+            <div class="belgi">📅</div>
+            <div class="qiymat"><span class="label">{% trans "Sana va vaqt" %}</span>{{ taklifnoma.sana|date:"d.m.Y, H:i" }}</div>
+        </div>
+        {% if taklifnoma.toyxona %}
+        <div class="tafsilot-row">
+            <div class="belgi">🏛</div>
+            <div class="qiymat"><span class="label">{% trans "To'yxona" %}</span>{{ taklifnoma.toyxona }}</div>
+        </div>
+        {% endif %}
+        {% if taklifnoma.manzil %}
+        <div class="tafsilot-row">
+            <div class="belgi">📍</div>
+            <div class="qiymat"><span class="label">{% trans "Manzil" %}</span>{{ taklifnoma.manzil }}</div>
+        </div>
+        {% endif %}
+        {% if taklifnoma.kiyim_kodi %}
+        <div class="tafsilot-row">
+            <div class="belgi">👔</div>
+            <div class="qiymat"><span class="label">{% trans "Kiyinish kodi" %}</span>{{ taklifnoma.kiyim_kodi }}</div>
+        </div>
+        {% endif %}
+    </div>
+    {% if taklifnoma.xarita_link %}
+    <div style="text-align:center;">
+        <a class="xarita-tugma" href="{{ taklifnoma.xarita_link }}" target="_blank" rel="noopener">{% trans "Xaritada ko'rish" %}</a>
+    </div>
+    {% endif %}
+</div>
+
+{% if taklifnoma.sovga_karta %}
+<div class="bolim" data-anim>
+    <h2>{% trans "Tabrik sovg'asi" %}</h2>
+    <div class="blok" style="text-align:center;">
+        <p class="muted" style="margin-top:0;">{% trans "Ishtirokingiz — biz uchun eng qadrli sovg'a. Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:" %}</p>
+        {% trans "Nusxalandi!" as NUSXALANDI_MATNI %}
+        <span class="karta" onclick="navigator.clipboard.writeText('{{ taklifnoma.sovga_karta }}'); this.textContent='{{ NUSXALANDI_MATNI|escapejs }}';">{{ taklifnoma.sovga_karta }}</span>
+    </div>
+</div>
+{% endif %}
+
+<div class="bolim" data-anim>
+    <h2>{% trans "RSVP — kelasizmi?" %}</h2>
+    <div class="blok">
+        <form method="post" action="{% url 'taklif:rsvp_submit' taklifnoma.slug %}">
+            {% csrf_token %}
+            {% if mehmon %}<input type="hidden" name="mehmon_slug" value="{{ mehmon.slug }}">{% endif %}
+            <label for="ism">{% trans "Ismingiz" %}</label>
+            <input type="text" id="ism" name="ism" value="{{ mehmon.ism|default:'' }}" required>
+
+            <label for="mehmonlar_soni">{% trans "Nechta kishi bo'lasiz?" %}</label>
+            <select id="mehmonlar_soni" name="mehmonlar_soni">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="keladi">{% trans "Kelasizmi?" %}</label>
+            <select id="keladi" name="keladi">
+                <option value="ha">{% trans "Ha, albatta kelaman" %}</option>
+                <option value="yoq">{% trans "Afsuski, kela olmayman" %}</option>
+            </select>
+
+            <label for="izoh">{% trans "Izoh (ixtiyoriy)" %}</label>
+            <textarea id="izoh" name="izoh" rows="2"></textarea>
+
+            <button type="submit">{% trans "Yuborish" %}</button>
+        </form>
+    </div>
+</div>
+
+<div class="bolim" data-anim>
+    <h2>{% trans "Mehmonlar" %}</h2>
+    <p class="mehmonlar-jami">{% blocktrans with soni=mehmonlar_jami %}Hozircha <strong>{{ soni }}</strong> kishi kelishini tasdiqladi{% endblocktrans %}</p>
+    {% if mehmonlar %}
+    <ul class="mehmon-list">
+        {% for m in mehmonlar %}
+        <li>{{ m.ism }} <span class="soni">({% blocktrans with soni=m.mehmonlar_soni %}{{ soni }} kishi{% endblocktrans %})</span></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% if taklifnoma.telegram_link %}
+<div class="bolim" data-anim>
+    <div class="blok" style="text-align:center;">
+        <p class="muted" style="margin-top:0;">{% trans "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling" %}</p>
+        <a class="telegram-tugma" href="{{ taklifnoma.telegram_link }}" target="_blank" rel="noopener">{% trans "Telegram guruhi" %}</a>
+    </div>
+</div>
+{% endif %}

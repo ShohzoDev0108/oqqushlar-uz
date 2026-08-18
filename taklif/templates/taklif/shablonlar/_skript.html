@@ -1,0 +1,114 @@
+{% load i18n %}
+{% trans "Baxtli oilamizga" as SO_BAXTLI %}
+{% trans "yil" as SO_YIL %}
+{% trans "kun" as SO_KUN %}
+{% trans "bo'ldi" as SO_BOLDI %}
+{% trans "Marosimgacha" as SO_MAROSIMGACHA %}
+<script>
+(function () {
+    var SO = {
+        baxtli: "{{ SO_BAXTLI|escapejs }}",
+        yil: "{{ SO_YIL|escapejs }}",
+        kun: "{{ SO_KUN|escapejs }}",
+        boldi: "{{ SO_BOLDI|escapejs }}",
+        marosimgacha: "{{ SO_MAROSIMGACHA|escapejs }}"
+    };
+
+    // 3D konvert-ochilish pardasi va musiqa
+    var parda = document.getElementById('parda');
+    var konvert = document.getElementById('konvert');
+    var tugma = document.getElementById('ochish-tugma');
+    var musiqa = document.getElementById('fon-musiqa');
+    var musiqaTugma = document.getElementById('musiqa-tugma');
+
+    function musiqaniIjroEt() {
+        if (!musiqa) { return; }
+        var ijro = musiqa.play();
+        if (ijro && ijro.catch) {
+            ijro.catch(function (xato) {
+                console.warn('Musiqani avtomatik ijro etib bo\'lmadi:', xato);
+                if (musiqaTugma) { musiqaTugma.classList.add('ochirilgan'); }
+            });
+        }
+    }
+
+    if (tugma) {
+        tugma.addEventListener('click', function () {
+            // Avval konvert ochiladi (3D animatsiya), keyin parda yo'qoladi
+            if (konvert) { konvert.classList.add('ochildi'); }
+            tugma.classList.add('yashirin');
+            setTimeout(function () {
+                parda.classList.add('yopilgan');
+            }, konvert ? 1500 : 0);
+            if (musiqa && musiqaTugma) {
+                musiqaTugma.classList.add('korinadi');
+                musiqaniIjroEt();
+            }
+        });
+    }
+
+    if (musiqaTugma) {
+        musiqaTugma.addEventListener('click', function () {
+            if (musiqa.paused) {
+                musiqaniIjroEt();
+                musiqaTugma.textContent = '🎵';
+                musiqaTugma.classList.remove('ochirilgan');
+            } else {
+                musiqa.pause();
+                musiqaTugma.textContent = '🔇';
+            }
+        });
+    }
+
+    // Countdown — kelajakda qolgan vaqt, o'tgan bo'lsa o'tgan vaqtni sanaydi
+    var el = document.getElementById('countdown');
+    var target = new Date(el.dataset.sana).getTime();
+    var matnEl = document.getElementById('countdown-matn');
+
+    function tick() {
+        var endi = new Date().getTime();
+        var farq = target - endi;
+
+        if (farq <= 0) {
+            var otgan = endi - target;
+            var kun = Math.floor(otgan / 86400000);
+            var soat = Math.floor((otgan % 86400000) / 3600000);
+            var minut = Math.floor((otgan % 3600000) / 60000);
+            var sekund = Math.floor((otgan % 60000) / 1000);
+            var yil = Math.floor(kun / 365);
+            document.getElementById('kun').textContent = kun;
+            document.getElementById('soat').textContent = soat;
+            document.getElementById('minut').textContent = minut;
+            document.getElementById('sekund').textContent = sekund;
+            matnEl.textContent = yil > 0
+                ? SO.baxtli + ": " + yil + " " + SO.yil + " " + (kun % 365) + " " + SO.kun + " " + SO.boldi
+                : SO.baxtli + ": " + kun + " " + SO.kun + " " + SO.boldi;
+            return;
+        }
+
+        document.getElementById('kun').textContent = Math.floor(farq / 86400000);
+        document.getElementById('soat').textContent = Math.floor((farq % 86400000) / 3600000);
+        document.getElementById('minut').textContent = Math.floor((farq % 3600000) / 60000);
+        document.getElementById('sekund').textContent = Math.floor((farq % 60000) / 1000);
+        matnEl.textContent = SO.marosimgacha;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // Scroll-animatsiya
+    var bolimlar = document.querySelectorAll('[data-anim]');
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('korindi');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        bolimlar.forEach(function (b) { observer.observe(b); });
+    } else {
+        bolimlar.forEach(function (b) { b.classList.add('korindi'); });
+    }
+})();
+</script>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Taklifnoma{% endblock %}</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Georgia", "Segoe UI", serif;
+            background: #0f2027;
+            color: #f5efe0;
+        }
+        .wrapper { max-width: 720px; margin: 0 auto; padding: 24px; }
+        {% block extra_style %}{% endblock %}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        {% if messages %}
+            {% for message in messages %}
+                <p style="padding:10px; border-radius:8px; background:rgba(255,255,255,.1);">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

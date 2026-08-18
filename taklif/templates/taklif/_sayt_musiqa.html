@@ -1,0 +1,89 @@
+{% load i18n %}
+{% if sayt_musiqa %}
+{% comment %}
+Sayt fon musiqasi — joriy interfeys tiliga mos variant (views._sayt_musiqasi).
+Sahifadan-sahifaga o'tilganda musiqa qayerda to'xtagan bo'lsa, o'sha joydan
+davom etadi (sessionStorage orqali). Til almashtirilsa — src o'zgaradi va
+yangi til musiqasi boshidan yangraydi. Brauzer avtomatik ijroni bloklasa,
+pastdagi tugma pulsatsiya bilan ko'rinib turadi — bir marta bosish kifoya.
+{% endcomment %}
+<audio id="sayt-musiqa" src="{{ sayt_musiqa.fayl.url }}" loop preload="auto"></audio>
+<button id="sayt-musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">🔊</button>
+<style>
+#sayt-musiqa-tugma {
+    position: fixed; bottom: 20px; right: 20px; z-index: 45;
+    width: 48px; height: 48px; border-radius: 50%; border: 1px solid #c9a227;
+    background: #0f2027; color: #c9a227; font-size: 1.2rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+}
+#sayt-musiqa-tugma.bloklangan { animation: sayt-musiqa-puls 2s ease infinite; }
+@keyframes sayt-musiqa-puls {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,162,39,.45); }
+    50% { box-shadow: 0 0 0 12px rgba(201,162,39,0); }
+}
+</style>
+<script>
+(function () {
+    var audio = document.getElementById('sayt-musiqa');
+    var tugma = document.getElementById('sayt-musiqa-tugma');
+    if (!audio || !tugma) { return; }
+
+    var KALIT = 'sayt_musiqa_holati';
+    var src = audio.getAttribute('src');
+
+    var holat = null;
+    try { holat = JSON.parse(sessionStorage.getItem(KALIT) || 'null'); } catch (e) {}
+
+    // Xuddi shu musiqa (til o'zgarmagan) — to'xtagan joyidan davom etamiz.
+    // Til o'zgargan bo'lsa src boshqa bo'ladi va musiqa boshidan boshlanadi.
+    var davomEtish = holat && holat.src === src;
+    if (davomEtish && holat.vaqt) {
+        try { audio.currentTime = holat.vaqt; } catch (e) {}
+    }
+    // Foydalanuvchi o'zi o'chirgan bo'lsa, majburlab qayta yoqmaymiz.
+    var foydalanuvchiOchirgan = davomEtish && holat.ochirilgan;
+
+    function saqla() {
+        try {
+            sessionStorage.setItem(KALIT, JSON.stringify({
+                src: src,
+                vaqt: audio.currentTime || 0,
+                ochirilgan: audio.paused
+            }));
+        } catch (e) {}
+    }
+    setInterval(saqla, 1000);
+    window.addEventListener('pagehide', saqla);
+
+    function ijroEt() {
+        var p = audio.play();
+        if (p && p.catch) {
+            p.catch(function () {
+                // Brauzer birinchi tashrifda avtomatik ijroni bloklaydi —
+                // tugma pulsatsiya qilib turadi, bir bosishda musiqa ketadi.
+                tugma.classList.add('bloklangan');
+                tugma.textContent = '🔇';
+            });
+        }
+    }
+
+    audio.addEventListener('play', function () {
+        tugma.textContent = '🔊';
+        tugma.classList.remove('bloklangan');
+    });
+    audio.addEventListener('pause', function () { tugma.textContent = '🔇'; });
+
+    tugma.addEventListener('click', function () {
+        if (audio.paused) { ijroEt(); } else { audio.pause(); }
+        saqla();
+    });
+
+    if (foydalanuvchiOchirgan) {
+        tugma.textContent = '🔇';
+    } else {
+        ijroEt();
+    }
+})();
+</script>
+{% endif %}

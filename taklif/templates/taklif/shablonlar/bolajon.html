@@ -1,0 +1,445 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ taklifnoma.sarlavha }}{% endblock %}
+
+{% block extra_style %}
+body { background: #fef9f0; color: #4a4458; overflow-x: hidden; font-family: "Segoe UI", "Verdana", sans-serif; }
+.wrapper { padding: 0; max-width: none; }
+.ichki { max-width: 680px; margin: 0 auto; padding: 24px; }
+
+.til-qatori { display: flex; justify-content: center; padding: 12px 16px 0; position: relative; z-index: 40; }
+.til-forma select {
+    width: auto; padding: 6px 12px; border-radius: 14px; border: 2px solid #ffd166;
+    font-size: .8rem; background: #fff; color: #4a4458;
+}
+
+.faollashtirilmagan-banner {
+    background: #ffd166; color: #4a4458; text-align: center;
+    padding: 10px 16px; font-size: .85rem; position: relative; z-index: 40;
+    border-radius: 14px; margin: 10px 16px 0;
+}
+.faollashtirilmagan-banner a { color: #4a4458; font-weight: bold; }
+.mijoz-panel { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 12px 16px; position: relative; z-index: 40; }
+.mp-tugma {
+    display: inline-block; padding: 9px 16px; border-radius: 16px; font-size: .82rem;
+    background: #fff; border: 2px solid #ef476f; color: #ef476f; text-decoration: none; font-weight: bold;
+}
+.mp-tugma:hover { background: #ef476f; color: #fff; }
+
+/* --- Uchayotgan sharlar --- */
+.sharlar { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.shar {
+    position: absolute; bottom: -90px; width: 44px; height: 56px; border-radius: 50% 50% 48% 48%;
+    opacity: .5; animation: uchish linear infinite;
+}
+.shar::after {
+    content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 34px;
+    background: rgba(74,68,88,.3);
+}
+@keyframes uchish {
+    0% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-58vh) rotate(4deg); }
+    100% { transform: translateY(-125vh) rotate(-3deg); }
+}
+
+/* --- Ochish pardasi --- */
+#parda {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #fef9f0 0%, #fff0d9 55%, #ffe3ec 100%);
+    text-align: center; padding: 24px; transition: opacity .9s ease, visibility .9s ease;
+}
+#parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
+#parda .belgi { font-size: 3rem; margin-bottom: 12px; animation: sakrash 1.6s ease infinite; }
+@keyframes sakrash { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+#parda h2 { font-size: 1.2rem; letter-spacing: 2px; font-weight: bold; margin: 0 0 8px; color: #7b6fa0; }
+#parda p { color: #ef476f; font-size: 1.6rem; margin: 0 0 26px; font-weight: bold; }
+#ochish-tugma {
+    padding: 15px 36px; border-radius: 30px; border: none;
+    background: linear-gradient(120deg, #ef476f, #ff7096); color: #fff; font-size: 1.05rem;
+    cursor: pointer; font-family: inherit; font-weight: bold; box-shadow: 0 6px 22px rgba(239,71,111,.4);
+    transition: transform .2s ease;
+}
+#ochish-tugma:hover { transform: scale(1.06); }
+
+/* --- Hero --- */
+.hero {
+    min-height: 74vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 50px 24px; position: relative; z-index: 1;
+}
+.hero .bayroqchalar { font-size: 1.5rem; letter-spacing: 6px; margin-bottom: 16px; }
+.hero .kichik { letter-spacing: 3px; text-transform: uppercase; color: #7b6fa0; font-size: .8rem; margin-bottom: 14px; font-weight: bold; }
+.hero h1 {
+    font-size: 2.9rem; margin: 0; font-weight: bold; line-height: 1.2;
+    background: linear-gradient(120deg, #ef476f, #ffd166 45%, #06d6a0 80%, #118ab2);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero .va { font-size: 1.7rem; display: block; margin: 6px 0; -webkit-text-fill-color: #ffd166; }
+.hero .sana-matn {
+    margin-top: 18px; color: #fff; background: #06d6a0; display: inline-block;
+    padding: 9px 24px; border-radius: 20px; font-weight: bold; transform: rotate(-1.5deg);
+    box-shadow: 0 4px 14px rgba(6,214,160,.35);
+}
+
+/* --- Bo'limlar --- */
+.bolim { padding: 36px 0; opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; position: relative; z-index: 1; }
+.bolim.korindi { opacity: 1; transform: translateY(0); }
+.bolim h2 { text-align: center; font-size: 1.4rem; margin-bottom: 22px; color: #118ab2; font-weight: bold; }
+.bolim h2::after { content: "🎈 🎉 🎈"; display: block; font-size: .85rem; margin-top: 10px; letter-spacing: 5px; }
+
+.countdown { display: flex; justify-content: center; gap: 14px; margin: 8px 0; flex-wrap: wrap; }
+.countdown > div {
+    text-align: center; min-width: 74px; background: #fff;
+    border-radius: 18px; padding: 15px 8px; box-shadow: 0 6px 18px rgba(74,68,88,.1);
+    border-bottom: 5px solid #ef476f;
+}
+.countdown > div:nth-child(2) { border-bottom-color: #ffd166; }
+.countdown > div:nth-child(3) { border-bottom-color: #06d6a0; }
+.countdown > div:nth-child(4) { border-bottom-color: #118ab2; }
+.countdown .son { font-size: 1.8rem; font-weight: bold; color: #4a4458; }
+.countdown-matn { text-align: center; color: #7b6fa0; margin-top: 12px; font-weight: bold; }
+
+.blok { background: #fff; border-radius: 20px; padding: 24px; margin: 14px 0; box-shadow: 0 6px 20px rgba(74,68,88,.09); }
+.tafsilot-row { display: flex; gap: 12px; padding: 9px 0; border-bottom: 2px dashed #f3edf7; }
+.tafsilot-row:last-child { border-bottom: none; }
+.tafsilot-row .belgi { width: 24px; text-align: center; font-size: 1.1rem; }
+.tafsilot-row .qiymat { flex: 1; }
+.tafsilot-row .label { color: #a79fc0; font-size: .78rem; display: block; }
+
+.xarita-tugma, .telegram-tugma {
+    display: inline-block; margin-top: 12px; padding: 11px 24px; border-radius: 20px;
+    border: none; background: #118ab2; color: #fff; text-decoration: none; font-size: .9rem; font-weight: bold;
+    box-shadow: 0 4px 14px rgba(17,138,178,.3);
+}
+.xarita-tugma:hover, .telegram-tugma:hover { background: #0e7196; }
+
+label { display: block; margin: 12px 0 4px; font-size: .9rem; color: #7b6fa0; font-weight: bold; }
+input, select, textarea { width: 100%; padding: 12px; border-radius: 14px; border: 2px solid #f0e9f5; font-family: inherit; background: #fdfbff; color: #4a4458; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: #ffd166; }
+button[type="submit"] {
+    margin-top: 16px; padding: 14px 22px; border-radius: 20px; border: none;
+    background: linear-gradient(120deg, #ef476f, #ff7096); color: #fff; font-weight: bold; cursor: pointer; width: 100%;
+    font-family: inherit; font-size: 1rem; box-shadow: 0 5px 18px rgba(239,71,111,.35);
+}
+button[type="submit"]:hover { filter: brightness(1.06); }
+
+.mehmonlar-jami { text-align: center; color: #7b6fa0; margin-bottom: 14px; }
+.mehmon-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mehmon-list li { background: #fff; border-radius: 14px; padding: 10px 14px; font-size: .9rem; box-shadow: 0 3px 10px rgba(74,68,88,.07); }
+.mehmon-list li .soni { color: #a79fc0; font-size: .8rem; }
+
+.karta { font-family: monospace; font-size: 1.05rem; letter-spacing: 1px; cursor: pointer; display: inline-block; background: #fff4d6; padding: 10px 16px; border-radius: 14px; border: 2px dashed #ffd166; }
+
+.galereya { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.galereya img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; border: 4px solid #fff; box-shadow: 0 5px 16px rgba(74,68,88,.14); transform: rotate(-1deg); }
+.galereya img:nth-child(even) { transform: rotate(1.5deg); }
+
+footer { text-align: center; padding: 30px 24px; color: #a79fc0; font-size: .85rem; position: relative; z-index: 1; }
+
+#musiqa-tugma {
+    position: fixed; bottom: 20px; right: 20px; z-index: 40;
+    width: 50px; height: 50px; border-radius: 50%; border: none;
+    background: #ffd166; color: #4a4458; font-size: 1.25rem; cursor: pointer;
+    display: none; align-items: center; justify-content: center;
+    box-shadow: 0 5px 16px rgba(255,209,102,.5);
+}
+#musiqa-tugma.korinadi { display: flex; animation: puls 2.2s ease infinite; }
+#musiqa-tugma.ochirilgan { opacity: .5; animation: none; }
+@keyframes puls { 0%,100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+{% endblock %}
+
+{% block content %}
+<div class="sharlar" id="sharlar"></div>
+
+<div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+
+{% if not taklifnoma.tolangan and not mehmon %}
+<div class="faollashtirilmagan-banner">
+    {% trans "Bu — sizning shaxsiy oldindan ko'rish havolangiz, hali ommaviy emas." %}
+    {% blocktrans %}Faollashtirish uchun Telegram orqali{% endblocktrans %}
+    <a href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank">{{ admin_telegram }}</a>
+    {% trans "bilan bog'laning." %}
+</div>
+<div class="mijoz-panel">
+    <a class="mp-tugma yoqdi" href="{% url 'taklif:yoqdi' taklifnoma.slug %}">{% if taklifnoma.yoqdi_bosildi %}✅ {% trans "Yoqdi (yuborildi)" %}{% else %}💛 {% trans "Yoqdi — adminga yozish" %}{% endif %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:shablon_tanlash' %}">🔄 {% trans "Qayta yaratish" %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Mening taklifnomalarim" %}</a>
+</div>
+{% endif %}
+
+{% if taklifnoma.musiqa_manbai %}
+<audio id="fon-musiqa" src="{{ taklifnoma.musiqa_manbai }}" loop preload="auto"></audio>
+<button id="musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">🎵</button>
+{% endif %}
+
+<div id="parda">
+    <div class="belgi">🎉</div>
+    {% if mehmon %}
+    <h2>{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}</h2>
+    {% else %}
+    <h2>{% trans "Sizga taklifnoma keldi" %}</h2>
+    {% endif %}
+    <p>{{ taklifnoma.sarlavha }}</p>
+    <button id="ochish-tugma" type="button">{% trans "Taklifnomani ochish" %}</button>
+</div>
+
+<div class="hero">
+    <div class="bayroqchalar">🎈 🎊 🎈</div>
+    <div class="kichik">{{ taklifnoma.get_marosim_turi_display }} {% trans "taklifnomasi" %}</div>
+    {% if taklifnoma.ism_2 %}
+    <h1>{{ taklifnoma.ism_1 }}<span class="va">&amp;</span>{{ taklifnoma.ism_2 }}</h1>
+    {% else %}
+    <h1>{{ taklifnoma.ism_1 }}</h1>
+    {% endif %}
+    <div><span class="sana-matn">{{ taklifnoma.sana|date:"d-F, Y" }}</span></div>
+</div>
+
+<div class="ichki">
+
+<div class="bolim" data-anim>
+    <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">
+        <div><div class="son" id="kun">--</div><div>{% trans "kun" %}</div></div>
+        <div><div class="son" id="soat">--</div><div>{% trans "soat" %}</div></div>
+        <div><div class="son" id="minut">--</div><div>{% trans "minut" %}</div></div>
+        <div><div class="son" id="sekund">--</div><div>{% trans "sekund" %}</div></div>
+    </div>
+    <p id="countdown-matn" class="countdown-matn"></p>
+</div>
+
+{% if taklifnoma.matn %}
+<div class="bolim" data-anim>
+    <div class="blok" style="text-align:center;">{{ taklifnoma.matn|linebreaks }}</div>
+</div>
+{% endif %}
+
+{% if rasmlar %}
+<div class="bolim" data-anim>
+    <h2>{% trans "Fotolavha" %}</h2>
+    <div class="galereya">
+        {% for r in rasmlar %}
+        <img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}">
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="bolim" data-anim>
+    <h2>{% trans "Tadbir tafsilotlari" %}</h2>
+    <div class="blok">
+        <div class="tafsilot-row">
+            <div class="belgi">📅</div>
+            <div class="qiymat"><span class="label">{% trans "Sana va vaqt" %}</span>{{ taklifnoma.sana|date:"d.m.Y, H:i" }}</div>
+        </div>
+        {% if taklifnoma.toyxona %}
+        <div class="tafsilot-row">
+            <div class="belgi">🏰</div>
+            <div class="qiymat"><span class="label">{% trans "To'yxona" %}</span>{{ taklifnoma.toyxona }}</div>
+        </div>
+        {% endif %}
+        {% if taklifnoma.manzil %}
+        <div class="tafsilot-row">
+            <div class="belgi">📍</div>
+            <div class="qiymat"><span class="label">{% trans "Manzil" %}</span>{{ taklifnoma.manzil }}</div>
+        </div>
+        {% endif %}
+        {% if taklifnoma.kiyim_kodi %}
+        <div class="tafsilot-row">
+            <div class="belgi">🎀</div>
+            <div class="qiymat"><span class="label">{% trans "Kiyinish kodi" %}</span>{{ taklifnoma.kiyim_kodi }}</div>
+        </div>
+        {% endif %}
+    </div>
+    {% if taklifnoma.xarita_link %}
+    <div style="text-align:center;">
+        <a class="xarita-tugma" href="{{ taklifnoma.xarita_link }}" target="_blank" rel="noopener">{% trans "Xaritada ko'rish" %}</a>
+    </div>
+    {% endif %}
+</div>
+
+{% if taklifnoma.sovga_karta %}
+<div class="bolim" data-anim>
+    <h2>{% trans "Tabrik sovg'asi" %}</h2>
+    <div class="blok" style="text-align:center;">
+        <p style="color:#7b6fa0; margin-top:0;">{% trans "Ishtirokingiz — biz uchun eng qadrli sovg'a. Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:" %}</p>
+        {% trans "Nusxalandi!" as NUSXALANDI_MATNI %}
+        <span class="karta" onclick="navigator.clipboard.writeText('{{ taklifnoma.sovga_karta }}'); this.textContent='{{ NUSXALANDI_MATNI|escapejs }}';">{{ taklifnoma.sovga_karta }}</span>
+    </div>
+</div>
+{% endif %}
+
+<div class="bolim" data-anim>
+    <h2>{% trans "RSVP — kelasizmi?" %}</h2>
+    <div class="blok">
+        <form method="post" action="{% url 'taklif:rsvp_submit' taklifnoma.slug %}">
+            {% csrf_token %}
+            {% if mehmon %}<input type="hidden" name="mehmon_slug" value="{{ mehmon.slug }}">{% endif %}
+            <label for="ism">{% trans "Ismingiz" %}</label>
+            <input type="text" id="ism" name="ism" value="{{ mehmon.ism|default:'' }}" required>
+
+            <label for="mehmonlar_soni">{% trans "Nechta kishi bo'lasiz?" %}</label>
+            <select id="mehmonlar_soni" name="mehmonlar_soni">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="keladi">{% trans "Kelasizmi?" %}</label>
+            <select id="keladi" name="keladi">
+                <option value="ha">{% trans "Ha, albatta kelaman" %}</option>
+                <option value="yoq">{% trans "Afsuski, kela olmayman" %}</option>
+            </select>
+
+            <label for="izoh">{% trans "Izoh (ixtiyoriy)" %}</label>
+            <textarea id="izoh" name="izoh" rows="2"></textarea>
+
+            <button type="submit">{% trans "Yuborish" %}</button>
+        </form>
+    </div>
+</div>
+
+<div class="bolim" data-anim>
+    <h2>{% trans "Mehmonlar" %}</h2>
+    <p class="mehmonlar-jami">{% blocktrans with soni=mehmonlar_jami %}Hozircha <strong>{{ soni }}</strong> kishi kelishini tasdiqladi{% endblocktrans %}</p>
+    {% if mehmonlar %}
+    <ul class="mehmon-list">
+        {% for m in mehmonlar %}
+        <li>{{ m.ism }} <span class="soni">({% blocktrans with soni=m.mehmonlar_soni %}{{ soni }} kishi{% endblocktrans %})</span></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% if taklifnoma.telegram_link %}
+<div class="bolim" data-anim>
+    <div class="blok" style="text-align:center;">
+        <p style="color:#7b6fa0; margin-top:0;">{% trans "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling" %}</p>
+        <a class="telegram-tugma" href="{{ taklifnoma.telegram_link }}" target="_blank" rel="noopener">{% trans "Telegram guruhi" %}</a>
+    </div>
+</div>
+{% endif %}
+
+</div>
+
+<footer>🎈 {{ taklifnoma.sarlavha }} — {{ taklifnoma.sana|date:"Y" }} 🎈</footer>
+
+{% trans "Baxtli oilamizga" as SO_BAXTLI %}
+{% trans "yil" as SO_YIL %}
+{% trans "kun" as SO_KUN %}
+{% trans "bo'ldi" as SO_BOLDI %}
+{% trans "Marosimgacha" as SO_MAROSIMGACHA %}
+<script>
+(function () {
+    var SO = {
+        baxtli: "{{ SO_BAXTLI|escapejs }}",
+        yil: "{{ SO_YIL|escapejs }}",
+        kun: "{{ SO_KUN|escapejs }}",
+        boldi: "{{ SO_BOLDI|escapejs }}",
+        marosimgacha: "{{ SO_MAROSIMGACHA|escapejs }}"
+    };
+
+    // Uchayotgan rang-barang sharlar
+    var sharlar = document.getElementById('sharlar');
+    var ranglar = ['#ef476f', '#ffd166', '#06d6a0', '#118ab2', '#ff7096'];
+    for (var i = 0; i < 10; i++) {
+        var s = document.createElement('div');
+        s.className = 'shar';
+        s.style.left = (Math.random() * 96) + '%';
+        s.style.background = ranglar[i % ranglar.length];
+        s.style.animationDuration = (13 + Math.random() * 12) + 's';
+        s.style.animationDelay = (Math.random() * 13) + 's';
+        var olcham = .7 + Math.random() * .6;
+        s.style.transform = 'scale(' + olcham + ')';
+        sharlar.appendChild(s);
+    }
+
+    var parda = document.getElementById('parda');
+    var tugma = document.getElementById('ochish-tugma');
+    var musiqa = document.getElementById('fon-musiqa');
+    var musiqaTugma = document.getElementById('musiqa-tugma');
+
+    function musiqaniIjroEt() {
+        if (!musiqa) { return; }
+        var ijro = musiqa.play();
+        if (ijro && ijro.catch) {
+            ijro.catch(function (xato) {
+                console.warn('Musiqani avtomatik ijro etib bo\'lmadi:', xato);
+                if (musiqaTugma) { musiqaTugma.classList.add('ochirilgan'); }
+            });
+        }
+    }
+
+    tugma.addEventListener('click', function () {
+        parda.classList.add('yopilgan');
+        if (musiqa && musiqaTugma) {
+            musiqaTugma.classList.add('korinadi');
+            musiqaniIjroEt();
+        }
+    });
+
+    if (musiqaTugma) {
+        musiqaTugma.addEventListener('click', function () {
+            if (musiqa.paused) {
+                musiqaniIjroEt();
+                musiqaTugma.textContent = '🎵';
+                musiqaTugma.classList.remove('ochirilgan');
+            } else {
+                musiqa.pause();
+                musiqaTugma.textContent = '🔇';
+            }
+        });
+    }
+
+    var el = document.getElementById('countdown');
+    var target = new Date(el.dataset.sana).getTime();
+    var matnEl = document.getElementById('countdown-matn');
+
+    function tick() {
+        var endi = new Date().getTime();
+        var farq = target - endi;
+
+        if (farq <= 0) {
+            var otgan = endi - target;
+            var kun = Math.floor(otgan / 86400000);
+            var soat = Math.floor((otgan % 86400000) / 3600000);
+            var minut = Math.floor((otgan % 3600000) / 60000);
+            var sekund = Math.floor((otgan % 60000) / 1000);
+            var yil = Math.floor(kun / 365);
+            document.getElementById('kun').textContent = kun;
+            document.getElementById('soat').textContent = soat;
+            document.getElementById('minut').textContent = minut;
+            document.getElementById('sekund').textContent = sekund;
+            matnEl.textContent = yil > 0
+                ? SO.baxtli + ": " + yil + " " + SO.yil + " " + (kun % 365) + " " + SO.kun + " " + SO.boldi
+                : SO.baxtli + ": " + kun + " " + SO.kun + " " + SO.boldi;
+            return;
+        }
+
+        document.getElementById('kun').textContent = Math.floor(farq / 86400000);
+        document.getElementById('soat').textContent = Math.floor((farq % 86400000) / 3600000);
+        document.getElementById('minut').textContent = Math.floor((farq % 3600000) / 60000);
+        document.getElementById('sekund').textContent = Math.floor((farq % 60000) / 1000);
+        matnEl.textContent = SO.marosimgacha;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    var bolimlar = document.querySelectorAll('[data-anim]');
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('korindi');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        bolimlar.forEach(function (b) { observer.observe(b); });
+    } else {
+        bolimlar.forEach(function (b) { b.classList.add('korindi'); });
+    }
+})();
+</script>
+{% endblock %}

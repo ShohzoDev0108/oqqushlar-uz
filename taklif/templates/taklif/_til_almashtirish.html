@@ -1,0 +1,12 @@
+{% load i18n %}
+<form action="{% url 'set_language' %}" method="post" class="til-forma">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}">
+    {% get_current_language as ISHLATILAYOTGAN_TIL %}
+    {% get_available_languages as MAVJUD_TILLAR %}
+    <select name="language" onchange="this.form.submit()" aria-label="{% trans 'Tilni tanlang' %}">
+        {% for til_kodi, til_nomi in MAVJUD_TILLAR %}
+        <option value="{{ til_kodi }}" {% if til_kodi == ISHLATILAYOTGAN_TIL %}selected{% endif %}>{{ til_nomi }}</option>
+        {% endfor %}
+    </select>
+</form>

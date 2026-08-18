@@ -1,0 +1,39 @@
+# Virtual muhitlar
+venv/
+.venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Maxfiy sozlamalar — HECH QACHON commit qilinmasin
+.env
+.env.*
+!.env.example
+
+# Ma'lumotlar bazasi (haqiqiy mijoz ma'lumotlari bo'lishi mumkin)
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+
+# Foydalanuvchi yuklagan fayllar (rasm/musiqa)
+media/
+
+# Statik fayllar (collectstatic natijasi)
+staticfiles/
+static_root/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Loglar
+*.log

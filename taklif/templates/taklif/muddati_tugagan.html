@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Taklifnoma yopilgan" %}{% endblock %}
+
+{% block extra_style %}
+.markaz { text-align: center; margin-top: 20vh; }
+h1 { font-size: 1.6rem; }
+.til-qatori { display: flex; justify-content: center; margin-top: 16px; }
+.til-forma select {
+    width: auto; padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,.2);
+    font-size: .8rem; background: #0f2027; color: #f5efe0;
+}
+{% endblock %}
+
+{% block content %}
+<div class="markaz">
+    <h1>{% trans "Ushbu taklifnoma sahifasi yopilgan" %}</h1>
+    <p>{% blocktrans with nomi=taklifnoma.sarlavha %}{{ nomi }} bilan bog'liq sahifa endi faol emas.{% endblocktrans %}</p>
+    <div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+</div>
+{% endblock %}
