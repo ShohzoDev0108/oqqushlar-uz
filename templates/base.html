@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Taklifnoma{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -20,7 +23,7 @@
     <div class="wrapper">
         {% if messages %}
             {% for message in messages %}
-                <p style="padding:10px; border-radius:8px; background:rgba(255,255,255,.1);">{{ message }}</p>
+                <p style="padding:12px 16px; border-radius:8px; background:rgba(128,120,100,.14); border:1px solid rgba(128,120,100,.2);">{{ message }}</p>
             {% endfor %}
         {% endif %}
         {% block content %}{% endblock %}

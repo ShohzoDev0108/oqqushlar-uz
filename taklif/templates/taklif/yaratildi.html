@@ -4,46 +4,46 @@
 {% block title %}{% trans "Tayyor!" %} — {{ taklifnoma.sarlavha }}{% endblock %}
 
 {% block extra_style %}
-.ust-qator { display: flex; justify-content: flex-end; margin-top: 6px; }
-.til-forma select {
-    width: auto; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25);
-    font-size: .8rem; background: #0f2027; color: #f5efe0;
-}
-.markaz { text-align: center; margin-top: 7vh; }
-h1 { font-size: 1.6rem; }
+{% include "taklif/_sayt_uslubi.html" %}
+
+.markaz { text-align: center; max-width: 620px; margin: 0 auto; padding: 50px 0 20px; }
+.markaz .oq-h1 { font-size: clamp(2rem, 4.5vw, 3rem); }
 .link-blok {
-    background: rgba(255,255,255,.06); border-radius: 10px; padding: 16px;
-    margin: 24px auto; max-width: 420px; word-break: break-all; font-family: monospace;
+    background: var(--toza); border: 1px dashed var(--tilla); border-radius: 2px;
+    padding: 18px; margin: 26px auto; max-width: 460px; word-break: break-all;
+    font-family: monospace; font-size: .95rem; color: var(--tilla-toq);
 }
-.qadamlar { text-align: left; max-width: 460px; margin: 24px auto; }
-.qadamlar li { margin-bottom: 10px; opacity: .85; }
-.tugma {
-    display: inline-block; margin-top: 10px; padding: 12px 24px; border-radius: 24px;
-    border: 1px solid #c9a227; color: #c9a227; text-decoration: none;
-}
-.tugma:hover { background: #c9a227; color: #0f2027; }
+.qadamlar { text-align: left; max-width: 480px; margin: 30px auto; padding-left: 20px; }
+.qadamlar li { margin-bottom: 12px; color: var(--kul); line-height: 1.7; }
+.qadamlar li::marker { color: var(--tilla); font-family: var(--serif); }
+.tugmalar-qatori { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
 {% endblock %}
 
 {% block content %}
-<div class="ust-qator">{% include "taklif/_til_almashtirish.html" %}</div>
+{% include "taklif/_sayt_nav.html" %}
 {% include "taklif/_sayt_musiqa.html" %}
-<div class="markaz">
-    <h1>{% trans "Taklifnomangiz tayyor!" %}</h1>
-    <p>{{ taklifnoma.sarlavha }}</p>
 
-    <div class="link-blok">{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}</div>
+<div class="oq-ichki">
+    <div class="markaz">
+        <span class="oq-yorliq">{{ taklifnoma.sarlavha }}</span>
+        <h1 class="oq-h1">{% trans "Taklifnomangiz tayyor!" %}</h1>
 
-    <a class="tugma" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>
+        <div class="link-blok">{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}</div>
 
-    <ol class="qadamlar">
-        <li>{% trans "Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga ishonch hosil qiling." %}</li>
-        <li>{% blocktrans with admin=admin_telegram %}Yoqsa — taklifnoma sahifasidagi <strong>"Yoqdi"</strong> tugmasini bosing, shu orqali to'g'ridan-to'g'ri Telegram orqali <strong>{{ admin }}</strong> bilan bog'lanib to'lovni amalga oshirasiz.{% endblocktrans %}</li>
-        <li>{% trans "To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi." %}</li>
-    </ol>
+        <a class="oq-cta toliq" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>
 
-    <p style="margin-top:24px;">
-        <a class="tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
-        <a class="tugma" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Yana bitta yaratish" %}</a>
-    </p>
+        <ol class="qadamlar">
+            <li>{% trans "Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga ishonch hosil qiling." %}</li>
+            <li>{% blocktrans with admin=admin_telegram %}Yoqsa — taklifnoma sahifasidagi <strong>"Yoqdi"</strong> tugmasini bosing, shu orqali to'g'ridan-to'g'ri Telegram orqali <strong>{{ admin }}</strong> bilan bog'lanib to'lovni amalga oshirasiz.{% endblocktrans %}</li>
+            <li>{% trans "To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi." %}</li>
+        </ol>
+
+        <div class="tugmalar-qatori">
+            <a class="oq-cta" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
+            <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Yana bitta yaratish" %}</a>
+        </div>
+    </div>
 </div>
+
+{% include "taklif/_sayt_footer.html" %}
 {% endblock %}

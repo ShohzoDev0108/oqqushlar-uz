@@ -1,34 +1,30 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Shablon tanlang" %} — Taklifnoma365{% endblock %}
+{% block title %}{% trans "Shablon tanlang" %} — Oqqushlar{% endblock %}
 
 {% block extra_style %}
-.ust-qator { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
-.orqaga-link { color: #f5efe0; opacity: .7; text-decoration: none; font-size: .88rem; }
-.orqaga-link:hover { opacity: 1; }
-.til-forma select {
-    width: auto; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25);
-    font-size: .8rem; background: #0f2027; color: #f5efe0;
-}
+{% include "taklif/_sayt_uslubi.html" %}
 
-h1 { text-align: center; margin-top: 26px; font-weight: normal; }
-h1::after { content: ""; display: block; width: 48px; height: 2px; background: #c9a227; margin: 12px auto 0; }
-p.izoh { text-align: center; opacity: .7; margin-bottom: 30px; }
+.oq-sahifa-bosh { padding-bottom: 34px; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
-.karta {
-    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-    border-radius: 16px; overflow: hidden; text-decoration: none; color: #f5efe0; display: block;
-    transition: transform .2s ease, border-color .2s;
+.turkum-qatori { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+.turkum-tugma {
+    padding: 10px 22px; border: 1px solid var(--chiziq); background: transparent;
+    color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: .2s; font-family: inherit; border-radius: 2px;
 }
-.karta:hover { transform: translateY(-4px); border-color: rgba(201,162,39,.5); }
-.karta img.rasm { width: 100%; height: 160px; object-fit: cover; display: block; }
+.turkum-tugma:hover { color: var(--tilla-toq); border-color: var(--tilla); }
+.turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 22px; }
+.karta { text-decoration: none; color: var(--siyoh); display: block; overflow: hidden; }
+.karta img.rasm { width: 100%; height: 175px; object-fit: cover; display: block; }
 .shablon-mini {
-    height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 6px; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    height: 175px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
 }
-.shablon-mini .katta { font-size: 1.3rem; letter-spacing: 0; text-transform: none; }
+.shablon-mini .katta { font-family: var(--serif); font-size: 1.4rem; letter-spacing: 0; text-transform: none; }
 .mini-registon { background: radial-gradient(circle at 30% 25%, rgba(201,162,39,.3), transparent 50%), #0f2027; color: #c9a227; }
 .mini-sodda { background: #fdfaf4; color: #8a6d3b; border-bottom: 2px solid #e8ddc7; }
 .mini-gulbarg { background: linear-gradient(160deg, #fdf6f0, #f6dfdb); color: #b76e79; }
@@ -39,45 +35,43 @@ p.izoh { text-align: center; opacity: .7; margin-bottom: 30px; }
         repeating-linear-gradient(90deg, #1f6f8b 0 20px, #d1495b 20px 40px, #c9a227 40px 60px);
     color: #d1495b;
 }
-.mini-zumrad { background: radial-gradient(ellipse at 50% 35%, #0d3b30, #06231d); color: #d4af37; border: 1px solid rgba(212,175,55,.35); }
+.mini-zumrad { background: radial-gradient(ellipse at 50% 35%, #0d3b30, #06231d); color: #d4af37; }
 .mini-marmar { background: radial-gradient(ellipse at 25% 25%, rgba(200,200,205,.5), transparent 50%), #f4f2ee; color: #bfa054; }
 .mini-bolajon { background: linear-gradient(140deg, #fff0d9, #ffe3ec 60%, #dff7ef); color: #ef476f; }
 .mini-suzani { background: radial-gradient(circle at 30% 30%, rgba(179,50,59,.18), transparent 55%), #f8f0e0; color: #a12d33; border-bottom: 2px solid #e8d8ba; }
-.mini-zardoz { background: radial-gradient(circle at 50% 20%, rgba(217,180,91,.25), transparent 60%), #21102e; color: #e9c268; border: 1px solid rgba(217,180,91,.35); }
+.mini-zardoz { background: radial-gradient(circle at 50% 20%, rgba(217,180,91,.25), transparent 60%), #21102e; color: #e9c268; }
 .mini-chinni { background: radial-gradient(circle at 50% 45%, rgba(29,78,137,.12) 0 40%, transparent 41%), #fdfdfa; color: #1d4e89; border-bottom: 2px solid #cfdcec; }
 .mini-qozoq { background: radial-gradient(circle at 50% 35%, rgba(11,134,200,.16), transparent 55%), #eef6fb; color: #0b6aa9; border-bottom: 2px solid #cfe6f5; }
 .mini-qirgiz { background: radial-gradient(circle at 50% 35%, rgba(255,204,0,.3), transparent 55%), #9e111f; color: #ffe9a8; }
 .mini-turkman { background: radial-gradient(circle at 50% 35%, rgba(217,169,96,.28), transparent 55%), #6f1a1d; color: #f0d9a8; }
 .mini-tojik { background: radial-gradient(circle at 30% 25%, rgba(194,43,51,.16), transparent 55%), #fffaf2; color: #c22b33; border-bottom: 2px solid #e8d8ba; }
 .mini-aurora { background: radial-gradient(circle at 20% 20%, rgba(139,92,246,.45), transparent 55%), radial-gradient(circle at 80% 30%, rgba(34,211,238,.4), transparent 55%), radial-gradient(circle at 55% 85%, rgba(244,114,182,.35), transparent 55%), #05060f; color: #f2effc; }
-.mini-kristall { background: linear-gradient(135deg, rgba(91,110,225,.28), rgba(255,255,255,.4)), #eef1f8; color: #2b3467; border-bottom: 2px solid rgba(91,110,225,.25); }
-.mini-zarhal { background: conic-gradient(from 0deg, rgba(212,175,55,.35), transparent 60deg, transparent 300deg, rgba(212,175,55,.35)), #0b0b0d; color: #f3e3b3; border: 1px solid rgba(212,175,55,.35); }
-.karta .matn { padding: 14px 16px; }
-.karta .nomi { font-weight: bold; margin-bottom: 4px; }
-.karta .narx { opacity: .65; font-size: .9rem; }
-.bosh { text-align: center; opacity: .6; margin-top: 30px; }
-
-.turkum-qatori { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
-.turkum-tugma {
-    padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.04); color: #f5efe0; opacity: .75; font-size: .85rem;
-    cursor: pointer; transition: opacity .2s, border-color .2s, background .2s; font-family: inherit;
-}
-.turkum-tugma:hover { opacity: 1; }
-.turkum-tugma.faol { opacity: 1; border-color: #c9a227; background: rgba(201,162,39,.15); color: #c9a227; }
+.mini-kristall { background: radial-gradient(circle at 50% 35%, rgba(255,158,207,.35), transparent 55%), radial-gradient(circle at 30% 65%, rgba(167,139,250,.4), transparent 55%), radial-gradient(circle at 70% 70%, rgba(125,211,252,.35), transparent 55%), #050510; color: #f0ecfd; }
+.mini-zarhal { background: conic-gradient(from 0deg, rgba(212,175,55,.35), transparent 60deg, transparent 300deg, rgba(212,175,55,.35)), #0b0b0d; color: #f3e3b3; }
+.karta .matn { padding: 16px 18px; }
+.karta .nomi { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 3px; }
+.karta .narx { color: var(--kul); font-size: .85rem; }
 .karta.yashirin { display: none; }
+.bosh { color: var(--kul); margin-top: 30px; }
 {% endblock %}
 
 {% block content %}
-<div class="ust-qator">
-    <a class="orqaga-link" href="{% url 'taklif:bosh_sahifa' %}">&larr; {% trans "Bosh sahifa" %}</a>
-    {% include "taklif/_til_almashtirish.html" %}
-</div>
+{% include "taklif/_sayt_nav.html" %}
 {% include "taklif/_sayt_musiqa.html" %}
 
-<h1>{% trans "Shablon tanlang" %}</h1>
-<p class="izoh">{% trans "Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni to'ldirasiz." %}</p>
+<div class="oq-ichki oq-sahifa-bosh">
+    <div class="oq-izlar">
+        <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
+        <span>›</span>
+        <span class="joriy">{% trans "Dizaynlar" %}</span>
+    </div>
+    <h1 class="oq-h1">{% trans "Shablon tanlang" %}</h1>
+    <p class="oq-matn" style="max-width:560px; margin-top:0;">
+        {% trans "Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni to'ldirasiz." %}
+    </p>
+</div>
 
+<div class="oq-ichki">
 {% if shablonlar %}
 <div class="turkum-qatori" id="turkum-qatori">
     <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
@@ -87,7 +81,7 @@ p.izoh { text-align: center; opacity: .7; margin-bottom: 30px; }
 </div>
 <div class="grid" id="shablonlar-grid">
     {% for s in shablonlar %}
-    <a class="karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
+    <a class="karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
         {% if s.rasm %}
             <img class="rasm" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
         {% else %}
@@ -106,6 +100,9 @@ p.izoh { text-align: center; opacity: .7; margin-bottom: 30px; }
 {% else %}
 <p class="bosh">{% trans "Hozircha shablon yo'q. Admin panelda qo'shing." %}</p>
 {% endif %}
+</div>
+
+{% include "taklif/_sayt_footer.html" %}
 
 <script>
 (function () {

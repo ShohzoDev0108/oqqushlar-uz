@@ -4,71 +4,81 @@
 {% block title %}{% trans "Taklifnoma yaratish" %} — {{ shablon.nomi }}{% endblock %}
 
 {% block extra_style %}
-.ust-qator { display: flex; justify-content: flex-end; margin-top: 6px; }
-.til-forma select {
-    width: auto; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25);
-    font-size: .8rem; background: #0f2027; color: #f5efe0;
+{% include "taklif/_sayt_uslubi.html" %}
+
+.oq-forma-oralig { max-width: 660px; margin: 0 auto; padding-bottom: 30px; }
+.oq-forma-oralig .oq-h1 { font-size: clamp(2rem, 4.5vw, 3rem); }
+.xato { color: #b3323b; font-size: .82rem; margin-top: 5px; }
+.non-field-xato {
+    background: rgba(179,50,59,.08); border: 1px solid rgba(179,50,59,.25);
+    padding: 12px 14px; border-radius: 2px; margin-bottom: 16px; color: #8f2830;
 }
-h1 { text-align: center; margin-top: 20px; }
-p.izoh { text-align: center; opacity: .7; margin-bottom: 20px; }
-label { display: block; margin: 14px 0 4px; font-size: .9rem; opacity: .85; }
-input, select, textarea {
-    width: 100%; padding: 11px; border-radius: 8px; border: none; font-family: inherit;
-}
-.xato { color: #ff6b6b; font-size: .82rem; margin-top: 4px; }
-.non-field-xato { background: rgba(255,107,107,.15); padding: 10px; border-radius: 8px; margin-bottom: 14px; }
-.yordam { opacity: .55; font-size: .78rem; margin-top: 3px; }
-button[type="submit"] {
-    margin-top: 22px; padding: 14px 22px; border-radius: 8px; border: none;
-    background: #c9a227; color: #0f2027; font-weight: bold; cursor: pointer; width: 100%;
-}
-.orqaga { display: block; text-align: center; margin-top: 16px; opacity: .6; }
+.yordam { color: var(--kul); font-size: .78rem; margin-top: 4px; }
+.orqaga { display: block; text-align: center; margin-top: 22px; color: var(--kul); font-size: .85rem; }
+.orqaga:hover { color: var(--tilla-toq); }
 .manzil-qatori { display: flex; align-items: stretch; }
 .manzil-qatori .prefiks {
-    display: flex; align-items: center; padding: 0 10px; border-radius: 8px 0 0 8px;
-    background: rgba(255,255,255,.08); opacity: .7; font-size: .85rem; white-space: nowrap;
+    display: flex; align-items: center; padding: 0 12px; border: 1px solid var(--chiziq);
+    border-right: none; background: var(--tilla-yumshoq); color: var(--kul);
+    font-size: .85rem; white-space: nowrap; border-radius: 2px 0 0 2px;
 }
-.manzil-qatori input { border-radius: 0 8px 8px 0; }
+.manzil-qatori input { border-radius: 0 2px 2px 0; }
 {% endblock %}
 
 {% block content %}
-<div class="ust-qator">{% include "taklif/_til_almashtirish.html" %}</div>
+{% include "taklif/_sayt_nav.html" %}
 {% include "taklif/_sayt_musiqa.html" %}
-<h1>{{ shablon.nomi }} {% trans "shabloni" %}</h1>
-<p class="izoh">{% trans "Ma'lumotlaringizni to'ldiring. Yuborgach — o'zingiz uchun link tayyor bo'ladi (hali hech kimga ochiq emas)." %}</p>
 
-{% if form.non_field_errors %}
-<div class="non-field-xato">{{ form.non_field_errors }}</div>
-{% endif %}
-
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-    <div {% if field.name == "ism_2" %}id="ism2-qatori"{% endif %}>
-        <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
-        {% if field.name == "slug" %}
-        <div class="manzil-qatori">
-            <span class="prefiks">{{ request.get_host }}/</span>
-            {{ field }}
+<div class="oq-ichki">
+    <div class="oq-forma-oralig">
+        <div class="oq-izlar">
+            <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
+            <span>›</span>
+            <a href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
+            <span>›</span>
+            <span class="joriy">{{ shablon.nomi }}</span>
         </div>
-        {% else %}
-        {{ field }}
+        <h1 class="oq-h1">{{ shablon.nomi }} <em>{% trans "shabloni" %}</em></h1>
+        <p class="oq-matn" style="margin-top:0;">
+            {% trans "Ma'lumotlaringizni to'ldiring. Yuborgach — o'zingiz uchun link tayyor bo'ladi (hali hech kimga ochiq emas)." %}
+        </p>
+
+        {% if form.non_field_errors %}
+        <div class="non-field-xato">{{ form.non_field_errors }}</div>
         {% endif %}
-        {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
-        {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div {% if field.name == "ism_2" %}id="ism2-qatori"{% endif %}>
+                <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+                {% if field.name == "slug" %}
+                <div class="manzil-qatori">
+                    <span class="prefiks">{{ request.get_host }}/</span>
+                    {{ field }}
+                </div>
+                {% else %}
+                {{ field }}
+                {% endif %}
+                {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
+                {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
+            </div>
+            {% endfor %}
+
+            <div>
+                <label for="rasmlar">{% blocktrans with soni=maksimal_rasmlar_soni %}Rasmlar (eng ko'pi bilan {{ soni }} ta, ixtiyoriy){% endblocktrans %}</label>
+                <input type="file" id="rasmlar" name="rasmlar" accept="image/*" multiple>
+                <div class="yordam" id="rasmlar-soni"></div>
+            </div>
+
+            <button type="submit">{% trans "Taklifnomani yaratish" %}</button>
+        </form>
+
+        <a class="orqaga" href="{% url 'taklif:shablon_tanlash' %}">&larr; {% trans "Boshqa shablon tanlash" %}</a>
     </div>
-    {% endfor %}
+</div>
 
-    <div>
-        <label for="rasmlar">{% blocktrans with soni=maksimal_rasmlar_soni %}Rasmlar (eng ko'pi bilan {{ soni }} ta, ixtiyoriy){% endblocktrans %}</label>
-        <input type="file" id="rasmlar" name="rasmlar" accept="image/*" multiple>
-        <div class="yordam" id="rasmlar-soni"></div>
-    </div>
-
-    <button type="submit">{% trans "Taklifnomani yaratish" %}</button>
-</form>
-
-<a class="orqaga" href="{% url 'taklif:shablon_tanlash' %}">&larr; {% trans "Boshqa shablon tanlash" %}</a>
+{% include "taklif/_sayt_footer.html" %}
 
 <script>
 (function () {

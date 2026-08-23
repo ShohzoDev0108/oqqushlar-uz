@@ -1,107 +1,75 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}Taklifnoma365 — {% trans "chiroyli raqamli taklifnomalar" %}{% endblock %}
+{% block title %}Oqqushlar — {% trans "chiroyli raqamli taklifnomalar" %}{% endblock %}
 
 {% block extra_style %}
-body { overflow-x: hidden; }
-.wrapper { max-width: none; padding: 0; }
-
-/* --- Yuqori panel --- */
-.ust-panel {
-    position: absolute; top: 0; left: 0; right: 0; z-index: 30;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 22px;
-}
-.logo { font-size: 1.05rem; letter-spacing: 1px; color: #f5efe0; text-decoration: none; }
-.logo .gold { color: #c9a227; }
-.til-forma select {
-    width: auto; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25);
-    font-size: .8rem; background: rgba(15,32,39,.7); color: #f5efe0;
-}
-
-/* --- Bezaklar --- */
-.gulchambar { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-.gulchambar span {
-    position: absolute; top: -40px; opacity: .32;
-    animation: tushish linear infinite; color: #c9a227;
-}
-@keyframes tushish {
-    0% { transform: translateY(-10vh) translateX(0) rotate(0deg); }
-    50% { transform: translateY(50vh) translateX(28px) rotate(180deg); }
-    100% { transform: translateY(110vh) translateX(-18px) rotate(360deg); }
-}
+{% include "taklif/_sayt_uslubi.html" %}
 
 /* --- Hero --- */
-.hero-ust {
-    position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center; padding: 90px 24px 60px;
+.oq-hero { padding: 70px 0 90px; }
+.oq-hero-ich {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: 60px; align-items: center;
+}
+@media (max-width: 900px) { .oq-hero-ich { grid-template-columns: 1fr; gap: 44px; } }
+.oq-hero-matn .oq-yorliq { display: block; margin-bottom: 4px; }
+.oq-kichik-sarlavha {
+    font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+    margin: 8px 0 16px; font-weight: 500;
+}
+.oq-hero-matn .oq-matn { max-width: 480px; margin: 0 0 34px; }
+.oq-hero-tugmalar { display: flex; gap: 14px; flex-wrap: wrap; }
+.oq-hero .ajratish { height: 1px; background: var(--chiziq); max-width: 90px; margin: 30px 0 26px; }
+
+/* Oqqushlar sahnasi */
+.oq-hero-rasm {
+    position: relative; border: 1px solid var(--chiziq); border-radius: 4px;
     background:
-        radial-gradient(circle at 22% 18%, rgba(201,162,39,.20), transparent 45%),
-        radial-gradient(circle at 80% 78%, rgba(201,162,39,.14), transparent 45%),
-        linear-gradient(165deg, #16303c 0%, #0f2027 60%, #0c1a21 100%);
+        radial-gradient(circle at 30% 25%, rgba(176,140,51,.10), transparent 55%),
+        radial-gradient(circle at 75% 80%, rgba(201,162,39,.12), transparent 50%),
+        linear-gradient(170deg, #fffdf8, #f7f1e4);
+    overflow: hidden;
 }
-.hero-ust .naqsh { font-size: 1.6rem; opacity: .75; margin-bottom: 18px; letter-spacing: 6px; color: #c9a227; animation: yiltirash 3s ease infinite; }
-@keyframes yiltirash { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
-.hero-ust h1 { font-size: clamp(2rem, 6vw, 3.2rem); margin: 0 0 16px; font-weight: normal; line-height: 1.2; }
-.hero-ust h1 .gold {
-    background: linear-gradient(120deg, #e8d48a, #c9a227 50%, #f0e2ae);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+.oq-hero-rasm svg { display: block; width: 100%; height: auto; }
+.oq-hero-rasm .burchak {
+    position: absolute; width: 54px; height: 54px; border-color: var(--tilla); opacity: .55;
 }
-.hero-ust p.izoh { max-width: 520px; opacity: .85; margin: 0 auto 34px; line-height: 1.7; font-size: 1.02rem; }
-
-.yaratish-tugma {
-    display: inline-block; padding: 17px 38px; border-radius: 34px;
-    background: linear-gradient(120deg, #d4af37, #c9a227); color: #0f2027; text-decoration: none;
-    font-weight: bold; font-size: 1.08rem; box-shadow: 0 8px 30px rgba(201,162,39,.4);
-    transition: transform .2s ease, box-shadow .2s ease;
-}
-.yaratish-tugma:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,162,39,.5); }
-.ikkinchi-tugma {
-    display: inline-block; margin-top: 16px; padding: 11px 24px; border-radius: 24px;
-    border: 1px solid rgba(255,255,255,.35); color: #f5efe0; text-decoration: none; font-size: .88rem;
-    transition: border-color .2s, background .2s;
-}
-.ikkinchi-tugma:hover { border-color: #c9a227; background: rgba(201,162,39,.1); }
-
-.pastga { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); opacity: .55; font-size: 1.3rem; animation: silkinish 2s ease infinite; }
-@keyframes silkinish { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+.oq-hero-rasm .b1 { top: 12px; left: 12px; border-top: 1px solid; border-left: 1px solid; }
+.oq-hero-rasm .b2 { bottom: 12px; right: 12px; border-bottom: 1px solid; border-right: 1px solid; }
 
 /* --- Bo'limlar --- */
-.bolim-ichki { max-width: 900px; margin: 0 auto; padding: 60px 24px; position: relative; z-index: 1; }
-.bolim-ichki h2 { text-align: center; font-size: 1.6rem; margin-bottom: 8px; font-weight: normal; }
-.bolim-ichki .h2-osti { text-align: center; opacity: .65; margin: 0 0 34px; font-size: .92rem; }
-.bolim-ichki h2::after { content: ""; display: block; width: 48px; height: 2px; background: #c9a227; margin: 12px auto 0; }
+.oq-bolim { padding: 70px 0 10px; }
+.oq-bolim-bosh { max-width: 620px; margin-bottom: 46px; }
 
 /* Qanday ishlaydi */
-.qadamlar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
-.qadam {
-    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-    border-radius: 16px; padding: 26px 22px; text-align: center;
-    transition: transform .2s ease, border-color .2s;
+.oq-qadamlar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 44px; }
+.oq-qadam { border-top: 1px solid var(--chiziq); padding: 26px 0 20px; }
+.oq-qadam .raqam {
+    font-family: var(--serif); color: var(--tilla); font-size: 1rem; letter-spacing: 2px;
+    display: block; margin-bottom: 14px;
 }
-.qadam:hover { transform: translateY(-4px); border-color: rgba(201,162,39,.4); }
-.qadam .raqam {
-    width: 44px; height: 44px; border-radius: 50%; border: 1px solid #c9a227; color: #c9a227;
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 1.1rem;
-}
-.qadam h3 { margin: 0 0 8px; font-size: 1.02rem; font-weight: bold; }
-.qadam p { margin: 0; opacity: .7; font-size: .88rem; line-height: 1.6; }
+.oq-qadam h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin: 0 0 10px; }
+.oq-qadam p { color: var(--kul); line-height: 1.75; font-size: .95rem; margin: 0; }
 
-/* Shablonlar galereyasi */
-.shablonlar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; }
-.shablon-karta {
-    border-radius: 16px; overflow: hidden; text-decoration: none; color: #f5efe0;
-    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-    transition: transform .2s ease, border-color .2s;
+/* Dizaynlar galereyasi */
+.turkum-qatori { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+.turkum-tugma {
+    padding: 10px 22px; border: 1px solid var(--chiziq); background: transparent;
+    color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: .2s; font-family: inherit; border-radius: 2px;
 }
-.shablon-karta:hover { transform: translateY(-4px); border-color: rgba(201,162,39,.5); }
-.shablon-karta img.mini { width: 100%; height: 150px; object-fit: cover; display: block; }
+.turkum-tugma:hover { color: var(--tilla-toq); border-color: var(--tilla); }
+.turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
+
+.shablonlar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
+.shablon-karta { text-decoration: none; color: var(--siyoh); overflow: hidden; display: block; }
+.shablon-karta img.mini { width: 100%; height: 170px; object-fit: cover; display: block; }
 .shablon-mini {
-    height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 6px; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
 }
-.shablon-mini .katta { font-size: 1.25rem; letter-spacing: 0; text-transform: none; }
+.shablon-mini .katta { font-family: var(--serif); font-size: 1.35rem; letter-spacing: 0; text-transform: none; }
 .mini-registon { background: radial-gradient(circle at 30% 25%, rgba(201,162,39,.3), transparent 50%), #0f2027; color: #c9a227; }
 .mini-sodda { background: #fdfaf4; color: #8a6d3b; border-bottom: 2px solid #e8ddc7; }
 .mini-gulbarg { background: linear-gradient(160deg, #fdf6f0, #f6dfdb); color: #b76e79; }
@@ -112,188 +80,206 @@ body { overflow-x: hidden; }
         repeating-linear-gradient(90deg, #1f6f8b 0 20px, #d1495b 20px 40px, #c9a227 40px 60px);
     color: #d1495b;
 }
-.mini-zumrad { background: radial-gradient(ellipse at 50% 35%, #0d3b30, #06231d); color: #d4af37; border: 1px solid rgba(212,175,55,.35); }
+.mini-zumrad { background: radial-gradient(ellipse at 50% 35%, #0d3b30, #06231d); color: #d4af37; }
 .mini-marmar { background: radial-gradient(ellipse at 25% 25%, rgba(200,200,205,.5), transparent 50%), #f4f2ee; color: #bfa054; }
 .mini-bolajon { background: linear-gradient(140deg, #fff0d9, #ffe3ec 60%, #dff7ef); color: #ef476f; }
 .mini-suzani { background: radial-gradient(circle at 30% 30%, rgba(179,50,59,.18), transparent 55%), #f8f0e0; color: #a12d33; border-bottom: 2px solid #e8d8ba; }
-.mini-zardoz { background: radial-gradient(circle at 50% 20%, rgba(217,180,91,.25), transparent 60%), #21102e; color: #e9c268; border: 1px solid rgba(217,180,91,.35); }
+.mini-zardoz { background: radial-gradient(circle at 50% 20%, rgba(217,180,91,.25), transparent 60%), #21102e; color: #e9c268; }
 .mini-chinni { background: radial-gradient(circle at 50% 45%, rgba(29,78,137,.12) 0 40%, transparent 41%), #fdfdfa; color: #1d4e89; border-bottom: 2px solid #cfdcec; }
 .mini-qozoq { background: radial-gradient(circle at 50% 35%, rgba(11,134,200,.16), transparent 55%), #eef6fb; color: #0b6aa9; border-bottom: 2px solid #cfe6f5; }
 .mini-qirgiz { background: radial-gradient(circle at 50% 35%, rgba(255,204,0,.3), transparent 55%), #9e111f; color: #ffe9a8; }
 .mini-turkman { background: radial-gradient(circle at 50% 35%, rgba(217,169,96,.28), transparent 55%), #6f1a1d; color: #f0d9a8; }
 .mini-tojik { background: radial-gradient(circle at 30% 25%, rgba(194,43,51,.16), transparent 55%), #fffaf2; color: #c22b33; border-bottom: 2px solid #e8d8ba; }
 .mini-aurora { background: radial-gradient(circle at 20% 20%, rgba(139,92,246,.45), transparent 55%), radial-gradient(circle at 80% 30%, rgba(34,211,238,.4), transparent 55%), radial-gradient(circle at 55% 85%, rgba(244,114,182,.35), transparent 55%), #05060f; color: #f2effc; }
-.mini-kristall { background: linear-gradient(135deg, rgba(91,110,225,.28), rgba(255,255,255,.4)), #eef1f8; color: #2b3467; border-bottom: 2px solid rgba(91,110,225,.25); }
-.mini-zarhal { background: conic-gradient(from 0deg, rgba(212,175,55,.35), transparent 60deg, transparent 300deg, rgba(212,175,55,.35)), #0b0b0d; color: #f3e3b3; border: 1px solid rgba(212,175,55,.35); }
-.mini-standart { background: linear-gradient(135deg, rgba(201,162,39,.25), rgba(15,32,39,.6)); color: #c9a227; }
-
-/* Turkum yorliqlari (Zamonaviy/Milliy/Bolalar filtri) */
-.turkum-qatori { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
-.turkum-tugma {
-    padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.04); color: #f5efe0; opacity: .75; font-size: .85rem;
-    cursor: pointer; transition: opacity .2s, border-color .2s, background .2s; font-family: inherit;
-}
-.turkum-tugma:hover { opacity: 1; }
-.turkum-tugma.faol { opacity: 1; border-color: #c9a227; background: rgba(201,162,39,.15); color: #c9a227; }
+.mini-kristall { background: radial-gradient(circle at 50% 35%, rgba(255,158,207,.35), transparent 55%), radial-gradient(circle at 30% 65%, rgba(167,139,250,.4), transparent 55%), radial-gradient(circle at 70% 70%, rgba(125,211,252,.35), transparent 55%), #050510; color: #f0ecfd; }
+.mini-zarhal { background: conic-gradient(from 0deg, rgba(212,175,55,.35), transparent 60deg, transparent 300deg, rgba(212,175,55,.35)), #0b0b0d; color: #f3e3b3; }
+.mini-standart { background: linear-gradient(135deg, rgba(201,162,39,.2), rgba(120,100,60,.25)), #f4efe4; color: #8a6a1f; }
+.shablon-karta .matn { padding: 16px 18px; }
+.shablon-karta .nomi { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 3px; }
+.shablon-karta .narx { color: var(--kul); font-size: .85rem; }
 .shablon-karta.yashirin { display: none; }
-.shablon-karta .matn { padding: 14px 16px; }
-.shablon-karta .nomi { font-weight: bold; margin-bottom: 3px; }
-.shablon-karta .narx { opacity: .65; font-size: .85rem; }
 
 /* So'nggi taklifnomalar */
-.royxat { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
-.royxat a {
-    display: block; padding: 15px 18px; border-radius: 12px;
-    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-    color: #f5efe0; text-decoration: none; transition: border-color .2s;
+.oq-royxat { list-style: none; padding: 0; margin: 0; }
+.oq-royxat li { border-top: 1px solid var(--chiziq); }
+.oq-royxat li:last-child { border-bottom: 1px solid var(--chiziq); }
+.oq-royxat a {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 18px;
+    padding: 20px 4px; color: var(--siyoh); text-decoration: none; flex-wrap: wrap; transition: .2s;
 }
-.royxat a:hover { border-color: rgba(201,162,39,.5); }
-.royxat .sana { opacity: .55; font-size: .82rem; display: block; margin-top: 4px; }
-.bosh { text-align: center; opacity: .6; }
-
-footer.sayt-osti {
-    text-align: center; padding: 34px 24px 44px; opacity: .55; font-size: .85rem;
-    border-top: 1px solid rgba(255,255,255,.07); position: relative; z-index: 1;
-}
-footer.sayt-osti a { color: #f5efe0; margin: 0 8px; }
+.oq-royxat a:hover { padding-left: 12px; color: var(--tilla-toq); }
+.oq-royxat .nomi { font-family: var(--serif); font-size: 1.2rem; }
+.oq-royxat .sana { color: var(--kul); font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; }
+.oq-bosh-xabar { color: var(--kul); padding: 24px 0; }
 {% endblock %}
 
 {% block content %}
-<div class="gulchambar" id="gulchambar"></div>
-
-<div class="ust-panel">
-    <a class="logo" href="{% url 'taklif:bosh_sahifa' %}">Taklifnoma<span class="gold">365</span></a>
-    {% include "taklif/_til_almashtirish.html" %}
-</div>
-
+{% include "taklif/_sayt_nav.html" %}
 {% include "taklif/_sayt_musiqa.html" %}
 
-<div class="hero-ust">
-    <div class="naqsh">✦ ❀ ✦</div>
-    <h1>{% trans "Eng go'zal kuningiz uchun" %}<br><span class="gold">{% trans "raqamli taklifnoma" %}</span></h1>
-    <p class="izoh">
-        {% trans "To'y, sunnat to'yi, yubiley, tug'ilgan kun va boshqa marosimlaringiz uchun chiroyli taklifnomani bir necha daqiqada o'zingiz yarating — bepul ko'rib chiqing, yoqsa keyin faollashtirasiz." %}
-    </p>
-    <a class="yaratish-tugma" href="{% url 'taklif:shablon_tanlash' %}">✨ {% trans "Taklifnoma yaratish" %}</a>
-    <br>
-    <a class="ikkinchi-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Mening taklifnomalarim" %}</a>
-    <div class="pastga">▾</div>
-</div>
-
-<div class="bolim-ichki">
-    <h2>{% trans "Qanday ishlaydi?" %}</h2>
-    <p class="h2-osti">{% trans "Uch oddiy qadam — va taklifnomangiz tayyor" %}</p>
-    <div class="qadamlar-grid">
-        <div class="qadam">
-            <div class="raqam">1</div>
-            <h3>{% trans "Dizayn tanlang" %}</h3>
-            <p>{% trans "Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga xos uslubda." %}</p>
+<header class="oq-hero">
+    <div class="oq-ichki oq-hero-ich">
+        <div class="oq-hero-matn">
+            <span class="oq-yorliq">{% trans "O'zbekiston uchun" %} · {{ shablonlar|length }} {% trans "ta noyob dizayn" %}</span>
+            <h1 class="oq-h1">{% trans "Eng go'zal kuningiz uchun" %}<br><em>{% trans "raqamli taklifnoma" %}</em></h1>
+            <div class="ajratish"></div>
+            <span class="oq-yorliq">{% trans "Tez va oson" %}</span>
+            <div class="oq-kichik-sarlavha">{% trans "Telefonda o'zingiz yarating" %}</div>
+            <p class="oq-matn">
+                {% trans "To'y, sunnat to'yi, yubiley, tug'ilgan kun va boshqa marosimlaringiz uchun chiroyli taklifnomani bir necha daqiqada o'zingiz yarating — bepul ko'rib chiqing, yoqsa keyin faollashtirasiz." %}
+            </p>
+            <div class="oq-hero-tugmalar">
+                <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
+                <a class="oq-cta" href="#dizaynlar">{% trans "Barcha dizaynlarni ko'rish" %}</a>
+            </div>
         </div>
-        <div class="qadam">
-            <div class="raqam">2</div>
-            <h3>{% trans "Ma'lumotlarni to'ldiring" %}</h3>
-            <p>{% trans "Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz kiritasiz." %}</p>
-        </div>
-        <div class="qadam">
-            <div class="raqam">3</div>
-            <h3>{% trans "Ulashing" %}</h3>
-            <p>{% trans "Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga Telegram yoki Instagram orqali yuboring." %}</p>
+        <div class="oq-hero-rasm">
+            <span class="burchak b1"></span><span class="burchak b2"></span>
+            <svg viewBox="0 0 560 430" aria-hidden="true">
+                <!-- Yumshoq halqa -->
+                <circle cx="280" cy="205" r="150" fill="none" stroke="#e9e1d1" stroke-width="1.2"/>
+                <circle cx="280" cy="205" r="172" fill="none" stroke="#e9e1d1" stroke-width=".8" opacity=".6"/>
+                <!-- Chap oqqush -->
+                <g stroke="#b08c33" stroke-width="3" fill="none" stroke-linecap="round">
+                    <path d="M196 318 C 180 258, 220 232, 236 192 C 247 163, 274 161, 279 182 C 282 196, 271 203, 262 199"/>
+                    <path d="M128 316 C 152 352, 236 354, 262 320"/>
+                    <path d="M150 322 C 168 338, 218 340, 240 326" stroke-width="1.6" opacity=".65"/>
+                </g>
+                <!-- O'ng oqqush (ko'zgudagi aksi) -->
+                <g stroke="#b08c33" stroke-width="3" fill="none" stroke-linecap="round" transform="translate(560,0) scale(-1,1)">
+                    <path d="M196 318 C 180 258, 220 232, 236 192 C 247 163, 274 161, 279 182 C 282 196, 271 203, 262 199"/>
+                    <path d="M128 316 C 152 352, 236 354, 262 320"/>
+                    <path d="M150 322 C 168 338, 218 340, 240 326" stroke-width="1.6" opacity=".65"/>
+                </g>
+                <!-- Tumshuqlar -->
+                <path d="M279 182 L 295 189 L 280 194 Z" fill="#8a6a1f"/>
+                <path d="M281 182 L 265 189 L 280 194 Z" fill="#8a6a1f" transform="translate(560,0) scale(-1,1)"/>
+                <!-- Yurakcha -->
+                <path d="M280 142 c -5 -9 -18 -7 -18 3 c 0 8 10 13 18 20 c 8 -7 18 -12 18 -20 c 0 -10 -13 -12 -18 -3 Z"
+                      fill="none" stroke="#c9a227" stroke-width="2"/>
+                <!-- Suv to'lqinlari -->
+                <g stroke="#d9cdb4" stroke-width="1.6" fill="none" stroke-linecap="round">
+                    <path d="M150 372 C 200 382, 360 382, 410 372"/>
+                    <path d="M190 390 C 240 398, 320 398, 370 390" opacity=".7"/>
+                </g>
+                <!-- Yulduzchalar -->
+                <g fill="#c9a227">
+                    <path d="M120 120 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 Z" opacity=".8"/>
+                    <path d="M440 150 l2.5 7 7 2.5 -7 2.5 -2.5 7 -2.5 -7 -7 -2.5 7 -2.5 Z" opacity=".6"/>
+                    <circle cx="410" cy="95" r="2.5" opacity=".55"/>
+                    <circle cx="155" cy="80" r="2" opacity=".5"/>
+                </g>
+            </svg>
         </div>
     </div>
-</div>
+</header>
+
+<section class="oq-bolim">
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Qanday ishlaydi?" %}</span>
+            <h2 class="oq-h2">{% trans "Uch oddiy qadam — va taklifnomangiz tayyor" %}</h2>
+        </div>
+        <div class="oq-qadamlar">
+            <div class="oq-qadam">
+                <span class="raqam">01</span>
+                <h3>{% trans "Dizayn tanlang" %}</h3>
+                <p>{% trans "Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga xos uslubda." %}</p>
+            </div>
+            <div class="oq-qadam">
+                <span class="raqam">02</span>
+                <h3>{% trans "Ma'lumotlarni to'ldiring" %}</h3>
+                <p>{% trans "Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz kiritasiz." %}</p>
+            </div>
+            <div class="oq-qadam">
+                <span class="raqam">03</span>
+                <h3>{% trans "Ulashing" %}</h3>
+                <p>{% trans "Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga Telegram yoki Instagram orqali yuboring." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% if shablonlar %}
-<div class="bolim-ichki">
-    <h2>{% trans "Dizayn shablonlari" %}</h2>
-    <p class="h2-osti">{% trans "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring" %}</p>
-    <div class="turkum-qatori" id="turkum-qatori">
-        <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
-        <button type="button" class="turkum-tugma" data-turkum="zamonaviy">{% trans "Zamonaviy" %}</button>
-        <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
-        <button type="button" class="turkum-tugma" data-turkum="bolalar">{% trans "Bolalar" %}</button>
+<section class="oq-bolim" id="dizaynlar">
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Dizayn shablonlari" %}</span>
+            <h2 class="oq-h2">{% trans "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring" %}</h2>
+        </div>
+        <div class="turkum-qatori" id="turkum-qatori">
+            <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
+            <button type="button" class="turkum-tugma" data-turkum="zamonaviy">{% trans "Zamonaviy" %}</button>
+            <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
+            <button type="button" class="turkum-tugma" data-turkum="bolalar">{% trans "Bolalar" %}</button>
+        </div>
+        <div class="shablonlar-grid" id="shablonlar-grid">
+            {% for s in shablonlar %}
+            <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
+                {% if s.rasm %}
+                <img class="mini" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
+                {% else %}
+                <div class="shablon-mini mini-{{ s.kod }} mini-standart-fallback">
+                    <span class="katta">{{ s.nomi }}</span>
+                    <span>{% trans "namuna" %}</span>
+                </div>
+                {% endif %}
+                <div class="matn">
+                    <div class="nomi">{{ s.nomi }}</div>
+                    <div class="narx">{{ s.narx|floatformat:0 }} {% trans "so'm" %}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
     </div>
-    <div class="shablonlar-grid" id="shablonlar-grid">
-        {% for s in shablonlar %}
-        <a class="shablon-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
-            {% if s.rasm %}
-            <img class="mini" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
-            {% else %}
-            <div class="shablon-mini mini-{{ s.kod }} mini-standart-fallback">
-                <span class="katta">{{ s.nomi }}</span>
-                <span>{% trans "namuna" %}</span>
-            </div>
-            {% endif %}
-            <div class="matn">
-                <div class="nomi">{{ s.nomi }}</div>
-                <div class="narx">{{ s.narx|floatformat:0 }} {% trans "so'm" %}</div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-</div>
+</section>
 {% endif %}
 
-<div class="bolim-ichki">
-    <h2>{% trans "So'nggi taklifnomalar" %}</h2>
-    <p class="h2-osti">{% trans "Platformamizda faollashtirilgan taklifnomalardan namunalar" %}</p>
-    {% if taklifnomalar %}
-    <ul class="royxat">
-        {% for t in taklifnomalar %}
-        <li>
-            <a href="{{ t.get_absolute_url }}">
-                {{ t.sarlavha }}
-                <span class="sana">{{ t.get_marosim_turi_display }} — {{ t.sana|date:"d.m.Y" }}</span>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p class="bosh">{% trans "Hali faollashtirilgan taklifnoma yo'q — birinchi bo'lib siz yarating!" %}</p>
-    {% endif %}
-</div>
+<section class="oq-bolim">
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "So'nggi taklifnomalar" %}</span>
+            <h2 class="oq-h2">{% trans "Platformamizda faollashtirilgan taklifnomalardan namunalar" %}</h2>
+        </div>
+        {% if taklifnomalar %}
+        <ul class="oq-royxat">
+            {% for t in taklifnomalar %}
+            <li>
+                <a href="{{ t.get_absolute_url }}">
+                    <span class="nomi">{{ t.sarlavha }}</span>
+                    <span class="sana">{{ t.get_marosim_turi_display }} — {{ t.sana|date:"d.m.Y" }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="oq-bosh-xabar">{% trans "Hali faollashtirilgan taklifnoma yo'q — birinchi bo'lib siz yarating!" %}</p>
+        {% endif %}
+    </div>
+</section>
 
-<footer class="sayt-osti">
-    Taklifnoma365 · <a href="/admin/">{% trans "Admin panel" %}</a>
-</footer>
+{% include "taklif/_sayt_footer.html" %}
 
 <script>
 (function () {
-    // Bezak: uchayotgan gul/yulduz belgilari
-    var konteyner = document.getElementById('gulchambar');
-    var belgilar = ['✦', '❀', '✿', '♥', '✧'];
-    for (var i = 0; i < 18; i++) {
-        var el = document.createElement('span');
-        el.textContent = belgilar[i % belgilar.length];
-        el.style.left = (Math.random() * 100) + '%';
-        el.style.animationDuration = (10 + Math.random() * 12) + 's';
-        el.style.animationDelay = (Math.random() * 12) + 's';
-        el.style.fontSize = (0.8 + Math.random()) + 'rem';
-        konteyner.appendChild(el);
-    }
-
-    // Musiqa boshqaruvi endi _sayt_musiqa.html include ichida —
-    // u sahifadan-sahifaga o'tishda to'xtagan joyidan davom etadi.
-
     // Turkum bo'yicha filtr (Zamonaviy/Milliy/Bolalar)
     var turkumQatori = document.getElementById('turkum-qatori');
     var grid = document.getElementById('shablonlar-grid');
-    if (turkumQatori && grid) {
-        var kartalar = grid.querySelectorAll('.shablon-karta');
-        turkumQatori.addEventListener('click', function (e) {
-            var tugma = e.target.closest('.turkum-tugma');
-            if (!tugma) { return; }
-            turkumQatori.querySelectorAll('.turkum-tugma').forEach(function (b) {
-                b.classList.remove('faol');
-            });
-            tugma.classList.add('faol');
-            var tanlangan = tugma.dataset.turkum;
-            kartalar.forEach(function (k) {
-                var mos = tanlangan === 'barchasi' || k.dataset.turkum === tanlangan;
-                k.classList.toggle('yashirin', !mos);
-            });
+    if (!turkumQatori || !grid) { return; }
+    var kartalar = grid.querySelectorAll('.shablon-karta');
+    turkumQatori.addEventListener('click', function (e) {
+        var tugma = e.target.closest('.turkum-tugma');
+        if (!tugma) { return; }
+        turkumQatori.querySelectorAll('.turkum-tugma').forEach(function (b) {
+            b.classList.remove('faol');
         });
-    }
+        tugma.classList.add('faol');
+        var tanlangan = tugma.dataset.turkum;
+        kartalar.forEach(function (k) {
+            var mos = tanlangan === 'barchasi' || k.dataset.turkum === tanlangan;
+            k.classList.toggle('yashirin', !mos);
+        });
+    });
 })();
 </script>
 {% endblock %}

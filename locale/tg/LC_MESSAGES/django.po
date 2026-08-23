@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 08:58+0000\n"
+"POT-Creation-Date: 2026-08-23 19:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -164,20 +164,49 @@ msgstr "Рӯзи таваллуд"
 msgid "Boshqa"
 msgstr "Дигар"
 
-#: taklif/models.py:29 taklif/templates/taklif/bosh_sahifa.html:209
-#: taklif/templates/taklif/shablon_tanlash.html:81
+#: taklif/models.py:29 taklif/templates/taklif/bosh_sahifa.html:212
+#: taklif/templates/taklif/shablon_tanlash.html:78
 msgid "Zamonaviy"
 msgstr "Муосир"
 
-#: taklif/models.py:30 taklif/templates/taklif/bosh_sahifa.html:210
-#: taklif/templates/taklif/shablon_tanlash.html:82
+#: taklif/models.py:30 taklif/templates/taklif/bosh_sahifa.html:213
+#: taklif/templates/taklif/shablon_tanlash.html:79
 msgid "Milliy"
 msgstr "Миллӣ"
 
-#: taklif/models.py:31 taklif/templates/taklif/bosh_sahifa.html:211
-#: taklif/templates/taklif/shablon_tanlash.html:83
+#: taklif/models.py:31 taklif/templates/taklif/bosh_sahifa.html:214
+#: taklif/templates/taklif/shablon_tanlash.html:80
 msgid "Bolalar"
 msgstr "Кӯдакона"
+
+#: taklif/templates/taklif/_sayt_footer.html:6
+#: taklif/templates/taklif/_sayt_nav.html:20
+#: taklif/templates/taklif/shablon_tanlash.html:66
+#: taklif/templates/taklif/yaratish.html:37
+msgid "Dizaynlar"
+msgstr "Дизайнҳо"
+
+#: taklif/templates/taklif/_sayt_footer.html:7
+#: taklif/templates/taklif/_sayt_nav.html:21
+#: taklif/templates/taklif/mening_taklifnomalarim.html:4
+#: taklif/templates/taklif/mening_taklifnomalarim.html:31
+#: taklif/templates/taklif/mening_taklifnomalarim.html:33
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:20
+#: taklif/templates/taklif/shablonlar/atlas.html:166
+#: taklif/templates/taklif/shablonlar/bolajon.html:167
+#: taklif/templates/taklif/shablonlar/gulbarg.html:152
+#: taklif/templates/taklif/shablonlar/marmar.html:143
+#: taklif/templates/taklif/shablonlar/registon.html:126
+#: taklif/templates/taklif/shablonlar/sodda.html:114
+#: taklif/templates/taklif/shablonlar/yulduz.html:151
+#: taklif/templates/taklif/shablonlar/zumrad.html:148
+#: taklif/templates/taklif/yaratildi.html:42
+msgid "Mening taklifnomalarim"
+msgstr "Даъватномаҳои ман"
+
+#: taklif/templates/taklif/_sayt_footer.html:8
+msgid "Admin panel"
+msgstr "Панели админ"
 
 #: taklif/templates/taklif/_sayt_musiqa.html:11
 #: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:26
@@ -192,6 +221,12 @@ msgstr "Кӯдакона"
 msgid "Musiqani yoqish/o'chirish"
 msgstr "Мусиқиро фаъол/ғайрифаъол кунед"
 
+#: taklif/templates/taklif/_sayt_nav.html:25
+#: taklif/templates/taklif/bosh_sahifa.html:132
+#: taklif/templates/taklif/yaratish.html:4
+msgid "Taklifnoma yaratish"
+msgstr "Даъватнома сохтан"
+
 #: taklif/templates/taklif/_til_almashtirish.html:7
 msgid "Tilni tanlang"
 msgstr "Забонро интихоб кунед"
@@ -200,15 +235,31 @@ msgstr "Забонро интихоб кунед"
 msgid "chiroyli raqamli taklifnomalar"
 msgstr "даъватномаҳои зебои рақамӣ"
 
-#: taklif/templates/taklif/bosh_sahifa.html:171
+#: taklif/templates/taklif/bosh_sahifa.html:123
+msgid "O'zbekiston uchun"
+msgstr "Барои Ӯзбекистон"
+
+#: taklif/templates/taklif/bosh_sahifa.html:123
+msgid "ta noyob dizayn"
+msgstr "дизайни нотакрор"
+
+#: taklif/templates/taklif/bosh_sahifa.html:124
 msgid "Eng go'zal kuningiz uchun"
 msgstr "Барои зеботарин рӯзи шумо"
 
-#: taklif/templates/taklif/bosh_sahifa.html:171
+#: taklif/templates/taklif/bosh_sahifa.html:124
 msgid "raqamli taklifnoma"
 msgstr "даъватномаи рақамӣ"
 
-#: taklif/templates/taklif/bosh_sahifa.html:173
+#: taklif/templates/taklif/bosh_sahifa.html:126
+msgid "Tez va oson"
+msgstr "Зуд ва осон"
+
+#: taklif/templates/taklif/bosh_sahifa.html:127
+msgid "Telefonda o'zingiz yarating"
+msgstr "Худатон дар телефон созед"
+
+#: taklif/templates/taklif/bosh_sahifa.html:129
 msgid ""
 "To'y, sunnat to'yi, yubiley, tug'ilgan kun va boshqa marosimlaringiz uchun "
 "chiroyli taklifnomani bir necha daqiqada o'zingiz yarating — bepul ko'rib "
@@ -218,40 +269,23 @@ msgstr ""
 "зеборо дар чанд дақиқа худатон созед — ройгон бинед, агар маъқул шавад, "
 "фаъол мекунед."
 
-#: taklif/templates/taklif/bosh_sahifa.html:175
-#: taklif/templates/taklif/yaratish.html:4
-msgid "Taklifnoma yaratish"
-msgstr "Даъватнома сохтан"
+#: taklif/templates/taklif/bosh_sahifa.html:133
+msgid "Barcha dizaynlarni ko'rish"
+msgstr "Дидани ҳамаи дизайнҳо"
 
-#: taklif/templates/taklif/bosh_sahifa.html:177
-#: taklif/templates/taklif/mening_taklifnomalarim.html:4
-#: taklif/templates/taklif/mening_taklifnomalarim.html:50
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:20
-#: taklif/templates/taklif/shablonlar/atlas.html:166
-#: taklif/templates/taklif/shablonlar/bolajon.html:167
-#: taklif/templates/taklif/shablonlar/gulbarg.html:152
-#: taklif/templates/taklif/shablonlar/marmar.html:143
-#: taklif/templates/taklif/shablonlar/registon.html:126
-#: taklif/templates/taklif/shablonlar/sodda.html:114
-#: taklif/templates/taklif/shablonlar/yulduz.html:151
-#: taklif/templates/taklif/shablonlar/zumrad.html:148
-#: taklif/templates/taklif/yaratildi.html:45
-msgid "Mening taklifnomalarim"
-msgstr "Даъватномаҳои ман"
-
-#: taklif/templates/taklif/bosh_sahifa.html:182
+#: taklif/templates/taklif/bosh_sahifa.html:180
 msgid "Qanday ishlaydi?"
 msgstr "Чӣ тавр кор мекунад?"
 
-#: taklif/templates/taklif/bosh_sahifa.html:183
+#: taklif/templates/taklif/bosh_sahifa.html:181
 msgid "Uch oddiy qadam — va taklifnomangiz tayyor"
 msgstr "Се қадами оддӣ — ва даъватномаи шумо тайёр"
 
-#: taklif/templates/taklif/bosh_sahifa.html:187
+#: taklif/templates/taklif/bosh_sahifa.html:186
 msgid "Dizayn tanlang"
 msgstr "Дизайн интихоб кунед"
 
-#: taklif/templates/taklif/bosh_sahifa.html:188
+#: taklif/templates/taklif/bosh_sahifa.html:187
 msgid ""
 "Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga "
 "xos uslubda."
@@ -259,11 +293,11 @@ msgstr ""
 "Аз якчанд шаблонҳои тайёр маъқулатонро интихоб кунед — ҳар яке услуби хос "
 "дорад."
 
-#: taklif/templates/taklif/bosh_sahifa.html:192
+#: taklif/templates/taklif/bosh_sahifa.html:191
 msgid "Ma'lumotlarni to'ldiring"
 msgstr "Маълумотро пур кунед"
 
-#: taklif/templates/taklif/bosh_sahifa.html:193
+#: taklif/templates/taklif/bosh_sahifa.html:192
 msgid ""
 "Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz "
 "kiritasiz."
@@ -271,11 +305,11 @@ msgstr ""
 "Навъи маросим, номҳо, сана, суроға, расмҳо ва мусиқӣ — ҳамаро худатон ворид "
 "мекунед."
 
-#: taklif/templates/taklif/bosh_sahifa.html:197
+#: taklif/templates/taklif/bosh_sahifa.html:196
 msgid "Ulashing"
 msgstr "Мубодила кунед"
 
-#: taklif/templates/taklif/bosh_sahifa.html:198
+#: taklif/templates/taklif/bosh_sahifa.html:197
 msgid ""
 "Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga "
 "Telegram yoki Instagram orqali yuboring."
@@ -283,51 +317,48 @@ msgstr ""
 "Даъватномаи тайёрро бинед, агар маъқул шавад, фаъол кунед ва ба наздиконатон"
 " тавассути Telegram ё Instagram фиристед."
 
-#: taklif/templates/taklif/bosh_sahifa.html:205
+#: taklif/templates/taklif/bosh_sahifa.html:207
 msgid "Dizayn shablonlari"
 msgstr "Шаблонҳои дизайн"
 
-#: taklif/templates/taklif/bosh_sahifa.html:206
+#: taklif/templates/taklif/bosh_sahifa.html:208
 msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Интихоб кунед ва дарҳол аз они худро созед"
 
-#: taklif/templates/taklif/bosh_sahifa.html:208
-#: taklif/templates/taklif/shablon_tanlash.html:80
+#: taklif/templates/taklif/bosh_sahifa.html:211
+#: taklif/templates/taklif/shablon_tanlash.html:77
 msgid "Barchasi"
 msgstr "Ҳама"
 
-#: taklif/templates/taklif/bosh_sahifa.html:221
-#: taklif/templates/taklif/shablon_tanlash.html:93
+#: taklif/templates/taklif/bosh_sahifa.html:224
+#: taklif/templates/taklif/shablon_tanlash.html:90
 msgid "namuna"
 msgstr "намуна"
 
-#: taklif/templates/taklif/bosh_sahifa.html:226
-#: taklif/templates/taklif/shablon_tanlash.html:98
+#: taklif/templates/taklif/bosh_sahifa.html:229
+#: taklif/templates/taklif/shablon_tanlash.html:95
 msgid "so'm"
 msgstr "сум"
 
-#: taklif/templates/taklif/bosh_sahifa.html:235
+#: taklif/templates/taklif/bosh_sahifa.html:241
 msgid "So'nggi taklifnomalar"
 msgstr "Даъватномаҳои охирин"
 
-#: taklif/templates/taklif/bosh_sahifa.html:236
+#: taklif/templates/taklif/bosh_sahifa.html:242
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
 msgstr "Намунаҳои даъватномаҳои фаъолшуда дар платформаи мо"
 
-#: taklif/templates/taklif/bosh_sahifa.html:249
+#: taklif/templates/taklif/bosh_sahifa.html:256
 msgid "Hali faollashtirilgan taklifnoma yo'q — birinchi bo'lib siz yarating!"
 msgstr "Ҳоло даъватномаи фаъолшуда нест — аввалин шуда созед!"
 
-#: taklif/templates/taklif/bosh_sahifa.html:254
-msgid "Admin panel"
-msgstr "Панели админ"
-
-#: taklif/templates/taklif/mening_taklifnomalarim.html:45
-#: taklif/templates/taklif/shablon_tanlash.html:70
+#: taklif/templates/taklif/mening_taklifnomalarim.html:29
+#: taklif/templates/taklif/shablon_tanlash.html:64
+#: taklif/templates/taklif/yaratish.html:35
 msgid "Bosh sahifa"
 msgstr "Саҳифаи асосӣ"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:52
+#: taklif/templates/taklif/mening_taklifnomalarim.html:35
 msgid ""
 "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
 "ko'rsatadi — ularni solishtirib, eng yoqqanini tanlashingiz mumkin."
@@ -335,28 +366,28 @@ msgstr ""
 "Ин рӯйхат ҳамаи даъватномаҳоеро, ки шумо дар ин браузер сохтаед, нишон "
 "медиҳад — онҳоро муқоиса карда, беҳтаринашро интихоб кунед."
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:55
-#: taklif/templates/taklif/yaratildi.html:46
+#: taklif/templates/taklif/mening_taklifnomalarim.html:41
+#: taklif/templates/taklif/yaratildi.html:43
 msgid "Yana bitta yaratish"
 msgstr "Боз як сохтан"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:65
+#: taklif/templates/taklif/mening_taklifnomalarim.html:52
 msgid "Faollashtirilgan"
 msgstr "Фаъолшуда"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:67
+#: taklif/templates/taklif/mening_taklifnomalarim.html:54
 msgid "To'lov kutilmoqda"
 msgstr "Пардохт интизор аст"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:70
+#: taklif/templates/taklif/mening_taklifnomalarim.html:57
 msgid "Ko'rish"
 msgstr "Дидан"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:72
+#: taklif/templates/taklif/mening_taklifnomalarim.html:59
 msgid "Yoqdi"
 msgstr "Маъқул шуд"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:79
+#: taklif/templates/taklif/mening_taklifnomalarim.html:66
 msgid "Siz hali hech qanday taklifnoma yaratmagansiz."
 msgstr "Шумо ҳоло ягон даъватнома насохтаед."
 
@@ -374,11 +405,11 @@ msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "Саҳифаи марбут ба %(nomi)s дигар фаъол нест."
 
 #: taklif/templates/taklif/shablon_tanlash.html:4
-#: taklif/templates/taklif/shablon_tanlash.html:75
+#: taklif/templates/taklif/shablon_tanlash.html:68
 msgid "Shablon tanlang"
 msgstr "Шаблон интихоб кунед"
 
-#: taklif/templates/taklif/shablon_tanlash.html:76
+#: taklif/templates/taklif/shablon_tanlash.html:70
 msgid ""
 "Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni "
 "to'ldirasiz."
@@ -386,7 +417,7 @@ msgstr ""
 "Дизайни маъқулатонро интихоб кунед — дар қадами оянда маълумоти худро пур "
 "мекунед."
 
-#: taklif/templates/taklif/shablon_tanlash.html:104
+#: taklif/templates/taklif/shablon_tanlash.html:101
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "Ҳоло шаблон нест. Дар панели админ илова кунед."
 
@@ -869,9 +900,11 @@ msgid "Marosimgacha"
 msgstr "То чорабинӣ"
 
 #: taklif/templates/taklif/shablonlar/atlas.html:188
+#: taklif/templates/taklif/shablonlar/aurora.html:134
 #: taklif/templates/taklif/shablonlar/bolajon.html:189
 #: taklif/templates/taklif/shablonlar/chinni.html:133
 #: taklif/templates/taklif/shablonlar/gulbarg.html:175
+#: taklif/templates/taklif/shablonlar/kristall.html:157
 #: taklif/templates/taklif/shablonlar/marmar.html:164
 #: taklif/templates/taklif/shablonlar/qirgiz.html:126
 #: taklif/templates/taklif/shablonlar/qozoq.html:127
@@ -882,6 +915,7 @@ msgstr "То чорабинӣ"
 #: taklif/templates/taklif/shablonlar/turkman.html:128
 #: taklif/templates/taklif/shablonlar/yulduz.html:172
 #: taklif/templates/taklif/shablonlar/zardoz.html:130
+#: taklif/templates/taklif/shablonlar/zarhal.html:130
 #: taklif/templates/taklif/shablonlar/zumrad.html:170
 msgid "taklifnomasi"
 msgstr "даъватнома"
@@ -908,15 +942,15 @@ msgstr "Ба гурӯҳи Telegram мо барои хабарҳо ҳамроҳ �
 msgid "Tayyor!"
 msgstr "Тайёр!"
 
-#: taklif/templates/taklif/yaratildi.html:31
+#: taklif/templates/taklif/yaratildi.html:29
 msgid "Taklifnomangiz tayyor!"
 msgstr "Даъватномаи шумо тайёр!"
 
-#: taklif/templates/taklif/yaratildi.html:36
+#: taklif/templates/taklif/yaratildi.html:33
 msgid "Taklifnomani ko'rish"
 msgstr "Дидани даъватнома"
 
-#: taklif/templates/taklif/yaratildi.html:39
+#: taklif/templates/taklif/yaratildi.html:36
 msgid ""
 "Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga "
 "ishonch hosil qiling."
@@ -924,7 +958,7 @@ msgstr ""
 "Тавассути тугмаи боло даъватномаро бинед ва боварӣ ҳосил кунед, ки ҳамааш "
 "дуруст аст."
 
-#: taklif/templates/taklif/yaratildi.html:40
+#: taklif/templates/taklif/yaratildi.html:37
 #, python-format
 msgid ""
 "Yoqsa — taklifnoma sahifasidagi <strong>\"Yoqdi\"</strong> tugmasini bosing,"
@@ -935,7 +969,7 @@ msgstr ""
 "даъватнома пахш кунед: ҳамин тавр мустақиман дар Telegram бо "
 "<strong>%(admin)s</strong> тамос гирифта, пардохт мекунед."
 
-#: taklif/templates/taklif/yaratildi.html:41
+#: taklif/templates/taklif/yaratildi.html:38
 msgid ""
 "To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni "
 "mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi."
@@ -943,11 +977,11 @@ msgstr ""
 "Пас аз тасдиқи пардохт даъватномаатон фаъол мешавад ва шумо метавонед онро "
 "ба меҳмонон фиристед (Telegram, Instagram ва ғ.)."
 
-#: taklif/templates/taklif/yaratish.html:37
+#: taklif/templates/taklif/yaratish.html:41
 msgid "shabloni"
 msgstr "шаблон"
 
-#: taklif/templates/taklif/yaratish.html:38
+#: taklif/templates/taklif/yaratish.html:43
 msgid ""
 "Ma'lumotlaringizni to'ldiring. Yuborgach — o'zingiz uchun link tayyor "
 "bo'ladi (hali hech kimga ochiq emas)."
@@ -955,20 +989,20 @@ msgstr ""
 "Маълумоти худро пур кунед. Пас аз фиристодан пайванд барои шумо тайёр "
 "мешавад (ҳоло ба касе намоён нест)."
 
-#: taklif/templates/taklif/yaratish.html:63
+#: taklif/templates/taklif/yaratish.html:69
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Расмҳо (на бештар аз %(soni)s дона, ихтиёрӣ)"
 
-#: taklif/templates/taklif/yaratish.html:68
+#: taklif/templates/taklif/yaratish.html:74
 msgid "Taklifnomani yaratish"
 msgstr "Даъватномаро сохтан"
 
-#: taklif/templates/taklif/yaratish.html:71
+#: taklif/templates/taklif/yaratish.html:77
 msgid "Boshqa shablon tanlash"
 msgstr "Шаблони дигар интихоб кардан"
 
-#: taklif/templates/taklif/yaratish.html:130
+#: taklif/templates/taklif/yaratish.html:140
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "

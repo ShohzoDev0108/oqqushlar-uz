@@ -1,0 +1,119 @@
+{% comment %}
+Oqqushlar sayt sahifalari (bosh sahifa, dizayn tanlash, yaratish, tayyor,
+mening taklifnomalarim) uchun YAGONA dizayn tizimi. Bu fayl har bir sahifaning
+{% block extra_style %} ichida include qilinadi — sof CSS.
+Uslub: oppoq (fil suyagi) fon, yirik Playfair Display serif sarlavhalar,
+oltin urg'ular, keng "editorial" bo'sh joylar. Taklifnoma shablonlarining
+o'ziga (18 dizayn) bu tizim ta'sir qilmaydi.
+{% endcomment %}
+:root {
+    --oq: #fbf9f4;            /* asosiy fil suyagi fon */
+    --toza: #ffffff;          /* kartalar foni */
+    --siyoh: #221c14;         /* asosiy matn — iliq to'q */
+    --kul: #8b7f6c;           /* ikkinchi darajali matn */
+    --tilla: #b08c33;         /* oltin urg'u */
+    --tilla-toq: #8a6a1f;     /* to'qroq oltin (hover, matn) */
+    --tilla-yumshoq: rgba(176,140,51,.12);
+    --chiziq: #e9e1d1;        /* chegara chiziqlari */
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Manrope', 'Segoe UI', sans-serif;
+}
+
+body { background: var(--oq); color: var(--siyoh); font-family: var(--sans); overflow-x: hidden; }
+.wrapper { max-width: none; padding: 0; }
+.oq-ichki { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+/* --- Yuqori navigatsiya --- */
+.oq-nav {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px 24px;
+    padding: 20px 0; border-bottom: 1px solid var(--chiziq); flex-wrap: wrap;
+}
+.oq-logo {
+    font-family: var(--serif); font-size: 1.55rem; color: var(--siyoh);
+    text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: .5px;
+}
+.oq-logo svg { display: block; }
+.oq-nav-linklar { display: flex; gap: 8px 26px; flex-wrap: wrap; }
+.oq-nav-linklar a {
+    color: var(--siyoh); text-decoration: none; font-size: .76rem;
+    letter-spacing: 2.5px; text-transform: uppercase; opacity: .7; transition: .2s;
+    padding: 6px 0;
+}
+.oq-nav-linklar a:hover { opacity: 1; color: var(--tilla-toq); }
+.oq-nav-ong { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.til-forma select {
+    width: auto; padding: 9px 12px; border: 1px solid var(--chiziq); background: var(--toza);
+    color: var(--siyoh); font-size: .8rem; font-family: inherit; letter-spacing: .5px; border-radius: 2px;
+}
+
+/* --- Tugmalar --- */
+.oq-cta {
+    display: inline-block; padding: 14px 30px; border: 1px solid var(--tilla);
+    color: var(--tilla-toq); text-decoration: none; font-size: .76rem; letter-spacing: 2.5px;
+    text-transform: uppercase; transition: .25s; background: transparent; cursor: pointer;
+    font-family: inherit; border-radius: 2px;
+}
+.oq-cta:hover { background: var(--tilla); color: #fff; }
+.oq-cta.toliq { background: var(--tilla); color: #fff; }
+.oq-cta.toliq:hover { background: var(--tilla-toq); border-color: var(--tilla-toq); }
+.oq-cta.kichik { padding: 10px 20px; font-size: .7rem; }
+
+/* --- Breadcrumb (yo'l izlari) --- */
+.oq-izlar {
+    display: flex; gap: 12px; padding: 30px 0 4px; font-size: .7rem;
+    letter-spacing: 2.5px; text-transform: uppercase; color: var(--kul); flex-wrap: wrap;
+}
+.oq-izlar a { color: var(--kul); text-decoration: none; transition: .2s; }
+.oq-izlar a:hover { color: var(--tilla-toq); }
+.oq-izlar .joriy { color: var(--tilla-toq); }
+
+/* --- Sarlavha ierarxiyasi --- */
+.oq-yorliq { font-size: .72rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--tilla-toq); }
+.oq-h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(2.5rem, 5.5vw, 4.2rem); line-height: 1.08; margin: 14px 0 20px;
+}
+.oq-h1 em { font-style: italic; color: var(--tilla-toq); font-weight: 400; }
+.oq-h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem); line-height: 1.15; margin: 10px 0 14px;
+}
+.oq-matn { color: var(--kul); line-height: 1.85; font-size: 1.03rem; }
+
+/* --- Kartalar --- */
+.oq-karta {
+    background: var(--toza); border: 1px solid var(--chiziq); border-radius: 4px;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s;
+}
+.oq-karta:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(34,28,20,.08); border-color: rgba(176,140,51,.45); }
+
+/* --- Forma elementlari --- */
+label { display: block; margin: 18px 0 6px; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--kul); }
+input, select, textarea {
+    width: 100%; padding: 13px 14px; border-radius: 2px; border: 1px solid var(--chiziq);
+    font-family: inherit; font-size: .95rem; background: var(--toza); color: var(--siyoh);
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--tilla); }
+button[type="submit"] {
+    margin-top: 26px; padding: 16px 24px; border-radius: 2px; border: 1px solid var(--tilla);
+    background: var(--tilla); color: #fff; letter-spacing: 2.5px; text-transform: uppercase;
+    font-size: .8rem; cursor: pointer; width: 100%; font-family: inherit; transition: .25s;
+}
+button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--tilla-toq); }
+
+/* --- Sayt musiqa tugmasi (oq uslub) --- */
+#sayt-musiqa-tugma {
+    background: var(--toza) !important; border-color: var(--tilla) !important;
+    color: var(--tilla-toq) !important; box-shadow: 0 4px 16px rgba(34,28,20,.14) !important;
+}
+
+/* --- Footer --- */
+.oq-footer { border-top: 1px solid var(--chiziq); margin-top: 80px; padding: 40px 0 50px; }
+.oq-footer-ich { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; }
+.oq-footer .oq-logo { font-size: 1.2rem; }
+.oq-footer-linklar { display: flex; gap: 20px; flex-wrap: wrap; }
+.oq-footer-linklar a {
+    color: var(--kul); text-decoration: none; font-size: .72rem;
+    letter-spacing: 2px; text-transform: uppercase;
+}
+.oq-footer-linklar a:hover { color: var(--tilla-toq); }
