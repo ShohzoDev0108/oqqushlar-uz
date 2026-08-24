@@ -11,16 +11,22 @@ from django.utils.translation import gettext_lazy as _
 # manzillari uchun band (urls.py'ga qarang).
 MEHMON_REZERV_SLUGLAR = {"rsvp", "yoqdi"}
 
+# Marosim turlari — bozorda qabul qilingan nomlar asosida (Nikoh to'yi,
+# Qiz uzatish, Sunnat to'yi, Beshik to'yi, Nahor oshi, Yubiley...).
+# Eski kalitlar ("toy", "qizlar_bazmi") bazadagi mavjud yozuvlar buzilmasligi
+# uchun saqlab qolindi — faqat ko'rinadigan nomlari yangilandi.
 MAROSIM_TURLARI = [
-    ("toy", _("To'y")),
-    ("qizlar_bazmi", _("Qizlar bazmi")),
+    ("toy", _("Nikoh to'yi")),
+    ("qizlar_bazmi", _("Qiz uzatish")),
     ("sunnat_toy", _("Sunnat to'yi")),
+    ("beshik_toy", _("Beshik to'yi")),
+    ("nahor_oshi", _("Nahor oshi")),
     ("yubiley", _("Yubiley")),
     ("tugilgan_kun", _("Tug'ilgan kun")),
     ("boshqa", _("Boshqa")),
 ]
 
-# Bu marosim turlarida odatda ikkita ism (masalan kelin-kuyov) kerak bo'ladi;
+# Bu marosim turlarida odatda ikkita ism (masalan kuyov-kelin) kerak bo'ladi;
 # qolganlarida odatda bitta ism yetarli (forma shunga qarab moslashadi).
 IKKI_ISMLI_MAROSIM_TURLARI = {"toy", "yubiley"}
 
@@ -97,12 +103,12 @@ class Taklifnoma(models.Model):
         max_length=20, choices=MAROSIM_TURLARI, default="toy"
     )
     ism_1 = models.CharField(
-        max_length=100, help_text="Masalan: kelin, tug'ilgan kun egasi"
+        max_length=100, help_text="Masalan: kuyov, tug'ilgan kun egasi"
     )
     ism_2 = models.CharField(
         max_length=100,
         blank=True,
-        help_text="Ikkinchi ism (masalan: kuyov). Kerak bo'lmasa bo'sh qoldiring",
+        help_text="Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring",
     )
     slug = models.SlugField(
         unique=True, help_text="Ochiq link uchun, masalan: sardor-malika"

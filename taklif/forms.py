@@ -70,8 +70,8 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "matn": forms.Textarea(attrs={"rows": 3}),
         }
         labels = {
-            "ism_1": _("1-ism (masalan: kelin, tug'ilgan kun egasi)"),
-            "ism_2": _("2-ism (ixtiyoriy, masalan: kuyov)"),
+            "ism_1": _("1-ism (masalan: kuyov, tug'ilgan kun egasi)"),
+            "ism_2": _("2-ism (ixtiyoriy, masalan: kelin)"),
             "sana": _("Tadbir sanasi va vaqti"),
             "toyxona": _("To'yxona/manzil nomi"),
             "manzil": _("Manzil"),
@@ -83,8 +83,8 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "telegram_link": _("Mehmonlar uchun Telegram guruhi (ixtiyoriy)"),
         }
         help_texts = {
-            "ism_1": _("Masalan: kelin, tug'ilgan kun egasi"),
-            "ism_2": _("Ikkinchi ism (masalan: kuyov). Kerak bo'lmasa bo'sh qoldiring"),
+            "ism_1": _("Masalan: kuyov, tug'ilgan kun egasi"),
+            "ism_2": _("Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"),
             "sana": _("Tadbir sanasi va vaqti"),
             "kiyim_kodi": _("Masalan: rasmiy, yorug' ranglar"),
             "musiqa": _("O'zingiz yuklamoqchi bo'lsangiz"),
