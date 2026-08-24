@@ -6,26 +6,24 @@
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
 
-/* --- Hero --- */
-.oq-hero { padding: 70px 0 90px; }
-.oq-hero-ich {
-    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
-    gap: 60px; align-items: center;
-}
-@media (max-width: 900px) { .oq-hero-ich { grid-template-columns: 1fr; gap: 44px; } }
+/* --- Hero: avval oqqushlar surati (nav ostida), keyin matn --- */
+.oq-hero { padding: 44px 0 90px; }
+.oq-hero-ich { display: flex; flex-direction: column; align-items: center; gap: 50px; }
+.oq-hero-matn { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .oq-hero-matn .oq-yorliq { display: block; margin-bottom: 4px; }
 .oq-kichik-sarlavha {
     font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.8rem);
     margin: 8px 0 16px; font-weight: 500;
 }
-.oq-hero-matn .oq-matn { max-width: 480px; margin: 0 0 34px; }
-.oq-hero-tugmalar { display: flex; gap: 14px; flex-wrap: wrap; }
-.oq-hero .ajratish { height: 1px; background: var(--chiziq); max-width: 90px; margin: 30px 0 26px; }
+.oq-hero-matn .oq-matn { max-width: 560px; margin: 0 0 34px; }
+.oq-hero-tugmalar { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.oq-hero .ajratish { height: 1px; background: var(--chiziq); width: 90px; margin: 26px auto 22px; }
 
 /* Oqqushlar surati — oq ramka ichida, ostida oltin chiziqli panel */
 .oq-hero-rasm {
     position: relative; border: 1px solid var(--chiziq); border-radius: 4px;
     background: var(--toza); padding: 14px; box-shadow: 0 24px 60px rgba(34,28,20,.10);
+    width: 100%; max-width: 780px;
 }
 .oq-hero-rasm img {
     display: block; width: 100%; height: auto; border-radius: 2px;
@@ -122,6 +120,15 @@
 
 <header class="oq-hero">
     <div class="oq-ichki oq-hero-ich">
+        <div class="oq-hero-rasm">
+            <span class="burchak b1"></span><span class="burchak b2"></span>
+            <img src="{% static 'taklif/oqqushlar-yurak.jpg' %}" alt="Oqqushlar" fetchpriority="high">
+            <div class="rasm-osti">
+                <span class="chiziqcha"></span>
+                <span>Oqqushlar</span>
+                <span class="chiziqcha"></span>
+            </div>
+        </div>
         <div class="oq-hero-matn">
             <span class="oq-yorliq">{% trans "O'zbekiston uchun" %} · {{ shablonlar|length }} {% trans "ta noyob dizayn" %}</span>
             <h1 class="oq-h1">{% trans "Eng go'zal kuningiz uchun" %}<br><em>{% trans "raqamli taklifnoma" %}</em></h1>
@@ -134,15 +141,6 @@
             <div class="oq-hero-tugmalar">
                 <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
                 <a class="oq-cta" href="#dizaynlar">{% trans "Barcha dizaynlarni ko'rish" %}</a>
-            </div>
-        </div>
-        <div class="oq-hero-rasm">
-            <span class="burchak b1"></span><span class="burchak b2"></span>
-            <img src="{% static 'taklif/oqqushlar-yurak.jpg' %}" alt="Oqqushlar" fetchpriority="high">
-            <div class="rasm-osti">
-                <span class="chiziqcha"></span>
-                <span>Oqqushlar</span>
-                <span class="chiziqcha"></span>
             </div>
         </div>
     </div>
