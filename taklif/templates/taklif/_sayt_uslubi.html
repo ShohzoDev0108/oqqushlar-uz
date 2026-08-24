@@ -178,6 +178,34 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 .turkum-tugma:hover { color: var(--tilla-toq); border-color: var(--tilla); }
 .turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
 
+/* --- Mobil (95% mijozlar telefonda) --- */
+@media (max-width: 700px) {
+    .oq-ichki { padding: 0 18px; }
+    .oq-nav { padding: 12px 0; gap: 10px 14px; }
+    .oq-logo { font-size: 1.2rem; gap: 8px; }
+    .oq-logo img { width: 32px; height: 32px; }
+    .oq-nav-linklar { order: 3; width: 100%; justify-content: center; gap: 8px 22px; }
+    .oq-nav-linklar a { font-size: .68rem; padding: 2px 0; }
+    .oq-nav-ong { margin-left: auto; }
+    .oq-nav-ong .oq-cta { display: none; } /* CTA — pastdagi yopishqoq tugmada */
+    .til-forma select { padding: 7px 10px; font-size: .75rem; }
+    .oq-izlar { padding-top: 20px; }
+    .oq-bolim { padding: 48px 0 8px; }
+    .oq-footer { margin-top: 50px; }
+}
+
+/* Mobil pastki yopishqoq "Taklifnoma yaratish" tugmasi (faqat kerakli sahifada) */
+.oq-mobil-cta { display: none; }
+@media (max-width: 700px) {
+    .oq-mobil-cta {
+        display: block; position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 60;
+        text-align: center; padding: 17px 10px; background: var(--tilla); color: #fff;
+        letter-spacing: 2.5px; text-transform: uppercase; font-size: .78rem;
+        text-decoration: none; border-radius: 3px;
+        box-shadow: 0 10px 30px rgba(138,106,31,.4);
+    }
+}
+
 /* --- Footer --- */
 .oq-footer { border-top: 1px solid var(--chiziq); margin-top: 80px; padding: 40px 0 50px; }
 .oq-footer-ich { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; }

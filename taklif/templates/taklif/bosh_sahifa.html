@@ -26,6 +26,18 @@
     50% { opacity: .95; filter: drop-shadow(0 10px 18px rgba(34,28,20,.16)) drop-shadow(0 0 16px rgba(232,212,138,.55)); }
 }
 
+/* Mobilda: uzuklar kamroq, kichikroq va xiraroq — kontent tiqilib qolmasin */
+@media (max-width: 700px) {
+    #uzuklar-fon { opacity: .45; }
+    .uzuk-rasm.faqat-katta { display: none; }
+    .uzuk-rasm.u-asosiy1 { width: 96px !important; }
+    .uzuk-rasm.u-asosiy2 { width: 104px !important; }
+    .uzuk-rasm.u-asosiy3 { width: 78px !important; }
+    .oq-hero-rasm { padding: 10px; }
+    body { padding-bottom: 74px; } /* yopishqoq CTA joyi */
+    #sayt-musiqa-tugma { bottom: 88px !important; }
+}
+
 /* Miltillovchi yulduzchalar */
 .uchqun {
     position: absolute; color: #c9a227; font-size: 1rem;
@@ -99,14 +111,14 @@
 
 {% block content %}
 <div id="uzuklar-fon" aria-hidden="true">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:150px; top:14%; left:3%;   animation-duration:7s, 4s;">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:92px; top:40%; left:9%;  animation-duration:9s, 4.6s; animation-delay:-3s, -1s;">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:150px; top:66%; left:4%;   animation-duration:8s, 5s; animation-delay:-1.5s, -2s;">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:70px; top:87%; left:14%; animation-duration:10s, 4.2s; animation-delay:-5s, -.6s;">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:160px; top:11%; right:3%;  animation-duration:8.5s, 4.4s; animation-delay:-2s, -1.4s;">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:84px; top:38%; right:8%; animation-duration:7.5s, 5.2s; animation-delay:-4s, -2.4s;">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:120px; top:64%; right:4%;  animation-duration:9.5s, 4.8s; animation-delay:-1s, -.8s;">
-    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:64px; top:88%; right:15%; animation-duration:8s, 4.1s; animation-delay:-6s, -1.8s;">
+    <img class="uzuk-rasm u-asosiy1" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:150px; top:14%; left:3%;   animation-duration:7s, 4s;">
+    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:92px; top:40%; left:9%;  animation-duration:9s, 4.6s; animation-delay:-3s, -1s;">
+    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:150px; top:66%; left:4%;   animation-duration:8s, 5s; animation-delay:-1.5s, -2s;">
+    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:70px; top:87%; left:14%; animation-duration:10s, 4.2s; animation-delay:-5s, -.6s;">
+    <img class="uzuk-rasm u-asosiy2" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:160px; top:11%; right:3%;  animation-duration:8.5s, 4.4s; animation-delay:-2s, -1.4s;">
+    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:84px; top:38%; right:8%; animation-duration:7.5s, 5.2s; animation-delay:-4s, -2.4s;">
+    <img class="uzuk-rasm u-asosiy3" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:120px; top:64%; right:4%;  animation-duration:9.5s, 4.8s; animation-delay:-1s, -.8s;">
+    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:64px; top:88%; right:15%; animation-duration:8s, 4.1s; animation-delay:-6s, -1.8s;">
 
     <span class="uchqun" style="top:10%;  left:20%; animation-duration:3.2s;">✦</span>
     <span class="uchqun" style="top:28%;  left:6%;  animation-duration:4.1s; animation-delay:-1s;">✧</span>
@@ -118,7 +130,7 @@
     <span class="uchqun" style="top:82%;  right:7%;  animation-duration:3.7s; animation-delay:-1.8s;">✧</span>
 </div>
 
-{% include "taklif/_sayt_nav.html" %}
+{% include "taklif/_sayt_nav.html" with mobil_cta=True %}
 {% include "taklif/_sayt_musiqa.html" %}
 
 <header class="oq-hero">

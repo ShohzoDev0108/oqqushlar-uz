@@ -19,3 +19,6 @@ bo'lim havolalari, til tanlash va "Taklifnoma yaratish" chaqiriq tugmasi.
         </div>
     </nav>
 </div>
+{% if mobil_cta %}
+<a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">✨ {% trans "Taklifnoma yaratish" %}</a>
+{% endif %}
