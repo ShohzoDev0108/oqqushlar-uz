@@ -6,6 +6,54 @@
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
 
+/* --- Orqa fon: sahifa bo'ylab suzuvchi yaltiroq oltin uzuklar --- */
+#uzuklar-fon { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.oq-nav, .oq-hero, .oq-bolim, .oq-footer { position: relative; z-index: 1; }
+
+.uzuk {
+    position: absolute; border-radius: 50%;
+    border: 3px solid rgba(176,140,51,.30);
+    box-shadow: 0 0 18px rgba(201,162,39,.12), inset 0 0 12px rgba(201,162,39,.10);
+    animation: uzuk-suzish ease-in-out infinite alternate;
+}
+/* Uzuk bandi bo'ylab aylanuvchi yaltiroq nur */
+.uzuk::before {
+    content: ""; position: absolute; inset: -3px; border-radius: 50%; padding: 3px;
+    background: conic-gradient(transparent 0deg 320deg, rgba(255,255,255,.95) 345deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+    animation: uzuk-yaltirash linear infinite;
+}
+/* Uzuk tepasidagi olmos "toshi" */
+.uzuk::after {
+    content: ""; position: absolute; top: -7px; left: 50%; width: 8px; height: 8px;
+    transform: translateX(-50%) rotate(45deg);
+    background: linear-gradient(135deg, #fff, #e8d48a 55%, #c9a227);
+    box-shadow: 0 0 10px rgba(232,212,138,.9);
+    animation: tosh-miltillash 2.6s ease-in-out infinite;
+}
+@keyframes uzuk-suzish {
+    0% { transform: translateY(0) rotate(-4deg); }
+    100% { transform: translateY(-26px) rotate(5deg); }
+}
+@keyframes uzuk-yaltirash { to { transform: rotate(360deg); } }
+@keyframes tosh-miltillash {
+    0%, 100% { opacity: .5; box-shadow: 0 0 4px rgba(232,212,138,.4); }
+    50% { opacity: 1; box-shadow: 0 0 14px rgba(232,212,138,.95); }
+}
+
+/* Miltillovchi yulduzchalar */
+.uchqun {
+    position: absolute; color: #c9a227; font-size: 1rem;
+    animation: uchqun-miltillash ease-in-out infinite;
+}
+@keyframes uchqun-miltillash {
+    0%, 100% { opacity: .12; transform: scale(.8); }
+    50% { opacity: .75; transform: scale(1.15); }
+}
+
 /* --- Hero: avval oqqushlar surati (nav ostida), keyin matn --- */
 .oq-hero { padding: 44px 0 90px; }
 .oq-hero-ich { display: flex; flex-direction: column; align-items: center; gap: 50px; }
@@ -23,7 +71,7 @@
 .oq-hero-rasm {
     position: relative; border: 1px solid var(--chiziq); border-radius: 4px;
     background: var(--toza); padding: 14px; box-shadow: 0 24px 60px rgba(34,28,20,.10);
-    width: 100%; max-width: 780px;
+    width: 100%; max-width: 728px;
 }
 .oq-hero-rasm img {
     display: block; width: 100%; height: auto; border-radius: 2px;
@@ -115,6 +163,26 @@
 {% endblock %}
 
 {% block content %}
+<div id="uzuklar-fon" aria-hidden="true">
+    <span class="uzuk" style="width:90px;  height:90px;  top:16%; left:4%;   animation-duration:7s;"></span>
+    <span class="uzuk" style="width:56px;  height:56px;  top:38%; left:10%;  animation-duration:9s;  animation-delay:-3s;"></span>
+    <span class="uzuk" style="width:70px;  height:70px;  top:64%; left:5%;   animation-duration:8s;  animation-delay:-1.5s;"></span>
+    <span class="uzuk" style="width:44px;  height:44px;  top:86%; left:14%;  animation-duration:10s; animation-delay:-5s;"></span>
+    <span class="uzuk" style="width:100px; height:100px; top:12%; right:4%;  animation-duration:8.5s; animation-delay:-2s;"></span>
+    <span class="uzuk" style="width:52px;  height:52px;  top:40%; right:9%;  animation-duration:7.5s; animation-delay:-4s;"></span>
+    <span class="uzuk" style="width:76px;  height:76px;  top:66%; right:5%;  animation-duration:9.5s; animation-delay:-1s;"></span>
+    <span class="uzuk" style="width:40px;  height:40px;  top:88%; right:15%; animation-duration:8s;  animation-delay:-6s;"></span>
+
+    <span class="uchqun" style="top:10%;  left:20%; animation-duration:3.2s;">✦</span>
+    <span class="uchqun" style="top:28%;  left:6%;  animation-duration:4.1s; animation-delay:-1s;">✧</span>
+    <span class="uchqun" style="top:52%;  left:12%; animation-duration:3.6s; animation-delay:-2s;">✦</span>
+    <span class="uchqun" style="top:78%;  left:7%;  animation-duration:4.4s; animation-delay:-.5s;">✧</span>
+    <span class="uchqun" style="top:8%;   right:18%; animation-duration:3.9s; animation-delay:-1.4s;">✧</span>
+    <span class="uchqun" style="top:30%;  right:5%;  animation-duration:3.3s; animation-delay:-2.2s;">✦</span>
+    <span class="uchqun" style="top:56%;  right:12%; animation-duration:4.2s; animation-delay:-.8s;">✦</span>
+    <span class="uchqun" style="top:82%;  right:7%;  animation-duration:3.7s; animation-delay:-1.8s;">✧</span>
+</div>
+
 {% include "taklif/_sayt_nav.html" %}
 {% include "taklif/_sayt_musiqa.html" %}
 
