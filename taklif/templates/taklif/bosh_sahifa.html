@@ -10,38 +10,20 @@
 #uzuklar-fon { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .oq-nav, .oq-hero, .oq-bolim, .oq-footer { position: relative; z-index: 1; }
 
-.uzuk {
-    position: absolute; border-radius: 50%;
-    border: 3px solid rgba(176,140,51,.30);
-    box-shadow: 0 0 18px rgba(201,162,39,.12), inset 0 0 12px rgba(201,162,39,.10);
-    animation: uzuk-suzish ease-in-out infinite alternate;
-}
-/* Uzuk bandi bo'ylab aylanuvchi yaltiroq nur */
-.uzuk::before {
-    content: ""; position: absolute; inset: -3px; border-radius: 50%; padding: 3px;
-    background: conic-gradient(transparent 0deg 320deg, rgba(255,255,255,.95) 345deg, transparent 360deg);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-    animation: uzuk-yaltirash linear infinite;
-}
-/* Uzuk tepasidagi olmos "toshi" */
-.uzuk::after {
-    content: ""; position: absolute; top: -7px; left: 50%; width: 8px; height: 8px;
-    transform: translateX(-50%) rotate(45deg);
-    background: linear-gradient(135deg, #fff, #e8d48a 55%, #c9a227);
-    box-shadow: 0 0 10px rgba(232,212,138,.9);
-    animation: tosh-miltillash 2.6s ease-in-out infinite;
+/* Haqiqiy uzuk suratlari — suzadi, yaltiroq nur bilan nafas oladi */
+.uzuk-rasm {
+    position: absolute; height: auto;
+    animation:
+        uzuk-suzish ease-in-out infinite alternate,
+        uzuk-porlash 4s ease-in-out infinite;
 }
 @keyframes uzuk-suzish {
-    0% { transform: translateY(0) rotate(-4deg); }
-    100% { transform: translateY(-26px) rotate(5deg); }
+    0% { transform: translateY(0) rotate(-5deg); }
+    100% { transform: translateY(-26px) rotate(6deg); }
 }
-@keyframes uzuk-yaltirash { to { transform: rotate(360deg); } }
-@keyframes tosh-miltillash {
-    0%, 100% { opacity: .5; box-shadow: 0 0 4px rgba(232,212,138,.4); }
-    50% { opacity: 1; box-shadow: 0 0 14px rgba(232,212,138,.95); }
+@keyframes uzuk-porlash {
+    0%, 100% { opacity: .75; filter: drop-shadow(0 8px 14px rgba(34,28,20,.14)) drop-shadow(0 0 6px rgba(232,212,138,.15)); }
+    50% { opacity: .95; filter: drop-shadow(0 10px 18px rgba(34,28,20,.16)) drop-shadow(0 0 16px rgba(232,212,138,.55)); }
 }
 
 /* Miltillovchi yulduzchalar */
@@ -101,53 +83,6 @@
 .oq-qadam h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin: 0 0 10px; }
 .oq-qadam p { color: var(--kul); line-height: 1.75; font-size: .95rem; margin: 0; }
 
-/* Dizaynlar galereyasi */
-.turkum-qatori { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
-.turkum-tugma {
-    padding: 10px 22px; border: 1px solid var(--chiziq); background: transparent;
-    color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
-    cursor: pointer; transition: .2s; font-family: inherit; border-radius: 2px;
-}
-.turkum-tugma:hover { color: var(--tilla-toq); border-color: var(--tilla); }
-.turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
-
-.shablonlar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
-.shablon-karta { text-decoration: none; color: var(--siyoh); overflow: hidden; display: block; }
-.shablon-karta img.mini { width: 100%; height: 170px; object-fit: cover; display: block; }
-.shablon-mini {
-    height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 6px; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
-}
-.shablon-mini .katta { font-family: var(--serif); font-size: 1.35rem; letter-spacing: 0; text-transform: none; }
-.mini-registon { background: radial-gradient(circle at 30% 25%, rgba(201,162,39,.3), transparent 50%), #0f2027; color: #c9a227; }
-.mini-sodda { background: #fdfaf4; color: #8a6d3b; border-bottom: 2px solid #e8ddc7; }
-.mini-gulbarg { background: linear-gradient(160deg, #fdf6f0, #f6dfdb); color: #b76e79; }
-.mini-yulduz { background: radial-gradient(ellipse at 50% 30%, #1b2a4a, #0b1026); color: #e6c15c; }
-.mini-atlas {
-    background:
-        linear-gradient(rgba(246,241,231,.88), rgba(246,241,231,.88)),
-        repeating-linear-gradient(90deg, #1f6f8b 0 20px, #d1495b 20px 40px, #c9a227 40px 60px);
-    color: #d1495b;
-}
-.mini-zumrad { background: radial-gradient(ellipse at 50% 35%, #0d3b30, #06231d); color: #d4af37; }
-.mini-marmar { background: radial-gradient(ellipse at 25% 25%, rgba(200,200,205,.5), transparent 50%), #f4f2ee; color: #bfa054; }
-.mini-bolajon { background: linear-gradient(140deg, #fff0d9, #ffe3ec 60%, #dff7ef); color: #ef476f; }
-.mini-suzani { background: radial-gradient(circle at 30% 30%, rgba(179,50,59,.18), transparent 55%), #f8f0e0; color: #a12d33; border-bottom: 2px solid #e8d8ba; }
-.mini-zardoz { background: radial-gradient(circle at 50% 20%, rgba(217,180,91,.25), transparent 60%), #21102e; color: #e9c268; }
-.mini-chinni { background: radial-gradient(circle at 50% 45%, rgba(29,78,137,.12) 0 40%, transparent 41%), #fdfdfa; color: #1d4e89; border-bottom: 2px solid #cfdcec; }
-.mini-qozoq { background: radial-gradient(circle at 50% 35%, rgba(11,134,200,.16), transparent 55%), #eef6fb; color: #0b6aa9; border-bottom: 2px solid #cfe6f5; }
-.mini-qirgiz { background: radial-gradient(circle at 50% 35%, rgba(255,204,0,.3), transparent 55%), #9e111f; color: #ffe9a8; }
-.mini-turkman { background: radial-gradient(circle at 50% 35%, rgba(217,169,96,.28), transparent 55%), #6f1a1d; color: #f0d9a8; }
-.mini-tojik { background: radial-gradient(circle at 30% 25%, rgba(194,43,51,.16), transparent 55%), #fffaf2; color: #c22b33; border-bottom: 2px solid #e8d8ba; }
-.mini-aurora { background: radial-gradient(circle at 20% 20%, rgba(139,92,246,.45), transparent 55%), radial-gradient(circle at 80% 30%, rgba(34,211,238,.4), transparent 55%), radial-gradient(circle at 55% 85%, rgba(244,114,182,.35), transparent 55%), #05060f; color: #f2effc; }
-.mini-kristall { background: radial-gradient(circle at 50% 35%, rgba(255,158,207,.35), transparent 55%), radial-gradient(circle at 30% 65%, rgba(167,139,250,.4), transparent 55%), radial-gradient(circle at 70% 70%, rgba(125,211,252,.35), transparent 55%), #050510; color: #f0ecfd; }
-.mini-zarhal { background: conic-gradient(from 0deg, rgba(212,175,55,.35), transparent 60deg, transparent 300deg, rgba(212,175,55,.35)), #0b0b0d; color: #f3e3b3; }
-.mini-standart { background: linear-gradient(135deg, rgba(201,162,39,.2), rgba(120,100,60,.25)), #f4efe4; color: #8a6a1f; }
-.shablon-karta .matn { padding: 16px 18px; }
-.shablon-karta .nomi { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 3px; }
-.shablon-karta .narx { color: var(--kul); font-size: .85rem; }
-.shablon-karta.yashirin { display: none; }
-
 /* So'nggi taklifnomalar */
 .oq-royxat { list-style: none; padding: 0; margin: 0; }
 .oq-royxat li { border-top: 1px solid var(--chiziq); }
@@ -164,14 +99,14 @@
 
 {% block content %}
 <div id="uzuklar-fon" aria-hidden="true">
-    <span class="uzuk" style="width:90px;  height:90px;  top:16%; left:4%;   animation-duration:7s;"></span>
-    <span class="uzuk" style="width:56px;  height:56px;  top:38%; left:10%;  animation-duration:9s;  animation-delay:-3s;"></span>
-    <span class="uzuk" style="width:70px;  height:70px;  top:64%; left:5%;   animation-duration:8s;  animation-delay:-1.5s;"></span>
-    <span class="uzuk" style="width:44px;  height:44px;  top:86%; left:14%;  animation-duration:10s; animation-delay:-5s;"></span>
-    <span class="uzuk" style="width:100px; height:100px; top:12%; right:4%;  animation-duration:8.5s; animation-delay:-2s;"></span>
-    <span class="uzuk" style="width:52px;  height:52px;  top:40%; right:9%;  animation-duration:7.5s; animation-delay:-4s;"></span>
-    <span class="uzuk" style="width:76px;  height:76px;  top:66%; right:5%;  animation-duration:9.5s; animation-delay:-1s;"></span>
-    <span class="uzuk" style="width:40px;  height:40px;  top:88%; right:15%; animation-duration:8s;  animation-delay:-6s;"></span>
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:150px; top:14%; left:3%;   animation-duration:7s, 4s;">
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:92px; top:40%; left:9%;  animation-duration:9s, 4.6s; animation-delay:-3s, -1s;">
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:150px; top:66%; left:4%;   animation-duration:8s, 5s; animation-delay:-1.5s, -2s;">
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:70px; top:87%; left:14%; animation-duration:10s, 4.2s; animation-delay:-5s, -.6s;">
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:160px; top:11%; right:3%;  animation-duration:8.5s, 4.4s; animation-delay:-2s, -1.4s;">
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:84px; top:38%; right:8%; animation-duration:7.5s, 5.2s; animation-delay:-4s, -2.4s;">
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:120px; top:64%; right:4%;  animation-duration:9.5s, 4.8s; animation-delay:-1s, -.8s;">
+    <img class="uzuk-rasm" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:64px; top:88%; right:15%; animation-duration:8s, 4.1s; animation-delay:-6s, -1.8s;">
 
     <span class="uchqun" style="top:10%;  left:20%; animation-duration:3.2s;">✦</span>
     <span class="uchqun" style="top:28%;  left:6%;  animation-duration:4.1s; animation-delay:-1s;">✧</span>
@@ -253,15 +188,18 @@
             <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
             <button type="button" class="turkum-tugma" data-turkum="bolalar">{% trans "Bolalar" %}</button>
         </div>
-        <div class="shablonlar-grid" id="shablonlar-grid">
+        <div class="dizayn-grid" id="shablonlar-grid">
             {% for s in shablonlar %}
             <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
                 {% if s.rasm %}
                 <img class="mini" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
                 {% else %}
-                <div class="shablon-mini mini-{{ s.kod }} mini-standart-fallback">
-                    <span class="katta">{{ s.nomi }}</span>
-                    <span>{% trans "namuna" %}</span>
+                <div class="shablon-mini mini-{{ s.kod }}">
+                    <span class="m-ramka"></span>
+                    <span class="m-bezak">✦ ❦ ✦</span>
+                    <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
+                    <span class="m-chiziq"></span>
+                    <span class="m-sana">21 · 06 · 2026</span>
                 </div>
                 {% endif %}
                 <div class="matn">

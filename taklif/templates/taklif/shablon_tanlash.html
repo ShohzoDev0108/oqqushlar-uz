@@ -7,51 +7,6 @@
 {% include "taklif/_sayt_uslubi.html" %}
 
 .oq-sahifa-bosh { padding-bottom: 34px; }
-
-.turkum-qatori { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
-.turkum-tugma {
-    padding: 10px 22px; border: 1px solid var(--chiziq); background: transparent;
-    color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
-    cursor: pointer; transition: .2s; font-family: inherit; border-radius: 2px;
-}
-.turkum-tugma:hover { color: var(--tilla-toq); border-color: var(--tilla); }
-.turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 22px; }
-.karta { text-decoration: none; color: var(--siyoh); display: block; overflow: hidden; }
-.karta img.rasm { width: 100%; height: 175px; object-fit: cover; display: block; }
-.shablon-mini {
-    height: 175px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 6px; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
-}
-.shablon-mini .katta { font-family: var(--serif); font-size: 1.4rem; letter-spacing: 0; text-transform: none; }
-.mini-registon { background: radial-gradient(circle at 30% 25%, rgba(201,162,39,.3), transparent 50%), #0f2027; color: #c9a227; }
-.mini-sodda { background: #fdfaf4; color: #8a6d3b; border-bottom: 2px solid #e8ddc7; }
-.mini-gulbarg { background: linear-gradient(160deg, #fdf6f0, #f6dfdb); color: #b76e79; }
-.mini-yulduz { background: radial-gradient(ellipse at 50% 30%, #1b2a4a, #0b1026); color: #e6c15c; }
-.mini-atlas {
-    background:
-        linear-gradient(rgba(246,241,231,.88), rgba(246,241,231,.88)),
-        repeating-linear-gradient(90deg, #1f6f8b 0 20px, #d1495b 20px 40px, #c9a227 40px 60px);
-    color: #d1495b;
-}
-.mini-zumrad { background: radial-gradient(ellipse at 50% 35%, #0d3b30, #06231d); color: #d4af37; }
-.mini-marmar { background: radial-gradient(ellipse at 25% 25%, rgba(200,200,205,.5), transparent 50%), #f4f2ee; color: #bfa054; }
-.mini-bolajon { background: linear-gradient(140deg, #fff0d9, #ffe3ec 60%, #dff7ef); color: #ef476f; }
-.mini-suzani { background: radial-gradient(circle at 30% 30%, rgba(179,50,59,.18), transparent 55%), #f8f0e0; color: #a12d33; border-bottom: 2px solid #e8d8ba; }
-.mini-zardoz { background: radial-gradient(circle at 50% 20%, rgba(217,180,91,.25), transparent 60%), #21102e; color: #e9c268; }
-.mini-chinni { background: radial-gradient(circle at 50% 45%, rgba(29,78,137,.12) 0 40%, transparent 41%), #fdfdfa; color: #1d4e89; border-bottom: 2px solid #cfdcec; }
-.mini-qozoq { background: radial-gradient(circle at 50% 35%, rgba(11,134,200,.16), transparent 55%), #eef6fb; color: #0b6aa9; border-bottom: 2px solid #cfe6f5; }
-.mini-qirgiz { background: radial-gradient(circle at 50% 35%, rgba(255,204,0,.3), transparent 55%), #9e111f; color: #ffe9a8; }
-.mini-turkman { background: radial-gradient(circle at 50% 35%, rgba(217,169,96,.28), transparent 55%), #6f1a1d; color: #f0d9a8; }
-.mini-tojik { background: radial-gradient(circle at 30% 25%, rgba(194,43,51,.16), transparent 55%), #fffaf2; color: #c22b33; border-bottom: 2px solid #e8d8ba; }
-.mini-aurora { background: radial-gradient(circle at 20% 20%, rgba(139,92,246,.45), transparent 55%), radial-gradient(circle at 80% 30%, rgba(34,211,238,.4), transparent 55%), radial-gradient(circle at 55% 85%, rgba(244,114,182,.35), transparent 55%), #05060f; color: #f2effc; }
-.mini-kristall { background: radial-gradient(circle at 50% 35%, rgba(255,158,207,.35), transparent 55%), radial-gradient(circle at 30% 65%, rgba(167,139,250,.4), transparent 55%), radial-gradient(circle at 70% 70%, rgba(125,211,252,.35), transparent 55%), #050510; color: #f0ecfd; }
-.mini-zarhal { background: conic-gradient(from 0deg, rgba(212,175,55,.35), transparent 60deg, transparent 300deg, rgba(212,175,55,.35)), #0b0b0d; color: #f3e3b3; }
-.karta .matn { padding: 16px 18px; }
-.karta .nomi { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 3px; }
-.karta .narx { color: var(--kul); font-size: .85rem; }
-.karta.yashirin { display: none; }
 .bosh { color: var(--kul); margin-top: 30px; }
 {% endblock %}
 
@@ -79,15 +34,18 @@
     <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
     <button type="button" class="turkum-tugma" data-turkum="bolalar">{% trans "Bolalar" %}</button>
 </div>
-<div class="grid" id="shablonlar-grid">
+<div class="dizayn-grid" id="shablonlar-grid">
     {% for s in shablonlar %}
-    <a class="karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
+    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
         {% if s.rasm %}
-            <img class="rasm" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
+            <img class="mini" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
         {% else %}
             <div class="shablon-mini mini-{{ s.kod }}">
-                <span class="katta">{{ s.nomi }}</span>
-                <span>{% trans "namuna" %}</span>
+                <span class="m-ramka"></span>
+                <span class="m-bezak">✦ ❦ ✦</span>
+                <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
+                <span class="m-chiziq"></span>
+                <span class="m-sana">21 · 06 · 2026</span>
             </div>
         {% endif %}
         <div class="matn">
@@ -109,7 +67,7 @@
     var turkumQatori = document.getElementById('turkum-qatori');
     var grid = document.getElementById('shablonlar-grid');
     if (!turkumQatori || !grid) { return; }
-    var kartalar = grid.querySelectorAll('.karta');
+    var kartalar = grid.querySelectorAll('.shablon-karta');
     turkumQatori.addEventListener('click', function (e) {
         var tugma = e.target.closest('.turkum-tugma');
         if (!tugma) { return; }
