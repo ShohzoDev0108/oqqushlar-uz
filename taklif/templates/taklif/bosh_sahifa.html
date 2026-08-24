@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}Oqqushlar — {% trans "chiroyli raqamli taklifnomalar" %}{% endblock %}
 
@@ -22,21 +22,24 @@
 .oq-hero-tugmalar { display: flex; gap: 14px; flex-wrap: wrap; }
 .oq-hero .ajratish { height: 1px; background: var(--chiziq); max-width: 90px; margin: 30px 0 26px; }
 
-/* Oqqushlar sahnasi */
+/* Oqqushlar surati — oq ramka ichida, ostida oltin chiziqli panel */
 .oq-hero-rasm {
     position: relative; border: 1px solid var(--chiziq); border-radius: 4px;
-    background:
-        radial-gradient(circle at 30% 25%, rgba(176,140,51,.10), transparent 55%),
-        radial-gradient(circle at 75% 80%, rgba(201,162,39,.12), transparent 50%),
-        linear-gradient(170deg, #fffdf8, #f7f1e4);
-    overflow: hidden;
+    background: var(--toza); padding: 14px; box-shadow: 0 24px 60px rgba(34,28,20,.10);
 }
-.oq-hero-rasm svg { display: block; width: 100%; height: auto; }
+.oq-hero-rasm img {
+    display: block; width: 100%; height: auto; border-radius: 2px;
+}
 .oq-hero-rasm .burchak {
-    position: absolute; width: 54px; height: 54px; border-color: var(--tilla); opacity: .55;
+    position: absolute; width: 54px; height: 54px; border-color: var(--tilla); opacity: .8; z-index: 2;
 }
-.oq-hero-rasm .b1 { top: 12px; left: 12px; border-top: 1px solid; border-left: 1px solid; }
-.oq-hero-rasm .b2 { bottom: 12px; right: 12px; border-bottom: 1px solid; border-right: 1px solid; }
+.oq-hero-rasm .b1 { top: -8px; left: -8px; border-top: 1px solid; border-left: 1px solid; }
+.oq-hero-rasm .b2 { bottom: -8px; right: -8px; border-bottom: 1px solid; border-right: 1px solid; }
+.oq-hero-rasm .rasm-osti {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    padding: 12px 4px 0; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--kul);
+}
+.oq-hero-rasm .rasm-osti .chiziqcha { flex: 1; height: 1px; background: var(--chiziq); }
 
 /* --- Bo'limlar --- */
 .oq-bolim { padding: 70px 0 10px; }
@@ -135,41 +138,12 @@
         </div>
         <div class="oq-hero-rasm">
             <span class="burchak b1"></span><span class="burchak b2"></span>
-            <svg viewBox="0 0 560 430" aria-hidden="true">
-                <!-- Yumshoq halqa -->
-                <circle cx="280" cy="205" r="150" fill="none" stroke="#e9e1d1" stroke-width="1.2"/>
-                <circle cx="280" cy="205" r="172" fill="none" stroke="#e9e1d1" stroke-width=".8" opacity=".6"/>
-                <!-- Chap oqqush -->
-                <g stroke="#b08c33" stroke-width="3" fill="none" stroke-linecap="round">
-                    <path d="M196 318 C 180 258, 220 232, 236 192 C 247 163, 274 161, 279 182 C 282 196, 271 203, 262 199"/>
-                    <path d="M128 316 C 152 352, 236 354, 262 320"/>
-                    <path d="M150 322 C 168 338, 218 340, 240 326" stroke-width="1.6" opacity=".65"/>
-                </g>
-                <!-- O'ng oqqush (ko'zgudagi aksi) -->
-                <g stroke="#b08c33" stroke-width="3" fill="none" stroke-linecap="round" transform="translate(560,0) scale(-1,1)">
-                    <path d="M196 318 C 180 258, 220 232, 236 192 C 247 163, 274 161, 279 182 C 282 196, 271 203, 262 199"/>
-                    <path d="M128 316 C 152 352, 236 354, 262 320"/>
-                    <path d="M150 322 C 168 338, 218 340, 240 326" stroke-width="1.6" opacity=".65"/>
-                </g>
-                <!-- Tumshuqlar -->
-                <path d="M279 182 L 295 189 L 280 194 Z" fill="#8a6a1f"/>
-                <path d="M281 182 L 265 189 L 280 194 Z" fill="#8a6a1f" transform="translate(560,0) scale(-1,1)"/>
-                <!-- Yurakcha -->
-                <path d="M280 142 c -5 -9 -18 -7 -18 3 c 0 8 10 13 18 20 c 8 -7 18 -12 18 -20 c 0 -10 -13 -12 -18 -3 Z"
-                      fill="none" stroke="#c9a227" stroke-width="2"/>
-                <!-- Suv to'lqinlari -->
-                <g stroke="#d9cdb4" stroke-width="1.6" fill="none" stroke-linecap="round">
-                    <path d="M150 372 C 200 382, 360 382, 410 372"/>
-                    <path d="M190 390 C 240 398, 320 398, 370 390" opacity=".7"/>
-                </g>
-                <!-- Yulduzchalar -->
-                <g fill="#c9a227">
-                    <path d="M120 120 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 Z" opacity=".8"/>
-                    <path d="M440 150 l2.5 7 7 2.5 -7 2.5 -2.5 7 -2.5 -7 -7 -2.5 7 -2.5 Z" opacity=".6"/>
-                    <circle cx="410" cy="95" r="2.5" opacity=".55"/>
-                    <circle cx="155" cy="80" r="2" opacity=".5"/>
-                </g>
-            </svg>
+            <img src="{% static 'taklif/oqqushlar-yurak.jpg' %}" alt="Oqqushlar" fetchpriority="high">
+            <div class="rasm-osti">
+                <span class="chiziqcha"></span>
+                <span>Oqqushlar</span>
+                <span class="chiziqcha"></span>
+            </div>
         </div>
     </div>
 </header>
