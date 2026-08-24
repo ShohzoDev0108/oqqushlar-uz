@@ -3,6 +3,7 @@
 Barcha sayt sahifalari uchun yagona yuqori navigatsiya: oqqush belgili logotip,
 bo'lim havolalari, til tanlash va "Taklifnoma yaratish" chaqiriq tugmasi.
 {% endcomment %}
+<div class="oq-nav-tashqi">
 <div class="oq-ichki">
     <nav class="oq-nav">
         <a class="oq-logo" href="{% url 'taklif:bosh_sahifa' %}">
@@ -18,6 +19,7 @@ bo'lim havolalari, til tanlash va "Taklifnoma yaratish" chaqiriq tugmasi.
             <a class="oq-cta kichik" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
         </div>
     </nav>
+</div>
 </div>
 {% if mobil_cta %}
 <a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">✨ {% trans "Taklifnoma yaratish" %}</a>

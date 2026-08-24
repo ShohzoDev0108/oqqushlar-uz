@@ -23,10 +23,16 @@ body { background: var(--oq); color: var(--siyoh); font-family: var(--sans); ove
 .wrapper { max-width: none; padding: 0; }
 .oq-ichki { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
 
-/* --- Yuqori navigatsiya --- */
+/* --- Yuqori navigatsiya (yopishqoq — skrollda ham til tanlash ko'rinib turadi) --- */
+.oq-nav-tashqi {
+    position: sticky; top: 0; z-index: 70;
+    background: rgba(251,249,244,.92);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--chiziq);
+}
 .oq-nav {
     display: flex; align-items: center; justify-content: space-between; gap: 16px 24px;
-    padding: 20px 0; border-bottom: 1px solid var(--chiziq); flex-wrap: wrap;
+    padding: 20px 0; flex-wrap: wrap;
 }
 .oq-logo {
     font-family: var(--serif); font-size: 1.55rem; color: var(--siyoh);
