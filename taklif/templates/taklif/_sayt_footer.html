@@ -1,7 +1,10 @@
-{% load i18n %}
+{% load i18n static %}
 <footer class="oq-footer">
     <div class="oq-ichki oq-footer-ich">
-        <a class="oq-logo" href="{% url 'taklif:bosh_sahifa' %}">Oqqushlar</a>
+        <a class="oq-logo" href="{% url 'taklif:bosh_sahifa' %}">
+            <img src="{% static 'taklif/logo-belgi.png' %}" alt="Oqqushlar" width="30" height="30">
+            Oqqushlar
+        </a>
         <div class="oq-footer-linklar">
             <a href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
             <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
