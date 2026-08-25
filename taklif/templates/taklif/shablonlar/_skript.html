@@ -211,7 +211,7 @@
         for (var bj = 0; bj < boshJoy; bj++) { ichki += '<span class="k-kun"></span>'; }
         for (var kk = 1; kk <= oyKunlari; kk++) {
             var tanlangan = kk === kSana.getDate();
-            ichki += '<span class="k-kun' + (tanlangan ? ' k-tanlangan' : '') + '">' + kk + (tanlangan ? '<i>♥</i>' : '') + '</span>';
+            ichki += '<span class="k-kun' + (tanlangan ? ' k-tanlangan' : '') + '">' + (tanlangan ? '<span>' + kk + '</span>' : kk) + '</span>';
         }
         kalendar.innerHTML = ichki;
     }
