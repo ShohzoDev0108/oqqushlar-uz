@@ -52,6 +52,27 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 .ulashish-tugmalar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .ulashish-tugma { display: inline-block; padding: 11px 22px; border-radius: 24px; border: 1px solid var(--asos); color: var(--asos); background: var(--karta-fon); text-decoration: none; font-size: .9rem; cursor: pointer; font-family: inherit; }
 .ulashish-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+
+/* Katta fotolavha — mijoz eng ko'pi bilan 2 ta rasm yuklaydi; ular kartadan
+   tashqariga chiqib (full-bleed), ekranni kenglik bo'yicha to'ldirib
+   ko'rsatiladi. 1 ta bo'lsa — to'liq kenglikda, 2 ta bo'lsa — yonma-yon. */
+.galereya-katta { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); display: flex; gap: 3px; }
+.galereya-katta .g-rasm { flex: 1 1 0; overflow: hidden; }
+.galereya-katta .g-rasm img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.galereya-katta.g-bitta .g-rasm { height: 62vh; min-height: 320px; max-height: 620px; }
+.galereya-katta.g-ikkita .g-rasm { height: 52vh; min-height: 260px; max-height: 500px; }
+@media (min-width: 640px) {
+    .galereya-katta.g-bitta .g-rasm { height: 70vh; max-height: 680px; }
+    .galereya-katta.g-ikkita .g-rasm { height: 58vh; max-height: 560px; }
+}
+
+/* Tadbir tafsilotlari — ilgarigi ingichka ro'yxat o'rniga, alohida
+   kartalar to'ri: ko'zga ko'proq tashlanadi va sahifaga ko'proq hajm beradi. */
+.tafsilot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 12px; }
+.tafsilot-karta { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 22px 14px; text-align: center; }
+.tafsilot-karta .belgi { font-size: 1.7rem; margin-bottom: 10px; }
+.tafsilot-karta .label { display: block; color: var(--ikkinchi); font-size: .72rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.tafsilot-karta .qiymat { font-size: 1rem; line-height: 1.4; }
 </style>
 
 <div class="bolim" data-anim>
@@ -83,37 +104,60 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 {% if rasmlar %}
 <div class="bolim" data-anim>
     <h2>{% trans "Fotolavha" %}</h2>
-    <div class="galereya">
+    {% if rasmlar|length == 1 %}
+    <div class="galereya-katta g-bitta">
         {% for r in rasmlar %}
-        <img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}">
+        <div class="g-rasm"><img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy"></div>
         {% endfor %}
     </div>
+    {% elif rasmlar|length == 2 %}
+    <div class="galereya-katta g-ikkita">
+        {% for r in rasmlar %}
+        <div class="g-rasm"><img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy"></div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="galereya">
+        {% for r in rasmlar %}
+        <img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy">
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endif %}
 
 <div class="bolim" data-anim>
     <h2>{% trans "Tadbir tafsilotlari" %}</h2>
-    <div class="blok">
-        <div class="tafsilot-row">
+    <div class="tafsilot-grid">
+        <div class="tafsilot-karta">
             <div class="belgi">📅</div>
-            <div class="qiymat"><span class="label">{% trans "Sana va vaqt" %}</span>{{ taklifnoma.sana|date:"d.m.Y, H:i" }}</div>
+            <span class="label">{% trans "Sana" %}</span>
+            <div class="qiymat">{{ taklifnoma.sana|date:"d-F, Y" }}</div>
+        </div>
+        <div class="tafsilot-karta">
+            <div class="belgi">🕐</div>
+            <span class="label">{% trans "Vaqt" %}</span>
+            <div class="qiymat">{{ taklifnoma.sana|date:"H:i" }}</div>
         </div>
         {% if taklifnoma.toyxona %}
-        <div class="tafsilot-row">
+        <div class="tafsilot-karta">
             <div class="belgi">🏛</div>
-            <div class="qiymat"><span class="label">{% trans "To'yxona" %}</span>{{ taklifnoma.toyxona }}</div>
+            <span class="label">{% trans "To'yxona" %}</span>
+            <div class="qiymat">{{ taklifnoma.toyxona }}</div>
         </div>
         {% endif %}
         {% if taklifnoma.manzil %}
-        <div class="tafsilot-row">
+        <div class="tafsilot-karta">
             <div class="belgi">📍</div>
-            <div class="qiymat"><span class="label">{% trans "Manzil" %}</span>{{ taklifnoma.manzil }}</div>
+            <span class="label">{% trans "Manzil" %}</span>
+            <div class="qiymat">{{ taklifnoma.manzil }}</div>
         </div>
         {% endif %}
         {% if taklifnoma.kiyim_kodi %}
-        <div class="tafsilot-row">
+        <div class="tafsilot-karta">
             <div class="belgi">👔</div>
-            <div class="qiymat"><span class="label">{% trans "Kiyinish kodi" %}</span>{{ taklifnoma.kiyim_kodi }}</div>
+            <span class="label">{% trans "Kiyinish kodi" %}</span>
+            <div class="qiymat">{{ taklifnoma.kiyim_kodi }}</div>
         </div>
         {% endif %}
     </div>

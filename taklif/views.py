@@ -82,9 +82,12 @@ def _bosh_slug_top(asosiy, sana=None, marosim_turi="", toyxona="", chetlanganlar
 DEFAULT_SHABLON_KOD = "suzani"
 
 # Fotolavha uchun mijoz yuklashi mumkin bo'lgan eng ko'p rasmlar soni.
+# Ataylab 2 tagacha cheklangan — sahifada katta, ekranni to'ldiradigan
+# formatda (1 ta bo'lsa — to'liq kenglikda, 2 ta bo'lsa — yonma-yon)
+# ko'rsatiladi, shuning uchun ko'proq rasm bu ko'rinishga sig'may qoladi.
 # Frontendda ham JS orqali tekshiriladi, lekin asosiy himoya shu yerda —
 # JS o'chirilgan yoki chetlab o'tilgan taqdirda ham server ortiqchasini kesib tashlaydi.
-MAKSIMAL_RASMLAR_SONI = 4
+MAKSIMAL_RASMLAR_SONI = 2
 
 # Mijoz o'zi yaratgan taklifnomalar ro'yxati sessiyada shu kalit ostida saqlanadi
 # (login talab qilinmaydi — "Mening taklifnomalarim" bo'limi shu orqali ishlaydi).
