@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 09:21+0000\n"
+"POT-Creation-Date: 2026-08-25 09:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,23 +139,23 @@ msgid "Boshqa"
 msgstr "Башка"
 
 #: taklif/models.py:35 taklif/templates/taklif/bosh_sahifa.html:199
-#: taklif/templates/taklif/shablon_tanlash.html:33
+#: taklif/templates/taklif/shablon_tanlash.html:44
 msgid "Zamonaviy"
 msgstr "Заманбап"
 
 #: taklif/models.py:36 taklif/templates/taklif/bosh_sahifa.html:200
-#: taklif/templates/taklif/shablon_tanlash.html:34
+#: taklif/templates/taklif/shablon_tanlash.html:45
 msgid "Milliy"
 msgstr "Улуттук"
 
 #: taklif/models.py:37 taklif/templates/taklif/bosh_sahifa.html:201
-#: taklif/templates/taklif/shablon_tanlash.html:35
+#: taklif/templates/taklif/shablon_tanlash.html:46
 msgid "Bolalar"
 msgstr "Балдар"
 
 #: taklif/templates/taklif/_sayt_footer.html:9
 #: taklif/templates/taklif/_sayt_nav.html:14
-#: taklif/templates/taklif/shablon_tanlash.html:21
+#: taklif/templates/taklif/shablon_tanlash.html:32
 #: taklif/templates/taklif/yaratish.html:43
 msgid "Dizaynlar"
 msgstr "Дизайндар"
@@ -282,12 +282,12 @@ msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Тандаңыз да, ошол замат өзүңүздүкүн түзүп көрүңүз"
 
 #: taklif/templates/taklif/bosh_sahifa.html:198
-#: taklif/templates/taklif/shablon_tanlash.html:32
+#: taklif/templates/taklif/shablon_tanlash.html:43
 msgid "Barchasi"
 msgstr "Баары"
 
 #: taklif/templates/taklif/bosh_sahifa.html:219
-#: taklif/templates/taklif/shablon_tanlash.html:53
+#: taklif/templates/taklif/shablon_tanlash.html:68
 msgid "so'm"
 msgstr "сум"
 
@@ -304,7 +304,7 @@ msgid "Hali faollashtirilgan taklifnoma yo'q — birinchi bo'lib siz yarating!"
 msgstr "Азырынча активдештирилген чакыруу жок — биринчи болуп сиз түзүңүз!"
 
 #: taklif/templates/taklif/mening_taklifnomalarim.html:29
-#: taklif/templates/taklif/shablon_tanlash.html:19
+#: taklif/templates/taklif/shablon_tanlash.html:30
 #: taklif/templates/taklif/yaratish.html:41
 msgid "Bosh sahifa"
 msgstr "Башкы бет"
@@ -356,18 +356,22 @@ msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "%(nomi)s менен байланышкан барак эми активдүү эмес."
 
 #: taklif/templates/taklif/shablon_tanlash.html:4
-#: taklif/templates/taklif/shablon_tanlash.html:23
+#: taklif/templates/taklif/shablon_tanlash.html:34
 msgid "Shablon tanlang"
 msgstr "Шаблон тандаңыз"
 
-#: taklif/templates/taklif/shablon_tanlash.html:25
+#: taklif/templates/taklif/shablon_tanlash.html:36
 msgid ""
 "Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni "
 "to'ldirasiz."
 msgstr ""
 "Жаккан дизайнды тандаңыз — кийинки кадамда өз маалыматыңызды толтурасыз."
 
-#: taklif/templates/taklif/shablon_tanlash.html:59
+#: taklif/templates/taklif/shablon_tanlash.html:52
+msgid "Namuna"
+msgstr "Үлгү"
+
+#: taklif/templates/taklif/shablon_tanlash.html:75
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "Азырынча шаблон жок. Админ панелинде кошуңуз."
 
@@ -678,11 +682,11 @@ msgid ""
 "tanlang."
 msgstr "Эң көбү %(soni)s сүрөт тандай аласыз. Кайра тандаңыз."
 
-#: taklif/views.py:337
+#: taklif/views.py:348
 msgid "Javobingiz uchun rahmat!"
 msgstr "Жообуңуз үчүн рахмат!"
 
-#: taklif/views.py:339
+#: taklif/views.py:350
 msgid "Iltimos, ismingizni kiriting."
 msgstr "Атыңызды киргизиңиз."
 

@@ -122,7 +122,11 @@ def _sayt_musiqasi():
 def bosh_sahifa(request):
     """Platformaning asosiy landing sahifasi — wedding vibe, shablonlar galereyasi,
     faollashtirilgan taklifnomalar va taklifnoma yaratishga chorlovchi CTA."""
-    taklifnomalar = Taklifnoma.objects.filter(faol=True, tolangan=True)[:8]
+    # namuna=True bo'lganlar — haqiqiy mijoz emas, faqat shablon tanlashdagi
+    # "Namuna ko'rish" tugmasi uchun ko'rgazma, shuning uchun bu yerga chiqmaydi.
+    taklifnomalar = Taklifnoma.objects.filter(
+        faol=True, tolangan=True, namuna=False
+    )[:8]
     shablonlar = Shablon.objects.filter(ommaviy=True)
     return render(
         request,
@@ -137,7 +141,14 @@ def bosh_sahifa(request):
 
 def shablon_tanlash(request):
     """Mijoz o'zi taklifnoma yaratishni shu yerdan — shablon tanlashdan boshlaydi."""
-    shablonlar = Shablon.objects.filter(ommaviy=True)
+    shablonlar = list(Shablon.objects.filter(ommaviy=True))
+    namuna_sluglari = dict(
+        Taklifnoma.objects.filter(
+            namuna=True, shablon_id__in=[s.pk for s in shablonlar]
+        ).values_list("shablon_id", "slug")
+    )
+    for s in shablonlar:
+        s.namuna_slug = namuna_sluglari.get(s.pk)
     return render(
         request,
         "taklif/shablon_tanlash.html",

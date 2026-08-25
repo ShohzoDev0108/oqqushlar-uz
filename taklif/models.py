@@ -155,6 +155,15 @@ class Taklifnoma(models.Model):
         default=True,
         help_text="Self-service oqimi uchun: mijoz to'laguncha False bo'ladi",
     )
+    namuna = models.BooleanField(
+        default=False,
+        help_text=(
+            "Bu — mijozlar ma'lumoti emas, sayt uchun ko'rgazma taklifnoma. "
+            "Shablon tanlash sahifasidagi 'Namuna ko'rish' tugmasi shu "
+            "taklifnomaga olib boradi va bosh sahifadagi haqiqiy mijozlar "
+            "ro'yxatida ko'rinmaydi."
+        ),
+    )
     yaratilgan = models.DateTimeField(auto_now_add=True)
 
     class Meta:

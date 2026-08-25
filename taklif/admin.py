@@ -53,12 +53,13 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         "shablon",
         "faol",
         "tolangan",
+        "namuna",
         "yoqdi_bosildi",
         "korishlar",
         "keladiganlar_soni",
         "statistika_link",
     )
-    list_filter = ("faol", "tolangan", "marosim_turi", "yoqdi_bosildi", "shablon")
+    list_filter = ("faol", "tolangan", "namuna", "marosim_turi", "yoqdi_bosildi", "shablon")
     search_fields = ("ism_1", "ism_2", "slug")
     prepopulated_fields = {"slug": ("ism_1", "ism_2")}
     readonly_fields = (
@@ -77,7 +78,7 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         }),
         ("Holat", {
             "fields": (
-                "faol", "tolangan", "yoqdi_bosildi", "korishlar",
+                "faol", "tolangan", "namuna", "yoqdi_bosildi", "korishlar",
                 "statistika_token", "statistika_link", "yaratilgan",
             )
         }),
