@@ -1,3 +1,4 @@
+import secrets
 from urllib.parse import quote
 
 from django.conf import settings
@@ -7,10 +8,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import get_language, gettext as _
 from django.views.decorators.http import require_POST
 
-from .forms import TaklifnomaYaratishForm
+from .forms import REZERV_SLUGLAR, TaklifnomaYaratishForm
 from .models import (
     IKKI_ISMLI_MAROSIM_TURLARI,
     RSVP,
@@ -20,6 +22,59 @@ from .models import (
     Taklifnoma,
     TaklifnomaRasm,
 )
+
+# Havola (slug) mijozdan hech qachon so'ralmaydi — ko'pchilik mijoz "manzil"
+# yoki "link" degan texnik tushunchani tushunmaydi. Agar ism_1+ism_2 asosidagi
+# toza havola band bo'lib chiqsa (masalan boshqa mijozda tasodifan bir xil
+# ism bo'lsa), buni mijozga bildirmasdan — orqa fondan, xunuk "-2"/"-3" kabi
+# raqam qo'shmasdan, mazmunli so'z bilan ajratamiz.
+DISAMBIGUATSIYA_SOZLARI = [
+    "baxtli", "muhabbat", "quvonch", "umrbod", "sadoqat",
+    "porloq", "bahor", "sevimli", "shodlik", "najot",
+]
+
+
+def _asosiy_slug(ism_1, ism_2):
+    """Mijoz ismlaridan toza havola (slug) yasaydi — mijoz buni ko'rmaydi/tahrirlamaydi."""
+    manba = f"{ism_1}-{ism_2}" if ism_2 else ism_1
+    return slugify(manba) or "taklifnoma"
+
+
+def _band_emasligini_tekshir(slug, chetlanganlar):
+    return (
+        slug not in chetlanganlar
+        and slug not in REZERV_SLUGLAR
+        and not Taklifnoma.objects.filter(slug=slug).exists()
+    )
+
+
+def _bosh_slug_top(asosiy, sana=None, marosim_turi="", toyxona="", chetlanganlar=()):
+    """Asosiy nom band bo'lib chiqsa, mijozga bildirmasdan — orqa fondan
+    mazmunli (sana, to'yxona, marosim turi yoki chiroyli so'z bilan)
+    band bo'lmagan havola topadi. Hech qachon xunuk "-2", "-3" qo'shilmaydi."""
+    chetlanganlar = set(chetlanganlar)
+
+    if _band_emasligini_tekshir(asosiy, chetlanganlar):
+        return asosiy
+
+    nomzodlar = []
+    if sana:
+        nomzodlar.append(f"{asosiy}-{sana.day:02d}-{sana.month:02d}")
+    if toyxona:
+        toyxona_slug = slugify(toyxona)
+        if toyxona_slug:
+            nomzodlar.append(f"{asosiy}-{toyxona_slug}")
+    if marosim_turi:
+        nomzodlar.append(f"{asosiy}-{marosim_turi.replace('_', '-')}")
+    for soz in DISAMBIGUATSIYA_SOZLARI:
+        nomzodlar.append(f"{asosiy}-{soz}")
+
+    for nomzod in nomzodlar:
+        if _band_emasligini_tekshir(nomzod, chetlanganlar):
+            return nomzod
+
+    # Amalda deyarli imkonsiz holat uchun oxirgi chora
+    return f"{asosiy}-{secrets.token_hex(3)}"
 
 DEFAULT_SHABLON_KOD = "sodda"
 
@@ -85,48 +140,58 @@ def shablon_tanlash(request):
 
 
 def yaratish(request, shablon_kod):
-    """Mijoz tanlagan shablon bo'yicha o'z taklifnomasini to'ldiradi (self-service)."""
+    """Mijoz tanlagan shablon bo'yicha o'z taklifnomasini to'ldiradi (self-service).
+
+    Havola (slug) mijozdan hech qachon so'ralmaydi — ism_1/ism_2'dan avtomatik
+    yasaladi. Agar mijoz shu brauzerda avval xuddi shu ismlar bilan taklifnoma
+    yaratgan bo'lsa — "eski_taklifnoma" shu yerga qo'yiladi, shablon esa
+    mijozdan oddiy tilda ("link"/"manzil" so'zisiz) nima qilishni so'raydi.
+    """
     shablon = get_object_or_404(Shablon, kod=shablon_kod, ommaviy=True)
-    # Agar mijoz shu brauzerda avval xuddi shu manzil (slug) bilan taklifnoma
-    # yaratgan bo'lsa va hozir ham o'sha nom bilan urinayotgan bo'lsa — bu yerga
-    # o'sha eski (ehtimol yoqmagan) yozuv qo'yiladi, shablon esa mijozdan
-    # "eskisini almashtiraymi?" deb so'raydi (raqam qo'shib "-2", "-3" qilish
-    # o'rniga — bu link uchun xunuk ko'rinadi).
     eski_taklifnoma = None
 
     if request.method == "POST":
         form = TaklifnomaYaratishForm(request.POST, request.FILES)
         if form.is_valid():
-            slug = form.cleaned_data["slug"]
-            mavjud = Taklifnoma.objects.filter(slug=slug).first()
+            ism_1 = form.cleaned_data["ism_1"]
+            ism_2 = form.cleaned_data.get("ism_2") or ""
+            sana = form.cleaned_data.get("sana")
+            toyxona = form.cleaned_data.get("toyxona") or ""
+            marosim_turi = form.cleaned_data.get("marosim_turi") or ""
+
+            asosiy = _asosiy_slug(ism_1, ism_2)
+            mavjud = Taklifnoma.objects.filter(slug=asosiy).first()
+            slug = asosiy
+            yaratish_kerak = True
 
             if mavjud is not None:
                 oldingi_sluglar = request.session.get(SESSIYA_KALITI, [])
-                ozimniki = slug in oldingi_sluglar
+                ozimniki = asosiy in oldingi_sluglar
+                harakat = request.POST.get("eski_taklifnoma_harakati")
 
-                if ozimniki and request.POST.get("eskisini_almashtirish") == "1":
+                if ozimniki and harakat == "yangilash":
                     # Mijoz tasdiqladi: eski (yoqmagan) taklifnoma o'chirilib,
-                    # xuddi shu toza manzilga yangisi yaratiladi.
+                    # xuddi shu toza havolaga yangisi yaratiladi.
                     mavjud.delete()
-                    mavjud = None
+                elif ozimniki and harakat == "alohida":
+                    # Mijoz ikkalasini ham saqlab qolmoqchi — mijozga hech
+                    # narsa bildirmasdan, orqa fondan mazmunli havola topamiz.
+                    slug = _bosh_slug_top(asosiy, sana, marosim_turi, toyxona)
                 elif ozimniki:
-                    # Mijozning o'zi avval shu nom bilan yaratgan — xato
-                    # ko'rsatmaymiz, almashtirishni taklif qilamiz.
+                    # Mijozning o'zi avval shu ismlar bilan yaratgan — xato
+                    # ko'rsatmaymiz, oddiy tilda so'raymiz: yangilaymizmi yoki
+                    # alohida saqlaymizmi?
                     eski_taklifnoma = mavjud
+                    yaratish_kerak = False
                 else:
-                    # Bu haqiqatan ham boshqa mijoz tomonidan band qilingan
-                    # manzil — mijozning o'ziga biroz boshqacha nom tanlashni
-                    # so'raymiz (avtomatik raqam qo'shish o'rniga).
-                    form.add_error(
-                        "slug",
-                        _(
-                            "Bu manzil band. Iltimos, biroz boshqacha nom tanlang "
-                            "(masalan to'yxona yoki tuman nomini qo'shing)."
-                        ),
-                    )
+                    # Bu boshqa mijozda tasodifan bir xil ism chiqib qoldi —
+                    # mijozga bu haqda umuman bildirmaymiz, shunchaki orqa
+                    # fondan mazmunli (raqamsiz) havola topib beramiz.
+                    slug = _bosh_slug_top(asosiy, sana, marosim_turi, toyxona)
 
-            if mavjud is None and not form.errors:
+            if yaratish_kerak:
                 taklifnoma = form.save(commit=False)
+                taklifnoma.slug = slug
                 taklifnoma.shablon = shablon
                 # Self-service oqimi: mijoz o'zi yaratganda hali to'lov qilinmagan bo'ladi.
                 # Link mijozning o'zi uchun darhol ishlaydi ("lokal"), lekin admin

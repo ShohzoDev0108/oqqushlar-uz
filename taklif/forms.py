@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from .models import IKKI_ISMLI_MAROSIM_TURLARI, MAROSIM_TURLARI, MusiqaVariant, Taklifnoma
@@ -18,21 +17,14 @@ REZERV_SLUGLAR = {
 
 
 class TaklifnomaYaratishForm(forms.ModelForm):
-    """Mijoz o'zi to'ldiradigan taklifnoma yaratish formasi (self-service)."""
+    """Mijoz o'zi to'ldiradigan taklifnoma yaratish formasi (self-service).
 
-    # Model'dagi standart SlugField o'rniga oddiy CharField ishlatamiz —
-    # shunda mijoz "sayt.uz/nom/" yoki bo'sh joy kabi narsa yozib yuborsa ham,
-    # tushunarsiz xato chiqarish o'rniga o'zimiz avtomatik to'g'rilab olamiz
-    # (pastdagi clean_slug'ga qarang).
-    slug = forms.CharField(
-        label=_("Taklifnoma manzili (link)"),
-        max_length=50,
-        help_text=_(
-            "Faqat qisqa nom yozing, masalan: ollomurod-kamola — "
-            "\"sayt.uz\" yoki \"/\" belgisini yozmang, buni tizim o'zi qo'shadi."
-        ),
-        widget=forms.TextInput(attrs={"placeholder": "ollomurod-kamola"}),
-    )
+    E'tibor bering: "manzil (link)" mijozdan SO'RALMAYDI — ko'pchilik mijoz
+    bu texnik tushunchani tushunmaydi. Havola ism_1/ism_2'dan avtomatik,
+    orqa fonda (views.py'dagi yaratish() funksiyasida) yasaladi; mijoz uni
+    faqat tayyor bo'lgach, natija sifatida ko'radi.
+    """
+
     marosim_turi = forms.ChoiceField(
         label=_("Marosim turi"),
         choices=MAROSIM_TURLARI,
@@ -51,7 +43,6 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "marosim_turi",
             "ism_1",
             "ism_2",
-            "slug",
             "sana",
             "toyxona",
             "manzil",
@@ -93,19 +84,6 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "telegram_link": _("Mehmonlar uchun Telegram guruh/kanal havolasi"),
         }
 
-    def validate_unique(self):
-        # Slug bandligini Django'ning standart ModelForm mexanizmi (bu shunchaki
-        # "Taklifnoma allaqachon mavjud" degan xato beradi) o'rniga o'zimiz
-        # views.py'dagi yaratish() funksiyasida, sessiya ma'lumoti asosida,
-        # ancha aqlliroq boshqaramiz (mijozning o'zi avval yaratgan bo'lsa —
-        # almashtirishni taklif qilamiz; xunuk "-2", "-3" qo'shilmaydi).
-        exclude = self._get_validation_exclusions()
-        exclude.add("slug")
-        try:
-            self.instance.validate_unique(exclude=exclude)
-        except forms.ValidationError as e:
-            self._update_errors(e)
-
     def clean(self):
         cleaned_data = super().clean()
         marosim_turi = cleaned_data.get("marosim_turi")
@@ -116,30 +94,3 @@ class TaklifnomaYaratishForm(forms.ModelForm):
                 _("Bu marosim turi uchun ikkinchi ismni ham kiriting."),
             )
         return cleaned_data
-
-    def clean_slug(self):
-        xom = self.cleaned_data["slug"].strip().lower()
-
-        # Agar mijoz to'liq havola shaklida yozgan bo'lsa (masalan
-        # "https://sayt.uz/ollomurod-kamola/" yoki "sayt.uz/ollomurod-kamola/"),
-        # faqat kerakli oxirgi qismini ajratib olamiz.
-        xom = xom.split("://")[-1]
-        qismlar = [q for q in xom.split("/") if q]
-        asosiy = qismlar[-1] if qismlar else xom
-
-        slug = slugify(asosiy)
-        if not slug:
-            raise forms.ValidationError(
-                _("Iltimos, to'g'ri nom kiriting (masalan: ollomurod-kamola).")
-            )
-        if slug in REZERV_SLUGLAR:
-            raise forms.ValidationError(
-                _("Bu nom tizim tomonidan band qilingan, boshqa nom tanlang.")
-            )
-
-        # E'tibor bering: bu yerda "slug band yoki bandmasligi" TEKSHIRILMAYDI —
-        # faqat formatlanadi. Band bo'lgan taqdirda nima qilish kerakligi
-        # (mijozning o'zi avval yaratganmi yoki boshqa kimdir bandmi) — bu
-        # sessiya ma'lumotiga bog'liq bo'lgani uchun views.py'dagi yaratish()
-        # funksiyasida hal qilinadi (xunuk "-2", "-3" qo'shish o'rniga).
-        return slug

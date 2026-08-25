@@ -8,9 +8,10 @@
 
 .markaz { text-align: center; max-width: 620px; margin: 0 auto; padding: 50px 0 20px; }
 .markaz .oq-h1 { font-size: clamp(2rem, 4.5vw, 3rem); }
+.link-izoh { color: var(--kul); font-size: .85rem; margin-top: 22px; margin-bottom: 0; }
 .link-blok {
     background: var(--toza); border: 1px dashed var(--tilla); border-radius: 2px;
-    padding: 18px; margin: 26px auto; max-width: 460px; word-break: break-all;
+    padding: 18px; margin: 10px auto 26px; max-width: 460px; word-break: break-all;
     font-family: monospace; font-size: .95rem; color: var(--tilla-toq);
 }
 .qadamlar { text-align: left; max-width: 480px; margin: 30px auto; padding-left: 20px; }
@@ -28,6 +29,7 @@
         <span class="oq-yorliq">{{ taklifnoma.sarlavha }}</span>
         <h1 class="oq-h1">{% trans "Taklifnomangiz tayyor!" %}</h1>
 
+        <p class="link-izoh">{% trans "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:" %}</p>
         <div class="link-blok">{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}</div>
 
         <a class="oq-cta toliq" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>

@@ -16,21 +16,15 @@
 .yordam { color: var(--kul); font-size: .78rem; margin-top: 4px; }
 .orqaga { display: block; text-align: center; margin-top: 22px; color: var(--kul); font-size: .85rem; }
 .orqaga:hover { color: var(--tilla-toq); }
-.manzil-qatori { display: flex; align-items: stretch; }
-.manzil-qatori .prefiks {
-    display: flex; align-items: center; padding: 0 12px; border: 1px solid var(--chiziq);
-    border-right: none; background: var(--tilla-yumshoq); color: var(--kul);
-    font-size: .85rem; white-space: nowrap; border-radius: 2px 0 0 2px;
-}
-.manzil-qatori input { border-radius: 0 2px 2px 0; }
 .eski-ogohlantirish {
     background: rgba(178,140,40,.08); border: 1px solid rgba(178,140,40,.3);
     padding: 14px 16px; border-radius: 2px; margin-bottom: 16px;
 }
 .eski-ogohlantirish p { margin: 0 0 6px; color: var(--siyoh); font-size: .92rem; }
 .eski-ogohlantirish p:last-child { margin-bottom: 0; }
+.eski-tugmalar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
 .tugma-ikkinchi {
-    display: block; width: 100%; text-align: center; margin-top: 10px;
+    flex: 1; min-width: 200px; text-align: center;
     background: transparent; border: 1px solid var(--chiziq); color: var(--kul);
     padding: 12px 16px; border-radius: 2px; font-size: .85rem; cursor: pointer; font-family: inherit;
 }
@@ -52,7 +46,7 @@
         </div>
         <h1 class="oq-h1">{{ shablon.nomi }} <em>{% trans "shabloni" %}</em></h1>
         <p class="oq-matn" style="margin-top:0;">
-            {% trans "Ma'lumotlaringizni to'ldiring. Yuborgach — o'zingiz uchun link tayyor bo'ladi (hali hech kimga ochiq emas)." %}
+            {% trans "Ma'lumotlaringizni to'ldiring. Yuborgach — taklifnomangiz shu zahoti tayyor bo'ladi (hali hech kimga ochiq emas)." %}
         </p>
 
         {% if form.non_field_errors %}
@@ -61,24 +55,21 @@
 
         {% if eski_taklifnoma %}
         <div class="eski-ogohlantirish">
-            <p>{% blocktrans with ism1=eski_taklifnoma.ism_1 ism2=eski_taklifnoma.ism_2 %}Sizda <strong>{{ ism1 }} {{ ism2 }}</strong> nomi bilan taklifnoma shu manzilda allaqachon mavjud (shu brauzerda avval yaratilgan).{% endblocktrans %}</p>
-            <p>{% trans "Agar u yoqmagan bo'lsa, pastdagi tugmani bosing: eski nusxa o'chiriladi va xuddi shu toza manzilda hozirgi ma'lumotlar bilan yangisi yaratiladi. Rasm tanlagan bo'lsangiz, qayta tanlashingizga to'g'ri keladi." %}</p>
+            <p>{% blocktrans with ism1=eski_taklifnoma.ism_1 ism2=eski_taklifnoma.ism_2 %}Sizda <strong>{{ ism1 }} {{ ism2 }}</strong> nomi bilan taklifnoma allaqachon bor (shu brauzerda avval yaratilgan).{% endblocktrans %}</p>
+            <p>{% trans "Nima qilamiz?" %}</p>
+            <div class="eski-tugmalar">
+                <button type="submit" form="yaratish-forma" name="eski_taklifnoma_harakati" value="yangilash">{% trans "Buni yangilayman (eskisi o'chadi)" %}</button>
+                <button type="submit" form="yaratish-forma" name="eski_taklifnoma_harakati" value="alohida" class="tugma-ikkinchi">{% trans "Yo'q, alohida saqlayman" %}</button>
+            </div>
         </div>
         {% endif %}
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="yaratish-forma">
             {% csrf_token %}
             {% for field in form %}
             <div {% if field.name == "ism_2" %}id="ism2-qatori"{% endif %}>
                 <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
-                {% if field.name == "slug" %}
-                <div class="manzil-qatori">
-                    <span class="prefiks">{{ request.get_host }}/</span>
-                    {{ field }}
-                </div>
-                {% else %}
                 {{ field }}
-                {% endif %}
                 {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
                 {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
             </div>
@@ -90,10 +81,7 @@
                 <div class="yordam" id="rasmlar-soni"></div>
             </div>
 
-            {% if eski_taklifnoma %}
-            <button type="submit" name="eskisini_almashtirish" value="1">{% trans "Eskisini almashtirish va yangisini yaratish" %}</button>
-            <button type="button" class="tugma-ikkinchi" id="boshqa-manzil-tugmasi">{% trans "Yo'q, men boshqa manzil (link) tanlayman" %}</button>
-            {% else %}
+            {% if not eski_taklifnoma %}
             <button type="submit">{% trans "Taklifnomani yaratish" %}</button>
             {% endif %}
         </form>
@@ -121,47 +109,6 @@
     if (marosimEl) {
         marosimEl.addEventListener('change', ism2niYangila);
         ism2niYangila();
-    }
-
-    // Ism(lar) yozilganda "manzil (link)" maydonini avtomatik taklif qilamiz —
-    // mijoz qo'lda formatlash haqida o'ylamasin.
-    // Agar mijoz link maydonini o'zi qo'lda tahrirlasa, avtomatik taklifni to'xtatamiz.
-    var ism1El = document.getElementById('id_ism_1');
-    var ism2El = document.getElementById('id_ism_2');
-    var slugEl = document.getElementById('id_slug');
-    if (!ism1El || !slugEl) { return; }
-
-    var qoldaTahrirlandi = slugEl.value.trim().length > 0;
-
-    function sodda_slug(matn) {
-        return matn
-            .toLowerCase()
-            .trim()
-            .replace(/['’ʻ`]/g, '')
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-    }
-
-    function yangila() {
-        if (qoldaTahrirlandi) { return; }
-        var manba = ism2El && ism2El.value ? (ism1El.value + '-' + ism2El.value) : ism1El.value;
-        slugEl.value = sodda_slug(manba);
-    }
-
-    slugEl.addEventListener('input', function () { qoldaTahrirlandi = true; });
-    ism1El.addEventListener('input', yangila);
-    if (ism2El) { ism2El.addEventListener('input', yangila); }
-
-    // "Boshqa manzil tanlayman" tugmasi — shunchaki manzil maydoniga fokus
-    // qilib, mijozga o'zi qo'lda tahrirlashini qulaylashtiradi (submit qilmaydi).
-    var boshqaManzilTugmasi = document.getElementById('boshqa-manzil-tugmasi');
-    if (boshqaManzilTugmasi) {
-        boshqaManzilTugmasi.addEventListener('click', function () {
-            qoldaTahrirlandi = true;
-            slugEl.focus();
-            slugEl.select();
-            slugEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
     }
 })();
 
