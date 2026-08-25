@@ -6,6 +6,28 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 ".muted" klassi bilan belgilanadi.
 {% endcomment %}
 
+<style>
+/* Yangi bo'limlar uchun umumiy uslublar (ranglar shablon o'zgaruvchilaridan) */
+.kalendar-oy { text-align: center; letter-spacing: 3px; text-transform: uppercase; font-size: .8rem; color: var(--ikkinchi); margin-bottom: 14px; }
+.kalendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 380px; margin: 0 auto; }
+.k-kun { position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: .88rem; border-radius: 50%; }
+.k-sarlavha { font-size: .62rem; letter-spacing: 1px; text-transform: uppercase; color: var(--ikkinchi); aspect-ratio: auto; padding: 4px 0; }
+.k-tanlangan { background: var(--asos); color: var(--asos-matn); font-weight: bold; }
+.k-tanlangan i { position: absolute; right: -2px; bottom: -4px; font-style: normal; font-size: .7rem; color: var(--asos); }
+.xarita-tugmalar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.soni-stepper { display: flex; align-items: center; gap: 14px; }
+.soni-tugma { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--chegara); background: var(--input-fon); color: var(--matn); font-size: 1.2rem; cursor: pointer; }
+.soni-tugma:hover { border-color: var(--asos); color: var(--asos); }
+.soni-korsatkich { min-width: 34px; text-align: center; font-size: 1.15rem; font-weight: bold; }
+.soni-izoh { color: var(--ikkinchi); font-size: .75rem; margin-top: 5px; }
+.keladi-tugmalar { display: flex; gap: 10px; flex-wrap: wrap; }
+.keladi-tugma { flex: 1; min-width: 150px; padding: 12px 14px; border-radius: 24px; border: 1px solid var(--chegara); background: var(--input-fon); color: var(--ikkinchi); cursor: pointer; font-family: inherit; font-size: .88rem; transition: .2s; }
+.keladi-tugma.faol { background: var(--asos); border-color: var(--asos); color: var(--asos-matn); }
+.ulashish-tugmalar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+.ulashish-tugma { display: inline-block; padding: 11px 22px; border-radius: 24px; border: 1px solid var(--asos); color: var(--asos); background: var(--karta-fon); text-decoration: none; font-size: .9rem; cursor: pointer; font-family: inherit; }
+.ulashish-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+</style>
+
 <div class="bolim" data-anim>
     <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">
         <div><div class="son" id="kun">--</div><div>{% trans "kun" %}</div></div>
@@ -14,6 +36,16 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
         <div><div class="son" id="sekund">--</div><div>{% trans "sekund" %}</div></div>
     </div>
     <p id="countdown-matn" class="countdown-matn"></p>
+</div>
+
+<div class="bolim" data-anim>
+    <h2>{% trans "Marosim kalendari" %}</h2>
+    <div class="blok">
+        <div class="kalendar-oy">{{ taklifnoma.sana|date:"F Y" }}</div>
+        <div class="kalendar-grid" id="kalendar-grid"
+             data-sana="{{ taklifnoma.sana|date:'c' }}"
+             data-hafta="{% trans 'Du Se Ch Pa Ju Sh Ya' %}"></div>
+    </div>
 </div>
 
 {% if taklifnoma.matn %}
@@ -59,9 +91,16 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
         </div>
         {% endif %}
     </div>
-    {% if taklifnoma.xarita_link %}
-    <div style="text-align:center;">
-        <a class="xarita-tugma" href="{{ taklifnoma.xarita_link }}" target="_blank" rel="noopener">{% trans "Xaritada ko'rish" %}</a>
+    {% if taklifnoma.xarita_link or taklifnoma.manzil %}
+    <div class="xarita-tugmalar">
+        {% if taklifnoma.xarita_link %}
+        <a class="xarita-tugma" href="{{ taklifnoma.xarita_link }}" target="_blank" rel="noopener">📍 Google Maps</a>
+        {% elif taklifnoma.manzil %}
+        <a class="xarita-tugma" href="https://www.google.com/maps/search/?api=1&query={{ taklifnoma.manzil|urlencode }}" target="_blank" rel="noopener">📍 Google Maps</a>
+        {% endif %}
+        {% if taklifnoma.manzil %}
+        <a class="xarita-tugma" href="https://yandex.uz/maps/?text={{ taklifnoma.manzil|urlencode }}" target="_blank" rel="noopener">🧭 Yandex Maps</a>
+        {% endif %}
     </div>
     {% endif %}
 </div>
@@ -86,20 +125,21 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
             <label for="ism">{% trans "Ismingiz" %}</label>
             <input type="text" id="ism" name="ism" value="{{ mehmon.ism|default:'' }}" required>
 
-            <label for="mehmonlar_soni">{% trans "Nechta kishi bo'lasiz?" %}</label>
-            <select id="mehmonlar_soni" name="mehmonlar_soni">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
+            <label>{% trans "Nechta kishi bo'lasiz?" %}</label>
+            <input type="hidden" name="mehmonlar_soni" id="mehmonlar_soni" value="1">
+            <div class="soni-stepper">
+                <button type="button" class="soni-tugma" data-yon="-1" aria-label="−">−</button>
+                <span class="soni-korsatkich" id="soni-korsatkich">1</span>
+                <button type="button" class="soni-tugma" data-yon="1" aria-label="+">+</button>
+            </div>
+            <div class="soni-izoh">{% trans "1 dan 5 gacha" %}</div>
 
-            <label for="keladi">{% trans "Kelasizmi?" %}</label>
-            <select id="keladi" name="keladi">
-                <option value="ha">{% trans "Ha, albatta kelaman" %}</option>
-                <option value="yoq">{% trans "Afsuski, kela olmayman" %}</option>
-            </select>
+            <label>{% trans "Kelasizmi?" %}</label>
+            <input type="hidden" name="keladi" id="keladi" value="ha">
+            <div class="keladi-tugmalar">
+                <button type="button" class="keladi-tugma faol" data-qiymat="ha">✓ {% trans "Ha, albatta kelaman" %}</button>
+                <button type="button" class="keladi-tugma" data-qiymat="yoq">✗ {% trans "Afsuski, kela olmayman" %}</button>
+            </div>
 
             <label for="izoh">{% trans "Izoh (ixtiyoriy)" %}</label>
             <textarea id="izoh" name="izoh" rows="2"></textarea>
@@ -129,3 +169,17 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     </div>
 </div>
 {% endif %}
+
+<div class="bolim" data-anim>
+    <h2>{% trans "Do'stlaringizga ulashing" %}</h2>
+    <div class="blok" style="text-align:center;">
+        <p class="muted" style="margin-top:0;">{% trans "Taklifnomani yaqinlaringizga ham yuboring" %}</p>
+        {% trans "Nusxalandi!" as ULASH_NUSXALANDI %}
+        <div class="ulashish-tugmalar">
+            <a class="ulashish-tugma" href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ taklifnoma.sarlavha|urlencode }}" target="_blank" rel="noopener">✈️ Telegram</a>
+            <button type="button" class="ulashish-tugma" id="havola-nusxa"
+                    data-havola="{{ request.build_absolute_uri }}"
+                    data-nusxalandi="{{ ULASH_NUSXALANDI|escapejs }}">🔗 {% trans "Havolani nusxalash" %}</button>
+        </div>
+    </div>
+</div>

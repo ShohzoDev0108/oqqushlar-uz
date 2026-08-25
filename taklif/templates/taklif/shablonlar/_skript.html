@@ -95,6 +95,72 @@
     tick();
     setInterval(tick, 1000);
 
+    // Marosim kalendari — sana yurakcha bilan belgilanadi (dushanbadan boshlanadi)
+    var kalendar = document.getElementById('kalendar-grid');
+    if (kalendar) {
+        var kSana = new Date(kalendar.dataset.sana);
+        var kYil = kSana.getFullYear(), kOy = kSana.getMonth();
+        var hafta = (kalendar.dataset.hafta || 'Du Se Ch Pa Ju Sh Ya').split(' ');
+        var ichki = '';
+        for (var hi = 0; hi < 7; hi++) {
+            ichki += '<span class="k-kun k-sarlavha">' + (hafta[hi] || '') + '</span>';
+        }
+        var boshJoy = (new Date(kYil, kOy, 1).getDay() + 6) % 7;
+        var oyKunlari = new Date(kYil, kOy + 1, 0).getDate();
+        for (var bj = 0; bj < boshJoy; bj++) { ichki += '<span class="k-kun"></span>'; }
+        for (var kk = 1; kk <= oyKunlari; kk++) {
+            var tanlangan = kk === kSana.getDate();
+            ichki += '<span class="k-kun' + (tanlangan ? ' k-tanlangan' : '') + '">' + kk + (tanlangan ? '<i>♥</i>' : '') + '</span>';
+        }
+        kalendar.innerHTML = ichki;
+    }
+
+    // RSVP: mehmonlar soni hisoblagichi (1..5)
+    var soniInput = document.getElementById('mehmonlar_soni');
+    var soniKorsatkich = document.getElementById('soni-korsatkich');
+    if (soniInput && soniKorsatkich) {
+        document.querySelectorAll('.soni-tugma').forEach(function (t) {
+            t.addEventListener('click', function () {
+                var qiymat = parseInt(soniInput.value, 10) + parseInt(t.dataset.yon, 10);
+                qiymat = Math.max(1, Math.min(5, qiymat));
+                soniInput.value = qiymat;
+                soniKorsatkich.textContent = qiymat;
+            });
+        });
+    }
+
+    // RSVP: "Kelaman / Kela olmayman" tugmalari
+    var keladiInput = document.getElementById('keladi');
+    if (keladiInput) {
+        document.querySelectorAll('.keladi-tugma').forEach(function (t) {
+            t.addEventListener('click', function () {
+                document.querySelectorAll('.keladi-tugma').forEach(function (b) { b.classList.remove('faol'); });
+                t.classList.add('faol');
+                keladiInput.value = t.dataset.qiymat;
+            });
+        });
+    }
+
+    // Havolani nusxalash
+    var nusxaTugma = document.getElementById('havola-nusxa');
+    if (nusxaTugma) {
+        nusxaTugma.addEventListener('click', function () {
+            var havola = nusxaTugma.dataset.havola;
+            var tayyor = function () { nusxaTugma.textContent = '✓ ' + nusxaTugma.dataset.nusxalandi; };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(havola).then(tayyor);
+            } else {
+                var vaqtinchalik = document.createElement('input');
+                vaqtinchalik.value = havola;
+                document.body.appendChild(vaqtinchalik);
+                vaqtinchalik.select();
+                document.execCommand('copy');
+                document.body.removeChild(vaqtinchalik);
+                tayyor();
+            }
+        });
+    }
+
     // Scroll-animatsiya
     var bolimlar = document.querySelectorAll('[data-anim]');
     if ('IntersectionObserver' in window) {

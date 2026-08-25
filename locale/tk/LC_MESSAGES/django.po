@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 13:46+0000\n"
+"POT-Creation-Date: 2026-08-25 05:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,7 +58,7 @@ msgstr "Dabaranyň senesi we wagty"
 msgid "To'yxona/manzil nomi"
 msgstr "Toý zalynyň/ýeriň ady"
 
-#: taklif/forms.py:77 taklif/templates/taklif/shablonlar/_bolimlar.html:52
+#: taklif/forms.py:77 taklif/templates/taklif/shablonlar/_bolimlar.html:84
 #: taklif/templates/taklif/shablonlar/atlas.html:242
 #: taklif/templates/taklif/shablonlar/bolajon.html:243
 #: taklif/templates/taklif/shablonlar/gulbarg.html:229
@@ -268,13 +268,12 @@ msgstr "Telefonda özüňiz dörediň"
 
 #: taklif/templates/taklif/bosh_sahifa.html:154
 msgid ""
-"To'y, sunnat to'yi, yubiley, tug'ilgan kun va boshqa marosimlaringiz uchun "
-"chiroyli taklifnomani bir necha daqiqada o'zingiz yarating — bepul ko'rib "
-"chiqing, yoqsa keyin faollashtirasiz."
+"Dizaynni tanlang, ma'lumotlaringizni kiriting va tayyor taklifnomani shu "
+"zahoti ko'ring — bor-yo'g'i 5 daqiqada, ro'yxatdan o'tmasdan. To'lov — faqat"
+" yoqqanidan keyin."
 msgstr ""
-"Toý, sünnet toýy, ýubileý, doglan gün we beýleki dabaralar üçin owadan "
-"çakylygy birnäçe minutda özüňiz dörediň — mugt görüň, halasaňyz soň "
-"işjeňleşdirersiňiz."
+"Dizaýny saýlaň, maglumatlaryňyzy giriziň we taýýar çakylygy derrew görüň — "
+"bary-ýogy 5 minutda, hasaba alynmazdan. Töleg — diňe halasaňyz."
 
 #: taklif/templates/taklif/bosh_sahifa.html:158
 msgid "Barcha dizaynlarni ko'rish"
@@ -421,7 +420,7 @@ msgstr ""
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "Häzirlikçe şablon ýok. Admin panelinde goşuň."
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:11
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:33
 #: taklif/templates/taklif/shablonlar/_skript.html:4
 #: taklif/templates/taklif/shablonlar/atlas.html:201
 #: taklif/templates/taklif/shablonlar/atlas.html:330
@@ -442,7 +441,7 @@ msgstr "Häzirlikçe şablon ýok. Admin panelinde goşuň."
 msgid "kun"
 msgstr "gün"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:12
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:34
 #: taklif/templates/taklif/shablonlar/atlas.html:202
 #: taklif/templates/taklif/shablonlar/bolajon.html:203
 #: taklif/templates/taklif/shablonlar/gulbarg.html:189
@@ -454,7 +453,7 @@ msgstr "gün"
 msgid "soat"
 msgstr "sagat"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:13
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:35
 #: taklif/templates/taklif/shablonlar/atlas.html:203
 #: taklif/templates/taklif/shablonlar/bolajon.html:204
 #: taklif/templates/taklif/shablonlar/gulbarg.html:190
@@ -466,7 +465,7 @@ msgstr "sagat"
 msgid "minut"
 msgstr "minut"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:14
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:36
 #: taklif/templates/taklif/shablonlar/atlas.html:204
 #: taklif/templates/taklif/shablonlar/bolajon.html:205
 #: taklif/templates/taklif/shablonlar/gulbarg.html:191
@@ -478,7 +477,15 @@ msgstr "minut"
 msgid "sekund"
 msgstr "sekunt"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:27
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:42
+msgid "Marosim kalendari"
+msgstr "Dabara senenamasy"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:47
+msgid "Du Se Ch Pa Ju Sh Ya"
+msgstr "Du Si Ça Pe An Şe Ýe"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:59
 #: taklif/templates/taklif/shablonlar/atlas.html:217
 #: taklif/templates/taklif/shablonlar/bolajon.html:218
 #: taklif/templates/taklif/shablonlar/gulbarg.html:204
@@ -490,7 +497,7 @@ msgstr "sekunt"
 msgid "Fotolavha"
 msgstr "Foto albom"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:37
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:69
 #: taklif/templates/taklif/shablonlar/atlas.html:227
 #: taklif/templates/taklif/shablonlar/bolajon.html:228
 #: taklif/templates/taklif/shablonlar/gulbarg.html:214
@@ -502,7 +509,7 @@ msgstr "Foto albom"
 msgid "Tadbir tafsilotlari"
 msgstr "Dabaranyň jikme-jikligi"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:41
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:73
 #: taklif/templates/taklif/shablonlar/atlas.html:231
 #: taklif/templates/taklif/shablonlar/bolajon.html:232
 #: taklif/templates/taklif/shablonlar/gulbarg.html:218
@@ -514,7 +521,7 @@ msgstr "Dabaranyň jikme-jikligi"
 msgid "Sana va vaqt"
 msgstr "Sene we wagt"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:46
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:78
 #: taklif/templates/taklif/shablonlar/atlas.html:236
 #: taklif/templates/taklif/shablonlar/bolajon.html:237
 #: taklif/templates/taklif/shablonlar/gulbarg.html:223
@@ -526,7 +533,7 @@ msgstr "Sene we wagt"
 msgid "To'yxona"
 msgstr "Toý zaly"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:58
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:90
 #: taklif/templates/taklif/shablonlar/atlas.html:248
 #: taklif/templates/taklif/shablonlar/bolajon.html:249
 #: taklif/templates/taklif/shablonlar/gulbarg.html:235
@@ -538,19 +545,7 @@ msgstr "Toý zaly"
 msgid "Kiyinish kodi"
 msgstr "Egin-eşik kody"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:64
-#: taklif/templates/taklif/shablonlar/atlas.html:254
-#: taklif/templates/taklif/shablonlar/bolajon.html:255
-#: taklif/templates/taklif/shablonlar/gulbarg.html:241
-#: taklif/templates/taklif/shablonlar/marmar.html:230
-#: taklif/templates/taklif/shablonlar/registon.html:213
-#: taklif/templates/taklif/shablonlar/sodda.html:178
-#: taklif/templates/taklif/shablonlar/yulduz.html:239
-#: taklif/templates/taklif/shablonlar/zumrad.html:237
-msgid "Xaritada ko'rish"
-msgstr "Kartada görmek"
-
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:71
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:110
 #: taklif/templates/taklif/shablonlar/atlas.html:261
 #: taklif/templates/taklif/shablonlar/bolajon.html:262
 #: taklif/templates/taklif/shablonlar/gulbarg.html:248
@@ -562,7 +557,7 @@ msgstr "Kartada görmek"
 msgid "Tabrik sovg'asi"
 msgstr "Sowgat"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:73
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:112
 #: taklif/templates/taklif/shablonlar/atlas.html:263
 #: taklif/templates/taklif/shablonlar/bolajon.html:264
 #: taklif/templates/taklif/shablonlar/gulbarg.html:250
@@ -577,7 +572,8 @@ msgstr ""
 "Siziň gatnaşygyňyz — biz üçin iň gymmatly sowgat. Eger pul sowgady goýasyňyz"
 " gelse:"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:74
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:113
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:177
 #: taklif/templates/taklif/shablonlar/atlas.html:264
 #: taklif/templates/taklif/shablonlar/bolajon.html:265
 #: taklif/templates/taklif/shablonlar/gulbarg.html:251
@@ -589,7 +585,7 @@ msgstr ""
 msgid "Nusxalandi!"
 msgstr "Göçürildi!"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:81
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:120
 #: taklif/templates/taklif/shablonlar/atlas.html:271
 #: taklif/templates/taklif/shablonlar/bolajon.html:272
 #: taklif/templates/taklif/shablonlar/gulbarg.html:258
@@ -601,7 +597,7 @@ msgstr "Göçürildi!"
 msgid "RSVP — kelasizmi?"
 msgstr "RSVP — gelersiňizmi?"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:86
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:125
 #: taklif/templates/taklif/shablonlar/atlas.html:276
 #: taklif/templates/taklif/shablonlar/bolajon.html:277
 #: taklif/templates/taklif/shablonlar/gulbarg.html:263
@@ -613,7 +609,7 @@ msgstr "RSVP — gelersiňizmi?"
 msgid "Ismingiz"
 msgstr "Adyňyz"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:89
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:128
 #: taklif/templates/taklif/shablonlar/atlas.html:279
 #: taklif/templates/taklif/shablonlar/bolajon.html:280
 #: taklif/templates/taklif/shablonlar/gulbarg.html:266
@@ -625,7 +621,11 @@ msgstr "Adyňyz"
 msgid "Nechta kishi bo'lasiz?"
 msgstr "Näçe adam bolarsyňyz?"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:98
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:135
+msgid "1 dan 5 gacha"
+msgstr "1-den 5-e çenli"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:137
 #: taklif/templates/taklif/shablonlar/atlas.html:288
 #: taklif/templates/taklif/shablonlar/bolajon.html:289
 #: taklif/templates/taklif/shablonlar/gulbarg.html:275
@@ -637,7 +637,7 @@ msgstr "Näçe adam bolarsyňyz?"
 msgid "Kelasizmi?"
 msgstr "Gelersiňizmi?"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:100
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:140
 #: taklif/templates/taklif/shablonlar/atlas.html:290
 #: taklif/templates/taklif/shablonlar/bolajon.html:291
 #: taklif/templates/taklif/shablonlar/gulbarg.html:277
@@ -649,7 +649,7 @@ msgstr "Gelersiňizmi?"
 msgid "Ha, albatta kelaman"
 msgstr "Hawa, hökman gelerin"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:101
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:141
 #: taklif/templates/taklif/shablonlar/atlas.html:291
 #: taklif/templates/taklif/shablonlar/bolajon.html:292
 #: taklif/templates/taklif/shablonlar/gulbarg.html:278
@@ -661,7 +661,7 @@ msgstr "Hawa, hökman gelerin"
 msgid "Afsuski, kela olmayman"
 msgstr "Gynansak-da, gelip bilemok"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:104
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:144
 #: taklif/templates/taklif/shablonlar/atlas.html:294
 #: taklif/templates/taklif/shablonlar/bolajon.html:295
 #: taklif/templates/taklif/shablonlar/gulbarg.html:281
@@ -673,7 +673,7 @@ msgstr "Gynansak-da, gelip bilemok"
 msgid "Izoh (ixtiyoriy)"
 msgstr "Teswir (hökmany däl)"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:107
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:147
 #: taklif/templates/taklif/shablonlar/atlas.html:297
 #: taklif/templates/taklif/shablonlar/bolajon.html:298
 #: taklif/templates/taklif/shablonlar/gulbarg.html:284
@@ -685,7 +685,7 @@ msgstr "Teswir (hökmany däl)"
 msgid "Yuborish"
 msgstr "Ibermek"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:113
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:153
 #: taklif/templates/taklif/shablonlar/atlas.html:303
 #: taklif/templates/taklif/shablonlar/bolajon.html:304
 #: taklif/templates/taklif/shablonlar/gulbarg.html:290
@@ -697,7 +697,7 @@ msgstr "Ibermek"
 msgid "Mehmonlar"
 msgstr "Myhmanlar"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:114
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:154
 #: taklif/templates/taklif/shablonlar/atlas.html:304
 #: taklif/templates/taklif/shablonlar/bolajon.html:305
 #: taklif/templates/taklif/shablonlar/gulbarg.html:291
@@ -710,7 +710,7 @@ msgstr "Myhmanlar"
 msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
 msgstr "Häzire çenli <strong>%(soni)s</strong> adam geljekdigini tassyklady"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:118
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:158
 #: taklif/templates/taklif/shablonlar/atlas.html:308
 #: taklif/templates/taklif/shablonlar/bolajon.html:309
 #: taklif/templates/taklif/shablonlar/gulbarg.html:295
@@ -722,7 +722,7 @@ msgstr "Häzire çenli <strong>%(soni)s</strong> adam geljekdigini tassyklady"
 msgid "%(soni)s kishi"
 msgstr "%(soni)s adam"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:127
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:167
 #: taklif/templates/taklif/shablonlar/atlas.html:317
 #: taklif/templates/taklif/shablonlar/bolajon.html:318
 #: taklif/templates/taklif/shablonlar/gulbarg.html:304
@@ -733,7 +733,7 @@ msgstr "%(soni)s adam"
 msgid "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling"
 msgstr "Habarlar we suratlar üçin Telegram toparymyza goşulyň"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:128
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:168
 #: taklif/templates/taklif/shablonlar/atlas.html:318
 #: taklif/templates/taklif/shablonlar/bolajon.html:319
 #: taklif/templates/taklif/shablonlar/gulbarg.html:305
@@ -744,6 +744,18 @@ msgstr "Habarlar we suratlar üçin Telegram toparymyza goşulyň"
 #: taklif/templates/taklif/shablonlar/zumrad.html:301
 msgid "Telegram guruhi"
 msgstr "Telegram topary"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:174
+msgid "Do'stlaringizga ulashing"
+msgstr "Dostlaryňyz bilen paýlaşyň"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:176
+msgid "Taklifnomani yaqinlaringizga ham yuboring"
+msgstr "Çakylygy ýakynlaryňyza-da iberiň"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:182
+msgid "Havolani nusxalash"
+msgstr "Salgyny göçürmek"
 
 #: taklif/templates/taklif/shablonlar/_konvert_parda.html:12
 #: taklif/templates/taklif/shablonlar/atlas.html:178
@@ -899,16 +911,24 @@ msgstr "boldy"
 msgid "Marosimgacha"
 msgstr "Dabara çenli"
 
+#: taklif/templates/taklif/shablonlar/adras.html:129
+#: taklif/templates/taklif/shablonlar/anor.html:141
 #: taklif/templates/taklif/shablonlar/atlas.html:188
 #: taklif/templates/taklif/shablonlar/aurora.html:134
 #: taklif/templates/taklif/shablonlar/bolajon.html:189
 #: taklif/templates/taklif/shablonlar/chinni.html:133
 #: taklif/templates/taklif/shablonlar/gulbarg.html:175
 #: taklif/templates/taklif/shablonlar/kristall.html:157
+#: taklif/templates/taklif/shablonlar/kumush.html:125
 #: taklif/templates/taklif/shablonlar/marmar.html:164
+#: taklif/templates/taklif/shablonlar/nurafshon.html:146
+#: taklif/templates/taklif/shablonlar/qandil.html:127
 #: taklif/templates/taklif/shablonlar/qirgiz.html:126
 #: taklif/templates/taklif/shablonlar/qozoq.html:127
+#: taklif/templates/taklif/shablonlar/ravoq.html:136
 #: taklif/templates/taklif/shablonlar/registon.html:147
+#: taklif/templates/taklif/shablonlar/sadaf.html:132
+#: taklif/templates/taklif/shablonlar/shoyi.html:133
 #: taklif/templates/taklif/shablonlar/sodda.html:138
 #: taklif/templates/taklif/shablonlar/suzani.html:132
 #: taklif/templates/taklif/shablonlar/tojik.html:131
@@ -916,9 +936,21 @@ msgstr "Dabara çenli"
 #: taklif/templates/taklif/shablonlar/yulduz.html:172
 #: taklif/templates/taklif/shablonlar/zardoz.html:130
 #: taklif/templates/taklif/shablonlar/zarhal.html:130
+#: taklif/templates/taklif/shablonlar/zarnigor.html:133
 #: taklif/templates/taklif/shablonlar/zumrad.html:170
 msgid "taklifnomasi"
 msgstr "çakylygy"
+
+#: taklif/templates/taklif/shablonlar/atlas.html:254
+#: taklif/templates/taklif/shablonlar/bolajon.html:255
+#: taklif/templates/taklif/shablonlar/gulbarg.html:241
+#: taklif/templates/taklif/shablonlar/marmar.html:230
+#: taklif/templates/taklif/shablonlar/registon.html:213
+#: taklif/templates/taklif/shablonlar/sodda.html:178
+#: taklif/templates/taklif/shablonlar/yulduz.html:239
+#: taklif/templates/taklif/shablonlar/zumrad.html:237
+msgid "Xaritada ko'rish"
+msgstr "Kartada görmek"
 
 #: taklif/templates/taklif/shablonlar/sodda.html:136
 #, python-format
