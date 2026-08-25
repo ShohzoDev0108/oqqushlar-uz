@@ -107,6 +107,41 @@
 .oq-royxat .nomi { font-family: var(--serif); font-size: 1.2rem; }
 .oq-royxat .sana { color: var(--kul); font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; }
 .oq-bosh-xabar { color: var(--kul); padding: 24px 0; }
+
+/* --- Atirgul-romka bezaklari: sahifa bo'ylab bir necha joyda takrorlanadi
+   (hero'da 4 burchak to'liq, har bir bo'lim boshida 2 burchak ingichkaroq) —
+   bitta umumiy shaffof PNG, CSS transform bilan oynalanadi (taklifnoma
+   shablonlaridagi "hero-ramka-burchak" texnikasi bilan bir xil). Sahifa
+   matni har doim romka ustida ko'rinishi uchun .oq-ichki alohida stacking
+   qatlamiga o'tkazilgan. */
+.oq-ichki { position: relative; z-index: 1; }
+.oq-hero-ich { position: relative; z-index: 1; }
+.oq-romka-burchak {
+    position: absolute; width: 100px; height: 100px; pointer-events: none; z-index: 0;
+    background-image: url('{% static "taklif/hero-ramka/ramka-atirgul-tl.png" %}');
+    background-repeat: no-repeat; background-size: contain;
+}
+.oq-romka-burchak.orb-tl { top: 0; left: 0; }
+.oq-romka-burchak.orb-tr { top: 0; right: 0; transform: scaleX(-1); }
+.oq-romka-burchak.orb-bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.oq-romka-burchak.orb-br { bottom: 0; right: 0; transform: scale(-1,-1); }
+.oq-hero .oq-romka-burchak { width: 130px; height: 130px; }
+@media (min-width: 480px) {
+    .oq-romka-burchak { width: 128px; height: 128px; }
+    .oq-hero .oq-romka-burchak { width: 170px; height: 170px; }
+}
+@media (min-width: 700px) {
+    .oq-romka-burchak { width: 168px; height: 168px; }
+    .oq-hero .oq-romka-burchak { width: 230px; height: 230px; }
+}
+@media (min-width: 1000px) {
+    .oq-romka-burchak { width: 210px; height: 210px; }
+    .oq-hero .oq-romka-burchak { width: 300px; height: 300px; }
+}
+@media (min-width: 1300px) {
+    .oq-romka-burchak { width: 260px; height: 260px; }
+    .oq-hero .oq-romka-burchak { width: 360px; height: 360px; }
+}
 {% endblock %}
 
 {% block content %}
@@ -134,6 +169,10 @@
 {% include "taklif/_sayt_musiqa.html" %}
 
 <header class="oq-hero">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-romka-burchak orb-bl"></div>
+    <div class="oq-romka-burchak orb-br"></div>
     <div class="oq-ichki oq-hero-ich">
         <div class="oq-hero-rasm">
             <span class="burchak b1"></span><span class="burchak b2"></span>
@@ -161,6 +200,8 @@
 </header>
 
 <section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
     <div class="oq-ichki">
         <div class="oq-bolim-bosh">
             <span class="oq-yorliq">{% trans "Qanday ishlaydi?" %}</span>
@@ -188,6 +229,8 @@
 
 {% if shablonlar %}
 <section class="oq-bolim" id="dizaynlar">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
     <div class="oq-ichki">
         <div class="oq-bolim-bosh">
             <span class="oq-yorliq">{% trans "Dizayn shablonlari" %}</span>
@@ -222,6 +265,8 @@
 {% endif %}
 
 <section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
     <div class="oq-ichki">
         <div class="oq-bolim-bosh">
             <span class="oq-yorliq">{% trans "So'nggi taklifnomalar" %}</span>
