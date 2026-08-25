@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ taklifnoma.sarlavha }}{% endblock %}
+
+{% block extra_style %}
+:root {
+    --fon: #f5f4f1;
+    --parda-fon: #f5f4f1;
+    --matn: #44464a;
+    --sarlavha: #75787f;
+    --asos: #8b8e96;
+    --asos-matn: #ffffff;
+    --ikkinchi: #989ba1;
+    --karta-fon: #fdfdfc;
+    --chegara: #dedfe0;
+    --input-fon: #f9f9f8;
+    --konvert: #8b8e96;
+    --konvert-qopqoq: #6d7077;
+    --radius: 10px;
+    --puls: rgba(139,142,150,.3);
+    --bolim-bezak: "❃ ❈ ❃";
+}
+
+body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
+.wrapper { padding: 0; max-width: none; }
+.ichki { max-width: 680px; margin: 0 auto; padding: 24px; position: relative; z-index: 1; }
+.muted { color: var(--ikkinchi); }
+
+.til-qatori { display: flex; justify-content: center; padding: 10px 16px; position: sticky; top: 0; z-index: 45; }
+.til-forma select { width: auto; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--chegara); font-size: .8rem; background: var(--karta-fon); color: var(--matn); }
+
+.faollashtirilmagan-banner { background: var(--asos); color: var(--asos-matn); text-align: center; padding: 10px 16px; font-size: .85rem; position: relative; z-index: 40; border-radius: 10px; margin: 10px 16px 0; }
+.faollashtirilmagan-banner a { color: var(--asos-matn); font-weight: bold; }
+.mijoz-panel { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 12px 16px; position: relative; z-index: 40; }
+.mp-tugma { display: inline-block; padding: 8px 16px; border-radius: 20px; font-size: .82rem; background: var(--karta-fon); border: 1px solid var(--asos); color: var(--asos); text-decoration: none; }
+.mp-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+.mp-tugma.yoqdi { font-weight: bold; }
+
+/* --- 3D konvert-ochilish pardasi --- */
+#parda { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--parda-fon); text-align: center; padding: 24px; transition: opacity .8s ease, visibility .8s ease; }
+#parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
+.konvert { position: relative; width: 310px; height: 205px; max-width: 86vw; perspective: 1000px; margin-bottom: 34px; }
+.konvert-orqa { position: absolute; inset: 0; background: var(--konvert); border-radius: 10px; box-shadow: 0 14px 40px rgba(0,0,0,.28); }
+.konvert-xat { position: absolute; left: 14px; right: 14px; top: 14px; bottom: 14px; background: #fffdf8; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; transition: transform .8s cubic-bezier(.2,.7,.3,1) .6s, box-shadow .8s ease .6s; }
+.konvert-xat h2 { font-size: .74rem; letter-spacing: 1px; text-transform: uppercase; color: #8d8578; margin: 0 0 8px; font-weight: normal; }
+.konvert-xat p { font-size: 1.2rem; color: var(--asos); margin: 0; font-weight: bold; }
+.konvert-old { position: absolute; inset: 0; background: var(--konvert); border-radius: 10px; clip-path: polygon(0 34%, 50% 62%, 100% 34%, 100% 100%, 0 100%); z-index: 3; }
+.konvert-qopqoq { position: absolute; left: 0; right: 0; top: 0; height: 105px; background: var(--konvert-qopqoq); clip-path: polygon(0 0, 100% 0, 50% 100%); border-radius: 10px 10px 0 0; transform-origin: top center; transition: transform .7s ease, z-index 0s .7s; z-index: 4; display: flex; align-items: flex-start; justify-content: center; }
+.konvert-qopqoq .muhr { color: var(--asos-matn); opacity: .9; font-size: 1.25rem; margin-top: 13px; }
+.konvert.ochildi .konvert-qopqoq { transform: rotateX(180deg); z-index: 1; }
+.konvert.ochildi .konvert-xat { transform: translateY(-96px) scale(1.06); box-shadow: 0 12px 32px rgba(0,0,0,.25); z-index: 5; }
+#ochish-tugma { padding: 14px 34px; border-radius: 30px; border: 1px solid var(--asos); background: transparent; color: var(--asos); font-size: 1rem; letter-spacing: 1px; cursor: pointer; transition: background .3s, color .3s, opacity .5s; font-family: inherit; }
+#ochish-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+#ochish-tugma.yashirin { opacity: 0; pointer-events: none; }
+
+/* --- Hero --- */
+.hero { min-height: 74vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 50px 24px; position: relative; z-index: 1; }
+.hero .kichik { letter-spacing: 4px; text-transform: uppercase; color: var(--ikkinchi); font-size: .78rem; margin-bottom: 16px; }
+.hero h1 { font-size: 2.6rem; margin: 0; color: var(--sarlavha); font-weight: normal; line-height: 1.25; }
+.hero .va { color: var(--asos); font-size: 1.6rem; display: block; margin: 6px 0; }
+.hero .sana-matn { margin-top: 16px; color: var(--ikkinchi); letter-spacing: 1px; }
+.hero .bezak { font-size: 1.4rem; letter-spacing: 8px; margin-bottom: 16px; color: var(--asos); }
+
+/* --- Bo'limlar --- */
+.bolim { padding: 38px 0; opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; position: relative; z-index: 1; }
+.bolim.korindi { opacity: 1; transform: translateY(0); }
+.bolim h2 { text-align: center; font-size: 1.4rem; margin-bottom: 22px; color: var(--sarlavha); font-weight: normal; }
+.bolim h2::after { content: var(--bolim-bezak); display: block; font-size: .7rem; color: var(--asos); margin-top: 10px; letter-spacing: 6px; }
+
+.countdown { display: flex; justify-content: center; gap: 14px; margin: 8px 0; flex-wrap: wrap; }
+.countdown > div { text-align: center; min-width: 72px; background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 14px 8px; }
+.countdown .son { font-size: 1.7rem; font-weight: bold; color: var(--asos); }
+.countdown-matn { text-align: center; color: var(--ikkinchi); margin-top: 12px; }
+
+.blok { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 24px; margin: 14px 0; }
+.tafsilot-row { display: flex; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--chegara); }
+.tafsilot-row:last-child { border-bottom: none; }
+.tafsilot-row .belgi { width: 22px; text-align: center; }
+.tafsilot-row .qiymat { flex: 1; }
+.tafsilot-row .label { color: var(--ikkinchi); font-size: .78rem; display: block; }
+
+.xarita-tugma, .telegram-tugma { display: inline-block; margin-top: 12px; padding: 10px 22px; border-radius: 24px; border: 1px solid var(--asos); color: var(--asos); text-decoration: none; font-size: .9rem; background: var(--karta-fon); }
+.xarita-tugma:hover, .telegram-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+
+label { display: block; margin: 12px 0 4px; font-size: .9rem; color: var(--ikkinchi); }
+input, select, textarea { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid var(--chegara); font-family: inherit; background: var(--input-fon); color: var(--matn); }
+button[type="submit"] { margin-top: 16px; padding: 13px 22px; border-radius: 10px; border: none; background: var(--asos); color: var(--asos-matn); font-weight: bold; cursor: pointer; width: 100%; font-family: inherit; }
+button[type="submit"]:hover { filter: brightness(.92); }
+
+.mehmonlar-jami { text-align: center; color: var(--ikkinchi); margin-bottom: 14px; }
+.mehmon-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mehmon-list li { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: 10px; padding: 10px 14px; font-size: .9rem; }
+.mehmon-list li .soni { color: var(--ikkinchi); font-size: .8rem; }
+
+.karta { font-family: monospace; font-size: 1.05rem; letter-spacing: 1px; cursor: pointer; display: inline-block; background: var(--input-fon); border: 1px dashed var(--asos); padding: 9px 16px; border-radius: 10px; color: var(--asos); }
+
+.galereya { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.galereya img { width: 100%; height: 150px; object-fit: cover; border-radius: var(--radius); border: 3px solid var(--karta-fon); box-shadow: 0 4px 14px rgba(0,0,0,.14); }
+
+footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-size: .8rem; position: relative; z-index: 1; }
+
+#musiqa-tugma { position: fixed; bottom: 20px; right: 20px; z-index: 40; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--asos); background: var(--karta-fon); color: var(--asos); font-size: 1.2rem; cursor: pointer; display: none; align-items: center; justify-content: center; }
+#musiqa-tugma.korinadi { display: flex; animation: puls 2.4s ease infinite; }
+#musiqa-tugma.ochirilgan { opacity: .5; animation: none; }
+@keyframes puls { 0%,100% { box-shadow: 0 0 0 0 var(--puls); } 50% { box-shadow: 0 0 0 10px transparent; } }
+
+
+/* Kumush — kumushrang siyoh o'ramalari, bitta oltin urg'u */
+.dekor-fon { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .8; }
+.dekor-fon svg { width: 100%; height: 100%; }
+.oltin-nuqta { position: fixed; bottom: 12%; right: 8%; z-index: 0; width: 26px; height: 26px;
+    border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e8d48a, #b39544); opacity: .8; }
+
+{% endblock %}
+
+{% block content %}
+<div class="dekor-fon"><svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" fill="none"><g stroke="#a9acb3" stroke-width="2" opacity=".6"><path d="M60 120 C 140 60, 220 60, 260 130 C 290 185, 240 230, 195 210 C 160 194, 168 150, 205 148"/><path d="M600 80 C 700 110, 740 190, 690 250 C 655 292, 595 275, 595 230 C 595 197, 630 188, 648 210"/><path d="M120 480 C 200 430, 300 450, 330 510 C 350 552, 315 585, 280 568"/><path d="M660 460 C 730 420, 790 450, 780 510"/></g><g stroke="#c4c6cb" stroke-width="1.2" opacity=".5"><path d="M90 140 C 160 90, 230 92, 262 150"/><path d="M620 100 C 700 130, 726 195, 685 242"/></g></svg></div><span class="oltin-nuqta"></span>
+{% include "taklif/shablonlar/_mijoz_qismi.html" %}
+
+{% include "taklif/shablonlar/_konvert_parda.html" %}
+
+<div class="hero">
+    <div class="bezak">❃ ❈ ❃</div>
+    <div class="kichik">{{ taklifnoma.get_marosim_turi_display }} {% trans "taklifnomasi" %}</div>
+    {% if taklifnoma.ism_2 %}
+    <h1>{{ taklifnoma.ism_1 }}<span class="va">&amp;</span>{{ taklifnoma.ism_2 }}</h1>
+    {% else %}
+    <h1>{{ taklifnoma.ism_1 }}</h1>
+    {% endif %}
+    <div class="sana-matn">{{ taklifnoma.sana|date:"d-F, Y" }}</div>
+</div>
+
+<div class="ichki">
+{% include "taklif/shablonlar/_bolimlar.html" %}
+</div>
+
+<footer>❃ {{ taklifnoma.sarlavha }} — {{ taklifnoma.sana|date:"Y" }} ❃</footer>
+
+{% include "taklif/shablonlar/_skript.html" %}
+{% endblock %}
