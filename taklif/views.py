@@ -76,7 +76,10 @@ def _bosh_slug_top(asosiy, sana=None, marosim_turi="", toyxona="", chetlanganlar
     # Amalda deyarli imkonsiz holat uchun oxirgi chora
     return f"{asosiy}-{secrets.token_hex(3)}"
 
-DEFAULT_SHABLON_KOD = "sodda"
+# "sodda" va boshqa eng birinchi/eng oddiy 8 ta shablon olib tashlangani
+# uchun (mijoz taklifiga ko'ra) standart holat sifatida to'liq funksiyali
+# shablonlardan biriga tushamiz.
+DEFAULT_SHABLON_KOD = "suzani"
 
 # Fotolavha uchun mijoz yuklashi mumkin bo'lgan eng ko'p rasmlar soni.
 # Frontendda ham JS orqali tekshiriladi, lekin asosiy himoya shu yerda —
