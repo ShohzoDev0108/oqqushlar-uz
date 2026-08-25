@@ -47,6 +47,14 @@
         } catch (e) {}
     }
 
+    function vaqtniTikla(vaqt) {
+        // Audio metadata hali yuklanmagan bo'lsa, currentTime o'rnatish ishlamaydi —
+        // shuning uchun tayyor bo'lishini kutamiz.
+        var qoy = function () { try { musiqa.currentTime = vaqt; } catch (e) {} };
+        if (musiqa.readyState >= 1) { qoy(); }
+        else { musiqa.addEventListener('loadedmetadata', qoy, { once: true }); }
+    }
+
     var avvalOchilgan = false;
     try { avvalOchilgan = sessionStorage.getItem(OCHILDI_KALITI) === '1'; } catch (e) {}
 
@@ -57,17 +65,59 @@
         parda.classList.add('yopilgan');
         if (musiqa && musiqaTugma) {
             musiqaTugma.classList.add('korinadi');
-            var holat = null;
-            try { holat = JSON.parse(sessionStorage.getItem(MUSIQA_KALITI) || 'null'); } catch (e) {}
-            if (holat && holat.vaqt) {
-                try { musiqa.currentTime = holat.vaqt; } catch (e) {}
-            }
-            if (!holat || !holat.ochirilgan) {
-                musiqaniIjroEt();
+            if (!musiqa.paused && musiqa.currentTime > 0) {
+                // Audio allaqachon ijroda (sahifa yangilanmasdan almashtirilgan) — tegmaymiz.
+                musiqaTugma.textContent = '🎵';
             } else {
-                musiqaTugma.textContent = '🔇';
+                var holat = null;
+                try { holat = JSON.parse(sessionStorage.getItem(MUSIQA_KALITI) || 'null'); } catch (e) {}
+                if (holat && holat.vaqt) { vaqtniTikla(holat.vaqt); }
+                if (!holat || !holat.ochirilgan) {
+                    musiqaniIjroEt();
+                } else {
+                    musiqaTugma.textContent = '🔇';
+                }
             }
         }
+    }
+
+    // Til almashtirish — sahifani TO'LIQ QAYTA YUKLAMASDAN: yangi tildagi
+    // sahifa fon rejimida yuklab olinadi va tana almashtiriladi; ijrodagi
+    // audio element esa yangi tanaga jonli ko'chiriladi — musiqa uzilmaydi.
+    var tilForma = document.querySelector('.til-qatori .til-forma');
+    if (tilForma && window.fetch && window.DOMParser) {
+        var tilSelect = tilForma.querySelector('select');
+        tilSelect.removeAttribute('onchange');
+        tilSelect.addEventListener('change', function () {
+            var yubor = new FormData(tilForma);
+            fetch(tilForma.action, { method: 'POST', body: yubor, credentials: 'same-origin' })
+                .then(function () { return fetch(location.href, { credentials: 'same-origin' }); })
+                .then(function (javob) { return javob.text(); })
+                .then(function (matn) {
+                    var yangiHujjat = new DOMParser().parseFromString(matn, 'text/html');
+                    document.title = yangiHujjat.title;
+                    var yangiTana = document.adoptNode(yangiHujjat.body);
+                    // Ijrodagi audio elementni yangi tanaga ko'chiramiz (to'xtamaydi)
+                    var jonliAudio = document.getElementById('fon-musiqa');
+                    if (jonliAudio) {
+                        var yangiAudio = yangiTana.querySelector('#fon-musiqa');
+                        if (yangiAudio) { yangiAudio.parentNode.replaceChild(jonliAudio, yangiAudio); }
+                    }
+                    var joriyScroll = window.scrollY;
+                    // Eski taymerlarni tozalaymiz (countdown va h.k. ikkilanmasligi uchun)
+                    var oxirgiId = setTimeout(function () {}, 0);
+                    for (var ti = 1; ti <= oxirgiId; ti++) { clearTimeout(ti); clearInterval(ti); }
+                    document.body.parentNode.replaceChild(yangiTana, document.body);
+                    // Yangi tanadagi skriptlarni qayta ishga tushiramiz
+                    Array.prototype.slice.call(document.body.querySelectorAll('script')).forEach(function (eski) {
+                        var yangi = document.createElement('script');
+                        yangi.textContent = eski.textContent;
+                        eski.parentNode.replaceChild(yangi, eski);
+                    });
+                    window.scrollTo(0, joriyScroll);
+                })
+                .catch(function () { tilForma.submit(); });
+        });
     }
 
     if (musiqa) {
