@@ -7,6 +7,32 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 {% endcomment %}
 
 <style>
+/* Hero atrofidagi original burchak romka bezagi — barcha shablonlarda umumiy
+   (rangi har bir shablonning o'z --asos o'zgaruvchisidan olinadi, shuning
+   uchun bitta joyda e'lon qilinsa kifoya). Faqat bitta SVG shakl 4 marta
+   oyna/burilish (mirror/rotate) bilan qayta ishlatiladi — barcha burchaklar
+   uchun alohida chizish shart emas. */
+.hero { position: relative; }
+.hero-burchak {
+    position: absolute; width: 42px; height: 42px; color: var(--asos);
+    opacity: .5; pointer-events: none; z-index: 0;
+}
+.hero-burchak svg { width: 100%; height: 100%; display: block; }
+.hero-burchak.hb-tl { top: 20px; left: 16px; }
+.hero-burchak.hb-tr { top: 20px; right: 16px; transform: scaleX(-1); }
+.hero-burchak.hb-bl { bottom: 20px; left: 16px; transform: scaleY(-1); }
+.hero-burchak.hb-br { bottom: 20px; right: 16px; transform: scale(-1,-1); }
+@media (min-width: 640px) {
+    .hero-burchak { width: 58px; height: 58px; }
+    .hero-burchak.hb-tl, .hero-burchak.hb-tr { top: 30px; }
+    .hero-burchak.hb-bl, .hero-burchak.hb-br { bottom: 30px; }
+    .hero-burchak.hb-tl, .hero-burchak.hb-bl { left: 28px; }
+    .hero-burchak.hb-tr, .hero-burchak.hb-br { right: 28px; }
+}
+/* Hero ichidagi asosiy matn (h1, va, kichik, sana-matn va h.k.) romka
+   ustida ko'rinishi uchun har doim tepada qoladi. */
+.hero > *:not(.hero-burchak) { position: relative; z-index: 1; }
+
 /* Yangi bo'limlar uchun umumiy uslublar (ranglar shablon o'zgaruvchilaridan) */
 .kalendar-oy { text-align: center; letter-spacing: 3px; text-transform: uppercase; font-size: .8rem; color: var(--ikkinchi); margin-bottom: 14px; }
 .kalendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 380px; margin: 0 auto; }
