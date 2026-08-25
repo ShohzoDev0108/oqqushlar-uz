@@ -33,6 +33,14 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
    ustida ko'rinishi uchun har doim tepada qoladi. */
 .hero > *:not(.hero-burchak) { position: relative; z-index: 1; }
 
+/* Fotosuratga asoslangan burchak-romka (gul chizmasi) fon — ".hero-ramkali"
+   klassi qo'shilgan shablonlarda ishlatiladi, rasm manzili har bir
+   shablonning o'z CSS blokida --hero-ramka o'zgaruvchisi orqali beriladi.
+   Eski SVG .hero-burchak bezaklari bilan bir vaqtda ko'rinib qolmasligi
+   uchun shu klass ularni yashiradi. */
+.hero.hero-ramkali { background-image: var(--hero-ramka); background-size: cover; background-position: center; background-repeat: no-repeat; }
+.hero.hero-ramkali .hero-burchak { display: none; }
+
 /* Yangi bo'limlar uchun umumiy uslublar (ranglar shablon o'zgaruvchilaridan) */
 .kalendar-oy { text-align: center; letter-spacing: 3px; text-transform: uppercase; font-size: .8rem; color: var(--ikkinchi); margin-bottom: 14px; }
 .kalendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 380px; margin: 0 auto; }
