@@ -203,17 +203,14 @@
         <div class="dizayn-grid" id="shablonlar-grid">
             {% for s in shablonlar %}
             <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
-                {% if s.rasm %}
-                <img class="mini" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
-                {% else %}
-                <div class="shablon-mini mini-{{ s.kod }}">
+                <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
+                     {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
                     <span class="m-ramka"></span>
                     <span class="m-bezak">✦ ❦ ✦</span>
                     <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
                     <span class="m-chiziq"></span>
                     <span class="m-sana">21 · 06 · 2026</span>
                 </div>
-                {% endif %}
                 <div class="matn">
                     <div class="nomi">{{ s.nomi }}</div>
                     <div class="narx">{{ s.narx|floatformat:0 }} {% trans "so'm" %}</div>

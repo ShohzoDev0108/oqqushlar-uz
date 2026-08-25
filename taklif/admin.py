@@ -1,6 +1,14 @@
 from django.contrib import admin
 
-from .models import RSVP, Mehmon, MusiqaVariant, Shablon, Taklifnoma, TaklifnomaRasm
+from .models import (
+    RSVP,
+    Mehmon,
+    MusiqaVariant,
+    NamunaRasm,
+    Shablon,
+    Taklifnoma,
+    TaklifnomaRasm,
+)
 
 
 class RSVPInline(admin.TabularInline):
@@ -44,6 +52,13 @@ class MusiqaVariantAdmin(admin.ModelAdmin):
     search_fields = ("nomi",)
 
 
+@admin.register(NamunaRasm)
+class NamunaRasmAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "tartib", "faol")
+    list_filter = ("faol",)
+    search_fields = ("nomi",)
+
+
 @admin.register(Taklifnoma)
 class TaklifnomaAdmin(admin.ModelAdmin):
     list_display = (
@@ -53,13 +68,12 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         "shablon",
         "faol",
         "tolangan",
-        "namuna",
         "yoqdi_bosildi",
         "korishlar",
         "keladiganlar_soni",
         "statistika_link",
     )
-    list_filter = ("faol", "tolangan", "namuna", "marosim_turi", "yoqdi_bosildi", "shablon")
+    list_filter = ("faol", "tolangan", "marosim_turi", "yoqdi_bosildi", "shablon")
     search_fields = ("ism_1", "ism_2", "slug")
     prepopulated_fields = {"slug": ("ism_1", "ism_2")}
     readonly_fields = (
@@ -78,7 +92,7 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         }),
         ("Holat", {
             "fields": (
-                "faol", "tolangan", "namuna", "yoqdi_bosildi", "korishlar",
+                "faol", "tolangan", "yoqdi_bosildi", "korishlar",
                 "statistika_token", "statistika_link", "yaratilgan",
             )
         }),

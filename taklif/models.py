@@ -96,6 +96,32 @@ class MusiqaVariant(models.Model):
         return f"{self.nomi} ({self.get_til_display()})"
 
 
+class NamunaRasm(models.Model):
+    """Admin oldindan yuklab qo'ygan tayyor namuna rasm — musiqaga o'xshab.
+
+    Mijoz taklifnoma yaratayotganda o'z fotosi bo'lmasa, shulardan birini
+    (yoki ikkitasini) tanlashi mumkin; yoqmasa, o'z galereyasidan yuklaydi.
+    Tanlangan rasmning nusxasi mijozning shaxsiy TaklifnomaRasm'i sifatida
+    saqlanadi — kelajakda bu ro'yxat o'zgarsa ham, mijozning eski
+    taklifnomasi buzilmaydi.
+    """
+
+    nomi = models.CharField(
+        max_length=100, blank=True, help_text="Faqat admin uchun ichki nom (ixtiyoriy)"
+    )
+    rasm = models.ImageField(upload_to="namuna_rasmlar/")
+    tartib = models.PositiveSmallIntegerField(default=0)
+    faol = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Namuna rasm"
+        verbose_name_plural = "Namuna rasmlar"
+        ordering = ["tartib", "id"]
+
+    def __str__(self):
+        return self.nomi or f"Namuna rasm #{self.pk}"
+
+
 class Taklifnoma(models.Model):
     """Bitta mijozga tegishli taklifnoma sahifasi."""
 
@@ -154,15 +180,6 @@ class Taklifnoma(models.Model):
     tolangan = models.BooleanField(
         default=True,
         help_text="Self-service oqimi uchun: mijoz to'laguncha False bo'ladi",
-    )
-    namuna = models.BooleanField(
-        default=False,
-        help_text=(
-            "Bu — mijozlar ma'lumoti emas, sayt uchun ko'rgazma taklifnoma. "
-            "Shablon tanlash sahifasidagi 'Namuna ko'rish' tugmasi shu "
-            "taklifnomaga olib boradi va bosh sahifadagi haqiqiy mijozlar "
-            "ro'yxatida ko'rinmaydi."
-        ),
     )
     yaratilgan = models.DateTimeField(auto_now_add=True)
 

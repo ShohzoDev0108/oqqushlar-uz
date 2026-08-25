@@ -29,6 +29,21 @@
     padding: 12px 16px; border-radius: 2px; font-size: .85rem; cursor: pointer; font-family: inherit;
 }
 .tugma-ikkinchi:hover { border-color: var(--tilla-toq); color: var(--tilla-toq); }
+
+.namuna-rasm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; margin-top: 8px; }
+.namuna-rasm-item { position: relative; display: block; aspect-ratio: 1; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; }
+.namuna-rasm-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.namuna-rasm-item input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.namuna-rasm-item .namuna-belgi {
+    position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--tilla); color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: .68rem; opacity: 0; transition: opacity .15s ease;
+}
+.namuna-rasm-item.tanlangan { border-color: var(--tilla); }
+.namuna-rasm-item.tanlangan .namuna-belgi { opacity: 1; }
+.namuna-rasm-item.tanlangan img { filter: brightness(.85); }
+.yoki-chiziq { display: flex; align-items: center; gap: 10px; margin: 18px 0 4px; color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; }
+.yoki-chiziq::before, .yoki-chiziq::after { content: ""; flex: 1; height: 1px; background: var(--chiziq); }
 {% endblock %}
 
 {% block content %}
@@ -76,7 +91,21 @@
             {% endfor %}
 
             <div>
-                <label for="rasmlar">{% blocktrans with soni=maksimal_rasmlar_soni %}Rasmlar (eng ko'pi bilan {{ soni }} ta, ixtiyoriy){% endblocktrans %}</label>
+                <label>{% blocktrans with soni=maksimal_rasmlar_soni %}Rasmlar (eng ko'pi bilan {{ soni }} ta, ixtiyoriy){% endblocktrans %}</label>
+                {% if namuna_rasmlar %}
+                <div class="yordam">{% trans "O'z fotoyingiz hali bo'lmasa, tayyor namunalardan tanlashingiz mumkin:" %}</div>
+                <div class="namuna-rasm-grid" id="namuna-rasm-grid">
+                    {% for nr in namuna_rasmlar %}
+                    <label class="namuna-rasm-item">
+                        <input type="checkbox" name="namuna_rasm_ids" value="{{ nr.id }}">
+                        <img src="{{ nr.rasm.url }}" alt="" loading="lazy">
+                        <span class="namuna-belgi">✓</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                <div class="yoki-chiziq">{% trans "yoki" %}</div>
+                {% endif %}
+                <label for="rasmlar">{% trans "O'zingizning rasmingizni yuklang" %}</label>
                 <input type="file" id="rasmlar" name="rasmlar" accept="image/*" multiple>
                 <div class="yordam" id="rasmlar-soni"></div>
             </div>
@@ -113,27 +142,59 @@
 })();
 
 (function () {
-    // Rasmlar sonini eng ko'pi bilan {{ maksimal_rasmlar_soni }} tagacha cheklaymiz.
+    // Rasmlar sonini eng ko'pi bilan {{ maksimal_rasmlar_soni }} tagacha cheklaymiz —
+    // namuna tanlovi va o'z yuklamasi BIRGALIKDA shu songa sig'ishi kerak.
     // (Server tomonida ham cheklangan — bu faqat mijozga tezroq bildirish uchun.)
     var maksimal = {{ maksimal_rasmlar_soni }};
     var rasmlarEl = document.getElementById('rasmlar');
     var soniEl = document.getElementById('rasmlar-soni');
-    if (!rasmlarEl) { return; }
+    var namunaGrid = document.getElementById('namuna-rasm-grid');
+    var namunaCheckboxlar = namunaGrid ? Array.prototype.slice.call(namunaGrid.querySelectorAll('input[type=checkbox]')) : [];
 
     var LIMIT_XABARI = "{% filter escapejs %}{% blocktrans with soni=maksimal_rasmlar_soni %}Eng ko'pi bilan {{ soni }} ta rasm tanlashingiz mumkin. Iltimos, qaytadan tanlang.{% endblocktrans %}{% endfilter %}";
 
-    rasmlarEl.addEventListener('change', function () {
-        var tanlangan = rasmlarEl.files.length;
-        if (tanlangan > maksimal) {
-            alert(LIMIT_XABARI);
-            rasmlarEl.value = '';
-            if (soniEl) { soniEl.textContent = ''; }
-            return;
-        }
+    function tanlanganNamunaSoni() {
+        var soni = 0;
+        namunaCheckboxlar.forEach(function (cb) { if (cb.checked) { soni++; } });
+        return soni;
+    }
+
+    function holatniYangila() {
+        var fayllar = rasmlarEl ? rasmlarEl.files.length : 0;
+        var jami = fayllar + tanlanganNamunaSoni();
         if (soniEl) {
-            soniEl.textContent = tanlangan ? tanlangan + ' / ' + maksimal : '';
+            soniEl.textContent = jami ? jami + ' / ' + maksimal : '';
         }
+        namunaCheckboxlar.forEach(function (cb) {
+            var karta = cb.closest('.namuna-rasm-item');
+            if (karta) { karta.classList.toggle('tanlangan', cb.checked); }
+        });
+    }
+
+    namunaCheckboxlar.forEach(function (cb) {
+        cb.addEventListener('change', function () {
+            var fayllar = rasmlarEl ? rasmlarEl.files.length : 0;
+            if (cb.checked && fayllar + tanlanganNamunaSoni() > maksimal) {
+                cb.checked = false;
+                alert(LIMIT_XABARI);
+                return;
+            }
+            holatniYangila();
+        });
     });
+
+    if (rasmlarEl) {
+        rasmlarEl.addEventListener('change', function () {
+            var tanlangan = rasmlarEl.files.length;
+            if (tanlangan + tanlanganNamunaSoni() > maksimal) {
+                alert(LIMIT_XABARI);
+                rasmlarEl.value = '';
+                holatniYangila();
+                return;
+            }
+            holatniYangila();
+        });
+    }
 })();
 </script>
 {% endblock %}

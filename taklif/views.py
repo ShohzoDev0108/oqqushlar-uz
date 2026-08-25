@@ -1,8 +1,10 @@
+import os
 import secrets
 from urllib.parse import quote
 
 from django.conf import settings
 from django.contrib import messages
+from django.core.files.base import ContentFile
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import TemplateDoesNotExist
@@ -18,6 +20,7 @@ from .models import (
     RSVP,
     Mehmon,
     MusiqaVariant,
+    NamunaRasm,
     Shablon,
     Taklifnoma,
     TaklifnomaRasm,
@@ -94,6 +97,47 @@ MAKSIMAL_RASMLAR_SONI = 2
 SESSIYA_KALITI = "mening_taklifnomalarim_sluglari"
 
 
+def _taklifnoma_rasmlarini_saqlash(taklifnoma, request):
+    """Mijoz tanlagan tayyor namuna rasmlar va/yoki o'zi yuklagan fayllarni
+    birlashtirib, TaklifnomaRasm sifatida saqlaydi (musiqadagi "tayyor
+    variant yoki o'zi yuklash" bilan bir xil mantiq).
+
+    Namuna rasm tanlansa, uning fayli mijozning shaxsiy nusxasiga
+    ko'chiriladi — kelajakda namunalar ro'yxati o'zgarsa ham, mijozning
+    taklifnomasi buzilmaydi. Jami rasmlar soni har doim
+    MAKSIMAL_RASMLAR_SONI bilan cheklanadi (namuna + yuklangan birgalikda).
+    """
+    tartib = 0
+
+    namuna_idlari = request.POST.getlist("namuna_rasm_ids")
+    if namuna_idlari:
+        tanlangan_namunalar = NamunaRasm.objects.filter(
+            id__in=namuna_idlari, faol=True
+        )
+        # POST tartibiga mos ketishi uchun
+        tartibli = sorted(
+            tanlangan_namunalar, key=lambda n: namuna_idlari.index(str(n.id))
+        )
+        for namuna in tartibli:
+            if tartib >= MAKSIMAL_RASMLAR_SONI:
+                break
+            namuna.rasm.open("rb")
+            nusxa = ContentFile(
+                namuna.rasm.read(), name=os.path.basename(namuna.rasm.name)
+            )
+            namuna.rasm.close()
+            TaklifnomaRasm.objects.create(
+                taklifnoma=taklifnoma, rasm=nusxa, tartib=tartib
+            )
+            tartib += 1
+
+    for rasm in request.FILES.getlist("rasmlar"):
+        if tartib >= MAKSIMAL_RASMLAR_SONI:
+            break
+        TaklifnomaRasm.objects.create(taklifnoma=taklifnoma, rasm=rasm, tartib=tartib)
+        tartib += 1
+
+
 def _sessiyaga_qoshish(request, slug):
     ro_yxat = request.session.get(SESSIYA_KALITI, [])
     if slug in ro_yxat:
@@ -122,11 +166,7 @@ def _sayt_musiqasi():
 def bosh_sahifa(request):
     """Platformaning asosiy landing sahifasi — wedding vibe, shablonlar galereyasi,
     faollashtirilgan taklifnomalar va taklifnoma yaratishga chorlovchi CTA."""
-    # namuna=True bo'lganlar — haqiqiy mijoz emas, faqat shablon tanlashdagi
-    # "Namuna ko'rish" tugmasi uchun ko'rgazma, shuning uchun bu yerga chiqmaydi.
-    taklifnomalar = Taklifnoma.objects.filter(
-        faol=True, tolangan=True, namuna=False
-    )[:8]
+    taklifnomalar = Taklifnoma.objects.filter(faol=True, tolangan=True)[:8]
     shablonlar = Shablon.objects.filter(ommaviy=True)
     return render(
         request,
@@ -141,14 +181,7 @@ def bosh_sahifa(request):
 
 def shablon_tanlash(request):
     """Mijoz o'zi taklifnoma yaratishni shu yerdan — shablon tanlashdan boshlaydi."""
-    shablonlar = list(Shablon.objects.filter(ommaviy=True))
-    namuna_sluglari = dict(
-        Taklifnoma.objects.filter(
-            namuna=True, shablon_id__in=[s.pk for s in shablonlar]
-        ).values_list("shablon_id", "slug")
-    )
-    for s in shablonlar:
-        s.namuna_slug = namuna_sluglari.get(s.pk)
+    shablonlar = Shablon.objects.filter(ommaviy=True)
     return render(
         request,
         "taklif/shablon_tanlash.html",
@@ -218,8 +251,7 @@ def yaratish(request, shablon_kod):
                 taklifnoma.faol = True
                 taklifnoma.save()
 
-                for rasm in request.FILES.getlist("rasmlar")[:MAKSIMAL_RASMLAR_SONI]:
-                    TaklifnomaRasm.objects.create(taklifnoma=taklifnoma, rasm=rasm)
+                _taklifnoma_rasmlarini_saqlash(taklifnoma, request)
 
                 _sessiyaga_qoshish(request, taklifnoma.slug)
 
@@ -235,6 +267,7 @@ def yaratish(request, shablon_kod):
             "shablon": shablon,
             "ikki_ismli_turlar": list(IKKI_ISMLI_MAROSIM_TURLARI),
             "maksimal_rasmlar_soni": MAKSIMAL_RASMLAR_SONI,
+            "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
             "sayt_musiqa": _sayt_musiqasi(),
             "eski_taklifnoma": eski_taklifnoma,
         },

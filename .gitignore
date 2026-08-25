@@ -19,8 +19,20 @@ db.sqlite3
 db.sqlite3-journal
 *.sqlite3
 
-# Foydalanuvchi yuklagan fayllar (rasm/musiqa)
-media/
+# Foydalanuvchi yuklagan fayllar (rasm/musiqa) — bular haqiqiy mijoz
+# ma'lumotlari, shuning uchun git'ga tushmaydi.
+# ("media/" ni butunlay yopib qo'yish MUMKIN EMAS — git ignored papka ichiga
+# umuman kirmaydi, shuning uchun pastdagi "!" qoidalar ishlamay qoladi.)
+media/musiqa/
+media/taklifnoma_rasmlar/
+
+# ...lekin quyidagilar mijoz yuklamasi emas — ilova o'zi bilan olib yuradigan
+# tayyor namunalar (migratsiya shu fayl nomlarini kutubxonaga yozadi),
+# shuning uchun git'da saqlanishi kerak.
+!media/namuna_rasmlar/
+!media/namuna_rasmlar/**
+!media/shablonlar/
+!media/shablonlar/**
 
 # Statik fayllar (collectstatic natijasi)
 staticfiles/

@@ -9,16 +9,6 @@
 .oq-sahifa-bosh { padding-bottom: 34px; }
 .bosh { color: var(--kul); margin-top: 30px; }
 
-.shablon-karta { position: relative; }
-.sk-havola { color: inherit; text-decoration: none; display: block; }
-.sk-namuna-tugma {
-    position: absolute; top: 12px; right: 12px; z-index: 2;
-    background: rgba(255,255,255,.94); color: var(--siyoh);
-    padding: 7px 14px; border-radius: 20px; font-size: .74rem; letter-spacing: .3px;
-    text-decoration: none; box-shadow: 0 3px 10px rgba(34,28,20,.18);
-    transition: background .2s ease, color .2s ease;
-}
-.sk-namuna-tugma:hover { background: var(--tilla); color: #fff; }
 {% endblock %}
 
 {% block content %}
@@ -47,28 +37,20 @@
 </div>
 <div class="dizayn-grid" id="shablonlar-grid">
     {% for s in shablonlar %}
-    <div class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}">
-        {% if s.namuna_slug %}
-        <a class="sk-namuna-tugma" href="{% url 'taklif:korish' s.namuna_slug %}" target="_blank" rel="noopener">👁 {% trans "Namuna" %}</a>
-        {% endif %}
-        <a class="sk-havola" href="{% url 'taklif:yaratish' s.kod %}">
-            {% if s.rasm %}
-                <img class="mini" src="{{ s.rasm.url }}" alt="{{ s.nomi }}">
-            {% else %}
-                <div class="shablon-mini mini-{{ s.kod }}">
-                    <span class="m-ramka"></span>
-                    <span class="m-bezak">✦ ❦ ✦</span>
-                    <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
-                    <span class="m-chiziq"></span>
-                    <span class="m-sana">21 · 06 · 2026</span>
-                </div>
-            {% endif %}
-            <div class="matn">
-                <div class="nomi">{{ s.nomi }}</div>
-                <div class="narx">{{ s.narx|floatformat:0 }} {% trans "so'm" %}</div>
-            </div>
-        </a>
-    </div>
+    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
+        <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
+             {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
+            <span class="m-ramka"></span>
+            <span class="m-bezak">✦ ❦ ✦</span>
+            <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
+            <span class="m-chiziq"></span>
+            <span class="m-sana">21 · 06 · 2026</span>
+        </div>
+        <div class="matn">
+            <div class="nomi">{{ s.nomi }}</div>
+            <div class="narx">{{ s.narx|floatformat:0 }} {% trans "so'm" %}</div>
+        </div>
+    </a>
     {% endfor %}
 </div>
 {% else %}

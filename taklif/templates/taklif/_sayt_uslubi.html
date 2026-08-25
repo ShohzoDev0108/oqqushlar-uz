@@ -48,8 +48,9 @@ body { background: var(--oq); color: var(--siyoh); font-family: var(--sans); ove
 .oq-nav-linklar a:hover { opacity: 1; color: var(--tilla-toq); }
 .oq-nav-ong { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .til-forma select {
-    width: auto; padding: 9px 12px; border: 1px solid var(--chiziq); background: var(--toza);
+    width: 96px; max-width: 96px; padding: 9px 10px; border: 1px solid var(--chiziq); background: var(--toza);
     color: var(--siyoh); font-size: .8rem; font-family: inherit; letter-spacing: .5px; border-radius: 2px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
 /* --- Tugmalar --- */
@@ -139,13 +140,24 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 .shablon-mini .m-ism em { font-style: italic; font-size: 1.05rem; opacity: .8; padding: 0 3px; }
 .shablon-mini .m-chiziq { width: 44px; height: 1px; background: currentColor; opacity: .5; }
 .shablon-mini .m-sana { font-size: .68rem; letter-spacing: 3px; opacity: .8; }
-/* Hover'da yaltiroq nur o'tadi */
+/* Hover'da yaltiroq nur o'tadi (surat fonli kartalarda ham ustidan ko'rinishi uchun z-index baland) */
 .shablon-mini::before {
     content: ""; position: absolute; top: -10%; bottom: -10%; left: -70%; width: 50%;
     background: linear-gradient(105deg, transparent, rgba(255,255,255,.4), transparent);
-    transform: skewX(-16deg); transition: left .65s ease; pointer-events: none;
+    transform: skewX(-16deg); transition: left .65s ease; pointer-events: none; z-index: 3;
 }
 .shablon-karta:hover .shablon-mini::before { left: 130%; }
+
+/* Tekis rang o'rniga nafis fotosurat orqasiga yashiringan mini-namuna
+   (Shablon.rasm to'ldirilgan bo'lsa) — matn/bezak ustida qolishi uchun
+   qorong'i pardalanish qo'shiladi. */
+.shablon-mini.mini-surat { background-size: cover; background-position: center; color: #fdf9f0; }
+.shablon-mini.mini-surat::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(20,14,8,.2) 0%, rgba(20,14,8,.62) 100%);
+}
+.shablon-mini.mini-surat > * { position: relative; z-index: 2; }
+.shablon-mini.mini-surat .m-ramka { border-color: rgba(255,255,255,.6); }
 .shablon-karta:hover .shablon-mini .m-ramka { opacity: .75; }
 
 /* Har bir shablonning rang olami */
