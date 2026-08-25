@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 05:55+0000\n"
+"POT-Creation-Date: 2026-08-25 06:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,22 +122,17 @@ msgstr "Card number for monetary gifts"
 msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
 msgstr "Telegram group/channel link for guests"
 
-#: taklif/forms.py:103
+#: taklif/forms.py:116
 msgid "Bu marosim turi uchun ikkinchi ismni ham kiriting."
 msgstr "For this event type, please enter the second name too."
 
-#: taklif/forms.py:120
+#: taklif/forms.py:133
 msgid "Iltimos, to'g'ri nom kiriting (masalan: ollomurod-kamola)."
 msgstr "Please enter a valid name (e.g.: ollomurod-kamola)."
 
-#: taklif/forms.py:124
+#: taklif/forms.py:137
 msgid "Bu nom tizim tomonidan band qilingan, boshqa nom tanlang."
 msgstr "This name is reserved by the system, choose another."
-
-#: taklif/forms.py:128
-msgid "Bu manzil band, boshqa nom tanlang (masalan oxiriga raqam qo'shing)."
-msgstr ""
-"This address is taken, choose another name (e.g. add a number at the end)."
 
 #: taklif/models.py:19
 msgid "Nikoh to'yi"
@@ -189,7 +184,7 @@ msgstr "Kids"
 #: taklif/templates/taklif/_sayt_footer.html:9
 #: taklif/templates/taklif/_sayt_nav.html:14
 #: taklif/templates/taklif/shablon_tanlash.html:21
-#: taklif/templates/taklif/yaratish.html:37
+#: taklif/templates/taklif/yaratish.html:49
 msgid "Dizaynlar"
 msgstr "Designs"
 
@@ -356,7 +351,7 @@ msgstr "No activated invitations yet — be the first to create one!"
 
 #: taklif/templates/taklif/mening_taklifnomalarim.html:29
 #: taklif/templates/taklif/shablon_tanlash.html:19
-#: taklif/templates/taklif/yaratish.html:35
+#: taklif/templates/taklif/yaratish.html:47
 msgid "Bosh sahifa"
 msgstr "Home"
 
@@ -1011,11 +1006,11 @@ msgstr ""
 "Once payment is confirmed, your invitation is activated and you can send it "
 "to your guests (Telegram, Instagram, etc.)."
 
-#: taklif/templates/taklif/yaratish.html:41
+#: taklif/templates/taklif/yaratish.html:53
 msgid "shabloni"
 msgstr "template"
 
-#: taklif/templates/taklif/yaratish.html:43
+#: taklif/templates/taklif/yaratish.html:55
 msgid ""
 "Ma'lumotlaringizni to'ldiring. Yuborgach — o'zingiz uchun link tayyor "
 "bo'ladi (hali hech kimga ochiq emas)."
@@ -1023,30 +1018,65 @@ msgstr ""
 "Fill in your details. After submitting, your link will be ready (not public "
 "yet)."
 
-#: taklif/templates/taklif/yaratish.html:69
+#: taklif/templates/taklif/yaratish.html:64
+#, python-format
+msgid ""
+"Sizda <strong>%(ism1)s %(ism2)s</strong> nomi bilan taklifnoma shu manzilda "
+"allaqachon mavjud (shu brauzerda avval yaratilgan)."
+msgstr ""
+"You already have an invitation for <strong>%(ism1)s %(ism2)s</strong> at "
+"this address (created earlier in this browser)."
+
+#: taklif/templates/taklif/yaratish.html:65
+msgid ""
+"Agar u yoqmagan bo'lsa, pastdagi tugmani bosing: eski nusxa o'chiriladi va "
+"xuddi shu toza manzilda hozirgi ma'lumotlar bilan yangisi yaratiladi. Rasm "
+"tanlagan bo'lsangiz, qayta tanlashingizga to'g'ri keladi."
+msgstr ""
+"If you don't like it, press the button below: the old version will be "
+"deleted and a new one created at the same clean address with your current "
+"details. If you selected photos, you'll need to select them again."
+
+#: taklif/templates/taklif/yaratish.html:88
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Photos (up to %(soni)s, optional)"
 
-#: taklif/templates/taklif/yaratish.html:74
+#: taklif/templates/taklif/yaratish.html:94
+msgid "Eskisini almashtirish va yangisini yaratish"
+msgstr "Replace the old one and create new"
+
+#: taklif/templates/taklif/yaratish.html:95
+msgid "Yo'q, men boshqa manzil (link) tanlayman"
+msgstr "No, I'll choose a different address (link)"
+
+#: taklif/templates/taklif/yaratish.html:97
 msgid "Taklifnomani yaratish"
 msgstr "Create the invitation"
 
-#: taklif/templates/taklif/yaratish.html:77
+#: taklif/templates/taklif/yaratish.html:101
 msgid "Boshqa shablon tanlash"
 msgstr "Choose another template"
 
-#: taklif/templates/taklif/yaratish.html:140
+#: taklif/templates/taklif/yaratish.html:176
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr "You can select at most %(soni)s photos. Please choose again."
 
-#: taklif/views.py:230
+#: taklif/views.py:123
+msgid ""
+"Bu manzil band. Iltimos, biroz boshqacha nom tanlang (masalan to'yxona yoki "
+"tuman nomini qo'shing)."
+msgstr ""
+"This address is taken. Please choose a slightly different name (for example,"
+" add the venue or district name)."
+
+#: taklif/views.py:266
 msgid "Javobingiz uchun rahmat!"
 msgstr "Thank you for your response!"
 
-#: taklif/views.py:232
+#: taklif/views.py:268
 msgid "Iltimos, ismingizni kiriting."
 msgstr "Please enter your name."

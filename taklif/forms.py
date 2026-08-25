@@ -93,6 +93,19 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "telegram_link": _("Mehmonlar uchun Telegram guruh/kanal havolasi"),
         }
 
+    def validate_unique(self):
+        # Slug bandligini Django'ning standart ModelForm mexanizmi (bu shunchaki
+        # "Taklifnoma allaqachon mavjud" degan xato beradi) o'rniga o'zimiz
+        # views.py'dagi yaratish() funksiyasida, sessiya ma'lumoti asosida,
+        # ancha aqlliroq boshqaramiz (mijozning o'zi avval yaratgan bo'lsa —
+        # almashtirishni taklif qilamiz; xunuk "-2", "-3" qo'shilmaydi).
+        exclude = self._get_validation_exclusions()
+        exclude.add("slug")
+        try:
+            self.instance.validate_unique(exclude=exclude)
+        except forms.ValidationError as e:
+            self._update_errors(e)
+
     def clean(self):
         cleaned_data = super().clean()
         marosim_turi = cleaned_data.get("marosim_turi")
@@ -123,8 +136,10 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             raise forms.ValidationError(
                 _("Bu nom tizim tomonidan band qilingan, boshqa nom tanlang.")
             )
-        if Taklifnoma.objects.filter(slug=slug).exists():
-            raise forms.ValidationError(
-                _("Bu manzil band, boshqa nom tanlang (masalan oxiriga raqam qo'shing).")
-            )
+
+        # E'tibor bering: bu yerda "slug band yoki bandmasligi" TEKSHIRILMAYDI —
+        # faqat formatlanadi. Band bo'lgan taqdirda nima qilish kerakligi
+        # (mijozning o'zi avval yaratganmi yoki boshqa kimdir bandmi) — bu
+        # sessiya ma'lumotiga bog'liq bo'lgani uchun views.py'dagi yaratish()
+        # funksiyasida hal qilinadi (xunuk "-2", "-3" qo'shish o'rniga).
         return slug

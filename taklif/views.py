@@ -87,26 +87,61 @@ def shablon_tanlash(request):
 def yaratish(request, shablon_kod):
     """Mijoz tanlagan shablon bo'yicha o'z taklifnomasini to'ldiradi (self-service)."""
     shablon = get_object_or_404(Shablon, kod=shablon_kod, ommaviy=True)
+    # Agar mijoz shu brauzerda avval xuddi shu manzil (slug) bilan taklifnoma
+    # yaratgan bo'lsa va hozir ham o'sha nom bilan urinayotgan bo'lsa — bu yerga
+    # o'sha eski (ehtimol yoqmagan) yozuv qo'yiladi, shablon esa mijozdan
+    # "eskisini almashtiraymi?" deb so'raydi (raqam qo'shib "-2", "-3" qilish
+    # o'rniga — bu link uchun xunuk ko'rinadi).
+    eski_taklifnoma = None
 
     if request.method == "POST":
         form = TaklifnomaYaratishForm(request.POST, request.FILES)
         if form.is_valid():
-            taklifnoma = form.save(commit=False)
-            taklifnoma.shablon = shablon
-            # Self-service oqimi: mijoz o'zi yaratganda hali to'lov qilinmagan bo'ladi.
-            # Link mijozning o'zi uchun darhol ishlaydi ("lokal"), lekin admin
-            # to'lovni tasdiqlab tolangan=True qilmaguncha ommaviy joylarga
-            # (bosh sahifa ro'yxati) chiqmaydi.
-            taklifnoma.tolangan = False
-            taklifnoma.faol = True
-            taklifnoma.save()
+            slug = form.cleaned_data["slug"]
+            mavjud = Taklifnoma.objects.filter(slug=slug).first()
 
-            for rasm in request.FILES.getlist("rasmlar")[:MAKSIMAL_RASMLAR_SONI]:
-                TaklifnomaRasm.objects.create(taklifnoma=taklifnoma, rasm=rasm)
+            if mavjud is not None:
+                oldingi_sluglar = request.session.get(SESSIYA_KALITI, [])
+                ozimniki = slug in oldingi_sluglar
 
-            _sessiyaga_qoshish(request, taklifnoma.slug)
+                if ozimniki and request.POST.get("eskisini_almashtirish") == "1":
+                    # Mijoz tasdiqladi: eski (yoqmagan) taklifnoma o'chirilib,
+                    # xuddi shu toza manzilga yangisi yaratiladi.
+                    mavjud.delete()
+                    mavjud = None
+                elif ozimniki:
+                    # Mijozning o'zi avval shu nom bilan yaratgan — xato
+                    # ko'rsatmaymiz, almashtirishni taklif qilamiz.
+                    eski_taklifnoma = mavjud
+                else:
+                    # Bu haqiqatan ham boshqa mijoz tomonidan band qilingan
+                    # manzil — mijozning o'ziga biroz boshqacha nom tanlashni
+                    # so'raymiz (avtomatik raqam qo'shish o'rniga).
+                    form.add_error(
+                        "slug",
+                        _(
+                            "Bu manzil band. Iltimos, biroz boshqacha nom tanlang "
+                            "(masalan to'yxona yoki tuman nomini qo'shing)."
+                        ),
+                    )
 
-            return redirect("taklif:yaratildi", slug=taklifnoma.slug)
+            if mavjud is None and not form.errors:
+                taklifnoma = form.save(commit=False)
+                taklifnoma.shablon = shablon
+                # Self-service oqimi: mijoz o'zi yaratganda hali to'lov qilinmagan bo'ladi.
+                # Link mijozning o'zi uchun darhol ishlaydi ("lokal"), lekin admin
+                # to'lovni tasdiqlab tolangan=True qilmaguncha ommaviy joylarga
+                # (bosh sahifa ro'yxati) chiqmaydi.
+                taklifnoma.tolangan = False
+                taklifnoma.faol = True
+                taklifnoma.save()
+
+                for rasm in request.FILES.getlist("rasmlar")[:MAKSIMAL_RASMLAR_SONI]:
+                    TaklifnomaRasm.objects.create(taklifnoma=taklifnoma, rasm=rasm)
+
+                _sessiyaga_qoshish(request, taklifnoma.slug)
+
+                return redirect("taklif:yaratildi", slug=taklifnoma.slug)
     else:
         form = TaklifnomaYaratishForm()
 
@@ -119,6 +154,7 @@ def yaratish(request, shablon_kod):
             "ikki_ismli_turlar": list(IKKI_ISMLI_MAROSIM_TURLARI),
             "maksimal_rasmlar_soni": MAKSIMAL_RASMLAR_SONI,
             "sayt_musiqa": _sayt_musiqasi(),
+            "eski_taklifnoma": eski_taklifnoma,
         },
     )
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 05:55+0000\n"
+"POT-Creation-Date: 2026-08-25 06:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,22 +122,17 @@ msgstr "Ақшалай сыйлыққа карта нөмірі"
 msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
 msgstr "Қонақтарға арналған Telegram тобы/арнасының сілтемесі"
 
-#: taklif/forms.py:103
+#: taklif/forms.py:116
 msgid "Bu marosim turi uchun ikkinchi ismni ham kiriting."
 msgstr "Бұл іс-шара түрі үшін екінші есімді де енгізіңіз."
 
-#: taklif/forms.py:120
+#: taklif/forms.py:133
 msgid "Iltimos, to'g'ri nom kiriting (masalan: ollomurod-kamola)."
 msgstr "Дұрыс атау енгізіңіз (мысалы: ollomurod-kamola)."
 
-#: taklif/forms.py:124
+#: taklif/forms.py:137
 msgid "Bu nom tizim tomonidan band qilingan, boshqa nom tanlang."
 msgstr "Бұл атау жүйемен брондалған, басқасын таңдаңыз."
-
-#: taklif/forms.py:128
-msgid "Bu manzil band, boshqa nom tanlang (masalan oxiriga raqam qo'shing)."
-msgstr ""
-"Бұл мекенжай бос емес, басқа атау таңдаңыз (мысалы, соңына сан қосыңыз)."
 
 #: taklif/models.py:19
 msgid "Nikoh to'yi"
@@ -189,7 +184,7 @@ msgstr "Балалар"
 #: taklif/templates/taklif/_sayt_footer.html:9
 #: taklif/templates/taklif/_sayt_nav.html:14
 #: taklif/templates/taklif/shablon_tanlash.html:21
-#: taklif/templates/taklif/yaratish.html:37
+#: taklif/templates/taklif/yaratish.html:49
 msgid "Dizaynlar"
 msgstr "Дизайндар"
 
@@ -354,7 +349,7 @@ msgstr "Әзірге іске қосылған шақыру жоқ — бірі�
 
 #: taklif/templates/taklif/mening_taklifnomalarim.html:29
 #: taklif/templates/taklif/shablon_tanlash.html:19
-#: taklif/templates/taklif/yaratish.html:35
+#: taklif/templates/taklif/yaratish.html:47
 msgid "Bosh sahifa"
 msgstr "Басты бет"
 
@@ -1009,11 +1004,11 @@ msgstr ""
 "Төлем расталғаннан кейін шақыруыңыз іске қосылады және оны қонақтарға жібере"
 " аласыз (Telegram, Instagram және т.б.)."
 
-#: taklif/templates/taklif/yaratish.html:41
+#: taklif/templates/taklif/yaratish.html:53
 msgid "shabloni"
 msgstr "үлгісі"
 
-#: taklif/templates/taklif/yaratish.html:43
+#: taklif/templates/taklif/yaratish.html:55
 msgid ""
 "Ma'lumotlaringizni to'ldiring. Yuborgach — o'zingiz uchun link tayyor "
 "bo'ladi (hali hech kimga ochiq emas)."
@@ -1021,30 +1016,65 @@ msgstr ""
 "Деректеріңізді толтырыңыз. Жібергеннен кейін сілтеме сіз үшін дайын болады "
 "(әзірге ешкімге көрінбейді)."
 
-#: taklif/templates/taklif/yaratish.html:69
+#: taklif/templates/taklif/yaratish.html:64
+#, python-format
+msgid ""
+"Sizda <strong>%(ism1)s %(ism2)s</strong> nomi bilan taklifnoma shu manzilda "
+"allaqachon mavjud (shu brauzerda avval yaratilgan)."
+msgstr ""
+"Сізде осы мекенжайда <strong>%(ism1)s %(ism2)s</strong> есімдерімен шақыру "
+"хаты бар екен (осы браузерде бұрын жасалған)."
+
+#: taklif/templates/taklif/yaratish.html:65
+msgid ""
+"Agar u yoqmagan bo'lsa, pastdagi tugmani bosing: eski nusxa o'chiriladi va "
+"xuddi shu toza manzilda hozirgi ma'lumotlar bilan yangisi yaratiladi. Rasm "
+"tanlagan bo'lsangiz, qayta tanlashingizga to'g'ri keladi."
+msgstr ""
+"Егер ол ұнамаса, төмендегі түймені басыңыз: ескі нұсқа өшіріледі де, сол "
+"таза мекенжайда қазіргі деректермен жаңасы жасалады. Егер сурет таңдаған "
+"болсаңыз, оны қайта таңдауыңыз керек болады."
+
+#: taklif/templates/taklif/yaratish.html:88
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Суреттер (ең көбі %(soni)s дана, міндетті емес)"
 
-#: taklif/templates/taklif/yaratish.html:74
+#: taklif/templates/taklif/yaratish.html:94
+msgid "Eskisini almashtirish va yangisini yaratish"
+msgstr "Ескісін ауыстырып, жаңасын жасау"
+
+#: taklif/templates/taklif/yaratish.html:95
+msgid "Yo'q, men boshqa manzil (link) tanlayman"
+msgstr "Жоқ, мен басқа мекенжай (сілтеме) таңдаймын"
+
+#: taklif/templates/taklif/yaratish.html:97
 msgid "Taklifnomani yaratish"
 msgstr "Шақыруды жасау"
 
-#: taklif/templates/taklif/yaratish.html:77
+#: taklif/templates/taklif/yaratish.html:101
 msgid "Boshqa shablon tanlash"
 msgstr "Басқа үлгі таңдау"
 
-#: taklif/templates/taklif/yaratish.html:140
+#: taklif/templates/taklif/yaratish.html:176
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr "Ең көбі %(soni)s сурет таңдай аласыз. Қайта таңдаңыз."
 
-#: taklif/views.py:230
+#: taklif/views.py:123
+msgid ""
+"Bu manzil band. Iltimos, biroz boshqacha nom tanlang (masalan to'yxona yoki "
+"tuman nomini qo'shing)."
+msgstr ""
+"Бұл мекенжай бос емес. Аздап басқаша атау таңдаңыз (мысалы, той залының "
+"немесе аудан атауын қосыңыз)."
+
+#: taklif/views.py:266
 msgid "Javobingiz uchun rahmat!"
 msgstr "Жауабыңыз үшін рахмет!"
 
-#: taklif/views.py:232
+#: taklif/views.py:268
 msgid "Iltimos, ismingizni kiriting."
 msgstr "Атыңызды енгізіңіз."
