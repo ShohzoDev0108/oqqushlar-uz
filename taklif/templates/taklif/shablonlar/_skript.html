@@ -14,12 +14,17 @@
         marosimgacha: "{{ SO_MAROSIMGACHA|escapejs }}"
     };
 
-    // 3D konvert-ochilish pardasi va musiqa
+    // 3D konvert-ochilish pardasi va musiqa.
+    // Til almashtirilganda sahifa qayta yuklanadi — shunda konvert qayta
+    // ochtirilmaydi va musiqa to'xtagan joyidan davom etadi (sessionStorage).
     var parda = document.getElementById('parda');
     var konvert = document.getElementById('konvert');
     var tugma = document.getElementById('ochish-tugma');
     var musiqa = document.getElementById('fon-musiqa');
     var musiqaTugma = document.getElementById('musiqa-tugma');
+
+    var OCHILDI_KALITI = 'taklif_ochildi_' + location.pathname;
+    var MUSIQA_KALITI = 'taklif_musiqa_' + location.pathname;
 
     function musiqaniIjroEt() {
         if (!musiqa) { return; }
@@ -27,9 +32,47 @@
         if (ijro && ijro.catch) {
             ijro.catch(function (xato) {
                 console.warn('Musiqani avtomatik ijro etib bo\'lmadi:', xato);
-                if (musiqaTugma) { musiqaTugma.classList.add('ochirilgan'); }
+                if (musiqaTugma) { musiqaTugma.classList.add('ochirilgan'); musiqaTugma.textContent = '🔇'; }
             });
         }
+    }
+
+    function musiqaHolatiniSaqla() {
+        if (!musiqa) { return; }
+        try {
+            sessionStorage.setItem(MUSIQA_KALITI, JSON.stringify({
+                vaqt: musiqa.currentTime || 0,
+                ochirilgan: musiqa.paused
+            }));
+        } catch (e) {}
+    }
+
+    var avvalOchilgan = false;
+    try { avvalOchilgan = sessionStorage.getItem(OCHILDI_KALITI) === '1'; } catch (e) {}
+
+    if (avvalOchilgan && parda) {
+        // Shu sessiyada konvert allaqachon ochilgan (masalan, til almashtirildi) —
+        // pardani animatsiyasiz darhol o'tkazib yuboramiz.
+        parda.style.transition = 'none';
+        parda.classList.add('yopilgan');
+        if (musiqa && musiqaTugma) {
+            musiqaTugma.classList.add('korinadi');
+            var holat = null;
+            try { holat = JSON.parse(sessionStorage.getItem(MUSIQA_KALITI) || 'null'); } catch (e) {}
+            if (holat && holat.vaqt) {
+                try { musiqa.currentTime = holat.vaqt; } catch (e) {}
+            }
+            if (!holat || !holat.ochirilgan) {
+                musiqaniIjroEt();
+            } else {
+                musiqaTugma.textContent = '🔇';
+            }
+        }
+    }
+
+    if (musiqa) {
+        setInterval(musiqaHolatiniSaqla, 1000);
+        window.addEventListener('pagehide', musiqaHolatiniSaqla);
     }
 
     if (tugma) {
@@ -40,6 +83,7 @@
             setTimeout(function () {
                 parda.classList.add('yopilgan');
             }, konvert ? 1500 : 0);
+            try { sessionStorage.setItem(OCHILDI_KALITI, '1'); } catch (e) {}
             if (musiqa && musiqaTugma) {
                 musiqaTugma.classList.add('korinadi');
                 musiqaniIjroEt();
@@ -57,6 +101,13 @@
                 musiqa.pause();
                 musiqaTugma.textContent = '🔇';
             }
+            musiqaHolatiniSaqla();
+        });
+    }
+
+    if (musiqa) {
+        musiqa.addEventListener('play', function () {
+            if (musiqaTugma) { musiqaTugma.textContent = '🎵'; musiqaTugma.classList.remove('ochirilgan'); }
         });
     }
 
