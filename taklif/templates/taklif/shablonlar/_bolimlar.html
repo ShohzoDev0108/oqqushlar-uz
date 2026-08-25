@@ -31,23 +31,50 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 }
 /* Hero ichidagi asosiy matn (h1, va, kichik, sana-matn va h.k.) romka
    ustida ko'rinishi uchun har doim tepada qoladi. */
-.hero > *:not(.hero-burchak) { position: relative; z-index: 1; }
+.hero > *:not(.hero-burchak):not(.hero-ramka-burchak) { position: relative; z-index: 1; }
 
-/* Fotosuratga asoslangan burchak-romka (gul chizmasi) fon — ".hero-ramkali"
-   klassi qo'shilgan shablonlarda ishlatiladi, rasm manzili har bir
-   shablonning o'z CSS blokida --hero-ramka o'zgaruvchisi orqali beriladi.
-   Eski SVG .hero-burchak bezaklari bilan bir vaqtda ko'rinib qolmasligi
-   uchun shu klass ularni yashiradi. */
-.hero.hero-ramkali { background-image: var(--hero-ramka); background-size: cover; background-position: center; background-repeat: no-repeat; }
+/* Fotosuratga asoslangan burchak-romka (gul chizmasi, orqa foni haqiqiy
+   shaffof PNG) — ".hero-ramkali" klassi qo'shilgan shablonlarda 4 ta
+   alohida "hero-ramka-burchak" orqali ko'rsatiladi. Rasm faylida FAQAT bitta
+   burchak (yuqori-chap) bor; qolgan 3 burchak xuddi eski SVG
+   .hero-burchak'dagidek CSS transform bilan oyna qildirilib (mirror)
+   qayta ishlatiladi. Foni shaffof bo'lgani uchun hech qanday rang mos
+   kelmaslik/chegaralanish muammosi yo'q — gul chizig'i sahifa foniga
+   to'g'ridan-to'g'ri "eriydi". O'lcham ekran kengligiga qarab o'sib boradi,
+   shu bois romka keng ekranlarda ham sahifa bo'ylab sezilarli yoyiladi
+   (avvalgi "cover" usulida esa keng ekranlarda burchaklar siqilib, o'rtada
+   katta bo'sh joy qolardi). Eski SVG .hero-burchak bezaklari bilan bir
+   vaqtda ko'rinib qolmasligi uchun ular shu klass yonida yashiriladi. */
 .hero.hero-ramkali .hero-burchak { display: none; }
+.hero-ramka-burchak {
+    position: absolute; width: 116px; height: 116px; pointer-events: none; z-index: 0;
+    background-image: var(--hero-ramka); background-repeat: no-repeat;
+    background-size: contain; background-position: top left;
+}
+.hero-ramka-burchak.hrb-tl { top: 0; left: 0; }
+.hero-ramka-burchak.hrb-tr { top: 0; right: 0; transform: scaleX(-1); }
+.hero-ramka-burchak.hrb-bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.hero-ramka-burchak.hrb-br { bottom: 0; right: 0; transform: scale(-1,-1); }
+@media (min-width: 480px) {
+    .hero-ramka-burchak { width: 150px; height: 150px; }
+}
+@media (min-width: 700px) {
+    .hero-ramka-burchak { width: 200px; height: 200px; }
+}
+@media (min-width: 1000px) {
+    .hero-ramka-burchak { width: 260px; height: 260px; }
+}
+@media (min-width: 1300px) {
+    .hero-ramka-burchak { width: 320px; height: 320px; }
+}
 
 /* Yangi bo'limlar uchun umumiy uslublar (ranglar shablon o'zgaruvchilaridan) */
 .kalendar-oy { text-align: center; letter-spacing: 3px; text-transform: uppercase; font-size: .8rem; color: var(--ikkinchi); margin-bottom: 14px; }
 .kalendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 380px; margin: 0 auto; }
 .k-kun { position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: .88rem; border-radius: 50%; }
 .k-sarlavha { font-size: .62rem; letter-spacing: 1px; text-transform: uppercase; color: var(--ikkinchi); aspect-ratio: auto; padding: 4px 0; }
-.k-tanlangan { background: var(--asos); color: var(--asos-matn); font-weight: bold; border-radius: 0; clip-path: url(#yurak-shakli); }
-.k-tanlangan span { display: block; transform: translateY(-8%); }
+.k-tanlangan { background: var(--asos); color: var(--asos-matn); font-weight: bold; border-radius: 0; clip-path: url(#yurak-shakli); position: relative; z-index: 2; transform: scale(1.38); filter: drop-shadow(0 3px 6px rgba(0,0,0,.3)); }
+.k-tanlangan span { display: block; transform: translateY(-10%); }
 .xarita-tugmalar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .soni-stepper { display: flex; align-items: center; gap: 14px; }
 .soni-tugma { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--chegara); background: var(--input-fon); color: var(--matn); font-size: 1.2rem; cursor: pointer; }
@@ -79,12 +106,15 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
    Har bir karta — yumshoq soya, tepasida shablon rangidagi ingichka urg'u
    chizig'i va belgi atrofida rangli halqa bilan bezatilgan (ranglar har bir
    shablonning o'z --asos/--karta-fon o'zgaruvchisidan olinadi). */
-.tafsilot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 16px; }
+.tafsilot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (min-width: 560px) {
+    .tafsilot-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+}
 .tafsilot-karta {
     position: relative; overflow: hidden;
     background: linear-gradient(165deg, var(--karta-fon), color-mix(in srgb, var(--asos) 5%, var(--karta-fon)));
     border: 1px solid var(--chegara); border-radius: var(--radius);
-    padding: 28px 14px 22px; text-align: center;
+    padding: 24px 10px 18px; text-align: center;
     box-shadow: 0 12px 26px -18px rgba(0,0,0,.45);
     transition: transform .25s ease, box-shadow .25s ease;
 }

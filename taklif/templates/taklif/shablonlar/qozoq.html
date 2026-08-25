@@ -20,7 +20,7 @@
     --radius: 14px;
     --puls: rgba(11,134,200,.3);
     --bolim-bezak: "❂ ✦ ❂";
-    --hero-ramka: url('{% static "taklif/hero-ramka/ramka-dala-guli-havo.jpg" %}');
+    --hero-ramka: url('{% static "taklif/hero-ramka/ramka-dala-guli-tl.png" %}');
 }
 
 body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
@@ -124,6 +124,10 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
 {% include "taklif/shablonlar/_konvert_parda.html" %}
 
 <div class="hero hero-ramkali">
+    <div class="hero-ramka-burchak hrb-tl"></div>
+    <div class="hero-ramka-burchak hrb-tr"></div>
+    <div class="hero-ramka-burchak hrb-bl"></div>
+    <div class="hero-ramka-burchak hrb-br"></div>
     <div class="shanyraq"></div>
     <div class="kichik">{{ taklifnoma.get_marosim_turi_display }} {% trans "taklifnomasi" %}</div>
     {% if taklifnoma.ism_2 %}
