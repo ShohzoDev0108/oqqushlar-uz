@@ -4,9 +4,43 @@
     <input name="next" type="hidden" value="{{ request.path }}">
     {% get_current_language as ISHLATILAYOTGAN_TIL %}
     {% get_available_languages as MAVJUD_TILLAR %}
-    <select name="language" onchange="this.form.submit()" aria-label="{% trans 'Tilni tanlang' %}">
+    <select name="language" id="til-tanlash" onchange="this.form.submit()" aria-label="{% trans 'Tilni tanlang' %}">
         {% for til_kodi, til_nomi in MAVJUD_TILLAR %}
         <option value="{{ til_kodi }}" {% if til_kodi == ISHLATILAYOTGAN_TIL %}selected{% endif %}>{{ til_nomi }}</option>
         {% endfor %}
     </select>
 </form>
+<script>
+(function () {
+    // Native <select> har doim RO'YXATDAGI ENG UZUN variantga qarab kengayadi
+    // (joriy tanlovdan qat'i nazar) — shu sababli qisqa til nomi tanlanganda
+    // ham katta bo'shliq qolib, "cho'zilgan" ko'rinar, aksincha uzun nomni
+    // (masalan "Qaraqalpaqsha") kichik qutiga sig'dirishga urinsak, matn
+    // kesilib qolar edi. Shu ikkalasining o'rtasini topish uchun har safar
+    // FAQAT joriy tanlangan matnga mos keladigan kenglikni JS orqali o'zimiz
+    // hisoblab, select'ga qo'yamiz.
+    var select = document.getElementById('til-tanlash');
+    if (!select) { return; }
+
+    function kenglikniOrnat() {
+        var tanlangan = select.options[select.selectedIndex];
+        if (!tanlangan) { return; }
+        var uslub = getComputedStyle(select);
+        var olchagich = document.createElement('span');
+        olchagich.style.cssText = [
+            'position:absolute', 'visibility:hidden', 'white-space:nowrap',
+            'font-family:' + uslub.fontFamily, 'font-size:' + uslub.fontSize,
+            'font-weight:' + uslub.fontWeight, 'letter-spacing:' + uslub.letterSpacing
+        ].join(';');
+        olchagich.textContent = tanlangan.textContent;
+        document.body.appendChild(olchagich);
+        var matnKengligi = olchagich.offsetWidth;
+        document.body.removeChild(olchagich);
+        // chap-o'ng padding, ramka va brauzerning strelka ikonkasi uchun joy
+        select.style.width = (matnKengligi + 48) + 'px';
+    }
+
+    kenglikniOrnat();
+    select.addEventListener('change', kenglikniOrnat);
+})();
+</script>
