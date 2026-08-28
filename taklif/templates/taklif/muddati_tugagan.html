@@ -6,10 +6,13 @@
 {% block extra_style %}
 .markaz { text-align: center; margin-top: 20vh; }
 h1 { font-size: 1.6rem; }
-.til-qatori { display: flex; justify-content: center; margin-top: 16px; }
-.til-forma select {
-    width: auto; padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,.2);
-    font-size: .8rem; background: #0f2027; color: #f5efe0;
+.til-qatori {
+    display: flex; justify-content: center; margin-top: 16px;
+    /* Bu sahifa base.html'ning standart to'q fonida ochiladi (o'zining
+       yorug' mavzusi yo'q) — shu uchun til-dropdown komponentiga mos
+       to'q ranglarni shu yerda beramiz. */
+    --karta-fon: #0f2027; --matn: #f5efe0; --asos: #c9a24a; --asos-matn: #1a1208;
+    --chegara: rgba(255,255,255,.2); --radius: 6px;
 }
 {% endblock %}
 

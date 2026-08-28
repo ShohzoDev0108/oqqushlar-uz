@@ -1,46 +1,171 @@
 {% load i18n %}
+{% comment %}
+Til tanlash — to'liq maxsus (custom) dropdown.
+
+Haqiqiy <select name="language"> DOM'da SAQLANIB QOLADI (faqat ko'zga
+ko'rinmas holda), chunki taklifnoma shablon sahifalarida (_skript.html)
+tilni AJAX orqali (sahifani to'liq qayta yuklamasdan, fon musiqasi
+uzilmasdan) almashtiradigan alohida skript aynan shu <select>'ning
+"change" hodisasini kuzatadi. Shu sababli bu yerda ko'rinadigan
+tugma+ro'yxat FAQAT vizual qatlam — bosilganda haqiqiy <select>'ning
+qiymatini o'zgartirib, unga "change" hodisasini yuboradi, xuddi
+foydalanuvchi native select'ni o'zi o'zgartirgandek.
+{% endcomment %}
 <form action="{% url 'set_language' %}" method="post" class="til-forma">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.path }}">
-    {% get_current_language as ISHLATILAYOTGAN_TIL %}
-    {% get_available_languages as MAVJUD_TILLAR %}
-    <select name="language" id="til-tanlash" onchange="this.form.submit()" aria-label="{% trans 'Tilni tanlang' %}">
-        {% for til_kodi, til_nomi in MAVJUD_TILLAR %}
-        <option value="{{ til_kodi }}" {% if til_kodi == ISHLATILAYOTGAN_TIL %}selected{% endif %}>{{ til_nomi }}</option>
-        {% endfor %}
-    </select>
+
+    <div class="til-dropdown">
+        <select name="language" id="til-tanlash" class="til-tabiiy" onchange="this.form.submit()" tabindex="-1" aria-hidden="true">
+            {% for til_kodi, til_nomi in TIL_ROYXATI %}
+            <option value="{{ til_kodi }}" {% if til_kodi == JORIY_TIL_KODI %}selected{% endif %}>{{ til_nomi }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="button" class="til-tugma" aria-haspopup="listbox" aria-expanded="false" aria-label="{% trans 'Tilni tanlang' %}">
+            <span class="til-joriy">{{ JORIY_TIL_NOMI }}</span>
+            <svg class="til-strelka" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <ul class="til-royxat" role="listbox" aria-label="{% trans 'Tilni tanlang' %}">
+            {% for til_kodi, til_nomi in TIL_ROYXATI %}
+            <li role="option"
+                class="til-band{% if til_kodi == JORIY_TIL_KODI %} tanlangan{% endif %}"
+                data-kod="{{ til_kodi }}"
+                aria-selected="{% if til_kodi == JORIY_TIL_KODI %}true{% else %}false{% endif %}"
+                tabindex="-1">{{ til_nomi }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 </form>
+
+<style>
+.til-dropdown {
+    --til-bg: var(--karta-fon, var(--toza, #ffffff));
+    --til-text: var(--matn, var(--siyoh, #221c14));
+    --til-ikkinchi: var(--ikkinchi, var(--kul, #8b7f6c));
+    --til-accent: var(--asos, var(--tilla, #b08c33));
+    --til-accent-matn: var(--asos-matn, #ffffff);
+    --til-border: var(--chegara, var(--chiziq, #e5ded0));
+    --til-radius: var(--radius, 8px);
+    position: relative;
+    display: inline-block;
+    font-family: var(--sans, inherit);
+}
+.til-tabiiy {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+.til-tugma {
+    display: flex; align-items: center; gap: 8px;
+    min-width: 90px; padding: 9px 12px;
+    border: 1px solid var(--til-border); border-radius: var(--til-radius);
+    background: var(--til-bg); color: var(--til-text);
+    font: inherit; font-size: .8rem; letter-spacing: .4px;
+    cursor: pointer; transition: border-color .2s, box-shadow .2s;
+}
+.til-tugma:hover { border-color: var(--til-accent); }
+.til-tugma:focus-visible { outline: none; border-color: var(--til-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--til-accent) 25%, transparent); }
+.til-tugma .til-joriy { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.til-strelka { width: 10px; height: 8px; flex-shrink: 0; color: var(--til-ikkinchi); transition: transform .2s; }
+.til-tugma[aria-expanded="true"] .til-strelka { transform: rotate(180deg); color: var(--til-accent); }
+
+.til-royxat {
+    position: absolute; top: calc(100% + 8px); right: 0; z-index: 200;
+    min-width: 180px; max-height: 320px; overflow-y: auto;
+    margin: 0; padding: 6px; list-style: none;
+    background: var(--til-bg); border: 1px solid var(--til-border); border-radius: var(--til-radius);
+    box-shadow: 0 16px 40px rgba(0,0,0,.18);
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity .16s ease, transform .16s ease, visibility .16s;
+}
+.til-dropdown.ochiq .til-royxat { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.til-band {
+    padding: 9px 12px; font-size: .82rem; color: var(--til-text);
+    border-radius: calc(var(--til-radius) - 4px); cursor: pointer;
+    transition: background .15s, color .15s;
+}
+.til-band:hover, .til-band.fokus { background: var(--til-accent); color: var(--til-accent-matn); }
+.til-band.tanlangan { color: var(--til-accent); font-weight: 600; }
+.til-band.tanlangan:hover, .til-band.tanlangan.fokus { color: var(--til-accent-matn); }
+
+@media (max-width: 700px) {
+    .til-tugma { padding: 7px 10px; font-size: .75rem; min-width: 78px; }
+    .til-royxat { right: auto; left: 50%; transform: translateY(-6px) translateX(-50%); min-width: 170px; }
+    .til-dropdown.ochiq .til-royxat { transform: translateY(0) translateX(-50%); }
+}
+</style>
+
 <script>
 (function () {
-    // Native <select> har doim RO'YXATDAGI ENG UZUN variantga qarab kengayadi
-    // (joriy tanlovdan qat'i nazar) — shu sababli qisqa til nomi tanlanganda
-    // ham katta bo'shliq qolib, "cho'zilgan" ko'rinar, aksincha uzun nomni
-    // (masalan "Qaraqalpaqsha") kichik qutiga sig'dirishga urinsak, matn
-    // kesilib qolar edi. Shu ikkalasining o'rtasini topish uchun har safar
-    // FAQAT joriy tanlangan matnga mos keladigan kenglikni JS orqali o'zimiz
-    // hisoblab, select'ga qo'yamiz.
-    var select = document.getElementById('til-tanlash');
-    if (!select) { return; }
+    document.querySelectorAll('.til-dropdown').forEach(function (dropdown) {
+        var tugma = dropdown.querySelector('.til-tugma');
+        var royxat = dropdown.querySelector('.til-royxat');
+        var bandlar = Array.prototype.slice.call(dropdown.querySelectorAll('.til-band'));
+        var haqiqiySelect = dropdown.querySelector('select');
+        var joriySpan = dropdown.querySelector('.til-joriy');
 
-    function kenglikniOrnat() {
-        var tanlangan = select.options[select.selectedIndex];
-        if (!tanlangan) { return; }
-        var uslub = getComputedStyle(select);
-        var olchagich = document.createElement('span');
-        olchagich.style.cssText = [
-            'position:absolute', 'visibility:hidden', 'white-space:nowrap',
-            'font-family:' + uslub.fontFamily, 'font-size:' + uslub.fontSize,
-            'font-weight:' + uslub.fontWeight, 'letter-spacing:' + uslub.letterSpacing
-        ].join(';');
-        olchagich.textContent = tanlangan.textContent;
-        document.body.appendChild(olchagich);
-        var matnKengligi = olchagich.offsetWidth;
-        document.body.removeChild(olchagich);
-        // chap-o'ng padding, ramka va brauzerning strelka ikonkasi uchun joy
-        select.style.width = (matnKengligi + 48) + 'px';
-    }
+        function ochish() {
+            dropdown.classList.add('ochiq');
+            tugma.setAttribute('aria-expanded', 'true');
+            var tanlangan = dropdown.querySelector('.til-band.tanlangan') || bandlar[0];
+            if (tanlangan) { tanlangan.focus(); }
+        }
+        function yopish(tugmagaQaytar) {
+            dropdown.classList.remove('ochiq');
+            tugma.setAttribute('aria-expanded', 'false');
+            if (tugmagaQaytar) { tugma.focus(); }
+        }
+        function ochiqmi() { return dropdown.classList.contains('ochiq'); }
 
-    kenglikniOrnat();
-    select.addEventListener('change', kenglikniOrnat);
+        tugma.addEventListener('click', function () {
+            if (ochiqmi()) { yopish(false); } else { ochish(); }
+        });
+
+        bandlar.forEach(function (band, idx) {
+            band.addEventListener('click', function () {
+                if (haqiqiySelect.value !== band.dataset.kod) {
+                    haqiqiySelect.value = band.dataset.kod;
+                    if (joriySpan) { joriySpan.textContent = band.textContent; }
+                    haqiqiySelect.dispatchEvent(new Event('change', { bubbles: true }));
+                } else {
+                    yopish(true);
+                }
+            });
+            band.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    (bandlar[idx + 1] || bandlar[0]).focus();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    (bandlar[idx - 1] || bandlar[bandlar.length - 1]).focus();
+                } else if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    band.click();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    yopish(true);
+                } else if (e.key === 'Tab') {
+                    yopish(false);
+                }
+            });
+        });
+
+        tugma.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                ochish();
+            } else if (e.key === 'Escape') {
+                yopish(false);
+            }
+        });
+
+        document.addEventListener('click', function (e) {
+            if (ochiqmi() && !dropdown.contains(e.target)) { yopish(false); }
+        });
+    });
 })();
 </script>
