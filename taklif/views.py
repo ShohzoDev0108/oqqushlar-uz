@@ -36,11 +36,26 @@ DISAMBIGUATSIYA_SOZLARI = [
     "porloq", "bahor", "sevimli", "shodlik", "najot",
 ]
 
+# Taklifnoma.slug maydonining haqiqiy sig'imi (SlugField standart bo'yicha
+# 50 belgi). Buni modeldan o'zi o'qiymiz — kelajakda model o'zgarsa ham bu
+# yerda qo'lda yangilash kerak bo'lmaydi.
+#
+# DIQQAT: ism_1/ism_2 har biri 100 belgigacha bo'lishi mumkin (modelga
+# qarang) — ya'ni ular birlashtirilgan slug ayni maydon sig'imidan OSON
+# OSHIB KETISHI mumkin edi. Bu SQLite'da sezilmas edi (u VARCHAR(n)
+# uzunligini qat'iy tekshirmaydi), lekin PostgreSQL'ga o'tganda "value too
+# long for type character varying(50)" xatosi bilan mijozning taklifnoma
+# yaratish jarayoni to'xtab qolardi — shuning uchun quyida har bir
+# bo'lakni maydon sig'imiga qarab qat'iy cheklaymiz.
+_SLUG_MAX_UZUNLIK = Taklifnoma._meta.get_field("slug").max_length
+_SLUG_ASOSIY_MAX = _SLUG_MAX_UZUNLIK - 20  # qo'shimcha (sana/so'z) uchun joy
+
 
 def _asosiy_slug(ism_1, ism_2):
     """Mijoz ismlaridan toza havola (slug) yasaydi — mijoz buni ko'rmaydi/tahrirlamaydi."""
     manba = f"{ism_1}-{ism_2}" if ism_2 else ism_1
-    return slugify(manba) or "taklifnoma"
+    slug = slugify(manba) or "taklifnoma"
+    return slug[:_SLUG_ASOSIY_MAX].rstrip("-") or "taklifnoma"
 
 
 def _band_emasligini_tekshir(slug, chetlanganlar):
@@ -60,24 +75,29 @@ def _bosh_slug_top(asosiy, sana=None, marosim_turi="", toyxona="", chetlanganlar
     if _band_emasligini_tekshir(asosiy, chetlanganlar):
         return asosiy
 
+    # asosiy — yuqorida _asosiy_slug() orqali allaqachon qisqartirilgan;
+    # shunga qaramay, har bir qo'shimcha bo'lak ham o'zi uzun bo'lishi
+    # mumkinligi uchun (masalan to'yxona nomi 200 belgigacha) alohida
+    # cheklanadi va yakuniy natija yana bir bor xavfsizlik uchun kesiladi.
     nomzodlar = []
     if sana:
         nomzodlar.append(f"{asosiy}-{sana.day:02d}-{sana.month:02d}")
     if toyxona:
-        toyxona_slug = slugify(toyxona)
+        toyxona_slug = slugify(toyxona)[:20]
         if toyxona_slug:
             nomzodlar.append(f"{asosiy}-{toyxona_slug}")
     if marosim_turi:
-        nomzodlar.append(f"{asosiy}-{marosim_turi.replace('_', '-')}")
+        nomzodlar.append(f"{asosiy}-{marosim_turi.replace('_', '-')[:20]}")
     for soz in DISAMBIGUATSIYA_SOZLARI:
         nomzodlar.append(f"{asosiy}-{soz}")
 
     for nomzod in nomzodlar:
+        nomzod = nomzod[:_SLUG_MAX_UZUNLIK]
         if _band_emasligini_tekshir(nomzod, chetlanganlar):
             return nomzod
 
     # Amalda deyarli imkonsiz holat uchun oxirgi chora
-    return f"{asosiy}-{secrets.token_hex(3)}"
+    return f"{asosiy}-{secrets.token_hex(3)}"[:_SLUG_MAX_UZUNLIK]
 
 # "sodda" va boshqa eng birinchi/eng oddiy 8 ta shablon olib tashlangani
 # uchun (mijoz taklifiga ko'ra) standart holat sifatida to'liq funksiyali

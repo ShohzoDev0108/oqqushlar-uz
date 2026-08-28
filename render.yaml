@@ -1,0 +1,76 @@
+# Render.com uchun "Blueprint" fayli.
+#
+# Bu fayl orqali Render'da veb-server va PostgreSQL ma'lumotlar bazasini
+# BIR MARTA, avtomatik ravishda birga yaratish mumkin:
+#   Render dashboard -> "New +" -> "Blueprint" -> shu GitHub repo'ni tanlang.
+#
+# "sync: false" qo'yilgan o'zgaruvchilarni Render Blueprint yaratayotganda
+# o'zi so'raydi (siz qo'lda kiritasiz) — masalan domen nomi yoki Cloudflare
+# R2 kalitlari, chunki bularni oldindan avtomatik bilib bo'lmaydi.
+#
+# ESLATMA (plan nomlari haqida): quyidagi "plan" qiymatlari ushbu fayl
+# yozilgan paytdagi Render'ning eng arzon PULLIK tariflari edi. Render bu
+# nomlarni vaqti-vaqti bilan yangilaydi — agar dashboardda boshqacha nom
+# ko'rsangiz, shunchaki eng arzon pullik tarifni tanlang. Bepul tarif ATAY
+# tanlanmagan, chunki u faollik bo'lmaganda "uxlab qoladi" va birinchi
+# tashrifchi sahifa ochilishini bir necha soniya kutib qolishi mumkin.
+
+services:
+  - type: web
+    name: oqqushlar
+    runtime: python
+    plan: 0.5c-512mb
+    region: frankfurt
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    # Migratsiyalar har deploy'dan oldin, sayt yangi kodga o'tishidan AVVAL
+    # ishlaydi — shu tufayli eski kod yangi ustun/jadvallarga duch kelib
+    # xatolik bermaydi.
+    preDeployCommand: "python manage.py migrate --noinput"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      # Django maxfiy kaliti — Render o'zi tasodifiy generatsiya qiladi.
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      # Haqiqiy domeningizni shu yerga kiritasiz, masalan:
+      #   oqqushlar.onrender.com,taklifnoma365.uz,www.taklifnoma365.uz
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false
+      # Masalan: https://taklifnoma365.uz,https://www.taklifnoma365.uz
+      - key: DJANGO_CSRF_TRUSTED_ORIGINS
+        sync: false
+      # Render o'zi HTTPS'ni tugatib, ichkariga oddiy HTTP orqali uzatadi —
+      # shu uchun bu doim "1" bo'lishi kerak (aks holda cheksiz redirect
+      # tsikliga tushib qolishi mumkin).
+      - key: DJANGO_BEHIND_PROXY
+        value: "1"
+      # Ma'lumotlar bazasi ulanish manzili — quyidagi "databases" bo'limida
+      # yaratilgan bazadan Render o'zi avtomatik to'ldiradi.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: oqqushlar-db
+          property: connectionString
+      # Mijozlar yuklagan rasm/musiqa fayllarini serverning ichiga emas,
+      # tashqi doimiy xotiraga (masalan Cloudflare R2) saqlash uchun "1".
+      - key: USE_S3
+        value: "1"
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_STORAGE_BUCKET_NAME
+        sync: false
+      - key: AWS_S3_ENDPOINT_URL
+        sync: false
+      - key: AWS_S3_CUSTOM_DOMAIN
+        sync: false
+      - key: SAYT_ADMIN_TELEGRAM
+        sync: false
+      - key: GOOGLE_ANALYTICS_ID
+        sync: false
+
+databases:
+  - name: oqqushlar-db
+    plan: 0.5c-1g
+    region: frankfurt

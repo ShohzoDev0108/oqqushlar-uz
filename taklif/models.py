@@ -172,7 +172,17 @@ class Taklifnoma(models.Model):
     faol = models.BooleanField(default=True)
     korishlar = models.PositiveIntegerField(default=0)
     statistika_token = models.CharField(
-        max_length=32, default=secrets.token_hex, unique=True, editable=False
+        # DIQQAT: secrets.token_hex() argumentsiz chaqirilganda 32 BAYT
+        # (ya'ni 64 ta hex belgi) qaytaradi — shuning uchun max_length aynan
+        # 64 bo'lishi kerak. Bu SQLite'da xatolik bermas edi (SQLite
+        # VARCHAR(n) uzunligini qat'iy tekshirmaydi), lekin PostgreSQL'da
+        # "value too long for type character varying(32)" xatosi bilan
+        # to'xtab qolar edi — buni real Postgres bazasiga migratsiya
+        # qilishda aniqladim.
+        max_length=64,
+        default=secrets.token_hex,
+        unique=True,
+        editable=False,
     )
     sovga_karta = models.CharField(
         max_length=50, blank=True, help_text="Pul sovg'a uchun karta raqami"
@@ -256,10 +266,20 @@ class Mehmon(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            asosiy = slugify(self.ism) or "mehmon"
+            # DIQQAT: "ism" 100 belgigacha bo'lishi mumkin, "slug" maydoni
+            # esa faqat 60 belgi. slugify() uzunlikni cheklamaydi — shuning
+            # uchun uzun ism (masalan butun oila nomi) kesilmasa, quyidagi
+            # "-2", "-3" kabi raqam qo'shilganda maydon sig'imidan chiqib
+            # ketishi mumkin edi. Bu SQLite'da sezilmas edi (u VARCHAR(n)
+            # uzunligini qat'iy tekshirmaydi), lekin PostgreSQL'da "value
+            # too long" xatosi bilan to'xtab qolardi — shu uchun "asosiy"
+            # qismni suffiks uchun joy qoldirib, oldindan qisqartiramiz.
+            max_uzunlik = self._meta.get_field("slug").max_length
+            zaxira_joy = 10  # "-mehmon" yoki "-999" kabi qo'shimchalar uchun
+            asosiy = slugify(self.ism)[: max_uzunlik - zaxira_joy] or "mehmon"
             if asosiy in MEHMON_REZERV_SLUGLAR:
                 asosiy = f"{asosiy}-mehmon"
-            slug = asosiy
+            slug = asosiy[:max_uzunlik]
             raqam = 1
             while (
                 Mehmon.objects.filter(taklifnoma=self.taklifnoma, slug=slug)
@@ -267,7 +287,7 @@ class Mehmon(models.Model):
                 .exists()
             ):
                 raqam += 1
-                slug = f"{asosiy}-{raqam}"
+                slug = f"{asosiy}-{raqam}"[:max_uzunlik]
             self.slug = slug
         super().save(*args, **kwargs)
 

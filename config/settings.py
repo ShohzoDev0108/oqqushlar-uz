@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+import dj_database_url
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -80,11 +81,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "storages",
     "taklif",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # WhiteNoise — statik fayllarni (CSS/JS/rasm) alohida serverga (nginx/CDN)
+    # muhtoj bo'lmasdan, to'g'ridan-to'g'ri Django orqali tez va siqilgan
+    # holda uzatadi. SecurityMiddleware'dan keyin, qolgan hammasidan oldin
+    # turishi shart (WhiteNoise hujjatlariga ko'ra).
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     # LocaleMiddleware SessionMiddleware'dan keyin, CommonMiddleware'dan oldin
     # turishi shart (Django hujjatlariga ko'ra) — mehmon tanlagan tilni
@@ -123,12 +130,18 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+#
+# .env (yoki hosting platformasi) da DATABASE_URL berilsa (masalan
+# "postgres://foydalanuvchi:parol@host:5432/bazanomi"), shu haqiqiy
+# ma'lumotlar bazasi ishlatiladi (production'da — Render, Railway va h.k.
+# buni avtomatik beradi). Agar DATABASE_URL berilmagan bo'lsa (mahalliy
+# kompyuterda ishlaganda odatiy holat), oddiy SQLite fayliga tushib qoladi —
+# lokal ishlash uchun hech narsa sozlash shart emas.
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
 }
 
 
@@ -188,9 +201,54 @@ STATIC_URL = "static/"
 # qo'shilmaydi — .gitignore'ga qarang).
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Media files (foydalanuvchi yuklaydigan rasm/musiqa)
+# Media files (mijozlar yuklaydigan taklifnoma rasmlari, musiqa va h.k.)
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# --- Fayl saqlash (STORAGES) ---
+# https://docs.djangoproject.com/en/5.0/ref/settings/#storages
+#
+# "staticfiles": WhiteNoise'ning siqilgan + hash-nomli (masalan
+# "uslub.a3f8c1.css") versiyasi — brauzer keshini ishonchli boshqarish uchun.
+#
+# "default" (media — mijoz yuklagan fayllar): ODATIY holatda serverning
+# o'zidagi jildga (MEDIA_ROOT) saqlanadi — bu FAQAT lokal development uchun
+# yaxshi. Production'da (.env'da USE_S3=1 qilinganda) buning o'rniga S3-mos
+# tashqi xotiraga (masalan Cloudflare R2) saqlanadi — MUHIM, chunki
+# Render/Railway kabi platformalarda serverning ichki diski har deploy'da
+# tozalanadi (ephemeral); mijozlar to'lab faollashtirgan taklifnomalarning
+# rasmlari faqat shu tashqi xotirada saqlansa, doimiy (abadiy) qoladi.
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+USE_S3 = _env_bool("USE_S3", False)
+if USE_S3:
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+    # Cloudflare R2, Backblaze B2 kabi S3-mos xizmatlar uchun ularning o'z
+    # manzili; haqiqiy Amazon S3 ishlatilsa bu bo'sh qoldiriladi.
+    AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL") or None
+    AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME") or None
+    # Ixtiyoriy: agar fayllar CDN/maxsus domen orqali (masalan
+    # "fayllar.oqqushlar.uz") uzatilsa, shu yerga yoziladi.
+    AWS_S3_CUSTOM_DOMAIN = os.environ.get("AWS_S3_CUSTOM_DOMAIN") or None
+    AWS_DEFAULT_ACL = None  # bucket'ning o'z ruxsat sozlamalariga ishoniladi
+    AWS_QUERYSTRING_AUTH = False  # media havolalar doimiy (imzosiz) bo'lsin
+    AWS_S3_FILE_OVERWRITE = False  # bir xil nomli fayl eskisini bosib yozmasin
+
+    STORAGES["default"] = {"BACKEND": "storages.backends.s3.S3Storage"}
+
+    if AWS_S3_CUSTOM_DOMAIN:
+        MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+    elif AWS_S3_ENDPOINT_URL:
+        MEDIA_URL = f"{AWS_S3_ENDPOINT_URL.rstrip('/')}/{AWS_STORAGE_BUCKET_NAME}/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

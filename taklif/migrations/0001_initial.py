@@ -89,7 +89,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         default=secrets.token_hex,
                         editable=False,
-                        max_length=32,
+                        max_length=64,
                         unique=True,
                     ),
                 ),

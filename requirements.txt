@@ -1,3 +1,11 @@
 Django==5.0.14
 pillow==12.2.0
 python-dotenv==1.2.2
+
+# --- Production uchun (deploy) ---
+gunicorn==26.2.0          # production WSGI server (runserver o'rniga)
+dj-database-url==3.1.2    # DATABASE_URL muhit o'zgaruvchisini Django DATABASES'ga o'giradi
+psycopg2-binary==2.9.12   # PostgreSQL drayveri
+whitenoise==6.12.0        # statik fayllarni (CSS/JS/rasm) to'g'ridan-to'g'ri Django orqali tez xizmat qilish
+django-storages==1.14.6   # rasm/musiqa fayllarini S3-mos xotira (masalan Cloudflare R2)ga saqlash
+boto3==1.43.82            # django-storages'ning S3-mos xotira bilan gaplashishi uchun kerak

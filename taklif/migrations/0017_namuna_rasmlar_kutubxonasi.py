@@ -58,6 +58,15 @@ def kutubxonani_boshatish(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
+    # DIQQAT: bu migratsiya bitta jadvalda (taklif_taklifnoma) avval
+    # ma'lumot o'chirish (RunPython) va keyin ustun o'chirish (RemoveField)
+    # ni birga qiladi. SQLite'da bu muammo bermaydi, lekin PostgreSQL bitta
+    # tranzaksiya ichida shu ikkalasini ketma-ket qilishga yo'l qo'ymaydi
+    # ("cannot ALTER TABLE because it has pending trigger events" xatosi) —
+    # buni haqiqiy Postgres bazasida sinab ko'rganda aniqladim. Shu sababli
+    # bu migratsiya BITTA tranzaksiyaga o'ralmasligi kerak.
+    atomic = False
+
     dependencies = [
         ("taklif", "0016_namuna_taklifnomalar"),
     ]
