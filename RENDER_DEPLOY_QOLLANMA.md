@@ -21,7 +21,7 @@ Bu qadam MUHIM — shusiz mijozlar yuklagan taklifnoma rasmlari deploy paytida y
 1. https://dash.cloudflare.com ga kiring (hisobingiz yo'q bo'lsa, bepul ro'yxatdan o'ting).
 2. Chap menyudan **R2 Object Storage** bo'limini toping va oching (birinchi marta bo'lsa, karta ma'lumotini so'rashi mumkin — R2'ning o'zi kichik loyihalar uchun deyarli tekin, oyiga 10GB'gacha bepul).
 3. **Create bucket** tugmasini bosing. Nom bering, masalan: `oqqushlar-media`. Region — "Automatic" qoldirilsa bo'ladi.
-4. Bucket yaratilgach, **Settings** bo'limiga o'ting va **Public access** ni yoqing (mijozlar rasmlarni ko'rishi uchun ochiq bo'lishi kerak) — bu yerda sizga bir ochiq URL (masalan `pub-xxxxx.r2.dev`) beriladi, uni eslab qoling (keyinroq kerak bo'lmasligi ham mumkin).
+4. Bucket yaratilgach, **Settings** bo'limiga o'ting, **"Public Development URL"** bo'limini toping va yoqing (mijozlar rasmlarni ko'rishi uchun ochiq bo'lishi shart) — bu sizga `pub-xxxxxxxx.r2.dev` ko'rinishidagi ochiq URL beradi, uni eslab qoling (3-qadamda `AWS_S3_CUSTOM_DOMAIN` sifatida kerak bo'ladi). Cloudflare bu URL'ni "production uchun tavsiya etilmaydi" deb ogohlantiradi (tezlik cheklovi bor) — bu hozircha muammo emas, keyinroq domeningiz tayyor bo'lgach maxsus domenga (masalan `fayllar.oqqushlar.uz`) almashtiramiz.
 5. Chap menyudan **R2 -> Manage API Tokens** ga o'ting, **Create API Token** bosing. Ruxsat turi: "Object Read & Write". Faqat yuqorida yaratgan bucket'ga cheklab qo'ysangiz xavfsizroq.
 6. Token yaratilgach sizga 3 ta qiymat ko'rsatiladi — **buni faqat shu paytda ko'rasiz, keyin qayta ko'rinmaydi**, albatta nusxalab saqlang:
    - `Access Key ID`
@@ -51,7 +51,7 @@ Loyihada tayyor `render.yaml` fayli bor — bu Render'ga veb-server va ma'lumotl
    | `AWS_SECRET_ACCESS_KEY` | 1-qadamda olgan Secret Access Key |
    | `AWS_STORAGE_BUCKET_NAME` | `oqqushlar-media` |
    | `AWS_S3_ENDPOINT_URL` | 1-qadamda olgan Endpoint manzili |
-   | `AWS_S3_CUSTOM_DOMAIN` | Hozircha bo'sh qoldiring |
+   | `AWS_S3_CUSTOM_DOMAIN` | R2 bucket **Settings** bo'limidagi "Public Development URL" manzili, `https://` va oxirgi `/`siz — masalan `pub-xxxxxxxx.r2.dev` (domen oqqushlar.uz Cloudflare'ga to'liq o'tgach, buni `fayllar.oqqushlar.uz` kabi maxsus domenga almashtiramiz) |
    | `SAYT_ADMIN_TELEGRAM` | Sizning Telegram username'ingiz |
    | `GOOGLE_ANALYTICS_ID` | Agar bor bo'lsa GA4 ID'ingiz, yo'q bo'lsa bo'sh |
 

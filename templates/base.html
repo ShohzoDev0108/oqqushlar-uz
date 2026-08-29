@@ -6,6 +6,22 @@
     <title>{% block title %}Taklifnoma{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'taklif/favicon.png' %}">
 
+    {% if GOOGLE_ANALYTICS_ID %}
+    {% comment %}
+    Google Analytics 4 (GA4) — tashrifchilar soni, qaysi sahifaga
+    kirilgani, shahar/mamlakat, qurilma turi kabi statistikani yig'adi.
+    ID .env faylidagi GOOGLE_ANALYTICS_ID orqali beriladi; agar bo'sh
+    bo'lsa (masalan lokal development'da), bu skript umuman chiqmaydi.
+    {% endcomment %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_ID }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ GOOGLE_ANALYTICS_ID }}');
+    </script>
+    {% endif %}
+
     {% comment %}
     Ijtimoiy tarmoqlarda (Telegram, Instagram, WhatsApp) havola ulashilganda
     chiroyli oldindan ko'rinish (preview karta) chiqishi uchun Open Graph
