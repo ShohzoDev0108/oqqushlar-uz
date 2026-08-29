@@ -21,6 +21,7 @@ from .models import (
     Mehmon,
     MusiqaVariant,
     NamunaRasm,
+    SaytSozlamalari,
     Shablon,
     Taklifnoma,
     TaklifnomaRasm,
@@ -294,12 +295,18 @@ def yaratish(request, shablon_kod):
     )
 
 
+def _admin_telegram():
+    """Admin panelida sozlangan Telegram username, bo'sh bo'lsa serverdagi
+    standart (SAYT_ADMIN_TELEGRAM environment o'zgaruvchisi) qiymat."""
+    return SaytSozlamalari.olish().admin_telegram or settings.SAYT_ADMIN_TELEGRAM
+
+
 def yaratildi(request, slug):
     """Forma yuborilgach ko'rsatiladigan tasdiq sahifasi — to'lov bo'yicha yo'riqnoma."""
     taklifnoma = get_object_or_404(Taklifnoma, slug=slug)
     context = {
         "taklifnoma": taklifnoma,
-        "admin_telegram": settings.SAYT_ADMIN_TELEGRAM,
+        "admin_telegram": _admin_telegram(),
         "sayt_musiqa": _sayt_musiqasi(),
     }
     return render(request, "taklif/yaratildi.html", context)
@@ -335,7 +342,7 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
         "mehmonlar": mehmonlar,
         "mehmonlar_jami": taklifnoma.keladiganlar_soni,
         "rasmlar": taklifnoma.rasmlar.all(),
-        "admin_telegram": settings.SAYT_ADMIN_TELEGRAM,
+        "admin_telegram": _admin_telegram(),
     }
     return render(request, _shablon_fayli(taklifnoma.shablon.kod), context)
 
@@ -435,7 +442,7 @@ def yoqdi(request, slug):
         f"({request.build_absolute_uri(taklifnoma.get_absolute_url())}) yoqdi, "
         "to'lov qilib faollashtirmoqchiman."
     )
-    admin_username = settings.SAYT_ADMIN_TELEGRAM.lstrip("@")
+    admin_username = _admin_telegram().lstrip("@")
     telegram_url = f"https://t.me/{admin_username}?text={quote(xabar)}"
     return redirect(telegram_url)
 

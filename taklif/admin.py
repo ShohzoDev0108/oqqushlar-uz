@@ -1,10 +1,12 @@
 from django.contrib import admin
+from django.shortcuts import redirect
 
 from .models import (
     RSVP,
     Mehmon,
     MusiqaVariant,
     NamunaRasm,
+    SaytSozlamalari,
     Shablon,
     Taklifnoma,
     TaklifnomaRasm,
@@ -118,3 +120,24 @@ class RSVPAdmin(admin.ModelAdmin):
     list_display = ("ism", "taklifnoma", "mehmon", "keladi", "mehmonlar_soni", "yaratilgan")
     list_filter = ("keladi",)
     search_fields = ("ism", "taklifnoma__slug", "taklifnoma__ism_1", "taklifnoma__ism_2")
+
+
+@admin.register(SaytSozlamalari)
+class SaytSozlamalariAdmin(admin.ModelAdmin):
+    """Singleton — ro'yxatda bitta yozuv, yangi qo'shib yoki o'chirib bo'lmaydi."""
+
+    fields = ("admin_telegram",)
+
+    def has_add_permission(self, request):
+        # Agar allaqachon bitta yozuv bo'lsa, yana qo'shishga ruxsat bermaymiz.
+        return not SaytSozlamalari.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        # Ro'yxat sahifasiga kirganda to'g'ridan-to'g'ri yagona yozuvni
+        # tahrirlash sahifasiga yo'naltiramiz — foydalanuvchi ro'yxatdan
+        # qidirib o'tirmasin.
+        sozlama = SaytSozlamalari.olish()
+        return redirect("admin:taklif_saytsozlamalari_change", sozlama.pk)

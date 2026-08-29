@@ -346,3 +346,44 @@ class TaklifnomaRasm(models.Model):
 
     def __str__(self):
         return f"{self.taklifnoma.slug} — rasm #{self.pk}"
+
+
+class SaytSozlamalari(models.Model):
+    """Butun sayt uchun umumiy, admin panelidan o'zgartiriladigan sozlamalar.
+
+    Faqat BITTA qator bo'lishi kerak (singleton) — shuning uchun saqlashda
+    pk har doim 1 ga majburlanadi va o'chirish bloklangan. Bu server
+    kodini/environment o'zgaruvchilarini qayta joylashtirmasdan (deploy
+    qilmasdan) ba'zi qiymatlarni tez o'zgartirish imkonini beradi.
+    """
+
+    admin_telegram = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text=(
+            "Mijoz \"Yoqdi, to'lov qilmoqchiman\" tugmasini bosganda "
+            "yo'naltiriladigan Telegram username, @ belgisi bilan "
+            "(masalan: @username). Bo'sh qoldirilsa, serverdagi standart "
+            "qiymat (SAYT_ADMIN_TELEGRAM) ishlatiladi."
+        ),
+    )
+
+    class Meta:
+        verbose_name = "Sayt sozlamalari"
+        verbose_name_plural = "Sayt sozlamalari"
+
+    def __str__(self):
+        return "Sayt sozlamalari"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Singleton — o'chirishga yo'l qo'ymaymiz.
+        pass
+
+    @classmethod
+    def olish(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
