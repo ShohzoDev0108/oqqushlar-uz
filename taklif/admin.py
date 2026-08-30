@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.shortcuts import redirect
+from django.utils.html import format_html
 
 from .models import (
     RSVP,
@@ -63,8 +64,11 @@ class NamunaRasmAdmin(admin.ModelAdmin):
 
 @admin.register(Taklifnoma)
 class TaklifnomaAdmin(admin.ModelAdmin):
+    class Media:
+        css = {"all": ("taklif/admin/taklifnoma_royxat.css",)}
+
     list_display = (
-        "__str__",
+        "belgi",
         "marosim_turi",
         "sana",
         "shablon",
@@ -105,6 +109,16 @@ class TaklifnomaAdmin(admin.ModelAdmin):
             )
         }),
     )
+
+    @admin.display(description="Taklifnoma")
+    def belgi(self, obj):
+        # Taftish topilmasi: standart __str__ ustuni kengligi belgilanmagani
+        # uchun har bir qator 3-4 satrga bo'linib, ro'yxatni haddan tashqari
+        # uzun va ko'zdan kechirish qiyin qilib qo'yardi. Endi bitta qatorga
+        # sig'adigan qisqa matn ko'rsatiladi, to'liq nom esa hover paytida
+        # title sifatida chiqadi (CSS: taklifnoma_royxat.css).
+        matn = str(obj)
+        return format_html('<span title="{}">{}</span>', matn, matn)
 
     @admin.display(description="Statistika linki")
     def statistika_link(self, obj):

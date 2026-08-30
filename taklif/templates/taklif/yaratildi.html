@@ -10,10 +10,20 @@
 .markaz .oq-h1 { font-size: clamp(2rem, 4.5vw, 3rem); }
 .link-izoh { color: var(--kul); font-size: .85rem; margin-top: 22px; margin-bottom: 0; }
 .link-blok {
+    display: flex; align-items: center; gap: 12px;
     background: var(--toza); border: 1px dashed var(--tilla); border-radius: 2px;
-    padding: 18px; margin: 10px auto 26px; max-width: 460px; word-break: break-all;
+    padding: 14px 14px 14px 18px; margin: 10px auto 26px; max-width: 460px;
+}
+.link-blok .link-matni {
+    flex: 1; word-break: break-all; text-align: left;
     font-family: monospace; font-size: .95rem; color: var(--tilla-toq);
 }
+.link-nusxa-tugma {
+    flex-shrink: 0; background: var(--tilla); color: #fff; border: none; border-radius: 2px;
+    padding: 9px 14px; font-family: inherit; font-size: .78rem; letter-spacing: .5px;
+    text-transform: uppercase; cursor: pointer; white-space: nowrap;
+}
+.link-nusxa-tugma:hover { background: var(--tilla-toq); }
 .qadamlar { text-align: left; max-width: 480px; margin: 30px auto; padding-left: 20px; }
 .qadamlar li { margin-bottom: 12px; color: var(--kul); line-height: 1.7; }
 .qadamlar li::marker { color: var(--tilla); font-family: var(--serif); }
@@ -30,7 +40,10 @@
         <h1 class="oq-h1">{% trans "Taklifnomangiz tayyor!" %}</h1>
 
         <p class="link-izoh">{% trans "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:" %}</p>
-        <div class="link-blok">{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}</div>
+        <div class="link-blok">
+            <span class="link-matni" id="shaxsiy-havola">{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}</span>
+            <button type="button" class="link-nusxa-tugma" data-nusxalash="{% trans "Nusxalash" %}" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(document.getElementById('shaxsiy-havola').textContent); this.textContent=this.dataset.nusxalandi; var t=this; setTimeout(function(){ t.textContent=t.dataset.nusxalash; }, 2000);">{% trans "Nusxalash" %}</button>
+        </div>
 
         <a class="oq-cta toliq" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>
 

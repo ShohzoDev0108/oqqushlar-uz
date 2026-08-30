@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:24+0500\n"
+"POT-Creation-Date: 2026-08-30 18:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -269,7 +269,6 @@ msgstr ""
 "Are you sure you want to permanently delete this invitation? This action "
 "cannot be undone."
 
-#| msgid "Ko'rish"
 msgid "O'chirish"
 msgstr "Delete"
 
@@ -443,9 +442,80 @@ msgstr "Until the event"
 msgid "taklifnomasi"
 msgstr "invitation"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Statistika"
+msgstr "Statistics"
+
 msgid "Ochiq sahifani ko'rish"
 msgstr "View invitation"
+
+#, python-format
+msgid "%(nomi)s — statistika"
+msgstr "%(nomi)s — statistics"
+
+msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
+msgstr "This page is visible only to you. Don't share the link with anyone."
+
+msgid "ko'rishlar"
+msgstr "views"
+
+msgid "javoblar"
+msgstr "responses"
+
+msgid "keladi (mehmon)"
+msgstr "attending (guests)"
+
+msgid "kelmaydi"
+msgstr "not attending"
+
+msgid "Ism"
+msgstr "Name"
+
+msgid "Holat"
+msgstr "Status"
+
+msgid "Mehmonlar soni"
+msgstr "Number of guests"
+
+msgid "Izoh"
+msgstr "Comment"
+
+msgid "Keladi"
+msgstr "Attending"
+
+msgid "Kelmaydi"
+msgstr "Not attending"
+
+msgid "Hozircha javoblar yo'q."
+msgstr "No responses yet."
+
+msgid "Mehmonlar uchun shaxsiy linklar"
+msgstr "Personal links for guests"
+
+msgid ""
+"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+msgstr ""
+"A personal link for each guest added in the admin panel — send it to that "
+"guest individually via Telegram/Instagram."
+
+msgid "Ko'rdimi"
+msgstr "Seen?"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "ko'rdi"
+msgstr "seen"
+
+msgid "hali ko'rmagan"
+msgstr "not seen yet"
+
+msgid ""
+"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
+"bo'limidan qo'shing."
+msgstr ""
+"No guests added yet. Add them from the \"Guests\" section inside the "
+"invitation in the admin panel."
 
 msgid "Tayyor!"
 msgstr "Done!"
@@ -455,6 +525,9 @@ msgstr "Your invitation is ready!"
 
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "This is your personal link. Send it to your guests:"
+
+msgid "Nusxalash"
+msgstr "Copy"
 
 msgid "Taklifnomani ko'rish"
 msgstr "View invitation"
@@ -561,7 +634,6 @@ msgstr "Please enter your name."
 msgid "Javobingiz uchun rahmat!"
 msgstr "Thank you for your response!"
 
-#| msgid "Taklifnomani ochish"
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "You cannot delete this invitation."
 
@@ -588,7 +660,6 @@ msgstr "No such page found"
 msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
 msgstr "The link is incorrect, or this page no longer exists."
 
-#| msgid "Bosh sahifa"
 msgid "Bosh sahifaga qaytish"
 msgstr "Back to homepage"
 

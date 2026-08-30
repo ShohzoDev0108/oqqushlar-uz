@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:24+0500\n"
+"POT-Creation-Date: 2026-08-30 18:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,7 +266,6 @@ msgstr ""
 "Бұл шақыруды толығымен жойғыңыз келе ме? Бұл әрекетті кері қайтару мүмкін "
 "емес."
 
-#| msgid "Ko'rish"
 msgid "O'chirish"
 msgstr "Жою"
 
@@ -440,9 +439,80 @@ msgstr "Іс-шараға дейін"
 msgid "taklifnomasi"
 msgstr "шақыруы"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Statistika"
+msgstr "Статистика"
+
 msgid "Ochiq sahifani ko'rish"
 msgstr "Шақыруды қарау"
+
+#, python-format
+msgid "%(nomi)s — statistika"
+msgstr "%(nomi)s — статистика"
+
+msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
+msgstr "Бұл бет тек сізге ғана көрінеді. Сілтемені ешкімге жібермеңіз."
+
+msgid "ko'rishlar"
+msgstr "қаралымдар"
+
+msgid "javoblar"
+msgstr "жауаптар"
+
+msgid "keladi (mehmon)"
+msgstr "келеді (қонақ)"
+
+msgid "kelmaydi"
+msgstr "келмейді"
+
+msgid "Ism"
+msgstr "Аты"
+
+msgid "Holat"
+msgstr "Күйі"
+
+msgid "Mehmonlar soni"
+msgstr "Қонақтар саны"
+
+msgid "Izoh"
+msgstr "Пікір"
+
+msgid "Keladi"
+msgstr "Келеді"
+
+msgid "Kelmaydi"
+msgstr "Келмейді"
+
+msgid "Hozircha javoblar yo'q."
+msgstr "Әзірге жауап жоқ."
+
+msgid "Mehmonlar uchun shaxsiy linklar"
+msgstr "Қонақтар үшін жеке сілтемелер"
+
+msgid ""
+"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+msgstr ""
+"Әкімшілік панелінде қосылған әр қонаққа арналған жеке сілтеме — осы "
+"сілтемені Telegram/Instagram арқылы сол қонаққа жіберіңіз."
+
+msgid "Ko'rdimi"
+msgstr "Көрді ме?"
+
+msgid "Link"
+msgstr "Сілтеме"
+
+msgid "ko'rdi"
+msgstr "көрді"
+
+msgid "hali ko'rmagan"
+msgstr "әлі көрген жоқ"
+
+msgid ""
+"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
+"bo'limidan qo'shing."
+msgstr ""
+"Әзірге қонақ қосылмаған. Оларды әкімшілік панеліндегі шақыру ішіндегі "
+"«Қонақтар» бөлімінен қосыңыз."
 
 msgid "Tayyor!"
 msgstr "Дайын!"
@@ -452,6 +522,9 @@ msgstr "Шақыруыңыз дайын!"
 
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "Бұл — сіздің жеке сілтемеңіз. Оны қонақтарыңызға жіберіңіз:"
+
+msgid "Nusxalash"
+msgstr "Көшіру"
 
 msgid "Taklifnomani ko'rish"
 msgstr "Шақыруды қарау"
@@ -557,7 +630,6 @@ msgstr "Атыңызды енгізіңіз."
 msgid "Javobingiz uchun rahmat!"
 msgstr "Жауабыңыз үшін рахмет!"
 
-#| msgid "Taklifnomani ochish"
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "Сіз бұл шақыруды жоя алмайсыз."
 
@@ -584,7 +656,6 @@ msgstr "Мұндай бет табылмады"
 msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
 msgstr "Сілтеме қате немесе бұл бет енді жоқ."
 
-#| msgid "Bosh sahifa"
 msgid "Bosh sahifaga qaytish"
 msgstr "Басты бетке қайту"
 

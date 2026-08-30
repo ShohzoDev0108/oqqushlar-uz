@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:24+0500\n"
+"POT-Creation-Date: 2026-08-30 18:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,7 +270,6 @@ msgstr ""
 "Ҳақиқатан мехоҳед ин даъватномаро комилан нест кунед? Ин амалро "
 "бозгардонидан мумкин нест."
 
-#| msgid "Ko'rish"
 msgid "O'chirish"
 msgstr "Нест кардан"
 
@@ -445,9 +444,80 @@ msgstr "То чорабинӣ"
 msgid "taklifnomasi"
 msgstr "даъватнома"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Statistika"
+msgstr "Омор"
+
 msgid "Ochiq sahifani ko'rish"
 msgstr "Дидани даъватнома"
+
+#, python-format
+msgid "%(nomi)s — statistika"
+msgstr "%(nomi)s — омор"
+
+msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
+msgstr "Ин саҳифа танҳо ба шумо намоён аст. Линкро ба ҳеҷ кас нафиристед."
+
+msgid "ko'rishlar"
+msgstr "дидашавӣ"
+
+msgid "javoblar"
+msgstr "ҷавобҳо"
+
+msgid "keladi (mehmon)"
+msgstr "меоянд (меҳмон)"
+
+msgid "kelmaydi"
+msgstr "намеоянд"
+
+msgid "Ism"
+msgstr "Ном"
+
+msgid "Holat"
+msgstr "Ҳолат"
+
+msgid "Mehmonlar soni"
+msgstr "Шумораи меҳмонон"
+
+msgid "Izoh"
+msgstr "Изоҳ"
+
+msgid "Keladi"
+msgstr "Меояд"
+
+msgid "Kelmaydi"
+msgstr "Намеояд"
+
+msgid "Hozircha javoblar yo'q."
+msgstr "Ҳоло ҷавобе нест."
+
+msgid "Mehmonlar uchun shaxsiy linklar"
+msgstr "Линкҳои шахсӣ барои меҳмонон"
+
+msgid ""
+"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+msgstr ""
+"Барои ҳар меҳмоне, ки дар панели идора илова шудааст, линки шахсӣ — ин "
+"линкро тавассути Telegram/Instagram ба худи ҳамон меҳмон фиристед."
+
+msgid "Ko'rdimi"
+msgstr "Дидааст?"
+
+msgid "Link"
+msgstr "Линк"
+
+msgid "ko'rdi"
+msgstr "дид"
+
+msgid "hali ko'rmagan"
+msgstr "ҳанӯз надидааст"
+
+msgid ""
+"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
+"bo'limidan qo'shing."
+msgstr ""
+"Ҳанӯз меҳмон илова нашудааст. Онҳоро аз бахши «Меҳмонон» дар дохили "
+"таклифнома дар панели идора илова кунед."
 
 msgid "Tayyor!"
 msgstr "Тайёр!"
@@ -457,6 +527,9 @@ msgstr "Даъватномаи шумо тайёр!"
 
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "Ин — пайванди шахсии шумост. Онро ба меҳмонони худ фиристед:"
+
+msgid "Nusxalash"
+msgstr "Нусхабардорӣ"
 
 msgid "Taklifnomani ko'rish"
 msgstr "Дидани даъватнома"
@@ -567,7 +640,6 @@ msgstr "Лутфан номи худро ворид кунед."
 msgid "Javobingiz uchun rahmat!"
 msgstr "Барои ҷавобатон ташаккур!"
 
-#| msgid "Taklifnomani ochish"
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "Шумо ин даъватномаро нест карда наметавонед."
 
@@ -594,7 +666,6 @@ msgstr "Чунин саҳифа ёфт нашуд"
 msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
 msgstr "Пайванд нодуруст аст ё ин саҳифа дигар вуҷуд надорад."
 
-#| msgid "Bosh sahifa"
 msgid "Bosh sahifaga qaytish"
 msgstr "Бозгашт ба саҳифаи асосӣ"
 

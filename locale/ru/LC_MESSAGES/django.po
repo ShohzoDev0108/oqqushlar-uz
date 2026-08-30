@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:24+0500\n"
+"POT-Creation-Date: 2026-08-30 18:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,7 +266,6 @@ msgstr ""
 "Вы действительно хотите полностью удалить это приглашение? Это действие "
 "нельзя отменить."
 
-#| msgid "Ko'rish"
 msgid "O'chirish"
 msgstr "Удалить"
 
@@ -440,9 +439,80 @@ msgstr "До торжества"
 msgid "taklifnomasi"
 msgstr "приглашение"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Statistika"
+msgstr "Статистика"
+
 msgid "Ochiq sahifani ko'rish"
 msgstr "Посмотреть приглашение"
+
+#, python-format
+msgid "%(nomi)s — statistika"
+msgstr "%(nomi)s — статистика"
+
+msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
+msgstr "Эта страница видна только вам. Никому не отправляйте ссылку."
+
+msgid "ko'rishlar"
+msgstr "просмотры"
+
+msgid "javoblar"
+msgstr "ответы"
+
+msgid "keladi (mehmon)"
+msgstr "придут (гостей)"
+
+msgid "kelmaydi"
+msgstr "не придут"
+
+msgid "Ism"
+msgstr "Имя"
+
+msgid "Holat"
+msgstr "Статус"
+
+msgid "Mehmonlar soni"
+msgstr "Количество гостей"
+
+msgid "Izoh"
+msgstr "Комментарий"
+
+msgid "Keladi"
+msgstr "Придёт"
+
+msgid "Kelmaydi"
+msgstr "Не придёт"
+
+msgid "Hozircha javoblar yo'q."
+msgstr "Пока нет ответов."
+
+msgid "Mehmonlar uchun shaxsiy linklar"
+msgstr "Персональные ссылки для гостей"
+
+msgid ""
+"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+msgstr ""
+"Персональная ссылка для каждого гостя, добавленного в админ-панели — "
+"отправьте эту ссылку тому самому гостю через Telegram/Instagram."
+
+msgid "Ko'rdimi"
+msgstr "Просмотрено?"
+
+msgid "Link"
+msgstr "Ссылка"
+
+msgid "ko'rdi"
+msgstr "просмотрел(а)"
+
+msgid "hali ko'rmagan"
+msgstr "ещё не просмотрел(а)"
+
+msgid ""
+"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
+"bo'limidan qo'shing."
+msgstr ""
+"Гости пока не добавлены. Добавьте их в разделе «Гости» внутри приглашения в "
+"админ-панели."
 
 msgid "Tayyor!"
 msgstr "Готово!"
@@ -452,6 +522,9 @@ msgstr "Ваше приглашение готово!"
 
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "Это — ваша личная ссылка. Отправьте её своим гостям:"
+
+msgid "Nusxalash"
+msgstr "Скопировать"
 
 msgid "Taklifnomani ko'rish"
 msgstr "Посмотреть приглашение"
@@ -557,7 +630,6 @@ msgstr "Пожалуйста, введите ваше имя."
 msgid "Javobingiz uchun rahmat!"
 msgstr "Спасибо за ваш ответ!"
 
-#| msgid "Taklifnomani ochish"
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "Вы не можете удалить это приглашение."
 
@@ -584,7 +656,6 @@ msgstr "Такая страница не найдена"
 msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
 msgstr "Ссылка неверна, или этой страницы больше не существует."
 
-#| msgid "Bosh sahifa"
 msgid "Bosh sahifaga qaytish"
 msgstr "Вернуться на главную"
 

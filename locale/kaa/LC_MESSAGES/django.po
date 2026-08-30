@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:24+0500\n"
+"POT-Creation-Date: 2026-08-30 18:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -267,7 +267,6 @@ msgstr ""
 "Bul shaqırıwdı pútkilley óshiriwdi qáleysiz be? Bul háreketti keri qaytarıw "
 "múmkin emes."
 
-#| msgid "Ko'rish"
 msgid "O'chirish"
 msgstr "Óshiriw"
 
@@ -442,9 +441,80 @@ msgstr "Ilajǵa shekem"
 msgid "taklifnomasi"
 msgstr "shaqırıwı"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Statistika"
+msgstr "Statistika"
+
 msgid "Ochiq sahifani ko'rish"
 msgstr "Shaqırıwdı kóriw"
+
+#, python-format
+msgid "%(nomi)s — statistika"
+msgstr "%(nomi)s — statistika"
+
+msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
+msgstr "Bul bet tek sizge kórinedi. Siltemeni esh kimge jibermeń."
+
+msgid "ko'rishlar"
+msgstr "kórilgenler"
+
+msgid "javoblar"
+msgstr "juwaplar"
+
+msgid "keladi (mehmon)"
+msgstr "keledi (qonaq)"
+
+msgid "kelmaydi"
+msgstr "kelmeydi"
+
+msgid "Ism"
+msgstr "Atı"
+
+msgid "Holat"
+msgstr "Jaǵdayı"
+
+msgid "Mehmonlar soni"
+msgstr "Qonaqlar sanı"
+
+msgid "Izoh"
+msgstr "Pikir"
+
+msgid "Keladi"
+msgstr "Keledi"
+
+msgid "Kelmaydi"
+msgstr "Kelmeydi"
+
+msgid "Hozircha javoblar yo'q."
+msgstr "Házirshe juwap joq."
+
+msgid "Mehmonlar uchun shaxsiy linklar"
+msgstr "Qonaqlar ushın shaxsıy siltemeler"
+
+msgid ""
+"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+msgstr ""
+"Admin panelinde qosılǵan hár bir qonaqqa shaxsıy silteme — bul siltemeni "
+"Telegram/Instagram arqalı sol qonaqtıń ózine jiberiń."
+
+msgid "Ko'rdimi"
+msgstr "Kórdi me?"
+
+msgid "Link"
+msgstr "Silteme"
+
+msgid "ko'rdi"
+msgstr "kórdi"
+
+msgid "hali ko'rmagan"
+msgstr "háli kórmegen"
+
+msgid ""
+"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
+"bo'limidan qo'shing."
+msgstr ""
+"Háli qonaq qosılmaǵan. Olardı admin panelindegi shaqırıw ishindegi "
+"\"Qonaqlar\" bóliminen qosıń."
 
 msgid "Tayyor!"
 msgstr "Tayar!"
@@ -454,6 +524,9 @@ msgstr "Shaqırıwıńız tayar!"
 
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "Bul — sizdiń jeke siltemeńiz. Onı qonaqlarıńızǵa jiberiń:"
+
+msgid "Nusxalash"
+msgstr "Kóshiriw"
 
 msgid "Taklifnomani ko'rish"
 msgstr "Shaqırıwdı kóriw"
@@ -560,7 +633,6 @@ msgstr "Ótinish, atıńızdı kiritiń."
 msgid "Javobingiz uchun rahmat!"
 msgstr "Juwabıńız ushın raxmet!"
 
-#| msgid "Taklifnomani ochish"
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "Siz bul shaqırıwdı óshire almaysız."
 
@@ -587,7 +659,6 @@ msgstr "Bunday bet tabılmadı"
 msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
 msgstr "Silteme qáte yamasa bul bet endi joq."
 
-#| msgid "Bosh sahifa"
 msgid "Bosh sahifaga qaytish"
 msgstr "Bas betke qaytıw"
 

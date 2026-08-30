@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}Statistika — {{ taklifnoma.sarlavha }}{% endblock %}
+{% block title %}{% trans "Statistika" %} — {{ taklifnoma.sarlavha }}{% endblock %}
 
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
@@ -36,52 +36,52 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
 <div class="oq-ichki">
     <div class="oq-stat-oralig">
         <p style="padding-top:24px;"><a class="stat-orqaga" href="{{ taklifnoma.get_absolute_url }}">&larr; {% trans "Ochiq sahifani ko'rish" %}</a></p>
-        <h1 class="oq-h1" style="font-size:clamp(1.8rem, 4vw, 2.6rem);">{{ taklifnoma.sarlavha }} — statistika</h1>
-        <p class="stat-ogohlantirish">Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang.</p>
+        <h1 class="oq-h1" style="font-size:clamp(1.8rem, 4vw, 2.6rem);">{% blocktrans with nomi=taklifnoma.sarlavha %}{{ nomi }} — statistika{% endblocktrans %}</h1>
+        <p class="stat-ogohlantirish">{% trans "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang." %}</p>
 
         <div class="karta-blok">
-            <div class="karta"><div class="son">{{ taklifnoma.korishlar }}</div><div class="yorliq">ko'rishlar</div></div>
-            <div class="karta"><div class="son">{{ javoblar.count }}</div><div class="yorliq">javoblar</div></div>
-            <div class="karta"><div class="son ha">{{ keladiganlar_soni }}</div><div class="yorliq">keladi (mehmon)</div></div>
-            <div class="karta"><div class="son yoq">{{ kelmaydiganlar_soni }}</div><div class="yorliq">kelmaydi</div></div>
+            <div class="karta"><div class="son">{{ taklifnoma.korishlar }}</div><div class="yorliq">{% trans "ko'rishlar" %}</div></div>
+            <div class="karta"><div class="son">{{ javoblar.count }}</div><div class="yorliq">{% trans "javoblar" %}</div></div>
+            <div class="karta"><div class="son ha">{{ keladiganlar_soni }}</div><div class="yorliq">{% trans "keladi (mehmon)" %}</div></div>
+            <div class="karta"><div class="son yoq">{{ kelmaydiganlar_soni }}</div><div class="yorliq">{% trans "kelmaydi" %}</div></div>
         </div>
 
         <table>
             <thead>
-                <tr><th>Ism</th><th>Holat</th><th>Mehmonlar soni</th><th>Izoh</th><th>Sana</th></tr>
+                <tr><th>{% trans "Ism" %}</th><th>{% trans "Holat" %}</th><th>{% trans "Mehmonlar soni" %}</th><th>{% trans "Izoh" %}</th><th>{% trans "Sana" %}</th></tr>
             </thead>
             <tbody>
                 {% for j in javoblar %}
                 <tr>
                     <td>{{ j.ism }}</td>
-                    <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}Keladi{% else %}Kelmaydi{% endif %}</td>
+                    <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}{% trans "Keladi" %}{% else %}{% trans "Kelmaydi" %}{% endif %}</td>
                     <td>{{ j.mehmonlar_soni }}</td>
                     <td>{{ j.izoh|default:"—" }}</td>
                     <td>{{ j.yaratilgan|date:"d.m.Y H:i" }}</td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="5">Hozircha javoblar yo'q.</td></tr>
+                <tr><td colspan="5">{% trans "Hozircha javoblar yo'q." %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>
 
-        <h2 class="oq-h2">Mehmonlar uchun shaxsiy linklar</h2>
-        <p class="stat-ogohlantirish" style="margin-bottom:14px;">Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring.</p>
+        <h2 class="oq-h2">{% trans "Mehmonlar uchun shaxsiy linklar" %}</h2>
+        <p class="stat-ogohlantirish" style="margin-bottom:14px;">{% trans "Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring." %}</p>
         <table>
             <thead>
-                <tr><th>Ism</th><th>Ko'rdimi</th><th>Link</th></tr>
+                <tr><th>{% trans "Ism" %}</th><th>{% trans "Ko'rdimi" %}</th><th>{% trans "Link" %}</th></tr>
             </thead>
             <tbody>
                 {% for m in mehmonlar %}
                 <tr>
                     <td>{{ m.ism }}</td>
-                    <td class="korilgan-belgi">{% if m.korilgan %}✅ ko'rdi{% else %}— hali ko'rmagan{% endif %}</td>
+                    <td class="korilgan-belgi">{% if m.korilgan %}✅ {% trans "ko'rdi" %}{% else %}— {% trans "hali ko'rmagan" %}{% endif %}</td>
                     <td>
-                        <span class="mehmon-link" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent='Nusxalandi!';">{{ m.get_absolute_url }}</span>
+                        <span class="mehmon-link" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent=this.dataset.nusxalandi;">{{ m.get_absolute_url }}</span>
                     </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="3">Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida "Mehmonlar" bo'limidan qo'shing.</td></tr>
+                <tr><td colspan="3">{% blocktrans %}Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida "Mehmonlar" bo'limidan qo'shing.{% endblocktrans %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>

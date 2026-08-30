@@ -1,0 +1,11 @@
+/* Taftish topilmasi: "Taklifnomalar" ro'yxatida nom+slug ustuni ustunlar
+   kengligi belgilanmagani uchun 3-4 qatorga bo'linib ketardi — 26 qatorli
+   ro'yxat ~3800px balandlikka cho'zilib, ko'zdan kechirish qiyinlashardi.
+   Endi ustun bitta qatorga sig'adi, to'liq matn esa hover paytida title
+   sifatida ko'rinadi. */
+#result_list .field-belgi {
+    max-width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

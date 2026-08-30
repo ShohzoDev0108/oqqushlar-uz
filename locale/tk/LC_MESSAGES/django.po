@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:24+0500\n"
+"POT-Creation-Date: 2026-08-30 18:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,7 +265,6 @@ msgid ""
 "qaytarib bo'lmaydi."
 msgstr "Bu çakylygy dolulygyna öçürmekçimi? Bu hereketi yza gaýtaryp bolmaz."
 
-#| msgid "Ko'rish"
 msgid "O'chirish"
 msgstr "Öçürmek"
 
@@ -439,9 +438,80 @@ msgstr "Dabara çenli"
 msgid "taklifnomasi"
 msgstr "çakylygy"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Statistika"
+msgstr "Statistika"
+
 msgid "Ochiq sahifani ko'rish"
 msgstr "Çakylygy görmek"
+
+#, python-format
+msgid "%(nomi)s — statistika"
+msgstr "%(nomi)s — statistika"
+
+msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
+msgstr "Bu sahypany diňe siz görýärsiňiz. Linki hiç kime ibermäň."
+
+msgid "ko'rishlar"
+msgstr "görülenler"
+
+msgid "javoblar"
+msgstr "jogaplar"
+
+msgid "keladi (mehmon)"
+msgstr "geler (myhman)"
+
+msgid "kelmaydi"
+msgstr "gelmez"
+
+msgid "Ism"
+msgstr "Ady"
+
+msgid "Holat"
+msgstr "Ýagdaýy"
+
+msgid "Mehmonlar soni"
+msgstr "Myhmanlaryň sany"
+
+msgid "Izoh"
+msgstr "Bellik"
+
+msgid "Keladi"
+msgstr "Geler"
+
+msgid "Kelmaydi"
+msgstr "Gelmez"
+
+msgid "Hozircha javoblar yo'q."
+msgstr "Häzirlikçe jogap ýok."
+
+msgid "Mehmonlar uchun shaxsiy linklar"
+msgstr "Myhmanlar üçin şahsy linkler"
+
+msgid ""
+"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+msgstr ""
+"Admin panelinde goşulan her myhman üçin şahsy link — bu linki "
+"Telegram/Instagram arkaly şol myhmanyň özüne iberiň."
+
+msgid "Ko'rdimi"
+msgstr "Gördümi?"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "ko'rdi"
+msgstr "gördi"
+
+msgid "hali ko'rmagan"
+msgstr "heniz görmedi"
+
+msgid ""
+"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
+"bo'limidan qo'shing."
+msgstr ""
+"Heniz myhman goşulmady. Olary admin panelindäki çakylygyň içindäki "
+"\"Myhmanlar\" bölüminden goşuň."
 
 msgid "Tayyor!"
 msgstr "Taýýar!"
@@ -451,6 +521,9 @@ msgstr "Çakylygyňyz taýýar!"
 
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "Bu — siziň şahsy linkiňiz. Muny myhmanlaryňyza iberiň:"
+
+msgid "Nusxalash"
+msgstr "Nusga al"
 
 msgid "Taklifnomani ko'rish"
 msgstr "Çakylygy görmek"
@@ -558,7 +631,6 @@ msgstr "Haýyş, adyňyzy giriziň."
 msgid "Javobingiz uchun rahmat!"
 msgstr "Jogabyňyz üçin sag boluň!"
 
-#| msgid "Taklifnomani ochish"
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "Siz bu çakylygy öçürip bilmersiňiz."
 
@@ -585,7 +657,6 @@ msgstr "Şeýle sahypa tapylmady"
 msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
 msgstr "Salgy nädogry ýa-da bu sahypa indi ýok."
 
-#| msgid "Bosh sahifa"
 msgid "Bosh sahifaga qaytish"
 msgstr "Baş sahypa dolanmak"
 
