@@ -163,6 +163,33 @@ class NamunaRasmKosmetikTest(TestCase):
         r = Client().get(f"/yaratish/{self.shablon.kod}/")
         self.assertContains(r, 'alt="Bahor gullari"')
 
+    def test_yoqolgan_fayl_bilan_namuna_tanlansa_forma_qulamaydi(self):
+        # Taftish topilmasi (production'da): bazadagi NamunaRasm yozuvi
+        # bor edi, lekin unga tegishli fayl xotirada (R2/S3) haqiqatda yo'q
+        # edi — buni mijoz o'sha namunani tanlab, forma yuborganda 500-xato
+        # bilan qulab tushardi (butun taklifnomasi yo'qolardi). Endi shu
+        # bitta buzuq namuna jimgina o'tkazib yuborilishi, mijozning
+        # taklifnomasi esa muvaffaqiyatli yaratilishi kerak.
+        from django.core.files.storage import default_storage
+
+        from taklif.models import NamunaRasm
+
+        namuna = NamunaRasm.objects.create(
+            nomi="Yoqolgan",
+            rasm=SimpleUploadedFile("yoqoladi.jpg", _kichik_jpeg_baytlari(), "image/jpeg"),
+            faol=True,
+        )
+        default_storage.delete(namuna.rasm.name)  # faylni xotiradan o'chiramiz, DB yozuvi qoladi
+
+        r = Client().post(
+            f"/yaratish/{self.shablon.kod}/",
+            {**ASOSIY_FORMA_MAYDONLARI, "ism_1": "Omon", "namuna_rasm_ids": [str(namuna.id)]},
+        )
+
+        self.assertEqual(r.status_code, 302)
+        t = Taklifnoma.objects.get(ism_1="Omon")
+        self.assertEqual(t.rasmlar.count(), 0)  # buzuq namuna o'tkazib yuborildi
+
     def test_ikki_ismli_turlar_json_script_orqali_chiqadi(self):
         # |safe emas, json_script orqali — xavfsizroq va JS massivini
         # to'g'ri hosil qiladi.

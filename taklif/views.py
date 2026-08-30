@@ -1,3 +1,4 @@
+import logging
 import os
 import secrets
 from urllib.parse import quote
@@ -28,6 +29,8 @@ from .models import (
     Taklifnoma,
     TaklifnomaRasm,
 )
+
+_logger = logging.getLogger("django.request")
 
 # Havola (slug) mijozdan hech qachon so'ralmaydi — ko'pchilik mijoz "manzil"
 # yoki "link" degan texnik tushunchani tushunmaydi. Agar ism_1+ism_2 asosidagi
@@ -166,11 +169,32 @@ def _taklifnoma_rasmlarini_saqlash(taklifnoma, request):
         for namuna in tartibli:
             if tartib >= MAKSIMAL_RASMLAR_SONI:
                 break
-            namuna.rasm.open("rb")
-            nusxa = ContentFile(
-                namuna.rasm.read(), name=os.path.basename(namuna.rasm.name)
-            )
-            namuna.rasm.close()
+            try:
+                namuna.rasm.open("rb")
+                nusxa = ContentFile(
+                    namuna.rasm.read(), name=os.path.basename(namuna.rasm.name)
+                )
+                namuna.rasm.close()
+            except (FileNotFoundError, OSError):
+                # Taftish topilmasi: bazadagi NamunaRasm yozuvi mavjud, lekin
+                # unga tegishli fayl xotirada (R2/S3) haqiqatda yo'q edi —
+                # masalan admin faylni tashqaridan o'chirib yuborgan yoki
+                # yuklash muvaffaqiyatsiz tugagan holatda. Bu xato oldin
+                # ushlanmagani uchun mijozning BUTUN taklifnoma yaratish
+                # so'rovi 500-xato bilan qulab tushardi (mijoz o'z rasmlarini
+                # ham, matnini ham yo'qotardi) — shu bitta buzuq namuna sabab.
+                # Endi shu bitta namunani jimgina o'tkazib yuboramiz (mijoz
+                # so'rovi davom etadi), lekin xatoni "django.request" logeriga
+                # yozamiz — bu Telegram xabarnomasini ishga tushiradi, shunda
+                # admin buzuq namunani tezda tuzatishi (qayta yuklashi yoki
+                # o'chirishi) mumkin.
+                _logger.error(
+                    "Namuna rasm topilmadi (id=%s, fayl=%s) — o'tkazib yuborildi",
+                    namuna.id,
+                    getattr(namuna.rasm, "name", None),
+                    exc_info=True,
+                )
+                continue
             TaklifnomaRasm.objects.create(
                 taklifnoma=taklifnoma, rasm=nusxa, tartib=tartib
             )
