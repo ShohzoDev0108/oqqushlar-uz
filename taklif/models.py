@@ -324,6 +324,20 @@ class RSVP(models.Model):
         verbose_name = "RSVP javobi"
         verbose_name_plural = "RSVP javoblari"
         ordering = ["-yaratilgan"]
+        constraints = [
+            # Shaxsiy link (mehmon) orqali RSVP yuborilganda — bitta mehmon
+            # bitta taklifnomaga faqat BITTA javobga ega bo'lishi kerak (forma
+            # qayta yuborilsa/yangilansa, eskisi ustiga yozilishi kerak, yangi
+            # qator qo'shilmasligi kerak — aks holda mehmonlar soni bir necha
+            # barobar oshib ketadi). Umumiy (shaxsiy linksiz, mehmon=NULL)
+            # javoblarga bu cheklov ta'sir qilmaydi — SQLite ham, PostgreSQL
+            # ham NULL qiymatlarni bir-biriga "teng" deb hisoblamaydi, shuning
+            # uchun bir nechta mehmon=NULL yozuv bir xil taklifnoma uchun
+            # erkin qo'shilishda davom etadi.
+            models.UniqueConstraint(
+                fields=["taklifnoma", "mehmon"], name="rsvp_taklifnoma_mehmon_bir_marta"
+            ),
+        ]
 
     def __str__(self):
         holat = "keladi" if self.keladi else "kelmaydi"

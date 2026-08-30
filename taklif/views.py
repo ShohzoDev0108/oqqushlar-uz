@@ -378,36 +378,86 @@ def _shablon_fayli(shablon_kod):
         return f"taklif/shablonlar/{DEFAULT_SHABLON_KOD}.html"
 
 
+def _postdan_kesib_olish(request, kalit, maks_uzunlik):
+    """POST maydonini o'qiydi va modeldagi max_length'ga mos ravishda kesadi.
+
+    DIQQAT: bu yerda ModelForm ishlatilmagani uchun Django'ning odatiy
+    uzunlik tekshiruvi ishlamaydi — agar mehmon maydonga model ruxsat
+    etganidan uzunroq matn kiritsa, SQLite (lokal) buni sezmaydi, lekin
+    PostgreSQL (production) "value too long" xatosi bilan butun so'rovni
+    rad etadi va mehmon RSVP yubora olmay qoladi. Shu uchun har bir
+    maydonni saqlashdan oldin qat'iy kesib olamiz — xuddi shu naqsh
+    boshqa joylarda (masalan slug, statistika_token) allaqachon qo'llanilgan.
+    """
+    return request.POST.get(kalit, "").strip()[:maks_uzunlik]
+
+
 @require_POST
 def rsvp_submit(request, slug):
-    """Mehmon RSVP formasini yuborishi."""
+    """Mehmon RSVP formasini yuborishi.
+
+    Agar mehmon shaxsiy link orqali kirgan bo'lsa (mehmon berilgan), forma
+    qayta yuborilganda (masalan sahifa yangilansa, orqaga qaytib qayta
+    bosilsa) YANGI qator qo'shilmaydi — mavjud javobi yangilanadi. Aks holda
+    (mehmon bir necha marta "kelaman" deb yuborsa) mehmonlar soni haqiqiy
+    sondan bir necha barobar ko'p bo'lib chiqar edi (RSVP.Meta'dagi
+    UniqueConstraint shuni bazada ham kafolatlaydi).
+
+    Shaxsiy linksiz (umumiy sahifadan) yuborilganda mehmon identifikatsiyasi
+    yo'q — shu brauzer sessiyasi orqali "eng oxirgi javobim shu edi" deb
+    eslab qolamiz, shunda oddiy qayta yuborish (masalan tugmani ikki marta
+    bosish) baribir bitta yozuvni yangilaydi, ikkinchi yozuv qo'shilmaydi.
+    """
     taklifnoma = get_object_or_404(Taklifnoma, slug=slug, faol=True)
 
-    ism = request.POST.get("ism", "").strip()
+    ism = _postdan_kesib_olish(request, "ism", 100)
     keladi = request.POST.get("keladi") == "ha"
-    izoh = request.POST.get("izoh", "").strip()
+    izoh = _postdan_kesib_olish(request, "izoh", 300)
     mehmon_slug = request.POST.get("mehmon_slug", "").strip()
     try:
         mehmonlar_soni = int(request.POST.get("mehmonlar_soni", 1))
     except ValueError:
         mehmonlar_soni = 1
+    mehmonlar_soni = max(1, min(5, mehmonlar_soni))
 
     mehmon = None
     if mehmon_slug:
         mehmon = Mehmon.objects.filter(taklifnoma=taklifnoma, slug=mehmon_slug).first()
 
-    if ism:
-        RSVP.objects.create(
-            taklifnoma=taklifnoma,
-            mehmon=mehmon,
-            ism=ism,
-            keladi=keladi,
-            mehmonlar_soni=max(1, min(5, mehmonlar_soni)),
-            izoh=izoh,
-        )
-        messages.success(request, _("Javobingiz uchun rahmat!"))
-    else:
+    if not ism:
         messages.error(request, _("Iltimos, ismingizni kiriting."))
+    else:
+        qiymatlar = {
+            "ism": ism,
+            "keladi": keladi,
+            "mehmonlar_soni": mehmonlar_soni,
+            "izoh": izoh,
+        }
+        if mehmon is not None:
+            # Shaxsiy link — (taklifnoma, mehmon) juftligi bo'yicha bitta
+            # javob kafolatlanadi (bazadagi UniqueConstraint bilan birga).
+            RSVP.objects.update_or_create(
+                taklifnoma=taklifnoma, mehmon=mehmon, defaults=qiymatlar
+            )
+        else:
+            # Shaxsiy linksiz — sessiyada saqlangan oxirgi javob yozuvini
+            # yangilaymiz (agar bo'lsa), aks holda yangisini yaratamiz.
+            sessiya_kaliti = f"rsvp_yozuv_id:{taklifnoma.slug}"
+            eski_id = request.session.get(sessiya_kaliti)
+            eski_yozuv = (
+                RSVP.objects.filter(pk=eski_id, taklifnoma=taklifnoma, mehmon__isnull=True).first()
+                if eski_id
+                else None
+            )
+            if eski_yozuv is not None:
+                for maydon, qiymat in qiymatlar.items():
+                    setattr(eski_yozuv, maydon, qiymat)
+                eski_yozuv.save()
+            else:
+                yangi_yozuv = RSVP.objects.create(taklifnoma=taklifnoma, mehmon=None, **qiymatlar)
+                request.session[sessiya_kaliti] = yangi_yozuv.pk
+                request.session.modified = True
+        messages.success(request, _("Javobingiz uchun rahmat!"))
 
     if mehmon:
         return redirect("taklif:mehmon_korish", slug=slug, mehmon_slug=mehmon.slug)
