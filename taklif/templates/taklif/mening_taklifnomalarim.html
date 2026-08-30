@@ -17,7 +17,15 @@
 .holat.kutilmoqda { background: var(--tilla-yumshoq); color: var(--tilla-toq); border: 1px solid rgba(176,140,51,.35); }
 .tugmalar { display: flex; gap: 8px; flex-wrap: wrap; }
 .tugmalar form { display: inline; margin: 0; }
-.oq-cta.xavfli { color: #a33; border-color: #a33; }
+{% comment %}
+Taftish topilmasi: bu tugma <button type="submit"> bo'lgani uchun,
+_sayt_uslubi.html'dagi umumiy "button[type=submit] { background: var(--tilla) }"
+qoidasi (CSS solishtirmasi bo'yicha .oq-cta'ning shaffof foniga qaraganda
+kuchliroq) uni oltin rangga bo'yab yuborardi — o'chirish tugmasi xavfli
+(qizil) emas, asosiy chaqiruv tugmasi kabi ko'rinardi. Fonni aniq
+belgilab qo'yamiz, shunda .xavfli klassi haqiqatan g'olib chiqadi.
+{% endcomment %}
+.oq-cta.xavfli { background: transparent; color: #a33; border-color: #a33; }
 .oq-cta.xavfli:hover { background: #a33; color: #fff; }
 .bosh { color: var(--kul); margin-top: 30px; }
 .yaratish-katta { margin-bottom: 36px; }

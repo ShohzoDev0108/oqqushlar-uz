@@ -4,10 +4,24 @@
 {% block title %}{% trans "Sahifa topilmadi" %} — Oqqushlar{% endblock %}
 
 {% block extra_style %}
-.markaz { text-align: center; margin-top: 20vh; }
-h1 { font-size: 1.6rem; }
+{% comment %}
+Taftish topilmasi: bu sahifa {% trans %} yordamida "oq-cta" klassli
+tugma chiqarardi, lekin _sayt_uslubi.html include qilinmagani uchun
+o'sha klass umuman aniqlanmagan edi — natijada "Bosh sahifaga qaytish"
+brauzerning standart (ko'k, tag chizilgan) havola ko'rinishida chiqib,
+saytning umumiy dizaynidan butunlay chetga chiqardi. Endi statistika.html
+bilan bir xil naqsh: to'liq uslub tizimi qo'shiladi.
+{% endcomment %}
+{% include "taklif/_sayt_uslubi.html" %}
+
+body { background: #0f2027; color: #f5efe0; }
+.markaz { text-align: center; margin-top: 20vh; padding: 0 20px; }
+h1 { font-size: 1.6rem; color: #f5efe0; }
+p.oq-matn { color: #cfc7b4; }
+.markaz .oq-cta { border-color: #c9a24a; color: #c9a24a; }
+.markaz .oq-cta:hover { background: #c9a24a; color: #1a1208; }
 .til-qatori {
-    display: flex; justify-content: center; margin-top: 16px;
+    display: flex; justify-content: center; margin-top: 22px;
     /* Bu sahifa base.html'ning standart to'q fonida ochiladi (o'zining
        yorug' mavzusi yo'q) — shu uchun til-dropdown komponentiga mos
        to'q ranglarni shu yerda beramiz (muddati_tugagan.html bilan bir xil). */

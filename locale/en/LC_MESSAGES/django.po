@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 15:31+0500\n"
+"POT-Creation-Date: 2026-08-30 16:24+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,207 +18,149 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: taklif/forms.py:29
 msgid "Marosim turi"
 msgstr "Event type"
 
-#: taklif/forms.py:34
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Choose from preset music (optional)"
 
-#: taklif/forms.py:37
 msgid "— tanlanmagan —"
 msgstr "— not selected —"
 
-#: taklif/forms.py:64
 msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
 msgstr "Name 1 (e.g. groom, birthday person)"
 
-#: taklif/forms.py:65
 msgid "2-ism (ixtiyoriy, masalan: kelin)"
 msgstr "Name 2 (optional, e.g. bride)"
 
-#: taklif/forms.py:66 taklif/forms.py:79
 msgid "Tadbir sanasi va vaqti"
 msgstr "Event date and time"
 
-#: taklif/forms.py:67
 msgid "To'yxona/manzil nomi"
 msgstr "Venue name"
 
-#: taklif/forms.py:68 taklif/templates/taklif/shablonlar/_bolimlar.html:160
 msgid "Manzil"
 msgstr "Address"
 
-#: taklif/forms.py:69
 msgid "Xarita havolasi (ixtiyoriy)"
 msgstr "Map link (optional)"
 
-#: taklif/forms.py:70
 msgid "Kiyinish kodi (ixtiyoriy)"
 msgstr "Dress code (optional)"
 
-#: taklif/forms.py:71
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr "Upload your own music (optional)"
 
-#: taklif/forms.py:72
 msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
 msgstr "Additional greeting text (optional)"
 
-#: taklif/forms.py:73
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
 msgstr "Card number for monetary gifts (optional)"
 
-#: taklif/forms.py:74
 msgid "Mehmonlar uchun Telegram guruhi (ixtiyoriy)"
 msgstr "Telegram group for guests (optional)"
 
-#: taklif/forms.py:77
+msgid ""
+"Taklifnomangiz sayt bosh sahifasida namuna sifatida boshqa mijozlarga "
+"ko'rsatilishiga rozimisiz?"
+msgstr ""
+"Do you agree to have your invitation shown to other customers as an example "
+"on the site's homepage?"
+
 msgid "Masalan: kuyov, tug'ilgan kun egasi"
 msgstr "E.g. groom, birthday person"
 
-#: taklif/forms.py:78
 msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
 msgstr "Second name (e.g. bride). Leave empty if not needed"
 
-#: taklif/forms.py:80
 msgid "Masalan: rasmiy, yorug' ranglar"
 msgstr "E.g.: formal, light colors"
 
-#: taklif/forms.py:81
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "If you'd like to upload your own file"
 
-#: taklif/forms.py:82
 msgid "Qo'shimcha tabrik/taklif matni"
 msgstr "Additional greeting/invitation text"
 
-#: taklif/forms.py:83
 msgid "Pul sovg'a uchun karta raqami"
 msgstr "Card number for monetary gifts"
 
-#: taklif/forms.py:84
 msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
 msgstr "Telegram group/channel link for guests"
 
-#: taklif/forms.py:94
+msgid ""
+"Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
+"faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
+msgstr ""
+"Optional. Even if you don't enable this, your invitation will work as usual "
+"— it only affects the list of examples on the homepage."
+
 msgid "Bu marosim turi uchun ikkinchi ismni ham kiriting."
 msgstr "For this event type, please enter the second name too."
 
-#: taklif/models.py:19
 msgid "Nikoh to'yi"
 msgstr "Wedding"
 
-#: taklif/models.py:20
 msgid "Qiz uzatish"
 msgstr "Bride's farewell"
 
-#: taklif/models.py:21
 msgid "Sunnat to'yi"
 msgstr "Circumcision Celebration"
 
-#: taklif/models.py:22
 msgid "Beshik to'yi"
 msgstr "Cradle celebration (beshik toy)"
 
-#: taklif/models.py:23
 msgid "Nahor oshi"
 msgstr "Morning plov (nahor oshi)"
 
-#: taklif/models.py:24
 msgid "Yubiley"
 msgstr "Anniversary"
 
-#: taklif/models.py:25
 msgid "Tug'ilgan kun"
 msgstr "Birthday"
 
-#: taklif/models.py:26
 msgid "Boshqa"
 msgstr "Other"
 
-#: taklif/models.py:35 taklif/templates/taklif/bosh_sahifa.html:199
-#: taklif/templates/taklif/shablon_tanlash.html:34
 msgid "Zamonaviy"
 msgstr "Modern"
 
-#: taklif/models.py:36 taklif/templates/taklif/bosh_sahifa.html:200
-#: taklif/templates/taklif/shablon_tanlash.html:35
 msgid "Milliy"
 msgstr "National"
 
-#: taklif/models.py:37 taklif/templates/taklif/bosh_sahifa.html:201
-#: taklif/templates/taklif/shablon_tanlash.html:36
 msgid "Bolalar"
 msgstr "Kids"
 
-#: taklif/templates/taklif/_sayt_footer.html:9
-#: taklif/templates/taklif/_sayt_nav.html:14
-#: taklif/templates/taklif/shablon_tanlash.html:22
-#: taklif/templates/taklif/yaratish.html:58
 msgid "Dizaynlar"
 msgstr "Designs"
 
-#: taklif/templates/taklif/_sayt_footer.html:10
-#: taklif/templates/taklif/_sayt_nav.html:15
-#: taklif/templates/taklif/mening_taklifnomalarim.html:4
-#: taklif/templates/taklif/mening_taklifnomalarim.html:31
-#: taklif/templates/taklif/mening_taklifnomalarim.html:33
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:20
-#: taklif/templates/taklif/yaratildi.html:44
 msgid "Mening taklifnomalarim"
 msgstr "My invitations"
 
-#: taklif/templates/taklif/_sayt_footer.html:11
-msgid "Admin panel"
-msgstr "Admin panel"
-
-#: taklif/templates/taklif/_sayt_musiqa.html:11
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:26
 msgid "Musiqani yoqish/o'chirish"
 msgstr "Turn music on/off"
 
-#: taklif/templates/taklif/_sayt_nav.html:19
-#: taklif/templates/taklif/_sayt_nav.html:25
-#: taklif/templates/taklif/bosh_sahifa.html:157
-#: taklif/templates/taklif/yaratish.html:4
 msgid "Taklifnoma yaratish"
 msgstr "Create an invitation"
 
-#: taklif/templates/taklif/_til_almashtirish.html:7
 msgid "Tilni tanlang"
 msgstr "Select language"
 
-#: taklif/templates/taklif/bosh_sahifa.html:4
 msgid "chiroyli raqamli taklifnomalar"
 msgstr "beautiful digital invitations"
 
-#: taklif/templates/taklif/bosh_sahifa.html:148
-msgid "O'zbekiston uchun"
-msgstr "For Uzbekistan"
-
-#: taklif/templates/taklif/bosh_sahifa.html:148
-msgid "ta noyob dizayn"
-msgstr "unique designs"
-
-#: taklif/templates/taklif/bosh_sahifa.html:149
 msgid "Eng go'zal kuningiz uchun"
 msgstr "For your most beautiful day"
 
-#: taklif/templates/taklif/bosh_sahifa.html:149
 msgid "raqamli taklifnoma"
 msgstr "a digital invitation"
 
-#: taklif/templates/taklif/bosh_sahifa.html:151
 msgid "Tez va oson"
 msgstr "Fast and easy"
 
-#: taklif/templates/taklif/bosh_sahifa.html:152
 msgid "Telefonda o'zingiz yarating"
 msgstr "Create it yourself on your phone"
 
-#: taklif/templates/taklif/bosh_sahifa.html:154
 msgid ""
 "Dizaynni tanlang, ma'lumotlaringizni kiriting va tayyor taklifnomani shu "
 "zahoti ko'ring — bor-yo'g'i 5 daqiqada, ro'yxatdan o'tmasdan. To'lov — faqat"
@@ -227,23 +169,24 @@ msgstr ""
 "Choose a design, enter your details and see your invitation instantly — in "
 "just 5 minutes, no sign-up. Pay only if you love it."
 
-#: taklif/templates/taklif/bosh_sahifa.html:158
 msgid "Barcha dizaynlarni ko'rish"
 msgstr "View all designs"
 
-#: taklif/templates/taklif/bosh_sahifa.html:167
+msgid "So'nggi taklifnomalar"
+msgstr "Recent invitations"
+
+msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
+msgstr "Examples of invitations activated on our platform"
+
 msgid "Qanday ishlaydi?"
 msgstr "How does it work?"
 
-#: taklif/templates/taklif/bosh_sahifa.html:168
 msgid "Uch oddiy qadam — va taklifnomangiz tayyor"
 msgstr "Three simple steps — and your invitation is ready"
 
-#: taklif/templates/taklif/bosh_sahifa.html:173
 msgid "Dizayn tanlang"
 msgstr "Choose a design"
 
-#: taklif/templates/taklif/bosh_sahifa.html:174
 msgid ""
 "Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga "
 "xos uslubda."
@@ -251,11 +194,9 @@ msgstr ""
 "Pick your favorite from several ready-made templates — each with its own "
 "style."
 
-#: taklif/templates/taklif/bosh_sahifa.html:178
 msgid "Ma'lumotlarni to'ldiring"
 msgstr "Fill in the details"
 
-#: taklif/templates/taklif/bosh_sahifa.html:179
 msgid ""
 "Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz "
 "kiritasiz."
@@ -263,11 +204,9 @@ msgstr ""
 "Event type, names, date, address, photos and music — you enter everything "
 "yourself."
 
-#: taklif/templates/taklif/bosh_sahifa.html:183
 msgid "Ulashing"
 msgstr "Share it"
 
-#: taklif/templates/taklif/bosh_sahifa.html:184
 msgid ""
 "Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga "
 "Telegram yoki Instagram orqali yuboring."
@@ -275,43 +214,21 @@ msgstr ""
 "Preview your invitation, activate it if you like it, and send it to loved "
 "ones via Telegram or Instagram."
 
-#: taklif/templates/taklif/bosh_sahifa.html:194
 msgid "Dizayn shablonlari"
 msgstr "Design templates"
 
-#: taklif/templates/taklif/bosh_sahifa.html:195
 msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Pick one and create yours right away"
 
-#: taklif/templates/taklif/bosh_sahifa.html:198
-#: taklif/templates/taklif/shablon_tanlash.html:33
 msgid "Barchasi"
 msgstr "All"
 
-#: taklif/templates/taklif/bosh_sahifa.html:216
-#: taklif/templates/taklif/shablon_tanlash.html:51
 msgid "so'm"
 msgstr "UZS"
 
-#: taklif/templates/taklif/bosh_sahifa.html:228
-msgid "So'nggi taklifnomalar"
-msgstr "Recent invitations"
-
-#: taklif/templates/taklif/bosh_sahifa.html:229
-msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
-msgstr "Examples of invitations activated on our platform"
-
-#: taklif/templates/taklif/bosh_sahifa.html:243
-msgid "Hali faollashtirilgan taklifnoma yo'q — birinchi bo'lib siz yarating!"
-msgstr "No activated invitations yet — be the first to create one!"
-
-#: taklif/templates/taklif/mening_taklifnomalarim.html:29
-#: taklif/templates/taklif/shablon_tanlash.html:20
-#: taklif/templates/taklif/yaratish.html:56
 msgid "Bosh sahifa"
 msgstr "Home"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:35
 msgid ""
 "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
 "ko'rsatadi — ularni solishtirib, eng yoqqanini tanlashingiz mumkin."
@@ -319,114 +236,107 @@ msgstr ""
 "This list shows all invitations you've created in this browser — compare "
 "them and pick your favorite."
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:41
-#: taklif/templates/taklif/yaratildi.html:45
 msgid "Yana bitta yaratish"
 msgstr "Create another"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:52
 msgid "Faollashtirilgan"
 msgstr "Activated"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:54
 msgid "To'lov kutilmoqda"
 msgstr "Awaiting payment"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:57
 msgid "Ko'rish"
 msgstr "View"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:59
 msgid "Yoqdi"
 msgstr "Like"
 
-#: taklif/templates/taklif/mening_taklifnomalarim.html:66
+msgid ""
+"DIQQAT: bu taklifnoma FAOLLASHTIRILGAN — mehmonlarga yuborilgan va RSVP "
+"javoblari bo'lishi mumkin! O'chirilsa, darhol ko'rinmay qoladi (30 kun "
+"ichida administratorga murojaat qilib tiklash mumkin). Rostdan ham davom "
+"etasizmi?"
+msgstr ""
+"WARNING: this invitation is ACTIVATED — it may have been sent to guests and "
+"have RSVP replies! If deleted, it will disappear immediately (you can "
+"contact the administrator within 30 days to restore it). Are you sure you "
+"want to continue?"
+
+msgid ""
+"Rostdan ham ushbu taklifnomani butunlay o'chirmoqchimisiz? Bu amalni ortga "
+"qaytarib bo'lmaydi."
+msgstr ""
+"Are you sure you want to permanently delete this invitation? This action "
+"cannot be undone."
+
+#| msgid "Ko'rish"
+msgid "O'chirish"
+msgstr "Delete"
+
 msgid "Siz hali hech qanday taklifnoma yaratmagansiz."
 msgstr "You haven't created any invitations yet."
 
-#: taklif/templates/taklif/muddati_tugagan.html:4
 msgid "Taklifnoma yopilgan"
 msgstr "Invitation closed"
 
-#: taklif/templates/taklif/muddati_tugagan.html:18
 msgid "Ushbu taklifnoma sahifasi yopilgan"
 msgstr "This invitation page is closed"
 
-#: taklif/templates/taklif/muddati_tugagan.html:19
 #, python-format
 msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "The page for %(nomi)s is no longer active."
 
-#: taklif/templates/taklif/shablon_tanlash.html:4
-#: taklif/templates/taklif/shablon_tanlash.html:24
 msgid "Shablon tanlang"
 msgstr "Choose a template"
 
-#: taklif/templates/taklif/shablon_tanlash.html:26
 msgid ""
 "Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni "
 "to'ldirasiz."
 msgstr ""
 "Choose the design you like — you'll fill in your details in the next step."
 
-#: taklif/templates/taklif/shablon_tanlash.html:57
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "No templates yet. Add them in the admin panel."
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:88
-#: taklif/templates/taklif/shablonlar/_skript.html:4
 msgid "kun"
 msgstr "days"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:89
 msgid "soat"
 msgstr "hours"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:90
 msgid "minut"
 msgstr "minutes"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:91
 msgid "sekund"
 msgstr "seconds"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:97
 msgid "Marosim kalendari"
 msgstr "Event calendar"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:102
 msgid "Du Se Ch Pa Ju Sh Ya"
 msgstr "Mo Tu We Th Fr Sa Su"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:114
 msgid "Fotolavha"
 msgstr "Photo gallery"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:138
 msgid "Tadbir tafsilotlari"
 msgstr "Event details"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:142
 msgid "Sana"
 msgstr "Date"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:147
 msgid "Vaqt"
 msgstr "Time"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:153
 msgid "To'yxona"
 msgstr "Venue"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:167
 msgid "Kiyinish kodi"
 msgstr "Dress code"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:188
 msgid "Tabrik sovg'asi"
 msgstr "Gift"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:190
 msgid ""
 "Ishtirokingiz — biz uchun eng qadrli sovg'a. Agar tabrik sovg'a qoldirmoqchi"
 " bo'lsangiz:"
@@ -434,173 +344,121 @@ msgstr ""
 "Your presence is the most precious gift to us. If you'd like to leave a "
 "monetary gift:"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:191
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:255
 msgid "Nusxalandi!"
 msgstr "Copied!"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:198
 msgid "RSVP — kelasizmi?"
 msgstr "RSVP — will you come?"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:203
 msgid "Ismingiz"
 msgstr "Your name"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:206
 msgid "Nechta kishi bo'lasiz?"
 msgstr "How many people will you be?"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:213
 msgid "1 dan 5 gacha"
 msgstr "From 1 to 5"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:215
 msgid "Kelasizmi?"
 msgstr "Will you come?"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:218
 msgid "Ha, albatta kelaman"
 msgstr "Yes, I'll definitely come"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:219
 msgid "Afsuski, kela olmayman"
 msgstr "Unfortunately, I can't come"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:222
 msgid "Izoh (ixtiyoriy)"
 msgstr "Comment (optional)"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:225
 msgid "Yuborish"
 msgstr "Submit"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:231
 msgid "Mehmonlar"
 msgstr "Guests"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:232
 #, python-format
 msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
 msgstr "So far <strong>%(soni)s</strong> people have confirmed"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:236
 #, python-format
 msgid "%(soni)s kishi"
 msgstr "%(soni)s people"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:245
 msgid "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling"
 msgstr "Join our Telegram group for news and photos"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:246
 msgid "Telegram guruhi"
 msgstr "Telegram group"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:252
 msgid "Do'stlaringizga ulashing"
 msgstr "Share with friends"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:254
 msgid "Taklifnomani yaqinlaringizga ham yuboring"
 msgstr "Send the invitation to your loved ones too"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:260
 msgid "Havolani nusxalash"
 msgstr "Copy link"
 
-#: taklif/templates/taklif/shablonlar/_konvert_parda.html:12
 #, python-format
 msgid "Hurmatli %(ism)s, sizga taklifnoma keldi"
 msgstr "Dear %(ism)s, you have an invitation"
 
-#: taklif/templates/taklif/shablonlar/_konvert_parda.html:14
 msgid "Sizga taklifnoma keldi"
 msgstr "You have an invitation"
 
-#: taklif/templates/taklif/shablonlar/_konvert_parda.html:21
 msgid "Taklifnomani ochish"
 msgstr "Open invitation"
 
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:12
 msgid "Bu — sizning shaxsiy oldindan ko'rish havolangiz, hali ommaviy emas."
 msgstr "This is your personal preview link — it isn't public yet."
 
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:13
 msgid "Faollashtirish uchun Telegram orqali"
 msgstr "To activate it, contact"
 
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:15
 msgid "bilan bog'laning."
 msgstr "on Telegram."
 
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:18
 msgid "Yoqdi (yuborildi)"
 msgstr "Liked (sent)"
 
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:18
 msgid "Yoqdi — adminga yozish"
 msgstr "Like — message admin"
 
-#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:19
 msgid "Qayta yaratish"
 msgstr "Create another"
 
-#: taklif/templates/taklif/shablonlar/_skript.html:2
 msgid "Baxtli oilamizga"
 msgstr "Time since our happy day"
 
-#: taklif/templates/taklif/shablonlar/_skript.html:3
 msgid "yil"
 msgstr "years"
 
-#: taklif/templates/taklif/shablonlar/_skript.html:5
 msgid "bo'ldi"
 msgstr " "
 
-#: taklif/templates/taklif/shablonlar/_skript.html:6
 msgid "Marosimgacha"
 msgstr "Until the event"
 
-#: taklif/templates/taklif/shablonlar/adras.html:133
-#: taklif/templates/taklif/shablonlar/anor.html:145
-#: taklif/templates/taklif/shablonlar/aurora.html:138
-#: taklif/templates/taklif/shablonlar/chinni.html:137
-#: taklif/templates/taklif/shablonlar/kristall.html:161
-#: taklif/templates/taklif/shablonlar/kumush.html:129
-#: taklif/templates/taklif/shablonlar/nurafshon.html:150
-#: taklif/templates/taklif/shablonlar/qandil.html:131
-#: taklif/templates/taklif/shablonlar/qirgiz.html:130
-#: taklif/templates/taklif/shablonlar/qozoq.html:131
-#: taklif/templates/taklif/shablonlar/ravoq.html:140
-#: taklif/templates/taklif/shablonlar/sadaf.html:136
-#: taklif/templates/taklif/shablonlar/shoyi.html:137
-#: taklif/templates/taklif/shablonlar/suzani.html:136
-#: taklif/templates/taklif/shablonlar/tojik.html:135
-#: taklif/templates/taklif/shablonlar/turkman.html:132
-#: taklif/templates/taklif/shablonlar/zardoz.html:134
-#: taklif/templates/taklif/shablonlar/zarhal.html:134
-#: taklif/templates/taklif/shablonlar/zarnigor.html:137
 msgid "taklifnomasi"
 msgstr "invitation"
 
-#: taklif/templates/taklif/yaratildi.html:4
+#| msgid "Taklifnomani ko'rish"
+msgid "Ochiq sahifani ko'rish"
+msgstr "View invitation"
+
 msgid "Tayyor!"
 msgstr "Done!"
 
-#: taklif/templates/taklif/yaratildi.html:30
 msgid "Taklifnomangiz tayyor!"
 msgstr "Your invitation is ready!"
 
-#: taklif/templates/taklif/yaratildi.html:32
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "This is your personal link. Send it to your guests:"
 
-#: taklif/templates/taklif/yaratildi.html:35
 msgid "Taklifnomani ko'rish"
 msgstr "View invitation"
 
-#: taklif/templates/taklif/yaratildi.html:38
 msgid ""
 "Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga "
 "ishonch hosil qiling."
@@ -608,7 +466,6 @@ msgstr ""
 "Open your invitation with the button above and make sure everything is "
 "correct."
 
-#: taklif/templates/taklif/yaratildi.html:39
 #, python-format
 msgid ""
 "Yoqsa — taklifnoma sahifasidagi <strong>\"Yoqdi\"</strong> tugmasini bosing,"
@@ -619,7 +476,6 @@ msgstr ""
 "invitation page to contact <strong>%(admin)s</strong> directly on Telegram "
 "and make the payment."
 
-#: taklif/templates/taklif/yaratildi.html:40
 msgid ""
 "To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni "
 "mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi."
@@ -627,11 +483,9 @@ msgstr ""
 "Once payment is confirmed, your invitation is activated and you can send it "
 "to your guests (Telegram, Instagram, etc.)."
 
-#: taklif/templates/taklif/yaratish.html:62
 msgid "shabloni"
 msgstr "template"
 
-#: taklif/templates/taklif/yaratish.html:64
 msgid ""
 "Ma'lumotlaringizni to'ldiring. Yuborgach — taklifnomangiz shu zahoti tayyor "
 "bo'ladi (hali hech kimga ochiq emas)."
@@ -639,7 +493,6 @@ msgstr ""
 "Fill in your details. Once submitted, your invitation will be ready right "
 "away (not visible to anyone yet)."
 
-#: taklif/templates/taklif/yaratish.html:73
 #, python-format
 msgid ""
 "Sizda <strong>%(ism1)s %(ism2)s</strong> nomi bilan taklifnoma allaqachon "
@@ -648,73 +501,129 @@ msgstr ""
 "You already have an invitation for <strong>%(ism1)s %(ism2)s</strong> "
 "(created earlier in this browser)."
 
-#: taklif/templates/taklif/yaratish.html:74
 msgid "Nima qilamiz?"
 msgstr "What should we do?"
 
-#: taklif/templates/taklif/yaratish.html:76
 msgid "Buni yangilayman (eskisi o'chadi)"
 msgstr "Update it (the old one will be deleted)"
 
-#: taklif/templates/taklif/yaratish.html:77
 msgid "Yo'q, alohida saqlayman"
 msgstr "No, keep it separate"
 
-#: taklif/templates/taklif/yaratish.html:94
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Photos (up to %(soni)s, optional)"
 
-#: taklif/templates/taklif/yaratish.html:96
 msgid "O'z fotoyingiz hali bo'lmasa, tayyor namunalardan tanlashingiz mumkin:"
 msgstr ""
 "If you don't have your own photo yet, you can choose from ready-made "
 "samples:"
 
-#: taklif/templates/taklif/yaratish.html:106
+#, python-format
+msgid "Namuna rasm %(soni)s"
+msgstr "Sample photo %(soni)s"
+
 msgid "yoki"
 msgstr "or"
 
-#: taklif/templates/taklif/yaratish.html:108
 msgid "O'zingizning rasmingizni yuklang"
 msgstr "Upload your own photo"
 
-#: taklif/templates/taklif/yaratish.html:114
 msgid "Taklifnomani yaratish"
 msgstr "Create the invitation"
 
-#: taklif/templates/taklif/yaratish.html:118
 msgid "Boshqa shablon tanlash"
 msgstr "Choose another template"
 
-#: taklif/templates/taklif/yaratish.html:154
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr "You can select at most %(soni)s photos. Please choose again."
 
-#: taklif/views.py:381
-msgid "Javobingiz uchun rahmat!"
-msgstr "Thank you for your response!"
+#, python-format
+msgid ""
+"Fayl hajmi %(maks)s MB dan katta bo'lmasligi kerak (yuklangan fayl: "
+"%(hajm).1f MB)."
+msgstr "File size must not exceed %(maks)s MB (uploaded file: %(hajm).1f MB)."
 
-#: taklif/views.py:383
+#, python-format
+msgid ""
+"\"%(nomi)s\" fayli juda katta (%(hajm).1f MB). Rasm hajmi %(maks)s MB dan "
+"oshmasligi kerak."
+msgstr ""
+"The file \"%(nomi)s\" is too large (%(hajm).1f MB). Photo size must not "
+"exceed %(maks)s MB."
+
 msgid "Iltimos, ismingizni kiriting."
 msgstr "Please enter your name."
 
-#: templates/base.html:20
+msgid "Javobingiz uchun rahmat!"
+msgstr "Thank you for your response!"
+
+#| msgid "Taklifnomani ochish"
+msgid "Bu taklifnomani o'chira olmaysiz."
+msgstr "You cannot delete this invitation."
+
+#, python-format
+msgid ""
+"\"%(nomi)s\" taklifnomasi o'chirildi. Bu faollashtirilgan taklifnoma "
+"bo'lgani uchun ma'lumotlari %(kun)s kun davomida saqlanadi — agar xato "
+"bosgan bo'lsangiz, administratorga murojaat qiling."
+msgstr ""
+"The invitation \"%(nomi)s\" has been deleted. Since it was an activated "
+"invitation, its data will be kept for %(kun)s days — if you did this by "
+"mistake, contact the administrator."
+
+#, python-format
+msgid "\"%(nomi)s\" taklifnomasi o'chirildi."
+msgstr "The invitation \"%(nomi)s\" has been deleted."
+
+msgid "Sahifa topilmadi"
+msgstr "Page not found"
+
+msgid "Bunday sahifa topilmadi"
+msgstr "No such page found"
+
+msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
+msgstr "The link is incorrect, or this page no longer exists."
+
+#| msgid "Bosh sahifa"
+msgid "Bosh sahifaga qaytish"
+msgstr "Back to homepage"
+
+msgid "Xatolik yuz berdi"
+msgstr "An error occurred"
+
+msgid "Kechirasiz, xatolik yuz berdi"
+msgstr "Sorry, an error occurred"
+
+msgid ""
+"Sahifa vaqtincha ishlamayapti. Iltimos, birozdan so'ng qayta urinib ko'ring."
+msgstr "The page is temporarily unavailable. Please try again shortly."
+
 #, python-format
 msgid "Sizni %(sana)s kunidagi marosimimizga taklif qilamiz"
 msgstr "We invite you to our celebration on %(sana)s"
 
-#: templates/base.html:31
 msgid "Oqqushlar — chiroyli elektron taklifnomalar"
 msgstr "Oqqushlar — beautiful digital invitations"
 
-#: templates/base.html:32
 msgid ""
 "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir "
 "necha daqiqada yarating."
 msgstr ""
 "The most beautiful and modern digital invitations for Uzbekistan. Create "
 "yours in a few minutes."
+
+#~ msgid "Admin panel"
+#~ msgstr "Admin panel"
+
+#~ msgid "O'zbekiston uchun"
+#~ msgstr "For Uzbekistan"
+
+#~ msgid "ta noyob dizayn"
+#~ msgstr "unique designs"
+
+#~ msgid "Hali faollashtirilgan taklifnoma yo'q — birinchi bo'lib siz yarating!"
+#~ msgstr "No activated invitations yet — be the first to create one!"

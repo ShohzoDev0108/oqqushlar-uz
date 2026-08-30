@@ -100,8 +100,16 @@ foydalanuvchi native select'ni o'zi o'zgartirgandek.
 
 @media (max-width: 700px) {
     .til-tugma { padding: 7px 10px; font-size: .75rem; min-width: 78px; }
-    .til-royxat { right: auto; left: 50%; transform: translateY(-6px) translateX(-50%); min-width: 170px; }
-    .til-dropdown.ochiq .til-royxat { transform: translateY(0) translateX(-50%); }
+    {% comment %}
+    Taftish topilmasi: ro'yxat tugma markazi bo'yicha markazlashtirilgan edi
+    (left:50%; translateX(-50%)) — tugma sahifaning o'ng chekkasiga yaqin
+    joylashgani sababli, kengroq ro'yxat (170px) shu tarzda ekran chekkasidan
+    tashqariga chiqib ketardi (butun sahifada 14px keraksiz gorizontal skroll
+    hosil qilardi, ba'zi tillar qisman ko'rinmasdi). Endi desktopdagidek
+    tugmaning o'ng chetiga tekislanadi — shu kenglikda hech qachon ekrandan
+    tashqariga chiqmaydi.
+    {% endcomment %}
+    .til-royxat { min-width: 170px; max-width: calc(100vw - 24px); }
 }
 </style>
 
