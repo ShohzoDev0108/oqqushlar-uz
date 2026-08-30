@@ -388,6 +388,23 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
             request, "taklif/muddati_tugagan.html", {"taklifnoma": taklifnoma}
         )
 
+    if not taklifnoma.tolangan:
+        # Hali to'lov admin tomonidan tasdiqlanmagan (tolangan=False):
+        # faqat shu taklifnomani YARATGAN kishining o'zi (session orqali —
+        # xuddi "Mening taklifnomalarim" ro'yxatidagidek) uni oldindan
+        # ko'rib chiqa oladi. Boshqa istalgan kishi (mehmon yoki tasodifiy
+        # tashrifchi) hali ko'ra olmaydi — aks holda mijoz hech qachon
+        # to'lamasdan ham linkni to'g'ridan-to'g'ri mehmonlarga ulashib
+        # yuborishi mumkin bo'lar edi.
+        sluglar = request.session.get(SESSIYA_KALITI, [])
+        if taklifnoma.slug not in sluglar:
+            # DIQQAT: "taklifnoma" bu yerda context'ga qasddan berilmaydi —
+            # base.html'ning Open Graph/Twitter meta teglari `taklifnoma`
+            # mavjud bo'lsa uning sarlavhasini (mijoz ismini) avtomatik
+            # chiqarib yuboradi. Hali ruxsat berilmagan tashrifchiga hatto
+            # meta teglar orqali ham mijoz ismini oshkor qilmaymiz.
+            return render(request, "taklif/faollashtirilmagan.html")
+
     # Ko'rishlar sonini race-condition'siz oshirish
     Taklifnoma.objects.filter(pk=taklifnoma.pk).update(korishlar=F("korishlar") + 1)
 

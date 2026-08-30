@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Taklifnoma hali faollashtirilmagan" %}{% endblock %}
+
+{% block extra_style %}
+.markaz { text-align: center; margin-top: 20vh; }
+h1 { font-size: 1.6rem; }
+.til-qatori {
+    display: flex; justify-content: center; margin-top: 16px;
+    /* Bu sahifa base.html'ning standart to'q fonida ochiladi (o'zining
+       yorug' mavzusi yo'q) — shu uchun til-dropdown komponentiga mos
+       to'q ranglarni shu yerda beramiz. */
+    --karta-fon: #0f2027; --matn: #f5efe0; --asos: #c9a24a; --asos-matn: #1a1208;
+    --chegara: rgba(255,255,255,.2); --radius: 6px;
+}
+{% endblock %}
+
+{% block content %}
+<div class="markaz">
+    <h1>{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}</h1>
+    <p>{% trans "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan bog'laning." %}</p>
+    <div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+</div>
+{% endblock %}

@@ -92,6 +92,11 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         "keladiganlar_soni",
         "statistika_link",
     )
+    # "tolangan" (to'lov tasdiqlangani — taklifnomani mehmonlarga ochadi) va
+    # "faol"ni ro'yxatning o'zidan, alohida sahifaga kirmasdan belgilash
+    # mumkin bo'lsin — bu aynan to'lovni tasdiqlashda kundalik ishlatiladigan
+    # amal, shuning uchun har safar "O'zgartirish"ga kirish shart emas.
+    list_editable = ("faol", "tolangan")
     list_filter = (
         "faol", "tolangan", "marosim_turi", "yoqdi_bosildi", "shablon",
         ("ochirilgan_vaqt", admin.EmptyFieldListFilter),
