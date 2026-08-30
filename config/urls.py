@@ -21,7 +21,10 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    # Manzil standart "admin/" emas — settings.ADMIN_URL_YOLI orqali
+    # sozlanadi (.env'da DJANGO_ADMIN_MANZILI) — botlar avtomatik taxmin
+    # qila olmasligi uchun.
+    path(settings.ADMIN_URL_YOLI, admin.site.urls),
     # Til almashtirish (masalan taklifnoma sahifasidagi til tugmasi shu yerga POST qiladi).
     # taklif.urls'dagi umumiy "<slug:slug>/" kabi qoidalardan oldin turishi shart.
     path("i18n/", include("django.conf.urls.i18n")),

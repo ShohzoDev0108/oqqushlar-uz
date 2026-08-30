@@ -1,6 +1,7 @@
 Django==5.0.14
 pillow==12.2.0
 python-dotenv==1.2.2
+django-axes==8.3.1       # admin panelga brute-force (parolni ketma-ket taxmin qilish) himoyasi
 
 # --- Production uchun (deploy) ---
 gunicorn==26.2.0          # production WSGI server (runserver o'rniga)

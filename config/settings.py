@@ -64,6 +64,12 @@ if DEBUG and not ALLOWED_HOSTS:
 
 CSRF_TRUSTED_ORIGINS = _env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
+# Admin panelning manzili (standart "admin/" o'rniga) — .env faylida
+# DJANGO_ADMIN_MANZILI orqali o'zgartirish mumkin. Standart "/admin/" juda
+# ko'p botlar avtomatik sinaydigan manzil bo'lgani uchun, taxmin qilish
+# qiyinroq bo'lgan o'ziga xos manzilga ko'chirilgan (config/urls.py'ga qarang).
+ADMIN_URL_YOLI = os.environ.get("DJANGO_ADMIN_MANZILI", "boshqaruv-oqqushlar").strip("/") + "/"
+
 if not DEBUG and SECRET_KEY.startswith("django-insecure-"):
     raise RuntimeError(
         "DJANGO_DEBUG=False bo'lganda .env faylida haqiqiy DJANGO_SECRET_KEY "
@@ -82,6 +88,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "storages",
+    # django-axes — admin panelga (yoki boshqa Django login sahifasiga)
+    # noto'g'ri parol bilan bir necha marta urinilsa, o'sha IP/foydalanuvchini
+    # vaqtincha bloklaydi (pastdagi AXES_* sozlamalariga qarang).
+    "axes",
     "taklif",
 ]
 
@@ -102,7 +112,26 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # AxesMiddleware — django-axes hujjatlariga ko'ra MIDDLEWARE ro'yxatidagi
+    # ENG OXIRGI element bo'lishi shart.
+    "axes.middleware.AxesMiddleware",
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # AxesStandaloneBackend — django-axes hujjatlariga ko'ra ro'yxatning ENG
+    # BOSHIDA turishi shart (login urinishini u birinchi bo'lib tekshiradi).
+    "axes.backends.AxesStandaloneBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+# --- django-axes: admin (va boshqa) login sahifasini brute-force'dan himoya ---
+# Bitta IP+foydalanuvchi nomi juftligi ketma-ket AXES_FAILURE_LIMIT marta
+# noto'g'ri parol kiritsa, AXES_COOLOFF_TIME soat davomida bloklanadi (shu
+# vaqt o'tgach avtomatik ochiladi — abadiy qulflanib qolmaydi).
+AXES_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 1  # soat
+AXES_LOCKOUT_PARAMETERS = ["username", "ip_address"]
+AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = False
 
 ROOT_URLCONF = "config.urls"
 
