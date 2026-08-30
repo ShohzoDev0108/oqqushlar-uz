@@ -20,6 +20,13 @@ class UmumiySahifalarTest(TestCase):
     def test_bosh_sahifa_ochiladi(self):
         self.assertEqual(self.client.get("/").status_code, 200)
 
+    def test_html_lang_atributi_faol_tilni_korsatadi(self):
+        # Taftish topilmasi: <html lang="uz"> qattiq yozilgan edi, hatto
+        # foydalanuvchi boshqa tilni tanlagan bo'lsa ham. Endi
+        # LANGUAGE_CODE'dan olinadi (standart holatda "uz").
+        r = self.client.get("/")
+        self.assertContains(r, '<html lang="uz"')
+
     def test_shablon_tanlash_ochiladi(self):
         self.assertEqual(self.client.get("/yaratish/").status_code, 200)
 

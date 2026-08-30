@@ -98,7 +98,7 @@
                     {% for nr in namuna_rasmlar %}
                     <label class="namuna-rasm-item">
                         <input type="checkbox" name="namuna_rasm_ids" value="{{ nr.id }}">
-                        <img src="{{ nr.rasm.url }}" alt="" loading="lazy">
+                        <img src="{{ nr.rasm.url }}" alt="{% if nr.nomi %}{{ nr.nomi }}{% else %}{% blocktrans with soni=forloop.counter %}Namuna rasm {{ soni }}{% endblocktrans %}{% endif %}" loading="lazy">
                         <span class="namuna-belgi">✓</span>
                     </label>
                     {% endfor %}
@@ -121,11 +121,16 @@
 
 {% include "taklif/_sayt_footer.html" %}
 
+{# json_script — |safe filtridan xavfsizroq: JSON to'g'ri escape qilinadi,
+   maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi. #}
+{{ ikki_ismli_turlar|json_script:"ikki-ismli-turlar-data" }}
+
 <script>
 (function () {
     // Marosim turiga qarab 2-ism maydonini ko'rsatish/yashirish —
     // masalan "to'y"da ikkala ism kerak, "tug'ilgan kun"da bittasi yetarli.
-    var ikkiIsmliTurlar = {{ ikki_ismli_turlar|safe|default:"[]" }};
+    var ikkiIsmliTurlarEl = document.getElementById('ikki-ismli-turlar-data');
+    var ikkiIsmliTurlar = ikkiIsmliTurlarEl ? JSON.parse(ikkiIsmliTurlarEl.textContent) : [];
     var marosimEl = document.getElementById('id_marosim_turi');
     var ism2Qatori = document.getElementById('ism2-qatori');
 

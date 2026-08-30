@@ -117,3 +117,41 @@ class FaylCheklovlariTest(TestCase):
         t = Taklifnoma.objects.first()
         self.assertIsNotNone(t)
         self.assertEqual(t.rasmlar.count(), 1)
+
+
+@override_settings(ALLOWED_HOSTS=["testserver"])
+class NamunaRasmKosmetikTest(TestCase):
+    """Taftish topilmasi: namuna-rasm tanlash to'ridagi <img>'lar bo'sh
+    alt="" bilan chiqar edi (skrin-o'quvchi uchun mazmunsiz) va JS massivi
+    Python ro'yxatini |safe bilan to'g'ridan-to'g'ri qo'yardi (maxsus
+    belgilar bo'lsa xavfli). Ikkalasi ham tuzatilgan."""
+
+    def setUp(self):
+        self.shablon = shablon_yarat()
+
+    def test_nomi_bolmagan_namuna_rasm_raqamli_alt_oladi(self):
+        from taklif.models import NamunaRasm
+
+        NamunaRasm.objects.create(
+            nomi="", rasm=SimpleUploadedFile("n.jpg", _kichik_jpeg_baytlari(), "image/jpeg"), faol=True
+        )
+        r = Client().get(f"/yaratish/{self.shablon.kod}/")
+        self.assertContains(r, 'alt="Namuna rasm 1"')
+
+    def test_nomi_bergan_namuna_rasm_shu_nomdan_foydalanadi(self):
+        from taklif.models import NamunaRasm
+
+        NamunaRasm.objects.create(
+            nomi="Bahor gullari",
+            rasm=SimpleUploadedFile("n2.jpg", _kichik_jpeg_baytlari(), "image/jpeg"),
+            faol=True,
+        )
+        r = Client().get(f"/yaratish/{self.shablon.kod}/")
+        self.assertContains(r, 'alt="Bahor gullari"')
+
+    def test_ikki_ismli_turlar_json_script_orqali_chiqadi(self):
+        # |safe emas, json_script orqali — xavfsizroq va JS massivini
+        # to'g'ri hosil qiladi.
+        r = Client().get(f"/yaratish/{self.shablon.kod}/")
+        self.assertContains(r, '<script id="ikki-ismli-turlar-data" type="application/json">')
+        self.assertContains(r, '"toy"')
