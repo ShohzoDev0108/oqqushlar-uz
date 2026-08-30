@@ -8,7 +8,12 @@
         <div class="oq-footer-linklar">
             <a href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
             <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
-            <a href="/admin/">{% trans "Admin panel" %}</a>
+            {# "Admin panel" havolasi ataylab olib tashlandi: admin manzilini      #}
+            {# maxsus/yashirin qilib qo'yish (DJANGO_ADMIN_MANZILI) va uni brute-  #}
+            {# force'dan himoya qilish (django-axes) ma'nosiz bo'lib qolar edi,    #}
+            {# agar shu manzil har bir ommaviy sahifa pastida ochiq ko'rsatilsa.   #}
+            {# Bundan tashqari bu havola /admin/ ga qattiq yozilgan bo'lib, admin  #}
+            {# manzili ko'chirilgach umuman ishlamay qolgan (404) edi.            #}
         </div>
     </div>
 </footer>

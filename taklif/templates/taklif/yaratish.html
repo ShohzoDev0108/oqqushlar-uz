@@ -121,8 +121,10 @@
 
 {% include "taklif/_sayt_footer.html" %}
 
-{# json_script — |safe filtridan xavfsizroq: JSON to'g'ri escape qilinadi,
-   maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi. #}
+{% comment %}
+json_script — |safe filtridan xavfsizroq: JSON to'g'ri escape qilinadi,
+maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
+{% endcomment %}
 {{ ikki_ismli_turlar|json_script:"ikki-ismli-turlar-data" }}
 
 <script>
