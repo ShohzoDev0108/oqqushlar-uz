@@ -15,6 +15,11 @@ urlpatterns = [
         views.mening_taklifnomalarim,
         name="mening_taklifnomalarim",
     ),
+    path(
+        "mening-taklifnomalarim/<slug:slug>/ochirish/",
+        views.taklifnoma_ochirish,
+        name="taklifnoma_ochirish",
+    ),
     path("<slug:slug>/rsvp/", views.rsvp_submit, name="rsvp_submit"),
     path("<slug:slug>/yoqdi/", views.yoqdi, name="yoqdi"),
     # Mehmon uchun shaxsiy link — "rsvp/"/"yoqdi/" literal manzillaridan keyin,

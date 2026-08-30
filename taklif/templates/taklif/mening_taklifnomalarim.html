@@ -16,6 +16,9 @@
 .holat.tolangan { background: rgba(92,143,79,.12); color: #557f47; border: 1px solid rgba(92,143,79,.3); }
 .holat.kutilmoqda { background: var(--tilla-yumshoq); color: var(--tilla-toq); border: 1px solid rgba(176,140,51,.35); }
 .tugmalar { display: flex; gap: 8px; flex-wrap: wrap; }
+.tugmalar form { display: inline; margin: 0; }
+.oq-cta.xavfli { color: #a33; border-color: #a33; }
+.oq-cta.xavfli:hover { background: #a33; color: #fff; }
 .bosh { color: var(--kul); margin-top: 30px; }
 .yaratish-katta { margin-bottom: 36px; }
 {% endblock %}
@@ -58,6 +61,11 @@
                 {% if not t.tolangan %}
                 <a class="oq-cta kichik" href="{% url 'taklif:yoqdi' t.slug %}">{% trans "Yoqdi" %}</a>
                 {% endif %}
+                <form method="post" action="{% url 'taklif:taklifnoma_ochirish' t.slug %}"
+                      onsubmit="return confirm('{% trans "Rostdan ham ushbu taklifnomani butunlay o'chirmoqchimisiz? Bu amalni ortga qaytarib bo'lmaydi." %}');">
+                    {% csrf_token %}
+                    <button type="submit" class="oq-cta kichik xavfli">{% trans "O'chirish" %}</button>
+                </form>
             </div>
         </div>
         {% endfor %}

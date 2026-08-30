@@ -430,6 +430,33 @@ def mening_taklifnomalarim(request):
     )
 
 
+@require_POST
+def taklifnoma_ochirish(request, slug):
+    """Mijoz o'zi ushbu brauzer sessiyasida yaratgan taklifnomani butunlay o'chiradi.
+
+    Faqat sessiyada turgan (ya'ni shu brauzerda o'zi yaratgan) taklifnomalarni
+    o'chirish mumkin — havolani bilib olib boshqa birovning taklifnomasini
+    o'chirib qo'yishning oldini olish uchun. Rasmlar (TaklifnomaRasm) ham
+    CASCADE orqali birga o'chadi, lekin R2/S3'dagi fayllarning o'zi hozircha
+    qolib ketadi (bu alohida tozalash vazifasi, shu funksiya doirasida emas).
+    """
+    sluglar = request.session.get(SESSIYA_KALITI, [])
+    if slug not in sluglar:
+        messages.error(request, _("Bu taklifnomani o'chira olmaysiz."))
+        return redirect("taklif:mening_taklifnomalarim")
+
+    taklifnoma = get_object_or_404(Taklifnoma, slug=slug)
+    nomi = taklifnoma.sarlavha
+    taklifnoma.delete()
+
+    sluglar.remove(slug)
+    request.session[SESSIYA_KALITI] = sluglar
+    request.session.modified = True
+
+    messages.success(request, _('"%(nomi)s" taklifnomasi o\'chirildi.') % {"nomi": nomi})
+    return redirect("taklif:mening_taklifnomalarim")
+
+
 def yoqdi(request, slug):
     """Mijoz 'Yoqdi' tugmasini bosganda: belgilab qo'yamiz va adminga Telegram orqali
     xabar yozish uchun tayyor havolaga yo'naltiramiz."""
