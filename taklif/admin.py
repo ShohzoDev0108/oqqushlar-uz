@@ -26,7 +26,7 @@ class RSVPInline(admin.TabularInline):
     model = RSVP
     extra = 0
     readonly_fields = ("yaratilgan",)
-    fields = ("ism", "keladi", "mehmonlar_soni", "izoh", "tilak", "mehmon", "yaratilgan")
+    fields = ("ism", "keladi", "mehmonlar_soni", "izoh", "tilak", "tilak_tasdiqlangan", "mehmon", "yaratilgan")
 
 
 class TaklifnomaRasmInline(admin.TabularInline):
@@ -165,8 +165,15 @@ class MehmonAdmin(admin.ModelAdmin):
 
 @admin.register(RSVP)
 class RSVPAdmin(admin.ModelAdmin):
-    list_display = ("ism", "taklifnoma", "mehmon", "keladi", "mehmonlar_soni", "tilak", "yaratilgan")
-    list_filter = ("keladi",)
+    list_display = (
+        "ism", "taklifnoma", "mehmon", "keladi", "mehmonlar_soni", "tilak",
+        "tilak_tasdiqlangan", "yaratilgan",
+    )
+    # "tilak_tasdiqlangan" ro'yxatning o'zidan yoqilsa/o'chirilsa bo'ladi —
+    # mijoz telefon orqali "tilaklarim ko'rinmayapti" desa, admin bu yerdan
+    # tezda tasdiqlab qo'ya oladi (statistika sahifasidagi tugma bilan bir xil amal).
+    list_editable = ("tilak_tasdiqlangan",)
+    list_filter = ("keladi", "tilak_tasdiqlangan")
     search_fields = ("ism", "izoh", "tilak", "taklifnoma__slug", "taklifnoma__ism_1", "taklifnoma__ism_2")
 
 

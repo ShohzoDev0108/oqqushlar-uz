@@ -334,8 +334,9 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
             <label for="izoh">{% trans "Izoh — faqat mezbonga (ixtiyoriy)" %}</label>
             <textarea id="izoh" name="izoh" rows="2" placeholder="{% trans "Masalan: allergiya, maxsus talab" %}"></textarea>
 
-            <label for="tilak">{% trans "Tilak / tabrigingiz — sahifada barchaga ko'rinadi (ixtiyoriy)" %}</label>
+            <label for="tilak">{% trans "Tilak / tabrigingiz (ixtiyoriy)" %}</label>
             <textarea id="tilak" name="tilak" rows="3" placeholder="{% trans "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing" %}"></textarea>
+            <div class="tilak-eslatma">{% trans "Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq bo'ladi." %}</div>
 
             <button type="submit">{% trans "Yuborish" %}</button>
         </form>

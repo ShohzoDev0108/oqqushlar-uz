@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 01:01+0500\n"
+"POT-Creation-Date: 2026-08-31 01:16+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -493,7 +493,7 @@ msgid ""
 msgstr "Bu çakylygy dolulygyna öçürmekçimi? Bu hereketi yza gaýtaryp bolmaz."
 
 #: taklif/templates/taklif/mening_taklifnomalarim.html:76
-#: taklif/templates/taklif/statistika.html:106
+#: taklif/templates/taklif/statistika.html:121
 msgid "O'chirish"
 msgstr "Öçürmek"
 
@@ -564,7 +564,7 @@ msgid "Tadbir tafsilotlari"
 msgstr "Dabaranyň jikme-jikligi"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:254
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Sana"
 msgstr "Senesi"
 
@@ -593,8 +593,8 @@ msgstr ""
 " gelse:"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:303
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:384
-#: taklif/templates/taklif/statistika.html:100
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:385
+#: taklif/templates/taklif/statistika.html:115
 #: taklif/templates/taklif/yaratildi.html:45
 msgid "Nusxalandi!"
 msgstr "Göçürildi!"
@@ -636,52 +636,60 @@ msgid "Masalan: allergiya, maxsus talab"
 msgstr "Mysal üçin: allergiýa, aýratyn talap"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:337
-msgid "Tilak / tabrigingiz — sahifada barchaga ko'rinadi (ixtiyoriy)"
-msgstr "Arzuwyňyz / gutlagyňyz — sahypada hemmä görünýär (hökmany däl)"
+msgid "Tilak / tabrigingiz (ixtiyoriy)"
+msgstr "Arzuwyňyz / gutlagyňyz (hökmany däl)"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:338
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr "Arzuwyňyzy gelin-ýigide (ýa-da dabaranyň eýelerine) şu ýere ýazyň"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:340
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:339
+msgid ""
+"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
+"bo'ladi."
+msgstr ""
+"Ilki diňe çakylygyň eýesine görünýär; ol tassyklandan soň sahypada hemmä "
+"görünýär."
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:341
 msgid "Yuborish"
 msgstr "Ibermek"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:346
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:347
 msgid "Mehmonlar"
 msgstr "Myhmanlar"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:347
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:348
 #, python-format
 msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
 msgstr "Häzire çenli <strong>%(soni)s</strong> adam geljekdigini tassyklady"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:351
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:352
 #, python-format
 msgid "%(soni)s kishi"
 msgstr "%(soni)s adam"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:359
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:360
 msgid "Tilaklar"
 msgstr "Arzuwlar"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:374
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:375
 msgid "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling"
 msgstr "Habarlar we suratlar üçin Telegram toparymyza goşulyň"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:375
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:376
 msgid "Telegram guruhi"
 msgstr "Telegram topary"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:381
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:382
 msgid "Do'stlaringizga ulashing"
 msgstr "Dostlaryňyz bilen paýlaşyň"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:383
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:384
 msgid "Taklifnomani yaqinlaringizga ham yuboring"
 msgstr "Çakylygy ýakynlaryňyza-da iberiň"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:389
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:390
 msgid "Havolani nusxalash"
 msgstr "Salgyny göçürmek"
 
@@ -760,73 +768,81 @@ msgstr "Dabara çenli"
 msgid "taklifnomasi"
 msgstr "çakylygy"
 
-#: taklif/templates/taklif/statistika.html:50
+#: taklif/templates/taklif/statistika.html:53
 msgid "Ochiq sahifani ko'rish"
 msgstr "Çakylygy görmek"
 
-#: taklif/templates/taklif/statistika.html:51
+#: taklif/templates/taklif/statistika.html:54
 #, python-format
 msgid "%(nomi)s — statistika"
 msgstr "%(nomi)s — statistika"
 
-#: taklif/templates/taklif/statistika.html:52
+#: taklif/templates/taklif/statistika.html:55
 msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
 msgstr "Bu sahypany diňe siz görýärsiňiz. Linki hiç kime ibermäň."
 
-#: taklif/templates/taklif/statistika.html:55
+#: taklif/templates/taklif/statistika.html:58
 msgid "ko'rishlar"
 msgstr "görülenler"
 
-#: taklif/templates/taklif/statistika.html:56
+#: taklif/templates/taklif/statistika.html:59
 msgid "javoblar"
 msgstr "jogaplar"
 
-#: taklif/templates/taklif/statistika.html:57
+#: taklif/templates/taklif/statistika.html:60
 msgid "keladi (mehmon)"
 msgstr "geler (myhman)"
 
-#: taklif/templates/taklif/statistika.html:58
+#: taklif/templates/taklif/statistika.html:61
 msgid "kelmaydi"
 msgstr "gelmez"
 
-#: taklif/templates/taklif/statistika.html:63
-#: taklif/templates/taklif/statistika.html:92
+#: taklif/templates/taklif/statistika.html:66
+#: taklif/templates/taklif/statistika.html:107
 msgid "Ism"
 msgstr "Ady"
 
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Holat"
 msgstr "Ýagdaýy"
 
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Mehmonlar soni"
 msgstr "Myhmanlaryň sany"
 
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Izoh (faqat sizga)"
 msgstr "Teswir (diňe size)"
 
-#: taklif/templates/taklif/statistika.html:63
-msgid "Tilak (hammaga ochiq)"
-msgstr "Arzuw (hemmä açyk)"
+#: taklif/templates/taklif/statistika.html:66
+msgid "Tilak"
+msgstr "Arzuw"
 
-#: taklif/templates/taklif/statistika.html:69
+#: taklif/templates/taklif/statistika.html:72
 msgid "Keladi"
 msgstr "Geler"
 
-#: taklif/templates/taklif/statistika.html:69
+#: taklif/templates/taklif/statistika.html:72
 msgid "Kelmaydi"
 msgstr "Gelmez"
 
-#: taklif/templates/taklif/statistika.html:76
+#: taklif/templates/taklif/statistika.html:81
+msgid "Hammaga ko'rinmoqda — yashirish"
+msgstr "Hemmä görünýär — gizlemek"
+
+#: taklif/templates/taklif/statistika.html:83
+msgid "Hammaga ko'rsatish"
+msgstr "Hemmä görkezmek"
+
+#: taklif/templates/taklif/statistika.html:91
 msgid "Hozircha javoblar yo'q."
 msgstr "Häzirlikçe jogap ýok."
 
-#: taklif/templates/taklif/statistika.html:81
+#: taklif/templates/taklif/statistika.html:96
 msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Myhmanlar üçin şahsy linkler"
 
-#: taklif/templates/taklif/statistika.html:82
+#: taklif/templates/taklif/statistika.html:97
 msgid ""
 "Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
 "Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
@@ -838,35 +854,35 @@ msgstr ""
 "bellenilýär, şeýlelikde kimiň gören, kimiň entek görmedigini takyk bilip "
 "durarsyňyz."
 
-#: taklif/templates/taklif/statistika.html:86
+#: taklif/templates/taklif/statistika.html:101
 msgid "Mehmon ismi, masalan: Aziz oila"
 msgstr "Myhmanyň ady, mysal üçin: Aziz maşgalasy"
 
-#: taklif/templates/taklif/statistika.html:87
+#: taklif/templates/taklif/statistika.html:102
 msgid "Qo'shish"
 msgstr "Goşmak"
 
-#: taklif/templates/taklif/statistika.html:92
+#: taklif/templates/taklif/statistika.html:107
 msgid "Ko'rdimi"
 msgstr "Gördümi?"
 
-#: taklif/templates/taklif/statistika.html:92
+#: taklif/templates/taklif/statistika.html:107
 msgid "Link"
 msgstr "Link"
 
-#: taklif/templates/taklif/statistika.html:98
+#: taklif/templates/taklif/statistika.html:113
 msgid "ko'rdi"
 msgstr "gördi"
 
-#: taklif/templates/taklif/statistika.html:98
+#: taklif/templates/taklif/statistika.html:113
 msgid "hali ko'rmagan"
 msgstr "heniz görmedi"
 
-#: taklif/templates/taklif/statistika.html:103
+#: taklif/templates/taklif/statistika.html:118
 msgid "Bu mehmonning shaxsiy linki o'chirilsinmi?"
 msgstr "Bu myhmanyň şahsy linki pozulsynmy?"
 
-#: taklif/templates/taklif/statistika.html:111
+#: taklif/templates/taklif/statistika.html:126
 msgid "Hali mehmon qo'shilmagan. Yuqoridagi formadan qo'shing."
 msgstr "Heniz myhman goşulmady. Olary ýokardaky forma arkaly goşuň."
 
@@ -1010,19 +1026,19 @@ msgstr ""
 "\"%(nomi)s\" faýly gaty uly (%(hajm).1f MB). Suratyň ölçegi %(maks)s MB-dan "
 "uly bolmaly däl."
 
-#: taklif/views.py:516
+#: taklif/views.py:521
 msgid "Iltimos, ismingizni kiriting."
 msgstr "Haýyş, adyňyzy giriziň."
 
-#: taklif/views.py:549
+#: taklif/views.py:568
 msgid "Javobingiz uchun rahmat!"
 msgstr "Jogabyňyz üçin sag boluň!"
 
-#: taklif/views.py:595
+#: taklif/views.py:614
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "Siz bu çakylygy öçürip bilmersiňiz."
 
-#: taklif/views.py:606
+#: taklif/views.py:625
 #, python-format
 msgid ""
 "\"%(nomi)s\" taklifnomasi o'chirildi. Bu faollashtirilgan taklifnoma "
@@ -1033,23 +1049,31 @@ msgstr ""
 "maglumatlary %(kun)s gün dowamynda saklanar — ýalňyşlyk bilen basan "
 "bolsaňyz, administrator bilen habarlaşyň."
 
-#: taklif/views.py:613
+#: taklif/views.py:632
 #, python-format
 msgid "\"%(nomi)s\" taklifnomasi o'chirildi."
 msgstr "\"%(nomi)s\" çakylygy öçürildi."
 
-#: taklif/views.py:668
+#: taklif/views.py:687
 msgid "Iltimos, mehmon ismini kiriting."
 msgstr "Haýyş, myhmanyň adyny giriziň."
 
-#: taklif/views.py:671
+#: taklif/views.py:690
 #, python-format
 msgid "\"%(ism)s\" uchun shaxsiy link yaratildi."
 msgstr "\"%(ism)s\" üçin şahsy link döredildi."
 
-#: taklif/views.py:680
+#: taklif/views.py:699
 msgid "Mehmon o'chirildi."
 msgstr "Myhman pozuldy."
+
+#: taklif/views.py:713
+msgid "Tilak endi taklifnoma sahifasida hammaga ko'rinadi."
+msgstr "Arzuw indi çakylyk sahypasynda hemmä görünýär."
+
+#: taklif/views.py:715
+msgid "Tilak yashirildi — endi faqat sizga ko'rinadi."
+msgstr "Arzuw gizlendi — indi diňe size görünýär."
 
 #: templates/404.html:4
 msgid "Sahifa topilmadi"
@@ -1104,6 +1128,9 @@ msgid ""
 msgstr ""
 "Özbegistan üçin iň owadan we döwrebap elektron çakylyşnamalar. Birnäçe "
 "minutda dörediň."
+
+#~ msgid "Tilak (hammaga ochiq)"
+#~ msgstr "Arzuw (hemmä açyk)"
 
 #~ msgid "Izoh"
 #~ msgstr "Bellik"

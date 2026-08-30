@@ -100,8 +100,11 @@ class RsvpUzunMatnTest(TestCase):
 class TilakOmmaviyKorinishiTest(TestCase):
     """Taftish topilmasi: mehmonlar taklifnomaga tilak/tabrik yozish
     imkoniyatiga ega emas edi. Endi RSVP formasidagi "tilak" maydoni
-    (izohdan farqli — u faqat mezbonga) yozilsa, taklifnoma sahifasida
-    HAMMAGA ochiq ko'rinadi."""
+    (izohdan farqli — u faqat mezbonga) yozilsa — LEKIN darhol emas:
+    mijoz (mezbon) buni avval statistika sahifasida ko'radi va faqat
+    o'zi tasdiqlagach, taklifnoma sahifasida hammaga ochiq bo'ladi.
+    Sabab: havolani bilgan har kim (masalan sobiq sevgilisi) yomon
+    niyat bilan yozishi mumkin."""
 
     def setUp(self):
         self.shablon = shablon_yarat()
@@ -110,30 +113,75 @@ class TilakOmmaviyKorinishiTest(TestCase):
             sana=timezone.now(), faol=True, tolangan=True,
         )
 
-    def test_yozilgan_tilak_taklifnoma_sahifasida_korinadi(self):
-        # DIQQAT: apostrof ishlatilmaydi — Django avtomatik HTML-escaping
-        # uni "&#x27;" ga aylantiradi, aynan matn qidirilsa test yolg'ondan
-        # muvaffaqiyatsiz chiqadi (boshqa testlarda ham shu naqsh qo'llanilgan).
+    # DIQQAT: apostrof ishlatilmaydi — Django avtomatik HTML-escaping uni
+    # "&#x27;" ga aylantiradi, aynan matn qidirilsa test yolg'ondan
+    # muvaffaqiyatsiz chiqadi (boshqa testlarda ham shu naqsh qo'llanilgan).
+
+    def test_yangi_tilak_tasdiqlanmaguncha_ommaga_korinmaydi(self):
         c = Client()
         c.post(f"/{self.taklifnoma.slug}/rsvp/", {
             "ism": "Muborak", "keladi": "ha", "tilak": "Baxtli oila bolinglar",
             "mehmonlar_soni": 1,
         })
         r = Client().get(f"/{self.taklifnoma.slug}/")
+        self.assertNotContains(r, "Baxtli oila bolinglar")
+        self.assertNotContains(r, "Tilaklar")  # bo'lim o'zi ham chiqmasligi kerak
+
+    def test_tasdiqlangach_ommaga_korinadi(self):
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Muborak", "keladi": "ha", "tilak": "Baxtli oila bolinglar",
+            "mehmonlar_soni": 1,
+        })
+        javob = RSVP.objects.get(taklifnoma=self.taklifnoma, ism="Muborak")
+        self.assertFalse(javob.tilak_tasdiqlangan)  # standart holatda o'chiq
+
+        Client().post(f"/statistika/{self.taklifnoma.statistika_token}/tilak/{javob.pk}/")
+        javob.refresh_from_db()
+        self.assertTrue(javob.tilak_tasdiqlangan)
+
+        r = Client().get(f"/{self.taklifnoma.slug}/")
         self.assertContains(r, "Baxtli oila bolinglar")
         self.assertContains(r, "Muborak")
 
-    def test_kelmayman_desa_ham_tilagi_korinadi(self):
-        # "kela olmayman, lekin tabriklayman" — juda tabiiy holat, tilak
-        # baribir ko'rinishi kerak (faqat "Mehmonlar" ro'yxatidan farqli,
-        # u faqat "keladi"ni ko'rsatadi).
+    def test_qaytadan_bosilsa_yashiriladi(self):
+        # Tugma ikkala holatda ham shu bitta manzilga POST qiladi —
+        # ikkinchi marta bosilsa, qayta yashirilishi kerak.
         c = Client()
         c.post(f"/{self.taklifnoma.slug}/rsvp/", {
-            "ism": "Kelolmayman", "keladi": "yoq", "tilak": "Afsuski kela olmayman, lekin baxtli bo'linglar",
+            "ism": "Ikki marta", "keladi": "ha", "tilak": "Tabriklayman",
             "mehmonlar_soni": 1,
         })
-        r = Client().get(f"/{self.taklifnoma.slug}/")
-        self.assertContains(r, "Afsuski kela olmayman")
+        javob = RSVP.objects.get(taklifnoma=self.taklifnoma, ism="Ikki marta")
+        tasdiqlash_url = f"/statistika/{self.taklifnoma.statistika_token}/tilak/{javob.pk}/"
+        Client().post(tasdiqlash_url)
+        Client().post(tasdiqlash_url)
+        javob.refresh_from_db()
+        self.assertFalse(javob.tilak_tasdiqlangan)
+
+    def test_matn_ozgarsa_eski_tasdiq_bekor_boladi(self):
+        # Mezbon bir marta tasdiqlagan bo'lsa-yu, keyin (masalan o'sha
+        # shaxsiy link orqali) tilak matni butunlay boshqasiga
+        # almashtirilsa — eski tasdiq bilan avtomatik ochiq qolib
+        # ketmasligi kerak, qayta tasdiqlash talab qilinadi.
+        mehmon = Mehmon.objects.create(taklifnoma=self.taklifnoma, ism="Almashtiruvchi")
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Almashtiruvchi", "keladi": "ha", "tilak": "Yaxshi tilak",
+            "mehmon_slug": mehmon.slug, "mehmonlar_soni": 1,
+        })
+        javob = RSVP.objects.get(taklifnoma=self.taklifnoma, mehmon=mehmon)
+        Client().post(f"/statistika/{self.taklifnoma.statistika_token}/tilak/{javob.pk}/")
+        javob.refresh_from_db()
+        self.assertTrue(javob.tilak_tasdiqlangan)
+
+        # Endi matnni almashtiradi
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Almashtiruvchi", "keladi": "ha", "tilak": "Butunlay boshqa matn",
+            "mehmon_slug": mehmon.slug, "mehmonlar_soni": 1,
+        })
+        javob.refresh_from_db()
+        self.assertFalse(javob.tilak_tasdiqlangan)
 
     def test_tilaksiz_javob_tilaklar_royxatida_chiqmaydi(self):
         c = Client()
@@ -151,3 +199,15 @@ class TilakOmmaviyKorinishiTest(TestCase):
         })
         r = Client().get(f"/{self.taklifnoma.slug}/")
         self.assertNotContains(r, "allergiyam")
+
+    def test_notogri_token_bilan_tasdiqlab_bolmaydi(self):
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Xavfsizlik", "keladi": "ha", "tilak": "Sinov",
+            "mehmonlar_soni": 1,
+        })
+        javob = RSVP.objects.get(taklifnoma=self.taklifnoma, ism="Xavfsizlik")
+        r = Client().post(f"/statistika/notogri-token/tilak/{javob.pk}/")
+        self.assertEqual(r.status_code, 404)
+        javob.refresh_from_db()
+        self.assertFalse(javob.tilak_tasdiqlangan)

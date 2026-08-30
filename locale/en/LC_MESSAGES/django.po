@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 01:01+0500\n"
+"POT-Creation-Date: 2026-08-31 01:16+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -499,7 +499,7 @@ msgstr ""
 "cannot be undone."
 
 #: taklif/templates/taklif/mening_taklifnomalarim.html:76
-#: taklif/templates/taklif/statistika.html:106
+#: taklif/templates/taklif/statistika.html:121
 msgid "O'chirish"
 msgstr "Delete"
 
@@ -570,7 +570,7 @@ msgid "Tadbir tafsilotlari"
 msgstr "Event details"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:254
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Sana"
 msgstr "Date"
 
@@ -599,8 +599,8 @@ msgstr ""
 "monetary gift:"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:303
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:384
-#: taklif/templates/taklif/statistika.html:100
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:385
+#: taklif/templates/taklif/statistika.html:115
 #: taklif/templates/taklif/yaratildi.html:45
 msgid "Nusxalandi!"
 msgstr "Copied!"
@@ -642,53 +642,61 @@ msgid "Masalan: allergiya, maxsus talab"
 msgstr "E.g.: allergy, special request"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:337
-msgid "Tilak / tabrigingiz — sahifada barchaga ko'rinadi (ixtiyoriy)"
-msgstr "Your wish / greeting — visible to everyone on the page (optional)"
+msgid "Tilak / tabrigingiz (ixtiyoriy)"
+msgstr "Your wish / greeting (optional)"
 
 #: taklif/templates/taklif/shablonlar/_bolimlar.html:338
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr ""
 "Write your wish for the bride and groom (or the hosts of the occasion) here"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:340
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:339
+msgid ""
+"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
+"bo'ladi."
+msgstr ""
+"It's first shown only to the invitation owner; once they approve it, it "
+"becomes visible to everyone on the page."
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:341
 msgid "Yuborish"
 msgstr "Submit"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:346
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:347
 msgid "Mehmonlar"
 msgstr "Guests"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:347
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:348
 #, python-format
 msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
 msgstr "So far <strong>%(soni)s</strong> people have confirmed"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:351
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:352
 #, python-format
 msgid "%(soni)s kishi"
 msgstr "%(soni)s people"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:359
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:360
 msgid "Tilaklar"
 msgstr "Wishes"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:374
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:375
 msgid "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling"
 msgstr "Join our Telegram group for news and photos"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:375
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:376
 msgid "Telegram guruhi"
 msgstr "Telegram group"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:381
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:382
 msgid "Do'stlaringizga ulashing"
 msgstr "Share with friends"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:383
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:384
 msgid "Taklifnomani yaqinlaringizga ham yuboring"
 msgstr "Send the invitation to your loved ones too"
 
-#: taklif/templates/taklif/shablonlar/_bolimlar.html:389
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:390
 msgid "Havolani nusxalash"
 msgstr "Copy link"
 
@@ -767,73 +775,81 @@ msgstr "Until the event"
 msgid "taklifnomasi"
 msgstr "invitation"
 
-#: taklif/templates/taklif/statistika.html:50
+#: taklif/templates/taklif/statistika.html:53
 msgid "Ochiq sahifani ko'rish"
 msgstr "View invitation"
 
-#: taklif/templates/taklif/statistika.html:51
+#: taklif/templates/taklif/statistika.html:54
 #, python-format
 msgid "%(nomi)s — statistika"
 msgstr "%(nomi)s — statistics"
 
-#: taklif/templates/taklif/statistika.html:52
+#: taklif/templates/taklif/statistika.html:55
 msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
 msgstr "This page is visible only to you. Don't share the link with anyone."
 
-#: taklif/templates/taklif/statistika.html:55
+#: taklif/templates/taklif/statistika.html:58
 msgid "ko'rishlar"
 msgstr "views"
 
-#: taklif/templates/taklif/statistika.html:56
+#: taklif/templates/taklif/statistika.html:59
 msgid "javoblar"
 msgstr "responses"
 
-#: taklif/templates/taklif/statistika.html:57
+#: taklif/templates/taklif/statistika.html:60
 msgid "keladi (mehmon)"
 msgstr "attending (guests)"
 
-#: taklif/templates/taklif/statistika.html:58
+#: taklif/templates/taklif/statistika.html:61
 msgid "kelmaydi"
 msgstr "not attending"
 
-#: taklif/templates/taklif/statistika.html:63
-#: taklif/templates/taklif/statistika.html:92
+#: taklif/templates/taklif/statistika.html:66
+#: taklif/templates/taklif/statistika.html:107
 msgid "Ism"
 msgstr "Name"
 
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Holat"
 msgstr "Status"
 
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Mehmonlar soni"
 msgstr "Number of guests"
 
-#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:66
 msgid "Izoh (faqat sizga)"
 msgstr "Comment (visible to you only)"
 
-#: taklif/templates/taklif/statistika.html:63
-msgid "Tilak (hammaga ochiq)"
-msgstr "Wish (visible to everyone)"
+#: taklif/templates/taklif/statistika.html:66
+msgid "Tilak"
+msgstr "Wish"
 
-#: taklif/templates/taklif/statistika.html:69
+#: taklif/templates/taklif/statistika.html:72
 msgid "Keladi"
 msgstr "Attending"
 
-#: taklif/templates/taklif/statistika.html:69
+#: taklif/templates/taklif/statistika.html:72
 msgid "Kelmaydi"
 msgstr "Not attending"
 
-#: taklif/templates/taklif/statistika.html:76
+#: taklif/templates/taklif/statistika.html:81
+msgid "Hammaga ko'rinmoqda — yashirish"
+msgstr "Visible to everyone — hide"
+
+#: taklif/templates/taklif/statistika.html:83
+msgid "Hammaga ko'rsatish"
+msgstr "Show to everyone"
+
+#: taklif/templates/taklif/statistika.html:91
 msgid "Hozircha javoblar yo'q."
 msgstr "No responses yet."
 
-#: taklif/templates/taklif/statistika.html:81
+#: taklif/templates/taklif/statistika.html:96
 msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Personal links for guests"
 
-#: taklif/templates/taklif/statistika.html:82
+#: taklif/templates/taklif/statistika.html:97
 msgid ""
 "Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
 "Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
@@ -844,35 +860,35 @@ msgstr ""
 "via Telegram/Instagram. As soon as they open it, it's marked as \"viewed\", "
 "so you'll know exactly who has seen it and who hasn't yet."
 
-#: taklif/templates/taklif/statistika.html:86
+#: taklif/templates/taklif/statistika.html:101
 msgid "Mehmon ismi, masalan: Aziz oila"
 msgstr "Guest name, e.g.: The Aziz family"
 
-#: taklif/templates/taklif/statistika.html:87
+#: taklif/templates/taklif/statistika.html:102
 msgid "Qo'shish"
 msgstr "Add"
 
-#: taklif/templates/taklif/statistika.html:92
+#: taklif/templates/taklif/statistika.html:107
 msgid "Ko'rdimi"
 msgstr "Seen?"
 
-#: taklif/templates/taklif/statistika.html:92
+#: taklif/templates/taklif/statistika.html:107
 msgid "Link"
 msgstr "Link"
 
-#: taklif/templates/taklif/statistika.html:98
+#: taklif/templates/taklif/statistika.html:113
 msgid "ko'rdi"
 msgstr "seen"
 
-#: taklif/templates/taklif/statistika.html:98
+#: taklif/templates/taklif/statistika.html:113
 msgid "hali ko'rmagan"
 msgstr "not seen yet"
 
-#: taklif/templates/taklif/statistika.html:103
+#: taklif/templates/taklif/statistika.html:118
 msgid "Bu mehmonning shaxsiy linki o'chirilsinmi?"
 msgstr "Delete this guest's personal link?"
 
-#: taklif/templates/taklif/statistika.html:111
+#: taklif/templates/taklif/statistika.html:126
 msgid "Hali mehmon qo'shilmagan. Yuqoridagi formadan qo'shing."
 msgstr "No guests added yet. Add them using the form above."
 
@@ -1015,19 +1031,19 @@ msgstr ""
 "The file \"%(nomi)s\" is too large (%(hajm).1f MB). Photo size must not "
 "exceed %(maks)s MB."
 
-#: taklif/views.py:516
+#: taklif/views.py:521
 msgid "Iltimos, ismingizni kiriting."
 msgstr "Please enter your name."
 
-#: taklif/views.py:549
+#: taklif/views.py:568
 msgid "Javobingiz uchun rahmat!"
 msgstr "Thank you for your response!"
 
-#: taklif/views.py:595
+#: taklif/views.py:614
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "You cannot delete this invitation."
 
-#: taklif/views.py:606
+#: taklif/views.py:625
 #, python-format
 msgid ""
 "\"%(nomi)s\" taklifnomasi o'chirildi. Bu faollashtirilgan taklifnoma "
@@ -1038,23 +1054,31 @@ msgstr ""
 "invitation, its data will be kept for %(kun)s days — if you did this by "
 "mistake, contact the administrator."
 
-#: taklif/views.py:613
+#: taklif/views.py:632
 #, python-format
 msgid "\"%(nomi)s\" taklifnomasi o'chirildi."
 msgstr "The invitation \"%(nomi)s\" has been deleted."
 
-#: taklif/views.py:668
+#: taklif/views.py:687
 msgid "Iltimos, mehmon ismini kiriting."
 msgstr "Please enter the guest's name."
 
-#: taklif/views.py:671
+#: taklif/views.py:690
 #, python-format
 msgid "\"%(ism)s\" uchun shaxsiy link yaratildi."
 msgstr "Personal link created for \"%(ism)s\"."
 
-#: taklif/views.py:680
+#: taklif/views.py:699
 msgid "Mehmon o'chirildi."
 msgstr "Guest deleted."
+
+#: taklif/views.py:713
+msgid "Tilak endi taklifnoma sahifasida hammaga ko'rinadi."
+msgstr "The wish is now visible to everyone on the invitation page."
+
+#: taklif/views.py:715
+msgid "Tilak yashirildi — endi faqat sizga ko'rinadi."
+msgstr "The wish has been hidden — now visible only to you."
 
 #: templates/404.html:4
 msgid "Sahifa topilmadi"
@@ -1109,6 +1133,9 @@ msgid ""
 msgstr ""
 "The most beautiful and modern digital invitations for Uzbekistan. Create "
 "yours in a few minutes."
+
+#~ msgid "Tilak (hammaga ochiq)"
+#~ msgstr "Wish (visible to everyone)"
 
 #~ msgid "Izoh"
 #~ msgstr "Comment"

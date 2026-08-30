@@ -374,14 +374,23 @@ class RSVP(models.Model):
     izoh = models.CharField(
         max_length=300, blank=True, help_text="Ixtiyoriy izoh (masalan: allergiya, maxsus talab)"
     )
-    # DIQQAT: "izoh"dan farqli — bu maydon YOZILSA, taklifnoma sahifasida
-    # HAMMAGA ochiq ko'rinadi (moderatsiyasiz, darhol). Shu sabab "izoh"
-    # bilan aralashtirilmasligi kerak — u faqat mezbonga (statistika
+    # DIQQAT: "izoh"dan farqli — bu maydon (tasdiqlangach) taklifnoma
+    # sahifasida HAMMAGA ochiq ko'rinadi. Shu sabab "izoh" bilan
+    # aralashtirilmasligi kerak — u har doim faqat mezbonga (statistika
     # sahifasida) ko'rinadi.
     tilak = models.CharField(
         max_length=500,
         blank=True,
-        help_text="Ixtiyoriy tabrik/tilak — yozilsa, taklifnoma sahifasida BARCHAGA ochiq ko'rinadi.",
+        help_text="Ixtiyoriy tabrik/tilak — avval faqat mezbonga ko'rinadi, mezbon tasdiqlagach taklifnoma sahifasida BARCHAGA ochiq bo'ladi.",
+    )
+    # Mehmon yozgan tilak DARHOL ommaga ochilmaydi — avval faqat mezbon
+    # (statistika sahifasida) ko'radi va xohlasa "hammaga ko'rsatish"ni
+    # bosadi. Sabab: bu havolani bilgan har kim (masalan sobiq sevgilisi)
+    # yomon niyat bilan yozishi mumkin — moderatsiyasiz darhol ochiq
+    # bo'lsa, buni mezbon oldindan to'xtata olmas edi.
+    tilak_tasdiqlangan = models.BooleanField(
+        default=False,
+        help_text="Yoqilgan bo'lsa — tilak taklifnoma sahifasida hammaga ochiq. O'chiq bo'lsa — faqat mezbonga (statistika sahifasida) ko'rinadi.",
     )
     yaratilgan = models.DateTimeField(auto_now_add=True)
 

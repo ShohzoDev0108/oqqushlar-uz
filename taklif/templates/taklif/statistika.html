@@ -40,6 +40,9 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
 .mehmon-qoshish-forma button:hover { opacity: .9; }
 .mehmon-ochirish { color: var(--kul); font-size: .78rem; text-decoration: none; border: none; background: none; cursor: pointer; padding: 0; font-family: inherit; }
 .mehmon-ochirish:hover { color: #b3323b; }
+.tilak-tugma { display: block; margin-top: 6px; padding: 5px 10px; border-radius: 4px; border: 1px solid var(--chiziq); background: var(--toza); font-size: .74rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+.tilak-tugma.yashirin { color: var(--tilla-toq); border-color: var(--tilla-toq); }
+.tilak-tugma.ochiq { color: #2e7d4f; border-color: #2e7d4f; }
 {% endblock %}
 
 {% block content %}
@@ -60,7 +63,7 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
 
         <table>
             <thead>
-                <tr><th>{% trans "Ism" %}</th><th>{% trans "Holat" %}</th><th>{% trans "Mehmonlar soni" %}</th><th>{% trans "Izoh (faqat sizga)" %}</th><th>{% trans "Tilak (hammaga ochiq)" %}</th><th>{% trans "Sana" %}</th></tr>
+                <tr><th>{% trans "Ism" %}</th><th>{% trans "Holat" %}</th><th>{% trans "Mehmonlar soni" %}</th><th>{% trans "Izoh (faqat sizga)" %}</th><th>{% trans "Tilak" %}</th><th>{% trans "Sana" %}</th></tr>
             </thead>
             <tbody>
                 {% for j in javoblar %}
@@ -69,7 +72,19 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
                     <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}{% trans "Keladi" %}{% else %}{% trans "Kelmaydi" %}{% endif %}</td>
                     <td>{{ j.mehmonlar_soni }}</td>
                     <td>{{ j.izoh|default:"—" }}</td>
-                    <td>{{ j.tilak|default:"—" }}</td>
+                    <td>
+                        {% if j.tilak %}
+                            {{ j.tilak }}
+                            <form method="post" action="{% url 'taklif:tilak_tasdiqlash' taklifnoma.statistika_token j.pk %}">
+                                {% csrf_token %}
+                                {% if j.tilak_tasdiqlangan %}
+                                <button type="submit" class="tilak-tugma ochiq">✅ {% trans "Hammaga ko'rinmoqda — yashirish" %}</button>
+                                {% else %}
+                                <button type="submit" class="tilak-tugma yashirin">👁 {% trans "Hammaga ko'rsatish" %}</button>
+                                {% endif %}
+                            </form>
+                        {% else %}—{% endif %}
+                    </td>
                     <td>{{ j.yaratilgan|date:"d.m.Y H:i" }}</td>
                 </tr>
                 {% empty %}

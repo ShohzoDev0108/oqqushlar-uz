@@ -419,8 +419,13 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
 
     # Tilaklar — keladi/kelmaydi holatidan qat'i nazar ko'rsatiladi (masalan
     # "kela olmayman, lekin tabriklayman" ham juda tabiiy holat), faqat
-    # "tilak" maydoni bo'sh bo'lmagan javoblar.
-    tilaklar = taklifnoma.javoblar.exclude(tilak="").order_by("-yaratilgan")
+    # "tilak" maydoni bo'sh bo'lmagan VA mezbon tomonidan tasdiqlangan
+    # javoblar — havolani bilgan har kim (masalan sobiq sevgilisi) yomon
+    # niyat bilan yozib qo'yishi mumkin, shuning uchun mezbon tasdiqlamaguncha
+    # ommaga ko'rinmaydi (qarang: statistika sahifasi, "tilak_tasdiqlash").
+    tilaklar = taklifnoma.javoblar.exclude(tilak="").filter(
+        tilak_tasdiqlangan=True
+    ).order_by("-yaratilgan")
 
     context = {
         "taklifnoma": taklifnoma,
@@ -522,6 +527,27 @@ def rsvp_submit(request, slug):
             "izoh": izoh,
             "tilak": tilak,
         }
+
+        if mehmon is not None:
+            eski_yozuv = RSVP.objects.filter(taklifnoma=taklifnoma, mehmon=mehmon).first()
+        else:
+            sessiya_kaliti = f"rsvp_yozuv_id:{taklifnoma.slug}"
+            eski_id = request.session.get(sessiya_kaliti)
+            eski_yozuv = (
+                RSVP.objects.filter(pk=eski_id, taklifnoma=taklifnoma, mehmon__isnull=True).first()
+                if eski_id
+                else None
+            )
+
+        # Tilak matni yangi yoki o'zgargan bo'lsa — qayta tasdiqlash talab
+        # qilinadi. Aks holda: mezbon bir marta bitta matnni tasdiqlagan
+        # bo'lsa-yu, mehmon (yoki uning linkidan foydalangan boshqa kimdir)
+        # keyinroq matnni butunlay boshqasiga — masalan haqoratga —
+        # almashtirsa, eski tasdiq bilan avtomatik ochiq qolib ketmasligi
+        # kerak.
+        if eski_yozuv is None or eski_yozuv.tilak != tilak:
+            qiymatlar["tilak_tasdiqlangan"] = False
+
         if mehmon is not None:
             # Shaxsiy link — (taklifnoma, mehmon) juftligi bo'yicha bitta
             # javob kafolatlanadi (bazadagi UniqueConstraint bilan birga).
@@ -531,13 +557,6 @@ def rsvp_submit(request, slug):
         else:
             # Shaxsiy linksiz — sessiyada saqlangan oxirgi javob yozuvini
             # yangilaymiz (agar bo'lsa), aks holda yangisini yaratamiz.
-            sessiya_kaliti = f"rsvp_yozuv_id:{taklifnoma.slug}"
-            eski_id = request.session.get(sessiya_kaliti)
-            eski_yozuv = (
-                RSVP.objects.filter(pk=eski_id, taklifnoma=taklifnoma, mehmon__isnull=True).first()
-                if eski_id
-                else None
-            )
             if eski_yozuv is not None:
                 for maydon, qiymat in qiymatlar.items():
                     setattr(eski_yozuv, maydon, qiymat)
@@ -678,4 +697,20 @@ def mehmon_ochirish(request, token, mehmon_id):
     taklifnoma = get_object_or_404(Taklifnoma, statistika_token=token)
     Mehmon.objects.filter(pk=mehmon_id, taklifnoma=taklifnoma).delete()
     messages.success(request, _("Mehmon o'chirildi."))
+    return redirect("taklif:statistika", token=token)
+
+
+@require_POST
+def tilak_tasdiqlash(request, token, javob_id):
+    """Mijoz statistika sahifasidan turib bitta tilakni hammaga ochiq
+    qiladi (yoki qaytadan yashiradi — tugma ikkala holatda ham shu bitta
+    manzilga POST qiladi, "almashtirish" mantig'i bilan)."""
+    taklifnoma = get_object_or_404(Taklifnoma, statistika_token=token)
+    javob = get_object_or_404(RSVP, pk=javob_id, taklifnoma=taklifnoma)
+    javob.tilak_tasdiqlangan = not javob.tilak_tasdiqlangan
+    javob.save(update_fields=["tilak_tasdiqlangan"])
+    if javob.tilak_tasdiqlangan:
+        messages.success(request, _("Tilak endi taklifnoma sahifasida hammaga ko'rinadi."))
+    else:
+        messages.success(request, _("Tilak yashirildi — endi faqat sizga ko'rinadi."))
     return redirect("taklif:statistika", token=token)

@@ -21,6 +21,11 @@ urlpatterns = [
         name="mehmon_ochirish",
     ),
     path(
+        "statistika/<str:token>/tilak/<int:javob_id>/",
+        views.tilak_tasdiqlash,
+        name="tilak_tasdiqlash",
+    ),
+    path(
         "mening-taklifnomalarim/",
         views.mening_taklifnomalarim,
         name="mening_taklifnomalarim",
