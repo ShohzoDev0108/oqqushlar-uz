@@ -310,3 +310,44 @@ if not DEBUG:
     # tsikliga tushib qolishi mumkin.
     if _env_bool("DJANGO_BEHIND_PROXY"):
         SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+
+# Xatolik-kuzatish (error monitoring): production'da kutilmagan 500-xatolik
+# yuz berganda, Telegram bot orqali avtomatik xabar yuboradi (taftish
+# bo'yicha qo'shildi — .env'da bu ikkalasi sozlanmasa, hech narsa yubormaydi).
+# Bot @BotFather orqali yaratiladi, chat ID esa @userinfobot yoki botga
+# yozilgan xabarni getUpdates orqali ko'rib olinadi.
+TELEGRAM_XATOLIK_BOT_TOKEN = os.environ.get("TELEGRAM_XATOLIK_BOT_TOKEN", "")
+TELEGRAM_XATOLIK_CHAT_ID = os.environ.get("TELEGRAM_XATOLIK_CHAT_ID", "")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "oddiy": {
+            "format": "[{asctime}] {levelname} {name}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "konsol_xatolik": {
+            "level": "ERROR",
+            "class": "logging.StreamHandler",
+            "formatter": "oddiy",
+        },
+        "telegram_xatolik": {
+            "level": "ERROR",
+            "class": "taklif.xatolik_xabarnomasi.TelegramXatolikHandler",
+        },
+    },
+    "loggers": {
+        # Django bu logerga har bir 500-server-xatolikni (va 4xx'larni
+        # WARNING darajasida) yuboradi. Faqat ERROR (ya'ni haqiqiy 500)
+        # darajasidagilar konsolga (server jurnaliga) va Telegram'ga boradi.
+        "django.request": {
+            "handlers": ["konsol_xatolik", "telegram_xatolik"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
