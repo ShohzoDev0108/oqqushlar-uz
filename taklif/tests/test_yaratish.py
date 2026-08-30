@@ -54,6 +54,20 @@ class TaklifnomaYaratishTest(TestCase):
         self.assertEqual(r.status_code, 200)  # forma xatosi bilan qaytadi, redirect emas
         self.assertFalse(Taklifnoma.objects.filter(ism_1="Kuyov").exists())
 
+    def test_ommaviy_korsatish_belgisi_qoyilmasa_standart_holatda_ochiq_emas(self):
+        # Taftish topilmasi: bosh sahifada mijoz roziligisiz ism/sana
+        # ko'rsatilmasligi kerak — shuning uchun checkbox POST qilinmasa
+        # (brauzer belgilanmagan checkbox'ni umuman yubormaydi), standart
+        # holat albatta False bo'lishi kerak.
+        self._post({"ism_1": "Roziliksiz"})
+        t = Taklifnoma.objects.get(ism_1="Roziliksiz")
+        self.assertFalse(t.ommaviy_korsatishga_rozi)
+
+    def test_ommaviy_korsatish_belgisi_qoyilsa_saqlanadi(self):
+        self._post({"ism_1": "Rozi", "ommaviy_korsatishga_rozi": "on"})
+        t = Taklifnoma.objects.get(ism_1="Rozi")
+        self.assertTrue(t.ommaviy_korsatishga_rozi)
+
     def test_boshqa_mijoz_bir_xil_ism_yozsa_raqamsiz_ajratiladi(self):
         # Birinchi mijoz (boshqa sessiya) "Aziz" nomli taklifnoma yaratadi.
         Client().post(f"/yaratish/{self.shablon.kod}/", {**ASOSIY_FORMA_MAYDONLARI, "ism_1": "Aziz"})

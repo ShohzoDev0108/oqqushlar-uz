@@ -200,6 +200,16 @@ class Taklifnoma(models.Model):
         blank=True, help_text="Mehmonlar uchun Telegram guruh/kanal havolasi"
     )
     faol = models.BooleanField(default=True)
+    ommaviy_korsatishga_rozi = models.BooleanField(
+        default=False,
+        verbose_name="Bosh sahifada namuna sifatida ko'rsatishga rozilik",
+        help_text=(
+            "Yoqilsa, taklifnoma (ism, marosim turi, sana) sayt bosh "
+            "sahifasidagi \"So'nggi taklifnomalar\" bo'limida boshqa "
+            "mijozlarga namuna sifatida ko'rsatilishi mumkin. Standart "
+            "holatda O'CHIQ — faqat mijoz o'zi aniq rozilik bildirsa yoqiladi."
+        ),
+    )
     korishlar = models.PositiveIntegerField(default=0)
     statistika_token = models.CharField(
         # DIQQAT: secrets.token_hex() argumentsiz chaqirilganda 32 BAYT

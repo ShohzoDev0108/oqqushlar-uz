@@ -53,6 +53,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "matn",
             "sovga_karta",
             "telegram_link",
+            "ommaviy_korsatishga_rozi",
         ]
         widgets = {
             "sana": forms.DateTimeInput(
@@ -76,6 +77,10 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "matn": _("Qo'shimcha tabrik matni (ixtiyoriy)"),
             "sovga_karta": _("Sovg'a-pul uchun karta raqami (ixtiyoriy)"),
             "telegram_link": _("Mehmonlar uchun Telegram guruhi (ixtiyoriy)"),
+            "ommaviy_korsatishga_rozi": _(
+                "Taklifnomangiz sayt bosh sahifasida namuna sifatida "
+                "boshqa mijozlarga ko'rsatilishiga rozimisiz?"
+            ),
         }
         help_texts = {
             "ism_1": _("Masalan: kuyov, tug'ilgan kun egasi"),
@@ -86,6 +91,10 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "matn": _("Qo'shimcha tabrik/taklif matni"),
             "sovga_karta": _("Pul sovg'a uchun karta raqami"),
             "telegram_link": _("Mehmonlar uchun Telegram guruh/kanal havolasi"),
+            "ommaviy_korsatishga_rozi": _(
+                "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek "
+                "ishlayveradi — bu faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
+            ),
         }
 
     def clean(self):

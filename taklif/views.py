@@ -211,7 +211,12 @@ def _sayt_musiqasi():
 def bosh_sahifa(request):
     """Platformaning asosiy landing sahifasi — wedding vibe, shablonlar galereyasi,
     faollashtirilgan taklifnomalar va taklifnoma yaratishga chorlovchi CTA."""
-    taklifnomalar = Taklifnoma.objects.filter(faol=True, tolangan=True)[:8]
+    # Faqat mijozning o'zi aniq rozilik bildirgan (ommaviy_korsatishga_rozi=True)
+    # taklifnomalar ko'rsatiladi — ism va marosim sanasi kabi shaxsiy
+    # ma'lumotlarni mijoz roziligisiz ochiq ko'rsatmaslik uchun (taftish topilmasi).
+    taklifnomalar = Taklifnoma.objects.filter(
+        faol=True, tolangan=True, ommaviy_korsatishga_rozi=True
+    )[:8]
     shablonlar = Shablon.objects.filter(ommaviy=True)
     return render(
         request,

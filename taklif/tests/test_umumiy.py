@@ -69,6 +69,41 @@ class UmumiySahifalarTest(TestCase):
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
+class OmmaviyKorsatishRoziligiTest(TestCase):
+    """Taftish topilmasi: bosh sahifadagi "So'nggi taklifnomalar" bo'limi
+    mijozning ismi va marosim sanasini roziliksiz ko'rsatib turgan edi.
+    Endi faqat ommaviy_korsatishga_rozi=True bo'lganlar chiqadi."""
+
+    def setUp(self):
+        self.shablon = shablon_yarat()
+
+    def test_rozilik_bermagan_taklifnoma_bosh_sahifada_korinmaydi(self):
+        Taklifnoma.objects.create(
+            slug="rozi-emas", ism_1="RoziEmasIsmi", shablon=self.shablon,
+            sana=timezone.now(), faol=True, tolangan=True,
+            ommaviy_korsatishga_rozi=False,
+        )
+        r = Client().get("/")
+        self.assertNotContains(r, "RoziEmasIsmi")
+
+    def test_rozilik_bergan_taklifnoma_bosh_sahifada_korinadi(self):
+        Taklifnoma.objects.create(
+            slug="rozi-berdi", ism_1="RoziIsmi", shablon=self.shablon,
+            sana=timezone.now(), faol=True, tolangan=True,
+            ommaviy_korsatishga_rozi=True,
+        )
+        r = Client().get("/")
+        self.assertContains(r, "RoziIsmi")
+
+    def test_standart_holatda_rozilik_ochiq_emas(self):
+        t = Taklifnoma.objects.create(
+            slug="standart-holat", ism_1="Standart", shablon=self.shablon,
+            sana=timezone.now(), faol=True, tolangan=True,
+        )
+        self.assertFalse(t.ommaviy_korsatishga_rozi)
+
+
+@override_settings(ALLOWED_HOSTS=["testserver"])
 class AdminManzilTest(TestCase):
     """Audit topilmasi: admin standart /admin/ o'rniga sozlanadigan manzilda."""
 
