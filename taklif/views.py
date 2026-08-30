@@ -18,6 +18,7 @@ from .forms import REZERV_SLUGLAR, TaklifnomaYaratishForm
 from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
     IKKI_ISMLI_MAROSIM_TURLARI,
+    RASM_MAKS_HAJM_MB,
     RSVP,
     Mehmon,
     MusiqaVariant,
@@ -117,6 +118,28 @@ MAKSIMAL_RASMLAR_SONI = 2
 # Mijoz o'zi yaratgan taklifnomalar ro'yxati sessiyada shu kalit ostida saqlanadi
 # (login talab qilinmaydi — "Mening taklifnomalarim" bo'limi shu orqali ishlaydi).
 SESSIYA_KALITI = "mening_taklifnomalarim_sluglari"
+
+
+def _rasmlar_xatosini_tekshir(request):
+    """Mijoz o'zi yuklagan (tayyor namuna emas) fotolarning hajmini tekshiradi.
+
+    TaklifnomaRasm ModelForm orqali emas, to'g'ridan-to'g'ri yaratilgani
+    uchun (pastdagi _taklifnoma_rasmlarini_saqlash) modeldagi
+    FaylHajmiValidator bu yo'lda avtomatik ishlamaydi — shu uchun alohida
+    tekshiramiz. Xato topilsa, matnni qaytaradi; hammasi joyida bo'lsa None.
+    """
+    maks_bayt = RASM_MAKS_HAJM_MB * 1024 * 1024
+    for fayl in request.FILES.getlist("rasmlar"):
+        if fayl.size > maks_bayt:
+            return _(
+                "\"%(nomi)s\" fayli juda katta (%(hajm).1f MB). Rasm hajmi "
+                "%(maks)s MB dan oshmasligi kerak."
+            ) % {
+                "nomi": fayl.name,
+                "hajm": fayl.size / (1024 * 1024),
+                "maks": RASM_MAKS_HAJM_MB,
+            }
+    return None
 
 
 def _taklifnoma_rasmlarini_saqlash(taklifnoma, request):
@@ -225,59 +248,70 @@ def yaratish(request, shablon_kod):
     if request.method == "POST":
         form = TaklifnomaYaratishForm(request.POST, request.FILES)
         if form.is_valid():
-            ism_1 = form.cleaned_data["ism_1"]
-            ism_2 = form.cleaned_data.get("ism_2") or ""
-            sana = form.cleaned_data.get("sana")
-            toyxona = form.cleaned_data.get("toyxona") or ""
-            marosim_turi = form.cleaned_data.get("marosim_turi") or ""
+            # TaklifnomaRasm to'g'ridan-to'g'ri (ModelForm orqali emas)
+            # yaratiladi (pastda _taklifnoma_rasmlarini_saqlash), shuning
+            # uchun modeldagi FaylHajmiValidator bu yerda avtomatik
+            # ishlamaydi — shu tekshiruvni forma tasdiqlangandan keyin,
+            # lekin hali hech narsa saqlanmasdan oldin, qo'lda bajaramiz
+            # (aks holda mijozning taklifnomasi yaratilib, keyin rasm xatosi
+            # chiqib, chala/rasmisiz taklifnoma qolib ketishi mumkin edi).
+            rasm_xatosi = _rasmlar_xatosini_tekshir(request)
+            if rasm_xatosi:
+                form.add_error(None, rasm_xatosi)
+            else:
+                ism_1 = form.cleaned_data["ism_1"]
+                ism_2 = form.cleaned_data.get("ism_2") or ""
+                sana = form.cleaned_data.get("sana")
+                toyxona = form.cleaned_data.get("toyxona") or ""
+                marosim_turi = form.cleaned_data.get("marosim_turi") or ""
 
-            asosiy = _asosiy_slug(ism_1, ism_2)
-            mavjud = Taklifnoma.objects.filter(slug=asosiy).first()
-            slug = asosiy
-            yaratish_kerak = True
+                asosiy = _asosiy_slug(ism_1, ism_2)
+                mavjud = Taklifnoma.objects.filter(slug=asosiy).first()
+                slug = asosiy
+                yaratish_kerak = True
 
-            if mavjud is not None:
-                oldingi_sluglar = request.session.get(SESSIYA_KALITI, [])
-                ozimniki = asosiy in oldingi_sluglar
-                harakat = request.POST.get("eski_taklifnoma_harakati")
+                if mavjud is not None:
+                    oldingi_sluglar = request.session.get(SESSIYA_KALITI, [])
+                    ozimniki = asosiy in oldingi_sluglar
+                    harakat = request.POST.get("eski_taklifnoma_harakati")
 
-                if ozimniki and harakat == "yangilash":
-                    # Mijoz tasdiqladi: eski (yoqmagan) taklifnoma o'chirilib,
-                    # xuddi shu toza havolaga yangisi yaratiladi.
-                    mavjud.delete()
-                elif ozimniki and harakat == "alohida":
-                    # Mijoz ikkalasini ham saqlab qolmoqchi — mijozga hech
-                    # narsa bildirmasdan, orqa fondan mazmunli havola topamiz.
-                    slug = _bosh_slug_top(asosiy, sana, marosim_turi, toyxona)
-                elif ozimniki:
-                    # Mijozning o'zi avval shu ismlar bilan yaratgan — xato
-                    # ko'rsatmaymiz, oddiy tilda so'raymiz: yangilaymizmi yoki
-                    # alohida saqlaymizmi?
-                    eski_taklifnoma = mavjud
-                    yaratish_kerak = False
-                else:
-                    # Bu boshqa mijozda tasodifan bir xil ism chiqib qoldi —
-                    # mijozga bu haqda umuman bildirmaymiz, shunchaki orqa
-                    # fondan mazmunli (raqamsiz) havola topib beramiz.
-                    slug = _bosh_slug_top(asosiy, sana, marosim_turi, toyxona)
+                    if ozimniki and harakat == "yangilash":
+                        # Mijoz tasdiqladi: eski (yoqmagan) taklifnoma o'chirilib,
+                        # xuddi shu toza havolaga yangisi yaratiladi.
+                        mavjud.delete()
+                    elif ozimniki and harakat == "alohida":
+                        # Mijoz ikkalasini ham saqlab qolmoqchi — mijozga hech
+                        # narsa bildirmasdan, orqa fondan mazmunli havola topamiz.
+                        slug = _bosh_slug_top(asosiy, sana, marosim_turi, toyxona)
+                    elif ozimniki:
+                        # Mijozning o'zi avval shu ismlar bilan yaratgan — xato
+                        # ko'rsatmaymiz, oddiy tilda so'raymiz: yangilaymizmi yoki
+                        # alohida saqlaymizmi?
+                        eski_taklifnoma = mavjud
+                        yaratish_kerak = False
+                    else:
+                        # Bu boshqa mijozda tasodifan bir xil ism chiqib qoldi —
+                        # mijozga bu haqda umuman bildirmaymiz, shunchaki orqa
+                        # fondan mazmunli (raqamsiz) havola topib beramiz.
+                        slug = _bosh_slug_top(asosiy, sana, marosim_turi, toyxona)
 
-            if yaratish_kerak:
-                taklifnoma = form.save(commit=False)
-                taklifnoma.slug = slug
-                taklifnoma.shablon = shablon
-                # Self-service oqimi: mijoz o'zi yaratganda hali to'lov qilinmagan bo'ladi.
-                # Link mijozning o'zi uchun darhol ishlaydi ("lokal"), lekin admin
-                # to'lovni tasdiqlab tolangan=True qilmaguncha ommaviy joylarga
-                # (bosh sahifa ro'yxati) chiqmaydi.
-                taklifnoma.tolangan = False
-                taklifnoma.faol = True
-                taklifnoma.save()
+                if yaratish_kerak:
+                    taklifnoma = form.save(commit=False)
+                    taklifnoma.slug = slug
+                    taklifnoma.shablon = shablon
+                    # Self-service oqimi: mijoz o'zi yaratganda hali to'lov qilinmagan bo'ladi.
+                    # Link mijozning o'zi uchun darhol ishlaydi ("lokal"), lekin admin
+                    # to'lovni tasdiqlab tolangan=True qilmaguncha ommaviy joylarga
+                    # (bosh sahifa ro'yxati) chiqmaydi.
+                    taklifnoma.tolangan = False
+                    taklifnoma.faol = True
+                    taklifnoma.save()
 
-                _taklifnoma_rasmlarini_saqlash(taklifnoma, request)
+                    _taklifnoma_rasmlarini_saqlash(taklifnoma, request)
 
-                _sessiyaga_qoshish(request, taklifnoma.slug)
+                    _sessiyaga_qoshish(request, taklifnoma.slug)
 
-                return redirect("taklif:yaratildi", slug=taklifnoma.slug)
+                    return redirect("taklif:yaratildi", slug=taklifnoma.slug)
     else:
         form = TaklifnomaYaratishForm()
 

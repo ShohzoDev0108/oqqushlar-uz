@@ -59,6 +59,10 @@ class TaklifnomaYaratishForm(forms.ModelForm):
                 attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M"
             ),
             "matn": forms.Textarea(attrs={"rows": 3}),
+            # Brauzerning fayl tanlash oynasida faqat audio fayllarni ko'rsatadi
+            # (qulaylik uchun — asosiy himoya baribir modeldagi validatorlar,
+            # bu yerdagi "accept" faqat UX, xavfsizlik uchun emas).
+            "musiqa": forms.ClearableFileInput(attrs={"accept": "audio/*"}),
         }
         labels = {
             "ism_1": _("1-ism (masalan: kuyov, tug'ilgan kun egasi)"),

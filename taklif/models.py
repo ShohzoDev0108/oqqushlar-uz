@@ -1,10 +1,25 @@
 import secrets
 
 from django.conf import settings
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+
+from .validators import FaylHajmiValidator
+
+# Mijoz o'zi yuklaydigan musiqa fayli uchun ruxsat etilgan kengaytmalar va
+# eng katta hajm — cheklovsiz bo'lsa, mijoz istalgan turdagi va hajmdagi
+# faylni "musiqa" sifatida yuklab, R2/S3 xarajatini yoki xotirani behuda
+# oshirishi mumkin edi.
+MUSIQA_KENGAYTMALARI = ["mp3", "wav", "ogg", "m4a", "aac"]
+MUSIQA_MAKS_HAJM_MB = 15
+
+# Mijoz o'zi yuklaydigan taklifnoma foto(lar)i uchun eng katta hajm. Turi
+# ImageField orqali allaqachon tekshiriladi (haqiqiy rasm bo'lishi shart),
+# lekin hajmga cheklov yo'q edi.
+RASM_MAKS_HAJM_MB = 8
 
 # Ikkinchi segment (mehmon slug'i) sifatida ishlatilmasligi kerak bo'lgan so'zlar,
 # chunki "rsvp" va "yoqdi" allaqachon /<taklifnoma>/rsvp/, /<taklifnoma>/yoqdi/
@@ -155,7 +170,14 @@ class Taklifnoma(models.Model):
     manzil = models.CharField(max_length=300, blank=True)
     xarita_link = models.URLField(blank=True)
     musiqa = models.FileField(
-        upload_to="musiqa/", blank=True, help_text="O'zingiz yuklamoqchi bo'lsangiz"
+        upload_to="musiqa/",
+        blank=True,
+        validators=[
+            FileExtensionValidator(MUSIQA_KENGAYTMALARI),
+            FaylHajmiValidator(MUSIQA_MAKS_HAJM_MB),
+        ],
+        help_text="O'zingiz yuklamoqchi bo'lsangiz (mp3/wav/ogg/m4a/aac, %(maks)s MB gacha)"
+        % {"maks": MUSIQA_MAKS_HAJM_MB},
     )
     musiqa_variant = models.ForeignKey(
         MusiqaVariant,
@@ -370,7 +392,10 @@ class TaklifnomaRasm(models.Model):
     taklifnoma = models.ForeignKey(
         Taklifnoma, related_name="rasmlar", on_delete=models.CASCADE
     )
-    rasm = models.ImageField(upload_to="taklifnoma_rasmlar/")
+    rasm = models.ImageField(
+        upload_to="taklifnoma_rasmlar/",
+        validators=[FaylHajmiValidator(RASM_MAKS_HAJM_MB)],
+    )
     tartib = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
