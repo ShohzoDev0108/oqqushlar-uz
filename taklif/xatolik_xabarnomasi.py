@@ -43,7 +43,11 @@ class TelegramXatolikHandler(logging.Handler):
 
     Tarmoq so'rovi alohida (fon) oqimda (thread) bajariladi — shu tufayli
     Telegram'ga ulanish sekin bo'lsa ham, foydalanuvchiga ko'rsatilayotgan
-    xatolik sahifasi kechikmaydi.
+    xatolik sahifasi kechikmaydi. Oqim ataylab DAEMON EMAS (`daemon=False`)
+    qilib qo'yilgan: agar daemon bo'lganida, gunicorn workeri xatolikni
+    log qilgandan darhol keyin qayta ishga tushirilsa/to'xtatilsa (masalan
+    deploy paytida), Telegram'ga so'rov hali yetib bormasdan fon oqimi
+    majburan o'chirilib, xabar hech qachon yetib bormasligi mumkin edi.
     """
 
     def emit(self, record):
@@ -64,7 +68,7 @@ class TelegramXatolikHandler(logging.Handler):
         thread = threading.Thread(
             target=self._xavfsiz_yuborish,
             args=(token, chat_id, matn),
-            daemon=True,
+            daemon=False,
         )
         thread.start()
         return thread
