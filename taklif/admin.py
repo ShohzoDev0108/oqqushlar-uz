@@ -70,18 +70,24 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         "shablon",
         "faol",
         "tolangan",
+        "chiqindida",
         "yoqdi_bosildi",
         "korishlar",
         "keladiganlar_soni",
         "statistika_link",
     )
-    list_filter = ("faol", "tolangan", "marosim_turi", "yoqdi_bosildi", "shablon")
+    list_filter = (
+        "faol", "tolangan", "marosim_turi", "yoqdi_bosildi", "shablon",
+        ("ochirilgan_vaqt", admin.EmptyFieldListFilter),
+    )
     search_fields = ("ism_1", "ism_2", "slug")
     prepopulated_fields = {"slug": ("ism_1", "ism_2")}
     readonly_fields = (
         "statistika_token", "korishlar", "yaratilgan", "statistika_link", "yoqdi_bosildi",
+        "ochirilgan_vaqt",
     )
     inlines = [MehmonInline, TaklifnomaRasmInline, RSVPInline]
+    actions = ["chiqindidan_tiklash"]
     fieldsets = (
         ("Asosiy ma'lumot", {
             "fields": ("marosim_turi", "ism_1", "ism_2", "slug", "shablon", "sana")
@@ -95,7 +101,7 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         ("Holat", {
             "fields": (
                 "faol", "tolangan", "yoqdi_bosildi", "korishlar",
-                "statistika_token", "statistika_link", "yaratilgan",
+                "statistika_token", "statistika_link", "yaratilgan", "ochirilgan_vaqt",
             )
         }),
     )
@@ -105,6 +111,17 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         if obj.pk:
             return obj.get_statistika_url()
         return "-"
+
+    @admin.display(description="Chiqindida", boolean=True)
+    def chiqindida(self, obj):
+        return obj.ochirilgan_vaqt is not None
+
+    @admin.action(description="Tanlanganlarni chiqindidan tiklash (faol qilish)")
+    def chiqindidan_tiklash(self, request, queryset):
+        yangilandi = queryset.filter(ochirilgan_vaqt__isnull=False).update(
+            faol=True, ochirilgan_vaqt=None
+        )
+        self.message_user(request, f"{yangilandi} ta taklifnoma chiqindidan tiklandi.")
 
 
 @admin.register(Mehmon)

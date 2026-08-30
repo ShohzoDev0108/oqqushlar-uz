@@ -62,7 +62,7 @@
                 <a class="oq-cta kichik" href="{% url 'taklif:yoqdi' t.slug %}">{% trans "Yoqdi" %}</a>
                 {% endif %}
                 <form method="post" action="{% url 'taklif:taklifnoma_ochirish' t.slug %}"
-                      onsubmit="return confirm('{% trans "Rostdan ham ushbu taklifnomani butunlay o'chirmoqchimisiz? Bu amalni ortga qaytarib bo'lmaydi." %}');">
+                      onsubmit="return confirm('{% if t.tolangan %}{% trans "DIQQAT: bu taklifnoma FAOLLASHTIRILGAN — mehmonlarga yuborilgan va RSVP javoblari bo'lishi mumkin! O'chirilsa, darhol ko'rinmay qoladi (30 kun ichida administratorga murojaat qilib tiklash mumkin). Rostdan ham davom etasizmi?" %}{% else %}{% trans "Rostdan ham ushbu taklifnomani butunlay o'chirmoqchimisiz? Bu amalni ortga qaytarib bo'lmaydi." %}{% endif %}');">
                     {% csrf_token %}
                     <button type="submit" class="oq-cta kichik xavfli">{% trans "O'chirish" %}</button>
                 </form>

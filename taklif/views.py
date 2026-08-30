@@ -16,6 +16,7 @@ from django.views.decorators.http import require_POST
 
 from .forms import REZERV_SLUGLAR, TaklifnomaYaratishForm
 from .models import (
+    CHIQINDI_SAQLASH_KUNLARI,
     IKKI_ISMLI_MAROSIM_TURLARI,
     RSVP,
     Mehmon,
@@ -482,13 +483,24 @@ def mening_taklifnomalarim(request):
 
 @require_POST
 def taklifnoma_ochirish(request, slug):
-    """Mijoz o'zi ushbu brauzer sessiyasida yaratgan taklifnomani butunlay o'chiradi.
+    """Mijoz o'zi ushbu brauzer sessiyasida yaratgan taklifnomani o'chiradi.
 
     Faqat sessiyada turgan (ya'ni shu brauzerda o'zi yaratgan) taklifnomalarni
     o'chirish mumkin — havolani bilib olib boshqa birovning taklifnomasini
-    o'chirib qo'yishning oldini olish uchun. Rasmlar (TaklifnomaRasm) ham
-    CASCADE orqali birga o'chadi, lekin R2/S3'dagi fayllarning o'zi hozircha
-    qolib ketadi (bu alohida tozalash vazifasi, shu funksiya doirasida emas).
+    o'chirib qo'yishning oldini olish uchun.
+
+    Ikki xil holat farqlanadi:
+    — Hali TO'LANMAGAN qoralama: mehmonlarga hech qachon yuborilmagan, RSVP
+      bo'lishi mumkin emas — xavfsiz, darhol butunlay o'chiriladi (rasmlar ham
+      CASCADE orqali birga o'chadi; R2/S3'dagi fayllarning o'zi hozircha qolib
+      ketadi — bu alohida tozalash vazifasi, shu funksiya doirasida emas).
+    — FAOLLASHTIRILGAN (to'langan) taklifnoma: mehmonlarga yuborilgan va RSVP
+      javoblari bo'lishi mumkin — bitta xato bosish bilan butunlay yo'qolib
+      ketmasligi uchun darhol o'chirilmaydi, "chiqindilar"ga o'tkaziladi
+      (faol=False — mehmonlarga xuddi "muddati tugagan" kabi ko'rinadi,
+      ochirilgan_vaqt=hozir). CHIQINDI_SAQLASH_KUNLARI kun ichida admin
+      panelidan tiklash mumkin; shundan keyin `eski_chiqindilarni_tozalash`
+      boshqaruv buyrug'i butunlay o'chiradi.
     """
     sluglar = request.session.get(SESSIYA_KALITI, [])
     if slug not in sluglar:
@@ -497,13 +509,26 @@ def taklifnoma_ochirish(request, slug):
 
     taklifnoma = get_object_or_404(Taklifnoma, slug=slug)
     nomi = taklifnoma.sarlavha
-    taklifnoma.delete()
+
+    if taklifnoma.tolangan:
+        taklifnoma.faol = False
+        taklifnoma.ochirilgan_vaqt = timezone.now()
+        taklifnoma.save(update_fields=["faol", "ochirilgan_vaqt"])
+        xabar = _(
+            '"%(nomi)s" taklifnomasi o\'chirildi. Bu faollashtirilgan '
+            "taklifnoma bo'lgani uchun ma'lumotlari %(kun)s kun davomida "
+            "saqlanadi — agar xato bosgan bo'lsangiz, administratorga "
+            "murojaat qiling."
+        ) % {"nomi": nomi, "kun": CHIQINDI_SAQLASH_KUNLARI}
+    else:
+        taklifnoma.delete()
+        xabar = _('"%(nomi)s" taklifnomasi o\'chirildi.') % {"nomi": nomi}
 
     sluglar.remove(slug)
     request.session[SESSIYA_KALITI] = sluglar
     request.session.modified = True
 
-    messages.success(request, _('"%(nomi)s" taklifnomasi o\'chirildi.') % {"nomi": nomi})
+    messages.success(request, xabar)
     return redirect("taklif:mening_taklifnomalarim")
 
 

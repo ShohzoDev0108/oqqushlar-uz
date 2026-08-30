@@ -11,6 +11,14 @@ from django.utils.translation import gettext_lazy as _
 # manzillari uchun band (urls.py'ga qarang).
 MEHMON_REZERV_SLUGLAR = {"rsvp", "yoqdi"}
 
+# Mijoz o'zi FAOLLASHTIRILGAN (to'langan) taklifnomasini o'chirganda, u darhol
+# butunlay o'chirilmaydi — "chiqindilar"ga o'tkaziladi (Taklifnoma.faol=False,
+# ochirilgan_vaqt=hozir) va shu muddat davomida admin panelidan tiklanishi
+# mumkin. Muddat o'tgach, `eski_chiqindilarni_tozalash` boshqaruv buyrug'i
+# (management command) ularni butunlay o'chiradi (bu buyruq VPS'da kunlik
+# systemd timer orqali avtomatik ishga tushiriladi — README'ga qarang).
+CHIQINDI_SAQLASH_KUNLARI = 30
+
 # Marosim turlari — bozorda qabul qilingan nomlar asosida (Nikoh to'yi,
 # Qiz uzatish, Sunnat to'yi, Beshik to'yi, Nahor oshi, Yubiley...).
 # Eski kalitlar ("toy", "qizlar_bazmi") bazadagi mavjud yozuvlar buzilmasligi
@@ -192,6 +200,18 @@ class Taklifnoma(models.Model):
         help_text="Self-service oqimi uchun: mijoz to'laguncha False bo'ladi",
     )
     yaratilgan = models.DateTimeField(auto_now_add=True)
+    ochirilgan_vaqt = models.DateTimeField(
+        null=True,
+        blank=True,
+        editable=False,
+        help_text=(
+            "Mijoz o'zi o'chirgan FAOLLASHTIRILGAN (to'langan) taklifnoma shu "
+            "vaqtda \"chiqindilar\"ga o'tkazilgan — faol=False qilingan, lekin "
+            "ma'lumotlari (RSVP, rasmlar) darhol o'chirilmagan, "
+            "CHIQINDI_SAQLASH_KUNLARI kun ichida admin panelidan tiklash mumkin. "
+            "Bo'sh bo'lsa — hech qachon o'chirilmagan."
+        ),
+    )
 
     class Meta:
         verbose_name = "Taklifnoma"
