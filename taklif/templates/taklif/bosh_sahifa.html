@@ -106,7 +106,6 @@
 .oq-royxat a:hover { padding-left: 12px; color: var(--tilla-toq); }
 .oq-royxat .nomi { font-family: var(--serif); font-size: 1.2rem; }
 .oq-royxat .sana { color: var(--kul); font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; }
-.oq-bosh-xabar { color: var(--kul); padding: 24px 0; }
 
 /* --- Atirgul-romka bezaklari: sahifa bo'ylab bir necha joyda takrorlanadi
    (hero'da 4 burchak to'liq, har bir bo'lim boshida 2 burchak ingichkaroq) —
@@ -199,6 +198,39 @@
     </div>
 </header>
 
+{% if taklifnomalar %}
+{% comment %}
+Taftish topilmasi: ijtimoiy isbot (social proof) sifatida bu bo'lim
+avval sahifa pastida edi — endi hero'dan keyin, yuqorida joylashtirildi,
+shunda ziyoratchi qadam-baqadam yo'riqnomani o'qishdan oldin haqiqiy
+mijozlar borligini ko'radi. Faqat mijozlar rozilik bergan namunalar
+bo'lganda ko'rsatiladi — bo'sh "tez orada" xabari yuqorida yaxshi
+taassurot qoldirmaydi, shuning uchun bo'sh holatda bu bo'lim umuman
+chiqmaydi (pastdagi joyida bu muammo yo'q edi, chunki unchalik
+ko'zga tashlanmasdi).
+{% endcomment %}
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "So'nggi taklifnomalar" %}</span>
+            <h2 class="oq-h2">{% trans "Platformamizda faollashtirilgan taklifnomalardan namunalar" %}</h2>
+        </div>
+        <ul class="oq-royxat">
+            {% for t in taklifnomalar %}
+            <li>
+                <a href="{{ t.get_absolute_url }}">
+                    <span class="nomi">{{ t.sarlavha }}</span>
+                    <span class="sana">{{ t.get_marosim_turi_display }} — {{ t.sana|date:"d.m.Y" }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
 <section class="oq-bolim">
     <div class="oq-romka-burchak orb-tl"></div>
     <div class="oq-romka-burchak orb-tr"></div>
@@ -263,34 +295,6 @@
     </div>
 </section>
 {% endif %}
-
-<section class="oq-bolim">
-    <div class="oq-romka-burchak orb-tl"></div>
-    <div class="oq-romka-burchak orb-tr"></div>
-    <div class="oq-ichki">
-        <div class="oq-bolim-bosh">
-            <span class="oq-yorliq">{% trans "So'nggi taklifnomalar" %}</span>
-            <h2 class="oq-h2">{% trans "Platformamizda faollashtirilgan taklifnomalardan namunalar" %}</h2>
-        </div>
-        {% if taklifnomalar %}
-        <ul class="oq-royxat">
-            {% for t in taklifnomalar %}
-            <li>
-                <a href="{{ t.get_absolute_url }}">
-                    <span class="nomi">{{ t.sarlavha }}</span>
-                    <span class="sana">{{ t.get_marosim_turi_display }} — {{ t.sana|date:"d.m.Y" }}</span>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        {# Mijozlar ommaviy ko'rsatishga rozilik bermagan bo'lishi ham mumkin
-           (platforma bo'sh emas) — shuning uchun "birinchi bo'lib siz
-           yarating" kabi chalg'ituvchi matn emas, neytral matn ishlatiladi. #}
-        <p class="oq-bosh-xabar">{% trans "Namunalar tez orada shu yerda paydo bo'ladi." %}</p>
-        {% endif %}
-    </div>
-</section>
 
 {% include "taklif/_sayt_footer.html" %}
 
