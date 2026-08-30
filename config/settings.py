@@ -91,7 +91,10 @@ INSTALLED_APPS = [
     # django-axes — admin panelga (yoki boshqa Django login sahifasiga)
     # noto'g'ri parol bilan bir necha marta urinilsa, o'sha IP/foydalanuvchini
     # vaqtincha bloklaydi (pastdagi AXES_* sozlamalariga qarang).
-    "axes",
+    # "axes" o'rniga o'zimizning taklif.apps.OqqushlarAxesConfig — bu faqat
+    # boshqaruv panelidagi bo'lim nomini ("Axes") o'zbekcha qilib ko'rsatish
+    # uchun (paketning o'zi bu nomni tarjima qilinadigan qilib belgilamagan).
+    "taklif.apps.OqqushlarAxesConfig",
     "taklif",
 ]
 
@@ -107,6 +110,10 @@ MIDDLEWARE = [
     # turishi shart (Django hujjatlariga ko'ra) — mehmon tanlagan tilni
     # sessiya/cookie orqali eslab qolib, har bir so'rovda shu tilni faollashtiradi.
     "django.middleware.locale.LocaleMiddleware",
+    # Boshqaruv panelini xodim brauzer tilidan qat'i nazar doim o'zbek
+    # tilida ko'rsatish uchun — LocaleMiddleware'dan keyin turishi shart
+    # (aks holda LocaleMiddleware uning tanlovini qayta bosib ketadi).
+    "taklif.middleware.AdminTiliniMajburlashMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
