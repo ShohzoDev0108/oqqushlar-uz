@@ -66,6 +66,7 @@ belgilab qo'yamiz, shunda .xavfli klassi haqiqatan g'olib chiqadi.
             {% endif %}
             <div class="tugmalar">
                 <a class="oq-cta kichik" href="{{ t.get_absolute_url }}">{% trans "Ko'rish" %}</a>
+                <a class="oq-cta kichik" href="{{ t.get_statistika_url }}">{% trans "Statistika" %}</a>
                 {% if not t.tolangan %}
                 <a class="oq-cta kichik" href="{% url 'taklif:yoqdi' t.slug %}">{% trans "Yoqdi" %}</a>
                 {% endif %}

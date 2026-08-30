@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 18:32+0500\n"
+"POT-Creation-Date: 2026-08-31 00:21+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -325,6 +325,17 @@ msgstr ""
 "qazaqsha, qırgızsha, túrkmenshe hám qaraqalpaqsha. Til almastırıw túymesi "
 "hár bir bettiń joqarı jaǵında ornalasqan."
 
+msgid "Taklifnoma hali faollashtirilmagan"
+msgstr "Shaqırıw äli belsendirilmegen"
+
+msgid "Bu taklifnoma sahifasi hali tayyor emas"
+msgstr "Bul shaqırıw beti äli tayyar emes"
+
+msgid ""
+"Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
+"bog'laning."
+msgstr "Bul silteme äli belsendirilmegen. Shaqırıw iesi menen baylanısıń."
+
 msgid "Bosh sahifa"
 msgstr "Bas bet"
 
@@ -346,6 +357,9 @@ msgstr "Tólem kútilmekte"
 
 msgid "Ko'rish"
 msgstr "Kóriw"
+
+msgid "Statistika"
+msgstr "Statistika"
 
 msgid "Yoqdi"
 msgstr "Unadı"
@@ -542,9 +556,6 @@ msgstr "Ilajǵa shekem"
 msgid "taklifnomasi"
 msgstr "shaqırıwı"
 
-msgid "Statistika"
-msgstr "Statistika"
-
 msgid "Ochiq sahifani ko'rish"
 msgstr "Shaqırıwdı kóriw"
 
@@ -655,6 +666,9 @@ msgid ""
 msgstr ""
 "Tólem tastıyıqlanǵannan keyin shaqırıwıńız belsendiriledi hám onı qonaqlarǵa"
 " jiberе alasız (Telegram, Instagram h.t.b.)."
+
+msgid "Statistikani ko'rish"
+msgstr "Statistikanı kóriw"
 
 msgid "shabloni"
 msgstr "shablonı"

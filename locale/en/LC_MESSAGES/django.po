@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 18:32+0500\n"
+"POT-Creation-Date: 2026-08-31 00:21+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -328,6 +328,17 @@ msgstr ""
 "Kyrgyz, Turkmen, and Karakalpak. The language switcher is at the top of "
 "every page."
 
+msgid "Taklifnoma hali faollashtirilmagan"
+msgstr "Invitation not yet activated"
+
+msgid "Bu taklifnoma sahifasi hali tayyor emas"
+msgstr "This invitation page isn't ready yet"
+
+msgid ""
+"Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
+"bog'laning."
+msgstr "This link is not yet activated. Please contact the invitation owner."
+
 msgid "Bosh sahifa"
 msgstr "Home"
 
@@ -349,6 +360,9 @@ msgstr "Awaiting payment"
 
 msgid "Ko'rish"
 msgstr "View"
+
+msgid "Statistika"
+msgstr "Statistics"
 
 msgid "Yoqdi"
 msgstr "Like"
@@ -544,9 +558,6 @@ msgstr "Until the event"
 msgid "taklifnomasi"
 msgstr "invitation"
 
-msgid "Statistika"
-msgstr "Statistics"
-
 msgid "Ochiq sahifani ko'rish"
 msgstr "View invitation"
 
@@ -657,6 +668,9 @@ msgid ""
 msgstr ""
 "Once payment is confirmed, your invitation is activated and you can send it "
 "to your guests (Telegram, Instagram, etc.)."
+
+msgid "Statistikani ko'rish"
+msgstr "View statistics"
 
 msgid "shabloni"
 msgstr "template"

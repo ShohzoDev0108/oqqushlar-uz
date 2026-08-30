@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oqqushlar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 00:00+0500\n"
+"POT-Creation-Date: 2026-08-31 00:23+0500\n"
 "PO-Revision-Date: 2026-08-30 00:00+0500\n"
 "Last-Translator: Oqqushlar\n"
 "Language-Team: Uzbek\n"
@@ -12,6 +12,724 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Marosim turi"
+msgstr ""
+
+msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
+msgstr ""
+
+msgid "— tanlanmagan —"
+msgstr ""
+
+msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
+msgstr ""
+
+msgid "2-ism (ixtiyoriy, masalan: kelin)"
+msgstr ""
+
+msgid "Tadbir sanasi va vaqti"
+msgstr ""
+
+msgid "To'yxona/manzil nomi"
+msgstr ""
+
+msgid "Manzil"
+msgstr ""
+
+msgid "Xarita havolasi (ixtiyoriy)"
+msgstr ""
+
+msgid "Kiyinish kodi (ixtiyoriy)"
+msgstr ""
+
+msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
+msgstr ""
+
+msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
+msgstr ""
+
+msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
+msgstr ""
+
+msgid "Mehmonlar uchun Telegram guruhi (ixtiyoriy)"
+msgstr ""
+
+msgid ""
+"Taklifnomangiz sayt bosh sahifasida namuna sifatida boshqa mijozlarga "
+"ko'rsatilishiga rozimisiz?"
+msgstr ""
+
+msgid "Masalan: kuyov, tug'ilgan kun egasi"
+msgstr ""
+
+msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
+msgstr ""
+
+msgid "Masalan: rasmiy, yorug' ranglar"
+msgstr ""
+
+msgid "O'zingiz yuklamoqchi bo'lsangiz"
+msgstr ""
+
+msgid "Qo'shimcha tabrik/taklif matni"
+msgstr ""
+
+msgid "Pul sovg'a uchun karta raqami"
+msgstr ""
+
+msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
+msgstr ""
+
+msgid ""
+"Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
+"faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
+msgstr ""
+
+msgid "Bu marosim turi uchun ikkinchi ismni ham kiriting."
+msgstr ""
+
+msgid "Nikoh to'yi"
+msgstr ""
+
+msgid "Qiz uzatish"
+msgstr ""
+
+msgid "Sunnat to'yi"
+msgstr ""
+
+msgid "Beshik to'yi"
+msgstr ""
+
+msgid "Nahor oshi"
+msgstr ""
+
+msgid "Yubiley"
+msgstr ""
+
+msgid "Tug'ilgan kun"
+msgstr ""
+
+msgid "Boshqa"
+msgstr ""
+
+msgid "Zamonaviy"
+msgstr ""
+
+msgid "Milliy"
+msgstr ""
+
+msgid "Bolalar"
+msgstr ""
+
+msgid "Dizaynlar"
+msgstr ""
+
+msgid "Mening taklifnomalarim"
+msgstr ""
+
+msgid "Musiqani yoqish/o'chirish"
+msgstr ""
+
+msgid "Taklifnoma yaratish"
+msgstr ""
+
+msgid "Tilni tanlang"
+msgstr ""
+
+msgid "chiroyli raqamli taklifnomalar"
+msgstr ""
+
+msgid "Eng go'zal kuningiz uchun"
+msgstr ""
+
+msgid "raqamli taklifnoma"
+msgstr ""
+
+msgid "Tez va oson"
+msgstr ""
+
+msgid "Telefonda o'zingiz yarating"
+msgstr ""
+
+msgid ""
+"Dizaynni tanlang, ma'lumotlaringizni kiriting va tayyor taklifnomani shu "
+"zahoti ko'ring — bor-yo'g'i 5 daqiqada, ro'yxatdan o'tmasdan. To'lov — faqat"
+" yoqqanidan keyin."
+msgstr ""
+
+msgid "Barcha dizaynlarni ko'rish"
+msgstr ""
+
+msgid "So'nggi taklifnomalar"
+msgstr ""
+
+msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
+msgstr ""
+
+msgid "Qanday ishlaydi?"
+msgstr ""
+
+msgid "Uch oddiy qadam — va taklifnomangiz tayyor"
+msgstr ""
+
+msgid "Dizayn tanlang"
+msgstr ""
+
+msgid ""
+"Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga "
+"xos uslubda."
+msgstr ""
+
+msgid "Ma'lumotlarni to'ldiring"
+msgstr ""
+
+msgid ""
+"Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz "
+"kiritasiz."
+msgstr ""
+
+msgid "Ulashing"
+msgstr ""
+
+msgid ""
+"Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga "
+"Telegram yoki Instagram orqali yuboring."
+msgstr ""
+
+msgid "Dizayn shablonlari"
+msgstr ""
+
+msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
+msgstr ""
+
+msgid "Barchasi"
+msgstr ""
+
+msgid "so'm"
+msgstr ""
+
+msgid "Savol-javob"
+msgstr ""
+
+msgid "Ko'p so'raladigan savollar"
+msgstr ""
+
+msgid "To'lovni qanday amalga oshiraman?"
+msgstr ""
+
+msgid ""
+"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
+"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
+"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
+"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
+"faollashtiriladi."
+msgstr ""
+
+msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
+msgstr ""
+
+msgid ""
+"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
+"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Mening "
+"taklifnomalarim\" bo'limi orqali shu brauzeringizda yaratgan barcha "
+"taklifnomalaringizni istalgan vaqt qayta topishingiz mumkin."
+msgstr ""
+
+msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
+msgstr ""
+
+msgid ""
+"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
+"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
+" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
+"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
+msgstr ""
+
+msgid "Taklifnoma linki qachon tugaydi?"
+msgstr ""
+
+msgid ""
+"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
+"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
+"panelidan) qilinadi."
+msgstr ""
+
+msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
+msgstr ""
+
+msgid ""
+"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
+"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
+"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
+"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
+"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
+msgstr ""
+
+msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
+msgstr ""
+
+msgid ""
+"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
+"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
+"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
+"tanlashingiz mumkin."
+msgstr ""
+
+msgid "Qaysi tillarda ishlaydi?"
+msgstr ""
+
+msgid ""
+"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
+"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
+"joylashgan."
+msgstr ""
+
+msgid "Taklifnoma hali faollashtirilmagan"
+msgstr ""
+
+msgid "Bu taklifnoma sahifasi hali tayyor emas"
+msgstr ""
+
+msgid ""
+"Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
+"bog'laning."
+msgstr ""
+
+msgid "Bosh sahifa"
+msgstr ""
+
+msgid ""
+"Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
+"ko'rsatadi — ularni solishtirib, eng yoqqanini tanlashingiz mumkin."
+msgstr ""
+
+msgid "Yana bitta yaratish"
+msgstr ""
+
+msgid "Faollashtirilgan"
+msgstr ""
+
+msgid "To'lov kutilmoqda"
+msgstr ""
+
+msgid "Ko'rish"
+msgstr ""
+
+msgid "Statistika"
+msgstr ""
+
+msgid "Yoqdi"
+msgstr ""
+
+msgid ""
+"DIQQAT: bu taklifnoma FAOLLASHTIRILGAN — mehmonlarga yuborilgan va RSVP "
+"javoblari bo'lishi mumkin! O'chirilsa, darhol ko'rinmay qoladi (30 kun "
+"ichida administratorga murojaat qilib tiklash mumkin). Rostdan ham davom "
+"etasizmi?"
+msgstr ""
+
+msgid ""
+"Rostdan ham ushbu taklifnomani butunlay o'chirmoqchimisiz? Bu amalni ortga "
+"qaytarib bo'lmaydi."
+msgstr ""
+
+msgid "O'chirish"
+msgstr ""
+
+msgid "Siz hali hech qanday taklifnoma yaratmagansiz."
+msgstr ""
+
+msgid "Taklifnoma yopilgan"
+msgstr ""
+
+msgid "Ushbu taklifnoma sahifasi yopilgan"
+msgstr ""
+
+#, python-format
+msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
+msgstr ""
+
+msgid "Shablon tanlang"
+msgstr ""
+
+msgid ""
+"Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni "
+"to'ldirasiz."
+msgstr ""
+
+msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
+msgstr ""
+
+msgid "kun"
+msgstr ""
+
+msgid "soat"
+msgstr ""
+
+msgid "minut"
+msgstr ""
+
+msgid "sekund"
+msgstr ""
+
+msgid "Marosim kalendari"
+msgstr ""
+
+msgid "Du Se Ch Pa Ju Sh Ya"
+msgstr ""
+
+msgid "Fotolavha"
+msgstr ""
+
+msgid "Tadbir tafsilotlari"
+msgstr ""
+
+msgid "Sana"
+msgstr ""
+
+msgid "Vaqt"
+msgstr ""
+
+msgid "To'yxona"
+msgstr ""
+
+msgid "Kiyinish kodi"
+msgstr ""
+
+msgid "Tabrik sovg'asi"
+msgstr ""
+
+msgid ""
+"Ishtirokingiz — biz uchun eng qadrli sovg'a. Agar tabrik sovg'a qoldirmoqchi"
+" bo'lsangiz:"
+msgstr ""
+
+msgid "Nusxalandi!"
+msgstr ""
+
+msgid "RSVP — kelasizmi?"
+msgstr ""
+
+msgid "Ismingiz"
+msgstr ""
+
+msgid "Nechta kishi bo'lasiz?"
+msgstr ""
+
+msgid "1 dan 5 gacha"
+msgstr ""
+
+msgid "Kelasizmi?"
+msgstr ""
+
+msgid "Ha, albatta kelaman"
+msgstr ""
+
+msgid "Afsuski, kela olmayman"
+msgstr ""
+
+msgid "Izoh (ixtiyoriy)"
+msgstr ""
+
+msgid "Yuborish"
+msgstr ""
+
+msgid "Mehmonlar"
+msgstr ""
+
+#, python-format
+msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgstr ""
+
+#, python-format
+msgid "%(soni)s kishi"
+msgstr ""
+
+msgid "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling"
+msgstr ""
+
+msgid "Telegram guruhi"
+msgstr ""
+
+msgid "Do'stlaringizga ulashing"
+msgstr ""
+
+msgid "Taklifnomani yaqinlaringizga ham yuboring"
+msgstr ""
+
+msgid "Havolani nusxalash"
+msgstr ""
+
+#, python-format
+msgid "Hurmatli %(ism)s, sizga taklifnoma keldi"
+msgstr ""
+
+msgid "Sizga taklifnoma keldi"
+msgstr ""
+
+msgid "Taklifnomani ochish"
+msgstr ""
+
+msgid "Bu — sizning shaxsiy oldindan ko'rish havolangiz, hali ommaviy emas."
+msgstr ""
+
+msgid "Faollashtirish uchun Telegram orqali"
+msgstr ""
+
+msgid "bilan bog'laning."
+msgstr ""
+
+msgid "Yoqdi (yuborildi)"
+msgstr ""
+
+msgid "Yoqdi — adminga yozish"
+msgstr ""
+
+msgid "Qayta yaratish"
+msgstr ""
+
+msgid "Baxtli oilamizga"
+msgstr ""
+
+msgid "yil"
+msgstr ""
+
+msgid "bo'ldi"
+msgstr ""
+
+msgid "Marosimgacha"
+msgstr ""
+
+msgid "taklifnomasi"
+msgstr ""
+
+msgid "Ochiq sahifani ko'rish"
+msgstr ""
+
+#, python-format
+msgid "%(nomi)s — statistika"
+msgstr ""
+
+msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
+msgstr ""
+
+msgid "ko'rishlar"
+msgstr ""
+
+msgid "javoblar"
+msgstr ""
+
+msgid "keladi (mehmon)"
+msgstr ""
+
+msgid "kelmaydi"
+msgstr ""
+
+msgid "Ism"
+msgstr ""
+
+msgid "Holat"
+msgstr ""
+
+msgid "Mehmonlar soni"
+msgstr ""
+
+msgid "Izoh"
+msgstr ""
+
+msgid "Keladi"
+msgstr ""
+
+msgid "Kelmaydi"
+msgstr ""
+
+msgid "Hozircha javoblar yo'q."
+msgstr ""
+
+msgid "Mehmonlar uchun shaxsiy linklar"
+msgstr ""
+
+msgid ""
+"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+msgstr ""
+
+msgid "Ko'rdimi"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "ko'rdi"
+msgstr ""
+
+msgid "hali ko'rmagan"
+msgstr ""
+
+msgid ""
+"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
+"bo'limidan qo'shing."
+msgstr ""
+
+msgid "Tayyor!"
+msgstr ""
+
+msgid "Taklifnomangiz tayyor!"
+msgstr ""
+
+msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
+msgstr ""
+
+msgid "Nusxalash"
+msgstr ""
+
+msgid "Taklifnomani ko'rish"
+msgstr ""
+
+msgid ""
+"Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga "
+"ishonch hosil qiling."
+msgstr ""
+
+#, python-format
+msgid ""
+"Yoqsa — taklifnoma sahifasidagi <strong>\"Yoqdi\"</strong> tugmasini bosing,"
+" shu orqali to'g'ridan-to'g'ri Telegram orqali <strong>%(admin)s</strong> "
+"bilan bog'lanib to'lovni amalga oshirasiz."
+msgstr ""
+
+msgid ""
+"To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni "
+"mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi."
+msgstr ""
+
+msgid "Statistikani ko'rish"
+msgstr ""
+
+msgid "shabloni"
+msgstr ""
+
+msgid ""
+"Ma'lumotlaringizni to'ldiring. Yuborgach — taklifnomangiz shu zahoti tayyor "
+"bo'ladi (hali hech kimga ochiq emas)."
+msgstr ""
+
+#, python-format
+msgid ""
+"Sizda <strong>%(ism1)s %(ism2)s</strong> nomi bilan taklifnoma allaqachon "
+"bor (shu brauzerda avval yaratilgan)."
+msgstr ""
+
+msgid "Nima qilamiz?"
+msgstr ""
+
+msgid "Buni yangilayman (eskisi o'chadi)"
+msgstr ""
+
+msgid "Yo'q, alohida saqlayman"
+msgstr ""
+
+#, python-format
+msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
+msgstr ""
+
+msgid "O'z fotoyingiz hali bo'lmasa, tayyor namunalardan tanlashingiz mumkin:"
+msgstr ""
+
+#, python-format
+msgid "Namuna rasm %(soni)s"
+msgstr ""
+
+msgid "yoki"
+msgstr ""
+
+msgid "O'zingizning rasmingizni yuklang"
+msgstr ""
+
+msgid "Taklifnomani yaratish"
+msgstr ""
+
+msgid "Boshqa shablon tanlash"
+msgstr ""
+
+#, python-format
+msgid ""
+"Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
+"tanlang."
+msgstr ""
+
+#, python-format
+msgid ""
+"Fayl hajmi %(maks)s MB dan katta bo'lmasligi kerak (yuklangan fayl: "
+"%(hajm).1f MB)."
+msgstr ""
+
+#, python-format
+msgid ""
+"\"%(nomi)s\" fayli juda katta (%(hajm).1f MB). Rasm hajmi %(maks)s MB dan "
+"oshmasligi kerak."
+msgstr ""
+
+msgid "Iltimos, ismingizni kiriting."
+msgstr ""
+
+msgid "Javobingiz uchun rahmat!"
+msgstr ""
+
+msgid "Bu taklifnomani o'chira olmaysiz."
+msgstr ""
+
+#, python-format
+msgid ""
+"\"%(nomi)s\" taklifnomasi o'chirildi. Bu faollashtirilgan taklifnoma "
+"bo'lgani uchun ma'lumotlari %(kun)s kun davomida saqlanadi — agar xato "
+"bosgan bo'lsangiz, administratorga murojaat qiling."
+msgstr ""
+
+#, python-format
+msgid "\"%(nomi)s\" taklifnomasi o'chirildi."
+msgstr ""
+
+msgid "Sahifa topilmadi"
+msgstr ""
+
+msgid "Bunday sahifa topilmadi"
+msgstr ""
+
+msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
+msgstr ""
+
+msgid "Bosh sahifaga qaytish"
+msgstr ""
+
+msgid "Xatolik yuz berdi"
+msgstr ""
+
+msgid "Kechirasiz, xatolik yuz berdi"
+msgstr ""
+
+msgid ""
+"Sahifa vaqtincha ishlamayapti. Iltimos, birozdan so'ng qayta urinib ko'ring."
+msgstr ""
+
+msgid "Django site admin"
+msgstr "Django sayt boshqaruvi"
+
+msgid "Django administration"
+msgstr "Django boshqaruvi"
+
+#, python-format
+msgid "Sizni %(sana)s kunidagi marosimimizga taklif qilamiz"
+msgstr ""
+
+msgid "Oqqushlar — chiroyli elektron taklifnomalar"
+msgstr ""
+
+msgid ""
+"O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir "
+"necha daqiqada yarating."
+msgstr ""
 
 msgid "LogEntry Object"
 msgstr "LogEntry obyekti"
@@ -101,12 +819,6 @@ msgid ""
 msgstr ""
 "%(class_name)s %(instance)sni o'chirish quyidagi himoyalangan bog'liq "
 "obyektlarni ham o'chirishni talab qiladi: %(related_objects)s"
-
-msgid "Django site admin"
-msgstr "Django sayt boshqaruvi"
-
-msgid "Django administration"
-msgstr "Django boshqaruvi"
 
 msgid "Site administration"
 msgstr "Sayt boshqaruvi"

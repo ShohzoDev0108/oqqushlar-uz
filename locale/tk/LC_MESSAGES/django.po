@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 18:32+0500\n"
+"POT-Creation-Date: 2026-08-31 00:21+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -325,6 +325,17 @@ msgstr ""
 "Sahypa 8 dilde işleýär: özbek, rus, iňlis, täjik, gazak, gyrgyz, türkmen we "
 "garagalpak. Dil çalşyryjy her sahypanyň ýokarsynda ýerleşýär."
 
+msgid "Taklifnoma hali faollashtirilmagan"
+msgstr "Çakylyk entäk işjeňleşdirilmedi"
+
+msgid "Bu taklifnoma sahifasi hali tayyor emas"
+msgstr "Bu çakylyk sahypasy entäk taýyn däl"
+
+msgid ""
+"Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
+"bog'laning."
+msgstr "Bu salgy entäk işjeňleşdirilmedi. Çakylygyň eýesi bilen habarlaşyň."
+
 msgid "Bosh sahifa"
 msgstr "Baş sahypa"
 
@@ -346,6 +357,9 @@ msgstr "Töleg garaşylýar"
 
 msgid "Ko'rish"
 msgstr "Görmek"
+
+msgid "Statistika"
+msgstr "Statistika"
 
 msgid "Yoqdi"
 msgstr "Halandy"
@@ -538,9 +552,6 @@ msgstr "Dabara çenli"
 msgid "taklifnomasi"
 msgstr "çakylygy"
 
-msgid "Statistika"
-msgstr "Statistika"
-
 msgid "Ochiq sahifani ko'rish"
 msgstr "Çakylygy görmek"
 
@@ -651,6 +662,9 @@ msgid ""
 msgstr ""
 "Töleg tassyklanandan soň çakylygyňyz işjeňleşdiriler we ony myhmanlaryňyza "
 "iberip bilersiňiz (Telegram, Instagram we ş.m.)."
+
+msgid "Statistikani ko'rish"
+msgstr "Statistikany görmek"
 
 msgid "shabloni"
 msgstr "şablony"

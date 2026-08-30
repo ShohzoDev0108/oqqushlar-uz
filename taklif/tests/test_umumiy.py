@@ -67,6 +67,19 @@ class UmumiySahifalarTest(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertNotContains(r, "Umumiy")
 
+    def test_mening_taklifnomalarim_statistika_linkini_korsatadi(self):
+        # Taftish topilmasi: bu ro'yxatda "Statistika" havolasi yo'q edi —
+        # mijoz o'z taklifnomasi statistikasini topishning yagona doimiy
+        # joyi shu sahifa bo'lishi kerak edi.
+        from taklif.views import SESSIYA_KALITI
+
+        client = Client()
+        session = client.session
+        session[SESSIYA_KALITI] = [self.taklifnoma.slug]
+        session.save()
+        r = client.get("/mening-taklifnomalarim/")
+        self.assertContains(r, self.taklifnoma.get_statistika_url())
+
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class OmmaviyKorsatishRoziligiTest(TestCase):

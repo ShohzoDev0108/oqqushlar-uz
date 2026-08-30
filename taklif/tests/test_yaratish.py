@@ -49,6 +49,15 @@ class TaklifnomaYaratishTest(TestCase):
         t = Taklifnoma.objects.get(ism_1="Sessiyada")
         self.assertIn(t.slug, self.client.session.get(SESSIYA_KALITI, []))
 
+    def test_yaratildi_sahifasida_statistika_linki_bor(self):
+        # Taftish topilmasi: mijoz o'z taklifnomasi statistikasini (ko'rishlar,
+        # RSVP javoblari) qanday topishini bilmas edi — "Taklifnomangiz
+        # tayyor!" sahifasida havola yo'q edi. Endi shu yerda ham bor.
+        r = self._post({"ism_1": "StatistikaTopiladi"}, files=None)
+        t = Taklifnoma.objects.get(ism_1="StatistikaTopiladi")
+        tayyor = self.client.get(r.url)
+        self.assertContains(tayyor, t.get_statistika_url())
+
     def test_ikki_ismli_marosim_uchun_ism_2_shart(self):
         r = self._post({"marosim_turi": "toy", "ism_1": "Kuyov", "ism_2": ""})
         self.assertEqual(r.status_code, 200)  # forma xatosi bilan qaytadi, redirect emas

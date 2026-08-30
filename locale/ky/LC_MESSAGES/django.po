@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 18:32+0500\n"
+"POT-Creation-Date: 2026-08-31 00:21+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -325,6 +325,19 @@ msgstr ""
 "түркмөнчө жана каракалпакча. Тил которгуч ар бир баракчанын жогору жагында "
 "жайгашкан."
 
+msgid "Taklifnoma hali faollashtirilmagan"
+msgstr "Чакыруу азырынча активдештирилген эмес"
+
+msgid "Bu taklifnoma sahifasi hali tayyor emas"
+msgstr "Бул чакыруу барагы азырынча даяр эмес"
+
+msgid ""
+"Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
+"bog'laning."
+msgstr ""
+"Бул шилтеме азырынча активдештирилген эмес. Чакыруунун ээси менен "
+"байланышыңыз."
+
 msgid "Bosh sahifa"
 msgstr "Башкы бет"
 
@@ -346,6 +359,9 @@ msgstr "Төлөм күтүлүүдө"
 
 msgid "Ko'rish"
 msgstr "Көрүү"
+
+msgid "Statistika"
+msgstr "Статистика"
 
 msgid "Yoqdi"
 msgstr "Жакты"
@@ -541,9 +557,6 @@ msgstr "Иш-чарага чейин"
 msgid "taklifnomasi"
 msgstr "чакыруусу"
 
-msgid "Statistika"
-msgstr "Статистика"
-
 msgid "Ochiq sahifani ko'rish"
 msgstr "Чакырууну көрүү"
 
@@ -653,6 +666,9 @@ msgid ""
 msgstr ""
 "Төлөм тастыкталгандан кийин чакырууңуз активдештирилет жана аны конокторго "
 "жөнөтө аласыз (Telegram, Instagram ж.б.)."
+
+msgid "Statistikani ko'rish"
+msgstr "Статистиканы көрүү"
 
 msgid "shabloni"
 msgstr "шаблону"

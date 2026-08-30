@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 18:32+0500\n"
+"POT-Creation-Date: 2026-08-31 00:21+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -329,6 +329,18 @@ msgstr ""
 " туркманӣ ва қароқалпоқӣ. Тугмаи интихоби забон дар болои ҳар саҳифа ҷойгир "
 "аст."
 
+msgid "Taklifnoma hali faollashtirilmagan"
+msgstr "Даъватнома ҳанӯз фаъол нашудааст"
+
+msgid "Bu taklifnoma sahifasi hali tayyor emas"
+msgstr "Ин саҳифаи даъватнома ҳанӯз омода нест"
+
+msgid ""
+"Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
+"bog'laning."
+msgstr ""
+"Ин пайванд ҳанӯз фаъол нашудааст. Лутфан, бо соҳиби даъватнома тамос гиред."
+
 msgid "Bosh sahifa"
 msgstr "Саҳифаи асосӣ"
 
@@ -350,6 +362,9 @@ msgstr "Пардохт интизор аст"
 
 msgid "Ko'rish"
 msgstr "Дидан"
+
+msgid "Statistika"
+msgstr "Омор"
 
 msgid "Yoqdi"
 msgstr "Маъқул шуд"
@@ -546,9 +561,6 @@ msgstr "То чорабинӣ"
 msgid "taklifnomasi"
 msgstr "даъватнома"
 
-msgid "Statistika"
-msgstr "Омор"
-
 msgid "Ochiq sahifani ko'rish"
 msgstr "Дидани даъватнома"
 
@@ -659,6 +671,9 @@ msgid ""
 msgstr ""
 "Пас аз тасдиқи пардохт даъватномаатон фаъол мешавад ва шумо метавонед онро "
 "ба меҳмонон фиристед (Telegram, Instagram ва ғ.)."
+
+msgid "Statistikani ko'rish"
+msgstr "Дидани омор"
 
 msgid "shabloni"
 msgstr "шаблон"

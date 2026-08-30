@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 18:32+0500\n"
+"POT-Creation-Date: 2026-08-31 00:21+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -324,6 +324,19 @@ msgstr ""
 "казахском, киргизском, туркменском и каракалпакском. Переключатель языка "
 "находится вверху каждой страницы."
 
+msgid "Taklifnoma hali faollashtirilmagan"
+msgstr "Приглашение ещё не активировано"
+
+msgid "Bu taklifnoma sahifasi hali tayyor emas"
+msgstr "Эта страница приглашения ещё не готова"
+
+msgid ""
+"Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
+"bog'laning."
+msgstr ""
+"Эта ссылка ещё не активирована. Пожалуйста, свяжитесь с владельцем "
+"приглашения."
+
 msgid "Bosh sahifa"
 msgstr "Главная"
 
@@ -345,6 +358,9 @@ msgstr "Ожидается оплата"
 
 msgid "Ko'rish"
 msgstr "Смотреть"
+
+msgid "Statistika"
+msgstr "Статистика"
 
 msgid "Yoqdi"
 msgstr "Нравится"
@@ -540,9 +556,6 @@ msgstr "До торжества"
 msgid "taklifnomasi"
 msgstr "приглашение"
 
-msgid "Statistika"
-msgstr "Статистика"
-
 msgid "Ochiq sahifani ko'rish"
 msgstr "Посмотреть приглашение"
 
@@ -651,6 +664,9 @@ msgid ""
 msgstr ""
 "После подтверждения оплаты приглашение активируется, и вы сможете отправить "
 "его гостям (Telegram, Instagram и т.д.)."
+
+msgid "Statistikani ko'rish"
+msgstr "Посмотреть статистику"
 
 msgid "shabloni"
 msgstr "— шаблон"
