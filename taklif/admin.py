@@ -50,7 +50,11 @@ class MehmonInline(admin.TabularInline):
 
 @admin.register(Shablon)
 class ShablonAdmin(admin.ModelAdmin):
+    # "narx" list_editable — ro'yxatdagi har bir shablon narxini alohida
+    # sahifaga kirmasdan, to'g'ridan-to'g'ri shu yerda o'zgartirish mumkin
+    # (o'zgartirib, pastdagi "Saqlash" tugmasini bosish kifoya).
     list_display = ("nomi", "kod", "narx", "ommaviy")
+    list_editable = ("narx",)
     list_filter = ("ommaviy",)
     search_fields = ("nomi", "kod")
     prepopulated_fields = {"kod": ("nomi",)}

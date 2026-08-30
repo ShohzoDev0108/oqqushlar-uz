@@ -73,7 +73,11 @@ class Shablon(models.Model):
         help_text="Shablon tanlash sahifasida shu turkum ostida ko'rinadi",
     )
     rasm = models.ImageField(upload_to="shablonlar/", blank=True, null=True)
-    narx = models.DecimalField(max_digits=10, decimal_places=0)
+    narx = models.DecimalField(
+        max_digits=10,
+        decimal_places=0,
+        help_text="So'mda, masalan: 180000. Shablon tanlash va bosh sahifadagi narx shu yerdan olinadi.",
+    )
     ommaviy = models.BooleanField(
         default=True,
         help_text="False bo'lsa — individual/maxfiy shablon, faqat admin biriktira oladi",
