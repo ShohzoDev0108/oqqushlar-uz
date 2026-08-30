@@ -1,0 +1,176 @@
+/*
+Taftish topilmasi: admin panel hali ham Django'ning standart ko'rinishida
+edi — moviy sarlavha, "Django administration" nomi, logotipsiz — mijozlarga
+mo'ljallangan qismning oltin-qora "editorial" uslubidan butunlay farq
+qilardi. Bu fayl Django admin'ning o'zi belgilagan CSS o'zgaruvchilarini
+(custom properties) qayta belgilaydi — shablonlarni qayta yozmasdan, butun
+panelni Oqqushlar palitrasiga moslashtiradi (yorug' va qorong'i rejim
+ikkalasida ham).
+
+Ranglar taklif/templates/taklif/_sayt_uslubi.html'dagi --oq/--siyoh/--tilla
+va sh.k. o'zgaruvchilar bilan bir xil — ikki tizim orasida tanaffus
+bo'lmasligi uchun.
+*/
+
+:root {
+    --primary: #221c14;
+    --secondary: #2c2417;
+    --accent: #b08c33;
+    --primary-fg: #fdf9f0;
+
+    --body-fg: #221c14;
+    --body-bg: #fbf9f4;
+    --body-quiet-color: #8b7f6c;
+    --body-loud-color: #221c14;
+
+    --header-color: #f1e4c4;
+    --header-branding-color: var(--accent);
+    --header-bg: var(--secondary);
+    --header-link-color: #fdf9f0;
+
+    --breadcrumbs-fg: #d9c9a3;
+    --breadcrumbs-link-fg: var(--body-bg);
+    --breadcrumbs-bg: #33291a;
+
+    --link-fg: #8a6a1f;
+    --link-hover-color: #b08c33;
+    --link-selected-fg: var(--secondary);
+
+    --hairline-color: #e9e1d1;
+    --border-color: #e2d7bd;
+
+    --error-fg: #b3323b;
+
+    --darkened-bg: #f3efe2;
+    --selected-bg: #f5ecd4;
+    --selected-row: #f7ecd2;
+
+    --button-fg: #fff;
+    --button-bg: #b08c33;
+    --button-hover-bg: #8a6a1f;
+    --default-button-bg: #221c14;
+    --default-button-hover-bg: #3a3020;
+    --close-button-bg: #8b7f6c;
+    --close-button-hover-bg: #6b6153;
+    --delete-button-bg: #b3323b;
+    --delete-button-hover-bg: #8f2830;
+
+    --font-family-primary: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: #efe4c8;
+        --secondary: #1a160f;
+        --accent: #d8b25a;
+        --primary-fg: #1a160f;
+
+        --body-fg: #f1ece0;
+        --body-bg: #17130d;
+        --body-quiet-color: #b8ac93;
+        --body-loud-color: #fdf9f0;
+
+        --header-color: #f1e4c4;
+        --header-bg: #100d08;
+        --header-link-color: #f1e4c4;
+
+        --breadcrumbs-fg: #cbb989;
+        --breadcrumbs-bg: #0f0c07;
+
+        --link-fg: #d8b25a;
+        --link-hover-color: #e8c877;
+
+        --hairline-color: #332b1c;
+        --border-color: #3d3320;
+
+        --darkened-bg: #1f1a11;
+        --selected-bg: #2a2213;
+        --selected-row: #2a2213;
+    }
+}
+
+html[data-theme="dark"] {
+    --primary: #efe4c8;
+    --secondary: #1a160f;
+    --accent: #d8b25a;
+    --primary-fg: #1a160f;
+
+    --body-fg: #f1ece0;
+    --body-bg: #17130d;
+    --body-quiet-color: #b8ac93;
+    --body-loud-color: #fdf9f0;
+
+    --header-color: #f1e4c4;
+    --header-bg: #100d08;
+    --header-link-color: #f1e4c4;
+
+    --breadcrumbs-fg: #cbb989;
+    --breadcrumbs-bg: #0f0c07;
+
+    --link-fg: #d8b25a;
+    --link-hover-color: #e8c877;
+
+    --hairline-color: #332b1c;
+    --border-color: #3d3320;
+
+    --darkened-bg: #1f1a11;
+    --selected-bg: #2a2213;
+    --selected-row: #2a2213;
+}
+
+/* --- Oqqush belgili sarlavha --- */
+#header {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .18);
+}
+#site-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: .4px;
+}
+#site-name a:link, #site-name a:visited {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--header-branding-color);
+}
+#branding-logo {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+#user-tools a {
+    border-bottom-color: var(--accent);
+}
+
+/* --- Modul sarlavhalari va tugmalar --- */
+.module h2, .module caption, .inline-group h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: .3px;
+}
+.button, input[type="submit"], input[type="button"], .submit-row input, a.button {
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: .78rem;
+}
+.object-tools a.addlink {
+    border-radius: 2px;
+}
+
+/* --- Login ekrani --- */
+.login #site-name {
+    text-align: center;
+}
+.login #site-name a:link, .login #site-name a:visited {
+    justify-content: center;
+}
+.login .submit-row input {
+    width: 100%;
+}
+
+/* --- Ro'yxat (changelist) qatorlari --- */
+#changelist table thead th {
+    letter-spacing: .3px;
+}

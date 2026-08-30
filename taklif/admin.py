@@ -13,6 +13,14 @@ from .models import (
     TaklifnomaRasm,
 )
 
+# Taftish topilmasi: admin panel standart Django nomlanishida edi
+# ("Django administration") — endi sayt nomiga mos (logotip va ranglar
+# uchun qarang: templates/admin/base_site.html va
+# taklif/static/taklif/admin/oqqushlar_admin.css).
+admin.site.site_header = "Oqqushlar — boshqaruv paneli"
+admin.site.site_title = "Oqqushlar admin"
+admin.site.index_title = "Boshqaruv paneli"
+
 
 class RSVPInline(admin.TabularInline):
     model = RSVP

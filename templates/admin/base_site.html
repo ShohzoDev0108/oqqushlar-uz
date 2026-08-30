@@ -1,0 +1,36 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% comment %}
+Taftish topilmasi: admin panel standart Django ko'rinishida edi (logotipsiz,
+moviy sarlavha) — mijozga mo'ljallangan qismning oltin-qora uslubidan farq
+qilardi. Bu shablon faqat brendlash uchun — mantiq o'zgarmagan, Django'ning
+o'z admin/base_site.html'ini almashtiradi (u ham "admin/base.html"'ni extend
+qiladi, xuddi shu block'lar bilan).
+{% endcomment %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'taklif/admin/oqqushlar_admin.css' %}">
+{% endblock %}
+
+{% block extrahead %}
+<link rel="icon" href="{% static 'taklif/favicon.png' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}">
+    <img id="branding-logo" src="{% static 'taklif/logo-belgi.png' %}" alt="">
+    {{ site_header|default:_('Django administration') }}
+  </a>
+</div>
+{% if user.is_anonymous %}
+  {% include "admin/color_theme_toggle.html" %}
+{% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
