@@ -1,0 +1,41 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% trans "Xatolik yuz berdi" %} — Oqqushlar</title>
+<style>
+    /*
+    DIQQAT: bu sahifa ataylab base.html'ni kengaytirmaydi va hech qanday
+    context processor'ga (baza so'roviga) bog'liq emas — chunki bu aynan
+    server xato bergan (masalan, baza ishlamay qolgan) paytda ko'rsatiladi.
+    Agar shu sahifaning o'zi ham murakkab bo'lsa, "xato sahifasining o'zi
+    xato berishi" kabi yomon holat yuzaga kelishi mumkin edi. Shuning uchun
+    bu yerda faqat statik matn va ranglar (base.html bilan bir xil uslubda).
+    */
+    :root { color-scheme: dark; }
+    body {
+        margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        background: #0f2027; color: #f5efe0;
+        font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        text-align: center; padding: 24px; box-sizing: border-box;
+    }
+    h1 { font-size: 1.6rem; margin-bottom: 12px; }
+    p { color: #cfc7b4; line-height: 1.6; }
+    a {
+        display: inline-block; margin-top: 18px; padding: 10px 22px;
+        border: 1px solid #c9a24a; color: #c9a24a; text-decoration: none;
+        border-radius: 2px; letter-spacing: 1px; font-size: .85rem;
+    }
+    a:hover { background: #c9a24a; color: #1a1208; }
+</style>
+</head>
+<body>
+<div>
+    <h1>{% trans "Kechirasiz, xatolik yuz berdi" %}</h1>
+    <p>{% trans "Sahifa vaqtincha ishlamayapti. Iltimos, birozdan so'ng qayta urinib ko'ring." %}</p>
+    <a href="/">{% trans "Bosh sahifaga qaytish" %}</a>
+</div>
+</body>
+</html>
