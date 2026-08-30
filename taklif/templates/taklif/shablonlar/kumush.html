@@ -42,9 +42,9 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 #parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
 .konvert { position: relative; width: 310px; height: 205px; max-width: 86vw; perspective: 1000px; margin-bottom: 34px; }
 .konvert-orqa { position: absolute; inset: 0; background: var(--konvert); border-radius: 10px; box-shadow: 0 14px 40px rgba(0,0,0,.28); }
-.konvert-xat { position: absolute; left: 14px; right: 14px; top: 14px; bottom: 14px; background: #fffdf8; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; transition: transform .8s cubic-bezier(.2,.7,.3,1) .6s, box-shadow .8s ease .6s; }
-.konvert-xat h2 { font-size: .74rem; letter-spacing: 1px; text-transform: uppercase; color: #8d8578; margin: 0 0 8px; font-weight: normal; }
-.konvert-xat p { font-size: 1.2rem; color: var(--asos); margin: 0; font-weight: bold; }
+.konvert-xat { position: absolute; left: 14px; right: 14px; top: 14px; bottom: 14px; background: #fffdf8; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; overflow: hidden; transition: transform .8s cubic-bezier(.2,.7,.3,1) .6s, box-shadow .8s ease .6s; }
+.konvert-xat h2 { font-size: .74rem; letter-spacing: 1px; text-transform: uppercase; color: #8d8578; margin: 0 0 8px; font-weight: normal; line-height: 1.4; word-break: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.konvert-xat p { font-size: 1.2rem; color: var(--asos); margin: 0; font-weight: bold; word-break: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .konvert-old { position: absolute; inset: 0; background: var(--konvert); border-radius: 10px; clip-path: polygon(0 34%, 50% 62%, 100% 34%, 100% 100%, 0 100%); z-index: 3; }
 .konvert-qopqoq { position: absolute; left: 0; right: 0; top: 0; height: 105px; background: var(--konvert-qopqoq); clip-path: polygon(0 0, 100% 0, 50% 100%); border-radius: 10px 10px 0 0; transform-origin: top center; transition: transform .7s ease, z-index 0s .7s; z-index: 4; display: flex; align-items: flex-start; justify-content: center; }
 .konvert-qopqoq .muhr { color: var(--asos-matn); opacity: .9; font-size: 1.25rem; margin-top: 13px; }

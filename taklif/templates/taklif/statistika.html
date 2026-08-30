@@ -1,70 +1,90 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Statistika — {{ taklifnoma.sarlavha }}{% endblock %}
 
 {% block extra_style %}
-h1 { font-size: 1.6rem; }
-.karta-blok { display: flex; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
-.karta { background: rgba(255,255,255,.08); border-radius: 12px; padding: 16px 20px; flex: 1; min-width: 140px; }
-.karta .son { font-size: 1.8rem; font-weight: bold; }
+{% include "taklif/_sayt_uslubi.html" %}
+
+.oq-stat-oralig { max-width: 900px; margin: 0 auto; padding-bottom: 60px; }
+.stat-orqaga { color: var(--kul); text-decoration: none; font-size: .85rem; }
+.stat-orqaga:hover { color: var(--tilla-toq); }
+.stat-ogohlantirish { color: var(--kul); font-size: .85rem; margin: 4px 0 30px; }
+
+.karta-blok { display: flex; gap: 16px; margin: 20px 0 40px; flex-wrap: wrap; }
+.karta {
+    background: var(--toza); border: 1px solid var(--chiziq); border-radius: 4px;
+    padding: 18px 22px; flex: 1; min-width: 140px;
+}
+.karta .son { font-family: var(--serif); font-size: 2.1rem; color: var(--siyoh); line-height: 1.1; }
+.karta .yorliq { color: var(--kul); font-size: .78rem; letter-spacing: 1px; margin-top: 4px; }
+
 table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-th, td { text-align: left; padding: 8px; border-bottom: 1px solid rgba(255,255,255,.1); }
-.ha { color: #7ed957; }
-.yoq { color: #ff6b6b; }
-h2 { font-size: 1.1rem; margin-top: 40px; }
-.mehmon-link { font-family: monospace; font-size: .8rem; opacity: .85; cursor: pointer; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--chiziq); font-size: .92rem; }
+th { color: var(--kul); font-size: .72rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: normal; }
+.ha { color: #2e7d4f; font-weight: 600; }
+.yoq { color: #b3323b; font-weight: 600; }
+h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
+.mehmon-link { font-family: monospace; font-size: .8rem; color: var(--kul); cursor: pointer; word-break: break-all; }
+.mehmon-link:hover { color: var(--tilla-toq); }
 .korilgan-belgi { font-size: .85rem; }
 {% endblock %}
 
 {% block content %}
-<p><a href="{{ taklifnoma.get_absolute_url }}" style="color:#c9a227;">&larr; Ochiq sahifani ko'rish</a></p>
-<h1>{{ taklifnoma.sarlavha }} — statistika</h1>
-<p style="opacity:.7; font-size:.85rem;">Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang.</p>
+{% include "taklif/_sayt_nav.html" %}
 
-<div class="karta-blok">
-    <div class="karta"><div class="son">{{ taklifnoma.korishlar }}</div><div>ko'rishlar</div></div>
-    <div class="karta"><div class="son">{{ javoblar.count }}</div><div>javoblar</div></div>
-    <div class="karta"><div class="son ha">{{ keladiganlar_soni }}</div><div>keladi (mehmon)</div></div>
-    <div class="karta"><div class="son yoq">{{ kelmaydiganlar_soni }}</div><div>kelmaydi</div></div>
+<div class="oq-ichki">
+    <div class="oq-stat-oralig">
+        <p style="padding-top:24px;"><a class="stat-orqaga" href="{{ taklifnoma.get_absolute_url }}">&larr; {% trans "Ochiq sahifani ko'rish" %}</a></p>
+        <h1 class="oq-h1" style="font-size:clamp(1.8rem, 4vw, 2.6rem);">{{ taklifnoma.sarlavha }} — statistika</h1>
+        <p class="stat-ogohlantirish">Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang.</p>
+
+        <div class="karta-blok">
+            <div class="karta"><div class="son">{{ taklifnoma.korishlar }}</div><div class="yorliq">ko'rishlar</div></div>
+            <div class="karta"><div class="son">{{ javoblar.count }}</div><div class="yorliq">javoblar</div></div>
+            <div class="karta"><div class="son ha">{{ keladiganlar_soni }}</div><div class="yorliq">keladi (mehmon)</div></div>
+            <div class="karta"><div class="son yoq">{{ kelmaydiganlar_soni }}</div><div class="yorliq">kelmaydi</div></div>
+        </div>
+
+        <table>
+            <thead>
+                <tr><th>Ism</th><th>Holat</th><th>Mehmonlar soni</th><th>Izoh</th><th>Sana</th></tr>
+            </thead>
+            <tbody>
+                {% for j in javoblar %}
+                <tr>
+                    <td>{{ j.ism }}</td>
+                    <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}Keladi{% else %}Kelmaydi{% endif %}</td>
+                    <td>{{ j.mehmonlar_soni }}</td>
+                    <td>{{ j.izoh|default:"—" }}</td>
+                    <td>{{ j.yaratilgan|date:"d.m.Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5">Hozircha javoblar yo'q.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="oq-h2">Mehmonlar uchun shaxsiy linklar</h2>
+        <p class="stat-ogohlantirish" style="margin-bottom:14px;">Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring.</p>
+        <table>
+            <thead>
+                <tr><th>Ism</th><th>Ko'rdimi</th><th>Link</th></tr>
+            </thead>
+            <tbody>
+                {% for m in mehmonlar %}
+                <tr>
+                    <td>{{ m.ism }}</td>
+                    <td class="korilgan-belgi">{% if m.korilgan %}✅ ko'rdi{% else %}— hali ko'rmagan{% endif %}</td>
+                    <td>
+                        <span class="mehmon-link" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent='Nusxalandi!';">{{ m.get_absolute_url }}</span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3">Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida "Mehmonlar" bo'limidan qo'shing.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<table>
-    <thead>
-        <tr><th>Ism</th><th>Holat</th><th>Mehmonlar soni</th><th>Izoh</th><th>Sana</th></tr>
-    </thead>
-    <tbody>
-        {% for j in javoblar %}
-        <tr>
-            <td>{{ j.ism }}</td>
-            <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}Keladi{% else %}Kelmaydi{% endif %}</td>
-            <td>{{ j.mehmonlar_soni }}</td>
-            <td>{{ j.izoh|default:"—" }}</td>
-            <td>{{ j.yaratilgan|date:"d.m.Y H:i" }}</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="5">Hozircha javoblar yo'q.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<h2>Mehmonlar uchun shaxsiy linklar</h2>
-<p style="opacity:.7; font-size:.85rem;">Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring.</p>
-<table>
-    <thead>
-        <tr><th>Ism</th><th>Ko'rdimi</th><th>Link</th></tr>
-    </thead>
-    <tbody>
-        {% for m in mehmonlar %}
-        <tr>
-            <td>{{ m.ism }}</td>
-            <td class="korilgan-belgi">{% if m.korilgan %}✅ ko'rdi{% else %}— hali ko'rmagan{% endif %}</td>
-            <td>
-                <span class="mehmon-link" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent='Nusxalandi!';">{{ m.get_absolute_url }}</span>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="3">Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida "Mehmonlar" bo'limidan qo'shing.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
 {% endblock %}

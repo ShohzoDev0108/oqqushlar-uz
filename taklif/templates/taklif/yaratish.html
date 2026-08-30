@@ -30,9 +30,10 @@
 }
 .tugma-ikkinchi:hover { border-color: var(--tilla-toq); color: var(--tilla-toq); }
 
-.namuna-rasm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; margin-top: 8px; }
+.namuna-rasm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; margin-top: 8px; }
 .namuna-rasm-item { position: relative; display: block; aspect-ratio: 1; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; }
-.namuna-rasm-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.namuna-rasm-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+.namuna-rasm-item:hover img { transform: scale(1.08); }
 .namuna-rasm-item input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
 .namuna-rasm-item .namuna-belgi {
     position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%;
