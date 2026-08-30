@@ -11,6 +11,16 @@ urlpatterns = [
     path("tayyor/<slug:slug>/", views.yaratildi, name="yaratildi"),
     path("statistika/<str:token>/", views.statistika, name="statistika"),
     path(
+        "statistika/<str:token>/mehmon-qoshish/",
+        views.mehmon_qoshish,
+        name="mehmon_qoshish",
+    ),
+    path(
+        "statistika/<str:token>/mehmon-ochirish/<int:mehmon_id>/",
+        views.mehmon_ochirish,
+        name="mehmon_ochirish",
+    ),
+    path(
         "mening-taklifnomalarim/",
         views.mening_taklifnomalarim,
         name="mening_taklifnomalarim",

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 00:21+0500\n"
+"POT-Creation-Date: 2026-08-31 01:01+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,48 +18,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: taklif/forms.py:29
 msgid "Marosim turi"
 msgstr "Тип мероприятия"
 
+#: taklif/forms.py:34
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Выбрать из готовой музыки (необязательно)"
 
+#: taklif/forms.py:37
 msgid "— tanlanmagan —"
 msgstr "— не выбрано —"
 
+#: taklif/forms.py:69
 msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
 msgstr "Имя 1 (например: жених, именинник)"
 
+#: taklif/forms.py:70
 msgid "2-ism (ixtiyoriy, masalan: kelin)"
 msgstr "Имя 2 (необязательно, например: невеста)"
 
+#: taklif/forms.py:71 taklif/forms.py:88
 msgid "Tadbir sanasi va vaqti"
 msgstr "Дата и время мероприятия"
 
+#: taklif/forms.py:72
 msgid "To'yxona/manzil nomi"
 msgstr "Название зала/места"
 
+#: taklif/forms.py:73 taklif/templates/taklif/shablonlar/_bolimlar.html:272
 msgid "Manzil"
 msgstr "Адрес"
 
+#: taklif/forms.py:74
 msgid "Xarita havolasi (ixtiyoriy)"
 msgstr "Ссылка на карту (необязательно)"
 
+#: taklif/forms.py:75
 msgid "Kiyinish kodi (ixtiyoriy)"
 msgstr "Дресс-код (необязательно)"
 
+#: taklif/forms.py:76
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr "Загрузить свою музыку (необязательно)"
 
+#: taklif/forms.py:77
 msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
 msgstr "Дополнительный текст поздравления (необязательно)"
 
+#: taklif/forms.py:78
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
 msgstr "Номер карты для денежного подарка (необязательно)"
 
+#: taklif/forms.py:79
 msgid "Mehmonlar uchun Telegram guruhi (ixtiyoriy)"
 msgstr "Telegram-группа для гостей (необязательно)"
 
+#: taklif/forms.py:81
 msgid ""
 "Taklifnomangiz sayt bosh sahifasida namuna sifatida boshqa mijozlarga "
 "ko'rsatilishiga rozimisiz?"
@@ -67,27 +82,35 @@ msgstr ""
 "Согласны ли вы, чтобы ваше приглашение было показано другим клиентам в "
 "качестве примера на главной странице сайта?"
 
+#: taklif/forms.py:86
 msgid "Masalan: kuyov, tug'ilgan kun egasi"
 msgstr "Например: жених, именинник"
 
+#: taklif/forms.py:87
 msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
 msgstr "Второе имя (например: невеста). Если не нужно — оставьте пустым"
 
+#: taklif/forms.py:89
 msgid "Masalan: rasmiy, yorug' ranglar"
 msgstr "Например: официальный, светлые тона"
 
+#: taklif/forms.py:90
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Если хотите загрузить свой файл"
 
+#: taklif/forms.py:91
 msgid "Qo'shimcha tabrik/taklif matni"
 msgstr "Дополнительный текст поздравления/приглашения"
 
+#: taklif/forms.py:92
 msgid "Pul sovg'a uchun karta raqami"
 msgstr "Номер карты для денежного подарка"
 
+#: taklif/forms.py:93
 msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
 msgstr "Ссылка на Telegram-группу/канал для гостей"
 
+#: taklif/forms.py:95
 msgid ""
 "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
 "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
@@ -95,72 +118,112 @@ msgstr ""
 "Необязательно. Даже если вы не включите это, ваше приглашение будет работать"
 " как обычно — это касается только списка примеров на главной странице."
 
+#: taklif/forms.py:107
 msgid "Bu marosim turi uchun ikkinchi ismni ham kiriting."
 msgstr "Для этого типа мероприятия введите и второе имя."
 
+#: taklif/models.py:42
 msgid "Nikoh to'yi"
 msgstr "Свадьба (никох)"
 
+#: taklif/models.py:43
 msgid "Qiz uzatish"
 msgstr "Проводы невесты"
 
+#: taklif/models.py:44
 msgid "Sunnat to'yi"
 msgstr "Той по случаю обрезания"
 
+#: taklif/models.py:45
 msgid "Beshik to'yi"
 msgstr "Бешик-туй"
 
+#: taklif/models.py:46
 msgid "Nahor oshi"
 msgstr "Утренний плов (нахор оши)"
 
+#: taklif/models.py:47
 msgid "Yubiley"
 msgstr "Юбилей"
 
+#: taklif/models.py:48
 msgid "Tug'ilgan kun"
 msgstr "День рождения"
 
+#: taklif/models.py:49
 msgid "Boshqa"
 msgstr "Другое"
 
+#: taklif/models.py:58 taklif/templates/taklif/bosh_sahifa.html:292
+#: taklif/templates/taklif/shablon_tanlash.html:34
 msgid "Zamonaviy"
 msgstr "Современный"
 
+#: taklif/models.py:59 taklif/templates/taklif/bosh_sahifa.html:293
+#: taklif/templates/taklif/shablon_tanlash.html:35
 msgid "Milliy"
 msgstr "Национальный"
 
+#: taklif/models.py:60 taklif/templates/taklif/bosh_sahifa.html:294
+#: taklif/templates/taklif/shablon_tanlash.html:36
 msgid "Bolalar"
 msgstr "Детский"
 
+#: taklif/templates/taklif/_sayt_footer.html:9
+#: taklif/templates/taklif/_sayt_nav.html:14
+#: taklif/templates/taklif/shablon_tanlash.html:22
+#: taklif/templates/taklif/yaratish.html:65
 msgid "Dizaynlar"
 msgstr "Дизайны"
 
+#: taklif/templates/taklif/_sayt_footer.html:10
+#: taklif/templates/taklif/_sayt_nav.html:15
+#: taklif/templates/taklif/mening_taklifnomalarim.html:4
+#: taklif/templates/taklif/mening_taklifnomalarim.html:42
+#: taklif/templates/taklif/mening_taklifnomalarim.html:44
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:20
+#: taklif/templates/taklif/yaratildi.html:58
 msgid "Mening taklifnomalarim"
 msgstr "Мои приглашения"
 
+#: taklif/templates/taklif/_sayt_musiqa.html:11
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:26
 msgid "Musiqani yoqish/o'chirish"
 msgstr "Включить/выключить музыку"
 
+#: taklif/templates/taklif/_sayt_nav.html:19
+#: taklif/templates/taklif/_sayt_nav.html:25
+#: taklif/templates/taklif/bosh_sahifa.html:213
+#: taklif/templates/taklif/yaratish.html:4
 msgid "Taklifnoma yaratish"
 msgstr "Создать приглашение"
 
+#: taklif/templates/taklif/_til_almashtirish.html:25
+#: taklif/templates/taklif/_til_almashtirish.html:37
 msgid "Tilni tanlang"
 msgstr "Выберите язык"
 
+#: taklif/templates/taklif/bosh_sahifa.html:4
 msgid "chiroyli raqamli taklifnomalar"
 msgstr "красивые цифровые приглашения"
 
+#: taklif/templates/taklif/bosh_sahifa.html:205
 msgid "Eng go'zal kuningiz uchun"
 msgstr "Для вашего самого прекрасного дня"
 
+#: taklif/templates/taklif/bosh_sahifa.html:205
 msgid "raqamli taklifnoma"
 msgstr "цифровое приглашение"
 
+#: taklif/templates/taklif/bosh_sahifa.html:207
 msgid "Tez va oson"
 msgstr "Быстро и просто"
 
+#: taklif/templates/taklif/bosh_sahifa.html:208
 msgid "Telefonda o'zingiz yarating"
 msgstr "Создайте сами прямо с телефона"
 
+#: taklif/templates/taklif/bosh_sahifa.html:210
 msgid ""
 "Dizaynni tanlang, ma'lumotlaringizni kiriting va tayyor taklifnomani shu "
 "zahoti ko'ring — bor-yo'g'i 5 daqiqada, ro'yxatdan o'tmasdan. To'lov — faqat"
@@ -169,41 +232,52 @@ msgstr ""
 "Выберите дизайн, введите данные — и сразу увидите готовое приглашение. Всего"
 " за 5 минут, без регистрации. Оплата — только если понравится."
 
+#: taklif/templates/taklif/bosh_sahifa.html:214
 msgid "Barcha dizaynlarni ko'rish"
 msgstr "Смотреть все дизайны"
 
+#: taklif/templates/taklif/bosh_sahifa.html:236
 msgid "So'nggi taklifnomalar"
 msgstr "Последние приглашения"
 
+#: taklif/templates/taklif/bosh_sahifa.html:237
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
 msgstr "Примеры активированных приглашений на нашей платформе"
 
+#: taklif/templates/taklif/bosh_sahifa.html:258
 msgid "Qanday ishlaydi?"
 msgstr "Как это работает?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:259
 msgid "Uch oddiy qadam — va taklifnomangiz tayyor"
 msgstr "Три простых шага — и ваше приглашение готово"
 
+#: taklif/templates/taklif/bosh_sahifa.html:264
 msgid "Dizayn tanlang"
 msgstr "Выберите дизайн"
 
+#: taklif/templates/taklif/bosh_sahifa.html:265
 msgid ""
 "Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga "
 "xos uslubda."
 msgstr "Выберите понравившийся из готовых шаблонов — каждый в своём стиле."
 
+#: taklif/templates/taklif/bosh_sahifa.html:269
 msgid "Ma'lumotlarni to'ldiring"
 msgstr "Заполните данные"
 
+#: taklif/templates/taklif/bosh_sahifa.html:270
 msgid ""
 "Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz "
 "kiritasiz."
 msgstr ""
 "Тип мероприятия, имена, дата, адрес, фото и музыка — всё вводите сами."
 
+#: taklif/templates/taklif/bosh_sahifa.html:274
 msgid "Ulashing"
 msgstr "Поделитесь"
 
+#: taklif/templates/taklif/bosh_sahifa.html:275
 msgid ""
 "Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga "
 "Telegram yoki Instagram orqali yuboring."
@@ -211,27 +285,37 @@ msgstr ""
 "Посмотрите готовое приглашение, активируйте, если понравится, и отправьте "
 "близким через Telegram или Instagram."
 
+#: taklif/templates/taklif/bosh_sahifa.html:287
 msgid "Dizayn shablonlari"
 msgstr "Шаблоны дизайна"
 
+#: taklif/templates/taklif/bosh_sahifa.html:288
 msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Выберите и сразу создайте своё"
 
+#: taklif/templates/taklif/bosh_sahifa.html:291
+#: taklif/templates/taklif/shablon_tanlash.html:33
 msgid "Barchasi"
 msgstr "Все"
 
+#: taklif/templates/taklif/bosh_sahifa.html:309
+#: taklif/templates/taklif/shablon_tanlash.html:51
 msgid "so'm"
 msgstr "сум"
 
+#: taklif/templates/taklif/bosh_sahifa.html:332
 msgid "Savol-javob"
 msgstr "Вопросы и ответы"
 
+#: taklif/templates/taklif/bosh_sahifa.html:333
 msgid "Ko'p so'raladigan savollar"
 msgstr "Часто задаваемые вопросы"
 
+#: taklif/templates/taklif/bosh_sahifa.html:337
 msgid "To'lovni qanday amalga oshiraman?"
 msgstr "Как мне оплатить?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:338
 msgid ""
 "Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
 "taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
@@ -244,9 +328,11 @@ msgstr ""
 "— это напрямую свяжет вас с нашим админом в Telegram, где вы обсудите детали"
 " оплаты. После подтверждения оплаты ваше приглашение активируется."
 
+#: taklif/templates/taklif/bosh_sahifa.html:341
 msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
 msgstr "Нужно ли мне регистрироваться или придумывать пароль?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:342
 msgid ""
 "Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
 "dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Mening "
@@ -257,9 +343,11 @@ msgstr ""
 "выбираете дизайн и заполняете свои данные. В разделе «Мои приглашения» вы в "
 "любой момент можете снова найти все приглашения, созданные в этом браузере."
 
+#: taklif/templates/taklif/bosh_sahifa.html:345
 msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
 msgstr "Если я допустил ошибку в данных, могу ли я её исправить?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:346
 msgid ""
 "Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
 "taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
@@ -271,9 +359,11 @@ msgstr ""
 "более серьёзном изменении или проблеме вы можете написать напрямую нашему "
 "админу через кнопку «Нравится» на странице приглашения."
 
+#: taklif/templates/taklif/bosh_sahifa.html:349
 msgid "Taklifnoma linki qachon tugaydi?"
 msgstr "Истекает ли ссылка на приглашение?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:350
 msgid ""
 "Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
 "ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
@@ -283,9 +373,11 @@ msgstr ""
 "свадьба или торжество прошли. Деактивировать её можно только вручную, из "
 "админ-панели."
 
+#: taklif/templates/taklif/bosh_sahifa.html:353
 msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
 msgstr "Могу ли я отслеживать ответы гостей (придут / не придут)?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:354
 msgid ""
 "Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
 "sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
@@ -299,9 +391,11 @@ msgstr ""
 "персональные ссылки. Ссылку вы найдёте на странице «Ваше приглашение "
 "готово!»."
 
+#: taklif/templates/taklif/bosh_sahifa.html:357
 msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
 msgstr "Сколько фото и какую музыку я могу добавить?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:358
 msgid ""
 "Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
 "yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
@@ -312,9 +406,11 @@ msgstr ""
 "готовых образцов. Для музыки вы также можете загрузить свою (до 15 МБ) или "
 "выбрать один из готовых вариантов."
 
+#: taklif/templates/taklif/bosh_sahifa.html:361
 msgid "Qaysi tillarda ishlaydi?"
 msgstr "На каких языках это работает?"
 
+#: taklif/templates/taklif/bosh_sahifa.html:362
 msgid ""
 "Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
 "va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
@@ -324,12 +420,15 @@ msgstr ""
 "казахском, киргизском, туркменском и каракалпакском. Переключатель языка "
 "находится вверху каждой страницы."
 
+#: taklif/templates/taklif/faollashtirilmagan.html:4
 msgid "Taklifnoma hali faollashtirilmagan"
 msgstr "Приглашение ещё не активировано"
 
+#: taklif/templates/taklif/faollashtirilmagan.html:21
 msgid "Bu taklifnoma sahifasi hali tayyor emas"
 msgstr "Эта страница приглашения ещё не готова"
 
+#: taklif/templates/taklif/faollashtirilmagan.html:22
 msgid ""
 "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
 "bog'laning."
@@ -337,9 +436,13 @@ msgstr ""
 "Эта ссылка ещё не активирована. Пожалуйста, свяжитесь с владельцем "
 "приглашения."
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:40
+#: taklif/templates/taklif/shablon_tanlash.html:20
+#: taklif/templates/taklif/yaratish.html:63
 msgid "Bosh sahifa"
 msgstr "Главная"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:46
 msgid ""
 "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
 "ko'rsatadi — ularni solishtirib, eng yoqqanini tanlashingiz mumkin."
@@ -347,24 +450,33 @@ msgstr ""
 "Этот список показывает все приглашения, созданные вами в этом браузере — "
 "сравните их и выберите самое лучшее."
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:52
+#: taklif/templates/taklif/yaratildi.html:59
 msgid "Yana bitta yaratish"
 msgstr "Создать ещё одно"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:63
 msgid "Faollashtirilgan"
 msgstr "Активировано"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:65
 msgid "To'lov kutilmoqda"
 msgstr "Ожидается оплата"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:68
 msgid "Ko'rish"
 msgstr "Смотреть"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:69
+#: taklif/templates/taklif/statistika.html:4
 msgid "Statistika"
 msgstr "Статистика"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:71
 msgid "Yoqdi"
 msgstr "Нравится"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:74
 msgid ""
 "DIQQAT: bu taklifnoma FAOLLASHTIRILGAN — mehmonlarga yuborilgan va RSVP "
 "javoblari bo'lishi mumkin! O'chirilsa, darhol ko'rinmay qoladi (30 kun "
@@ -376,6 +488,7 @@ msgstr ""
 " обратиться к администратору для восстановления). Вы действительно хотите "
 "продолжить?"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:74
 msgid ""
 "Rostdan ham ushbu taklifnomani butunlay o'chirmoqchimisiz? Bu amalni ortga "
 "qaytarib bo'lmaydi."
@@ -383,73 +496,99 @@ msgstr ""
 "Вы действительно хотите полностью удалить это приглашение? Это действие "
 "нельзя отменить."
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:76
+#: taklif/templates/taklif/statistika.html:106
 msgid "O'chirish"
 msgstr "Удалить"
 
+#: taklif/templates/taklif/mening_taklifnomalarim.html:83
 msgid "Siz hali hech qanday taklifnoma yaratmagansiz."
 msgstr "Вы ещё не создали ни одного приглашения."
 
+#: taklif/templates/taklif/muddati_tugagan.html:4
 msgid "Taklifnoma yopilgan"
 msgstr "Приглашение закрыто"
 
+#: taklif/templates/taklif/muddati_tugagan.html:21
 msgid "Ushbu taklifnoma sahifasi yopilgan"
 msgstr "Эта страница приглашения закрыта"
 
+#: taklif/templates/taklif/muddati_tugagan.html:22
 #, python-format
 msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "Страница, связанная с %(nomi)s, больше не активна."
 
+#: taklif/templates/taklif/shablon_tanlash.html:4
+#: taklif/templates/taklif/shablon_tanlash.html:24
 msgid "Shablon tanlang"
 msgstr "Выберите шаблон"
 
+#: taklif/templates/taklif/shablon_tanlash.html:26
 msgid ""
 "Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni "
 "to'ldirasiz."
 msgstr ""
 "Выберите понравившийся дизайн — на следующем шаге заполните свои данные."
 
+#: taklif/templates/taklif/shablon_tanlash.html:57
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "Пока нет шаблонов. Добавьте в админ-панели."
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:200
+#: taklif/templates/taklif/shablonlar/_skript.html:4
 msgid "kun"
 msgstr "дней"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:201
 msgid "soat"
 msgstr "часов"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:202
 msgid "minut"
 msgstr "минут"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:203
 msgid "sekund"
 msgstr "секунд"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:209
 msgid "Marosim kalendari"
 msgstr "Календарь торжества"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:214
 msgid "Du Se Ch Pa Ju Sh Ya"
 msgstr "Пн Вт Ср Чт Пт Сб Вс"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:226
 msgid "Fotolavha"
 msgstr "Фотогалерея"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:250
 msgid "Tadbir tafsilotlari"
 msgstr "Детали мероприятия"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:254
+#: taklif/templates/taklif/statistika.html:63
 msgid "Sana"
 msgstr "Дата"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:259
 msgid "Vaqt"
 msgstr "Время"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:265
 msgid "To'yxona"
 msgstr "Место проведения"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:279
 msgid "Kiyinish kodi"
 msgstr "Дресс-код"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:300
 msgid "Tabrik sovg'asi"
 msgstr "Подарок"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:302
 msgid ""
 "Ishtirokingiz — biz uchun eng qadrli sovg'a. Agar tabrik sovg'a qoldirmoqchi"
 " bo'lsangiz:"
@@ -457,197 +596,312 @@ msgstr ""
 "Ваше присутствие — самый ценный для нас подарок. Если хотите оставить "
 "денежный подарок:"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:303
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:384
+#: taklif/templates/taklif/statistika.html:100
+#: taklif/templates/taklif/yaratildi.html:45
 msgid "Nusxalandi!"
 msgstr "Скопировано!"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:310
 msgid "RSVP — kelasizmi?"
 msgstr "RSVP — вы придёте?"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:315
 msgid "Ismingiz"
 msgstr "Ваше имя"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:318
 msgid "Nechta kishi bo'lasiz?"
 msgstr "Сколько человек будет?"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:325
 msgid "1 dan 5 gacha"
 msgstr "От 1 до 5"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:327
 msgid "Kelasizmi?"
 msgstr "Вы придёте?"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:330
 msgid "Ha, albatta kelaman"
 msgstr "Да, обязательно приду"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:331
 msgid "Afsuski, kela olmayman"
 msgstr "К сожалению, не смогу прийти"
 
-msgid "Izoh (ixtiyoriy)"
-msgstr "Комментарий (необязательно)"
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:334
+msgid "Izoh — faqat mezbonga (ixtiyoriy)"
+msgstr "Комментарий — только для хозяина (необязательно)"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:335
+msgid "Masalan: allergiya, maxsus talab"
+msgstr "Например: аллергия, особые пожелания"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:337
+msgid "Tilak / tabrigingiz — sahifada barchaga ko'rinadi (ixtiyoriy)"
+msgstr ""
+"Ваше пожелание / поздравление — видно всем на странице (необязательно)"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:338
+msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
+msgstr "Напишите здесь пожелание молодожёнам (или хозяевам торжества)"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:340
 msgid "Yuborish"
 msgstr "Отправить"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:346
 msgid "Mehmonlar"
 msgstr "Гости"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:347
 #, python-format
 msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
 msgstr "Уже <strong>%(soni)s</strong> человек подтвердили, что придут"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:351
 #, python-format
 msgid "%(soni)s kishi"
 msgstr "%(soni)s человек"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:359
+msgid "Tilaklar"
+msgstr "Пожелания"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:374
 msgid "Yangiliklar va suratlar uchun Telegram guruhimizga qo'shiling"
 msgstr "Присоединяйтесь к нашей Telegram-группе за новостями и фото"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:375
 msgid "Telegram guruhi"
 msgstr "Telegram-группа"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:381
 msgid "Do'stlaringizga ulashing"
 msgstr "Поделитесь с близкими"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:383
 msgid "Taklifnomani yaqinlaringizga ham yuboring"
 msgstr "Отправьте приглашение и вашим близким"
 
+#: taklif/templates/taklif/shablonlar/_bolimlar.html:389
 msgid "Havolani nusxalash"
 msgstr "Скопировать ссылку"
 
+#: taklif/templates/taklif/shablonlar/_konvert_parda.html:12
 #, python-format
 msgid "Hurmatli %(ism)s, sizga taklifnoma keldi"
 msgstr "Уважаемый(ая) %(ism)s, для вас приглашение"
 
+#: taklif/templates/taklif/shablonlar/_konvert_parda.html:14
 msgid "Sizga taklifnoma keldi"
 msgstr "Для вас приглашение"
 
+#: taklif/templates/taklif/shablonlar/_konvert_parda.html:21
 msgid "Taklifnomani ochish"
 msgstr "Открыть приглашение"
 
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:12
 msgid "Bu — sizning shaxsiy oldindan ko'rish havolangiz, hali ommaviy emas."
 msgstr "Это ваша личная предпросмотровая ссылка, она ещё не опубликована."
 
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:13
 msgid "Faollashtirish uchun Telegram orqali"
 msgstr "Чтобы активировать, свяжитесь с"
 
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:15
 msgid "bilan bog'laning."
 msgstr "в Telegram."
 
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:18
 msgid "Yoqdi (yuborildi)"
 msgstr "Понравилось (отправлено)"
 
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:18
 msgid "Yoqdi — adminga yozish"
 msgstr "Нравится — написать администратору"
 
+#: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:19
 msgid "Qayta yaratish"
 msgstr "Создать заново"
 
+#: taklif/templates/taklif/shablonlar/_skript.html:2
 msgid "Baxtli oilamizga"
 msgstr "Прошло с момента нашего торжества"
 
+#: taklif/templates/taklif/shablonlar/_skript.html:3
 msgid "yil"
 msgstr "лет"
 
+#: taklif/templates/taklif/shablonlar/_skript.html:5
 msgid "bo'ldi"
 msgstr " "
 
+#: taklif/templates/taklif/shablonlar/_skript.html:6
 msgid "Marosimgacha"
 msgstr "До торжества"
 
+#: taklif/templates/taklif/shablonlar/adras.html:133
+#: taklif/templates/taklif/shablonlar/anor.html:145
+#: taklif/templates/taklif/shablonlar/aurora.html:137
+#: taklif/templates/taklif/shablonlar/chinni.html:137
+#: taklif/templates/taklif/shablonlar/kristall.html:160
+#: taklif/templates/taklif/shablonlar/kumush.html:129
+#: taklif/templates/taklif/shablonlar/nurafshon.html:149
+#: taklif/templates/taklif/shablonlar/qandil.html:131
+#: taklif/templates/taklif/shablonlar/qirgiz.html:129
+#: taklif/templates/taklif/shablonlar/qozoq.html:131
+#: taklif/templates/taklif/shablonlar/ravoq.html:140
+#: taklif/templates/taklif/shablonlar/sadaf.html:136
+#: taklif/templates/taklif/shablonlar/shoyi.html:137
+#: taklif/templates/taklif/shablonlar/suzani.html:136
+#: taklif/templates/taklif/shablonlar/tojik.html:135
+#: taklif/templates/taklif/shablonlar/turkman.html:131
+#: taklif/templates/taklif/shablonlar/zardoz.html:133
+#: taklif/templates/taklif/shablonlar/zarhal.html:133
+#: taklif/templates/taklif/shablonlar/zarnigor.html:137
 msgid "taklifnomasi"
 msgstr "приглашение"
 
+#: taklif/templates/taklif/statistika.html:50
 msgid "Ochiq sahifani ko'rish"
 msgstr "Посмотреть приглашение"
 
+#: taklif/templates/taklif/statistika.html:51
 #, python-format
 msgid "%(nomi)s — statistika"
 msgstr "%(nomi)s — статистика"
 
+#: taklif/templates/taklif/statistika.html:52
 msgid "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang."
 msgstr "Эта страница видна только вам. Никому не отправляйте ссылку."
 
+#: taklif/templates/taklif/statistika.html:55
 msgid "ko'rishlar"
 msgstr "просмотры"
 
+#: taklif/templates/taklif/statistika.html:56
 msgid "javoblar"
 msgstr "ответы"
 
+#: taklif/templates/taklif/statistika.html:57
 msgid "keladi (mehmon)"
 msgstr "придут (гостей)"
 
+#: taklif/templates/taklif/statistika.html:58
 msgid "kelmaydi"
 msgstr "не придут"
 
+#: taklif/templates/taklif/statistika.html:63
+#: taklif/templates/taklif/statistika.html:92
 msgid "Ism"
 msgstr "Имя"
 
+#: taklif/templates/taklif/statistika.html:63
 msgid "Holat"
 msgstr "Статус"
 
+#: taklif/templates/taklif/statistika.html:63
 msgid "Mehmonlar soni"
 msgstr "Количество гостей"
 
-msgid "Izoh"
-msgstr "Комментарий"
+#: taklif/templates/taklif/statistika.html:63
+msgid "Izoh (faqat sizga)"
+msgstr "Комментарий (только вам)"
 
+#: taklif/templates/taklif/statistika.html:63
+msgid "Tilak (hammaga ochiq)"
+msgstr "Пожелание (видно всем)"
+
+#: taklif/templates/taklif/statistika.html:69
 msgid "Keladi"
 msgstr "Придёт"
 
+#: taklif/templates/taklif/statistika.html:69
 msgid "Kelmaydi"
 msgstr "Не придёт"
 
+#: taklif/templates/taklif/statistika.html:76
 msgid "Hozircha javoblar yo'q."
 msgstr "Пока нет ответов."
 
+#: taklif/templates/taklif/statistika.html:81
 msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Персональные ссылки для гостей"
 
+#: taklif/templates/taklif/statistika.html:82
 msgid ""
-"Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni "
-"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring."
+"Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
+"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
+"kirgani zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim "
+"hali ko'rmaganini bilib turasiz."
 msgstr ""
-"Персональная ссылка для каждого гостя, добавленного в админ-панели — "
-"отправьте эту ссылку тому самому гостю через Telegram/Instagram."
+"Создайте персональную ссылку для каждого гостя — отправьте эту ссылку лично "
+"ему через Telegram/Instagram. Как только он перейдёт по ней, это будет "
+"отмечено как «просмотрено», и вы будете точно знать, кто уже видел "
+"приглашение, а кто ещё нет."
 
+#: taklif/templates/taklif/statistika.html:86
+msgid "Mehmon ismi, masalan: Aziz oila"
+msgstr "Имя гостя, например: семья Азиза"
+
+#: taklif/templates/taklif/statistika.html:87
+msgid "Qo'shish"
+msgstr "Добавить"
+
+#: taklif/templates/taklif/statistika.html:92
 msgid "Ko'rdimi"
 msgstr "Просмотрено?"
 
+#: taklif/templates/taklif/statistika.html:92
 msgid "Link"
 msgstr "Ссылка"
 
+#: taklif/templates/taklif/statistika.html:98
 msgid "ko'rdi"
 msgstr "просмотрел(а)"
 
+#: taklif/templates/taklif/statistika.html:98
 msgid "hali ko'rmagan"
 msgstr "ещё не просмотрел(а)"
 
-msgid ""
-"Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida \"Mehmonlar\" "
-"bo'limidan qo'shing."
-msgstr ""
-"Гости пока не добавлены. Добавьте их в разделе «Гости» внутри приглашения в "
-"админ-панели."
+#: taklif/templates/taklif/statistika.html:103
+msgid "Bu mehmonning shaxsiy linki o'chirilsinmi?"
+msgstr "Удалить персональную ссылку этого гостя?"
 
+#: taklif/templates/taklif/statistika.html:111
+msgid "Hali mehmon qo'shilmagan. Yuqoridagi formadan qo'shing."
+msgstr "Гости пока не добавлены. Добавьте их через форму выше."
+
+#: taklif/templates/taklif/yaratildi.html:4
 msgid "Tayyor!"
 msgstr "Готово!"
 
+#: taklif/templates/taklif/yaratildi.html:40
 msgid "Taklifnomangiz tayyor!"
 msgstr "Ваше приглашение готово!"
 
+#: taklif/templates/taklif/yaratildi.html:42
 msgid "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:"
 msgstr "Это — ваша личная ссылка. Отправьте её своим гостям:"
 
+#: taklif/templates/taklif/yaratildi.html:45
 msgid "Nusxalash"
 msgstr "Скопировать"
 
+#: taklif/templates/taklif/yaratildi.html:48
 msgid "Taklifnomani ko'rish"
 msgstr "Посмотреть приглашение"
 
+#: taklif/templates/taklif/yaratildi.html:51
 msgid ""
 "Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga "
 "ishonch hosil qiling."
 msgstr "Откройте приглашение по кнопке выше и убедитесь, что всё верно."
 
+#: taklif/templates/taklif/yaratildi.html:52
 #, python-format
 msgid ""
 "Yoqsa — taklifnoma sahifasidagi <strong>\"Yoqdi\"</strong> tugmasini bosing,"
@@ -658,6 +912,7 @@ msgstr ""
 "приглашения: так вы напрямую свяжетесь в Telegram с "
 "<strong>%(admin)s</strong> и оплатите."
 
+#: taklif/templates/taklif/yaratildi.html:53
 msgid ""
 "To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni "
 "mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi."
@@ -665,12 +920,15 @@ msgstr ""
 "После подтверждения оплаты приглашение активируется, и вы сможете отправить "
 "его гостям (Telegram, Instagram и т.д.)."
 
+#: taklif/templates/taklif/yaratildi.html:57
 msgid "Statistikani ko'rish"
 msgstr "Посмотреть статистику"
 
+#: taklif/templates/taklif/yaratish.html:69
 msgid "shabloni"
 msgstr "— шаблон"
 
+#: taklif/templates/taklif/yaratish.html:71
 msgid ""
 "Ma'lumotlaringizni to'ldiring. Yuborgach — taklifnomangiz shu zahoti tayyor "
 "bo'ladi (hali hech kimga ochiq emas)."
@@ -678,6 +936,7 @@ msgstr ""
 "Заполните свои данные. После отправки приглашение будет готово сразу же "
 "(пока никому не видно)."
 
+#: taklif/templates/taklif/yaratish.html:80
 #, python-format
 msgid ""
 "Sizda <strong>%(ism1)s %(ism2)s</strong> nomi bilan taklifnoma allaqachon "
@@ -686,38 +945,49 @@ msgstr ""
 "У вас уже есть приглашение с именами <strong>%(ism1)s %(ism2)s</strong> "
 "(создано ранее в этом браузере)."
 
+#: taklif/templates/taklif/yaratish.html:81
 msgid "Nima qilamiz?"
 msgstr "Что делаем?"
 
+#: taklif/templates/taklif/yaratish.html:83
 msgid "Buni yangilayman (eskisi o'chadi)"
 msgstr "Обновить его (старое удалится)"
 
+#: taklif/templates/taklif/yaratish.html:84
 msgid "Yo'q, alohida saqlayman"
 msgstr "Нет, сохранить отдельно"
 
+#: taklif/templates/taklif/yaratish.html:103
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Фотографии (не более %(soni)s шт., необязательно)"
 
+#: taklif/templates/taklif/yaratish.html:105
 msgid "O'z fotoyingiz hali bo'lmasa, tayyor namunalardan tanlashingiz mumkin:"
 msgstr "Если у вас пока нет своих фото, можете выбрать из готовых образцов:"
 
+#: taklif/templates/taklif/yaratish.html:110
 #, python-format
 msgid "Namuna rasm %(soni)s"
 msgstr "Пример фото %(soni)s"
 
+#: taklif/templates/taklif/yaratish.html:115
 msgid "yoki"
 msgstr "или"
 
+#: taklif/templates/taklif/yaratish.html:117
 msgid "O'zingizning rasmingizni yuklang"
 msgstr "Загрузите свою фотографию"
 
+#: taklif/templates/taklif/yaratish.html:131
 msgid "Taklifnomani yaratish"
 msgstr "Создать приглашение"
 
+#: taklif/templates/taklif/yaratish.html:135
 msgid "Boshqa shablon tanlash"
 msgstr "Выбрать другой шаблон"
 
+#: taklif/templates/taklif/yaratish.html:178
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
@@ -725,6 +995,7 @@ msgid ""
 msgstr ""
 "Можно выбрать не более %(soni)s фотографий. Пожалуйста, выберите заново."
 
+#: taklif/validators.py:29
 #, python-format
 msgid ""
 "Fayl hajmi %(maks)s MB dan katta bo'lmasligi kerak (yuklangan fayl: "
@@ -733,6 +1004,7 @@ msgstr ""
 "Размер файла не должен превышать %(maks)s МБ (загруженный файл: %(hajm).1f "
 "МБ)."
 
+#: taklif/views.py:138
 #, python-format
 msgid ""
 "\"%(nomi)s\" fayli juda katta (%(hajm).1f MB). Rasm hajmi %(maks)s MB dan "
@@ -741,15 +1013,19 @@ msgstr ""
 "Файл \"%(nomi)s\" слишком большой (%(hajm).1f МБ). Размер фото не должен "
 "превышать %(maks)s МБ."
 
+#: taklif/views.py:516
 msgid "Iltimos, ismingizni kiriting."
 msgstr "Пожалуйста, введите ваше имя."
 
+#: taklif/views.py:549
 msgid "Javobingiz uchun rahmat!"
 msgstr "Спасибо за ваш ответ!"
 
+#: taklif/views.py:595
 msgid "Bu taklifnomani o'chira olmaysiz."
 msgstr "Вы не можете удалить это приглашение."
 
+#: taklif/views.py:606
 #, python-format
 msgid ""
 "\"%(nomi)s\" taklifnomasi o'chirildi. Bu faollashtirilgan taklifnoma "
@@ -760,51 +1036,80 @@ msgstr ""
 "приглашение, его данные будут храниться %(kun)s дней — если вы сделали это "
 "по ошибке, обратитесь к администратору."
 
+#: taklif/views.py:613
 #, python-format
 msgid "\"%(nomi)s\" taklifnomasi o'chirildi."
 msgstr "Приглашение \"%(nomi)s\" удалено."
 
+#: taklif/views.py:668
+msgid "Iltimos, mehmon ismini kiriting."
+msgstr "Пожалуйста, введите имя гостя."
+
+#: taklif/views.py:671
+#, python-format
+msgid "\"%(ism)s\" uchun shaxsiy link yaratildi."
+msgstr "Персональная ссылка для «%(ism)s» создана."
+
+#: taklif/views.py:680
+msgid "Mehmon o'chirildi."
+msgstr "Гость удалён."
+
+#: templates/404.html:4
 msgid "Sahifa topilmadi"
 msgstr "Страница не найдена"
 
+#: templates/404.html:35
 msgid "Bunday sahifa topilmadi"
 msgstr "Такая страница не найдена"
 
+#: templates/404.html:36
 msgid "Havola noto'g'ri yoki bu sahifa endi mavjud emas."
 msgstr "Ссылка неверна, или этой страницы больше не существует."
 
+#: templates/404.html:37 templates/500.html:38
 msgid "Bosh sahifaga qaytish"
 msgstr "Вернуться на главную"
 
+#: templates/500.html:7
 msgid "Xatolik yuz berdi"
 msgstr "Произошла ошибка"
 
+#: templates/500.html:36
 msgid "Kechirasiz, xatolik yuz berdi"
 msgstr "Извините, произошла ошибка"
 
+#: templates/500.html:37
 msgid ""
 "Sahifa vaqtincha ishlamayapti. Iltimos, birozdan so'ng qayta urinib ko'ring."
 msgstr "Страница временно не работает. Пожалуйста, попробуйте немного позже."
 
+#: templates/admin/base_site.html:12
 msgid "Django site admin"
 msgstr "Администрирование сайта Django"
 
+#: templates/admin/base_site.html:28
 msgid "Django administration"
 msgstr "Администрирование Django"
 
+#: templates/base.html:37
 #, python-format
 msgid "Sizni %(sana)s kunidagi marosimimizga taklif qilamiz"
 msgstr "Приглашаем вас на наше торжество %(sana)s"
 
+#: templates/base.html:48
 msgid "Oqqushlar — chiroyli elektron taklifnomalar"
 msgstr "Oqqushlar — красивые электронные приглашения"
 
+#: templates/base.html:49
 msgid ""
 "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir "
 "necha daqiqada yarating."
 msgstr ""
 "Самые красивые и современные электронные приглашения для Узбекистана. "
 "Создайте за несколько минут."
+
+#~ msgid "Izoh"
+#~ msgstr "Комментарий"
 
 #~ msgid "Admin panel"
 #~ msgstr "Админ-панель"

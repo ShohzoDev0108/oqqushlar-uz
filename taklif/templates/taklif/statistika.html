@@ -28,6 +28,18 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
 .mehmon-link { font-family: monospace; font-size: .8rem; color: var(--kul); cursor: pointer; word-break: break-all; }
 .mehmon-link:hover { color: var(--tilla-toq); }
 .korilgan-belgi { font-size: .85rem; }
+.mehmon-qoshish-forma { display: flex; gap: 10px; margin: 14px 0 22px; flex-wrap: wrap; }
+.mehmon-qoshish-forma input[type="text"] {
+    flex: 1; min-width: 180px; padding: 10px 12px; border: 1px solid var(--chiziq);
+    border-radius: 4px; background: var(--toza); color: var(--siyoh); font-size: .9rem;
+}
+.mehmon-qoshish-forma button {
+    padding: 10px 20px; border: none; border-radius: 4px; background: var(--tilla-toq);
+    color: #1a1208; font-weight: 600; cursor: pointer; font-size: .88rem;
+}
+.mehmon-qoshish-forma button:hover { opacity: .9; }
+.mehmon-ochirish { color: var(--kul); font-size: .78rem; text-decoration: none; border: none; background: none; cursor: pointer; padding: 0; font-family: inherit; }
+.mehmon-ochirish:hover { color: #b3323b; }
 {% endblock %}
 
 {% block content %}
@@ -48,7 +60,7 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
 
         <table>
             <thead>
-                <tr><th>{% trans "Ism" %}</th><th>{% trans "Holat" %}</th><th>{% trans "Mehmonlar soni" %}</th><th>{% trans "Izoh" %}</th><th>{% trans "Sana" %}</th></tr>
+                <tr><th>{% trans "Ism" %}</th><th>{% trans "Holat" %}</th><th>{% trans "Mehmonlar soni" %}</th><th>{% trans "Izoh (faqat sizga)" %}</th><th>{% trans "Tilak (hammaga ochiq)" %}</th><th>{% trans "Sana" %}</th></tr>
             </thead>
             <tbody>
                 {% for j in javoblar %}
@@ -57,19 +69,27 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
                     <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}{% trans "Keladi" %}{% else %}{% trans "Kelmaydi" %}{% endif %}</td>
                     <td>{{ j.mehmonlar_soni }}</td>
                     <td>{{ j.izoh|default:"—" }}</td>
+                    <td>{{ j.tilak|default:"—" }}</td>
                     <td>{{ j.yaratilgan|date:"d.m.Y H:i" }}</td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="5">{% trans "Hozircha javoblar yo'q." %}</td></tr>
+                <tr><td colspan="6">{% trans "Hozircha javoblar yo'q." %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <h2 class="oq-h2">{% trans "Mehmonlar uchun shaxsiy linklar" %}</h2>
-        <p class="stat-ogohlantirish" style="margin-bottom:14px;">{% trans "Admin panelda qo'shilgan har bir mehmonga shaxsiy link — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring." %}</p>
+        <p class="stat-ogohlantirish" style="margin-bottom:14px;">{% blocktrans %}Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali kirgani zahoti "ko'rdi" deb belgilanadi, shunda kim aniq ko'rgani, kim hali ko'rmaganini bilib turasiz.{% endblocktrans %}</p>
+
+        <form class="mehmon-qoshish-forma" method="post" action="{% url 'taklif:mehmon_qoshish' taklifnoma.statistika_token %}">
+            {% csrf_token %}
+            <input type="text" name="ism" placeholder="{% trans "Mehmon ismi, masalan: Aziz oila" %}" maxlength="100" required>
+            <button type="submit">{% trans "Qo'shish" %}</button>
+        </form>
+
         <table>
             <thead>
-                <tr><th>{% trans "Ism" %}</th><th>{% trans "Ko'rdimi" %}</th><th>{% trans "Link" %}</th></tr>
+                <tr><th>{% trans "Ism" %}</th><th>{% trans "Ko'rdimi" %}</th><th>{% trans "Link" %}</th><th></th></tr>
             </thead>
             <tbody>
                 {% for m in mehmonlar %}
@@ -79,9 +99,16 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
                     <td>
                         <span class="mehmon-link" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent=this.dataset.nusxalandi;">{{ m.get_absolute_url }}</span>
                     </td>
+                    <td>
+                        {% trans "Bu mehmonning shaxsiy linki o'chirilsinmi?" as OCHIRISH_TASDIQ %}
+                        <form method="post" action="{% url 'taklif:mehmon_ochirish' taklifnoma.statistika_token m.pk %}" style="margin:0;" onsubmit="return confirm('{{ OCHIRISH_TASDIQ|escapejs }}');">
+                            {% csrf_token %}
+                            <button type="submit" class="mehmon-ochirish">{% trans "O'chirish" %}</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="3">{% blocktrans %}Hali mehmon qo'shilmagan. Admin panelda taklifnoma ichida "Mehmonlar" bo'limidan qo'shing.{% endblocktrans %}</td></tr>
+                <tr><td colspan="4">{% trans "Hali mehmon qo'shilmagan. Yuqoridagi formadan qo'shing." %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>

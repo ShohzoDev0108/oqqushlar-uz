@@ -26,7 +26,7 @@ class RSVPInline(admin.TabularInline):
     model = RSVP
     extra = 0
     readonly_fields = ("yaratilgan",)
-    fields = ("ism", "keladi", "mehmonlar_soni", "izoh", "mehmon", "yaratilgan")
+    fields = ("ism", "keladi", "mehmonlar_soni", "izoh", "tilak", "mehmon", "yaratilgan")
 
 
 class TaklifnomaRasmInline(admin.TabularInline):
@@ -165,9 +165,9 @@ class MehmonAdmin(admin.ModelAdmin):
 
 @admin.register(RSVP)
 class RSVPAdmin(admin.ModelAdmin):
-    list_display = ("ism", "taklifnoma", "mehmon", "keladi", "mehmonlar_soni", "yaratilgan")
+    list_display = ("ism", "taklifnoma", "mehmon", "keladi", "mehmonlar_soni", "tilak", "yaratilgan")
     list_filter = ("keladi",)
-    search_fields = ("ism", "taklifnoma__slug", "taklifnoma__ism_1", "taklifnoma__ism_2")
+    search_fields = ("ism", "izoh", "tilak", "taklifnoma__slug", "taklifnoma__ism_1", "taklifnoma__ism_2")
 
 
 @admin.register(SaytSozlamalari)

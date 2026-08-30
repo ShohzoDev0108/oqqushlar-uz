@@ -87,6 +87,11 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 .ulashish-tugmalar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .ulashish-tugma { display: inline-block; padding: 11px 22px; border-radius: 24px; border: 1px solid var(--asos); color: var(--asos); background: var(--karta-fon); text-decoration: none; font-size: .9rem; cursor: pointer; font-family: inherit; }
 .ulashish-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+.tilak-eslatma { color: var(--ikkinchi); font-size: .78rem; margin: -8px 0 4px; }
+.tilak-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.tilak-karta { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 16px 18px; }
+.tilak-ism { font-weight: bold; margin-bottom: 4px; }
+.tilak-matn { font-size: .92rem; line-height: 1.55; white-space: pre-line; }
 
 /* Katta fotolavha — mijoz eng ko'pi bilan 2 ta rasm yuklaydi; ular kartadan
    tashqariga chiqib (full-bleed), ekranni kenglik bo'yicha to'ldirib
@@ -326,8 +331,11 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
                 <button type="button" class="keladi-tugma" data-qiymat="yoq">✗ {% trans "Afsuski, kela olmayman" %}</button>
             </div>
 
-            <label for="izoh">{% trans "Izoh (ixtiyoriy)" %}</label>
-            <textarea id="izoh" name="izoh" rows="2"></textarea>
+            <label for="izoh">{% trans "Izoh — faqat mezbonga (ixtiyoriy)" %}</label>
+            <textarea id="izoh" name="izoh" rows="2" placeholder="{% trans "Masalan: allergiya, maxsus talab" %}"></textarea>
+
+            <label for="tilak">{% trans "Tilak / tabrigingiz — sahifada barchaga ko'rinadi (ixtiyoriy)" %}</label>
+            <textarea id="tilak" name="tilak" rows="3" placeholder="{% trans "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing" %}"></textarea>
 
             <button type="submit">{% trans "Yuborish" %}</button>
         </form>
@@ -345,6 +353,20 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     </ul>
     {% endif %}
 </div>
+
+{% if tilaklar %}
+<div class="bolim" data-anim>
+    <h2>{% trans "Tilaklar" %}</h2>
+    <div class="tilak-list">
+        {% for j in tilaklar %}
+        <div class="tilak-karta">
+            <div class="tilak-ism">{{ j.ism }}</div>
+            <div class="tilak-matn">{{ j.tilak }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 
 {% if taklifnoma.telegram_link %}
 <div class="bolim" data-anim>

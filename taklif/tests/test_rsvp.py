@@ -86,3 +86,68 @@ class RsvpUzunMatnTest(TestCase):
         c.post(f"/{self.taklifnoma.slug}/rsvp/", {"ism": "Ko'p", "keladi": "ha", "mehmonlar_soni": 999})
         yozuv = RSVP.objects.get(taklifnoma=self.taklifnoma)
         self.assertEqual(yozuv.mehmonlar_soni, 5)
+
+    def test_uzun_tilak_kesib_saqlanadi(self):
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Test", "keladi": "ha", "tilak": "x" * 700, "mehmonlar_soni": 1,
+        })
+        yozuv = RSVP.objects.get(taklifnoma=self.taklifnoma)
+        self.assertLessEqual(len(yozuv.tilak), 500)  # model max_length
+
+
+@override_settings(ALLOWED_HOSTS=["testserver"])
+class TilakOmmaviyKorinishiTest(TestCase):
+    """Taftish topilmasi: mehmonlar taklifnomaga tilak/tabrik yozish
+    imkoniyatiga ega emas edi. Endi RSVP formasidagi "tilak" maydoni
+    (izohdan farqli — u faqat mezbonga) yozilsa, taklifnoma sahifasida
+    HAMMAGA ochiq ko'rinadi."""
+
+    def setUp(self):
+        self.shablon = shablon_yarat()
+        self.taklifnoma = Taklifnoma.objects.create(
+            slug="tilak-sinov", ism_1="TilakSinov", shablon=self.shablon,
+            sana=timezone.now(), faol=True, tolangan=True,
+        )
+
+    def test_yozilgan_tilak_taklifnoma_sahifasida_korinadi(self):
+        # DIQQAT: apostrof ishlatilmaydi — Django avtomatik HTML-escaping
+        # uni "&#x27;" ga aylantiradi, aynan matn qidirilsa test yolg'ondan
+        # muvaffaqiyatsiz chiqadi (boshqa testlarda ham shu naqsh qo'llanilgan).
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Muborak", "keladi": "ha", "tilak": "Baxtli oila bolinglar",
+            "mehmonlar_soni": 1,
+        })
+        r = Client().get(f"/{self.taklifnoma.slug}/")
+        self.assertContains(r, "Baxtli oila bolinglar")
+        self.assertContains(r, "Muborak")
+
+    def test_kelmayman_desa_ham_tilagi_korinadi(self):
+        # "kela olmayman, lekin tabriklayman" — juda tabiiy holat, tilak
+        # baribir ko'rinishi kerak (faqat "Mehmonlar" ro'yxatidan farqli,
+        # u faqat "keladi"ni ko'rsatadi).
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Kelolmayman", "keladi": "yoq", "tilak": "Afsuski kela olmayman, lekin baxtli bo'linglar",
+            "mehmonlar_soni": 1,
+        })
+        r = Client().get(f"/{self.taklifnoma.slug}/")
+        self.assertContains(r, "Afsuski kela olmayman")
+
+    def test_tilaksiz_javob_tilaklar_royxatida_chiqmaydi(self):
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {"ism": "Sokin", "keladi": "ha", "mehmonlar_soni": 1})
+        r = Client().get(f"/{self.taklifnoma.slug}/")
+        self.assertNotContains(r, "Tilaklar")
+
+    def test_izoh_ommaga_ochiq_sahifada_korinmaydi(self):
+        # "izoh" (masalan allergiya) faqat mezbonga — ommaviy sahifada
+        # hech qachon chiqmasligi kerak.
+        c = Client()
+        c.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Maxfiy", "keladi": "ha", "izoh": "yeryong'oqqa allergiyam bor",
+            "mehmonlar_soni": 1,
+        })
+        r = Client().get(f"/{self.taklifnoma.slug}/")
+        self.assertNotContains(r, "allergiyam")

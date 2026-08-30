@@ -374,6 +374,15 @@ class RSVP(models.Model):
     izoh = models.CharField(
         max_length=300, blank=True, help_text="Ixtiyoriy izoh (masalan: allergiya, maxsus talab)"
     )
+    # DIQQAT: "izoh"dan farqli — bu maydon YOZILSA, taklifnoma sahifasida
+    # HAMMAGA ochiq ko'rinadi (moderatsiyasiz, darhol). Shu sabab "izoh"
+    # bilan aralashtirilmasligi kerak — u faqat mezbonga (statistika
+    # sahifasida) ko'rinadi.
+    tilak = models.CharField(
+        max_length=500,
+        blank=True,
+        help_text="Ixtiyoriy tabrik/tilak — yozilsa, taklifnoma sahifasida BARCHAGA ochiq ko'rinadi.",
+    )
     yaratilgan = models.DateTimeField(auto_now_add=True)
 
     class Meta:

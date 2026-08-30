@@ -417,11 +417,17 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
     # kelmasligini bildirganlar ochiq bo'lmasligi kerak (statistika sahifasi maxfiy)
     mehmonlar = taklifnoma.javoblar.filter(keladi=True).order_by("-yaratilgan")
 
+    # Tilaklar — keladi/kelmaydi holatidan qat'i nazar ko'rsatiladi (masalan
+    # "kela olmayman, lekin tabriklayman" ham juda tabiiy holat), faqat
+    # "tilak" maydoni bo'sh bo'lmagan javoblar.
+    tilaklar = taklifnoma.javoblar.exclude(tilak="").order_by("-yaratilgan")
+
     context = {
         "taklifnoma": taklifnoma,
         "mehmon": mehmon,
         "mehmonlar": mehmonlar,
         "mehmonlar_jami": taklifnoma.keladiganlar_soni,
+        "tilaklar": tilaklar,
         "rasmlar": taklifnoma.rasmlar.all(),
         "admin_telegram": _admin_telegram(),
     }
@@ -494,6 +500,7 @@ def rsvp_submit(request, slug):
     ism = _postdan_kesib_olish(request, "ism", 100)
     keladi = request.POST.get("keladi") == "ha"
     izoh = _postdan_kesib_olish(request, "izoh", 300)
+    tilak = _postdan_kesib_olish(request, "tilak", 500)
     mehmon_slug = request.POST.get("mehmon_slug", "").strip()
     try:
         mehmonlar_soni = int(request.POST.get("mehmonlar_soni", 1))
@@ -513,6 +520,7 @@ def rsvp_submit(request, slug):
             "keladi": keladi,
             "mehmonlar_soni": mehmonlar_soni,
             "izoh": izoh,
+            "tilak": tilak,
         }
         if mehmon is not None:
             # Shaxsiy link — (taklifnoma, mehmon) juftligi bo'yicha bitta
@@ -643,3 +651,31 @@ def statistika(request, token):
         "kelmaydiganlar_soni": taklifnoma.kelmaydiganlar_soni,
     }
     return render(request, "taklif/statistika.html", context)
+
+
+@require_POST
+def mehmon_qoshish(request, token):
+    """Mijoz statistika sahifasining o'zidan turib (admin panelga kirmasdan)
+    mehmon uchun shaxsiy link yaratadi.
+
+    Bu — token orqali maxfiy sahifa (statistika sahifasi bilan bir xil
+    xavfsizlik modeli): tokenni bilgan kishi mijozning o'zi deb hisoblanadi,
+    alohida login talab qilinmaydi.
+    """
+    taklifnoma = get_object_or_404(Taklifnoma, statistika_token=token)
+    ism = _postdan_kesib_olish(request, "ism", 100)
+    if not ism:
+        messages.error(request, _("Iltimos, mehmon ismini kiriting."))
+    else:
+        Mehmon.objects.create(taklifnoma=taklifnoma, ism=ism)
+        messages.success(request, _('"%(ism)s" uchun shaxsiy link yaratildi.') % {"ism": ism})
+    return redirect("taklif:statistika", token=token)
+
+
+@require_POST
+def mehmon_ochirish(request, token, mehmon_id):
+    """Mijoz xato qo'shgan mehmonni statistika sahifasidan turib o'chiradi."""
+    taklifnoma = get_object_or_404(Taklifnoma, statistika_token=token)
+    Mehmon.objects.filter(pk=mehmon_id, taklifnoma=taklifnoma).delete()
+    messages.success(request, _("Mehmon o'chirildi."))
+    return redirect("taklif:statistika", token=token)
