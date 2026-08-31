@@ -122,6 +122,11 @@ MAKSIMAL_RASMLAR_SONI = 2
 # (login talab qilinmaydi — "Mening taklifnomalarim" bo'limi shu orqali ishlaydi).
 SESSIYA_KALITI = "mening_taklifnomalarim_sluglari"
 
+# Bitta brauzer/sessiya bitta taklifnomani bir necha marta qayta ochsa (sahifani
+# yangilasa), "ko'rishlar" soni faqat BIRINCHI safar oshsin deb — shu kalit
+# ostida allaqachon ko'rilgan taklifnomalar sluglari saqlanadi.
+KORISH_SESSIYA_KALITI = "korilgan_taklifnoma_sluglari"
+
 
 def _rasmlar_xatosini_tekshir(request):
     """Mijoz o'zi yuklagan (tayyor namuna emas) fotolarning hajmini tekshiradi.
@@ -405,8 +410,17 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
             # meta teglar orqali ham mijoz ismini oshkor qilmaymiz.
             return render(request, "taklif/faollashtirilmagan.html")
 
-    # Ko'rishlar sonini race-condition'siz oshirish
-    Taklifnoma.objects.filter(pk=taklifnoma.pk).update(korishlar=F("korishlar") + 1)
+    # Ko'rishlar sonini race-condition'siz oshirish — LEKIN faqat shu
+    # brauzer/sessiya bu taklifnomani BIRINCHI marta ko'rganda. Aks holda
+    # bitta odam sahifani bir necha marta qayta ochsa/yangilasa, har safar
+    # alohida ko'rish deb hisoblanib, statistika haqiqiy auditoriyadan
+    # sezilarli darajada oshib ketardi.
+    korilgan_sluglar = request.session.get(KORISH_SESSIYA_KALITI, [])
+    if taklifnoma.slug not in korilgan_sluglar:
+        Taklifnoma.objects.filter(pk=taklifnoma.pk).update(korishlar=F("korishlar") + 1)
+        korilgan_sluglar.append(taklifnoma.slug)
+        request.session[KORISH_SESSIYA_KALITI] = korilgan_sluglar[-200:]
+        request.session.modified = True
 
     if mehmon and not mehmon.korilgan:
         Mehmon.objects.filter(pk=mehmon.pk).update(

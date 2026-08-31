@@ -6,43 +6,80 @@
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
 
-.oq-stat-oralig { max-width: 900px; margin: 0 auto; padding-bottom: 60px; }
+.oq-stat-oralig { max-width: 760px; margin: 0 auto; padding: 0 4px 60px; }
 .stat-orqaga { color: var(--kul); text-decoration: none; font-size: .85rem; }
 .stat-orqaga:hover { color: var(--tilla-toq); }
 .stat-ogohlantirish { color: var(--kul); font-size: .85rem; margin: 4px 0 30px; }
+h2.oq-h2 { font-size: 1.3rem; margin-top: 54px; }
+h2.oq-h2 + .stat-ogohlantirish { margin: 8px 0 20px; }
 
-.karta-blok { display: flex; gap: 16px; margin: 20px 0 40px; flex-wrap: wrap; }
+/* --- Yuqori statistika kartalari --- */
+.karta-blok { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0 8px; }
 .karta {
-    background: var(--toza); border: 1px solid var(--chiziq); border-radius: 4px;
-    padding: 18px 22px; flex: 1; min-width: 140px;
+    background: var(--toza); border: 1px solid var(--chiziq); border-radius: 8px;
+    padding: 16px 14px;
 }
-.karta .son { font-family: var(--serif); font-size: 2.1rem; color: var(--siyoh); line-height: 1.1; }
-.karta .yorliq { color: var(--kul); font-size: .78rem; letter-spacing: 1px; margin-top: 4px; }
+.karta .son { font-family: var(--serif); font-size: 1.9rem; color: var(--siyoh); line-height: 1.1; }
+.karta .yorliq { color: var(--kul); font-size: .68rem; letter-spacing: .5px; margin-top: 4px; }
+.ha { color: #2e7d4f; }
+.yoq { color: #b3323b; }
+@media (max-width: 560px) {
+    .karta-blok { grid-template-columns: repeat(2, 1fr); }
+    .karta .son { font-size: 1.6rem; }
+}
 
-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--chiziq); font-size: .92rem; }
-th { color: var(--kul); font-size: .72rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: normal; }
-.ha { color: #2e7d4f; font-weight: 600; }
-.yoq { color: #b3323b; font-weight: 600; }
-h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
-.mehmon-link { font-family: monospace; font-size: .8rem; color: var(--kul); cursor: pointer; word-break: break-all; }
+/* --- Kichik, nafis tugmalar (barcha amal tugmalari uchun umumiy) --- */
+/* DIQQAT: selektor "button.mini-tugma" (nafaqat ".mini-tugma") — sababi,
+   saytning umumiy uslubida "button[type=\"submit\"] { width: 100%; }" degan
+   qoida bor (_sayt_uslubi.html), va uning specificity'si oddiy ".mini-tugma"
+   klassidan yuqoriroq bo'lgani uchun uni yengib, tugmani butun karta
+   kengligiga cho'zib yuborardi (mobilda matn kartadan tashqariga chiqib
+   ketardi). "button.mini-tugma" shu qoida bilan teng specificity'ga ega
+   bo'lib, keyinroq yozilgani uchun ustun keladi va "width: auto" ishlaydi. */
+button.mini-tugma {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin: 0;
+    width: auto; max-width: 100%; padding: 8px 15px; border-radius: 20px; border: 1px solid var(--chiziq);
+    background: var(--toza); color: var(--kul); font-size: .72rem; letter-spacing: .3px;
+    cursor: pointer; font-family: inherit; white-space: normal; text-align: center; transition: .18s;
+}
+.mini-tugma:hover { border-color: var(--tilla); color: var(--tilla-toq); }
+.mini-tugma.asosiy { border-color: var(--tilla); color: var(--tilla-toq); }
+.mini-tugma.asosiy:hover { background: var(--tilla); color: #fff; }
+.mini-tugma.faol { border-color: #2e7d4f; color: #2e7d4f; }
+.mini-tugma.xavfli:hover { border-color: #b3323b; color: #b3323b; }
+
+/* --- Javoblar (RSVP) ro'yxati --- */
+.javob-royxat, .mehmon-royxat { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.javob-karta, .mehmon-karta {
+    background: var(--toza); border: 1px solid var(--chiziq); border-radius: 10px;
+    padding: 14px 16px;
+}
+.jk-tepa { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.jk-ism { font-weight: 600; color: var(--siyoh); font-size: .96rem; }
+.jk-holat { font-size: .74rem; letter-spacing: .5px; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
+.jk-tafsilot { display: flex; justify-content: space-between; color: var(--kul); font-size: .78rem; margin-top: 6px; flex-wrap: wrap; gap: 6px; }
+.jk-tilak {
+    margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--chiziq);
+    display: flex; flex-direction: column; gap: 8px;
+}
+.jk-tilak-matn { font-size: .9rem; line-height: 1.5; color: var(--siyoh); font-style: italic; }
+.bosh-holat { color: var(--kul); font-size: .88rem; padding: 16px 0; }
+
+/* --- Mehmonlar (shaxsiy link) ro'yxati --- */
+.mk-tepa { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.mk-ism { font-weight: 600; color: var(--siyoh); font-size: .94rem; }
+.mk-korilgan { font-size: .76rem; color: var(--kul); white-space: nowrap; }
+.mk-pastki { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.mehmon-link {
+    font-family: monospace; font-size: .76rem; color: var(--kul); cursor: pointer;
+    word-break: break-all; flex: 1; min-width: 0;
+}
 .mehmon-link:hover { color: var(--tilla-toq); }
-.korilgan-belgi { font-size: .85rem; }
-.mehmon-qoshish-forma { display: flex; gap: 10px; margin: 14px 0 22px; flex-wrap: wrap; }
-.mehmon-qoshish-forma input[type="text"] {
-    flex: 1; min-width: 180px; padding: 10px 12px; border: 1px solid var(--chiziq);
-    border-radius: 4px; background: var(--toza); color: var(--siyoh); font-size: .9rem;
-}
-.mehmon-qoshish-forma button {
-    padding: 10px 20px; border: none; border-radius: 4px; background: var(--tilla-toq);
-    color: #1a1208; font-weight: 600; cursor: pointer; font-size: .88rem;
-}
-.mehmon-qoshish-forma button:hover { opacity: .9; }
-.mehmon-ochirish { color: var(--kul); font-size: .78rem; text-decoration: none; border: none; background: none; cursor: pointer; padding: 0; font-family: inherit; }
-.mehmon-ochirish:hover { color: #b3323b; }
-.tilak-tugma { display: block; margin-top: 6px; padding: 5px 10px; border-radius: 4px; border: 1px solid var(--chiziq); background: var(--toza); font-size: .74rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
-.tilak-tugma.yashirin { color: var(--tilla-toq); border-color: var(--tilla-toq); }
-.tilak-tugma.ochiq { color: #2e7d4f; border-color: #2e7d4f; }
+
+/* --- Mehmon qo'shish formasi --- */
+.mehmon-qoshish-forma { display: flex; gap: 10px; margin: 16px 0 6px; flex-wrap: wrap; }
+.mehmon-qoshish-forma input[type="text"] { flex: 1; min-width: 180px; margin: 0; }
+.mehmon-qoshish-forma button { flex-shrink: 0; }
 {% endblock %}
 
 {% block content %}
@@ -51,7 +88,7 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
 <div class="oq-ichki">
     <div class="oq-stat-oralig">
         <p style="padding-top:24px;"><a class="stat-orqaga" href="{{ taklifnoma.get_absolute_url }}">&larr; {% trans "Ochiq sahifani ko'rish" %}</a></p>
-        <h1 class="oq-h1" style="font-size:clamp(1.8rem, 4vw, 2.6rem);">{% blocktrans with nomi=taklifnoma.sarlavha %}{{ nomi }} — statistika{% endblocktrans %}</h1>
+        <h1 class="oq-h1" style="font-size:clamp(1.6rem, 6vw, 2.6rem);">{% blocktrans with nomi=taklifnoma.sarlavha %}{{ nomi }} — statistika{% endblocktrans %}</h1>
         <p class="stat-ogohlantirish">{% trans "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang." %}</p>
 
         <div class="karta-blok">
@@ -61,72 +98,66 @@ h2.oq-h2 { font-size: 1.35rem; margin-top: 50px; }
             <div class="karta"><div class="son yoq">{{ kelmaydiganlar_soni }}</div><div class="yorliq">{% trans "kelmaydi" %}</div></div>
         </div>
 
-        <table>
-            <thead>
-                <tr><th>{% trans "Ism" %}</th><th>{% trans "Holat" %}</th><th>{% trans "Mehmonlar soni" %}</th><th>{% trans "Izoh (faqat sizga)" %}</th><th>{% trans "Tilak" %}</th><th>{% trans "Sana" %}</th></tr>
-            </thead>
-            <tbody>
-                {% for j in javoblar %}
-                <tr>
-                    <td>{{ j.ism }}</td>
-                    <td class="{% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}{% trans "Keladi" %}{% else %}{% trans "Kelmaydi" %}{% endif %}</td>
-                    <td>{{ j.mehmonlar_soni }}</td>
-                    <td>{{ j.izoh|default:"—" }}</td>
-                    <td>
-                        {% if j.tilak %}
-                            {{ j.tilak }}
-                            <form method="post" action="{% url 'taklif:tilak_tasdiqlash' taklifnoma.statistika_token j.pk %}">
-                                {% csrf_token %}
-                                {% if j.tilak_tasdiqlangan %}
-                                <button type="submit" class="tilak-tugma ochiq">✅ {% trans "Hammaga ko'rinmoqda — yashirish" %}</button>
-                                {% else %}
-                                <button type="submit" class="tilak-tugma yashirin">👁 {% trans "Hammaga ko'rsatish" %}</button>
-                                {% endif %}
-                            </form>
-                        {% else %}—{% endif %}
-                    </td>
-                    <td>{{ j.yaratilgan|date:"d.m.Y H:i" }}</td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="6">{% trans "Hozircha javoblar yo'q." %}</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h2 class="oq-h2">{% trans "Javoblar" %}</h2>
+        <div class="javob-royxat">
+            {% for j in javoblar %}
+            <div class="javob-karta">
+                <div class="jk-tepa">
+                    <span class="jk-ism">{{ j.ism }}</span>
+                    <span class="jk-holat {% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}✓ {% trans "Keladi" %}{% else %}✗ {% trans "Kelmaydi" %}{% endif %}</span>
+                </div>
+                <div class="jk-tafsilot">
+                    <span>{% blocktrans with soni=j.mehmonlar_soni %}{{ soni }} kishi{% endblocktrans %}</span>
+                    <span>{{ j.yaratilgan|date:"d.m.Y H:i" }}</span>
+                </div>
+                {% if j.tilak %}
+                <div class="jk-tilak">
+                    <div class="jk-tilak-matn">"{{ j.tilak }}"</div>
+                    <form method="post" action="{% url 'taklif:tilak_tasdiqlash' taklifnoma.statistika_token j.pk %}">
+                        {% csrf_token %}
+                        {% if j.tilak_tasdiqlangan %}
+                        <button type="submit" class="mini-tugma faol">✅ {% trans "Hammaga ko'rinmoqda — yashirish" %}</button>
+                        {% else %}
+                        <button type="submit" class="mini-tugma asosiy">👁 {% trans "Hammaga ko'rsatish" %}</button>
+                        {% endif %}
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p class="bosh-holat">{% trans "Hozircha javoblar yo'q." %}</p>
+            {% endfor %}
+        </div>
 
         <h2 class="oq-h2">{% trans "Mehmonlar uchun shaxsiy linklar" %}</h2>
-        <p class="stat-ogohlantirish" style="margin-bottom:14px;">{% blocktrans %}Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali kirgani zahoti "ko'rdi" deb belgilanadi, shunda kim aniq ko'rgani, kim hali ko'rmaganini bilib turasiz.{% endblocktrans %}</p>
+        <p class="stat-ogohlantirish">{% blocktrans %}Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali kirgani zahoti "ko'rdi" deb belgilanadi, shunda kim aniq ko'rgani, kim hali ko'rmaganini bilib turasiz.{% endblocktrans %}</p>
 
         <form class="mehmon-qoshish-forma" method="post" action="{% url 'taklif:mehmon_qoshish' taklifnoma.statistika_token %}">
             {% csrf_token %}
             <input type="text" name="ism" placeholder="{% trans "Mehmon ismi, masalan: Aziz oila" %}" maxlength="100" required>
-            <button type="submit">{% trans "Qo'shish" %}</button>
+            <button type="submit" class="oq-cta kichik">{% trans "Qo'shish" %}</button>
         </form>
 
-        <table>
-            <thead>
-                <tr><th>{% trans "Ism" %}</th><th>{% trans "Ko'rdimi" %}</th><th>{% trans "Link" %}</th><th></th></tr>
-            </thead>
-            <tbody>
-                {% for m in mehmonlar %}
-                <tr>
-                    <td>{{ m.ism }}</td>
-                    <td class="korilgan-belgi">{% if m.korilgan %}✅ {% trans "ko'rdi" %}{% else %}— {% trans "hali ko'rmagan" %}{% endif %}</td>
-                    <td>
-                        <span class="mehmon-link" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent=this.dataset.nusxalandi;">{{ m.get_absolute_url }}</span>
-                    </td>
-                    <td>
-                        {% trans "Bu mehmonning shaxsiy linki o'chirilsinmi?" as OCHIRISH_TASDIQ %}
-                        <form method="post" action="{% url 'taklif:mehmon_ochirish' taklifnoma.statistika_token m.pk %}" style="margin:0;" onsubmit="return confirm('{{ OCHIRISH_TASDIQ|escapejs }}');">
-                            {% csrf_token %}
-                            <button type="submit" class="mehmon-ochirish">{% trans "O'chirish" %}</button>
-                        </form>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="4">{% trans "Hali mehmon qo'shilmagan. Yuqoridagi formadan qo'shing." %}</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="mehmon-royxat">
+            {% for m in mehmonlar %}
+            <div class="mehmon-karta">
+                <div class="mk-tepa">
+                    <span class="mk-ism">{{ m.ism }}</span>
+                    <span class="mk-korilgan">{% if m.korilgan %}✅ {% trans "ko'rdi" %}{% else %}— {% trans "hali ko'rmagan" %}{% endif %}</span>
+                </div>
+                <div class="mk-pastki">
+                    <span class="mehmon-link" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent=this.dataset.nusxalandi;">{{ m.get_absolute_url }}</span>
+                    {% trans "Bu mehmonning shaxsiy linki o'chirilsinmi?" as OCHIRISH_TASDIQ %}
+                    <form method="post" action="{% url 'taklif:mehmon_ochirish' taklifnoma.statistika_token m.pk %}" onsubmit="return confirm('{{ OCHIRISH_TASDIQ|escapejs }}');">
+                        {% csrf_token %}
+                        <button type="submit" class="mini-tugma xavfli">{% trans "O'chirish" %}</button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p class="bosh-holat">{% trans "Hali mehmon qo'shilmagan. Yuqoridagi formadan qo'shing." %}</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

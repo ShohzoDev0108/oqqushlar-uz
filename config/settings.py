@@ -114,6 +114,10 @@ MIDDLEWARE = [
     # tilida ko'rsatish uchun — LocaleMiddleware'dan keyin turishi shart
     # (aks holda LocaleMiddleware uning tanlovini qayta bosib ketadi).
     "taklif.middleware.AdminTiliniMajburlashMiddleware",
+    # Statistika/"Mening taklifnomalarim"/"Tayyor" sahifalarini — aniq til
+    # tanlanmagan bo'lsa — standart holatda o'zbekcha ko'rsatish uchun (qarang:
+    # taklif/middleware.py). LocaleMiddleware'dan keyin turishi shart.
+    "taklif.middleware.MezbonTiliniStandartlashMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
