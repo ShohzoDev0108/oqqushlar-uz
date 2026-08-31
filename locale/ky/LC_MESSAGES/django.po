@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 14:23+0500\n"
+"POT-Creation-Date: 2026-08-31 15:08+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,108 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Kuyov ismi"
+msgstr "Күйөөнүн аты"
+
+msgid "Masalan: Sardor"
+msgstr "Мисалы: Сардор"
+
+msgid "Kelin ismi"
+msgstr "Колуктунун аты"
+
+msgid "Masalan: Malika"
+msgstr "Мисалы: Малика"
+
+msgid "Kelinchakning ismi"
+msgstr "Колуктунун аты"
+
+msgid "Masalan: Nilufar"
+msgstr "Мисалы: Нилуфар"
+
+msgid "2-ism"
+msgstr "2-аты"
+
+msgid "O'g'il bolaning ismi"
+msgstr "Уул баланын аты"
+
+msgid "Masalan: Amir"
+msgstr "Мисалы: Амир"
+
+msgid "Chaqaloqning ismi"
+msgstr "Наристенин аты"
+
+msgid "Masalan: Amina"
+msgstr "Мисалы: Амина"
+
+msgid "Tadbir egasining ismi"
+msgstr "Иш-чара ээсинин аты"
+
+msgid "Masalan: Bobur"
+msgstr "Мисалы: Бобур"
+
+msgid "Yubiley egasining ismi"
+msgstr "Юбилей ээсинин аты"
+
+msgid "Masalan: Otabek"
+msgstr "Мисалы: Отабек"
+
+msgid "Ikkinchi ism (ikkoviga bag'ishlangan bo'lsa)"
+msgstr "Экинчи аты (эгер юбилей экөөнө арналган болсо)"
+
+msgid "Masalan: Dilnoza"
+msgstr "Мисалы: Дилноза"
+
+msgid "Tug'ilgan kun egasining ismi"
+msgstr "Туулган күн ээсинин аты"
+
+msgid "Masalan: Sevinch"
+msgstr "Мисалы: Севинч"
+
+msgid "Asosiy ism"
+msgstr "Негизги аты"
+
+msgid "Masalan: Jahongir"
+msgstr "Мисалы: Жахонгир"
+
+msgid "Qo'shimcha ism (ixtiyoriy)"
+msgstr "Кошумча аты (милдеттүү эмес)"
+
+msgid "Yanvar"
+msgstr "Январь"
+
+msgid "Fevral"
+msgstr "Февраль"
+
+msgid "Mart"
+msgstr "Март"
+
+msgid "Aprel"
+msgstr "Апрель"
+
+msgid "May"
+msgstr "Май"
+
+msgid "Iyun"
+msgstr "Июнь"
+
+msgid "Iyul"
+msgstr "Июль"
+
+msgid "Avgust"
+msgstr "Август"
+
+msgid "Sentyabr"
+msgstr "Сентябрь"
+
+msgid "Oktyabr"
+msgstr "Октябрь"
+
+msgid "Noyabr"
+msgstr "Ноябрь"
+
+msgid "Dekabr"
+msgstr "Декабрь"
 
 msgid "Marosim turi"
 msgstr "Иш-чара түрү"
@@ -27,11 +129,20 @@ msgstr "Даяр музыкадан тандоо (милдеттүү эмес)"
 msgid "— tanlanmagan —"
 msgstr "— тандалган жок —"
 
-msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
-msgstr "1-ысым (мисалы: күйөө, туулган күн ээси)"
+msgid "Masalan: “Poytaxt” to'yxonasi"
+msgstr "Мисалы: «Пойтахт» той залы"
 
-msgid "2-ism (ixtiyoriy, masalan: kelin)"
-msgstr "2-ысым (милдеттүү эмес, мисалы: колукту)"
+msgid "Masalan: Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi 12"
+msgstr "Мисалы: Ташкент ш., Чиланзар району, Бунёдкор көчөсү 12"
+
+msgid "Masalan: rasmiy kiyim, och ranglar"
+msgstr "Мисалы: расмий кийим, ачык түстөр"
+
+msgid ""
+"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
+"qilamiz"
+msgstr ""
+"Мисалы: Сизди ушул кубанычтуу күнүбүздө бактыбызга шерик болууга чакырабыз"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Иш-чара күнү жана убактысы"
@@ -67,26 +178,8 @@ msgstr ""
 "Чакырууңуздун сайттын башкы бетинде башка кардарларга үлгү катары "
 "көрсөтүлүшүнө макулсузбу?"
 
-msgid "Masalan: kuyov, tug'ilgan kun egasi"
-msgstr "Мисалы: күйөө, туулган күн ээси"
-
-msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
-msgstr "Экинчи ысым (мисалы: колукту). Керек болбосо, бош калтырыңыз"
-
-msgid "Masalan: rasmiy, yorug' ranglar"
-msgstr "Мисалы: расмий, ачык түстөр"
-
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Өз файлыңызды жүктөгүңүз келсе"
-
-msgid "Qo'shimcha tabrik/taklif matni"
-msgstr "Кошумча куттуктоо/чакыруу тексти"
-
-msgid "Pul sovg'a uchun karta raqami"
-msgstr "Акчалай белекке карта номери"
-
-msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
-msgstr "Коноктор үчүн Telegram тобу/каналынын шилтемеси"
 
 msgid ""
 "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
@@ -497,17 +590,6 @@ msgstr ""
 msgid "Yuborish"
 msgstr "Жөнөтүү"
 
-msgid "Mehmonlar"
-msgstr "Коноктор"
-
-#, python-format
-msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
-msgstr "Азырынча <strong>%(soni)s</strong> адам келерин тастыктады"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s адам"
-
 msgid "Tilaklar"
 msgstr "Каалоолор"
 
@@ -601,6 +683,10 @@ msgstr "Келет"
 msgid "Kelmaydi"
 msgstr "Келбейт"
 
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s адам"
+
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Баарына көрүнөт — жашыруу"
 
@@ -623,8 +709,8 @@ msgstr ""
 "аркылуу ага жеке жөнөтүңүз. Ал шилтеме аркылуу кирээри менен «көрдү» деп "
 "белгиленет, ошондо ким так көргөнүн, ким али көрбөгөнүн билип турасыз."
 
-msgid "Mehmon ismi, masalan: Aziz oila"
-msgstr "Конок аты, мисалы: Азиз үй-бүлөсү"
+msgid "Mehmon ismi, masalan: Jasur Rahimov"
+msgstr "Конок аты, мисалы: Жасур Рахимов"
 
 msgid "Qo'shish"
 msgstr "Кошуу"
@@ -709,6 +795,30 @@ msgstr "Муну жаңыртам (эскиси өчөт)"
 
 msgid "Yo'q, alohida saqlayman"
 msgstr "Жок, өзүнчө сактайм"
+
+msgid "Sanani va soatni tanlang"
+msgstr "Күн жана убактысын тандаңыз"
+
+msgid "Tadbir qachon va soat nechada boshlanishini tanlang"
+msgstr "Иш-чара качан башталарын — датасын жана убактысын тандаңыз"
+
+msgid "Sana va soat tanlash"
+msgstr "Күн жана убакытты тандоо"
+
+msgid "Oldingi oy"
+msgstr "Мурунку ай"
+
+msgid "Keyingi oy"
+msgstr "Кийинки ай"
+
+msgid "Soat"
+msgstr "Саат"
+
+msgid "Minut"
+msgstr "Мүнөт"
+
+msgid "Tayyor"
+msgstr "Даяр"
 
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"

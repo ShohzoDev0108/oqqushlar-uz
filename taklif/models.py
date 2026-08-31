@@ -297,7 +297,7 @@ class Mehmon(models.Model):
     taklifnoma = models.ForeignKey(
         Taklifnoma, related_name="mehmonlar", on_delete=models.CASCADE
     )
-    ism = models.CharField(max_length=100, help_text="Masalan: Aziz oila, Malika")
+    ism = models.CharField(max_length=100, help_text="Masalan: Jasur Rahimov, Aliyevlar oilasi")
     slug = models.SlugField(
         max_length=60,
         blank=True,

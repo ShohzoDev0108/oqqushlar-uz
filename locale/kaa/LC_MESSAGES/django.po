@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 14:23+0500\n"
+"POT-Creation-Date: 2026-08-31 15:08+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,108 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Kuyov ismi"
+msgstr "Kúyewdiń atı"
+
+msgid "Masalan: Sardor"
+msgstr "Mısalı: Sardor"
+
+msgid "Kelin ismi"
+msgstr "Kelinshektiń atı"
+
+msgid "Masalan: Malika"
+msgstr "Mısalı: Malika"
+
+msgid "Kelinchakning ismi"
+msgstr "Kelinshektiń atı"
+
+msgid "Masalan: Nilufar"
+msgstr "Mısalı: Nilufar"
+
+msgid "2-ism"
+msgstr "2-atı"
+
+msgid "O'g'il bolaning ismi"
+msgstr "Ul balanıń atı"
+
+msgid "Masalan: Amir"
+msgstr "Mısalı: Amir"
+
+msgid "Chaqaloqning ismi"
+msgstr "Náresteniń atı"
+
+msgid "Masalan: Amina"
+msgstr "Mısalı: Amina"
+
+msgid "Tadbir egasining ismi"
+msgstr "Íс-shara iesiniń atı"
+
+msgid "Masalan: Bobur"
+msgstr "Mısalı: Bobur"
+
+msgid "Yubiley egasining ismi"
+msgstr "Yubiley iesiniń atı"
+
+msgid "Masalan: Otabek"
+msgstr "Mısalı: Otabek"
+
+msgid "Ikkinchi ism (ikkoviga bag'ishlangan bo'lsa)"
+msgstr "Ekinshi atı (eger yubiley ekewine arnalǵan bolsa)"
+
+msgid "Masalan: Dilnoza"
+msgstr "Mısalı: Dilnoza"
+
+msgid "Tug'ilgan kun egasining ismi"
+msgstr "Tuwılgan kún iesiniń atı"
+
+msgid "Masalan: Sevinch"
+msgstr "Mısalı: Sevinch"
+
+msgid "Asosiy ism"
+msgstr "Tiykarǵı atı"
+
+msgid "Masalan: Jahongir"
+msgstr "Mısalı: Jahongir"
+
+msgid "Qo'shimcha ism (ixtiyoriy)"
+msgstr "Qosımsha atı (mindetli emes)"
+
+msgid "Yanvar"
+msgstr "Yanvar"
+
+msgid "Fevral"
+msgstr "Fevral"
+
+msgid "Mart"
+msgstr "Mart"
+
+msgid "Aprel"
+msgstr "Aprel"
+
+msgid "May"
+msgstr "May"
+
+msgid "Iyun"
+msgstr "Iyun"
+
+msgid "Iyul"
+msgstr "Iyul"
+
+msgid "Avgust"
+msgstr "Avgust"
+
+msgid "Sentyabr"
+msgstr "Sentyabr"
+
+msgid "Oktyabr"
+msgstr "Oktyabr"
+
+msgid "Noyabr"
+msgstr "Noyabr"
+
+msgid "Dekabr"
+msgstr "Dekabr"
 
 msgid "Marosim turi"
 msgstr "Ilaj túri"
@@ -26,11 +128,20 @@ msgstr "Tayar muzıkalardan tanlaw (mindetli emes)"
 msgid "— tanlanmagan —"
 msgstr "— tanlanbaǵan —"
 
-msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
-msgstr "1-atı (mısalı: kúyew, tuwılǵan kún iyesi)"
+msgid "Masalan: “Poytaxt” to'yxonasi"
+msgstr "Mısalı: \"Poytaxt\" toy zalı"
 
-msgid "2-ism (ixtiyoriy, masalan: kelin)"
-msgstr "2-atı (májbúriy emes, mısalı: kelin)"
+msgid "Masalan: Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi 12"
+msgstr "Mısalı: Tashkent q., Chilonzor rayonı, Bunyodkor kóshesi 12"
+
+msgid "Masalan: rasmiy kiyim, och ranglar"
+msgstr "Mısalı: rásmiy kiyim, ashıq reńler"
+
+msgid ""
+"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
+"qilamiz"
+msgstr ""
+"Mısalı: Sizdi usı quwanıshlı kúnimizde baxtımızǵa sherik bolıwǵa shaqıramız"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Ilaj sánesi hám waqtı"
@@ -66,26 +177,8 @@ msgstr ""
 "Shaqırıwıńızdıń saittıń bas betinde basqa xarıydarlarǵa úlgi sıpatında "
 "kórsetiliwine razımısız?"
 
-msgid "Masalan: kuyov, tug'ilgan kun egasi"
-msgstr "Mısalı: kúyew, tuwılǵan kún iyesi"
-
-msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
-msgstr "Ekinshi atı (mısalı: kelin). Kerek bolmasa bos qaldırıń"
-
-msgid "Masalan: rasmiy, yorug' ranglar"
-msgstr "Mısalı: rásmiy, ashıq reńler"
-
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Óz faylıńızdı júklewdi qáleseńiz"
-
-msgid "Qo'shimcha tabrik/taklif matni"
-msgstr "Qosımsha qutlıqlaw/shaqırıw teksti"
-
-msgid "Pul sovg'a uchun karta raqami"
-msgstr "Aqshalıq sıylıq ushın karta nomeri"
-
-msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
-msgstr "Qonaqlar ushın Telegram gruppası/kanalınıń siltemesi"
 
 msgid ""
 "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
@@ -496,17 +589,6 @@ msgstr ""
 msgid "Yuborish"
 msgstr "Jiberiw"
 
-msgid "Mehmonlar"
-msgstr "Qonaqlar"
-
-#, python-format
-msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
-msgstr "Házirshe <strong>%(soni)s</strong> adam keletuǵının tastıyıqladı"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s adam"
-
 msgid "Tilaklar"
 msgstr "Tilekler"
 
@@ -600,6 +682,10 @@ msgstr "Keledi"
 msgid "Kelmaydi"
 msgstr "Kelmeydi"
 
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s adam"
+
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Barlıǵına kórinedi — jasırıw"
 
@@ -622,8 +708,8 @@ msgstr ""
 " arqalı sol qonaqqa jeke jiberiń. Ol silteme arqalı kirgen soń «kórdi» dep "
 "belgilenedi, sonda kim anıq kórgenin, kim áli kórmegenin bilip turasız."
 
-msgid "Mehmon ismi, masalan: Aziz oila"
-msgstr "Qonaq atı, mısalı: Aziz shańaraǵı"
+msgid "Mehmon ismi, masalan: Jasur Rahimov"
+msgstr "Qonaqtıń atı, mısalı: Jasur Raximov"
 
 msgid "Qo'shish"
 msgstr "Qosıw"
@@ -708,6 +794,30 @@ msgstr "Munı jańalayman (eskisi óshedi)"
 
 msgid "Yo'q, alohida saqlayman"
 msgstr "Yaq, bólek saqlayman"
+
+msgid "Sanani va soatni tanlang"
+msgstr "Kún hám waqıttı tańlań"
+
+msgid "Tadbir qachon va soat nechada boshlanishini tanlang"
+msgstr "Íс-shara qashan baslanatuǵının — kúni menen waqtın tańlań"
+
+msgid "Sana va soat tanlash"
+msgstr "Kún hám waqıttı tańlaw"
+
+msgid "Oldingi oy"
+msgstr "Aldınǵı ay"
+
+msgid "Keyingi oy"
+msgstr "Keyingi ay"
+
+msgid "Soat"
+msgstr "Saǵat"
+
+msgid "Minut"
+msgstr "Minut"
+
+msgid "Tayyor"
+msgstr "Tayar"
 
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"

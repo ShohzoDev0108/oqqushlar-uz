@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 14:23+0500\n"
+"POT-Creation-Date: 2026-08-31 15:08+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,108 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Kuyov ismi"
+msgstr "Groom's name"
+
+msgid "Masalan: Sardor"
+msgstr "E.g.: Sardor"
+
+msgid "Kelin ismi"
+msgstr "Bride's name"
+
+msgid "Masalan: Malika"
+msgstr "E.g.: Malika"
+
+msgid "Kelinchakning ismi"
+msgstr "The bride's name"
+
+msgid "Masalan: Nilufar"
+msgstr "E.g.: Nilufar"
+
+msgid "2-ism"
+msgstr "2nd name"
+
+msgid "O'g'il bolaning ismi"
+msgstr "The boy's name"
+
+msgid "Masalan: Amir"
+msgstr "E.g.: Amir"
+
+msgid "Chaqaloqning ismi"
+msgstr "The baby's name"
+
+msgid "Masalan: Amina"
+msgstr "E.g.: Amina"
+
+msgid "Tadbir egasining ismi"
+msgstr "The host's name"
+
+msgid "Masalan: Bobur"
+msgstr "E.g.: Bobur"
+
+msgid "Yubiley egasining ismi"
+msgstr "The jubilee host's name"
+
+msgid "Masalan: Otabek"
+msgstr "E.g.: Otabek"
+
+msgid "Ikkinchi ism (ikkoviga bag'ishlangan bo'lsa)"
+msgstr "Second name (if dedicated to both)"
+
+msgid "Masalan: Dilnoza"
+msgstr "E.g.: Dilnoza"
+
+msgid "Tug'ilgan kun egasining ismi"
+msgstr "The birthday person's name"
+
+msgid "Masalan: Sevinch"
+msgstr "E.g.: Sevinch"
+
+msgid "Asosiy ism"
+msgstr "Main name"
+
+msgid "Masalan: Jahongir"
+msgstr "E.g.: Jahongir"
+
+msgid "Qo'shimcha ism (ixtiyoriy)"
+msgstr "Additional name (optional)"
+
+msgid "Yanvar"
+msgstr "January"
+
+msgid "Fevral"
+msgstr "February"
+
+msgid "Mart"
+msgstr "March"
+
+msgid "Aprel"
+msgstr "April"
+
+msgid "May"
+msgstr "May"
+
+msgid "Iyun"
+msgstr "June"
+
+msgid "Iyul"
+msgstr "July"
+
+msgid "Avgust"
+msgstr "August"
+
+msgid "Sentyabr"
+msgstr "September"
+
+msgid "Oktyabr"
+msgstr "October"
+
+msgid "Noyabr"
+msgstr "November"
+
+msgid "Dekabr"
+msgstr "December"
 
 msgid "Marosim turi"
 msgstr "Event type"
@@ -27,11 +129,19 @@ msgstr "Choose from preset music (optional)"
 msgid "— tanlanmagan —"
 msgstr "— not selected —"
 
-msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
-msgstr "Name 1 (e.g. groom, birthday person)"
+msgid "Masalan: “Poytaxt” to'yxonasi"
+msgstr "E.g.: \"Poytaxt\" wedding hall"
 
-msgid "2-ism (ixtiyoriy, masalan: kelin)"
-msgstr "Name 2 (optional, e.g. bride)"
+msgid "Masalan: Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi 12"
+msgstr "E.g.: Tashkent, Chilanzar district, Bunyodkor street 12"
+
+msgid "Masalan: rasmiy kiyim, och ranglar"
+msgstr "E.g.: formal attire, light colors"
+
+msgid ""
+"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
+"qilamiz"
+msgstr "E.g.: We invite you to share in our joy on this happy day"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Event date and time"
@@ -67,26 +177,8 @@ msgstr ""
 "Do you agree to have your invitation shown to other customers as an example "
 "on the site's homepage?"
 
-msgid "Masalan: kuyov, tug'ilgan kun egasi"
-msgstr "E.g. groom, birthday person"
-
-msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
-msgstr "Second name (e.g. bride). Leave empty if not needed"
-
-msgid "Masalan: rasmiy, yorug' ranglar"
-msgstr "E.g.: formal, light colors"
-
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "If you'd like to upload your own file"
-
-msgid "Qo'shimcha tabrik/taklif matni"
-msgstr "Additional greeting/invitation text"
-
-msgid "Pul sovg'a uchun karta raqami"
-msgstr "Card number for monetary gifts"
-
-msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
-msgstr "Telegram group/channel link for guests"
 
 msgid ""
 "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
@@ -500,17 +592,6 @@ msgstr ""
 msgid "Yuborish"
 msgstr "Submit"
 
-msgid "Mehmonlar"
-msgstr "Guests"
-
-#, python-format
-msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
-msgstr "So far <strong>%(soni)s</strong> people have confirmed"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s people"
-
 msgid "Tilaklar"
 msgstr "Wishes"
 
@@ -603,6 +684,10 @@ msgstr "Attending"
 msgid "Kelmaydi"
 msgstr "Not attending"
 
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s people"
+
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Visible to everyone — hide"
 
@@ -625,8 +710,8 @@ msgstr ""
 "via Telegram/Instagram. As soon as they open it, it's marked as \"viewed\", "
 "so you'll know exactly who has seen it and who hasn't yet."
 
-msgid "Mehmon ismi, masalan: Aziz oila"
-msgstr "Guest name, e.g.: The Aziz family"
+msgid "Mehmon ismi, masalan: Jasur Rahimov"
+msgstr "Guest name, e.g.: Jasur Rahimov"
 
 msgid "Qo'shish"
 msgstr "Add"
@@ -711,6 +796,30 @@ msgstr "Update it (the old one will be deleted)"
 
 msgid "Yo'q, alohida saqlayman"
 msgstr "No, keep it separate"
+
+msgid "Sanani va soatni tanlang"
+msgstr "Choose the date and time"
+
+msgid "Tadbir qachon va soat nechada boshlanishini tanlang"
+msgstr "Choose when the event starts — the date and time"
+
+msgid "Sana va soat tanlash"
+msgstr "Choose date and time"
+
+msgid "Oldingi oy"
+msgstr "Previous month"
+
+msgid "Keyingi oy"
+msgstr "Next month"
+
+msgid "Soat"
+msgstr "Hour"
+
+msgid "Minut"
+msgstr "Minute"
+
+msgid "Tayyor"
+msgstr "Done"
 
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"

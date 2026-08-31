@@ -1,7 +1,7 @@
 {% load i18n %}
 {% comment %}
 Barcha yangi shablonlar uchun umumiy kontent bo'limlari (countdown, tabrik
-matni, galereya, tafsilotlar, sovg'a, RSVP, mehmonlar, Telegram). Ko'rinish
+matni, galereya, tafsilotlar, sovg'a, RSVP, Telegram). Ko'rinish
 har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 ".muted" klassi bilan belgilanadi.
 {% endcomment %}
@@ -338,18 +338,6 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
             <button type="submit">{% trans "Yuborish" %}</button>
         </form>
     </div>
-</div>
-
-<div class="bolim" data-anim>
-    <h2>{% trans "Mehmonlar" %}</h2>
-    <p class="mehmonlar-jami">{% blocktrans with soni=mehmonlar_jami %}Hozircha <strong>{{ soni }}</strong> kishi kelishini tasdiqladi{% endblocktrans %}</p>
-    {% if mehmonlar %}
-    <ul class="mehmon-list">
-        {% for m in mehmonlar %}
-        <li>{{ m.ism }} <span class="soni">({% blocktrans with soni=m.mehmonlar_soni %}{{ soni }} kishi{% endblocktrans %})</span></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
 </div>
 
 {% if tilaklar %}

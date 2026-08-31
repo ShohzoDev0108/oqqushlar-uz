@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 14:23+0500\n"
+"POT-Creation-Date: 2026-08-31 15:08+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,108 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Kuyov ismi"
+msgstr "Номи домод"
+
+msgid "Masalan: Sardor"
+msgstr "Масалан: Сардор"
+
+msgid "Kelin ismi"
+msgstr "Номи арӯс"
+
+msgid "Masalan: Malika"
+msgstr "Масалан: Малика"
+
+msgid "Kelinchakning ismi"
+msgstr "Номи арӯс"
+
+msgid "Masalan: Nilufar"
+msgstr "Масалан: Нилуфар"
+
+msgid "2-ism"
+msgstr "Номи 2"
+
+msgid "O'g'il bolaning ismi"
+msgstr "Номи писарбача"
+
+msgid "Masalan: Amir"
+msgstr "Масалан: Амир"
+
+msgid "Chaqaloqning ismi"
+msgstr "Номи кӯдак"
+
+msgid "Masalan: Amina"
+msgstr "Масалан: Амина"
+
+msgid "Tadbir egasining ismi"
+msgstr "Номи соҳиби чорабинӣ"
+
+msgid "Masalan: Bobur"
+msgstr "Масалан: Бобур"
+
+msgid "Yubiley egasining ismi"
+msgstr "Номи соҳиби ҷашн"
+
+msgid "Masalan: Otabek"
+msgstr "Масалан: Отабек"
+
+msgid "Ikkinchi ism (ikkoviga bag'ishlangan bo'lsa)"
+msgstr "Номи дуюм (агар ҷашн ба ҳар дуяшон бахшида шуда бошад)"
+
+msgid "Masalan: Dilnoza"
+msgstr "Масалан: Дилноза"
+
+msgid "Tug'ilgan kun egasining ismi"
+msgstr "Номи соҳиби зодрӯз"
+
+msgid "Masalan: Sevinch"
+msgstr "Масалан: Севинч"
+
+msgid "Asosiy ism"
+msgstr "Номи асосӣ"
+
+msgid "Masalan: Jahongir"
+msgstr "Масалан: Ҷаҳонгир"
+
+msgid "Qo'shimcha ism (ixtiyoriy)"
+msgstr "Номи иловагӣ (ихтиёрӣ)"
+
+msgid "Yanvar"
+msgstr "Январ"
+
+msgid "Fevral"
+msgstr "Феврал"
+
+msgid "Mart"
+msgstr "Март"
+
+msgid "Aprel"
+msgstr "Апрел"
+
+msgid "May"
+msgstr "Май"
+
+msgid "Iyun"
+msgstr "Июн"
+
+msgid "Iyul"
+msgstr "Июл"
+
+msgid "Avgust"
+msgstr "Август"
+
+msgid "Sentyabr"
+msgstr "Сентябр"
+
+msgid "Oktyabr"
+msgstr "Октябр"
+
+msgid "Noyabr"
+msgstr "Ноябр"
+
+msgid "Dekabr"
+msgstr "Декабр"
 
 msgid "Marosim turi"
 msgstr "Навъи маросим"
@@ -27,11 +129,21 @@ msgstr "Аз мусиқии тайёр интихоб кунед (ихтиёрӣ
 msgid "— tanlanmagan —"
 msgstr "— интихоб нашудааст —"
 
-msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
-msgstr "Номи 1 (масалан: домод, соҳиби ҷашн)"
+msgid "Masalan: “Poytaxt” to'yxonasi"
+msgstr "Масалан: толори тӯйхонаи \"Пойтахт\""
 
-msgid "2-ism (ixtiyoriy, masalan: kelin)"
-msgstr "Номи 2 (ихтиёрӣ, масалан: арӯс)"
+msgid "Masalan: Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi 12"
+msgstr "Масалан: ш. Тошкент, ноҳияи Чилонзор, кӯчаи Бунёдкор 12"
+
+msgid "Masalan: rasmiy kiyim, och ranglar"
+msgstr "Масалан: либоси расмӣ, рангҳои равшан"
+
+msgid ""
+"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
+"qilamiz"
+msgstr ""
+"Масалан: Шуморо дар ин рӯзи хушнуди мо ба хушбахтии мо шарик шудан даъват "
+"мекунем"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Сана ва вақти чорабинӣ"
@@ -67,26 +179,8 @@ msgstr ""
 "Оё шумо розӣ ҳастед, ки даъватномаи шумо ҳамчун намуна дар саҳифаи асосии "
 "сайт ба дигар муштариён нишон дода шавад?"
 
-msgid "Masalan: kuyov, tug'ilgan kun egasi"
-msgstr "Масалан: домод, соҳиби ҷашн"
-
-msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
-msgstr "Номи дуюм (масалан: арӯс). Агар лозим набошад, холӣ монед"
-
-msgid "Masalan: rasmiy, yorug' ranglar"
-msgstr "Масалан: расмӣ, рангҳои равшан"
-
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Агар хоҳед файли худро бор кунед"
-
-msgid "Qo'shimcha tabrik/taklif matni"
-msgstr "Матни иловагии табрик/даъват"
-
-msgid "Pul sovg'a uchun karta raqami"
-msgstr "Рақами корт барои тӯҳфаи пулӣ"
-
-msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
-msgstr "Пайванди гурӯҳ/канали Telegram барои меҳмонон"
 
 msgid ""
 "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
@@ -502,17 +596,6 @@ msgstr ""
 msgid "Yuborish"
 msgstr "Фиристодан"
 
-msgid "Mehmonlar"
-msgstr "Меҳмонон"
-
-#, python-format
-msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
-msgstr "То ҳол <strong>%(soni)s</strong> нафар омаданашонро тасдиқ карданд"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s нафар"
-
 msgid "Tilaklar"
 msgstr "Орзуҳо"
 
@@ -605,6 +688,10 @@ msgstr "Меояд"
 msgid "Kelmaydi"
 msgstr "Намеояд"
 
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s нафар"
+
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Ба ҳама намоён аст — пинҳон кардан"
 
@@ -627,8 +714,8 @@ msgstr ""
 "шахсан ба ӯ фиристед. Ҳамин ки ӯ аз он гузарад, ҳамчун «дида шуд» қайд "
 "мешавад, ва шумо дақиқ медонед, ки кӣ дидааст, кӣ ҳанӯз не."
 
-msgid "Mehmon ismi, masalan: Aziz oila"
-msgstr "Номи меҳмон, масалан: оилаи Азиз"
+msgid "Mehmon ismi, masalan: Jasur Rahimov"
+msgstr "Номи меҳмон, масалан: Ҷасур Раҳимов"
 
 msgid "Qo'shish"
 msgstr "Илова кардан"
@@ -714,6 +801,30 @@ msgstr "Инро навсозӣ мекунам (кӯҳнааш нест меша
 
 msgid "Yo'q, alohida saqlayman"
 msgstr "Не, алоҳида нигоҳ медорам"
+
+msgid "Sanani va soatni tanlang"
+msgstr "Сана ва вақтро интихоб кунед"
+
+msgid "Tadbir qachon va soat nechada boshlanishini tanlang"
+msgstr "Интихоб кунед, ки чорабинӣ кай оғоз мешавад — сана ва вақт"
+
+msgid "Sana va soat tanlash"
+msgstr "Интихоби сана ва вақт"
+
+msgid "Oldingi oy"
+msgstr "Моҳи гузашта"
+
+msgid "Keyingi oy"
+msgstr "Моҳи оянда"
+
+msgid "Soat"
+msgstr "Соат"
+
+msgid "Minut"
+msgstr "Дақиқа"
+
+msgid "Tayyor"
+msgstr "Тайёр"
 
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"

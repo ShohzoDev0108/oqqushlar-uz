@@ -15,7 +15,13 @@ from django.utils.text import slugify
 from django.utils.translation import get_language, gettext as _
 from django.views.decorators.http import require_POST
 
-from .forms import REZERV_SLUGLAR, TaklifnomaYaratishForm
+from .forms import (
+    MAROSIM_MAYDON_MATNLARI,
+    OY_NOMLARI,
+    REZERV_SLUGLAR,
+    STANDART_MAROSIM_TURI,
+    TaklifnomaYaratishForm,
+)
 from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
     IKKI_ISMLI_MAROSIM_TURLARI,
@@ -349,6 +355,15 @@ def yaratish(request, shablon_kod):
     else:
         form = TaklifnomaYaratishForm()
 
+    # MAROSIM_MAYDON_MATNLARI'dagi lazy tarjima obyektlarini shu yerda,
+    # so'rov tiliga qarab, oddiy matnga aylantiramiz — json_script faqat
+    # JSON-ga to'g'ridan-to'g'ri serializatsiya qilinadigan qiymatlarni
+    # qabul qiladi (lazy obyektni emas).
+    marosim_maydon_matnlari_json = {
+        turi: {kalit: str(qiymat) for kalit, qiymat in matnlar.items()}
+        for turi, matnlar in MAROSIM_MAYDON_MATNLARI.items()
+    }
+
     return render(
         request,
         "taklif/yaratish.html",
@@ -356,6 +371,9 @@ def yaratish(request, shablon_kod):
             "form": form,
             "shablon": shablon,
             "ikki_ismli_turlar": list(IKKI_ISMLI_MAROSIM_TURLARI),
+            "marosim_maydon_matnlari": marosim_maydon_matnlari_json,
+            "standart_marosim_turi": STANDART_MAROSIM_TURI,
+            "oy_nomlari": [str(oy) for oy in OY_NOMLARI],
             "maksimal_rasmlar_soni": MAKSIMAL_RASMLAR_SONI,
             "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
             "sayt_musiqa": _sayt_musiqasi(),
@@ -427,10 +445,6 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
             korilgan=True, korilgan_vaqt=timezone.now()
         )
 
-    # Mehmonlar jadvali — faqat "keladi" deb javob berganlar ochiq ko'rinadi,
-    # kelmasligini bildirganlar ochiq bo'lmasligi kerak (statistika sahifasi maxfiy)
-    mehmonlar = taklifnoma.javoblar.filter(keladi=True).order_by("-yaratilgan")
-
     # Tilaklar — keladi/kelmaydi holatidan qat'i nazar ko'rsatiladi (masalan
     # "kela olmayman, lekin tabriklayman" ham juda tabiiy holat), faqat
     # "tilak" maydoni bo'sh bo'lmagan VA mezbon tomonidan tasdiqlangan
@@ -444,8 +458,6 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
     context = {
         "taklifnoma": taklifnoma,
         "mehmon": mehmon,
-        "mehmonlar": mehmonlar,
-        "mehmonlar_jami": taklifnoma.keladiganlar_soni,
         "tilaklar": tilaklar,
         "rasmlar": taklifnoma.rasmlar.all(),
         "admin_telegram": _admin_telegram(),

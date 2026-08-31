@@ -51,6 +51,60 @@
 .rozilik-qatori input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; accent-color: var(--tilla); }
 .rozilik-qatori span { font-size: .92rem; color: var(--siyoh); }
 .rozilik-qatori .yordam { margin-left: 28px; }
+
+.majburiy-belgi { color: #b3323b; }
+
+/* --- Sana + soat tanlagich (native datetime-local o'rniga — sayt tiliga
+   to'liq mos, barcha brauzerlarda bir xil ko'rinadigan o'zimizning
+   widget'imiz) --- */
+.sv-tugma {
+    width: 100%; text-align: left; padding: 13px 14px; border-radius: 2px;
+    border: 1px solid var(--chiziq); background: var(--toza); color: var(--siyoh);
+    font-size: .95rem; font-family: inherit; cursor: pointer; transition: .2s;
+}
+.sv-tugma:hover, .sv-tugma.sv-ochiq { border-color: var(--tilla-toq); }
+.sv-tugma.sv-bosh { color: var(--kul); }
+.sv-panel {
+    margin-top: 8px; border: 1px solid var(--chiziq); border-radius: 4px;
+    background: var(--toza); padding: 16px; max-width: 320px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+.sv-oy-qatori { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.sv-oy-nomi { font-family: var(--serif); font-size: 1.05rem; color: var(--siyoh); }
+.sv-oy-tugma {
+    background: none; border: 1px solid var(--chiziq); border-radius: 50%;
+    width: 30px; height: 30px; cursor: pointer; color: var(--kul); font-size: .9rem;
+    font-family: inherit; line-height: 1; flex-shrink: 0;
+}
+.sv-oy-tugma:hover { border-color: var(--tilla); color: var(--tilla-toq); }
+.sv-kalendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.sv-kun {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: .82rem; border-radius: 50%; cursor: pointer; color: var(--siyoh);
+    border: 1px solid transparent; background: none; font-family: inherit;
+}
+.sv-kun.sv-sarlavha { font-size: .6rem; letter-spacing: .5px; text-transform: uppercase; color: var(--kul); cursor: default; }
+.sv-kun.sv-bosh { visibility: hidden; cursor: default; }
+.sv-kun.sv-otgan { color: var(--chiziq); cursor: not-allowed; }
+.sv-kun:not(.sv-sarlavha):not(.sv-bosh):not(.sv-otgan):hover { background: rgba(178,140,40,.12); }
+.sv-kun.sv-tanlangan { background: var(--tilla); color: #fff; font-weight: 600; }
+.sv-kun.sv-bugun:not(.sv-tanlangan) { border-color: var(--tilla); }
+.sv-vaqt-qatori { display: flex; align-items: center; gap: 8px; margin: 16px 0 4px; }
+.sv-vaqt-qatori .sv-vaqt-yorliq { color: var(--kul); font-size: .78rem; }
+.sv-vaqt-qatori select {
+    padding: 8px 10px; border-radius: 2px; border: 1px solid var(--chiziq);
+    font-family: inherit; font-size: .9rem; background: var(--toza); color: var(--siyoh);
+}
+.sv-ikki-nuqta { color: var(--kul); font-weight: 600; }
+.sv-tayyor {
+    width: 100%; margin-top: 16px; padding: 10px; border: 1px solid var(--tilla);
+    background: var(--tilla); color: #fff; border-radius: 2px; cursor: pointer;
+    font-size: .78rem; letter-spacing: 1px; text-transform: uppercase; font-family: inherit;
+}
+.sv-tayyor:hover { background: var(--tilla-toq); border-color: var(--tilla-toq); }
+@media (max-width: 400px) {
+    .sv-panel { max-width: 100%; padding: 14px; }
+}
 {% endblock %}
 
 {% block content %}
@@ -89,9 +143,35 @@
         <form method="post" enctype="multipart/form-data" id="yaratish-forma">
             {% csrf_token %}
             {% for field in form %}
-            {% if field.name != "ommaviy_korsatishga_rozi" %}
+            {% if field.name == "sana" %}
+            <div>
+                <label for="sv-tugma">{{ field.label }} *</label>
+                <button type="button" class="sv-tugma sv-bosh" id="sv-tugma" aria-haspopup="dialog" aria-expanded="false">
+                    <span id="sv-tugma-matn">{% trans "Sanani va soatni tanlang" %}</span>
+                </button>
+                {{ field }}
+                <div class="yordam">{% trans "Tadbir qachon va soat nechada boshlanishini tanlang" %}</div>
+                {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
+
+                <div class="sv-panel" id="sv-panel" hidden role="dialog" aria-label="{% trans 'Sana va soat tanlash' %}">
+                    <div class="sv-oy-qatori">
+                        <button type="button" class="sv-oy-tugma" id="sv-oldingi" aria-label="{% trans 'Oldingi oy' %}">&larr;</button>
+                        <span class="sv-oy-nomi" id="sv-oy-nomi"></span>
+                        <button type="button" class="sv-oy-tugma" id="sv-keyingi" aria-label="{% trans 'Keyingi oy' %}">&rarr;</button>
+                    </div>
+                    <div class="sv-kalendar" id="sv-kalendar"></div>
+                    <div class="sv-vaqt-qatori">
+                        <span class="sv-vaqt-yorliq">{% trans "Soat" %}</span>
+                        <select id="sv-soat" aria-label="{% trans 'Soat' %}"></select>
+                        <span class="sv-ikki-nuqta">:</span>
+                        <select id="sv-minut" aria-label="{% trans 'Minut' %}"></select>
+                    </div>
+                    <button type="button" class="sv-tayyor" id="sv-tayyor">{% trans "Tayyor" %}</button>
+                </div>
+            </div>
+            {% elif field.name != "ommaviy_korsatishga_rozi" %}
             <div {% if field.name == "ism_2" %}id="ism2-qatori"{% endif %}>
-                <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+                <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.name == "ism_2" %}<span class="majburiy-belgi" id="ism2-majburiy" hidden> *</span>{% elif field.field.required %} *{% endif %}</label>
                 {{ field }}
                 {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
                 {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
@@ -143,26 +223,221 @@ json_script — |safe filtridan xavfsizroq: JSON to'g'ri escape qilinadi,
 maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
 {% endcomment %}
 {{ ikki_ismli_turlar|json_script:"ikki-ismli-turlar-data" }}
+{{ marosim_maydon_matnlari|json_script:"marosim-maydon-matnlari-data" }}
+{{ oy_nomlari|json_script:"oy-nomlari-data" }}
 
 <script>
 (function () {
-    // Marosim turiga qarab 2-ism maydonini ko'rsatish/yashirish —
-    // masalan "to'y"da ikkala ism kerak, "tug'ilgan kun"da bittasi yetarli.
+    // Marosim turiga qarab: 2-ism maydonini ko'rsatish/yashirish HAMDA
+    // ism_1/ism_2 yorliq+na'muna matnlarini shu marosimga mos almashtirish
+    // (masalan "sunnat to'yi" tanlansa "kuyov" so'zi umuman ko'rinmaydi).
     var ikkiIsmliTurlarEl = document.getElementById('ikki-ismli-turlar-data');
     var ikkiIsmliTurlar = ikkiIsmliTurlarEl ? JSON.parse(ikkiIsmliTurlarEl.textContent) : [];
+    var maydonMatnlariEl = document.getElementById('marosim-maydon-matnlari-data');
+    var maydonMatnlari = maydonMatnlariEl ? JSON.parse(maydonMatnlariEl.textContent) : {};
     var marosimEl = document.getElementById('id_marosim_turi');
     var ism2Qatori = document.getElementById('ism2-qatori');
+    var ism2Majburiy = document.getElementById('ism2-majburiy');
+    var ism1Label = document.querySelector('label[for="id_ism_1"]');
+    var ism2Label = document.querySelector('label[for="id_ism_2"]');
+    var ism1Input = document.getElementById('id_ism_1');
+    var ism2Input = document.getElementById('id_ism_2');
 
-    function ism2niYangila() {
-        if (!marosimEl || !ism2Qatori) { return; }
-        var kerak = ikkiIsmliTurlar.indexOf(marosimEl.value) !== -1;
-        ism2Qatori.style.display = kerak ? '' : 'none';
+    function maydonlarniYangila() {
+        if (!marosimEl) { return; }
+        var turi = marosimEl.value;
+        var matnlar = maydonMatnlari[turi];
+        var kerakIsm2 = ikkiIsmliTurlar.indexOf(turi) !== -1;
+
+        if (ism2Qatori) { ism2Qatori.style.display = kerakIsm2 ? '' : 'none'; }
+        if (ism2Majburiy) { ism2Majburiy.hidden = !kerakIsm2; }
+
+        if (matnlar) {
+            // DIQQAT: ism_1 doim majburiy (model darajasida), shuning uchun
+            // uning label matni va yulduzcha ("Kuyov ismi *") HTML shablonida
+            // ORADA HECH QANDAY TEG bo'lmagan holda bitta matn tugunida
+            // (Django tomonidan) qo'shib chiqariladi — shu sababli
+            // firstChild.textContent'ni to'liq almashtirganda " *"ni ham
+            // o'zimiz qayta qo'shishimiz kerak (aks holda majburiylik belgisi
+            // yo'qolib qolardi). ism_2'da esa yulduzcha alohida
+            // <span id="ism2-majburiy"> ichida — u yerda firstChild faqat
+            // sof label matni, qayta qo'shish shart emas.
+            if (ism1Label && ism1Label.firstChild) { ism1Label.firstChild.textContent = matnlar.ism_1_yorliq + ' *'; }
+            if (ism2Label && ism2Label.firstChild) { ism2Label.firstChild.textContent = matnlar.ism_2_yorliq; }
+            if (ism1Input) { ism1Input.placeholder = matnlar.ism_1_namuna; }
+            if (ism2Input) { ism2Input.placeholder = matnlar.ism_2_namuna; }
+        }
     }
 
     if (marosimEl) {
-        marosimEl.addEventListener('change', ism2niYangila);
-        ism2niYangila();
+        marosimEl.addEventListener('change', maydonlarniYangila);
+        maydonlarniYangila();
     }
+})();
+
+(function () {
+    // O'zimizning sana+soat tanlagichimiz — native <input type="datetime-local">
+    // brauzer/qurilmaga qarab har xil ko'rinardi va doim qurilma tiliga
+    // qarardi (sayt tiliga emas). Bu yerda hamma narsa saytning o'z
+    // dizayni va joriy interfeys tilida ko'rsatiladi.
+    var oyNomlariEl = document.getElementById('oy-nomlari-data');
+    var oyNomlari = oyNomlariEl ? JSON.parse(oyNomlariEl.textContent) : [];
+    var hafta = "{% trans 'Du Se Ch Pa Ju Sh Ya' %}".split(' ');
+
+    var yashirinInput = document.getElementById('id_sana');
+    var tugma = document.getElementById('sv-tugma');
+    var tugmaMatn = document.getElementById('sv-tugma-matn');
+    var panel = document.getElementById('sv-panel');
+    var oyNomiEl = document.getElementById('sv-oy-nomi');
+    var kalendarEl = document.getElementById('sv-kalendar');
+    var oldingiTugma = document.getElementById('sv-oldingi');
+    var keyingiTugma = document.getElementById('sv-keyingi');
+    var soatSelect = document.getElementById('sv-soat');
+    var minutSelect = document.getElementById('sv-minut');
+    var tayyorTugma = document.getElementById('sv-tayyor');
+
+    if (!tugma || !panel || !yashirinInput) { return; }
+
+    function ikkiXonali(n) { return (n < 10 ? '0' : '') + n; }
+
+    var bugun = new Date();
+    var holat = {
+        // Kalendarda hozir ko'rsatilayotgan oy/yil (tanlanган kun bilan bir xil bo'lmasligi mumkin)
+        korinishYil: bugun.getFullYear(),
+        korinishOy: bugun.getMonth(),
+        // Tanlangan sana — hali hech narsa tanlanmagan bo'lsa null
+        yil: null, oy: null, kun: null,
+        soat: 18, minut: 0
+    };
+
+    // Agar forma xato bilan qaytgan bo'lsa (masalan boshqa maydonda xatolik),
+    // mijoz avval tanlagan sana/vaqt yashirin maydonda saqlanib qoladi — shu
+    // qiymatni o'qib, tanlagichni o'sha holatga qaytaramiz.
+    (function avvalgiQiymatniOqish() {
+        var qiymat = yashirinInput.value;
+        if (!qiymat) { return; }
+        var mos = qiymat.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+        if (!mos) { return; }
+        holat.yil = parseInt(mos[1], 10);
+        holat.oy = parseInt(mos[2], 10) - 1;
+        holat.kun = parseInt(mos[3], 10);
+        holat.soat = parseInt(mos[4], 10);
+        holat.minut = parseInt(mos[5], 10);
+        holat.korinishYil = holat.yil;
+        holat.korinishOy = holat.oy;
+    })();
+
+    // Soat (00-23) va minut (00,05,...,55 — 5 daqiqalik qadam bilan, aksariyat
+    // tadbirlar yaxlit vaqtda boshlanadi, shu bois cheksiz minut tanlovi
+    // shart emas va tanlagichni ancha qulayroq qiladi) tanlovlarini to'ldiramiz.
+    for (var s = 0; s < 24; s++) {
+        var opt = document.createElement('option');
+        opt.value = s; opt.textContent = ikkiXonali(s);
+        soatSelect.appendChild(opt);
+    }
+    for (var m = 0; m < 60; m += 5) {
+        var optM = document.createElement('option');
+        optM.value = m; optM.textContent = ikkiXonali(m);
+        minutSelect.appendChild(optM);
+    }
+    soatSelect.value = holat.soat;
+    minutSelect.value = holat.minut - (holat.minut % 5);
+
+    function yashirinMaydonniYangila() {
+        if (holat.yil === null) { return; }
+        yashirinInput.value = holat.yil + '-' + ikkiXonali(holat.oy + 1) + '-' + ikkiXonali(holat.kun) +
+            ' ' + ikkiXonali(holat.soat) + ':' + ikkiXonali(holat.minut);
+    }
+
+    function tugmaMatniniYangila() {
+        if (holat.yil === null) {
+            tugmaMatn.textContent = "{% trans 'Sanani va soatni tanlang' %}";
+            tugma.classList.add('sv-bosh');
+            return;
+        }
+        tugma.classList.remove('sv-bosh');
+        tugmaMatn.textContent = holat.kun + '-' + (oyNomlari[holat.oy] || '') + ', ' + holat.yil +
+            ' — ' + ikkiXonali(holat.soat) + ':' + ikkiXonali(holat.minut);
+    }
+
+    function kalendarniChiz() {
+        oyNomiEl.textContent = (oyNomlari[holat.korinishOy] || '') + ' ' + holat.korinishYil;
+        var ichki = '';
+        for (var hi = 0; hi < 7; hi++) {
+            ichki += '<span class="sv-kun sv-sarlavha">' + (hafta[hi] || '') + '</span>';
+        }
+        var boshJoy = (new Date(holat.korinishYil, holat.korinishOy, 1).getDay() + 6) % 7;
+        var oyKunlari = new Date(holat.korinishYil, holat.korinishOy + 1, 0).getDate();
+        for (var bj = 0; bj < boshJoy; bj++) { ichki += '<span class="sv-kun sv-bosh"></span>'; }
+        for (var kk = 1; kk <= oyKunlari; kk++) {
+            var shuKun = new Date(holat.korinishYil, holat.korinishOy, kk);
+            var otganMi = shuKun < new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate());
+            var tanlanganMi = holat.yil === holat.korinishYil && holat.oy === holat.korinishOy && holat.kun === kk;
+            var bugunMi = bugun.getFullYear() === holat.korinishYil && bugun.getMonth() === holat.korinishOy && bugun.getDate() === kk;
+            var klass = 'sv-kun' + (otganMi ? ' sv-otgan' : '') + (tanlanganMi ? ' sv-tanlangan' : '') + (bugunMi ? ' sv-bugun' : '');
+            ichki += '<button type="button" class="' + klass + '"' + (otganMi ? ' disabled' : ' data-kun="' + kk + '"') + '>' + kk + '</button>';
+        }
+        kalendarEl.innerHTML = ichki;
+    }
+
+    function panelniOch() {
+        panel.hidden = false;
+        tugma.setAttribute('aria-expanded', 'true');
+        tugma.classList.add('sv-ochiq');
+        kalendarniChiz();
+    }
+    function panelniYop() {
+        panel.hidden = true;
+        tugma.setAttribute('aria-expanded', 'false');
+        tugma.classList.remove('sv-ochiq');
+    }
+
+    tugma.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (panel.hidden) { panelniOch(); } else { panelniYop(); }
+    });
+    panel.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('click', function () {
+        if (!panel.hidden) { panelniYop(); }
+    });
+
+    oldingiTugma.addEventListener('click', function () {
+        holat.korinishOy--;
+        if (holat.korinishOy < 0) { holat.korinishOy = 11; holat.korinishYil--; }
+        kalendarniChiz();
+    });
+    keyingiTugma.addEventListener('click', function () {
+        holat.korinishOy++;
+        if (holat.korinishOy > 11) { holat.korinishOy = 0; holat.korinishYil++; }
+        kalendarniChiz();
+    });
+
+    kalendarEl.addEventListener('click', function (e) {
+        var kunTugma = e.target.closest('[data-kun]');
+        if (!kunTugma) { return; }
+        holat.yil = holat.korinishYil;
+        holat.oy = holat.korinishOy;
+        holat.kun = parseInt(kunTugma.dataset.kun, 10);
+        kalendarniChiz();
+        yashirinMaydonniYangila();
+        tugmaMatniniYangila();
+    });
+
+    soatSelect.addEventListener('change', function () {
+        holat.soat = parseInt(soatSelect.value, 10);
+        yashirinMaydonniYangila();
+        tugmaMatniniYangila();
+    });
+    minutSelect.addEventListener('change', function () {
+        holat.minut = parseInt(minutSelect.value, 10);
+        yashirinMaydonniYangila();
+        tugmaMatniniYangila();
+    });
+
+    tayyorTugma.addEventListener('click', function () { panelniYop(); });
+
+    yashirinMaydonniYangila();
+    tugmaMatniniYangila();
 })();
 
 (function () {

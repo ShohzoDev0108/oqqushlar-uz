@@ -15,6 +15,82 @@ REZERV_SLUGLAR = {
     "mening-taklifnomalarim",
 }
 
+# Taftish topilmasi: forma har doim "1-ism (masalan: kuyov, tug'ilgan kun
+# egasi)" kabi BARCHA marosim turlari uchun umumlashtirilgan yorliq
+# ko'rsatardi — masalan sunnat to'yi tanlansa ham "kuyov" so'zi ko'rinib
+# turardi, bu mijozni chalg'itardi. Endi har bir marosim turi UCHUN alohida
+# yorliq + real (aylanma bo'lmagan) na'munaviy ism beriladi — forma
+# yuklanganda standart marosim turi ("toy") uchun serverda, marosim turi
+# almashtirilganda esa (yaratish.html'dagi JS orqali) mijoz tomonida
+# qo'llaniladi.
+MAROSIM_MAYDON_MATNLARI = {
+    "toy": {
+        "ism_1_yorliq": _("Kuyov ismi"),
+        "ism_1_namuna": _("Masalan: Sardor"),
+        "ism_2_yorliq": _("Kelin ismi"),
+        "ism_2_namuna": _("Masalan: Malika"),
+    },
+    "qizlar_bazmi": {
+        "ism_1_yorliq": _("Kelinchakning ismi"),
+        "ism_1_namuna": _("Masalan: Nilufar"),
+        "ism_2_yorliq": _("2-ism"),
+        "ism_2_namuna": "",
+    },
+    "sunnat_toy": {
+        "ism_1_yorliq": _("O'g'il bolaning ismi"),
+        "ism_1_namuna": _("Masalan: Amir"),
+        "ism_2_yorliq": _("2-ism"),
+        "ism_2_namuna": "",
+    },
+    "beshik_toy": {
+        "ism_1_yorliq": _("Chaqaloqning ismi"),
+        "ism_1_namuna": _("Masalan: Amina"),
+        "ism_2_yorliq": _("2-ism"),
+        "ism_2_namuna": "",
+    },
+    "nahor_oshi": {
+        "ism_1_yorliq": _("Tadbir egasining ismi"),
+        "ism_1_namuna": _("Masalan: Bobur"),
+        "ism_2_yorliq": _("2-ism"),
+        "ism_2_namuna": "",
+    },
+    "yubiley": {
+        "ism_1_yorliq": _("Yubiley egasining ismi"),
+        "ism_1_namuna": _("Masalan: Otabek"),
+        "ism_2_yorliq": _("Ikkinchi ism (ikkoviga bag'ishlangan bo'lsa)"),
+        "ism_2_namuna": _("Masalan: Dilnoza"),
+    },
+    "tugilgan_kun": {
+        "ism_1_yorliq": _("Tug'ilgan kun egasining ismi"),
+        "ism_1_namuna": _("Masalan: Sevinch"),
+        "ism_2_yorliq": _("2-ism"),
+        "ism_2_namuna": "",
+    },
+    "boshqa": {
+        "ism_1_yorliq": _("Asosiy ism"),
+        "ism_1_namuna": _("Masalan: Jahongir"),
+        "ism_2_yorliq": _("Qo'shimcha ism (ixtiyoriy)"),
+        "ism_2_namuna": "",
+    },
+}
+
+# Standart (sahifa birinchi ochilganda, hali JS ishlamasdan turib serverda
+# ko'rsatiladigan) marosim turi — Taklifnoma.marosim_turi'ning model
+# darajasidagi standart qiymati bilan bir xil bo'lishi shart.
+STANDART_MAROSIM_TURI = "toy"
+
+# Yaratish formasidagi o'zimizning sana+soat tanlagichimiz uchun — Yanvardan
+# Dekabrgacha, tartib bilan (JS shu ro'yxatdan oy raqami bo'yicha oladi).
+# DIQQAT: bu Django'ning o'z ichki (django/conf/locale/...) oy nomlari
+# tarjimasidan emas — chunki bizning ba'zi tillarimiz (masalan qoraqalpoq,
+# turkman) Django'ning o'zida rasman qo'llab-quvvatlanmaydi. Shu sababli
+# loyihaning O'Z tarjima katalogi orqali (build_admin_uz_locale.py kabi
+# emas, oddiy {% trans %} orqali) barcha 8 tilga tarjima qilinadi.
+OY_NOMLARI = [
+    _("Yanvar"), _("Fevral"), _("Mart"), _("Aprel"), _("May"), _("Iyun"),
+    _("Iyul"), _("Avgust"), _("Sentyabr"), _("Oktyabr"), _("Noyabr"), _("Dekabr"),
+]
+
 
 class TaklifnomaYaratishForm(forms.ModelForm):
     """Mijoz o'zi to'ldiradigan taklifnoma yaratish formasi (self-service).
@@ -56,18 +132,60 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "ommaviy_korsatishga_rozi",
         ]
         widgets = {
-            "sana": forms.DateTimeInput(
-                attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M"
+            # DIQQAT: "sana" uchun standart <input type="datetime-local">
+            # endi ishlatilmaydi — brauzer/qurilmaga qarab ko'rinishi juda
+            # xilma-xil va sayt tiliga mos kelmas edi (doim qurilma tiliga
+            # qarardi). O'rniga yaratish.html'da o'zimizning, sayt tiliga
+            # to'liq mos kalendar+soat tanlagichimiz ishlatiladi — bu yerda
+            # shunchaki oddiy yashirin matn maydoni sifatida qoldiriladi,
+            # qiymatini o'sha JS to'ldiradi ("YYYY-MM-DDTHH:MM" formatida).
+            "sana": forms.TextInput(
+                attrs={"type": "hidden", "id": "id_sana"}
             ),
-            "matn": forms.Textarea(attrs={"rows": 3}),
+            "ism_1": forms.TextInput(attrs={"placeholder": _("Masalan: Sardor")}),
+            "ism_2": forms.TextInput(attrs={"placeholder": _("Masalan: Malika")}),
+            "toyxona": forms.TextInput(
+                attrs={"placeholder": _("Masalan: “Poytaxt” to'yxonasi")}
+            ),
+            "manzil": forms.TextInput(
+                attrs={
+                    "placeholder": _(
+                        "Masalan: Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi 12"
+                    )
+                }
+            ),
+            "xarita_link": forms.URLInput(
+                attrs={"placeholder": "https://yandex.uz/maps/..."}
+            ),
+            "kiyim_kodi": forms.TextInput(
+                attrs={"placeholder": _("Masalan: rasmiy kiyim, och ranglar")}
+            ),
+            "matn": forms.Textarea(
+                attrs={
+                    "rows": 3,
+                    "placeholder": _(
+                        "Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik "
+                        "bo'lishga taklif qilamiz"
+                    ),
+                }
+            ),
+            "sovga_karta": forms.TextInput(
+                attrs={"placeholder": "8600 1234 5678 9012"}
+            ),
+            "telegram_link": forms.URLInput(
+                attrs={"placeholder": "https://t.me/oilaviy_toy"}
+            ),
             # Brauzerning fayl tanlash oynasida faqat audio fayllarni ko'rsatadi
             # (qulaylik uchun — asosiy himoya baribir modeldagi validatorlar,
             # bu yerdagi "accept" faqat UX, xavfsizlik uchun emas).
             "musiqa": forms.ClearableFileInput(attrs={"accept": "audio/*"}),
         }
         labels = {
-            "ism_1": _("1-ism (masalan: kuyov, tug'ilgan kun egasi)"),
-            "ism_2": _("2-ism (ixtiyoriy, masalan: kelin)"),
+            # Standart holat — "toy" (nikoh to'yi) uchun; boshqa marosim
+            # turi tanlansa, yaratish.html'dagi JS bu yorliqlarni
+            # MAROSIM_MAYDON_MATNLARI asosida darhol almashtiradi.
+            "ism_1": MAROSIM_MAYDON_MATNLARI[STANDART_MAROSIM_TURI]["ism_1_yorliq"],
+            "ism_2": MAROSIM_MAYDON_MATNLARI[STANDART_MAROSIM_TURI]["ism_2_yorliq"],
             "sana": _("Tadbir sanasi va vaqti"),
             "toyxona": _("To'yxona/manzil nomi"),
             "manzil": _("Manzil"),
@@ -83,14 +201,19 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             ),
         }
         help_texts = {
-            "ism_1": _("Masalan: kuyov, tug'ilgan kun egasi"),
-            "ism_2": _("Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"),
-            "sana": _("Tadbir sanasi va vaqti"),
-            "kiyim_kodi": _("Masalan: rasmiy, yorug' ranglar"),
+            # DIQQAT: quyidagi bo'sh qatorlar ataylab shunday — bu maydonlar
+            # modelning o'zida (models.py) help_text bilan e'lon qilingan
+            # (masalan admin panelida foydali bo'lishi uchun), lekin BU
+            # formada endi har biri o'zining placeholder'i (real na'muna
+            # matni) orqali ko'rsatiladi — ikkalasi birga chiqsa, bir xil
+            # fikr ikki marta takrorlanib, forma "gavjum" ko'rinar edi.
+            "ism_1": "",
+            "ism_2": "",
+            "kiyim_kodi": "",
+            "matn": "",
+            "sovga_karta": "",
+            "telegram_link": "",
             "musiqa": _("O'zingiz yuklamoqchi bo'lsangiz"),
-            "matn": _("Qo'shimcha tabrik/taklif matni"),
-            "sovga_karta": _("Pul sovg'a uchun karta raqami"),
-            "telegram_link": _("Mehmonlar uchun Telegram guruh/kanal havolasi"),
             "ommaviy_korsatishga_rozi": _(
                 "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek "
                 "ishlayveradi — bu faqat bosh sahifadagi namunalar ro'yxatiga tegishli."

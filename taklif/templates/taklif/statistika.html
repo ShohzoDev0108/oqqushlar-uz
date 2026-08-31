@@ -134,7 +134,7 @@ button.mini-tugma {
 
         <form class="mehmon-qoshish-forma" method="post" action="{% url 'taklif:mehmon_qoshish' taklifnoma.statistika_token %}">
             {% csrf_token %}
-            <input type="text" name="ism" placeholder="{% trans "Mehmon ismi, masalan: Aziz oila" %}" maxlength="100" required>
+            <input type="text" name="ism" placeholder="{% trans "Mehmon ismi, masalan: Jasur Rahimov" %}" maxlength="100" required>
             <button type="submit" class="oq-cta kichik">{% trans "Qo'shish" %}</button>
         </form>
 

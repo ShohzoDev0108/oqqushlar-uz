@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oqqushlar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 14:23+0500\n"
+"POT-Creation-Date: 2026-08-31 15:08+0500\n"
 "PO-Revision-Date: 2026-08-30 00:00+0500\n"
 "Last-Translator: Oqqushlar\n"
 "Language-Team: Uzbek\n"
@@ -12,6 +12,108 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Kuyov ismi"
+msgstr ""
+
+msgid "Masalan: Sardor"
+msgstr ""
+
+msgid "Kelin ismi"
+msgstr ""
+
+msgid "Masalan: Malika"
+msgstr ""
+
+msgid "Kelinchakning ismi"
+msgstr ""
+
+msgid "Masalan: Nilufar"
+msgstr ""
+
+msgid "2-ism"
+msgstr ""
+
+msgid "O'g'il bolaning ismi"
+msgstr ""
+
+msgid "Masalan: Amir"
+msgstr ""
+
+msgid "Chaqaloqning ismi"
+msgstr ""
+
+msgid "Masalan: Amina"
+msgstr ""
+
+msgid "Tadbir egasining ismi"
+msgstr ""
+
+msgid "Masalan: Bobur"
+msgstr ""
+
+msgid "Yubiley egasining ismi"
+msgstr ""
+
+msgid "Masalan: Otabek"
+msgstr ""
+
+msgid "Ikkinchi ism (ikkoviga bag'ishlangan bo'lsa)"
+msgstr ""
+
+msgid "Masalan: Dilnoza"
+msgstr ""
+
+msgid "Tug'ilgan kun egasining ismi"
+msgstr ""
+
+msgid "Masalan: Sevinch"
+msgstr ""
+
+msgid "Asosiy ism"
+msgstr ""
+
+msgid "Masalan: Jahongir"
+msgstr ""
+
+msgid "Qo'shimcha ism (ixtiyoriy)"
+msgstr ""
+
+msgid "Yanvar"
+msgstr ""
+
+msgid "Fevral"
+msgstr ""
+
+msgid "Mart"
+msgstr ""
+
+msgid "Aprel"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "Iyun"
+msgstr ""
+
+msgid "Iyul"
+msgstr ""
+
+msgid "Avgust"
+msgstr ""
+
+msgid "Sentyabr"
+msgstr ""
+
+msgid "Oktyabr"
+msgstr ""
+
+msgid "Noyabr"
+msgstr ""
+
+msgid "Dekabr"
+msgstr ""
 
 msgid "Marosim turi"
 msgstr ""
@@ -22,10 +124,18 @@ msgstr ""
 msgid "— tanlanmagan —"
 msgstr ""
 
-msgid "1-ism (masalan: kuyov, tug'ilgan kun egasi)"
+msgid "Masalan: “Poytaxt” to'yxonasi"
 msgstr ""
 
-msgid "2-ism (ixtiyoriy, masalan: kelin)"
+msgid "Masalan: Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi 12"
+msgstr ""
+
+msgid "Masalan: rasmiy kiyim, och ranglar"
+msgstr ""
+
+msgid ""
+"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
+"qilamiz"
 msgstr ""
 
 msgid "Tadbir sanasi va vaqti"
@@ -60,25 +170,7 @@ msgid ""
 "ko'rsatilishiga rozimisiz?"
 msgstr ""
 
-msgid "Masalan: kuyov, tug'ilgan kun egasi"
-msgstr ""
-
-msgid "Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring"
-msgstr ""
-
-msgid "Masalan: rasmiy, yorug' ranglar"
-msgstr ""
-
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
-msgstr ""
-
-msgid "Qo'shimcha tabrik/taklif matni"
-msgstr ""
-
-msgid "Pul sovg'a uchun karta raqami"
-msgstr ""
-
-msgid "Mehmonlar uchun Telegram guruh/kanal havolasi"
 msgstr ""
 
 msgid ""
@@ -443,17 +535,6 @@ msgstr ""
 msgid "Yuborish"
 msgstr ""
 
-msgid "Mehmonlar"
-msgstr ""
-
-#, python-format
-msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
-msgstr ""
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr ""
-
 msgid "Tilaklar"
 msgstr ""
 
@@ -546,6 +627,10 @@ msgstr ""
 msgid "Kelmaydi"
 msgstr ""
 
+#, python-format
+msgid "%(soni)s kishi"
+msgstr ""
+
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr ""
 
@@ -565,7 +650,7 @@ msgid ""
 "hali ko'rmaganini bilib turasiz."
 msgstr ""
 
-msgid "Mehmon ismi, masalan: Aziz oila"
+msgid "Mehmon ismi, masalan: Jasur Rahimov"
 msgstr ""
 
 msgid "Qo'shish"
@@ -639,6 +724,30 @@ msgid "Buni yangilayman (eskisi o'chadi)"
 msgstr ""
 
 msgid "Yo'q, alohida saqlayman"
+msgstr ""
+
+msgid "Sanani va soatni tanlang"
+msgstr ""
+
+msgid "Tadbir qachon va soat nechada boshlanishini tanlang"
+msgstr ""
+
+msgid "Sana va soat tanlash"
+msgstr ""
+
+msgid "Oldingi oy"
+msgstr ""
+
+msgid "Keyingi oy"
+msgstr ""
+
+msgid "Soat"
+msgstr ""
+
+msgid "Minut"
+msgstr ""
+
+msgid "Tayyor"
 msgstr ""
 
 #, python-format
