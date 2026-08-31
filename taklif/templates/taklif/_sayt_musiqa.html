@@ -87,3 +87,108 @@ pastdagi tugma pulsatsiya bilan ko'rinib turadi — bir marta bosish kifoya.
 })();
 </script>
 {% endif %}
+
+{% comment %}
+Taftish topilmasi: sayt sahifalari orasida (bosh sahifa, dizaynlar,
+yaratish, mening taklifnomalarim, tayyor) o'tilganda har safar butun
+sahifa qayta yuklanardi — bu <audio> elementini yo'q qilib, yangisini
+yaratardi, shu sababli fon musiqasi bir necha soniyaga uzilib qolardi
+(qayta bufer yig'ish kerak bo'lgani uchun). Quyidagi skript shu 5 ta
+"asosiy" sahifa orasidagi ICHKI havolalarni fetch() orqali orqa fondan
+yuklab, faqat <body>'ni (va sahifaga xos <style>'ni) almashtiradi —
+JONLI <audio> elementi esa YANGI sahifaga TUGATILMASDAN ko'chiriladi,
+shuning uchun musiqa umuman uzilmaydi. Boshqa barcha havolalar (taklifnoma
+ko'rish, statistika, admin, tashqi Telegram va h.k.) — bu mexanizmga
+umuman tegmaydi, oddiy to'liq sahifa yuklanishi bilan ochiladi.
+{% endcomment %}
+<script>
+(function () {
+    if (window.__oqIchkiNavOrnatildi) { return; }
+    window.__oqIchkiNavOrnatildi = true;
+
+    // Faqat shu 5 ta "asosiy" sahifaga tegishli yo'llar — middleware.py'dagi
+    // ASOSIY_SAHIFA_BOSHLARI bilan bir xil mantiq (frontendda JS orqali).
+    var ICHKI_YOLLAR = [/^\/$/, /^\/yaratish(\/|$)/, /^\/mening-taklifnomalarim(\/|$)/, /^\/tayyor\//];
+
+    function ichkiYolMi(yol) {
+        for (var i = 0; i < ICHKI_YOLLAR.length; i++) {
+            if (ICHKI_YOLLAR[i].test(yol)) { return true; }
+        }
+        return false;
+    }
+
+    function skriptlarniQaytaIshgaTushir(konteyner) {
+        Array.prototype.slice.call(konteyner.querySelectorAll('script')).forEach(function (eski) {
+            var yangi = document.createElement('script');
+            for (var i = 0; i < eski.attributes.length; i++) {
+                yangi.setAttribute(eski.attributes[i].name, eski.attributes[i].value);
+            }
+            yangi.textContent = eski.textContent;
+            eski.parentNode.replaceChild(yangi, eski);
+        });
+    }
+
+    function sahifaniAlmashtir(url, tarixgaQoshish) {
+        fetch(url, { credentials: 'same-origin' })
+            .then(function (javob) {
+                if (!javob.ok) { throw new Error('http-xato'); }
+                return javob.text();
+            })
+            .then(function (matn) {
+                var yangiHujjat = new DOMParser().parseFromString(matn, 'text/html');
+                document.title = yangiHujjat.title;
+
+                // Har bir sahifaning o'ziga xos CSS'ini (extra_style blokini)
+                // almashtiramiz — aks holda yangi sahifa eski sahifa uslubida
+                // (yoki umuman uslubsiz) ko'rinib qolardi.
+                var eskiUslub = document.getElementById('oq-uslub');
+                var yangiUslub = yangiHujjat.getElementById('oq-uslub');
+                if (eskiUslub && yangiUslub) { eskiUslub.textContent = yangiUslub.textContent; }
+
+                // Musiqa uzilmasligi uchun — JONLI <audio> elementini yangi
+                // tanaga TUGATMASDAN ko'chiramiz (yangi nusxasi bilan almashtirish
+                // o'rniga, uni xuddi shu joyga qo'yamiz).
+                var jonliAudio = document.getElementById('sayt-musiqa');
+                var yangiTana = document.adoptNode(yangiHujjat.body);
+                if (jonliAudio) {
+                    var yangiAudioJoyi = yangiTana.querySelector('#sayt-musiqa');
+                    if (yangiAudioJoyi) {
+                        yangiAudioJoyi.parentNode.replaceChild(jonliAudio, yangiAudioJoyi);
+                    }
+                }
+
+                document.body.parentNode.replaceChild(yangiTana, document.body);
+                skriptlarniQaytaIshgaTushir(document.body);
+                window.scrollTo(0, 0);
+                if (tarixgaQoshish) { history.pushState({ oqIchkiNav: true }, '', url); }
+                if (window.gtag) { window.gtag('event', 'page_view', { page_path: location.pathname }); }
+            })
+            .catch(function () {
+                // Tarmoq xatosi yoki kutilmagan holat — oddiy to'liq
+                // navigatsiyaga qaytamiz, mijoz baribir sahifaga yetadi.
+                window.location.href = url;
+            });
+    }
+
+    document.addEventListener('click', function (e) {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) { return; }
+        var havola = e.target.closest('a[href]');
+        if (!havola) { return; }
+        if (havola.target && havola.target !== '' && havola.target !== '_self') { return; }
+        if (havola.hasAttribute('download')) { return; }
+        var url;
+        try { url = new URL(havola.href, location.href); } catch (xato) { return; }
+        if (url.origin !== location.origin) { return; }
+        if (!ichkiYolMi(url.pathname)) { return; }
+        if (url.pathname === location.pathname && url.search === location.search) { return; }
+        e.preventDefault();
+        sahifaniAlmashtir(havola.href, true);
+    });
+
+    window.addEventListener('popstate', function () {
+        if (ichkiYolMi(location.pathname)) {
+            sahifaniAlmashtir(location.href, false);
+        }
+    });
+})();
+</script>

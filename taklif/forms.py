@@ -132,7 +132,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
         label=_("Tayyor musiqalardan tanlash (ixtiyoriy)"),
         queryset=MusiqaVariant.objects.filter(faol=True),
         required=False,
-        empty_label=_("— tanlanmagan —"),
+        empty_label=_("Tanlanmagan"),
     )
 
     class Meta:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 16:48+0500\n"
+"POT-Creation-Date: 2026-08-31 17:36+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,8 +135,9 @@ msgstr "Event type"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Choose from preset music (optional)"
 
-msgid "— tanlanmagan —"
-msgstr "— not selected —"
+#| msgid "— tanlanmagan —"
+msgid "Tanlanmagan"
+msgstr "Not selected"
 
 msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
 msgstr "E.g.: Store opening, Graduation party"
@@ -204,9 +205,6 @@ msgstr "This text is shown to guests directly on the invitation."
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "If you'd like to upload your own file"
 
-#| msgid ""
-#| "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
-#| "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
 msgid ""
 "Ixtiyoriy. Belgilamasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
 "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
@@ -396,10 +394,6 @@ msgstr ""
 "The invitation doesn't disappear once the event is over — you can reopen it "
 "anytime and feel the warmth of that day again."
 
-#| msgid ""
-#| "Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
-#| "bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
-#| "beramiz."
 msgid ""
 "Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong>"
 " — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz."
@@ -584,6 +578,10 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Create another"
 
+#| msgid "Taklifnomani yaratish"
+msgid "Birinchi taklifnomangizni yarating"
+msgstr "Create your first invitation"
+
 msgid "Faollashtirilgan"
 msgstr "Activated"
 
@@ -721,13 +719,6 @@ msgstr "Your wish / greeting (optional)"
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr ""
 "Write your wish for the bride and groom (or the hosts of the occasion) here"
-
-msgid ""
-"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
-"bo'ladi."
-msgstr ""
-"It's first shown only to the invitation owner; once they approve it, it "
-"becomes visible to everyone on the page."
 
 msgid "Yuborish"
 msgstr "Submit"
@@ -959,10 +950,6 @@ msgstr ""
 "away (not visible to anyone yet)."
 
 #, python-format
-#| msgid ""
-#| "Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
-#| "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
-#| "rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
 msgid ""
 "Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a "
 "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
@@ -1013,6 +1000,15 @@ msgstr "Minute"
 msgid "Tayyor"
 msgstr "Done"
 
+#| msgid "Taklifnomani ko'rish"
+msgid "Tinglab ko'rish"
+msgstr "Listen"
+
+msgid ""
+"Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan "
+"yuklashingiz mumkin."
+msgstr "No ready-made music yet — you can upload your own music below."
+
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Photos (up to %(soni)s, optional)"
@@ -1026,6 +1022,10 @@ msgstr ""
 msgid "Namuna rasm %(soni)s"
 msgstr "Sample photo %(soni)s"
 
+#| msgid "Statistikani ko'rish"
+msgid "Kattalashtirib ko'rish"
+msgstr "Enlarge"
+
 msgid "yoki"
 msgstr "or"
 
@@ -1038,11 +1038,26 @@ msgstr "Create the invitation"
 msgid "Boshqa shablon tanlash"
 msgstr "Choose another template"
 
+msgid "Yopish"
+msgstr "Close"
+
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr "You can select at most %(soni)s photos. Please choose again."
+
+#| msgid "Dizayn tanlang"
+msgid "Fayl tanlash"
+msgstr "Choose file"
+
+#| msgid "— tanlanmagan —"
+msgid "Fayl tanlanmagan"
+msgstr "No file chosen"
+
+#| msgid "Dizayn tanlang"
+msgid "ta fayl tanlandi"
+msgstr "files chosen"
 
 #, python-format
 msgid ""

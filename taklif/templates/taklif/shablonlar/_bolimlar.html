@@ -87,7 +87,6 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 .ulashish-tugmalar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .ulashish-tugma { display: inline-block; padding: 11px 22px; border-radius: 24px; border: 1px solid var(--asos); color: var(--asos); background: var(--karta-fon); text-decoration: none; font-size: .9rem; cursor: pointer; font-family: inherit; }
 .ulashish-tugma:hover { background: var(--asos); color: var(--asos-matn); }
-.tilak-eslatma { color: var(--ikkinchi); font-size: .78rem; margin: -8px 0 4px; }
 .tilak-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
 .tilak-karta { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 16px 18px; }
 .tilak-ism { font-weight: bold; margin-bottom: 4px; }
@@ -333,7 +332,6 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 
             <label for="tilak">{% trans "Tilak / tabrigingiz (ixtiyoriy)" %}</label>
             <textarea id="tilak" name="tilak" rows="3" placeholder="{% trans "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing" %}"></textarea>
-            <div class="tilak-eslatma">{% trans "Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq bo'ladi." %}</div>
 
             <button type="submit">{% trans "Yuborish" %}</button>
         </form>

@@ -381,6 +381,7 @@ def yaratish(request, shablon_kod):
             "oy_nomlari": [str(oy) for oy in OY_NOMLARI],
             "maksimal_rasmlar_soni": MAKSIMAL_RASMLAR_SONI,
             "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
+            "musiqa_variantlar": MusiqaVariant.objects.filter(faol=True),
             "sayt_musiqa": _sayt_musiqasi(),
             "eski_taklifnoma": eski_taklifnoma,
             "admin_telegram": _admin_telegram(),
@@ -467,6 +468,14 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
         "tilaklar": tilaklar,
         "rasmlar": taklifnoma.rasmlar.all(),
         "admin_telegram": _admin_telegram(),
+        # Taftish topilmasi: taklifnoma faollashtirilgach (tolangan=True),
+        # pastdagi "mijoz paneli" (Yoqdi/Qayta yaratish/Mening taklifnomalarim)
+        # butunlay yashirilib qolardi — natijada mijozning O'ZI taklifnomasini
+        # ochib ko'rgach, saytga qaytishning HECH QANDAY yo'li qolmasdi. Endi
+        # shu brauzer sessiyasi shu taklifnomani yaratgan bo'lsa (SESSIYA_KALITI
+        # ro'yxatida bo'lsa), faollashtirilgandan keyin ham qaytish havolasi
+        # ko'rsatiladi — lekin faqat mijozning o'ziga, mehmonlarga emas.
+        "mening_taklifnomam": taklifnoma.slug in request.session.get(SESSIYA_KALITI, []),
     }
     return render(request, _shablon_fayli(taklifnoma.shablon.kod), context)
 

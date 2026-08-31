@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 16:48+0500\n"
+"POT-Creation-Date: 2026-08-31 17:36+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,8 +135,9 @@ msgstr "Dabaranyň görnüşi"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Taýýar sazlardan saýlamak (hökmany däl)"
 
-msgid "— tanlanmagan —"
-msgstr "— saýlanmadyk —"
+#| msgid "— tanlanmagan —"
+msgid "Tanlanmagan"
+msgstr "Saýlanmady"
 
 msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
 msgstr "Mysal üçin: Dükan açylyşy, Uçurym agşamy"
@@ -203,9 +204,6 @@ msgstr "Bu tekst çakylykda myhmanlara göni görkeziler."
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Öz faýlyňyzy ýüklemek isleseňiz"
 
-#| msgid ""
-#| "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
-#| "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
 msgid ""
 "Ixtiyoriy. Belgilamasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
 "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
@@ -394,10 +392,6 @@ msgstr ""
 "Dabara geçip gidenden soň hem çakylyk ýitip gitmeýär — islendik wagt "
 "gaýtadan açyp, şol günüň ýylylygyny duýup bilersiňiz."
 
-#| msgid ""
-#| "Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
-#| "bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
-#| "beramiz."
 msgid ""
 "Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong>"
 " — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz."
@@ -579,6 +573,10 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Ýene birini döretmek"
 
+#| msgid "Taklifnomani yaratish"
+msgid "Birinchi taklifnomangizni yarating"
+msgstr "Ilkinji çakylygyňyzy dörediň"
+
 msgid "Faollashtirilgan"
 msgstr "Işjeňleşdirilen"
 
@@ -712,13 +710,6 @@ msgstr "Arzuwyňyz / gutlagyňyz (hökmany däl)"
 
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr "Arzuwyňyzy gelin-ýigide (ýa-da dabaranyň eýelerine) şu ýere ýazyň"
-
-msgid ""
-"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
-"bo'ladi."
-msgstr ""
-"Ilki diňe çakylygyň eýesine görünýär; ol tassyklandan soň sahypada hemmä "
-"görünýär."
 
 msgid "Yuborish"
 msgstr "Ibermek"
@@ -952,10 +943,6 @@ msgstr ""
 "taýýar bolar (heniz hiç kime görünmeýär)."
 
 #, python-format
-#| msgid ""
-#| "Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
-#| "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
-#| "rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
 msgid ""
 "Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a "
 "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
@@ -1006,6 +993,17 @@ msgstr "Minut"
 msgid "Tayyor"
 msgstr "Taýýar"
 
+#| msgid "Taklifnomani ko'rish"
+msgid "Tinglab ko'rish"
+msgstr "Diňläp görmek"
+
+msgid ""
+"Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan "
+"yuklashingiz mumkin."
+msgstr ""
+"Häzirlikçe taýyn aýdym-saz görnüşleri ýok — öz aýdym-sazyňyzy aşakda ýükläp "
+"bilersiňiz."
+
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Suratlar (iň köp %(soni)s sany, hökmany däl)"
@@ -1017,6 +1015,10 @@ msgstr ""
 #, python-format
 msgid "Namuna rasm %(soni)s"
 msgstr "Nusga surat %(soni)s"
+
+#| msgid "Statistikani ko'rish"
+msgid "Kattalashtirib ko'rish"
+msgstr "Ulaltyp görmek"
 
 msgid "yoki"
 msgstr "ýa-da"
@@ -1030,11 +1032,26 @@ msgstr "Çakylygy döretmek"
 msgid "Boshqa shablon tanlash"
 msgstr "Başga şablon saýlamak"
 
+msgid "Yopish"
+msgstr "Ýapmak"
+
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr "Iň köp %(soni)s surat saýlap bilersiňiz. Täzeden saýlaň."
+
+#| msgid "Dizayn tanlang"
+msgid "Fayl tanlash"
+msgstr "Faýl saýlamak"
+
+#| msgid "— tanlanmagan —"
+msgid "Fayl tanlanmagan"
+msgstr "Faýl saýlanmady"
+
+#| msgid "Dizayn tanlang"
+msgid "ta fayl tanlandi"
+msgstr "faýl saýlandy"
 
 #, python-format
 msgid ""

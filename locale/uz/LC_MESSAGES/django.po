@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oqqushlar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 16:48+0500\n"
+"POT-Creation-Date: 2026-08-31 17:36+0500\n"
 "PO-Revision-Date: 2026-08-30 00:00+0500\n"
 "Last-Translator: Oqqushlar\n"
 "Language-Team: Uzbek\n"
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr ""
 
-msgid "— tanlanmagan —"
+msgid "Tanlanmagan"
 msgstr ""
 
 msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
@@ -514,6 +514,9 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr ""
 
+msgid "Birinchi taklifnomangizni yarating"
+msgstr ""
+
 msgid "Faollashtirilgan"
 msgstr ""
 
@@ -640,11 +643,6 @@ msgid "Tilak / tabrigingiz (ixtiyoriy)"
 msgstr ""
 
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
-msgstr ""
-
-msgid ""
-"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
-"bo'ladi."
 msgstr ""
 
 msgid "Yuborish"
@@ -898,6 +896,14 @@ msgstr ""
 msgid "Tayyor"
 msgstr ""
 
+msgid "Tinglab ko'rish"
+msgstr ""
+
+msgid ""
+"Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan "
+"yuklashingiz mumkin."
+msgstr ""
+
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr ""
@@ -907,6 +913,9 @@ msgstr ""
 
 #, python-format
 msgid "Namuna rasm %(soni)s"
+msgstr ""
+
+msgid "Kattalashtirib ko'rish"
 msgstr ""
 
 msgid "yoki"
@@ -921,10 +930,22 @@ msgstr ""
 msgid "Boshqa shablon tanlash"
 msgstr ""
 
+msgid "Yopish"
+msgstr ""
+
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
+msgstr ""
+
+msgid "Fayl tanlash"
+msgstr ""
+
+msgid "Fayl tanlanmagan"
+msgstr ""
+
+msgid "ta fayl tanlandi"
 msgstr ""
 
 #, python-format

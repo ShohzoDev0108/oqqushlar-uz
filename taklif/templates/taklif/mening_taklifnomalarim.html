@@ -49,7 +49,11 @@ belgilab qo'yamiz, shunda .xavfli klassi haqiqatan g'olib chiqadi.
 
 <div class="oq-ichki">
     <div class="yaratish-katta">
+        {% if taklifnomalar %}
         <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">+ {% trans "Yana bitta yaratish" %}</a>
+        {% else %}
+        <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">+ {% trans "Birinchi taklifnomangizni yarating" %}</a>
+        {% endif %}
     </div>
 
     {% if taklifnomalar %}

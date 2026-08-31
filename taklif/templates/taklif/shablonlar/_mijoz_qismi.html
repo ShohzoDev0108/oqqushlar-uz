@@ -19,6 +19,17 @@ o'z CSS'ida (--asos, --banner-fon va h.k. o'zgaruvchilari orqali) beriladi.
     <a class="mp-tugma" href="{% url 'taklif:shablon_tanlash' %}">🔄 {% trans "Qayta yaratish" %}</a>
     <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Mening taklifnomalarim" %}</a>
 </div>
+{% elif taklifnoma.tolangan and mening_taklifnomam and not mehmon %}
+{% comment %}
+Taftish topilmasi: taklifnoma faollashtirilgandan keyin yuqoridagi to'liq
+panel butunlay yashirilardi — mijoz o'z taklifnomasini ochib ko'rgach,
+saytga qaytishning hech qanday yo'li qolmasdi. Bu — faqat shu taklifnomani
+yaratgan brauzer sessiyasiga (mehmonlarga emas) ko'rinadigan yengil qaytish
+havolasi.
+{% endcomment %}
+<div class="mijoz-panel">
+    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Mening taklifnomalarim" %}</a>
+</div>
 {% endif %}
 
 {% if taklifnoma.musiqa_manbai %}

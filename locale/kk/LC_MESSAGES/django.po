@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 16:48+0500\n"
+"POT-Creation-Date: 2026-08-31 17:36+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,8 +135,9 @@ msgstr "Іс-шара түрі"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Дайын музыкадан таңдау (міндетті емес)"
 
-msgid "— tanlanmagan —"
-msgstr "— таңдалмаған —"
+#| msgid "— tanlanmagan —"
+msgid "Tanlanmagan"
+msgstr "Таңдалмаған"
 
 msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
 msgstr "Мысалы: Дүкен ашылуы, Түлектер кеші"
@@ -203,9 +204,6 @@ msgstr "Бұл мәтін шақыру хатында қонақтарға ті�
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Өз файлыңызды жүктегіңіз келсе"
 
-#| msgid ""
-#| "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
-#| "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
 msgid ""
 "Ixtiyoriy. Belgilamasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
 "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
@@ -394,10 +392,6 @@ msgstr ""
 "Іс-шара өтіп кеткеннен кейін де шақыру хат жойылмайды — қалаған уақытта "
 "қайта ашып, сол күннің жылуын сезіне аласыз."
 
-#| msgid ""
-#| "Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
-#| "bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
-#| "beramiz."
 msgid ""
 "Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong>"
 " — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz."
@@ -579,6 +573,10 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Тағы біреуін жасау"
 
+#| msgid "Taklifnomani yaratish"
+msgid "Birinchi taklifnomangizni yarating"
+msgstr "Алғашқы шақыруыңызды жасаңыз"
+
 msgid "Faollashtirilgan"
 msgstr "Іске қосылған"
 
@@ -715,13 +713,6 @@ msgstr "Тілегіңіз / құттықтауыңыз (міндетті еме
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr ""
 "Тілегіңізді келін-күйеу жігітке (немесе мерекенің иелеріне) осында жазыңыз"
-
-msgid ""
-"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
-"bo'ladi."
-msgstr ""
-"Алдымен тек шақыру иесіне көрінеді; ол растағаннан кейін бетте барлығына "
-"көрінеді."
 
 msgid "Yuborish"
 msgstr "Жіберу"
@@ -955,10 +946,6 @@ msgstr ""
 "болады (әзірге ешкімге көрінбейді)."
 
 #, python-format
-#| msgid ""
-#| "Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
-#| "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
-#| "rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
 msgid ""
 "Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a "
 "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
@@ -1009,6 +996,16 @@ msgstr "Минут"
 msgid "Tayyor"
 msgstr "Дайын"
 
+#| msgid "Taklifnomani ko'rish"
+msgid "Tinglab ko'rish"
+msgstr "Тыңдап көру"
+
+msgid ""
+"Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan "
+"yuklashingiz mumkin."
+msgstr ""
+"Әзірге дайын музыка нұсқалары жоқ — өз музыкаңызды төменде жүктей аласыз."
+
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Суреттер (ең көбі %(soni)s дана, міндетті емес)"
@@ -1019,6 +1016,10 @@ msgstr "Егер өз суретіңіз әлі болмаса, дайын үл�
 #, python-format
 msgid "Namuna rasm %(soni)s"
 msgstr "Үлгі сурет %(soni)s"
+
+#| msgid "Statistikani ko'rish"
+msgid "Kattalashtirib ko'rish"
+msgstr "Үлкейтіп көру"
 
 msgid "yoki"
 msgstr "немесе"
@@ -1032,11 +1033,26 @@ msgstr "Шақыруды жасау"
 msgid "Boshqa shablon tanlash"
 msgstr "Басқа үлгі таңдау"
 
+msgid "Yopish"
+msgstr "Жабу"
+
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr "Ең көбі %(soni)s сурет таңдай аласыз. Қайта таңдаңыз."
+
+#| msgid "Dizayn tanlang"
+msgid "Fayl tanlash"
+msgstr "Файл таңдау"
+
+#| msgid "— tanlanmagan —"
+msgid "Fayl tanlanmagan"
+msgstr "Файл таңдалмаған"
+
+#| msgid "Dizayn tanlang"
+msgid "ta fayl tanlandi"
+msgstr "файл таңдалды"
 
 #, python-format
 msgid ""

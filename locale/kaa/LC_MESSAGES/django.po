@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 16:48+0500\n"
+"POT-Creation-Date: 2026-08-31 17:36+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,8 +134,9 @@ msgstr "Ilaj túri"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Tayar muzıkalardan tanlaw (mindetli emes)"
 
-msgid "— tanlanmagan —"
-msgstr "— tanlanbaǵan —"
+#| msgid "— tanlanmagan —"
+msgid "Tanlanmagan"
+msgstr "Tańlanbaǵan"
 
 msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
 msgstr "Mısalı: Dúken ashılıwı, Pitkeriwshiler keshi"
@@ -202,9 +203,6 @@ msgstr "Bul tekst shaqırıwda qonaqlarǵa tikkeley kórsetiledi."
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Óz faylıńızdı júklewdi qáleseńiz"
 
-#| msgid ""
-#| "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
-#| "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
 msgid ""
 "Ixtiyoriy. Belgilamasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
 "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
@@ -393,10 +391,6 @@ msgstr ""
 "Ma'resim ótip ketkennen keyin de shaqırıw joğalmaydı — qálegen waqıtta qayta"
 " ashıp, sol kúnniń jılıwlıǵın sezinip alasız."
 
-#| msgid ""
-#| "Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
-#| "bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
-#| "beramiz."
 msgid ""
 "Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong>"
 " — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz."
@@ -579,6 +573,10 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Jáne birewin jaratıw"
 
+#| msgid "Taklifnomani yaratish"
+msgid "Birinchi taklifnomangizni yarating"
+msgstr "Birinshi shaqırıwıńızdı jaratıń"
+
 msgid "Faollashtirilgan"
 msgstr "Belsendirilgen"
 
@@ -715,13 +713,6 @@ msgstr "Tilegińiz / qutlıqlawıńız (mindetli emes)"
 
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr "Tilegińizdi kelin-kúyewge (yamasa saltanattıń iesine) osı jerge jazıń"
-
-msgid ""
-"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
-"bo'ladi."
-msgstr ""
-"Aldı menen tek shaqırıw iesine kórinedi; ol tastıyıqlaǵannan keyin bette "
-"barlıǵına kórinedi."
 
 msgid "Yuborish"
 msgstr "Jiberiw"
@@ -955,10 +946,6 @@ msgstr ""
 "tayın boladı (házirshe eshkimge kórinbeydi)."
 
 #, python-format
-#| msgid ""
-#| "Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
-#| "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
-#| "rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
 msgid ""
 "Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a "
 "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
@@ -1009,6 +996,17 @@ msgstr "Minut"
 msgid "Tayyor"
 msgstr "Tayar"
 
+#| msgid "Taklifnomani ko'rish"
+msgid "Tinglab ko'rish"
+msgstr "Tıńlap kóriw"
+
+msgid ""
+"Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan "
+"yuklashingiz mumkin."
+msgstr ""
+"Házirshe tayar muzıka variantları joq — óz muzıkańızdı tómennen júklewińiz "
+"múmkin."
+
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Súwretler (eń kóbi %(soni)s dana, mindetli emes)"
@@ -1019,6 +1017,10 @@ msgstr "Eger óz súwretińiz áli bolmasa, tayar úlgilerden tańlaw múmkin:"
 #, python-format
 msgid "Namuna rasm %(soni)s"
 msgstr "Úlgi súwret %(soni)s"
+
+#| msgid "Statistikani ko'rish"
+msgid "Kattalashtirib ko'rish"
+msgstr "Úlkeytip kóriw"
 
 msgid "yoki"
 msgstr "yamasa"
@@ -1032,11 +1034,26 @@ msgstr "Shaqırıwdı jaratıw"
 msgid "Boshqa shablon tanlash"
 msgstr "Basqa shablon tanlaw"
 
+msgid "Yopish"
+msgstr "Jabıw"
+
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr "Eń kóbi %(soni)s súwret tanlay alasız. Qaytadan tanlań."
+
+#| msgid "Dizayn tanlang"
+msgid "Fayl tanlash"
+msgstr "Fayl tańlaw"
+
+#| msgid "— tanlanmagan —"
+msgid "Fayl tanlanmagan"
+msgstr "Fayl tańlanbaǵan"
+
+#| msgid "Dizayn tanlang"
+msgid "ta fayl tanlandi"
+msgstr "fayl tańlandı"
 
 #, python-format
 msgid ""

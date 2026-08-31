@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 16:48+0500\n"
+"POT-Creation-Date: 2026-08-31 17:36+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,8 +135,9 @@ msgstr "Навъи маросим"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Аз мусиқии тайёр интихоб кунед (ихтиёрӣ)"
 
-msgid "— tanlanmagan —"
-msgstr "— интихоб нашудааст —"
+#| msgid "— tanlanmagan —"
+msgid "Tanlanmagan"
+msgstr "Интихоб нашудааст"
 
 msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
 msgstr "Масалан: Кушоиши мағоза, Шаби хатми таҳсил"
@@ -203,9 +204,6 @@ msgstr "Ин матн дар даъватнома бевосита ба меҳм
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Агар хоҳед файли худро бор кунед"
 
-#| msgid ""
-#| "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
-#| "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
 msgid ""
 "Ixtiyoriy. Belgilamasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
 "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
@@ -396,10 +394,6 @@ msgstr ""
 "Пас аз гузаштани маросим ҳам даъватнома нест намешавад — дар ҳар лаҳза "
 "метавонед онро боз кушода, гармии он рӯзро эҳсос кунед."
 
-#| msgid ""
-#| "Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
-#| "bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
-#| "beramiz."
 msgid ""
 "Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong>"
 " — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz."
@@ -586,6 +580,10 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Боз як сохтан"
 
+#| msgid "Taklifnomani yaratish"
+msgid "Birinchi taklifnomangizni yarating"
+msgstr "Даъватномаи аввалини худро созед"
+
 msgid "Faollashtirilgan"
 msgstr "Фаъолшуда"
 
@@ -723,13 +721,6 @@ msgstr "Орзу / табрики шумо (ихтиёрӣ)"
 
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr "Орзуи худро ба арӯсу домод (ё соҳибони маросим) дар ин ҷо нависед"
-
-msgid ""
-"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
-"bo'ladi."
-msgstr ""
-"Аввал танҳо ба соҳиби даъватнома намоён аст; пас аз тасдиқи ӯ дар саҳифа ба "
-"ҳама намоён мешавад."
 
 msgid "Yuborish"
 msgstr "Фиристодан"
@@ -963,10 +954,6 @@ msgstr ""
 "мешавад (то ҳол ба ҳеҷ кас намоён нест)."
 
 #, python-format
-#| msgid ""
-#| "Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
-#| "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
-#| "rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
 msgid ""
 "Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a "
 "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
@@ -1017,6 +1004,17 @@ msgstr "Дақиқа"
 msgid "Tayyor"
 msgstr "Тайёр"
 
+#| msgid "Taklifnomani ko'rish"
+msgid "Tinglab ko'rish"
+msgstr "Гӯш кардан"
+
+msgid ""
+"Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan "
+"yuklashingiz mumkin."
+msgstr ""
+"Ҳоло вариантҳои тайёри мусиқӣ нест — шумо метавонед мусиқии худро дар поён "
+"бор кунед."
+
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Расмҳо (на бештар аз %(soni)s дона, ихтиёрӣ)"
@@ -1030,6 +1028,10 @@ msgstr ""
 msgid "Namuna rasm %(soni)s"
 msgstr "Акси намуна %(soni)s"
 
+#| msgid "Statistikani ko'rish"
+msgid "Kattalashtirib ko'rish"
+msgstr "Калон кардан"
+
 msgid "yoki"
 msgstr "ё"
 
@@ -1042,6 +1044,9 @@ msgstr "Даъватномаро сохтан"
 msgid "Boshqa shablon tanlash"
 msgstr "Шаблони дигар интихоб кардан"
 
+msgid "Yopish"
+msgstr "Пӯшидан"
+
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
@@ -1049,6 +1054,18 @@ msgid ""
 msgstr ""
 "На бештар аз %(soni)s расм интихоб кардан мумкин аст. Лутфан аз нав интихоб "
 "кунед."
+
+#| msgid "Dizayn tanlang"
+msgid "Fayl tanlash"
+msgstr "Файл интихоб кардан"
+
+#| msgid "— tanlanmagan —"
+msgid "Fayl tanlanmagan"
+msgstr "Файл интихоб нашудааст"
+
+#| msgid "Dizayn tanlang"
+msgid "ta fayl tanlandi"
+msgstr "файл интихоб шуд"
 
 #, python-format
 msgid ""

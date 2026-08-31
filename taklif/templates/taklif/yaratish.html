@@ -46,6 +46,57 @@
 .yoki-chiziq { display: flex; align-items: center; gap: 10px; margin: 18px 0 4px; color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; }
 .yoki-chiziq::before, .yoki-chiziq::after { content: ""; flex: 1; height: 1px; background: var(--chiziq); }
 
+/* --- Namuna rasmni yaqindan ko'rish (lightbox) tugmasi --- */
+.namuna-kattalashtir {
+    position: absolute; bottom: 5px; right: 5px; width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(15,10,5,.6); color: #fff; border: none; display: flex; align-items: center;
+    justify-content: center; font-size: .72rem; cursor: pointer; padding: 0; line-height: 1;
+}
+.namuna-kattalashtir:hover { background: rgba(15,10,5,.85); }
+.oq-lightbox { position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.oq-lightbox[hidden] { display: none; }
+.oq-lightbox-orqa { position: absolute; inset: 0; background: rgba(10,7,4,.82); }
+.oq-lightbox-ichki { position: relative; z-index: 1; max-width: min(560px, 92vw); text-align: center; }
+.oq-lightbox-ichki img { max-width: 100%; max-height: 78vh; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.4); display: block; margin: 0 auto; }
+.oq-lightbox-nomi { color: #fff; margin-top: 12px; font-size: .9rem; }
+.oq-lightbox-yopish {
+    position: absolute; top: -14px; right: -14px; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--toza); border: 1px solid var(--chiziq); color: var(--siyoh); cursor: pointer;
+    font-size: 1rem; display: flex; align-items: center; justify-content: center;
+}
+.oq-lightbox-yopish:hover { color: var(--tilla-toq); border-color: var(--tilla-toq); }
+
+/* --- Tayyor musiqa variantlarini tanlash: eshitib ko'rish imkoniyati bilan --- */
+.musiqa-tanlov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 8px; }
+.musiqa-tanlov-item {
+    display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 4px;
+    border: 1px solid var(--chiziq); background: var(--toza); cursor: pointer; font-weight: normal;
+}
+.musiqa-tanlov-item:hover { border-color: var(--tilla-toq); }
+.musiqa-tanlov-item.tanlangan { border-color: var(--tilla); background: var(--tilla-yumshoq); }
+.musiqa-tanlov-item input[type="radio"] { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.mt-tinglash {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--tilla);
+    background: var(--toza); color: var(--tilla-toq); cursor: pointer; font-size: .78rem;
+    display: flex; align-items: center; justify-content: center; padding: 0;
+}
+.mt-tinglash:hover { background: var(--tilla); color: #fff; }
+.mt-nomi { font-size: .88rem; color: var(--siyoh); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* --- Fayl tanlash tugmasi: brauzerning o'z ("Choose File"/"No file
+   chosen") ingliz matni o'rniga saytning o'z tilida ko'rsatiladigan
+   ko'rinish (JS orqali kuchaytiriladi, qarang: pastdagi skript) --- */
+.oq-fayl-qutisi {
+    position: relative; display: flex; align-items: center; gap: 10px; margin-top: 6px;
+    border: 1px solid var(--chiziq); border-radius: 2px; padding: 8px 12px; background: var(--toza);
+}
+.oq-fayl-qutisi input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.oq-fayl-tugma {
+    flex-shrink: 0; background: var(--tilla-yumshoq); color: var(--tilla-toq); padding: 7px 14px;
+    border-radius: 2px; font-size: .78rem; white-space: nowrap;
+}
+.oq-fayl-nomi { color: var(--kul); font-size: .85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
 .rozilik-qatori { margin: 20px 0; }
 .rozilik-qatori label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-weight: normal; }
 .rozilik-qatori input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; accent-color: var(--tilla); }
@@ -174,6 +225,29 @@
                     <button type="button" class="sv-tayyor" id="sv-tayyor">{% trans "Tayyor" %}</button>
                 </div>
             </div>
+            {% elif field.name == "musiqa_variant" %}
+            <div>
+                <label>{{ field.label }}</label>
+                {% if musiqa_variantlar %}
+                <div class="musiqa-tanlov-grid" id="musiqa-tanlov-grid">
+                    <label class="musiqa-tanlov-item{% if not field.value %} tanlangan{% endif %}">
+                        <input type="radio" name="musiqa_variant" value=""{% if not field.value %} checked{% endif %}>
+                        <span class="mt-nomi">{% trans "Tanlanmagan" %}</span>
+                    </label>
+                    {% for mv in musiqa_variantlar %}
+                    <label class="musiqa-tanlov-item{% if field.value == mv.pk|stringformat:"s" %} tanlangan{% endif %}">
+                        <input type="radio" name="musiqa_variant" value="{{ mv.pk }}"{% if field.value == mv.pk|stringformat:"s" %} checked{% endif %}>
+                        <button type="button" class="mt-tinglash" data-src="{{ mv.fayl.url }}" aria-label="{% trans "Tinglab ko'rish" %}">▶</button>
+                        <span class="mt-nomi">{{ mv.nomi }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                <audio id="musiqa-onaqi-audio" preload="none"></audio>
+                {% else %}
+                <div class="yordam">{% trans "Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan yuklashingiz mumkin." %}</div>
+                {% endif %}
+                {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
+            </div>
             {% elif field.name != "ommaviy_korsatishga_rozi" %}
             <div {% if field.name == "ism_2" %}id="ism2-qatori"{% elif field.name == "ism_3" %}id="ism3-qatori" hidden{% elif field.name == "boshqa_tadbir_nomi" %}id="boshqa-tadbir-nomi-qatori" hidden{% endif %}>
                 <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.name == "ism_2" %}<span class="majburiy-belgi" id="ism2-majburiy" hidden> *</span>{% elif field.field.required %} *{% endif %}</label>
@@ -194,6 +268,7 @@
                         <input type="checkbox" name="namuna_rasm_ids" value="{{ nr.id }}">
                         <img src="{{ nr.rasm.url }}" alt="{% if nr.nomi %}{{ nr.nomi }}{% else %}{% blocktrans with soni=forloop.counter %}Namuna rasm {{ soni }}{% endblocktrans %}{% endif %}" loading="lazy">
                         <span class="namuna-belgi">✓</span>
+                        <button type="button" class="namuna-kattalashtir" data-katta="{{ nr.rasm.url }}" data-nomi="{% if nr.nomi %}{{ nr.nomi }}{% endif %}" aria-label="{% trans "Kattalashtirib ko'rish" %}">🔍</button>
                     </label>
                     {% endfor %}
                 </div>
@@ -218,6 +293,15 @@
         </form>
 
         <a class="orqaga" href="{% url 'taklif:shablon_tanlash' %}">&larr; {% trans "Boshqa shablon tanlash" %}</a>
+    </div>
+</div>
+
+<div class="oq-lightbox" id="oq-lightbox" hidden>
+    <div class="oq-lightbox-orqa" id="oq-lightbox-orqa"></div>
+    <div class="oq-lightbox-ichki">
+        <button type="button" class="oq-lightbox-yopish" id="oq-lightbox-yopish" aria-label="{% trans "Yopish" %}">✕</button>
+        <img id="oq-lightbox-rasm" src="" alt="">
+        <div class="oq-lightbox-nomi" id="oq-lightbox-nomi"></div>
     </div>
 </div>
 
@@ -521,6 +605,124 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
             holatniYangila();
         });
     }
+})();
+
+(function () {
+    // Namuna rasmlarni yaqindan ko'rish — kattalashtiruvchi tugma
+    // checkbox'ni o'zgartirmasdan, faqat lightbox'da katta ko'rinishni ochadi.
+    var lightbox = document.getElementById('oq-lightbox');
+    if (!lightbox) { return; }
+    var rasm = document.getElementById('oq-lightbox-rasm');
+    var nomi = document.getElementById('oq-lightbox-nomi');
+
+    function ochish(katta, matn) {
+        rasm.src = katta;
+        nomi.textContent = matn || '';
+        lightbox.hidden = false;
+    }
+    function yopish() {
+        lightbox.hidden = true;
+        rasm.src = '';
+    }
+
+    document.querySelectorAll('.namuna-kattalashtir').forEach(function (t) {
+        t.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            ochish(t.dataset.katta, t.dataset.nomi);
+        });
+    });
+
+    var yopishTugma = document.getElementById('oq-lightbox-yopish');
+    var orqaFon = document.getElementById('oq-lightbox-orqa');
+    if (yopishTugma) { yopishTugma.addEventListener('click', yopish); }
+    if (orqaFon) { orqaFon.addEventListener('click', yopish); }
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !lightbox.hidden) { yopish(); }
+    });
+})();
+
+(function () {
+    // Tayyor musiqa variantlarini tanlashda — eshitib ko'rish (bitta
+    // umumiy <audio> orqali, bir vaqtda faqat bittasi ijro etiladi) va
+    // tanlangan kartani ajratib ko'rsatish.
+    var grid = document.getElementById('musiqa-tanlov-grid');
+    var audio = document.getElementById('musiqa-onaqi-audio');
+    if (!grid || !audio) { return; }
+
+    var joriyTugma = null;
+
+    grid.querySelectorAll('.mt-tinglash').forEach(function (t) {
+        t.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (joriyTugma === t && !audio.paused) {
+                audio.pause();
+                t.textContent = '▶';
+                joriyTugma = null;
+                return;
+            }
+            if (joriyTugma && joriyTugma !== t) { joriyTugma.textContent = '▶'; }
+            audio.src = t.dataset.src;
+            audio.currentTime = 0;
+            audio.play().catch(function () {});
+            t.textContent = '⏸';
+            joriyTugma = t;
+        });
+    });
+
+    audio.addEventListener('ended', function () {
+        if (joriyTugma) { joriyTugma.textContent = '▶'; }
+        joriyTugma = null;
+    });
+
+    grid.addEventListener('change', function (e) {
+        if (e.target.name !== 'musiqa_variant') { return; }
+        grid.querySelectorAll('.musiqa-tanlov-item').forEach(function (item) {
+            item.classList.toggle('tanlangan', item.querySelector('input').checked);
+        });
+    });
+})();
+
+(function () {
+    // Fayl tanlash inputlarini (musiqa, rasmlar) brauzerning o'z ingliz
+    // "Choose File"/"No file chosen" matni o'rniga saytning o'z tilidagi
+    // ko'rinish bilan almashtiradi.
+    var FAYL_TANLASH = "{% trans 'Fayl tanlash' %}";
+    var FAYL_YOQ = "{% trans 'Fayl tanlanmagan' %}";
+    var FAYLLAR_SONI_SUFFIKS = "{% trans 'ta fayl tanlandi' %}";
+
+    document.querySelectorAll('input[type="file"]').forEach(function (input) {
+        if (input.dataset.oqKuchaytirildi) { return; }
+        input.dataset.oqKuchaytirildi = '1';
+
+        var qutisi = document.createElement('div');
+        qutisi.className = 'oq-fayl-qutisi';
+        input.parentNode.insertBefore(qutisi, input);
+        qutisi.appendChild(input);
+
+        var tugma = document.createElement('span');
+        tugma.className = 'oq-fayl-tugma';
+        tugma.textContent = FAYL_TANLASH;
+        qutisi.appendChild(tugma);
+
+        var nomiEl = document.createElement('span');
+        nomiEl.className = 'oq-fayl-nomi';
+        nomiEl.textContent = FAYL_YOQ;
+        qutisi.appendChild(nomiEl);
+
+        function yangila() {
+            if (input.files && input.files.length) {
+                nomiEl.textContent = input.files.length === 1
+                    ? input.files[0].name
+                    : input.files.length + ' ' + FAYLLAR_SONI_SUFFIKS;
+            } else {
+                nomiEl.textContent = FAYL_YOQ;
+            }
+        }
+        input.addEventListener('change', yangila);
+        yangila();
+    });
 })();
 </script>
 {% endblock %}

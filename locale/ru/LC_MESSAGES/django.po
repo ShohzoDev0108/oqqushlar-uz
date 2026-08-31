@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 16:48+0500\n"
+"POT-Creation-Date: 2026-08-31 17:36+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,8 +135,9 @@ msgstr "Тип мероприятия"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Выбрать из готовой музыки (необязательно)"
 
-msgid "— tanlanmagan —"
-msgstr "— не выбрано —"
+#| msgid "— tanlanmagan —"
+msgid "Tanlanmagan"
+msgstr "Не выбрано"
 
 msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
 msgstr "Например: Открытие магазина, Выпускной вечер"
@@ -203,9 +204,6 @@ msgstr "Этот текст будет показан гостям прямо н
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Если хотите загрузить свой файл"
 
-#| msgid ""
-#| "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
-#| "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
 msgid ""
 "Ixtiyoriy. Belgilamasangiz ham taklifnomangiz odatdagidek ishlayveradi — bu "
 "faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
@@ -396,10 +394,6 @@ msgstr ""
 "Приглашение не исчезает после того, как торжество прошло — вы можете в любой"
 " момент снова открыть его и почувствовать тепло того дня."
 
-#| msgid ""
-#| "Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
-#| "bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
-#| "beramiz."
 msgid ""
 "Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong>"
 " — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz."
@@ -583,6 +577,10 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Создать ещё одно"
 
+#| msgid "Taklifnomani yaratish"
+msgid "Birinchi taklifnomangizni yarating"
+msgstr "Создайте своё первое приглашение"
+
 msgid "Faollashtirilgan"
 msgstr "Активировано"
 
@@ -719,13 +717,6 @@ msgstr "Ваше пожелание / поздравление (необязат
 
 msgid "Kelin-kuyovga (yoki marosim egalariga) tilagingizni shu yerga yozing"
 msgstr "Напишите здесь пожелание молодожёнам (или хозяевам торжества)"
-
-msgid ""
-"Avval taklifnoma egasiga ko'rinadi; u tasdiqlagach, sahifada hammaga ochiq "
-"bo'ladi."
-msgstr ""
-"Сначала видно только владельцу приглашения; после его подтверждения станет "
-"видно всем на странице."
 
 msgid "Yuborish"
 msgstr "Отправить"
@@ -956,10 +947,6 @@ msgstr ""
 "(пока никому не видно)."
 
 #, python-format
-#| msgid ""
-#| "Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
-#| "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
-#| "rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
 msgid ""
 "Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a "
 "href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
@@ -1010,6 +997,16 @@ msgstr "Минута"
 msgid "Tayyor"
 msgstr "Готово"
 
+#| msgid "Taklifnomani ko'rish"
+msgid "Tinglab ko'rish"
+msgstr "Прослушать"
+
+msgid ""
+"Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan "
+"yuklashingiz mumkin."
+msgstr ""
+"Пока нет готовых вариантов музыки — вы можете загрузить свою музыку ниже."
+
 #, python-format
 msgid "Rasmlar (eng ko'pi bilan %(soni)s ta, ixtiyoriy)"
 msgstr "Фотографии (не более %(soni)s шт., необязательно)"
@@ -1020,6 +1017,10 @@ msgstr "Если у вас пока нет своих фото, можете в�
 #, python-format
 msgid "Namuna rasm %(soni)s"
 msgstr "Пример фото %(soni)s"
+
+#| msgid "Statistikani ko'rish"
+msgid "Kattalashtirib ko'rish"
+msgstr "Увеличить"
 
 msgid "yoki"
 msgstr "или"
@@ -1033,12 +1034,27 @@ msgstr "Создать приглашение"
 msgid "Boshqa shablon tanlash"
 msgstr "Выбрать другой шаблон"
 
+msgid "Yopish"
+msgstr "Закрыть"
+
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
 "tanlang."
 msgstr ""
 "Можно выбрать не более %(soni)s фотографий. Пожалуйста, выберите заново."
+
+#| msgid "Dizayn tanlang"
+msgid "Fayl tanlash"
+msgstr "Выбрать файл"
+
+#| msgid "— tanlanmagan —"
+msgid "Fayl tanlanmagan"
+msgstr "Файл не выбран"
+
+#| msgid "Dizayn tanlang"
+msgid "ta fayl tanlandi"
+msgstr "файла выбрано"
 
 #, python-format
 msgid ""
