@@ -133,9 +133,13 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
     <div class="hero-ramka-burchak hrb-tr"></div>
     <div class="hero-ramka-burchak hrb-bl"></div>
     <div class="hero-ramka-burchak hrb-br"></div>
-    <div class="kichik">{% trans "taklifnomasi" %} — {{ taklifnoma.get_marosim_turi_display }}</div>
+    <div class="kichik">{% trans "taklifnomasi" %} — {{ taklifnoma.marosim_turi_matni }}</div>
     <div class="ravoq">
-        {% if taklifnoma.ism_2 %}
+        {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}
+        <h1>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</h1>
+        {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}
+        <h1>{{ taklifnoma.boshqa_tadbir_nomi }}</h1>
+        {% elif taklifnoma.ism_2 %}
         <h1>{{ taklifnoma.ism_1 }}<span class="va">♡</span>{{ taklifnoma.ism_2 }}</h1>
         {% else %}
         <h1>{{ taklifnoma.ism_1 }}</h1>

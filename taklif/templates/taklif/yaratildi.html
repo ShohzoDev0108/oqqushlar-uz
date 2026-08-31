@@ -28,6 +28,12 @@
 .qadamlar li { margin-bottom: 12px; color: var(--kul); line-height: 1.7; }
 .qadamlar li::marker { color: var(--tilla); font-family: var(--serif); }
 .tugmalar-qatori { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+.esdalik-blok {
+    margin: 34px auto 0; max-width: 520px; padding: 20px 24px; text-align: left;
+    background: var(--toza); border-left: 3px solid var(--tilla); border-radius: 2px;
+}
+.esdalik-blok p { margin: 0; color: var(--siyoh); line-height: 1.75; font-size: .92rem; }
+.esdalik-blok p + p { margin-top: 10px; }
 {% endblock %}
 
 {% block content %}
@@ -51,12 +57,18 @@
             <li>{% trans "Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga ishonch hosil qiling." %}</li>
             <li>{% blocktrans with admin=admin_telegram %}Yoqsa — taklifnoma sahifasidagi <strong>"Yoqdi"</strong> tugmasini bosing, shu orqali to'g'ridan-to'g'ri Telegram orqali <strong>{{ admin }}</strong> bilan bog'lanib to'lovni amalga oshirasiz.{% endblocktrans %}</li>
             <li>{% trans "To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi." %}</li>
+            <li>{% trans "Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz, yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan kuzatishingiz mumkin." %}</li>
         </ol>
 
         <div class="tugmalar-qatori">
             <a class="oq-cta" href="{{ taklifnoma.get_statistika_url }}">{% trans "Statistikani ko'rish" %}</a>
             <a class="oq-cta" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
             <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Yana bitta yaratish" %}</a>
+        </div>
+
+        <div class="esdalik-blok">
+            <p>{% trans "Va yana bir muhim jihat: taklifnomangiz marosim o'tib ketgach ham o'chib qolmaydi." %}</p>
+            <p>{% trans "Havola doimiy ishlayveradi — bir necha oy yoki hatto yillar o'tib ham qaytib ochib, o'sha kunning suratlari, musiqasi va iliq so'zlarini yana bir bor his qilishingiz mumkin. Bu shunchaki taklifnoma emas, siz uchun raqamli esdalik ham." %}</p>
         </div>
     </div>
 </div>

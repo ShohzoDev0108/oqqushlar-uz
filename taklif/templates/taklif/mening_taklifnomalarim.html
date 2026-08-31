@@ -56,7 +56,7 @@ belgilab qo'yamiz, shunda .xavfli klassi haqiqatan g'olib chiqadi.
     <div class="grid">
         {% for t in taklifnomalar %}
         <div class="karta oq-karta">
-            <div class="marosim">{{ t.get_marosim_turi_display }}</div>
+            <div class="marosim">{{ t.marosim_turi_matni }}</div>
             <div class="nomi">{{ t.sarlavha }}</div>
             <div class="sana">{{ t.sana|date:"d.m.Y, H:i" }} · {{ t.shablon.nomi }}</div>
             {% if t.tolangan %}

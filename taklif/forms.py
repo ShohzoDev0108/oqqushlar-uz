@@ -1,7 +1,13 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import IKKI_ISMLI_MAROSIM_TURLARI, MAROSIM_TURLARI, MusiqaVariant, Taklifnoma
+from .models import (
+    IKKI_ISMLI_MAROSIM_TURLARI,
+    MAROSIM_TURLARI,
+    UCHINCHI_ISM_MAROSIM_TURLARI,
+    MusiqaVariant,
+    Taklifnoma,
+)
 
 # Bu so'zlar bilan tugaydigan/mos keladigan slug'larni taqiqlaymiz,
 # chunki ular URL'da tizim sahifalari sifatida band (urls.py'ga qarang).
@@ -29,48 +35,64 @@ MAROSIM_MAYDON_MATNLARI = {
         "ism_1_namuna": _("Masalan: Sardor"),
         "ism_2_yorliq": _("Kelin ismi"),
         "ism_2_namuna": _("Masalan: Malika"),
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
     },
     "qizlar_bazmi": {
         "ism_1_yorliq": _("Kelinchakning ismi"),
         "ism_1_namuna": _("Masalan: Nilufar"),
         "ism_2_yorliq": _("2-ism"),
         "ism_2_namuna": "",
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
     },
     "sunnat_toy": {
-        "ism_1_yorliq": _("O'g'il bolaning ismi"),
+        "ism_1_yorliq": _("To'ybolaning ismi"),
         "ism_1_namuna": _("Masalan: Amir"),
-        "ism_2_yorliq": _("2-ism"),
-        "ism_2_namuna": "",
+        "ism_2_yorliq": _("2-to'ybolaning ismi (ixtiyoriy)"),
+        "ism_2_namuna": _("Masalan: Botir"),
+        "ism_3_yorliq": _("3-to'ybolaning ismi (ixtiyoriy)"),
+        "ism_3_namuna": _("Masalan: Sardor"),
     },
     "beshik_toy": {
         "ism_1_yorliq": _("Chaqaloqning ismi"),
         "ism_1_namuna": _("Masalan: Amina"),
         "ism_2_yorliq": _("2-ism"),
         "ism_2_namuna": "",
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
     },
     "nahor_oshi": {
         "ism_1_yorliq": _("Tadbir egasining ismi"),
         "ism_1_namuna": _("Masalan: Bobur"),
         "ism_2_yorliq": _("2-ism"),
         "ism_2_namuna": "",
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
     },
     "yubiley": {
         "ism_1_yorliq": _("Yubiley egasining ismi"),
         "ism_1_namuna": _("Masalan: Otabek"),
         "ism_2_yorliq": _("Ikkinchi ism (ikkoviga bag'ishlangan bo'lsa)"),
         "ism_2_namuna": _("Masalan: Dilnoza"),
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
     },
     "tugilgan_kun": {
         "ism_1_yorliq": _("Tug'ilgan kun egasining ismi"),
         "ism_1_namuna": _("Masalan: Sevinch"),
         "ism_2_yorliq": _("2-ism"),
         "ism_2_namuna": "",
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
     },
     "boshqa": {
         "ism_1_yorliq": _("Asosiy ism"),
         "ism_1_namuna": _("Masalan: Jahongir"),
         "ism_2_yorliq": _("Qo'shimcha ism (ixtiyoriy)"),
         "ism_2_namuna": "",
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
     },
 }
 
@@ -119,6 +141,8 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "marosim_turi",
             "ism_1",
             "ism_2",
+            "ism_3",
+            "boshqa_tadbir_nomi",
             "sana",
             "toyxona",
             "manzil",
@@ -144,6 +168,10 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             ),
             "ism_1": forms.TextInput(attrs={"placeholder": _("Masalan: Sardor")}),
             "ism_2": forms.TextInput(attrs={"placeholder": _("Masalan: Malika")}),
+            "ism_3": forms.TextInput(attrs={"placeholder": _("Masalan: Sardor")}),
+            "boshqa_tadbir_nomi": forms.TextInput(
+                attrs={"placeholder": _("Masalan: Do'kon ochilishi, Bitiruv kechasi")}
+            ),
             "toyxona": forms.TextInput(
                 attrs={"placeholder": _("Masalan: “Poytaxt” to'yxonasi")}
             ),
@@ -164,8 +192,8 @@ class TaklifnomaYaratishForm(forms.ModelForm):
                 attrs={
                     "rows": 3,
                     "placeholder": _(
-                        "Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik "
-                        "bo'lishga taklif qilamiz"
+                        "Masalan: Sizlarsiz bu kun to'liq bo'lmaydi — quvonchimizga "
+                        "sherik bo'lishingizni astoydil kutamiz"
                     ),
                 }
             ),
@@ -186,13 +214,15 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             # MAROSIM_MAYDON_MATNLARI asosida darhol almashtiradi.
             "ism_1": MAROSIM_MAYDON_MATNLARI[STANDART_MAROSIM_TURI]["ism_1_yorliq"],
             "ism_2": MAROSIM_MAYDON_MATNLARI[STANDART_MAROSIM_TURI]["ism_2_yorliq"],
+            "ism_3": MAROSIM_MAYDON_MATNLARI[STANDART_MAROSIM_TURI]["ism_3_yorliq"],
+            "boshqa_tadbir_nomi": _("Tadbir nomi"),
             "sana": _("Tadbir sanasi va vaqti"),
             "toyxona": _("To'yxona/manzil nomi"),
             "manzil": _("Manzil"),
             "xarita_link": _("Xarita havolasi (ixtiyoriy)"),
             "kiyim_kodi": _("Kiyinish kodi (ixtiyoriy)"),
             "musiqa": _("O'zingiz musiqa yuklash (ixtiyoriy)"),
-            "matn": _("Qo'shimcha tabrik matni (ixtiyoriy)"),
+            "matn": _("Mehmonlarga atalgan so'zingiz (ixtiyoriy)"),
             "sovga_karta": _("Sovg'a-pul uchun karta raqami (ixtiyoriy)"),
             "telegram_link": _("Mehmonlar uchun Telegram guruhi (ixtiyoriy)"),
             "ommaviy_korsatishga_rozi": _(
@@ -209,8 +239,12 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             # fikr ikki marta takrorlanib, forma "gavjum" ko'rinar edi.
             "ism_1": "",
             "ism_2": "",
+            "ism_3": "",
+            "boshqa_tadbir_nomi": _(
+                "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
+            ),
             "kiyim_kodi": "",
-            "matn": "",
+            "matn": _("Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."),
             "sovga_karta": "",
             "telegram_link": "",
             "musiqa": _("O'zingiz yuklamoqchi bo'lsangiz"),

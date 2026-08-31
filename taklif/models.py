@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language, gettext_lazy as _, pgettext_lazy
 
 from .validators import FaylHajmiValidator
 
@@ -52,6 +52,22 @@ MAROSIM_TURLARI = [
 # Bu marosim turlarida odatda ikkita ism (masalan kuyov-kelin) kerak bo'ladi;
 # qolganlarida odatda bitta ism yetarli (forma shunga qarab moslashadi).
 IKKI_ISMLI_MAROSIM_TURLARI = {"toy", "yubiley"}
+
+# Sunnat to'yida bir nechta o'g'il bola bo'lishi mumkin (masalan aka-uka yoki
+# amakivachchalarga birgalikda) — shu marosim turida UCHINCHI ism maydoni ham
+# ko'rsatiladi (1-ism majburiy, 2- va 3-ism ixtiyoriy). Boshqa marosim
+# turlarida uchinchi ism kerak bo'lmaydi.
+UCHINCHI_ISM_MAROSIM_TURLARI = {"sunnat_toy"}
+
+# sunnat_toy_qoshma_sarlavha uchun: ismlarni "va" bilan bog'lab, oxirgisiga
+# ko'plik+egalik qo'shimchasi ("...larning") qo'shish FAQAT o'zbekchada shu
+# grammatik qolipda tabiiy eshitiladi ("Amir va Botirlarning sunnat to'yi").
+# Boshqa (hatto turkiy) tillarda ixtiyoriy ismga to'g'ri qo'shimcha
+# qo'shish uchun unlilar uyg'unligini avtomatik hisoblash ishonchsiz
+# bo'lgani uchun, qolgan barcha tillarda ism o'zgarishsiz qoladi — tarjima
+# matnining o'zi ("Sünnet toýy: %(ismlar)s" kabi) grammatik jihatdan
+# xavfsiz, "belgi: ismlar" qolipda tuziladi.
+_SUNNAT_TOY_KOPLIK_QOSHIMCHA = {"uz": "lar"}
 
 
 SHABLON_TURKUMLARI = [
@@ -163,6 +179,22 @@ class Taklifnoma(models.Model):
         blank=True,
         help_text="Ikkinchi ism (masalan: kelin). Kerak bo'lmasa bo'sh qoldiring",
     )
+    ism_3 = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text=(
+            "Uchinchi ism — faqat sunnat to'yida, agar bir nechta to'ybola "
+            "bo'lsa. Kerak bo'lmasa bo'sh qoldiring"
+        ),
+    )
+    # Marosim turi "Boshqa" tanlanganda, mijoz tadbir nomini o'zi yozib
+    # kiritishi uchun (masalan "Do'kon ochilishi", "Bitiruv kechasi") —
+    # to'ldirilsa, taklifnomada "Boshqa" so'zi o'rniga shu ko'rsatiladi.
+    boshqa_tadbir_nomi = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Marosim turi \"Boshqa\" bo'lganda, tadbir nomini shu yerga yozing",
+    )
     slug = models.SlugField(
         unique=True, help_text="Ochiq link uchun, masalan: sardor-malika"
     )
@@ -196,7 +228,10 @@ class Taklifnoma(models.Model):
         editable=False,
         help_text="Mijoz 'Yoqdi' tugmasini bosganmi",
     )
-    matn = models.TextField(blank=True, help_text="Qo'shimcha tabrik/taklif matni")
+    matn = models.TextField(
+        blank=True,
+        help_text="Mehmonlarga atalgan so'z — taklifnomada ularga to'g'ridan-to'g'ri ko'rsatiladi",
+    )
     kiyim_kodi = models.CharField(
         max_length=200, blank=True, help_text="Masalan: rasmiy, yorug' ranglar"
     )
@@ -265,9 +300,48 @@ class Taklifnoma(models.Model):
 
     @property
     def sarlavha(self):
+        qoshma = self.sunnat_toy_qoshma_sarlavha
+        if qoshma:
+            return qoshma
+        if self.marosim_turi == "boshqa" and self.boshqa_tadbir_nomi:
+            return self.boshqa_tadbir_nomi
         if self.ism_2:
             return f"{self.ism_1} & {self.ism_2}"
         return self.ism_1
+
+    @property
+    def sunnat_toy_qoshma_sarlavha(self):
+        """Sunnat to'yida 2 yoki 3 ta to'ybola ismi kiritilgan bo'lsa,
+        grammatik jihatdan to'g'ri qo'shma sarlavha matnini qaytaradi:
+        2 ism uchun masalan "Amir va Botirlarning sunnat to'yi", 3 ism
+        uchun "Amir, Botir va Sardorlarning sunnat to'ylari" (ko'plik —
+        chunki har biriga alohida to'y bo'lishi mumkin). Faqat bitta ism
+        kiritilgan bo'lsa yoki marosim turi sunnat to'yi bo'lmasa — None
+        (bunday holatda oddiy, umumiy sarlavha mantig'i ishlatiladi)."""
+        if self.marosim_turi != "sunnat_toy":
+            return None
+        ismlar = [ism for ism in (self.ism_1, self.ism_2, self.ism_3) if ism]
+        if len(ismlar) < 2:
+            return None
+        boshlari, oxirgisi = ismlar[:-1], ismlar[-1]
+        til = (get_language() or "uz").split("-")[0]
+        koplik = _SUNNAT_TOY_KOPLIK_QOSHIMCHA.get(til, "")
+        oxirgisi_koplik = f"{oxirgisi}{koplik}" if koplik else oxirgisi
+        biriktiruvchi = pgettext_lazy("ismlarni bog'lovchi so'z ('Amir VA Botir')", "va")
+        ismlar_matni = f"{', '.join(boshlari)} {biriktiruvchi} {oxirgisi_koplik}"
+        if len(ismlar) == 2:
+            return _("%(ismlar)sning sunnat to'yi") % {"ismlar": ismlar_matni}
+        return _("%(ismlar)sning sunnat to'ylari") % {"ismlar": ismlar_matni}
+
+    @property
+    def marosim_turi_matni(self):
+        """Ro'yxatlarda/kichik sarlavhalarda ko'rsatiladigan marosim nomi —
+        odatda marosim turining o'zi (masalan "Nikoh to'yi"), lekin marosim
+        turi "Boshqa" bo'lib mijoz o'z tadbir nomini kiritgan bo'lsa, o'sha
+        aniq nom ko'rsatiladi ("Boshqa" so'zi o'rniga)."""
+        if self.marosim_turi == "boshqa" and self.boshqa_tadbir_nomi:
+            return self.boshqa_tadbir_nomi
+        return self.get_marosim_turi_display()
 
     @property
     def musiqa_manbai(self):

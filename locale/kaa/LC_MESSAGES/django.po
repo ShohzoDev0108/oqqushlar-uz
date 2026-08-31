@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 15:08+0500\n"
+"POT-Creation-Date: 2026-08-31 16:13+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,11 +38,20 @@ msgstr "Mısalı: Nilufar"
 msgid "2-ism"
 msgstr "2-atı"
 
-msgid "O'g'il bolaning ismi"
+msgid "To'ybolaning ismi"
 msgstr "Ul balanıń atı"
 
 msgid "Masalan: Amir"
 msgstr "Mısalı: Amir"
+
+msgid "2-to'ybolaning ismi (ixtiyoriy)"
+msgstr "2-ul balanıń atı (mindetli emes)"
+
+msgid "Masalan: Botir"
+msgstr "Mısalı: Botir"
+
+msgid "3-to'ybolaning ismi (ixtiyoriy)"
+msgstr "3-ul balanıń atı (mindetli emes)"
 
 msgid "Chaqaloqning ismi"
 msgstr "Náresteniń atı"
@@ -128,6 +137,9 @@ msgstr "Tayar muzıkalardan tanlaw (mindetli emes)"
 msgid "— tanlanmagan —"
 msgstr "— tanlanbaǵan —"
 
+msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
+msgstr "Mısalı: Dúken ashılıwı, Pitkeriwshiler keshi"
+
 msgid "Masalan: “Poytaxt” to'yxonasi"
 msgstr "Mısalı: \"Poytaxt\" toy zalı"
 
@@ -138,10 +150,14 @@ msgid "Masalan: rasmiy kiyim, och ranglar"
 msgstr "Mısalı: rásmiy kiyim, ashıq reńler"
 
 msgid ""
-"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
-"qilamiz"
+"Masalan: Sizlarsiz bu kun to'liq bo'lmaydi — quvonchimizga sherik "
+"bo'lishingizni astoydil kutamiz"
 msgstr ""
-"Mısalı: Sizdi usı quwanıshlı kúnimizde baxtımızǵa sherik bolıwǵa shaqıramız"
+"Mısalı: Bul kún sizsiz tolıq bolmaydı — quwanışımızǵa sherik bolıwıńızdı "
+"ıqlas penen kútemiz"
+
+msgid "Tadbir nomi"
+msgstr "Is-shara atı"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Ilaj sánesi hám waqtı"
@@ -161,8 +177,8 @@ msgstr "Kiyim kodi (mindetli emes)"
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr "Óz muzıkańızdı júklew (mindetli emes)"
 
-msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
-msgstr "Qosımsha qutlıqlaw teksti (mindetli emes)"
+msgid "Mehmonlarga atalgan so'zingiz (ixtiyoriy)"
+msgstr "Qonaqlarǵa arnalǵan sózińiz (mindetli emes)"
 
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
 msgstr "Aqshalıq sıylıq ushın karta nomeri (mindetli emes)"
@@ -176,6 +192,12 @@ msgid ""
 msgstr ""
 "Shaqırıwıńızdıń saittıń bas betinde basqa xarıydarlarǵa úlgi sıpatında "
 "kórsetiliwine razımısız?"
+
+msgid "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
+msgstr "Ma'resim túrin dizimnen taba almasańız, usı jerge óziniz jazıń."
+
+msgid "Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."
+msgstr "Bul tekst shaqırıwda qonaqlarǵa tikkeley kórsetiledi."
 
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Óz faylıńızdı júklewdi qáleseńiz"
@@ -223,6 +245,18 @@ msgstr "Milliy"
 msgid "Bolalar"
 msgstr "Bala'lar"
 
+msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
+msgid "va"
+msgstr "hám"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'yi"
+msgstr "Súnnet toyı: %(ismlar)s"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'ylari"
+msgstr "Súnnet toyları: %(ismlar)s"
+
 msgid "Dizaynlar"
 msgstr "Dizaynlar"
 
@@ -269,6 +303,103 @@ msgstr "Sońǵı shaqırıwlar"
 
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
 msgstr "Platformamızda belsendirilgen shaqırıwlardan úlgiler"
+
+msgid "Nega Oqqushlar?"
+msgstr "Ne ushın Oqqushlar?"
+
+msgid "Boshqalardan nima bilan farq qilamiz"
+msgstr "Basqalardan nemen ayrıqshalanamız"
+
+msgid "To'lovsiz sinab ko'ring"
+msgstr "Biykar sınap kóriń"
+
+msgid "Avval ko'ring, keyin qaror qiling"
+msgstr "Aldın kóriń, sonnan soń sheshiń"
+
+msgid ""
+"Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq "
+"yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
+msgstr ""
+"Dizimnen ótpesten, hesh nárse tólemesten shaqırıwıńızdı tolıq jasap, óz "
+"kóziniz benen kóresiz. Tek unasa ǵana tólep, iske qosasız."
+
+msgid "Har bir marosimga moslashgan"
+msgstr "Hár bir ma'resimge sáykeslesken"
+
+msgid "Forma marosim turingizni tushunadi"
+msgstr "Forma ma'resim túriniźdi túsinedi"
+
+msgid ""
+"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+msgstr ""
+"Toy ma, súnnet toy ma, ya'ki tuwılǵan kún be — forma soraytuǵın sorawlar hám"
+" úlgi tekstler dál sol ma'resimge sáykes ózgeredi."
+
+msgid "Kim ko'rgani ma'lum"
+msgstr "Kim kórgeni málim"
+
+msgid "Shaxsiy statistika sahifangiz"
+msgstr "Shaxsıy statistika betiniz"
+
+msgid ""
+"Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "
+"\"kelaman\" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib "
+"borasiz."
+msgstr ""
+"Hár bir qonaǵıńız ushın aytarım silteme jasap, tek ózińizge ǵana kórinetuǵın"
+" bette kim kórgenin, kim \"kelemen\" degenin baqlap barasız."
+
+msgid "Bir necha tilda"
+msgstr "Bir neshe tilde"
+
+msgid "Mehmonlaringiz o'z tilida o'qiydi"
+msgstr "Qonaqlarıńız óz tilinde oqıydı"
+
+msgid ""
+"Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi"
+" — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham "
+"qiynalmaydi."
+msgstr ""
+"Shaqırıw ózbek, orıs, angli hám taǵı bir neshe tilde avtomat túrde kórinedi "
+"— shet eldegi yamasa basqa millet ókili qonaqlarıńızǵa da qıyın bolmaydı."
+
+msgid "Istalgan qurilmada chiroyli"
+msgstr "Qálegen qurılmada ádemi"
+
+msgid "Telefon, planshet, kompyuter"
+msgstr "Telefon, planshet, kompyuter"
+
+msgid ""
+"Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada "
+"sara va o'qish qulay bo'ladi."
+msgstr ""
+"Shaqırıwıńız qaysı qurılmadan ashılmasın — kórinisi bir qıylı dárejede ádemi"
+" hám oqıwǵa qolaylı boladı."
+
+msgid "Marosimdan keyin ham"
+msgstr "Ma'resimnen keyin de"
+
+msgid "Esdalik sifatida saqlanib qoladi"
+msgstr "Estelik sıpatında saqlanıp qaladı"
+
+msgid ""
+"Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta "
+"ochib, o'sha kunning iliqligini his qilishingiz mumkin."
+msgstr ""
+"Ma'resim ótip ketkennen keyin de shaqırıw joğalmaydı — qálegen waqıtta qayta"
+" ashıp, sol kúnniń jılıwlıǵın sezinip alasız."
+
+msgid ""
+"Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
+"bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
+"beramiz."
+msgstr ""
+"Shaqırıw jasawda bir jerde qıynalıp turısız ba? <strong>Uyalmań</strong> — "
+"Telegram arqalı jaziń, biykar hám ıqlaslı kómek beremiz."
+
+msgid "Telegram orqali yozish"
+msgstr "Telegram arqalı jazıw"
 
 msgid "Qanday ishlaydi?"
 msgstr "Qalay isleydi?"
@@ -699,17 +830,31 @@ msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Qonaqlar ushın shaxsıy siltemeler"
 
 msgid ""
-"Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
-"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
-"kirgani zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim "
-"hali ko'rmaganini bilib turasiz."
+"Har bir mehmon (yoki mehmonlar guruhi) uchun alohida shaxsiy link yarating —"
+" shu linkni Telegram/Instagram orqali yuboring. Shu link orqali kirgani "
+"zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim hali "
+"ko'rmaganini bilib turasiz."
 msgstr ""
-"Hár bir qonaq ushın shaxsıy silteme jasań — bul siltemeni Telegram/Instagram"
-" arqalı sol qonaqqa jeke jiberiń. Ol silteme arqalı kirgen soń «kórdi» dep "
-"belgilenedi, sonda kim anıq kórgenin, kim áli kórmegenin bilip turasız."
+"Hár bir qonaq (yamasa qonaqlar toparı) ushın aytarım shaxsıy silteme jasań —"
+" onı Telegram/Instagram arqalı jiberiń. Sol silteme arqalı kirgen soń "
+"\"kórdi\" dep belgilenedi, sonda kim anıq kórgenin, kim ele kórmegenin bilip"
+" turasız."
 
-msgid "Mehmon ismi, masalan: Jasur Rahimov"
-msgstr "Qonaqtıń atı, mısalı: Jasur Raximov"
+msgid ""
+"Bu shart emas — bitta odamning ismi bo'lishi mumkin (\"Jasur Rahimov\"), "
+"lekin bir nechta odamga bitta umumiy link yaratib, guruh nomi bilan ham "
+"belgilashingiz mumkin: masalan \"Aziz kursdoshlar\", \"Qadrdon "
+"qarindoshlar\", \"Ish joyidan hamkasblar\". Har bir link mustaqil — "
+"istagancha yaratib, xohlagan mehmonga yuborishingiz mumkin."
+msgstr ""
+"Bul mindetli túrde bir adamnıń atı bolıwı shárt emes (\"Jasur Rahimov\") — "
+"bir neshe adamǵa ortaq silteme jasap, onı top atı menen de belgilewińiz "
+"múmkin: mısalı \"Qádirli kurstaslar\", \"Qádirli tuwısqanlar\", \"Jumıstaǵı "
+"ámeldesler\". Hár bir silteme ǵárezsiz — qálegenińizshe jasap, qálegen "
+"qonaqqa jiberiwińiz múmkin."
+
+msgid "Masalan: Jasur Rahimov yoki Aziz kursdoshlar"
+msgstr "Mısalı: Jasur Rahimov yamasa Qádirli kurstaslar"
 
 msgid "Qo'shish"
 msgstr "Qosıw"
@@ -765,8 +910,33 @@ msgstr ""
 "Tólem tastıyıqlanǵannan keyin shaqırıwıńız belsendiriledi hám onı qonaqlarǵa"
 " jiberе alasız (Telegram, Instagram h.t.b.)."
 
+msgid ""
+"Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz,"
+" yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan "
+"kuzatishingiz mumkin."
+msgstr ""
+"Ma'resim kúnine deyin qálegen waqıtta qayta kirip, maǵlıwmatlardı tekserip, "
+"jańa qonaq qosıp yamasa kim juwap bergenin statistika betinen baqlap alasız."
+
 msgid "Statistikani ko'rish"
 msgstr "Statistikanı kóriw"
+
+msgid ""
+"Va yana bir muhim jihat: taklifnomangiz marosim o'tib ketgach ham o'chib "
+"qolmaydi."
+msgstr ""
+"Taǵı bir áhmiyetli jaǵday: ma'resim ótip ketkennen keyin de shaqırıwıńız "
+"joğalmaydı."
+
+msgid ""
+"Havola doimiy ishlayveradi — bir necha oy yoki hatto yillar o'tib ham qaytib"
+" ochib, o'sha kunning suratlari, musiqasi va iliq so'zlarini yana bir bor "
+"his qilishingiz mumkin. Bu shunchaki taklifnoma emas, siz uchun raqamli "
+"esdalik ham."
+msgstr ""
+"Silteme úzliksiz jumıs isteydi — bir neshe ay yamasa jıl ótse de, qayta "
+"ashıp, sol kúnniń súwretlerin, muzıkasın hám jılıw sózlerin taǵı bir márte "
+"sezinip alasız. Bul jay ǵana shaqırıw emes, siz ushın sanlı estelik te."
 
 msgid "shabloni"
 msgstr "shablonı"
@@ -777,6 +947,16 @@ msgid ""
 msgstr ""
 "Maǵlıwmatlarıńızdı толтырың. Jiberilgennen keyin shaqırıw xatıńız dárhal "
 "tayın boladı (házirshe eshkimge kórinbeydi)."
+
+#, python-format
+msgid ""
+"Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
+msgstr ""
+"Bir jerde qıynalsańız, uyalmań — Telegram arqalı <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ge jaziń, biykar kómek beremiz."
 
 #, python-format
 msgid ""

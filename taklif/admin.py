@@ -101,8 +101,8 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         "faol", "tolangan", "marosim_turi", "yoqdi_bosildi", "shablon",
         ("ochirilgan_vaqt", admin.EmptyFieldListFilter),
     )
-    search_fields = ("ism_1", "ism_2", "slug")
-    prepopulated_fields = {"slug": ("ism_1", "ism_2")}
+    search_fields = ("ism_1", "ism_2", "ism_3", "boshqa_tadbir_nomi", "slug")
+    prepopulated_fields = {"slug": ("ism_1", "ism_2", "ism_3")}
     readonly_fields = (
         "statistika_token", "korishlar", "yaratilgan", "statistika_link", "yoqdi_bosildi",
         "ochirilgan_vaqt",
@@ -111,7 +111,10 @@ class TaklifnomaAdmin(admin.ModelAdmin):
     actions = ["chiqindidan_tiklash"]
     fieldsets = (
         ("Asosiy ma'lumot", {
-            "fields": ("marosim_turi", "ism_1", "ism_2", "slug", "shablon", "sana")
+            "fields": (
+                "marosim_turi", "ism_1", "ism_2", "ism_3", "boshqa_tadbir_nomi",
+                "slug", "shablon", "sana",
+            )
         }),
         ("Manzil va qo'shimcha", {
             "fields": (

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oqqushlar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 15:08+0500\n"
+"POT-Creation-Date: 2026-08-31 16:13+0500\n"
 "PO-Revision-Date: 2026-08-30 00:00+0500\n"
 "Last-Translator: Oqqushlar\n"
 "Language-Team: Uzbek\n"
@@ -34,10 +34,19 @@ msgstr ""
 msgid "2-ism"
 msgstr ""
 
-msgid "O'g'il bolaning ismi"
+msgid "To'ybolaning ismi"
 msgstr ""
 
 msgid "Masalan: Amir"
+msgstr ""
+
+msgid "2-to'ybolaning ismi (ixtiyoriy)"
+msgstr ""
+
+msgid "Masalan: Botir"
+msgstr ""
+
+msgid "3-to'ybolaning ismi (ixtiyoriy)"
 msgstr ""
 
 msgid "Chaqaloqning ismi"
@@ -124,6 +133,9 @@ msgstr ""
 msgid "— tanlanmagan —"
 msgstr ""
 
+msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
+msgstr ""
+
 msgid "Masalan: “Poytaxt” to'yxonasi"
 msgstr ""
 
@@ -134,8 +146,11 @@ msgid "Masalan: rasmiy kiyim, och ranglar"
 msgstr ""
 
 msgid ""
-"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
-"qilamiz"
+"Masalan: Sizlarsiz bu kun to'liq bo'lmaydi — quvonchimizga sherik "
+"bo'lishingizni astoydil kutamiz"
+msgstr ""
+
+msgid "Tadbir nomi"
 msgstr ""
 
 msgid "Tadbir sanasi va vaqti"
@@ -156,7 +171,7 @@ msgstr ""
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr ""
 
-msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
+msgid "Mehmonlarga atalgan so'zingiz (ixtiyoriy)"
 msgstr ""
 
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
@@ -168,6 +183,12 @@ msgstr ""
 msgid ""
 "Taklifnomangiz sayt bosh sahifasida namuna sifatida boshqa mijozlarga "
 "ko'rsatilishiga rozimisiz?"
+msgstr ""
+
+msgid "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
+msgstr ""
+
+msgid "Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."
 msgstr ""
 
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
@@ -214,6 +235,18 @@ msgstr ""
 msgid "Bolalar"
 msgstr ""
 
+msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
+msgid "va"
+msgstr ""
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'yi"
+msgstr ""
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'ylari"
+msgstr ""
+
 msgid "Dizaynlar"
 msgstr ""
 
@@ -257,6 +290,89 @@ msgid "So'nggi taklifnomalar"
 msgstr ""
 
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
+msgstr ""
+
+msgid "Nega Oqqushlar?"
+msgstr ""
+
+msgid "Boshqalardan nima bilan farq qilamiz"
+msgstr ""
+
+msgid "To'lovsiz sinab ko'ring"
+msgstr ""
+
+msgid "Avval ko'ring, keyin qaror qiling"
+msgstr ""
+
+msgid ""
+"Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq "
+"yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
+msgstr ""
+
+msgid "Har bir marosimga moslashgan"
+msgstr ""
+
+msgid "Forma marosim turingizni tushunadi"
+msgstr ""
+
+msgid ""
+"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+msgstr ""
+
+msgid "Kim ko'rgani ma'lum"
+msgstr ""
+
+msgid "Shaxsiy statistika sahifangiz"
+msgstr ""
+
+msgid ""
+"Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "
+"\"kelaman\" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib "
+"borasiz."
+msgstr ""
+
+msgid "Bir necha tilda"
+msgstr ""
+
+msgid "Mehmonlaringiz o'z tilida o'qiydi"
+msgstr ""
+
+msgid ""
+"Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi"
+" — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham "
+"qiynalmaydi."
+msgstr ""
+
+msgid "Istalgan qurilmada chiroyli"
+msgstr ""
+
+msgid "Telefon, planshet, kompyuter"
+msgstr ""
+
+msgid ""
+"Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada "
+"sara va o'qish qulay bo'ladi."
+msgstr ""
+
+msgid "Marosimdan keyin ham"
+msgstr ""
+
+msgid "Esdalik sifatida saqlanib qoladi"
+msgstr ""
+
+msgid ""
+"Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta "
+"ochib, o'sha kunning iliqligini his qilishingiz mumkin."
+msgstr ""
+
+msgid ""
+"Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
+"bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
+"beramiz."
+msgstr ""
+
+msgid "Telegram orqali yozish"
 msgstr ""
 
 msgid "Qanday ishlaydi?"
@@ -644,13 +760,21 @@ msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr ""
 
 msgid ""
-"Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
-"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
-"kirgani zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim "
-"hali ko'rmaganini bilib turasiz."
+"Har bir mehmon (yoki mehmonlar guruhi) uchun alohida shaxsiy link yarating —"
+" shu linkni Telegram/Instagram orqali yuboring. Shu link orqali kirgani "
+"zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim hali "
+"ko'rmaganini bilib turasiz."
 msgstr ""
 
-msgid "Mehmon ismi, masalan: Jasur Rahimov"
+msgid ""
+"Bu shart emas — bitta odamning ismi bo'lishi mumkin (\"Jasur Rahimov\"), "
+"lekin bir nechta odamga bitta umumiy link yaratib, guruh nomi bilan ham "
+"belgilashingiz mumkin: masalan \"Aziz kursdoshlar\", \"Qadrdon "
+"qarindoshlar\", \"Ish joyidan hamkasblar\". Har bir link mustaqil — "
+"istagancha yaratib, xohlagan mehmonga yuborishingiz mumkin."
+msgstr ""
+
+msgid "Masalan: Jasur Rahimov yoki Aziz kursdoshlar"
 msgstr ""
 
 msgid "Qo'shish"
@@ -700,7 +824,25 @@ msgid ""
 "mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi."
 msgstr ""
 
+msgid ""
+"Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz,"
+" yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan "
+"kuzatishingiz mumkin."
+msgstr ""
+
 msgid "Statistikani ko'rish"
+msgstr ""
+
+msgid ""
+"Va yana bir muhim jihat: taklifnomangiz marosim o'tib ketgach ham o'chib "
+"qolmaydi."
+msgstr ""
+
+msgid ""
+"Havola doimiy ishlayveradi — bir necha oy yoki hatto yillar o'tib ham qaytib"
+" ochib, o'sha kunning suratlari, musiqasi va iliq so'zlarini yana bir bor "
+"his qilishingiz mumkin. Bu shunchaki taklifnoma emas, siz uchun raqamli "
+"esdalik ham."
 msgstr ""
 
 msgid "shabloni"
@@ -709,6 +851,13 @@ msgstr ""
 msgid ""
 "Ma'lumotlaringizni to'ldiring. Yuborgach — taklifnomangiz shu zahoti tayyor "
 "bo'ladi (hali hech kimga ochiq emas)."
+msgstr ""
+
+#, python-format
+msgid ""
+"Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
 msgstr ""
 
 #, python-format

@@ -95,6 +95,32 @@
 .oq-qadam h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin: 0 0 10px; }
 .oq-qadam p { color: var(--kul); line-height: 1.75; font-size: .95rem; margin: 0; }
 
+/* Nega Oqqushlar? (afzalliklar) — .oq-qadam bilan bir xil vizual tilda,
+   lekin raqamli qadam emas, shuning uchun "01/02/03" o'rniga har bir
+   kartaning o'ziga xos qisqa yorlig'i (eyebrow) ko'rsatiladi. */
+.oq-afzalliklar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 44px; }
+.oq-afzallik { border-top: 1px solid var(--chiziq); padding: 26px 0 20px; }
+.oq-afzallik .yorliq {
+    font-family: var(--serif); color: var(--tilla); font-size: .78rem; letter-spacing: 2px;
+    text-transform: uppercase; display: block; margin-bottom: 14px;
+}
+.oq-afzallik h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin: 0 0 10px; }
+.oq-afzallik p { color: var(--kul); line-height: 1.75; font-size: .95rem; margin: 0; }
+
+.oq-yordam-chaqiruv {
+    margin-top: 40px; padding: 28px 30px; border: 1px solid var(--chiziq); border-radius: 4px;
+    background: var(--toza); display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap;
+}
+.oq-yordam-chaqiruv p { margin: 0; color: var(--siyoh); line-height: 1.7; font-size: .95rem; max-width: 480px; }
+.oq-yordam-chaqiruv p strong { color: var(--tilla-toq); }
+.oq-yordam-tugma {
+    flex-shrink: 0; display: inline-block; padding: 12px 26px; border-radius: 2px;
+    background: var(--tilla); color: #fff; text-decoration: none; font-size: .85rem;
+    letter-spacing: .5px; transition: .2s;
+}
+.oq-yordam-tugma:hover { background: var(--tilla-toq); }
+
 /* So'nggi taklifnomalar */
 .oq-royxat { list-style: none; padding: 0; margin: 0; }
 .oq-royxat li { border-top: 1px solid var(--chiziq); }
@@ -241,7 +267,7 @@ ko'zga tashlanmasdi).
             <li>
                 <a href="{{ t.get_absolute_url }}">
                     <span class="nomi">{{ t.sarlavha }}</span>
-                    <span class="sana">{{ t.get_marosim_turi_display }} — {{ t.sana|date:"d.m.Y" }}</span>
+                    <span class="sana">{{ t.marosim_turi_matni }} — {{ t.sana|date:"d.m.Y" }}</span>
                 </a>
             </li>
             {% endfor %}
@@ -249,6 +275,65 @@ ko'zga tashlanmasdi).
     </div>
 </section>
 {% endif %}
+
+{% comment %}
+Taftish topilmasi: sayt mijozga NEGA aynan shu platformani tanlashi
+kerakligini hech qayerda ochiq aytmasdi — faqat "qanday ishlaydi" va FAQ bor
+edi. Bu yerdagi har bir afzallik loyihaning haqiqiy, real ishlaydigan
+xususiyatiga tayanadi (statistika sahifasi, ko'p tillilik — settings.py
+LANGUAGES, marosim turiga moslashadigan forma va h.k.) — o'ylab topilgan
+va'da yo'q. Pastdagi Telegram chaqiruvi esa mijoz forma to'ldirishda
+qiynalganda ADMINGA to'g'ridan-to'g'ri, bepul murojaat qila olishini
+ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
+{% endcomment %}
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Nega Oqqushlar?" %}</span>
+            <h2 class="oq-h2">{% trans "Boshqalardan nima bilan farq qilamiz" %}</h2>
+        </div>
+        <div class="oq-afzalliklar">
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "To'lovsiz sinab ko'ring" %}</span>
+                <h3>{% trans "Avval ko'ring, keyin qaror qiling" %}</h3>
+                <p>{% trans "Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz." %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Har bir marosimga moslashgan" %}</span>
+                <h3>{% trans "Forma marosim turingizni tushunadi" %}</h3>
+                <p>{% trans "Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi." %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Kim ko'rgani ma'lum" %}</span>
+                <h3>{% trans "Shaxsiy statistika sahifangiz" %}</h3>
+                <p>{% blocktrans %}Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "kelaman" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib borasiz.{% endblocktrans %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Bir necha tilda" %}</span>
+                <h3>{% trans "Mehmonlaringiz o'z tilida o'qiydi" %}</h3>
+                <p>{% trans "Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham qiynalmaydi." %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Istalgan qurilmada chiroyli" %}</span>
+                <h3>{% trans "Telefon, planshet, kompyuter" %}</h3>
+                <p>{% trans "Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada sara va o'qish qulay bo'ladi." %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Marosimdan keyin ham" %}</span>
+                <h3>{% trans "Esdalik sifatida saqlanib qoladi" %}</h3>
+                <p>{% trans "Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta ochib, o'sha kunning iliqligini his qilishingiz mumkin." %}</p>
+            </div>
+        </div>
+        {% if admin_telegram %}
+        <div class="oq-yordam-chaqiruv">
+            <p>{% blocktrans %}Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
+            <a class="oq-yordam-tugma" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">{% trans "Telegram orqali yozish" %}</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
 
 <section class="oq-bolim">
     <div class="oq-romka-burchak orb-tl"></div>

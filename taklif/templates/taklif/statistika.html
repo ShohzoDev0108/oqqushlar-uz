@@ -130,11 +130,12 @@ button.mini-tugma {
         </div>
 
         <h2 class="oq-h2">{% trans "Mehmonlar uchun shaxsiy linklar" %}</h2>
-        <p class="stat-ogohlantirish">{% blocktrans %}Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali kirgani zahoti "ko'rdi" deb belgilanadi, shunda kim aniq ko'rgani, kim hali ko'rmaganini bilib turasiz.{% endblocktrans %}</p>
+        <p class="stat-ogohlantirish">{% blocktrans %}Har bir mehmon (yoki mehmonlar guruhi) uchun alohida shaxsiy link yarating — shu linkni Telegram/Instagram orqali yuboring. Shu link orqali kirgani zahoti "ko'rdi" deb belgilanadi, shunda kim aniq ko'rgani, kim hali ko'rmaganini bilib turasiz.{% endblocktrans %}</p>
+        <p class="stat-ogohlantirish">{% blocktrans %}Bu shart emas — bitta odamning ismi bo'lishi mumkin ("Jasur Rahimov"), lekin bir nechta odamga bitta umumiy link yaratib, guruh nomi bilan ham belgilashingiz mumkin: masalan "Aziz kursdoshlar", "Qadrdon qarindoshlar", "Ish joyidan hamkasblar". Har bir link mustaqil — istagancha yaratib, xohlagan mehmonga yuborishingiz mumkin.{% endblocktrans %}</p>
 
         <form class="mehmon-qoshish-forma" method="post" action="{% url 'taklif:mehmon_qoshish' taklifnoma.statistika_token %}">
             {% csrf_token %}
-            <input type="text" name="ism" placeholder="{% trans "Mehmon ismi, masalan: Jasur Rahimov" %}" maxlength="100" required>
+            <input type="text" name="ism" placeholder="{% trans "Masalan: Jasur Rahimov yoki Aziz kursdoshlar" %}" maxlength="100" required>
             <button type="submit" class="oq-cta kichik">{% trans "Qo'shish" %}</button>
         </form>
 

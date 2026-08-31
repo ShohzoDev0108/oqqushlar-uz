@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 15:08+0500\n"
+"POT-Creation-Date: 2026-08-31 16:13+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,20 @@ msgstr "E.g.: Nilufar"
 msgid "2-ism"
 msgstr "2nd name"
 
-msgid "O'g'il bolaning ismi"
+msgid "To'ybolaning ismi"
 msgstr "The boy's name"
 
 msgid "Masalan: Amir"
 msgstr "E.g.: Amir"
+
+msgid "2-to'ybolaning ismi (ixtiyoriy)"
+msgstr "2nd boy's name (optional)"
+
+msgid "Masalan: Botir"
+msgstr "E.g.: Botir"
+
+msgid "3-to'ybolaning ismi (ixtiyoriy)"
+msgstr "3rd boy's name (optional)"
 
 msgid "Chaqaloqning ismi"
 msgstr "The baby's name"
@@ -129,6 +138,9 @@ msgstr "Choose from preset music (optional)"
 msgid "— tanlanmagan —"
 msgstr "— not selected —"
 
+msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
+msgstr "E.g.: Store opening, Graduation party"
+
 msgid "Masalan: “Poytaxt” to'yxonasi"
 msgstr "E.g.: \"Poytaxt\" wedding hall"
 
@@ -139,9 +151,14 @@ msgid "Masalan: rasmiy kiyim, och ranglar"
 msgstr "E.g.: formal attire, light colors"
 
 msgid ""
-"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
-"qilamiz"
-msgstr "E.g.: We invite you to share in our joy on this happy day"
+"Masalan: Sizlarsiz bu kun to'liq bo'lmaydi — quvonchimizga sherik "
+"bo'lishingizni astoydil kutamiz"
+msgstr ""
+"E.g.: This day won't feel complete without you — we truly hope you'll share "
+"in our joy"
+
+msgid "Tadbir nomi"
+msgstr "Event name"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Event date and time"
@@ -161,8 +178,8 @@ msgstr "Dress code (optional)"
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr "Upload your own music (optional)"
 
-msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
-msgstr "Additional greeting text (optional)"
+msgid "Mehmonlarga atalgan so'zingiz (ixtiyoriy)"
+msgstr "Your words to the guests (optional)"
 
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
 msgstr "Card number for monetary gifts (optional)"
@@ -176,6 +193,13 @@ msgid ""
 msgstr ""
 "Do you agree to have your invitation shown to other customers as an example "
 "on the site's homepage?"
+
+msgid "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
+msgstr ""
+"If you can't find your event type in the list, write it here yourself."
+
+msgid "Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."
+msgstr "This text is shown to guests directly on the invitation."
 
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "If you'd like to upload your own file"
@@ -223,6 +247,18 @@ msgstr "National"
 msgid "Bolalar"
 msgstr "Kids"
 
+msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
+msgid "va"
+msgstr "and"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'yi"
+msgstr "Circumcision ceremony: %(ismlar)s"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'ylari"
+msgstr "Circumcision ceremonies: %(ismlar)s"
+
 msgid "Dizaynlar"
 msgstr "Designs"
 
@@ -269,6 +305,104 @@ msgstr "Recent invitations"
 
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
 msgstr "Examples of invitations activated on our platform"
+
+msgid "Nega Oqqushlar?"
+msgstr "Why Oqqushlar?"
+
+msgid "Boshqalardan nima bilan farq qilamiz"
+msgstr "What sets us apart"
+
+msgid "To'lovsiz sinab ko'ring"
+msgstr "Try it free"
+
+msgid "Avval ko'ring, keyin qaror qiling"
+msgstr "See it first, decide later"
+
+msgid ""
+"Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq "
+"yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
+msgstr ""
+"No registration, no payment needed — build your full invitation and see it "
+"with your own eyes first. Pay only once you like it, to activate it."
+
+msgid "Har bir marosimga moslashgan"
+msgstr "Built for every kind of event"
+
+msgid "Forma marosim turingizni tushunadi"
+msgstr "The form understands your event type"
+
+msgid ""
+"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+msgstr ""
+"Wedding, circumcision ceremony, or birthday — the questions the form asks "
+"and the example texts change to match your exact event."
+
+msgid "Kim ko'rgani ma'lum"
+msgstr "Know who's seen it"
+
+msgid "Shaxsiy statistika sahifangiz"
+msgstr "Your own private statistics page"
+
+msgid ""
+"Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "
+"\"kelaman\" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib "
+"borasiz."
+msgstr ""
+"Create a separate link for each guest and track — on a page only you can see"
+" — who has seen it and who has said \"I'm coming\"."
+
+msgid "Bir necha tilda"
+msgstr "In several languages"
+
+msgid "Mehmonlaringiz o'z tilida o'qiydi"
+msgstr "Your guests read it in their own language"
+
+msgid ""
+"Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi"
+" — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham "
+"qiynalmaydi."
+msgstr ""
+"The invitation automatically appears in Uzbek, Russian, English and several "
+"other languages — guests abroad or of another nationality won't struggle "
+"either."
+
+msgid "Istalgan qurilmada chiroyli"
+msgstr "Beautiful on any device"
+
+msgid "Telefon, planshet, kompyuter"
+msgstr "Phone, tablet, computer"
+
+msgid ""
+"Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada "
+"sara va o'qish qulay bo'ladi."
+msgstr ""
+"No matter what device your invitation is opened on, it will look just as "
+"elegant and easy to read."
+
+msgid "Marosimdan keyin ham"
+msgstr "Even after the event"
+
+msgid "Esdalik sifatida saqlanib qoladi"
+msgstr "Stays as a keepsake"
+
+msgid ""
+"Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta "
+"ochib, o'sha kunning iliqligini his qilishingiz mumkin."
+msgstr ""
+"The invitation doesn't disappear once the event is over — you can reopen it "
+"anytime and feel the warmth of that day again."
+
+msgid ""
+"Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
+"bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
+"beramiz."
+msgstr ""
+"Stuck somewhere while creating your invitation? <strong>Don't be "
+"shy</strong> — write to us on Telegram, we'll help you for free and gladly."
+
+msgid "Telegram orqali yozish"
+msgstr "Write on Telegram"
 
 msgid "Qanday ishlaydi?"
 msgstr "How does it work?"
@@ -701,17 +835,30 @@ msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Personal links for guests"
 
 msgid ""
-"Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
-"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
-"kirgani zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim "
-"hali ko'rmaganini bilib turasiz."
+"Har bir mehmon (yoki mehmonlar guruhi) uchun alohida shaxsiy link yarating —"
+" shu linkni Telegram/Instagram orqali yuboring. Shu link orqali kirgani "
+"zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim hali "
+"ko'rmaganini bilib turasiz."
 msgstr ""
-"Create a personal link for each guest — send that link to them individually "
-"via Telegram/Instagram. As soon as they open it, it's marked as \"viewed\", "
-"so you'll know exactly who has seen it and who hasn't yet."
+"Create a separate personal link for each guest (or group of guests) — send "
+"it via Telegram/Instagram. The moment someone opens it, they're marked as "
+"\"seen\", so you always know exactly who has seen it and who hasn't."
 
-msgid "Mehmon ismi, masalan: Jasur Rahimov"
-msgstr "Guest name, e.g.: Jasur Rahimov"
+msgid ""
+"Bu shart emas — bitta odamning ismi bo'lishi mumkin (\"Jasur Rahimov\"), "
+"lekin bir nechta odamga bitta umumiy link yaratib, guruh nomi bilan ham "
+"belgilashingiz mumkin: masalan \"Aziz kursdoshlar\", \"Qadrdon "
+"qarindoshlar\", \"Ish joyidan hamkasblar\". Har bir link mustaqil — "
+"istagancha yaratib, xohlagan mehmonga yuborishingiz mumkin."
+msgstr ""
+"This doesn't have to be one person's name (\"Jasur Rahimov\") — you can also"
+" create one shared link for several people and label it with a group name "
+"instead: for example \"Dear classmates\", \"Dear relatives\", \"Colleagues "
+"from work\". Each link is independent — create as many as you like and send "
+"them to whoever you want."
+
+msgid "Masalan: Jasur Rahimov yoki Aziz kursdoshlar"
+msgstr "E.g.: Jasur Rahimov or Dear classmates"
 
 msgid "Qo'shish"
 msgstr "Add"
@@ -767,8 +914,33 @@ msgstr ""
 "Once payment is confirmed, your invitation is activated and you can send it "
 "to your guests (Telegram, Instagram, etc.)."
 
+msgid ""
+"Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz,"
+" yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan "
+"kuzatishingiz mumkin."
+msgstr ""
+"Right up until the event, you can come back anytime to check the details, "
+"add new guests, or track who has responded on the statistics page."
+
 msgid "Statistikani ko'rish"
 msgstr "View statistics"
+
+msgid ""
+"Va yana bir muhim jihat: taklifnomangiz marosim o'tib ketgach ham o'chib "
+"qolmaydi."
+msgstr ""
+"One more important thing: your invitation doesn't disappear once the event "
+"is over."
+
+msgid ""
+"Havola doimiy ishlayveradi — bir necha oy yoki hatto yillar o'tib ham qaytib"
+" ochib, o'sha kunning suratlari, musiqasi va iliq so'zlarini yana bir bor "
+"his qilishingiz mumkin. Bu shunchaki taklifnoma emas, siz uchun raqamli "
+"esdalik ham."
+msgstr ""
+"The link keeps working permanently — even months or years later, you can "
+"open it again and feel that day's photos, music and warm words once more. "
+"This isn't just an invitation, it's also a digital keepsake for you."
 
 msgid "shabloni"
 msgstr "template"
@@ -779,6 +951,16 @@ msgid ""
 msgstr ""
 "Fill in your details. Once submitted, your invitation will be ready right "
 "away (not visible to anyone yet)."
+
+#, python-format
+msgid ""
+"Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
+msgstr ""
+"If you get stuck anywhere, don't be shy — write to <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> on Telegram, we'll help you for free."
 
 #, python-format
 msgid ""

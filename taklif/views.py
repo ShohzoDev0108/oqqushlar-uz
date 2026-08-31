@@ -26,6 +26,7 @@ from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
     IKKI_ISMLI_MAROSIM_TURLARI,
     RASM_MAKS_HAJM_MB,
+    UCHINCHI_ISM_MAROSIM_TURLARI,
     RSVP,
     Mehmon,
     MusiqaVariant,
@@ -63,9 +64,10 @@ _SLUG_MAX_UZUNLIK = Taklifnoma._meta.get_field("slug").max_length
 _SLUG_ASOSIY_MAX = _SLUG_MAX_UZUNLIK - 20  # qo'shimcha (sana/so'z) uchun joy
 
 
-def _asosiy_slug(ism_1, ism_2):
+def _asosiy_slug(ism_1, ism_2, ism_3=""):
     """Mijoz ismlaridan toza havola (slug) yasaydi — mijoz buni ko'rmaydi/tahrirlamaydi."""
-    manba = f"{ism_1}-{ism_2}" if ism_2 else ism_1
+    ismlar = [ism for ism in (ism_1, ism_2, ism_3) if ism]
+    manba = "-".join(ismlar)
     slug = slugify(manba) or "taklifnoma"
     return slug[:_SLUG_ASOSIY_MAX].rstrip("-") or "taklifnoma"
 
@@ -260,6 +262,7 @@ def bosh_sahifa(request):
             "taklifnomalar": taklifnomalar,
             "shablonlar": shablonlar,
             "sayt_musiqa": _sayt_musiqasi(),
+            "admin_telegram": _admin_telegram(),
         },
     )
 
@@ -301,11 +304,12 @@ def yaratish(request, shablon_kod):
             else:
                 ism_1 = form.cleaned_data["ism_1"]
                 ism_2 = form.cleaned_data.get("ism_2") or ""
+                ism_3 = form.cleaned_data.get("ism_3") or ""
                 sana = form.cleaned_data.get("sana")
                 toyxona = form.cleaned_data.get("toyxona") or ""
                 marosim_turi = form.cleaned_data.get("marosim_turi") or ""
 
-                asosiy = _asosiy_slug(ism_1, ism_2)
+                asosiy = _asosiy_slug(ism_1, ism_2, ism_3)
                 mavjud = Taklifnoma.objects.filter(slug=asosiy).first()
                 slug = asosiy
                 yaratish_kerak = True
@@ -371,6 +375,7 @@ def yaratish(request, shablon_kod):
             "form": form,
             "shablon": shablon,
             "ikki_ismli_turlar": list(IKKI_ISMLI_MAROSIM_TURLARI),
+            "uch_ismli_turlar": list(UCHINCHI_ISM_MAROSIM_TURLARI),
             "marosim_maydon_matnlari": marosim_maydon_matnlari_json,
             "standart_marosim_turi": STANDART_MAROSIM_TURI,
             "oy_nomlari": [str(oy) for oy in OY_NOMLARI],
@@ -378,6 +383,7 @@ def yaratish(request, shablon_kod):
             "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
             "sayt_musiqa": _sayt_musiqasi(),
             "eski_taklifnoma": eski_taklifnoma,
+            "admin_telegram": _admin_telegram(),
         },
     )
 

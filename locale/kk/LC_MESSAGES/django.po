@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 15:08+0500\n"
+"POT-Creation-Date: 2026-08-31 16:13+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,20 @@ msgstr "Мысалы: Нилуфар"
 msgid "2-ism"
 msgstr "2-ші аты"
 
-msgid "O'g'il bolaning ismi"
+msgid "To'ybolaning ismi"
 msgstr "Ұл баланың аты"
 
 msgid "Masalan: Amir"
 msgstr "Мысалы: Амир"
+
+msgid "2-to'ybolaning ismi (ixtiyoriy)"
+msgstr "2-ұл баланың аты (міндетті емес)"
+
+msgid "Masalan: Botir"
+msgstr "Мысалы: Ботир"
+
+msgid "3-to'ybolaning ismi (ixtiyoriy)"
+msgstr "3-ұл баланың аты (міндетті емес)"
 
 msgid "Chaqaloqning ismi"
 msgstr "Нәрестенің аты"
@@ -129,6 +138,9 @@ msgstr "Дайын музыкадан таңдау (міндетті емес)"
 msgid "— tanlanmagan —"
 msgstr "— таңдалмаған —"
 
+msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
+msgstr "Мысалы: Дүкен ашылуы, Түлектер кеші"
+
 msgid "Masalan: “Poytaxt” to'yxonasi"
 msgstr "Мысалы: «Пойтахт» той залы"
 
@@ -139,10 +151,14 @@ msgid "Masalan: rasmiy kiyim, och ranglar"
 msgstr "Мысалы: ресми киім, ашық түстер"
 
 msgid ""
-"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
-"qilamiz"
+"Masalan: Sizlarsiz bu kun to'liq bo'lmaydi — quvonchimizga sherik "
+"bo'lishingizni astoydil kutamiz"
 msgstr ""
-"Мысалы: Сізді осы қуанышты күнімізде бақытымызға ортақ болуға шақырамыз"
+"Мысалы: Бұл күн сіздерсіз толық болмайды — қуанышымызға ортақ болуларыңызды "
+"шын жүректен күтеміз"
+
+msgid "Tadbir nomi"
+msgstr "Іс-шара атауы"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Іс-шара күні мен уақыты"
@@ -162,8 +178,8 @@ msgstr "Киім коды (міндетті емес)"
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr "Өз музыкаңызды жүктеу (міндетті емес)"
 
-msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
-msgstr "Қосымша құттықтау мәтіні (міндетті емес)"
+msgid "Mehmonlarga atalgan so'zingiz (ixtiyoriy)"
+msgstr "Қонақтарға арналған сөзіңіз (міндетті емес)"
 
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
 msgstr "Ақшалай сыйлыққа карта нөмірі (міндетті емес)"
@@ -177,6 +193,12 @@ msgid ""
 msgstr ""
 "Шақыруыңыздың сайттың басты бетінде басқа тұтынушыларға үлгі ретінде "
 "көрсетілуіне келісесіз бе?"
+
+msgid "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
+msgstr "Іс-шара түрін тізімнен таба алмасаңыз, осы жерге өзіңіз жазыңыз."
+
+msgid "Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."
+msgstr "Бұл мәтін шақыру хатында қонақтарға тікелей көрсетіледі."
 
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Өз файлыңызды жүктегіңіз келсе"
@@ -224,6 +246,18 @@ msgstr "Ұлттық"
 msgid "Bolalar"
 msgstr "Балалар"
 
+msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
+msgid "va"
+msgstr "және"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'yi"
+msgstr "Сүннет той: %(ismlar)s"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'ylari"
+msgstr "Сүннет тойлары: %(ismlar)s"
+
 msgid "Dizaynlar"
 msgstr "Дизайндар"
 
@@ -270,6 +304,103 @@ msgstr "Соңғы шақырулар"
 
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
 msgstr "Платформамызда іске қосылған шақырулардан мысалдар"
+
+msgid "Nega Oqqushlar?"
+msgstr "Неге Oqqushlar?"
+
+msgid "Boshqalardan nima bilan farq qilamiz"
+msgstr "Басқалардан немен ерекшеленеміз"
+
+msgid "To'lovsiz sinab ko'ring"
+msgstr "Тегін сынап көріңіз"
+
+msgid "Avval ko'ring, keyin qaror qiling"
+msgstr "Алдымен көріңіз, содан кейін шешіңіз"
+
+msgid ""
+"Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq "
+"yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
+msgstr ""
+"Тіркелместен, ештеңе төлемей-ақ шақыру хатыңызды толық жасап, өз көзіңізбен "
+"көресіз. Тек ұнаса ғана төлеп, іске қосасыз."
+
+msgid "Har bir marosimga moslashgan"
+msgstr "Әр іс-шараға бейімделген"
+
+msgid "Forma marosim turingizni tushunadi"
+msgstr "Форма іс-шара түрін түсінеді"
+
+msgid ""
+"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+msgstr ""
+"Үйлену тойы ма, сүннет той ма, әлде туған күн бе — форма қоятын сұрақтар мен"
+" үлгі мәтіндер дәл сол іс-шараға сай өзгереді."
+
+msgid "Kim ko'rgani ma'lum"
+msgstr "Кім көргені белгілі"
+
+msgid "Shaxsiy statistika sahifangiz"
+msgstr "Жеке статистика бетіңіз"
+
+msgid ""
+"Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "
+"\"kelaman\" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib "
+"borasiz."
+msgstr ""
+"Әр қонағыңыз үшін жеке сілтеме жасап, тек өзіңізге ғана көрінетін бетте кім "
+"көргенін, кім \"келемін\" дегенін қадағалап отырасыз."
+
+msgid "Bir necha tilda"
+msgstr "Бірнеше тілде"
+
+msgid "Mehmonlaringiz o'z tilida o'qiydi"
+msgstr "Қонақтарыңыз өз тілінде оқиды"
+
+msgid ""
+"Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi"
+" — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham "
+"qiynalmaydi."
+msgstr ""
+"Шақыру хат өзбек, орыс, ағылшын және тағы бірнеше тілде автоматты түрде "
+"көрінеді — шетелдегі немесе басқа ұлт өкілі қонақтарыңызға да қиын болмайды."
+
+msgid "Istalgan qurilmada chiroyli"
+msgstr "Кез келген құрылғыда әдемі"
+
+msgid "Telefon, planshet, kompyuter"
+msgstr "Телефон, планшет, компьютер"
+
+msgid ""
+"Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada "
+"sara va o'qish qulay bo'ladi."
+msgstr ""
+"Шақыру хатыңыз қай құрылғыдан ашылмасын — көрінісі бірдей дәрежеде әдемі "
+"және оқуға ыңғайлы болады."
+
+msgid "Marosimdan keyin ham"
+msgstr "Іс-шарадан кейін де"
+
+msgid "Esdalik sifatida saqlanib qoladi"
+msgstr "Естелік ретінде сақталып қалады"
+
+msgid ""
+"Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta "
+"ochib, o'sha kunning iliqligini his qilishingiz mumkin."
+msgstr ""
+"Іс-шара өтіп кеткеннен кейін де шақыру хат жойылмайды — қалаған уақытта "
+"қайта ашып, сол күннің жылуын сезіне аласыз."
+
+msgid ""
+"Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
+"bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
+"beramiz."
+msgstr ""
+"Шақыру хат жасауда бір жерде қиналып тұрсыз ба? <strong>Ұялмаңыз</strong> — "
+"Telegram арқылы жазыңыз, тегін және шын жүректен көмектесеміз."
+
+msgid "Telegram orqali yozish"
+msgstr "Telegram арқылы жазу"
 
 msgid "Qanday ishlaydi?"
 msgstr "Қалай жұмыс істейді?"
@@ -698,17 +829,31 @@ msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Қонақтар үшін жеке сілтемелер"
 
 msgid ""
-"Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
-"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
-"kirgani zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim "
-"hali ko'rmaganini bilib turasiz."
+"Har bir mehmon (yoki mehmonlar guruhi) uchun alohida shaxsiy link yarating —"
+" shu linkni Telegram/Instagram orqali yuboring. Shu link orqali kirgani "
+"zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim hali "
+"ko'rmaganini bilib turasiz."
 msgstr ""
-"Әр қонаққа жеке сілтеме жасаңыз — осы сілтемені Telegram/Instagram арқылы "
-"соған жеке жіберіңіз. Ол сілтеме арқылы кірген бойда «көрді» деп "
-"белгіленеді, сонда кім нақты көргенін, кім әлі көрмегенін біліп тұрасыз."
+"Әр қонақ (немесе қонақтар тобы) үшін жеке сілтеме жасаңыз — оны "
+"Telegram/Instagram арқылы жіберіңіз. Сілтеме арқылы кірген заматта \"көрді\""
+" деп белгіленеді, сөйтіп кім нақты көргенін, кім әлі көрмегенін біліп "
+"тұрасыз."
 
-msgid "Mehmon ismi, masalan: Jasur Rahimov"
-msgstr "Қонақ аты, мысалы: Жасур Рахимов"
+msgid ""
+"Bu shart emas — bitta odamning ismi bo'lishi mumkin (\"Jasur Rahimov\"), "
+"lekin bir nechta odamga bitta umumiy link yaratib, guruh nomi bilan ham "
+"belgilashingiz mumkin: masalan \"Aziz kursdoshlar\", \"Qadrdon "
+"qarindoshlar\", \"Ish joyidan hamkasblar\". Har bir link mustaqil — "
+"istagancha yaratib, xohlagan mehmonga yuborishingiz mumkin."
+msgstr ""
+"Бұл міндетті түрде бір адамның аты болуы шарт емес (\"Жасур Рахимов\") — "
+"бірнеше адамға арналған ортақ сілтеме жасап, оны топ атымен де белгілей "
+"аласыз: мысалы \"Қымбатты курстастар\", \"Қадірлі туыстар\", \"Жұмыстағы "
+"әріптестер\". Әр сілтеме дербес — қалағаныңызша жасап, кез келген қонаққа "
+"жібере аласыз."
+
+msgid "Masalan: Jasur Rahimov yoki Aziz kursdoshlar"
+msgstr "Мысалы: Жасур Рахимов немесе Қымбатты курстастар"
 
 msgid "Qo'shish"
 msgstr "Қосу"
@@ -764,8 +909,34 @@ msgstr ""
 "Төлем расталғаннан кейін шақыруыңыз іске қосылады және оны қонақтарға жібере"
 " аласыз (Telegram, Instagram және т.б.)."
 
+msgid ""
+"Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz,"
+" yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan "
+"kuzatishingiz mumkin."
+msgstr ""
+"Іс-шара күніне дейін қалаған уақытта қайта кіріп, деректерді тексере аласыз,"
+" жаңа қонақ қоса аласыз немесе кім жауап бергенін статистика бетінен "
+"қадағалай аласыз."
+
 msgid "Statistikani ko'rish"
 msgstr "Статистиканы қарау"
+
+msgid ""
+"Va yana bir muhim jihat: taklifnomangiz marosim o'tib ketgach ham o'chib "
+"qolmaydi."
+msgstr ""
+"Тағы бір маңызды жайт: іс-шара өтіп кеткеннен кейін де шақыру хатыңыз "
+"жойылмайды."
+
+msgid ""
+"Havola doimiy ishlayveradi — bir necha oy yoki hatto yillar o'tib ham qaytib"
+" ochib, o'sha kunning suratlari, musiqasi va iliq so'zlarini yana bir bor "
+"his qilishingiz mumkin. Bu shunchaki taklifnoma emas, siz uchun raqamli "
+"esdalik ham."
+msgstr ""
+"Сілтеме үнемі жұмыс істей береді — тіпті бірнеше ай немесе жыл өтсе де, "
+"қайта ашып, сол күннің суреттерін, музыкасын және жылы сөздерін тағы бір рет"
+" сезіне аласыз. Бұл жай ғана шақыру хат емес, сіз үшін цифрлық естелік те."
 
 msgid "shabloni"
 msgstr "үлгісі"
@@ -776,6 +947,16 @@ msgid ""
 msgstr ""
 "Деректеріңізді толтырыңыз. Жібергеннен кейін шақыру хатыңыз дереу дайын "
 "болады (әзірге ешкімге көрінбейді)."
+
+#, python-format
+msgid ""
+"Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
+msgstr ""
+"Бір жерде қиналсаңыз, ұялмаңыз — Telegram арқылы <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> дегенге жазыңыз, тегін көмектесеміз."
 
 #, python-format
 msgid ""

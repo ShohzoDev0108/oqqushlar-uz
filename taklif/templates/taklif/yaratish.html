@@ -124,6 +124,11 @@
         <p class="oq-matn" style="margin-top:0;">
             {% trans "Ma'lumotlaringizni to'ldiring. Yuborgach — taklifnomangiz shu zahoti tayyor bo'ladi (hali hech kimga ochiq emas)." %}
         </p>
+        {% if admin_telegram %}
+        <p class="yordam" style="margin:-6px 0 20px;">
+            {% blocktrans with admin=admin_telegram admin_link=admin_telegram|cut:'@' %}Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a href="https://t.me/{{ admin_link }}" target="_blank" rel="noopener">{{ admin }}</a> ga yozing, bepul yordam beramiz.{% endblocktrans %}
+        </p>
+        {% endif %}
 
         {% if form.non_field_errors %}
         <div class="non-field-xato">{{ form.non_field_errors }}</div>
@@ -170,7 +175,7 @@
                 </div>
             </div>
             {% elif field.name != "ommaviy_korsatishga_rozi" %}
-            <div {% if field.name == "ism_2" %}id="ism2-qatori"{% endif %}>
+            <div {% if field.name == "ism_2" %}id="ism2-qatori"{% elif field.name == "ism_3" %}id="ism3-qatori" hidden{% elif field.name == "boshqa_tadbir_nomi" %}id="boshqa-tadbir-nomi-qatori" hidden{% endif %}>
                 <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.name == "ism_2" %}<span class="majburiy-belgi" id="ism2-majburiy" hidden> *</span>{% elif field.field.required %} *{% endif %}</label>
                 {{ field }}
                 {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
@@ -223,34 +228,51 @@ json_script — |safe filtridan xavfsizroq: JSON to'g'ri escape qilinadi,
 maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
 {% endcomment %}
 {{ ikki_ismli_turlar|json_script:"ikki-ismli-turlar-data" }}
+{{ uch_ismli_turlar|json_script:"uch-ismli-turlar-data" }}
 {{ marosim_maydon_matnlari|json_script:"marosim-maydon-matnlari-data" }}
 {{ oy_nomlari|json_script:"oy-nomlari-data" }}
 
 <script>
 (function () {
-    // Marosim turiga qarab: 2-ism maydonini ko'rsatish/yashirish HAMDA
-    // ism_1/ism_2 yorliq+na'muna matnlarini shu marosimga mos almashtirish
-    // (masalan "sunnat to'yi" tanlansa "kuyov" so'zi umuman ko'rinmaydi).
+    // Marosim turiga qarab: 2- va 3-ism maydonlarini (hamda "Boshqa" uchun
+    // tadbir nomi maydonini) ko'rsatish/yashirish HAMDA ism_1/ism_2/ism_3
+    // yorliq+na'muna matnlarini shu marosimga mos almashtirish (masalan
+    // "sunnat to'yi" tanlansa "kuyov" so'zi umuman ko'rinmaydi, "nikoh to'yi"
+    // tanlansa 3-ism va tadbir nomi maydonlari umuman ko'rinmaydi).
     var ikkiIsmliTurlarEl = document.getElementById('ikki-ismli-turlar-data');
     var ikkiIsmliTurlar = ikkiIsmliTurlarEl ? JSON.parse(ikkiIsmliTurlarEl.textContent) : [];
+    var uchIsmliTurlarEl = document.getElementById('uch-ismli-turlar-data');
+    var uchIsmliTurlar = uchIsmliTurlarEl ? JSON.parse(uchIsmliTurlarEl.textContent) : [];
     var maydonMatnlariEl = document.getElementById('marosim-maydon-matnlari-data');
     var maydonMatnlari = maydonMatnlariEl ? JSON.parse(maydonMatnlariEl.textContent) : {};
     var marosimEl = document.getElementById('id_marosim_turi');
     var ism2Qatori = document.getElementById('ism2-qatori');
     var ism2Majburiy = document.getElementById('ism2-majburiy');
+    var ism3Qatori = document.getElementById('ism3-qatori');
+    var boshqaTadbirQatori = document.getElementById('boshqa-tadbir-nomi-qatori');
     var ism1Label = document.querySelector('label[for="id_ism_1"]');
     var ism2Label = document.querySelector('label[for="id_ism_2"]');
+    var ism3Label = document.querySelector('label[for="id_ism_3"]');
     var ism1Input = document.getElementById('id_ism_1');
     var ism2Input = document.getElementById('id_ism_2');
+    var ism3Input = document.getElementById('id_ism_3');
 
     function maydonlarniYangila() {
         if (!marosimEl) { return; }
         var turi = marosimEl.value;
         var matnlar = maydonMatnlari[turi];
         var kerakIsm2 = ikkiIsmliTurlar.indexOf(turi) !== -1;
+        var kerakIsm3 = uchIsmliTurlar.indexOf(turi) !== -1;
 
         if (ism2Qatori) { ism2Qatori.style.display = kerakIsm2 ? '' : 'none'; }
         if (ism2Majburiy) { ism2Majburiy.hidden = !kerakIsm2; }
+        // DIQQAT: sunnat to'yida ism_2 ("2-to'ybola") "ikki ismli" ro'yxatida
+        // emas (majburiy emas), lekin baribir ko'rsatilishi kerak — shu
+        // sababli 3-ism talab qiladigan turlar uchun ham ism2Qatori'ni ochiq
+        // qoldiramiz.
+        if (ism2Qatori && kerakIsm3) { ism2Qatori.style.display = ''; }
+        if (ism3Qatori) { ism3Qatori.hidden = !kerakIsm3; }
+        if (boshqaTadbirQatori) { boshqaTadbirQatori.hidden = turi !== 'boshqa'; }
 
         if (matnlar) {
             // DIQQAT: ism_1 doim majburiy (model darajasida), shuning uchun
@@ -259,13 +281,18 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
             // (Django tomonidan) qo'shib chiqariladi — shu sababli
             // firstChild.textContent'ni to'liq almashtirganda " *"ni ham
             // o'zimiz qayta qo'shishimiz kerak (aks holda majburiylik belgisi
-            // yo'qolib qolardi). ism_2'da esa yulduzcha alohida
-            // <span id="ism2-majburiy"> ichida — u yerda firstChild faqat
-            // sof label matni, qayta qo'shish shart emas.
+            // yo'qolib qolardi). ism_2'da yulduzcha yo'q, shuning uchun
+            // firstChild faqat sof label matni. ism_3'da esa standart holatda
+            // (marosim turi "toy" bo'lganda) label matni umuman BO'SH — bu
+            // holatda <label> ichida hech qanday matn tuguni (firstChild)
+            // yaratilmaydi, shuning uchun to'g'ridan-to'g'ri textContent
+            // ishlatiladi (firstChild mavjudligini talab qilmaydi).
             if (ism1Label && ism1Label.firstChild) { ism1Label.firstChild.textContent = matnlar.ism_1_yorliq + ' *'; }
             if (ism2Label && ism2Label.firstChild) { ism2Label.firstChild.textContent = matnlar.ism_2_yorliq; }
+            if (ism3Label) { ism3Label.textContent = matnlar.ism_3_yorliq; }
             if (ism1Input) { ism1Input.placeholder = matnlar.ism_1_namuna; }
             if (ism2Input) { ism2Input.placeholder = matnlar.ism_2_namuna; }
+            if (ism3Input) { ism3Input.placeholder = matnlar.ism_3_namuna; }
         }
     }
 

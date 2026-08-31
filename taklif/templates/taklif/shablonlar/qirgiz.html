@@ -122,8 +122,12 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
         <div class="hero-burchak hb-bl"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 26 V11 Q3 3 11 3 H26" stroke-linecap="round"/><path d="M3 33 Q3 45 15 45 Q24 45 24 36 Q24 29 17 29" stroke-linecap="round" stroke-width=".85" opacity=".75"/><circle cx="10" cy="10" r="1.8" fill="currentColor" stroke="none"/></svg></div>
         <div class="hero-burchak hb-br"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 26 V11 Q3 3 11 3 H26" stroke-linecap="round"/><path d="M3 33 Q3 45 15 45 Q24 45 24 36 Q24 29 17 29" stroke-linecap="round" stroke-width=".85" opacity=".75"/><circle cx="10" cy="10" r="1.8" fill="currentColor" stroke="none"/></svg></div>
     <div class="tunduk"></div>
-    <div class="kichik">{{ taklifnoma.get_marosim_turi_display }} {% trans "taklifnomasi" %}</div>
-    {% if taklifnoma.ism_2 %}
+    <div class="kichik">{{ taklifnoma.marosim_turi_matni }} {% trans "taklifnomasi" %}</div>
+    {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}
+    <h1>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</h1>
+    {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}
+    <h1>{{ taklifnoma.boshqa_tadbir_nomi }}</h1>
+    {% elif taklifnoma.ism_2 %}
     <h1>{{ taklifnoma.ism_1 }}<span class="va">✦</span>{{ taklifnoma.ism_2 }}</h1>
     {% else %}
     <h1>{{ taklifnoma.ism_1 }}</h1>

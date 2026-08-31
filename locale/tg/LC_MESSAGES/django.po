@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 15:08+0500\n"
+"POT-Creation-Date: 2026-08-31 16:13+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,20 @@ msgstr "Масалан: Нилуфар"
 msgid "2-ism"
 msgstr "Номи 2"
 
-msgid "O'g'il bolaning ismi"
+msgid "To'ybolaning ismi"
 msgstr "Номи писарбача"
 
 msgid "Masalan: Amir"
 msgstr "Масалан: Амир"
+
+msgid "2-to'ybolaning ismi (ixtiyoriy)"
+msgstr "Номи писарбачаи дуюм (ихтиёрӣ)"
+
+msgid "Masalan: Botir"
+msgstr "Масалан: Ботир"
+
+msgid "3-to'ybolaning ismi (ixtiyoriy)"
+msgstr "Номи писарбачаи сеюм (ихтиёрӣ)"
 
 msgid "Chaqaloqning ismi"
 msgstr "Номи кӯдак"
@@ -129,6 +138,9 @@ msgstr "Аз мусиқии тайёр интихоб кунед (ихтиёрӣ
 msgid "— tanlanmagan —"
 msgstr "— интихоб нашудааст —"
 
+msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
+msgstr "Масалан: Кушоиши мағоза, Шаби хатми таҳсил"
+
 msgid "Masalan: “Poytaxt” to'yxonasi"
 msgstr "Масалан: толори тӯйхонаи \"Пойтахт\""
 
@@ -139,11 +151,14 @@ msgid "Masalan: rasmiy kiyim, och ranglar"
 msgstr "Масалан: либоси расмӣ, рангҳои равшан"
 
 msgid ""
-"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
-"qilamiz"
+"Masalan: Sizlarsiz bu kun to'liq bo'lmaydi — quvonchimizga sherik "
+"bo'lishingizni astoydil kutamiz"
 msgstr ""
-"Масалан: Шуморо дар ин рӯзи хушнуди мо ба хушбахтии мо шарик шудан даъват "
-"мекунем"
+"Масалан: Ин рӯз бе шумо пурра нахоҳад буд — аз таҳи дил интизори он ҳастем, "
+"ки дар шодии мо шарик шавед"
+
+msgid "Tadbir nomi"
+msgstr "Номи чорабинӣ"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Сана ва вақти чорабинӣ"
@@ -163,8 +178,8 @@ msgstr "Кодекси либос (ихтиёрӣ)"
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr "Мусиқии худро бор кунед (ихтиёрӣ)"
 
-msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
-msgstr "Матни иловагии табрик (ихтиёрӣ)"
+msgid "Mehmonlarga atalgan so'zingiz (ixtiyoriy)"
+msgstr "Суханони шумо ба меҳмонон (ихтиёрӣ)"
 
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
 msgstr "Рақами корт барои тӯҳфаи пулӣ (ихтиёрӣ)"
@@ -178,6 +193,12 @@ msgid ""
 msgstr ""
 "Оё шумо розӣ ҳастед, ки даъватномаи шумо ҳамчун намуна дар саҳифаи асосии "
 "сайт ба дигар муштариён нишон дода шавад?"
+
+msgid "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
+msgstr "Агар навъи чорабиниро дар рӯйхат наёбед, худатон дар ин ҷо нависед."
+
+msgid "Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."
+msgstr "Ин матн дар даъватнома бевосита ба меҳмонон нишон дода мешавад."
 
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Агар хоҳед файли худро бор кунед"
@@ -224,6 +245,18 @@ msgstr "Миллӣ"
 
 msgid "Bolalar"
 msgstr "Кӯдакона"
+
+msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
+msgid "va"
+msgstr "ва"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'yi"
+msgstr "Маросими суннат: %(ismlar)s"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'ylari"
+msgstr "Маросимҳои суннат: %(ismlar)s"
 
 msgid "Dizaynlar"
 msgstr "Дизайнҳо"
@@ -272,6 +305,105 @@ msgstr "Даъватномаҳои охирин"
 
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
 msgstr "Намунаҳои даъватномаҳои фаъолшуда дар платформаи мо"
+
+msgid "Nega Oqqushlar?"
+msgstr "Чаро Oqqushlar?"
+
+msgid "Boshqalardan nima bilan farq qilamiz"
+msgstr "Мо аз дигарон бо чӣ фарқ мекунем"
+
+msgid "To'lovsiz sinab ko'ring"
+msgstr "Бе пул озмоед"
+
+msgid "Avval ko'ring, keyin qaror qiling"
+msgstr "Аввал бинед, баъд қарор диҳед"
+
+msgid ""
+"Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq "
+"yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
+msgstr ""
+"Бе сабти ном, бе пардохт даъватномаи худро пурра эҷод карда, бо чашми худ "
+"мебинед. Танҳо агар писанд ояд, барои фаъол кардан пардохт мекунед."
+
+msgid "Har bir marosimga moslashgan"
+msgstr "Барои ҳар чорабинӣ мутобиқ"
+
+msgid "Forma marosim turingizni tushunadi"
+msgstr "Шакл навъи чорабинии шуморо мефаҳмад"
+
+msgid ""
+"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+msgstr ""
+"Тӯйи арӯсӣ, суннат ё зодрӯз — саволҳое, ки шакл медиҳад ва матнҳои намунавӣ "
+"маҳз ба ҳамон чорабинӣ мувофиқ тағйир меёбанд."
+
+msgid "Kim ko'rgani ma'lum"
+msgstr "Маълум аст, ки кӣ дидааст"
+
+msgid "Shaxsiy statistika sahifangiz"
+msgstr "Саҳифаи шахсии омори шумо"
+
+msgid ""
+"Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "
+"\"kelaman\" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib "
+"borasiz."
+msgstr ""
+"Барои ҳар меҳмонатон линки алоҳида созед ва дар саҳифае, ки танҳо ба шумо "
+"намоён аст, пайгирӣ кунед, ки кӣ дидааст ва кӣ \"меоям\" гуфтааст."
+
+msgid "Bir necha tilda"
+msgstr "Ба якчанд забон"
+
+msgid "Mehmonlaringiz o'z tilida o'qiydi"
+msgstr "Меҳмонони шумо бо забони худ мехонанд"
+
+msgid ""
+"Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi"
+" — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham "
+"qiynalmaydi."
+msgstr ""
+"Даъватнома ба забонҳои ӯзбекӣ, русӣ, англисӣ ва якчанд забони дигар худкор "
+"намоён мешавад — меҳмонони хориҷӣ ё миллати дигаратон низ душворӣ "
+"намекашанд."
+
+msgid "Istalgan qurilmada chiroyli"
+msgstr "Дар ҳар дастгоҳ зебо"
+
+msgid "Telefon, planshet, kompyuter"
+msgstr "Телефон, планшет, компютер"
+
+msgid ""
+"Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada "
+"sara va o'qish qulay bo'ladi."
+msgstr ""
+"Даъватномаи шумо аз ҳар дастгоҳ кушода шавад — намуди он ба ҳамон андоза "
+"зебо ва хониш осон хоҳад буд."
+
+msgid "Marosimdan keyin ham"
+msgstr "Ҳатто пас аз маросим"
+
+msgid "Esdalik sifatida saqlanib qoladi"
+msgstr "Ҳамчун ёдгорӣ боқӣ мемонад"
+
+msgid ""
+"Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta "
+"ochib, o'sha kunning iliqligini his qilishingiz mumkin."
+msgstr ""
+"Пас аз гузаштани маросим ҳам даъватнома нест намешавад — дар ҳар лаҳза "
+"метавонед онро боз кушода, гармии он рӯзро эҳсос кунед."
+
+msgid ""
+"Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
+"bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
+"beramiz."
+msgstr ""
+"Дар эҷоди даъватнома ба мушкиле дучор шудед? <strong>Хиҷолат "
+"накашед</strong> — тавассути Telegram нависед, мо бепул ва самимона кӯмак "
+"мерасонем."
+
+msgid "Telegram orqali yozish"
+msgstr "Тавассути Telegram навиштан"
 
 msgid "Qanday ishlaydi?"
 msgstr "Чӣ тавр кор мекунад?"
@@ -705,17 +837,30 @@ msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Линкҳои шахсӣ барои меҳмонон"
 
 msgid ""
-"Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
-"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
-"kirgani zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim "
-"hali ko'rmaganini bilib turasiz."
+"Har bir mehmon (yoki mehmonlar guruhi) uchun alohida shaxsiy link yarating —"
+" shu linkni Telegram/Instagram orqali yuboring. Shu link orqali kirgani "
+"zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim hali "
+"ko'rmaganini bilib turasiz."
 msgstr ""
-"Барои ҳар меҳмон линки шахсӣ созед — ин линкро тавассути Telegram/Instagram "
-"шахсан ба ӯ фиристед. Ҳамин ки ӯ аз он гузарад, ҳамчун «дида шуд» қайд "
-"мешавад, ва шумо дақиқ медонед, ки кӣ дидааст, кӣ ҳанӯз не."
+"Барои ҳар меҳмон (ё гурӯҳи меҳмонон) линки шахсии алоҳида созед — онро "
+"тавассути Telegram/Instagram фиристед. Ҳамин ки аз он линк ворид шаванд, "
+"\"дидааст\" гузошта мешавад, ва шумо дақиқ медонед, ки кӣ дидааст, кӣ ҳанӯз "
+"надидааст."
 
-msgid "Mehmon ismi, masalan: Jasur Rahimov"
-msgstr "Номи меҳмон, масалан: Ҷасур Раҳимов"
+msgid ""
+"Bu shart emas — bitta odamning ismi bo'lishi mumkin (\"Jasur Rahimov\"), "
+"lekin bir nechta odamga bitta umumiy link yaratib, guruh nomi bilan ham "
+"belgilashingiz mumkin: masalan \"Aziz kursdoshlar\", \"Qadrdon "
+"qarindoshlar\", \"Ish joyidan hamkasblar\". Har bir link mustaqil — "
+"istagancha yaratib, xohlagan mehmonga yuborishingiz mumkin."
+msgstr ""
+"Ин ҳатман номи як шахс набояд бошад (\"Ҷасур Раҳимов\") — метавонед барои "
+"якчанд нафар як линки умумӣ созед ва бо номи гурӯҳ нишон диҳед: масалан "
+"\"Ҳамкурсони азиз\", \"Хешовандони гиромӣ\", \"Ҳамкасбон аз ҷои кор\". Ҳар "
+"линк мустақил аст — ба ҳар қадаре ки хоҳед созед ва ба ҳар меҳмон фиристед."
+
+msgid "Masalan: Jasur Rahimov yoki Aziz kursdoshlar"
+msgstr "Масалан: Ҷасур Раҳимов ё Ҳамкурсони азиз"
 
 msgid "Qo'shish"
 msgstr "Илова кардан"
@@ -772,8 +917,34 @@ msgstr ""
 "Пас аз тасдиқи пардохт даъватномаатон фаъол мешавад ва шумо метавонед онро "
 "ба меҳмонон фиристед (Telegram, Instagram ва ғ.)."
 
+msgid ""
+"Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz,"
+" yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan "
+"kuzatishingiz mumkin."
+msgstr ""
+"То худи рӯзи маросим метавонед дар ҳар вақт дубора ворид шуда, маълумотро "
+"санҷед, меҳмони нав илова кунед ё дар саҳифаи омор бинед, ки кӣ ҷавоб "
+"додааст."
+
 msgid "Statistikani ko'rish"
 msgstr "Дидани омор"
+
+msgid ""
+"Va yana bir muhim jihat: taklifnomangiz marosim o'tib ketgach ham o'chib "
+"qolmaydi."
+msgstr ""
+"Ва боз як нуктаи муҳим: пас аз гузаштани маросим ҳам даъватномаи шумо нест "
+"намешавад."
+
+msgid ""
+"Havola doimiy ishlayveradi — bir necha oy yoki hatto yillar o'tib ham qaytib"
+" ochib, o'sha kunning suratlari, musiqasi va iliq so'zlarini yana bir bor "
+"his qilishingiz mumkin. Bu shunchaki taklifnoma emas, siz uchun raqamli "
+"esdalik ham."
+msgstr ""
+"Линк доимо кор мекунад — ҳатто пас аз якчанд моҳ ё сол ҳам метавонед бозаш "
+"кушода, суратҳо, мусиқӣ ва суханони гарми он рӯзро боз як бор эҳсос кунед. "
+"Ин на танҳо даъватнома, балки як ёдгории рақамӣ низ барои шумост."
 
 msgid "shabloni"
 msgstr "шаблон"
@@ -784,6 +955,16 @@ msgid ""
 msgstr ""
 "Маълумоти худро пур кунед. Пас аз ирсол, таклифномаи шумо дарҳол тайёр "
 "мешавад (то ҳол ба ҳеҷ кас намоён нест)."
+
+#, python-format
+msgid ""
+"Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
+msgstr ""
+"Агар ба мушкиле дучор шудед, хиҷолат накашед — тавассути Telegram ба <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> нависед, мо бепул кӯмак мерасонем."
 
 #, python-format
 msgid ""

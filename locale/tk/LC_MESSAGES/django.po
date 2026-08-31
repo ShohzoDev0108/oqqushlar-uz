@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 15:08+0500\n"
+"POT-Creation-Date: 2026-08-31 16:13+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,20 @@ msgstr "Mysal üçin: Nilufar"
 msgid "2-ism"
 msgstr "2-nji ady"
 
-msgid "O'g'il bolaning ismi"
+msgid "To'ybolaning ismi"
 msgstr "Oglanjygyň ady"
 
 msgid "Masalan: Amir"
 msgstr "Mysal üçin: Amir"
+
+msgid "2-to'ybolaning ismi (ixtiyoriy)"
+msgstr "2-nji oglanjygyň ady (hökmany däl)"
+
+msgid "Masalan: Botir"
+msgstr "Mysal üçin: Botir"
+
+msgid "3-to'ybolaning ismi (ixtiyoriy)"
+msgstr "3-nji oglanjygyň ady (hökmany däl)"
 
 msgid "Chaqaloqning ismi"
 msgstr "Çaganyň ady"
@@ -129,6 +138,9 @@ msgstr "Taýýar sazlardan saýlamak (hökmany däl)"
 msgid "— tanlanmagan —"
 msgstr "— saýlanmadyk —"
 
+msgid "Masalan: Do'kon ochilishi, Bitiruv kechasi"
+msgstr "Mysal üçin: Dükan açylyşy, Uçurym agşamy"
+
 msgid "Masalan: “Poytaxt” to'yxonasi"
 msgstr "Mysal üçin: \"Poýtaht\" toý zaly"
 
@@ -139,10 +151,14 @@ msgid "Masalan: rasmiy kiyim, och ranglar"
 msgstr "Mysal üçin: resmi eşik, açyk reňkler"
 
 msgid ""
-"Masalan: Sizni ushbu quvonchli kunimizda baxtimizga sherik bo'lishga taklif "
-"qilamiz"
+"Masalan: Sizlarsiz bu kun to'liq bo'lmaydi — quvonchimizga sherik "
+"bo'lishingizni astoydil kutamiz"
 msgstr ""
-"Mysal üçin: Sizi şu bagtly günümizde bagtymyza şärik bolmaga çagyrýarys"
+"Mysal üçin: Bu gün sizsiz doly bolmaz — begenjimize şärik bolmagyňyzy tüýs "
+"ýürekden garaşýarys"
+
+msgid "Tadbir nomi"
+msgstr "Dabaranyň ady"
 
 msgid "Tadbir sanasi va vaqti"
 msgstr "Dabaranyň senesi we wagty"
@@ -162,8 +178,8 @@ msgstr "Egin-eşik kody (hökmany däl)"
 msgid "O'zingiz musiqa yuklash (ixtiyoriy)"
 msgstr "Öz sazyňyzy ýüklemek (hökmany däl)"
 
-msgid "Qo'shimcha tabrik matni (ixtiyoriy)"
-msgstr "Goşmaça gutlag teksti (hökmany däl)"
+msgid "Mehmonlarga atalgan so'zingiz (ixtiyoriy)"
+msgstr "Myhmanlara bagyşlanan sözüňiz (hökmany däl)"
 
 msgid "Sovg'a-pul uchun karta raqami (ixtiyoriy)"
 msgstr "Pul sowgady üçin kart belgisi (hökmany däl)"
@@ -177,6 +193,12 @@ msgid ""
 msgstr ""
 "Çakylygyňyzyň saýtyň baş sahypasynda başga müşderilere nusga hökmünde "
 "görkezilmegine razymysyňyz?"
+
+msgid "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
+msgstr "Dabaraňyzyň görnüşini sanawda tapyp bilmeseňiz, şu ýere özüňiz ýazyň."
+
+msgid "Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."
+msgstr "Bu tekst çakylykda myhmanlara göni görkeziler."
 
 msgid "O'zingiz yuklamoqchi bo'lsangiz"
 msgstr "Öz faýlyňyzy ýüklemek isleseňiz"
@@ -224,6 +246,18 @@ msgstr "Milli"
 msgid "Bolalar"
 msgstr "Çagalar"
 
+msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
+msgid "va"
+msgstr "we"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'yi"
+msgstr "Sünnet toýy: %(ismlar)s"
+
+#, python-format
+msgid "%(ismlar)sning sunnat to'ylari"
+msgstr "Sünnet toýlary: %(ismlar)s"
+
 msgid "Dizaynlar"
 msgstr "Dizaýnlar"
 
@@ -270,6 +304,104 @@ msgstr "Soňky çakylyklar"
 
 msgid "Platformamizda faollashtirilgan taklifnomalardan namunalar"
 msgstr "Platformamyzda işjeňleşdirilen çakylyklardan mysallar"
+
+msgid "Nega Oqqushlar?"
+msgstr "Näme üçin Oqqushlar?"
+
+msgid "Boshqalardan nima bilan farq qilamiz"
+msgstr "Beýlekilerden näme bilen tapawutlanýarys"
+
+msgid "To'lovsiz sinab ko'ring"
+msgstr "Mugt synap görüň"
+
+msgid "Avval ko'ring, keyin qaror qiling"
+msgstr "Ilki görüň, soň karar beriň"
+
+msgid ""
+"Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq "
+"yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
+msgstr ""
+"Hasaba durmazdan, hiç zat töläbem çakylygyňyzy doly dörediň-de, öz gözüňiz "
+"bilen görüň. Diňe ýarasa, işjeňleşdirmek üçin töläň."
+
+msgid "Har bir marosimga moslashgan"
+msgstr "Her dabara uýgunlaşan"
+
+msgid "Forma marosim turingizni tushunadi"
+msgstr "Forma dabaraňyzyň görnüşini düşünýär"
+
+msgid ""
+"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+msgstr ""
+"Toý dabarasy, sünnet toýy ýa-da doglan gün — formanyň soraýan soraglary we "
+"mysal tekstler hut şol dabara laýyk üýtgeýär."
+
+msgid "Kim ko'rgani ma'lum"
+msgstr "Kim görenini bilersiňiz"
+
+msgid "Shaxsiy statistika sahifangiz"
+msgstr "Şahsy statistika sahypaňyz"
+
+msgid ""
+"Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "
+"\"kelaman\" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib "
+"borasiz."
+msgstr ""
+"Her myhmanyňyz üçin aýratyn link dörediň-de, diňe size görünýän sahypada "
+"kimiň görenini, kimiň \"gelýärin\" diýenini yzarlaň."
+
+msgid "Bir necha tilda"
+msgstr "Birnäçe dilde"
+
+msgid "Mehmonlaringiz o'z tilida o'qiydi"
+msgstr "Myhmanlaryňyz öz dilinde okaýar"
+
+msgid ""
+"Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi"
+" — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham "
+"qiynalmaydi."
+msgstr ""
+"Çakylyk özbek, rus, iňlis we ýene birnäçe dilde awtomatik görkeziler — "
+"daşary ýurtdaky ýa-da başga milletli myhmanlaryňyz hem kynçylyk çekmez."
+
+msgid "Istalgan qurilmada chiroyli"
+msgstr "Islendik enjamda owadan"
+
+msgid "Telefon, planshet, kompyuter"
+msgstr "Telefon, planşet, kompýuter"
+
+msgid ""
+"Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada "
+"sara va o'qish qulay bo'ladi."
+msgstr ""
+"Çakylygyňyz haýsy enjamdan açylsa-da — görnüşi şol bir derejede owadan we "
+"okamaga amatly bolar."
+
+msgid "Marosimdan keyin ham"
+msgstr "Dabaradan soň hem"
+
+msgid "Esdalik sifatida saqlanib qoladi"
+msgstr "Ýatlama hökmünde saklanyp galar"
+
+msgid ""
+"Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta "
+"ochib, o'sha kunning iliqligini his qilishingiz mumkin."
+msgstr ""
+"Dabara geçip gidenden soň hem çakylyk ýitip gitmeýär — islendik wagt "
+"gaýtadan açyp, şol günüň ýylylygyny duýup bilersiňiz."
+
+msgid ""
+"Taklifnoma yaratishda biror joyda qiynalyapsizmi? <strong>Xijolat "
+"bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam "
+"beramiz."
+msgstr ""
+"Çakylyk döretmekde bir ýerde kynçylyk çekýärsiňizmi? "
+"<strong>Utanmaň</strong> — Telegram arkaly ýazyň, size mugt we tüýs ýürekden"
+" kömek ederis."
+
+msgid "Telegram orqali yozish"
+msgstr "Telegram arkaly ýazmak"
 
 msgid "Qanday ishlaydi?"
 msgstr "Nähili işleýär?"
@@ -695,18 +827,31 @@ msgid "Mehmonlar uchun shaxsiy linklar"
 msgstr "Myhmanlar üçin şahsy linkler"
 
 msgid ""
-"Har bir mehmon uchun alohida shaxsiy link yarating — shu linkni "
-"Telegram/Instagram orqali o'sha mehmonning o'ziga yuboring. Shu link orqali "
-"kirgani zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim "
-"hali ko'rmaganini bilib turasiz."
+"Har bir mehmon (yoki mehmonlar guruhi) uchun alohida shaxsiy link yarating —"
+" shu linkni Telegram/Instagram orqali yuboring. Shu link orqali kirgani "
+"zahoti \"ko'rdi\" deb belgilanadi, shunda kim aniq ko'rgani, kim hali "
+"ko'rmaganini bilib turasiz."
 msgstr ""
-"Her myhman üçin şahsy link dörediň — bu linki Telegram/Instagram arkaly şol "
-"myhmana aýratynlykda iberiň. Ol link arkaly girenden soň, \"gördi\" diýip "
-"bellenilýär, şeýlelikde kimiň gören, kimiň entek görmedigini takyk bilip "
-"durarsyňyz."
+"Her myhman (ýa-da myhmanlar topary) üçin aýratyn şahsy link dörediň — ony "
+"Telegram/Instagram arkaly iberiň. Şol link arkaly girenden soň \"gördi\" "
+"diýip bellenýär, şeýlelikde kimiň takyk görenini, kimiň heniz görmänini "
+"bilip durarsyňyz."
 
-msgid "Mehmon ismi, masalan: Jasur Rahimov"
-msgstr "Myhmanyň ady, mysal üçin: Jasur Rahimow"
+msgid ""
+"Bu shart emas — bitta odamning ismi bo'lishi mumkin (\"Jasur Rahimov\"), "
+"lekin bir nechta odamga bitta umumiy link yaratib, guruh nomi bilan ham "
+"belgilashingiz mumkin: masalan \"Aziz kursdoshlar\", \"Qadrdon "
+"qarindoshlar\", \"Ish joyidan hamkasblar\". Har bir link mustaqil — "
+"istagancha yaratib, xohlagan mehmonga yuborishingiz mumkin."
+msgstr ""
+"Bu hökmany suratda bir adamyň ady bolmaly däl (\"Jasur Rahimow\") — birnäçe "
+"adam üçin umumy link döredip, ony toparyň ady bilen hem belläp bilersiňiz: "
+"mysal üçin \"Eziz kursdaşlar\", \"Gadyrly garyndaşlar\", \"Iş ýerinden "
+"kärdeşler\". Her link garaşsyz — islendik mukdarda döredip, islendik myhmana"
+" iberip bilersiňiz."
+
+msgid "Masalan: Jasur Rahimov yoki Aziz kursdoshlar"
+msgstr "Mysal üçin: Jasur Rahimow ýa-da Eziz kursdaşlar"
 
 msgid "Qo'shish"
 msgstr "Goşmak"
@@ -762,8 +907,34 @@ msgstr ""
 "Töleg tassyklanandan soň çakylygyňyz işjeňleşdiriler we ony myhmanlaryňyza "
 "iberip bilersiňiz (Telegram, Instagram we ş.m.)."
 
+msgid ""
+"Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz,"
+" yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan "
+"kuzatishingiz mumkin."
+msgstr ""
+"Dabara gününe çenli islendik wagt gaýdyp girip, maglumatlary barlap, täze "
+"myhman goşup ýa-da kimiň jogap berenini statistika sahypasyndan yzarlap "
+"bilersiňiz."
+
 msgid "Statistikani ko'rish"
 msgstr "Statistikany görmek"
+
+msgid ""
+"Va yana bir muhim jihat: taklifnomangiz marosim o'tib ketgach ham o'chib "
+"qolmaydi."
+msgstr ""
+"Ýene bir möhüm zat: dabara geçip gidenden soň hem çakylygyňyz ýitip "
+"gitmeýär."
+
+msgid ""
+"Havola doimiy ishlayveradi — bir necha oy yoki hatto yillar o'tib ham qaytib"
+" ochib, o'sha kunning suratlari, musiqasi va iliq so'zlarini yana bir bor "
+"his qilishingiz mumkin. Bu shunchaki taklifnoma emas, siz uchun raqamli "
+"esdalik ham."
+msgstr ""
+"Link hemişe işläp durar — birnäçe aý ýa-da ýyl geçse-de, gaýtadan açyp, şol "
+"günüň suratlaryny, aýdym-sazyny we ýylylykly sözlerini ýene bir gezek duýup "
+"bilersiňiz. Bu diňe çakylyk däl, siz üçin sanly ýatlama hem."
 
 msgid "shabloni"
 msgstr "şablony"
@@ -774,6 +945,16 @@ msgid ""
 msgstr ""
 "Maglumatlaryňyzy dolduryň. Iberilenden soň çakylyşnamaňyz şol wagtyň özünde "
 "taýýar bolar (heniz hiç kime görünmeýär)."
+
+#, python-format
+msgid ""
+"Biror joyda qiynalsangiz, xijolat bo'lmang — Telegram orqali <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ga yozing, bepul yordam beramiz."
+msgstr ""
+"Bir ýerde kynçylyk çekseňiz, utanmaň — Telegram arkaly <a "
+"href=\"https://t.me/%(admin_link)s\" target=\"_blank\" "
+"rel=\"noopener\">%(admin)s</a> ýazyň, mugt kömek ederis."
 
 #, python-format
 msgid ""
