@@ -249,7 +249,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "telegram_link": "",
             "musiqa": _("O'zingiz yuklamoqchi bo'lsangiz"),
             "ommaviy_korsatishga_rozi": _(
-                "Ixtiyoriy. Yoqmasangiz ham taklifnomangiz odatdagidek "
+                "Ixtiyoriy. Belgilamasangiz ham taklifnomangiz odatdagidek "
                 "ishlayveradi — bu faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
             ),
         }
