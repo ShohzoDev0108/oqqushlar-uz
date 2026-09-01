@@ -2,7 +2,16 @@
 {% comment %}
 Barcha sayt sahifalari uchun yagona yuqori navigatsiya: oqqush belgili logotip,
 bo'lim havolalari, til tanlash va "Taklifnoma yaratish" chaqiriq tugmasi.
+
+yashirin_burchak=True — .oq-burchak-tirik (ekranga yopishgan nozik gul
+burchagi) shu sahifada ko'rsatilmaydi. Faqat bosh sahifada ishlatiladi, chunki
+u o'zining boyroq, bo'lim-bo'lim burchak bezagiga ega (bir joyda ikkalasi
+birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
 {% endcomment %}
+{% if not yashirin_burchak %}
+<div class="oq-burchak-tirik bt-chap" aria-hidden="true"></div>
+<div class="oq-burchak-tirik bt-ong" aria-hidden="true"></div>
+{% endif %}
 <div class="oq-nav-tashqi">
 <div class="oq-ichki">
     <nav class="oq-nav">

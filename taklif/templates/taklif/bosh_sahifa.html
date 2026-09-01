@@ -22,8 +22,8 @@
     100% { transform: translateY(-26px) rotate(6deg); }
 }
 @keyframes uzuk-porlash {
-    0%, 100% { opacity: .75; filter: drop-shadow(0 8px 14px rgba(34,28,20,.14)) drop-shadow(0 0 6px rgba(232,212,138,.15)); }
-    50% { opacity: .95; filter: drop-shadow(0 10px 18px rgba(34,28,20,.16)) drop-shadow(0 0 16px rgba(232,212,138,.55)); }
+    0%, 100% { opacity: .75; filter: drop-shadow(0 8px 14px rgba(23,19,15,.16)) drop-shadow(0 0 6px rgba(232,212,138,.15)); }
+    50% { opacity: .95; filter: drop-shadow(0 10px 18px rgba(23,19,15,.18)) drop-shadow(0 0 16px rgba(232,212,138,.55)); }
 }
 
 /* Mobilda: uzuklar kamroq, kichikroq va xiraroq — kontent tiqilib qolmasin */
@@ -40,7 +40,7 @@
 
 /* Miltillovchi yulduzchalar */
 .uchqun {
-    position: absolute; color: #c9a227; font-size: 1rem;
+    position: absolute; color: var(--tilla); font-size: 1rem;
     animation: uchqun-miltillash ease-in-out infinite;
 }
 @keyframes uchqun-miltillash {
@@ -64,7 +64,7 @@
 /* Oqqushlar surati — oq ramka ichida, ostida oltin chiziqli panel */
 .oq-hero-rasm {
     position: relative; border: 1px solid var(--chiziq); border-radius: 4px;
-    background: var(--toza); padding: 14px; box-shadow: 0 24px 60px rgba(34,28,20,.10);
+    background: var(--toza); padding: 14px; box-shadow: 0 24px 60px rgba(23,19,15,.12);
     width: 100%; max-width: 728px;
 }
 .oq-hero-rasm img {
@@ -109,7 +109,8 @@
 
 .oq-yordam-chaqiruv {
     margin-top: 40px; padding: 28px 30px; border: 1px solid var(--chiziq); border-radius: 4px;
-    background: var(--toza); display: flex; align-items: center; justify-content: space-between;
+    background: var(--toza) url('{% static "taklif/naqshli-fon-zich.png" %}') 0 0 / 420px repeat;
+    display: flex; align-items: center; justify-content: space-between;
     gap: 20px; flex-wrap: wrap;
 }
 .oq-yordam-chaqiruv p { margin: 0; color: var(--siyoh); line-height: 1.7; font-size: .95rem; max-width: 480px; }
@@ -133,40 +134,19 @@
 .oq-royxat .nomi { font-family: var(--serif); font-size: 1.2rem; }
 .oq-royxat .sana { color: var(--kul); font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; }
 
-/* --- Atirgul-romka bezaklari: sahifa bo'ylab bir necha joyda takrorlanadi
-   (hero'da 4 burchak to'liq, har bir bo'lim boshida 2 burchak ingichkaroq) —
-   bitta umumiy shaffof PNG, CSS transform bilan oynalanadi (taklifnoma
-   shablonlaridagi "hero-ramka-burchak" texnikasi bilan bir xil). Sahifa
-   matni har doim romka ustida ko'rinishi uchun .oq-ichki alohida stacking
-   qatlamiga o'tkazilgan. */
-.oq-ichki { position: relative; z-index: 1; }
+/* --- Gul-romka bezaklari: sahifa bo'ylab bir necha joyda takrorlanadi
+   (hero'da 4 burchak to'liq, har bir bo'lim boshida 2 burchak ingichkaroq).
+   .oq-romka-burchak asosiy qoidalari endi _sayt_uslubi.html'da — barcha sayt
+   sahifalarida umumiy (faqat bosh sahifada bu boy, bo'lim-bo'lim takrorlanish
+   qo'shiladi). Sahifa matni har doim romka ustida ko'rinishi uchun .oq-ichki
+   alohida stacking qatlamiga o'tkazilgan (buning asosiy qoidasi ham umumiy
+   faylda). */
 .oq-hero-ich { position: relative; z-index: 1; }
-.oq-romka-burchak {
-    position: absolute; width: 100px; height: 100px; pointer-events: none; z-index: 0;
-    background-image: url('{% static "taklif/hero-ramka/ramka-atirgul-tl.png" %}');
-    background-repeat: no-repeat; background-size: contain;
-}
-.oq-romka-burchak.orb-tl { top: 0; left: 0; }
-.oq-romka-burchak.orb-tr { top: 0; right: 0; transform: scaleX(-1); }
-.oq-romka-burchak.orb-bl { bottom: 0; left: 0; transform: scaleY(-1); }
-.oq-romka-burchak.orb-br { bottom: 0; right: 0; transform: scale(-1,-1); }
 .oq-hero .oq-romka-burchak { width: 130px; height: 130px; }
-@media (min-width: 480px) {
-    .oq-romka-burchak { width: 128px; height: 128px; }
-    .oq-hero .oq-romka-burchak { width: 170px; height: 170px; }
-}
-@media (min-width: 700px) {
-    .oq-romka-burchak { width: 168px; height: 168px; }
-    .oq-hero .oq-romka-burchak { width: 230px; height: 230px; }
-}
-@media (min-width: 1000px) {
-    .oq-romka-burchak { width: 210px; height: 210px; }
-    .oq-hero .oq-romka-burchak { width: 300px; height: 300px; }
-}
-@media (min-width: 1300px) {
-    .oq-romka-burchak { width: 260px; height: 260px; }
-    .oq-hero .oq-romka-burchak { width: 360px; height: 360px; }
-}
+@media (min-width: 480px) { .oq-hero .oq-romka-burchak { width: 170px; height: 170px; } }
+@media (min-width: 700px) { .oq-hero .oq-romka-burchak { width: 230px; height: 230px; } }
+@media (min-width: 1000px) { .oq-hero .oq-romka-burchak { width: 300px; height: 300px; } }
+@media (min-width: 1300px) { .oq-hero .oq-romka-burchak { width: 360px; height: 360px; } }
 
 /* Ko'p so'raladigan savollar (FAQ) — <details>/<summary> orqali,
    qo'shimcha JS shart emas. */
@@ -209,7 +189,7 @@
     <span class="uchqun" style="top:82%;  right:7%;  animation-duration:3.7s; animation-delay:-1.8s;">✧</span>
 </div>
 
-{% include "taklif/_sayt_nav.html" with mobil_cta=True %}
+{% include "taklif/_sayt_nav.html" with mobil_cta=True yashirin_burchak=True %}
 {% include "taklif/_sayt_musiqa.html" %}
 
 <header class="oq-hero">

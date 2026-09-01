@@ -1,33 +1,40 @@
+{% load static %}
 {% comment %}
 Oqqushlar sayt sahifalari (bosh sahifa, dizayn tanlash, yaratish, tayyor,
 mening taklifnomalarim) uchun YAGONA dizayn tizimi. Bu fayl har bir sahifaning
 {% block extra_style %} ichida include qilinadi — sof CSS.
-Uslub: oppoq (fil suyagi) fon, yirik Playfair Display serif sarlavhalar,
-oltin urg'ular, keng "editorial" bo'sh joylar. Taklifnoma shablonlarining
-o'ziga (18 dizayn) bu tizim ta'sir qilmaydi.
+Uslub: chuqur fil suyagi/qaymoqrang fon, sof qora siyoh matn, ingichka oltin
+folga urg'ular, yirik Playfair Display serif sarlavhalar — "premium to'y
+stationery" (qo'lda ishlangan taklifnoma qog'ozi) hissi. Fon va kartalar
+ustida juda xira, chiziqli gul naqshi (suzani/anor/lola motivlari) bor —
+"Naqshli fon" bo'limiga qarang. Taklifnoma shablonlarining o'ziga (19 dizayn)
+bu tizim ta'sir qilmaydi.
 {% endcomment %}
 :root {
-    --oq: #fbf9f4;            /* asosiy fil suyagi fon */
-    --toza: #ffffff;          /* kartalar foni */
-    --siyoh: #221c14;         /* asosiy matn — iliq to'q */
-    --kul: #8b7f6c;           /* ikkinchi darajali matn */
-    --tilla: #b08c33;         /* oltin urg'u */
-    --tilla-toq: #8a6a1f;     /* to'qroq oltin (hover, matn) */
-    --tilla-yumshoq: rgba(176,140,51,.12);
-    --chiziq: #e9e1d1;        /* chegara chiziqlari */
+    --oq: #f6f0e2;            /* asosiy chuqur fil suyagi fon */
+    --toza: #fffdf8;          /* kartalar foni — biroz ochroq "qog'oz" */
+    --siyoh: #17130f;         /* asosiy matn — sof siyohrang, iliq qora */
+    --kul: #756b58;           /* ikkinchi darajali matn */
+    --tilla: #a9812e;         /* oltin folga urg'u */
+    --tilla-toq: #7c5c1c;     /* to'qroq oltin (hover, matn) */
+    --tilla-yumshoq: rgba(169,129,46,.12);
+    --chiziq: #e6dcc5;        /* chegara chiziqlari */
     --xavf: #a13d3d;          /* xavfli amallar (o'chirish va h.k.) */
     --serif: 'Playfair Display', Georgia, serif;
     --sans: 'Manrope', 'Segoe UI', sans-serif;
 }
 
-body { background: var(--oq); color: var(--siyoh); font-family: var(--sans); overflow-x: hidden; }
+body {
+    background: var(--oq) url('{% static "taklif/naqshli-fon-xira.png" %}') 0 0 / 620px repeat;
+    color: var(--siyoh); font-family: var(--sans); overflow-x: hidden;
+}
 .wrapper { max-width: none; padding: 0; }
-.oq-ichki { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.oq-ichki { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
 /* --- Yuqori navigatsiya (yopishqoq — skrollda ham til tanlash ko'rinib turadi) --- */
 .oq-nav-tashqi {
     position: sticky; top: 0; z-index: 70;
-    background: rgba(251,249,244,.92);
+    background: rgba(246,240,226,.92);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--chiziq);
 }
@@ -65,10 +72,10 @@ body { background: var(--oq); color: var(--siyoh); font-family: var(--sans); ove
 .oq-cta:hover { background: var(--tilla-yumshoq); }
 .oq-cta.toliq {
     border: none; color: #fff;
-    background: linear-gradient(155deg, #c49b3d, var(--tilla-toq));
-    box-shadow: 0 6px 18px rgba(138,106,31,.35);
+    background: linear-gradient(155deg, var(--tilla), var(--tilla-toq));
+    box-shadow: 0 6px 18px rgba(124,92,28,.35);
 }
-.oq-cta.toliq:hover { transform: translateY(-2px) scale(1.015); box-shadow: 0 10px 26px rgba(138,106,31,.45); }
+.oq-cta.toliq:hover { transform: translateY(-2px) scale(1.015); box-shadow: 0 10px 26px rgba(124,92,28,.45); }
 .oq-cta.kichik { padding: 10px 20px; font-size: .7rem; gap: 7px; }
 .oq-cta.kichik svg { width: 13px; height: 13px; }
 {% comment %}
@@ -110,10 +117,11 @@ aniq belgilaymiz.
 
 /* --- Kartalar --- */
 .oq-karta {
-    background: var(--toza); border: 1px solid var(--chiziq); border-radius: 4px;
+    background: var(--toza) url('{% static "taklif/naqshli-fon-zich.png" %}') 0 0 / 420px repeat;
+    border: 1px solid var(--chiziq); border-radius: 4px;
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s;
 }
-.oq-karta:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(34,28,20,.08); border-color: rgba(176,140,51,.45); }
+.oq-karta:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(23,19,15,.1); border-color: rgba(169,129,46,.45); }
 
 /* --- Forma elementlari --- */
 label { display: block; margin: 18px 0 6px; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--kul); }
@@ -132,13 +140,13 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 /* --- Sayt musiqa tugmasi (oq uslub) --- */
 #sayt-musiqa-tugma {
     background: var(--toza) !important; border-color: var(--tilla) !important;
-    color: var(--tilla-toq) !important; box-shadow: 0 4px 16px rgba(34,28,20,.14) !important;
+    color: var(--tilla-toq) !important; box-shadow: 0 4px 16px rgba(23,19,15,.16) !important;
 }
 #sayt-musiqa-tugma.ijroda::before { border-color: var(--tilla) !important; }
 #sayt-musiqa-tugma.bloklangan { animation-name: sayt-musiqa-puls-oq !important; }
 @keyframes sayt-musiqa-puls-oq {
     0%, 100% { box-shadow: 0 0 0 0 var(--tilla-yumshoq); }
-    50% { box-shadow: 0 0 0 12px rgba(176,140,51,0); }
+    50% { box-shadow: 0 0 0 12px rgba(169,129,46,0); }
 }
 
 /* --- Dizayn galereyasi (bosh sahifa + shablon tanlash uchun umumiy) --- */
@@ -242,13 +250,16 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
         text-align: center; padding: 17px 10px; background: var(--tilla); color: #fff;
         letter-spacing: 2.5px; text-transform: uppercase; font-size: .78rem;
         text-decoration: none; border-radius: 3px;
-        box-shadow: 0 10px 30px rgba(138,106,31,.4);
+        box-shadow: 0 10px 30px rgba(124,92,28,.4);
     }
 }
 
 /* --- Footer --- */
-.oq-footer { border-top: 1px solid var(--chiziq); margin-top: 80px; padding: 40px 0 50px; }
-.oq-footer-ich { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; }
+.oq-footer {
+    border-top: 1px solid var(--chiziq); margin-top: 80px; padding: 40px 0 50px;
+    position: relative; overflow: hidden;
+}
+.oq-footer-ich { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; position: relative; z-index: 1; }
 .oq-footer .oq-logo { font-size: 1.2rem; }
 .oq-footer-linklar { display: flex; gap: 20px; flex-wrap: wrap; }
 .oq-footer-linklar a {
@@ -256,3 +267,36 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     letter-spacing: 2px; text-transform: uppercase;
 }
 .oq-footer-linklar a:hover { color: var(--tilla-toq); }
+
+/* --- Naqshli fon: gul burchak bezagi (barcha sayt sahifalarida umumiy) ---
+   Manba: chiziqli lola/anor motivli AI-generatsiya qilingan naqsh, faqat
+   bitta burchak (yuqori-chap) rasm sifatida saqlangan, qolgan 3 burchak CSS
+   transform bilan oynalanadi — taklifnoma shablonlaridagi hero-ramka texnikasi
+   bilan bir xil. .oq-romka-burchak — bo'lim ichida (bosh sahifada bo'limlar
+   boshida, footer'da pastki burchaklarda) o'z ota elementiga nisbatan
+   joylashadi; ota element "position: relative" bo'lishi shart. */
+.oq-romka-burchak {
+    position: absolute; width: 100px; height: 100px; pointer-events: none; z-index: 0;
+    background-image: url('{% static "taklif/hero-ramka/ramka-gul-krem-tl.png" %}');
+    background-repeat: no-repeat; background-size: contain; opacity: .9;
+}
+.oq-romka-burchak.orb-tl { top: 0; left: 0; }
+.oq-romka-burchak.orb-tr { top: 0; right: 0; transform: scaleX(-1); }
+.oq-romka-burchak.orb-bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.oq-romka-burchak.orb-br { bottom: 0; right: 0; transform: scale(-1,-1); }
+@media (min-width: 480px) { .oq-romka-burchak { width: 128px; height: 128px; } }
+@media (min-width: 700px) { .oq-romka-burchak { width: 168px; height: 168px; } }
+@media (min-width: 1000px) { .oq-romka-burchak { width: 210px; height: 210px; } }
+
+/* Ekranga "yopishgan" nozik burchak bezagi — sarlavha panti (_sayt_nav.html)
+   orqali har bir sahifaga bir marta qo'shiladi, skrollda joyida qoladi.
+   Bosh sahifa buni ishlatmaydi (yashirin_burchak=True) — u o'zining boy,
+   bo'lim-bo'lim .oq-romka-burchak tizimidan foydalanadi. */
+.oq-burchak-tirik {
+    position: fixed; top: 0; width: 200px; height: 200px; pointer-events: none; z-index: 1;
+    background-image: url('{% static "taklif/hero-ramka/ramka-gul-krem-tl.png" %}');
+    background-repeat: no-repeat; background-size: contain;
+}
+.oq-burchak-tirik.bt-chap { left: 0; }
+.oq-burchak-tirik.bt-ong { right: 0; transform: scaleX(-1); }
+@media (max-width: 780px) { .oq-burchak-tirik { display: none; } }
