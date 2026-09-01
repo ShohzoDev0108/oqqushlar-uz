@@ -148,8 +148,15 @@
 }
 .sv-kun.sv-sarlavha { font-size: .6rem; letter-spacing: .5px; text-transform: uppercase; color: var(--kul); cursor: default; }
 .sv-kun.sv-bosh { visibility: hidden; cursor: default; }
-.sv-kun.sv-otgan { color: var(--chiziq); cursor: not-allowed; }
-.sv-kun:not(.sv-sarlavha):not(.sv-bosh):not(.sv-otgan):hover { background: rgba(178,140,40,.12); }
+{% comment %}
+Taftish topilmasi: o'tgan kunlar avval butunlay bloklangan (disabled) edi —
+lekin ba'zi mijozlar allaqachon o'tib ketgan sanadagi (masalan bir necha
+yil oldingi) marosim uchun ham "xotira" sifatida taklifnoma yaratib
+ko'rishni xohlaydi. Endi o'tgan kunlar ham tanlanadi — faqat rangi biroz
+xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
+{% endcomment %}
+.sv-kun.sv-otgan { color: var(--kul); }
+.sv-kun:not(.sv-sarlavha):not(.sv-bosh):hover { background: rgba(178,140,40,.12); }
 .sv-kun.sv-tanlangan { background: var(--tilla); color: #fff; font-weight: 600; }
 .sv-kun.sv-bugun:not(.sv-tanlangan) { border-color: var(--tilla); }
 .sv-vaqt-qatori { display: flex; align-items: center; gap: 8px; margin: 16px 0 4px; }
@@ -189,7 +196,7 @@
         </p>
         {% if admin_telegram %}
         <p class="yordam" style="margin:-6px 0 20px;">
-            {% blocktrans with admin=admin_telegram admin_link=admin_telegram|cut:'@' %}Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a href="https://t.me/{{ admin_link }}" target="_blank" rel="noopener">{{ admin }}</a> ga yozing, bepul yordam beramiz.{% endblocktrans %}
+            {% blocktrans with admin=admin_telegram admin_link=admin_telegram|cut:'@' %}Yordam kerak bo'lsa, xijolat bo'lmang — Telegram orqali <a href="https://t.me/{{ admin_link }}" target="_blank" rel="noopener">{{ admin }}</a> ga yozing, bepul va samimiy yordam beramiz.{% endblocktrans %}
         </p>
         {% endif %}
 
@@ -499,7 +506,7 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
             var tanlanganMi = holat.yil === holat.korinishYil && holat.oy === holat.korinishOy && holat.kun === kk;
             var bugunMi = bugun.getFullYear() === holat.korinishYil && bugun.getMonth() === holat.korinishOy && bugun.getDate() === kk;
             var klass = 'sv-kun' + (otganMi ? ' sv-otgan' : '') + (tanlanganMi ? ' sv-tanlangan' : '') + (bugunMi ? ' sv-bugun' : '');
-            ichki += '<button type="button" class="' + klass + '"' + (otganMi ? ' disabled' : ' data-kun="' + kk + '"') + '>' + kk + '</button>';
+            ichki += '<button type="button" class="' + klass + '" data-kun="' + kk + '">' + kk + '</button>';
         }
         kalendarEl.innerHTML = ichki;
     }

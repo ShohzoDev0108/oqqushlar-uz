@@ -1,17 +1,21 @@
 {% load i18n %}
 {% trans "Baxtli oilamizga" as SO_BAXTLI %}
 {% trans "yil" as SO_YIL %}
+{% trans "oy" as SO_OY %}
 {% trans "kun" as SO_KUN %}
 {% trans "bo'ldi" as SO_BOLDI %}
 {% trans "Marosimgacha" as SO_MAROSIMGACHA %}
+{% trans "Bugun — bizning eng baxtli kunimiz" as SO_BUGUN %}
 <script>
 (function () {
     var SO = {
         baxtli: "{{ SO_BAXTLI|escapejs }}",
         yil: "{{ SO_YIL|escapejs }}",
+        oy: "{{ SO_OY|escapejs }}",
         kun: "{{ SO_KUN|escapejs }}",
         boldi: "{{ SO_BOLDI|escapejs }}",
-        marosimgacha: "{{ SO_MAROSIMGACHA|escapejs }}"
+        marosimgacha: "{{ SO_MAROSIMGACHA|escapejs }}",
+        bugun: "{{ SO_BUGUN|escapejs }}"
     };
 
     // 3D konvert-ochilish pardasi va musiqa.
@@ -161,29 +165,45 @@
         });
     }
 
-    // Countdown — kelajakda qolgan vaqt, o'tgan bo'lsa o'tgan vaqtni sanaydi
+    // Countdown — kelajakda qolgan vaqt, o'tgan bo'lsa taqvimga mos (yil/oy/kun)
+    // aniq farqni chiroyli, bayramona matn bilan ko'rsatadi.
     var el = document.getElementById('countdown');
     var target = new Date(el.dataset.sana).getTime();
     var matnEl = document.getElementById('countdown-matn');
+    var taymerId = null;
+
+    // Ikki sana orasidagi taqvim jihatidan aniq farq (oddiy "kun / 365"
+    // taxminidan farqli — oy uzunliklari va kabisa yillarini hisobga oladi).
+    function taqvimFarqi(dan, gacha) {
+        var yil = gacha.getFullYear() - dan.getFullYear();
+        var oy = gacha.getMonth() - dan.getMonth();
+        var kun = gacha.getDate() - dan.getDate();
+        if (kun < 0) {
+            oy--;
+            kun += new Date(gacha.getFullYear(), gacha.getMonth(), 0).getDate();
+        }
+        if (oy < 0) { oy += 12; yil--; }
+        return { yil: yil, oy: oy, kun: kun };
+    }
 
     function tick() {
-        var endi = new Date().getTime();
-        var farq = target - endi;
+        var endi = new Date();
+        var farq = target - endi.getTime();
 
         if (farq <= 0) {
-            var otgan = endi - target;
-            var kun = Math.floor(otgan / 86400000);
-            var soat = Math.floor((otgan % 86400000) / 3600000);
-            var minut = Math.floor((otgan % 3600000) / 60000);
-            var sekund = Math.floor((otgan % 60000) / 1000);
-            var yil = Math.floor(kun / 365);
-            document.getElementById('kun').textContent = kun;
-            document.getElementById('soat').textContent = soat;
-            document.getElementById('minut').textContent = minut;
-            document.getElementById('sekund').textContent = sekund;
-            matnEl.textContent = yil > 0
-                ? SO.baxtli + ": " + yil + " " + SO.yil + " " + (kun % 365) + " " + SO.kun + " " + SO.boldi
-                : SO.baxtli + ": " + kun + " " + SO.kun + " " + SO.boldi;
+            var f = taqvimFarqi(new Date(target), endi);
+            if (f.yil === 0 && f.oy === 0 && f.kun === 0) {
+                matnEl.textContent = SO.bugun;
+            } else {
+                var qismlar = [];
+                if (f.yil > 0) { qismlar.push(f.yil + ' ' + SO.yil); }
+                if (f.oy > 0) { qismlar.push(f.oy + ' ' + SO.oy); }
+                if (f.kun > 0) { qismlar.push(f.kun + ' ' + SO.kun); }
+                matnEl.textContent = SO.baxtli + ': ' + qismlar.join(' ') + ' ' + SO.boldi;
+            }
+            matnEl.classList.add('baxtli');
+            if (el) { el.classList.add('otgan'); }
+            if (taymerId) { clearInterval(taymerId); taymerId = null; }
             return;
         }
 
@@ -194,7 +214,7 @@
         matnEl.textContent = SO.marosimgacha;
     }
     tick();
-    setInterval(tick, 1000);
+    taymerId = setInterval(tick, 1000);
 
     // Marosim kalendari — sana yurakcha bilan belgilanadi (dushanbadan boshlanadi)
     var kalendar = document.getElementById('kalendar-grid');

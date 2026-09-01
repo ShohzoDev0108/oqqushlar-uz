@@ -305,6 +305,7 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 </div>
 {% endif %}
 
+{% if not marosim_otgan %}
 <div class="bolim" data-anim>
     <h2>{% trans "RSVP — kelasizmi?" %}</h2>
     <div class="blok">
@@ -337,6 +338,7 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
         </form>
     </div>
 </div>
+{% endif %}
 
 {% if tilaklar %}
 <div class="bolim" data-anim>

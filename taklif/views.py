@@ -476,6 +476,10 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
         # ro'yxatida bo'lsa), faollashtirilgandan keyin ham qaytish havolasi
         # ko'rsatiladi — lekin faqat mijozning o'ziga, mehmonlarga emas.
         "mening_taklifnomam": taklifnoma.slug in request.session.get(SESSIYA_KALITI, []),
+        # Marosim sanasi allaqachon o'tib ketgan bo'lsa, mehmonlarga "kelasizmi?"
+        # deb so'rash ma'nosiz (va noqulay) bo'lib qoladi — bu holatda RSVP
+        # formasi shablonda yashiriladi (qarang: _bolimlar.html).
+        "marosim_otgan": taklifnoma.sana < timezone.now(),
     }
     return render(request, _shablon_fayli(taklifnoma.shablon.kod), context)
 

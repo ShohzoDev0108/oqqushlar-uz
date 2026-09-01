@@ -78,6 +78,10 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 .countdown > div { text-align: center; min-width: 72px; background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 14px 8px; }
 .countdown .son { font-size: 1.7rem; font-weight: bold; color: var(--asos); }
 .countdown-matn { text-align: center; color: var(--ikkinchi); margin-top: 12px; }
+/* Marosim sanasi o'tib ketgan bo'lsa (JS: _skript.html) — raqamli sanoq
+   yashiriladi, o'rniga iliq, bayramona matn kattaroq va rangli chiqadi. */
+.countdown.otgan { display: none; }
+.countdown-matn.baxtli { color: var(--asos); font-size: 1.15rem; font-weight: 600; margin-top: 4px; }
 
 .blok { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 24px; margin: 14px 0; }
 .tafsilot-row { display: flex; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--chegara); }

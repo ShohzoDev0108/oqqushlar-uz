@@ -5,6 +5,8 @@
    bo'lsa — brauzerning "Accept-Language"idan qat'i nazar har doim
    o'zbekcha ko'rsatilishi kerak.
 """
+from datetime import timedelta
+
 from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
@@ -61,7 +63,10 @@ class MezbonTiliStandartTest(TestCase):
         self.shablon = shablon_yarat()
         self.taklifnoma = Taklifnoma.objects.create(
             slug="til-sinov", ism_1="TilSinov", shablon=self.shablon,
-            sana=timezone.now(), faol=True, tolangan=True,
+            # DIQQAT: kelajakdagi sana — RSVP bo'limi (pastdagi testda
+            # tekshirilayotgan "tilak" yorlig'i shu formada) endi faqat
+            # marosim sanasi hali o'tib ketmagan taklifnomalarda ko'rsatiladi.
+            sana=timezone.now() + timedelta(days=30), faol=True, tolangan=True,
         )
 
     # Diskriminatsiya uchun: bu matnning ruscha tarjimasi mavjud (aks holda
