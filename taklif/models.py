@@ -35,13 +35,19 @@ MEHMON_REZERV_SLUGLAR = {"rsvp", "yoqdi"}
 CHIQINDI_SAQLASH_KUNLARI = 30
 
 # Marosim turlari — bozorda qabul qilingan nomlar asosida (Nikoh to'yi,
-# Qiz uzatish, Sunnat to'yi, Beshik to'yi, Nahor oshi, Yubiley...).
-# Eski kalitlar ("toy", "qizlar_bazmi") bazadagi mavjud yozuvlar buzilmasligi
-# uchun saqlab qolindi — faqat ko'rinadigan nomlari yangilandi.
+# Fotiha to'yi, Qiz uzatish, Xatna to'yi, Beshik to'yi, Nahor oshi,
+# Yubiley...). BU RO'YXAT Shablon.marosim_turi bilan ham baravar
+# ishlatiladi (kategoriyalash loyihasi) — shu ikkisi hech qachon
+# bir-biridan uzilib qolmasligi uchun har doim FAQAT shu yerda,
+# BITTA joyda o'zgartiriladi.
+# Eski kalitlar ("toy", "qizlar_bazmi", "sunnat_toy") bazadagi mavjud
+# yozuvlar buzilmasligi uchun saqlab qolindi — faqat ko'rinadigan nomlari
+# yangilandi ("Sunnat to'yi" endi "Xatna to'yi" deb ko'rsatiladi).
 MAROSIM_TURLARI = [
     ("toy", _("Nikoh to'yi")),
+    ("fotiha_toy", _("Fotiha to'yi")),
     ("qizlar_bazmi", _("Qiz uzatish")),
-    ("sunnat_toy", _("Sunnat to'yi")),
+    ("sunnat_toy", _("Xatna to'yi")),
     ("beshik_toy", _("Beshik to'yi")),
     ("nahor_oshi", _("Nahor oshi")),
     ("yubiley", _("Yubiley")),
@@ -51,9 +57,9 @@ MAROSIM_TURLARI = [
 
 # Bu marosim turlarida odatda ikkita ism (masalan kuyov-kelin) kerak bo'ladi;
 # qolganlarida odatda bitta ism yetarli (forma shunga qarab moslashadi).
-IKKI_ISMLI_MAROSIM_TURLARI = {"toy", "yubiley"}
+IKKI_ISMLI_MAROSIM_TURLARI = {"toy", "fotiha_toy", "yubiley"}
 
-# Sunnat to'yida bir nechta o'g'il bola bo'lishi mumkin (masalan aka-uka yoki
+# Xatna to'yida bir nechta o'g'il bola bo'lishi mumkin (masalan aka-uka yoki
 # amakivachchalarga birgalikda) — shu marosim turida UCHINCHI ism maydoni ham
 # ko'rsatiladi (1-ism majburiy, 2- va 3-ism ixtiyoriy). Boshqa marosim
 # turlarida uchinchi ism kerak bo'lmaydi.
@@ -61,7 +67,7 @@ UCHINCHI_ISM_MAROSIM_TURLARI = {"sunnat_toy"}
 
 # sunnat_toy_qoshma_sarlavha uchun: ismlarni "va" bilan bog'lab, oxirgisiga
 # ko'plik+egalik qo'shimchasi ("...larning") qo'shish FAQAT o'zbekchada shu
-# grammatik qolipda tabiiy eshitiladi ("Amir va Botirlarning sunnat to'yi").
+# grammatik qolipda tabiiy eshitiladi ("Amir va Botirlarning xatna to'yi").
 # Boshqa (hatto turkiy) tillarda ixtiyoriy ismga to'g'ri qo'shimcha
 # qo'shish uchun unlilar uyg'unligini avtomatik hisoblash ishonchsiz
 # bo'lgani uchun, qolgan barcha tillarda ism o'zgarishsiz qoladi — tarjima
@@ -73,7 +79,21 @@ _SUNNAT_TOY_KOPLIK_QOSHIMCHA = {"uz": "lar"}
 SHABLON_TURKUMLARI = [
     ("zamonaviy", _("Zamonaviy")),
     ("milliy", _("Milliy")),
-    ("bolalar", _("Bolalar")),
+    ("islomiy", _("Islomiy")),
+]
+
+# Millat/uslub — FAQAT turkum="milliy" bo'lganda mantiqiy (shablon tanlash
+# sahifasida ham shu holatda ochiladi). "Islomiy" millat emas, alohida
+# turkum sifatida yuqorida SHABLON_TURKUMLARI'da bor — shu sabab bu yerda
+# takrorlanmaydi.
+MILLATLAR = [
+    ("ozbek", _("O'zbek")),
+    ("qozoq", _("Qozoq")),
+    ("qirgiz", _("Qirg'iz")),
+    ("tojik", _("Tojik")),
+    ("turkman", _("Turkman")),
+    ("qoraqalpoq", _("Qoraqalpoq")),
+    ("rus", _("Rus")),
 ]
 
 
@@ -87,6 +107,29 @@ class Shablon(models.Model):
         choices=SHABLON_TURKUMLARI,
         default="zamonaviy",
         help_text="Shablon tanlash sahifasida shu turkum ostida ko'rinadi",
+    )
+    millat = models.CharField(
+        max_length=20,
+        choices=MILLATLAR,
+        blank=True,
+        default="",
+        help_text=(
+            "Faqat turkum \"Milliy\" bo'lganda mantiqiy — shablon tanlash "
+            "sahifasida Milliy ichidagi millat filtrida shu bo'yicha ko'rinadi. "
+            "Bo'sh qoldirilsa, millat filtridan qat'i nazar har doim ko'rinadi."
+        ),
+    )
+    marosim_turi = models.CharField(
+        max_length=20,
+        choices=MAROSIM_TURLARI,
+        blank=True,
+        default="",
+        help_text=(
+            "Agar shablon aynan shu marosim turiga (masalan Xatna to'yiga) "
+            "maxsus mo'ljallangan bo'lsa tanlang. Bo'sh qoldirilsa — barcha "
+            "marosim turlari uchun mos (universal) hisoblanadi va har qanday "
+            "marosim filtrida ko'rinadi."
+        ),
     )
     rasm = models.ImageField(upload_to="shablonlar/", blank=True, null=True)
     narx = models.DecimalField(
@@ -183,7 +226,7 @@ class Taklifnoma(models.Model):
         max_length=100,
         blank=True,
         help_text=(
-            "Uchinchi ism — faqat sunnat to'yida, agar bir nechta to'ybola "
+            "Uchinchi ism — faqat xatna to'yida, agar bir nechta to'ybola "
             "bo'lsa. Kerak bo'lmasa bo'sh qoldiring"
         ),
     )
@@ -311,13 +354,14 @@ class Taklifnoma(models.Model):
 
     @property
     def sunnat_toy_qoshma_sarlavha(self):
-        """Sunnat to'yida 2 yoki 3 ta to'ybola ismi kiritilgan bo'lsa,
-        grammatik jihatdan to'g'ri qo'shma sarlavha matnini qaytaradi:
-        2 ism uchun masalan "Amir va Botirlarning sunnat to'yi", 3 ism
-        uchun "Amir, Botir va Sardorlarning sunnat to'ylari" (ko'plik —
-        chunki har biriga alohida to'y bo'lishi mumkin). Faqat bitta ism
-        kiritilgan bo'lsa yoki marosim turi sunnat to'yi bo'lmasa — None
-        (bunday holatda oddiy, umumiy sarlavha mantig'i ishlatiladi)."""
+        """Xatna to'yida (kod darajasida hali "sunnat_toy") 2 yoki 3 ta
+        to'ybola ismi kiritilgan bo'lsa, grammatik jihatdan to'g'ri qo'shma
+        sarlavha matnini qaytaradi: 2 ism uchun masalan "Amir va
+        Botirlarning xatna to'yi", 3 ism uchun "Amir, Botir va
+        Sardorlarning xatna to'ylari" (ko'plik — chunki har biriga alohida
+        to'y bo'lishi mumkin). Faqat bitta ism kiritilgan bo'lsa yoki
+        marosim turi xatna to'yi bo'lmasa — None (bunday holatda oddiy,
+        umumiy sarlavha mantig'i ishlatiladi)."""
         if self.marosim_turi != "sunnat_toy":
             return None
         ismlar = [ism for ism in (self.ism_1, self.ism_2, self.ism_3) if ism]
@@ -330,8 +374,8 @@ class Taklifnoma(models.Model):
         biriktiruvchi = pgettext_lazy("ismlarni bog'lovchi so'z ('Amir VA Botir')", "va")
         ismlar_matni = f"{', '.join(boshlari)} {biriktiruvchi} {oxirgisi_koplik}"
         if len(ismlar) == 2:
-            return _("%(ismlar)sning sunnat to'yi") % {"ismlar": ismlar_matni}
-        return _("%(ismlar)sning sunnat to'ylari") % {"ismlar": ismlar_matni}
+            return _("%(ismlar)sning xatna to'yi") % {"ismlar": ismlar_matni}
+        return _("%(ismlar)sning xatna to'ylari") % {"ismlar": ismlar_matni}
 
     @property
     def marosim_turi_matni(self):

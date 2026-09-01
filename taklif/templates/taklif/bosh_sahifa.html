@@ -286,7 +286,7 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
             <div class="oq-afzallik">
                 <span class="yorliq">{% trans "Har bir marosimga moslashgan" %}</span>
                 <h3>{% trans "Forma marosim turingizni tushunadi" %}</h3>
-                <p>{% trans "Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi." %}</p>
+                <p>{% trans "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi." %}</p>
             </div>
             <div class="oq-afzallik">
                 <span class="yorliq">{% trans "Kim ko'rgani ma'lum" %}</span>
@@ -359,7 +359,7 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
             <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
             <button type="button" class="turkum-tugma" data-turkum="zamonaviy">{% trans "Zamonaviy" %}</button>
             <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
-            <button type="button" class="turkum-tugma" data-turkum="bolalar">{% trans "Bolalar" %}</button>
+            <button type="button" class="turkum-tugma" data-turkum="islomiy">{% trans "Islomiy" %}</button>
         </div>
         <div class="dizayn-grid" id="shablonlar-grid">
             {% for s in shablonlar %}
@@ -437,7 +437,7 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
 
 <script>
 (function () {
-    // Turkum bo'yicha filtr (Zamonaviy/Milliy/Bolalar)
+    // Turkum bo'yicha filtr (Zamonaviy/Milliy/Islomiy)
     var turkumQatori = document.getElementById('turkum-qatori');
     var grid = document.getElementById('shablonlar-grid');
     if (!turkumQatori || !grid) { return; }

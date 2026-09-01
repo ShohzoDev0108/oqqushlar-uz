@@ -23,7 +23,7 @@ REZERV_SLUGLAR = {
 
 # Taftish topilmasi: forma har doim "1-ism (masalan: kuyov, tug'ilgan kun
 # egasi)" kabi BARCHA marosim turlari uchun umumlashtirilgan yorliq
-# ko'rsatardi — masalan sunnat to'yi tanlansa ham "kuyov" so'zi ko'rinib
+# ko'rsatardi — masalan xatna to'yi tanlansa ham "kuyov" so'zi ko'rinib
 # turardi, bu mijozni chalg'itardi. Endi har bir marosim turi UCHUN alohida
 # yorliq + real (aylanma bo'lmagan) na'munaviy ism beriladi — forma
 # yuklanganda standart marosim turi ("toy") uchun serverda, marosim turi
@@ -34,6 +34,14 @@ MAROSIM_MAYDON_MATNLARI = {
         "ism_1_yorliq": _("Kuyov ismi"),
         "ism_1_namuna": _("Masalan: Sardor"),
         "ism_2_yorliq": _("Kelin ismi"),
+        "ism_2_namuna": _("Masalan: Malika"),
+        "ism_3_yorliq": "",
+        "ism_3_namuna": "",
+    },
+    "fotiha_toy": {
+        "ism_1_yorliq": _("Yigit ismi"),
+        "ism_1_namuna": _("Masalan: Sardor"),
+        "ism_2_yorliq": _("Qiz ismi"),
         "ism_2_namuna": _("Masalan: Malika"),
         "ism_3_yorliq": "",
         "ism_3_namuna": "",

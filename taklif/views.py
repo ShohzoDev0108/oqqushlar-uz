@@ -25,6 +25,8 @@ from .forms import (
 from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
     IKKI_ISMLI_MAROSIM_TURLARI,
+    MAROSIM_TURLARI,
+    MILLATLAR,
     RASM_MAKS_HAJM_MB,
     UCHINCHI_ISM_MAROSIM_TURLARI,
     RSVP,
@@ -268,12 +270,23 @@ def bosh_sahifa(request):
 
 
 def shablon_tanlash(request):
-    """Mijoz o'zi taklifnoma yaratishni shu yerdan — shablon tanlashdan boshlaydi."""
+    """Mijoz o'zi taklifnoma yaratishni shu yerdan — shablon tanlashdan boshlaydi.
+
+    Uch qatorli filtr: Marosim turi (asosiy) + Turkum (Zamonaviy/Milliy/
+    Islomiy) + Millat (faqat Milliy ichida, JS orqali ochiladi/yopiladi).
+    "Boshqa" marosim turi filtr sifatida ko'rsatilmaydi — dizayn
+    kategoriyasi sifatida ma'nosiz (Taklifnoma.marosim_turi'da esa qoladi).
+    """
     shablonlar = Shablon.objects.filter(ommaviy=True)
     return render(
         request,
         "taklif/shablon_tanlash.html",
-        {"shablonlar": shablonlar, "sayt_musiqa": _sayt_musiqasi()},
+        {
+            "shablonlar": shablonlar,
+            "sayt_musiqa": _sayt_musiqasi(),
+            "marosim_turlari": [(k, v) for k, v in MAROSIM_TURLARI if k != "boshqa"],
+            "millatlar": MILLATLAR,
+        },
     )
 
 

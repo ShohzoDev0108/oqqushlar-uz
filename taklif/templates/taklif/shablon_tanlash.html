@@ -9,6 +9,18 @@
 .oq-sahifa-bosh { padding-bottom: 34px; }
 .bosh { color: var(--kul); margin-top: 30px; }
 
+/* 3 qatorli filtr: Marosim turi (asosiy, kattaroq) + Turkum + Millat
+   (faqat Milliy ichida). Barchasi mavjud .turkum-qatori/.turkum-tugma
+   uslubidan foydalanadi — faqat ierarxiya uchun kichik farqlar. */
+.oq-filtr-yorliq {
+    display: block; color: var(--kul); font-size: .72rem; letter-spacing: 2px;
+    text-transform: uppercase; margin: 0 0 10px;
+}
+.marosim-qatori .turkum-tugma { font-size: .78rem; }
+.turkum-qatori.millat-qatori { margin-left: 18px; margin-bottom: 30px; }
+.marosim-eslatma { color: var(--kul); font-size: .85rem; margin: -14px 0 26px; }
+.yashirin { display: none !important; }
+
 {% endblock %}
 
 {% block content %}
@@ -29,15 +41,31 @@
 
 <div class="oq-ichki">
 {% if shablonlar %}
+<span class="oq-filtr-yorliq">{% trans "Marosim turi" %}</span>
+<div class="turkum-qatori marosim-qatori" id="marosim-qatori">
+    <button type="button" class="turkum-tugma faol" data-marosim="barchasi">{% trans "Barchasi" %}</button>
+    {% for kalit, nomi in marosim_turlari %}
+    <button type="button" class="turkum-tugma" data-marosim="{{ kalit }}">{{ nomi }}</button>
+    {% endfor %}
+</div>
+<p class="marosim-eslatma yashirin" id="marosim-eslatma">{% trans "Bu marosim uchun maxsus dizaynlar tez orada qo'shiladi — hozircha barcha dizaynlarni ko'rishingiz mumkin." %}</p>
+
+<span class="oq-filtr-yorliq">{% trans "Uslub" %}</span>
 <div class="turkum-qatori" id="turkum-qatori">
     <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
     <button type="button" class="turkum-tugma" data-turkum="zamonaviy">{% trans "Zamonaviy" %}</button>
     <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
-    <button type="button" class="turkum-tugma" data-turkum="bolalar">{% trans "Bolalar" %}</button>
+    <button type="button" class="turkum-tugma" data-turkum="islomiy">{% trans "Islomiy" %}</button>
+</div>
+<div class="turkum-qatori millat-qatori yashirin" id="millat-qatori">
+    <button type="button" class="turkum-tugma faol" data-millat="barchasi">{% trans "Barchasi" %}</button>
+    {% for kalit, nomi in millatlar %}
+    <button type="button" class="turkum-tugma" data-millat="{{ kalit }}">{{ nomi }}</button>
+    {% endfor %}
 </div>
 <div class="dizayn-grid" id="shablonlar-grid">
     {% for s in shablonlar %}
-    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
+    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turi }}" data-millat="{{ s.millat }}" href="{% url 'taklif:yaratish' s.kod %}">
         <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
              {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
             <span class="m-ramka"></span>
@@ -62,23 +90,84 @@
 
 <script>
 (function () {
+    // Uch mustaqil filtr o'lchovi baravar qo'llanadi: Marosim turi + Turkum
+    // + Millat (Millat faqat Turkum="milliy" bo'lganda ko'rinadi/hisobga
+    // olinadi). Shablon marosim_turi/millat maydoni BO'SH bo'lsa —
+    // "universal" hisoblanadi, tanlangan marosim/millatdan qat'i nazar
+    // ko'rinaveradi. Agar tanlangan marosimga ANIQ mos (bo'sh emas)
+    // shablon topilmasa, universal shablonlar ko'rsatiladi va ustiga
+    // eslatma matni chiqadi.
+    var marosimQatori = document.getElementById('marosim-qatori');
     var turkumQatori = document.getElementById('turkum-qatori');
+    var millatQatori = document.getElementById('millat-qatori');
+    var eslatma = document.getElementById('marosim-eslatma');
     var grid = document.getElementById('shablonlar-grid');
-    if (!turkumQatori || !grid) { return; }
+    if (!grid) { return; }
     var kartalar = grid.querySelectorAll('.shablon-karta');
-    turkumQatori.addEventListener('click', function (e) {
-        var tugma = e.target.closest('.turkum-tugma');
-        if (!tugma) { return; }
-        turkumQatori.querySelectorAll('.turkum-tugma').forEach(function (b) {
-            b.classList.remove('faol');
+
+    var tanlangan = { marosim: 'barchasi', turkum: 'barchasi', millat: 'barchasi' };
+
+    function tugmalarniYangila(qatori, kalit, qiymat) {
+        if (!qatori) { return; }
+        qatori.querySelectorAll('.turkum-tugma').forEach(function (b) {
+            b.classList.toggle('faol', b.dataset[kalit] === qiymat);
         });
-        tugma.classList.add('faol');
-        var tanlangan = tugma.dataset.turkum;
+    }
+
+    function qollash() {
+        var aniqMosSoni = 0;
         kartalar.forEach(function (k) {
-            var mos = tanlangan === 'barchasi' || k.dataset.turkum === tanlangan;
+            var turkumMos = tanlangan.turkum === 'barchasi' || k.dataset.turkum === tanlangan.turkum;
+            var millatMos = tanlangan.millat === 'barchasi' || !k.dataset.millat || k.dataset.millat === tanlangan.millat;
+            var marosimAniq = tanlangan.marosim !== 'barchasi' && k.dataset.marosim === tanlangan.marosim;
+            var marosimMos = tanlangan.marosim === 'barchasi' || marosimAniq || !k.dataset.marosim;
+            var mos = turkumMos && millatMos && marosimMos;
             k.classList.toggle('yashirin', !mos);
+            if (mos && marosimAniq) { aniqMosSoni++; }
         });
-    });
+        if (eslatma) {
+            eslatma.classList.toggle('yashirin', tanlangan.marosim === 'barchasi' || aniqMosSoni > 0);
+        }
+    }
+
+    if (marosimQatori) {
+        marosimQatori.addEventListener('click', function (e) {
+            var tugma = e.target.closest('.turkum-tugma');
+            if (!tugma) { return; }
+            tanlangan.marosim = tugma.dataset.marosim;
+            tugmalarniYangila(marosimQatori, 'marosim', tanlangan.marosim);
+            qollash();
+        });
+    }
+
+    if (turkumQatori) {
+        turkumQatori.addEventListener('click', function (e) {
+            var tugma = e.target.closest('.turkum-tugma');
+            if (!tugma) { return; }
+            tanlangan.turkum = tugma.dataset.turkum;
+            tugmalarniYangila(turkumQatori, 'turkum', tanlangan.turkum);
+            if (millatQatori) {
+                millatQatori.classList.toggle('yashirin', tanlangan.turkum !== 'milliy');
+                if (tanlangan.turkum !== 'milliy') {
+                    tanlangan.millat = 'barchasi';
+                    tugmalarniYangila(millatQatori, 'millat', 'barchasi');
+                }
+            }
+            qollash();
+        });
+    }
+
+    if (millatQatori) {
+        millatQatori.addEventListener('click', function (e) {
+            var tugma = e.target.closest('.turkum-tugma');
+            if (!tugma) { return; }
+            tanlangan.millat = tugma.dataset.millat;
+            tugmalarniYangila(millatQatori, 'millat', tanlangan.millat);
+            qollash();
+        });
+    }
+
+    qollash();
 })();
 </script>
 {% endblock %}
