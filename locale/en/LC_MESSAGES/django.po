@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 17:36+0500\n"
+"POT-Creation-Date: 2026-09-01 09:40+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,7 +135,6 @@ msgstr "Event type"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Choose from preset music (optional)"
 
-#| msgid "— tanlanmagan —"
 msgid "Tanlanmagan"
 msgstr "Not selected"
 
@@ -578,7 +577,6 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Create another"
 
-#| msgid "Taklifnomani yaratish"
 msgid "Birinchi taklifnomangizni yarating"
 msgstr "Create your first invitation"
 
@@ -1000,7 +998,9 @@ msgstr "Minute"
 msgid "Tayyor"
 msgstr "Done"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Musiqasiz"
+msgstr "Without music"
+
 msgid "Tinglab ko'rish"
 msgstr "Listen"
 
@@ -1022,7 +1022,6 @@ msgstr ""
 msgid "Namuna rasm %(soni)s"
 msgstr "Sample photo %(soni)s"
 
-#| msgid "Statistikani ko'rish"
 msgid "Kattalashtirib ko'rish"
 msgstr "Enlarge"
 
@@ -1047,15 +1046,12 @@ msgid ""
 "tanlang."
 msgstr "You can select at most %(soni)s photos. Please choose again."
 
-#| msgid "Dizayn tanlang"
 msgid "Fayl tanlash"
 msgstr "Choose file"
 
-#| msgid "— tanlanmagan —"
 msgid "Fayl tanlanmagan"
 msgstr "No file chosen"
 
-#| msgid "Dizayn tanlang"
 msgid "ta fayl tanlandi"
 msgstr "files chosen"
 

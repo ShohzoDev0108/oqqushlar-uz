@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 17:36+0500\n"
+"POT-Creation-Date: 2026-09-01 09:40+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,7 +135,6 @@ msgstr "Dabaranyň görnüşi"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Taýýar sazlardan saýlamak (hökmany däl)"
 
-#| msgid "— tanlanmagan —"
 msgid "Tanlanmagan"
 msgstr "Saýlanmady"
 
@@ -573,7 +572,6 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Ýene birini döretmek"
 
-#| msgid "Taklifnomani yaratish"
 msgid "Birinchi taklifnomangizni yarating"
 msgstr "Ilkinji çakylygyňyzy dörediň"
 
@@ -993,7 +991,9 @@ msgstr "Minut"
 msgid "Tayyor"
 msgstr "Taýýar"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Musiqasiz"
+msgstr "Aýdym-sazsyz"
+
 msgid "Tinglab ko'rish"
 msgstr "Diňläp görmek"
 
@@ -1016,7 +1016,6 @@ msgstr ""
 msgid "Namuna rasm %(soni)s"
 msgstr "Nusga surat %(soni)s"
 
-#| msgid "Statistikani ko'rish"
 msgid "Kattalashtirib ko'rish"
 msgstr "Ulaltyp görmek"
 
@@ -1041,15 +1040,12 @@ msgid ""
 "tanlang."
 msgstr "Iň köp %(soni)s surat saýlap bilersiňiz. Täzeden saýlaň."
 
-#| msgid "Dizayn tanlang"
 msgid "Fayl tanlash"
 msgstr "Faýl saýlamak"
 
-#| msgid "— tanlanmagan —"
 msgid "Fayl tanlanmagan"
 msgstr "Faýl saýlanmady"
 
-#| msgid "Dizayn tanlang"
 msgid "ta fayl tanlandi"
 msgstr "faýl saýlandy"
 

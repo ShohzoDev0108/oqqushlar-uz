@@ -83,6 +83,18 @@
 .mt-tinglash:hover { background: var(--tilla); color: #fff; }
 .mt-nomi { font-size: .88rem; color: var(--siyoh); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+/* "Tanlanmagan" kartasi — tayyor musiqa nomlaridan aniq ajralib turishi
+   uchun (aks holda mijoz uni xuddi shu nomdagi haqiqiy musiqa deb
+   o'ylashi mumkin): chiziqcha chegara, xiralashgan matn, ijro
+   tugmasi o'rnida "yo'q" belgisi. */
+.musiqa-tanlov-item.mt-yoq { border-style: dashed; background: transparent; }
+.musiqa-tanlov-item.mt-yoq.tanlangan { border-style: solid; background: var(--tilla-yumshoq); }
+.musiqa-tanlov-item.mt-yoq .mt-nomi { color: var(--kul); font-style: italic; }
+.mt-yoq-belgi {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; border: 1px dashed var(--chiziq);
+    color: var(--kul); font-size: .9rem; display: flex; align-items: center; justify-content: center;
+}
+
 /* --- Fayl tanlash tugmasi: brauzerning o'z ("Choose File"/"No file
    chosen") ingliz matni o'rniga saytning o'z tilida ko'rsatiladigan
    ko'rinish (JS orqali kuchaytiriladi, qarang: pastdagi skript) --- */
@@ -230,9 +242,10 @@
                 <label>{{ field.label }}</label>
                 {% if musiqa_variantlar %}
                 <div class="musiqa-tanlov-grid" id="musiqa-tanlov-grid">
-                    <label class="musiqa-tanlov-item{% if not field.value %} tanlangan{% endif %}">
+                    <label class="musiqa-tanlov-item mt-yoq{% if not field.value %} tanlangan{% endif %}">
                         <input type="radio" name="musiqa_variant" value=""{% if not field.value %} checked{% endif %}>
-                        <span class="mt-nomi">{% trans "Tanlanmagan" %}</span>
+                        <span class="mt-yoq-belgi" aria-hidden="true">–</span>
+                        <span class="mt-nomi">{% trans "Musiqasiz" %}</span>
                     </label>
                     {% for mv in musiqa_variantlar %}
                     <label class="musiqa-tanlov-item{% if field.value == mv.pk|stringformat:"s" %} tanlangan{% endif %}">
@@ -663,6 +676,10 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
                 return;
             }
             if (joriyTugma && joriyTugma !== t) { joriyTugma.textContent = '▶'; }
+            // Fondagi (saytning o'z) musiqasi bilan aralashib ketmasligi
+            // uchun — namunani tinglashni boshlashdan oldin uni to'xtatamiz.
+            var fonMusiqasi = document.getElementById('sayt-musiqa');
+            if (fonMusiqasi && !fonMusiqasi.paused) { fonMusiqasi.pause(); }
             audio.src = t.dataset.src;
             audio.currentTime = 0;
             audio.play().catch(function () {});

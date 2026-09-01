@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 17:36+0500\n"
+"POT-Creation-Date: 2026-09-01 09:40+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,7 +135,6 @@ msgstr "Іс-шара түрі"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Дайын музыкадан таңдау (міндетті емес)"
 
-#| msgid "— tanlanmagan —"
 msgid "Tanlanmagan"
 msgstr "Таңдалмаған"
 
@@ -573,7 +572,6 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Тағы біреуін жасау"
 
-#| msgid "Taklifnomani yaratish"
 msgid "Birinchi taklifnomangizni yarating"
 msgstr "Алғашқы шақыруыңызды жасаңыз"
 
@@ -996,7 +994,9 @@ msgstr "Минут"
 msgid "Tayyor"
 msgstr "Дайын"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Musiqasiz"
+msgstr "Музыкасыз"
+
 msgid "Tinglab ko'rish"
 msgstr "Тыңдап көру"
 
@@ -1017,7 +1017,6 @@ msgstr "Егер өз суретіңіз әлі болмаса, дайын үл�
 msgid "Namuna rasm %(soni)s"
 msgstr "Үлгі сурет %(soni)s"
 
-#| msgid "Statistikani ko'rish"
 msgid "Kattalashtirib ko'rish"
 msgstr "Үлкейтіп көру"
 
@@ -1042,15 +1041,12 @@ msgid ""
 "tanlang."
 msgstr "Ең көбі %(soni)s сурет таңдай аласыз. Қайта таңдаңыз."
 
-#| msgid "Dizayn tanlang"
 msgid "Fayl tanlash"
 msgstr "Файл таңдау"
 
-#| msgid "— tanlanmagan —"
 msgid "Fayl tanlanmagan"
 msgstr "Файл таңдалмаған"
 
-#| msgid "Dizayn tanlang"
 msgid "ta fayl tanlandi"
 msgstr "файл таңдалды"
 

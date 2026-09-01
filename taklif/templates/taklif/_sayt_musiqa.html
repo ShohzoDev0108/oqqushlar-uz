@@ -71,6 +71,11 @@ pastdagi tugma pulsatsiya bilan ko'rinib turadi — bir marta bosish kifoya.
     audio.addEventListener('play', function () {
         tugma.textContent = '🔊';
         tugma.classList.remove('bloklangan');
+        // Aksincha holat: mijoz namunaviy musiqani tinglab turgan paytda
+        // fon musiqasini qayta yoqsa, ikkalasi aralashib qolmasligi uchun
+        // namunani to'xtatamiz (musiqa tanlash sahifasida mavjud bo'lsa).
+        var namunaAudio = document.getElementById('musiqa-onaqi-audio');
+        if (namunaAudio && !namunaAudio.paused) { namunaAudio.pause(); }
     });
     audio.addEventListener('pause', function () { tugma.textContent = '🔇'; });
 

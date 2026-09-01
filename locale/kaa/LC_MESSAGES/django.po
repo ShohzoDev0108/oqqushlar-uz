@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 17:36+0500\n"
+"POT-Creation-Date: 2026-09-01 09:40+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,7 +134,6 @@ msgstr "Ilaj túri"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Tayar muzıkalardan tanlaw (mindetli emes)"
 
-#| msgid "— tanlanmagan —"
 msgid "Tanlanmagan"
 msgstr "Tańlanbaǵan"
 
@@ -573,7 +572,6 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Jáne birewin jaratıw"
 
-#| msgid "Taklifnomani yaratish"
 msgid "Birinchi taklifnomangizni yarating"
 msgstr "Birinshi shaqırıwıńızdı jaratıń"
 
@@ -996,7 +994,9 @@ msgstr "Minut"
 msgid "Tayyor"
 msgstr "Tayar"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Musiqasiz"
+msgstr "Muzıkasız"
+
 msgid "Tinglab ko'rish"
 msgstr "Tıńlap kóriw"
 
@@ -1018,7 +1018,6 @@ msgstr "Eger óz súwretińiz áli bolmasa, tayar úlgilerden tańlaw múmkin:"
 msgid "Namuna rasm %(soni)s"
 msgstr "Úlgi súwret %(soni)s"
 
-#| msgid "Statistikani ko'rish"
 msgid "Kattalashtirib ko'rish"
 msgstr "Úlkeytip kóriw"
 
@@ -1043,15 +1042,12 @@ msgid ""
 "tanlang."
 msgstr "Eń kóbi %(soni)s súwret tanlay alasız. Qaytadan tanlań."
 
-#| msgid "Dizayn tanlang"
 msgid "Fayl tanlash"
 msgstr "Fayl tańlaw"
 
-#| msgid "— tanlanmagan —"
 msgid "Fayl tanlanmagan"
 msgstr "Fayl tańlanbaǵan"
 
-#| msgid "Dizayn tanlang"
 msgid "ta fayl tanlandi"
 msgstr "fayl tańlandı"
 

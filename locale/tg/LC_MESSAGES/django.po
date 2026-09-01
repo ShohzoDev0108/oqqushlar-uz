@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 17:36+0500\n"
+"POT-Creation-Date: 2026-09-01 09:40+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,7 +135,6 @@ msgstr "Навъи маросим"
 msgid "Tayyor musiqalardan tanlash (ixtiyoriy)"
 msgstr "Аз мусиқии тайёр интихоб кунед (ихтиёрӣ)"
 
-#| msgid "— tanlanmagan —"
 msgid "Tanlanmagan"
 msgstr "Интихоб нашудааст"
 
@@ -580,7 +579,6 @@ msgstr ""
 msgid "Yana bitta yaratish"
 msgstr "Боз як сохтан"
 
-#| msgid "Taklifnomani yaratish"
 msgid "Birinchi taklifnomangizni yarating"
 msgstr "Даъватномаи аввалини худро созед"
 
@@ -1004,7 +1002,9 @@ msgstr "Дақиқа"
 msgid "Tayyor"
 msgstr "Тайёр"
 
-#| msgid "Taklifnomani ko'rish"
+msgid "Musiqasiz"
+msgstr "Бе мусиқӣ"
+
 msgid "Tinglab ko'rish"
 msgstr "Гӯш кардан"
 
@@ -1028,7 +1028,6 @@ msgstr ""
 msgid "Namuna rasm %(soni)s"
 msgstr "Акси намуна %(soni)s"
 
-#| msgid "Statistikani ko'rish"
 msgid "Kattalashtirib ko'rish"
 msgstr "Калон кардан"
 
@@ -1055,15 +1054,12 @@ msgstr ""
 "На бештар аз %(soni)s расм интихоб кардан мумкин аст. Лутфан аз нав интихоб "
 "кунед."
 
-#| msgid "Dizayn tanlang"
 msgid "Fayl tanlash"
 msgstr "Файл интихоб кардан"
 
-#| msgid "— tanlanmagan —"
 msgid "Fayl tanlanmagan"
 msgstr "Файл интихоб нашудааст"
 
-#| msgid "Dizayn tanlang"
 msgid "ta fayl tanlandi"
 msgstr "файл интихоб шуд"
 
