@@ -3,20 +3,46 @@
 3D konvert-ochilish kirish ekrani. "Taklifnomani ochish" bosilganda konvert
 qopqog'i 3D aylanib ochiladi, ichidan xat ko'tariladi, so'ng parda yo'qoladi
 (JS mantiq _skript.html'da). Ranglar shablon CSS o'zgaruvchilari orqali.
+
+Taftish topilmasi: yopiq holatda "xat" (konvert-xat) qopqoq va old cho'ntak
+orasidagi tor tirqishdan qisman ko'rinib, matnni so'z o'rtasidan kesib
+ko'rsatib turgan edi (chiroyli emas, "singan" taassurot berardi). Endi
+konvert-xat yopiq holatda butunlay yashirin (opacity:0, CSS shablon fayllarida)
+— faqat ochilish animatsiyasi paytida ko'rinadi. Shaxsiy salomlashuv matni
+konvert TASHQARISIGA chiqarildi (.parda-salom) — endi hech qachon kesilmaydi.
+Qopqoq uchidagi "muhr" endi alohida, kattaroq doira nishon (SVG, currentColor
+emas — o'zining oltin gradienti bilan, barcha 19 shablon rangidan qat'i nazar
+bir xil va aniq ko'rinishi uchun) — ham "muhrlangan xat" hissini kuchaytiradi,
+ham qopqoq/cho'ntak choki ustini yopib, tirqishni butunlay yashiradi.
 {% endcomment %}
 <div id="parda">
     <div class="konvert" id="konvert">
         <div class="konvert-orqa"></div>
         <div class="konvert-xat">
-            {% if mehmon %}
-            <h2>{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}</h2>
-            {% else %}
-            <h2>{% trans "Sizga taklifnoma keldi" %}</h2>
-            {% endif %}
             <p>{{ taklifnoma.sarlavha }}</p>
         </div>
         <div class="konvert-old"></div>
-        <div class="konvert-qopqoq"><span class="muhr">❖</span></div>
+        <div class="konvert-qopqoq"></div>
+        <div class="muhr" aria-hidden="true">
+            <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="muhr-oltin" x1="4" y1="4" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#d9b45b"/>
+                        <stop offset="1" stop-color="#8a6a1f"/>
+                    </linearGradient>
+                </defs>
+                <circle cx="22" cy="22" r="21" fill="url(#muhr-oltin)"/>
+                <circle cx="22" cy="22" r="21" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+                <path d="M16.5 19.5v-3.2a5.5 5.5 0 0 1 11 0v3.2" fill="none" stroke="#fff8e8" stroke-width="1.6" stroke-linecap="round"/>
+                <rect x="14.5" y="19.5" width="15" height="11.5" rx="2.3" fill="none" stroke="#fff8e8" stroke-width="1.6"/>
+                <circle cx="22" cy="25" r="1.5" fill="#fff8e8"/>
+            </svg>
+        </div>
     </div>
+    {% if mehmon %}
+    <p class="parda-salom">{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}</p>
+    {% else %}
+    <p class="parda-salom">{% trans "Sizga taklifnoma keldi" %}</p>
+    {% endif %}
     <button id="ochish-tugma" type="button">{% trans "Taklifnomani ochish" %}</button>
 </div>
