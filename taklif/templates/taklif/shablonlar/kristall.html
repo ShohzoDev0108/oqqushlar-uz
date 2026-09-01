@@ -32,8 +32,13 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 .faollashtirilmagan-banner { background: var(--asos); color: var(--asos-matn); text-align: center; padding: 10px 16px; font-size: .85rem; position: relative; z-index: 40; border-radius: 10px; margin: 10px 16px 0; }
 .faollashtirilmagan-banner a { color: var(--asos-matn); font-weight: bold; }
 .mijoz-panel { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 12px 16px; position: relative; z-index: 40; }
-.mp-tugma { display: inline-block; padding: 8px 16px; border-radius: 20px; font-size: .82rem; background: var(--karta-fon); border: 1px solid var(--asos); color: var(--asos); text-decoration: none; }
-.mp-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+.mp-tugma {
+    display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px 9px 14px; border-radius: 22px;
+    font-size: .82rem; background: var(--karta-fon); border: 1px solid var(--asos); color: var(--asos);
+    text-decoration: none; transition: transform .18s ease, box-shadow .18s ease;
+}
+.mp-tugma svg { width: 15px; height: 15px; flex-shrink: 0; }
+.mp-tugma:hover { background: var(--asos); color: var(--asos-matn); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.14); }
 .mp-tugma.yoqdi { font-weight: bold; }
 
 /* --- 3D konvert-ochilish pardasi --- */

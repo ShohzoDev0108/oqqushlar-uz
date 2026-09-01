@@ -8,14 +8,40 @@ yangi til musiqasi boshidan yangraydi. Brauzer avtomatik ijroni bloklasa,
 pastdagi tugma pulsatsiya bilan ko'rinib turadi — bir marta bosish kifoya.
 {% endcomment %}
 <audio id="sayt-musiqa" src="{{ sayt_musiqa.fayl.url }}" loop preload="auto"></audio>
-<button id="sayt-musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">🔊</button>
+<button id="sayt-musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">
+    <svg class="km-tinch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 9v6h4l5 4V5L8 9H4z"/>
+        <path d="M23 9l-5 5M18 9l5 5" opacity=".75"/>
+    </svg>
+    <span class="km-ekval" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
 <style>
 #sayt-musiqa-tugma {
     position: fixed; bottom: 20px; right: 20px; z-index: 45;
-    width: 48px; height: 48px; border-radius: 50%; border: 1px solid #c9a227;
-    background: #0f2027; color: #c9a227; font-size: 1.2rem; cursor: pointer;
+    width: 50px; height: 50px; border-radius: 50%; border: 1px solid #c9a227;
+    background: #0f2027; color: #c9a227; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+    box-shadow: 0 4px 14px rgba(0,0,0,.3); transition: box-shadow .2s, transform .2s;
+}
+#sayt-musiqa-tugma:hover { box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+#sayt-musiqa-tugma .km-tinch { width: 20px; height: 20px; display: block; }
+#sayt-musiqa-tugma .km-ekval { display: none; align-items: flex-end; gap: 3px; height: 16px; }
+#sayt-musiqa-tugma .km-ekval span { width: 3px; background: currentColor; border-radius: 1px; animation: sayt-musiqa-bar 1s ease-in-out infinite; }
+#sayt-musiqa-tugma .km-ekval span:nth-child(1) { height: 40%; animation-delay: -.3s; }
+#sayt-musiqa-tugma .km-ekval span:nth-child(2) { height: 100%; animation-delay: -.1s; }
+#sayt-musiqa-tugma .km-ekval span:nth-child(3) { height: 60%; animation-delay: -.5s; }
+@keyframes sayt-musiqa-bar { 0%, 100% { transform: scaleY(.4); } 50% { transform: scaleY(1); } }
+/* Ijro paytida: tinch (o'chirilgan) ikonka o'rniga ekvalayzer chiziqlari
+   ko'rinadi va tugma atrofida yumshoq halqa pulsatsiya qiladi. */
+#sayt-musiqa-tugma.ijroda .km-tinch { display: none; }
+#sayt-musiqa-tugma.ijroda .km-ekval { display: flex; }
+#sayt-musiqa-tugma.ijroda::before {
+    content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid #c9a227;
+    opacity: 0; animation: sayt-musiqa-halqa 2s ease-out infinite; pointer-events: none;
+}
+@keyframes sayt-musiqa-halqa {
+    0% { opacity: .55; transform: scale(.85); }
+    100% { opacity: 0; transform: scale(1.35); }
 }
 #sayt-musiqa-tugma.bloklangan { animation: sayt-musiqa-puls 2s ease infinite; }
 @keyframes sayt-musiqa-puls {
@@ -63,13 +89,13 @@ pastdagi tugma pulsatsiya bilan ko'rinib turadi — bir marta bosish kifoya.
                 // Brauzer birinchi tashrifda avtomatik ijroni bloklaydi —
                 // tugma pulsatsiya qilib turadi, bir bosishda musiqa ketadi.
                 tugma.classList.add('bloklangan');
-                tugma.textContent = '🔇';
+                tugma.classList.remove('ijroda');
             });
         }
     }
 
     audio.addEventListener('play', function () {
-        tugma.textContent = '🔊';
+        tugma.classList.add('ijroda');
         tugma.classList.remove('bloklangan');
         // Aksincha holat: mijoz namunaviy musiqani tinglab turgan paytda
         // fon musiqasini qayta yoqsa, ikkalasi aralashib qolmasligi uchun
@@ -77,16 +103,14 @@ pastdagi tugma pulsatsiya bilan ko'rinib turadi — bir marta bosish kifoya.
         var namunaAudio = document.getElementById('musiqa-onaqi-audio');
         if (namunaAudio && !namunaAudio.paused) { namunaAudio.pause(); }
     });
-    audio.addEventListener('pause', function () { tugma.textContent = '🔇'; });
+    audio.addEventListener('pause', function () { tugma.classList.remove('ijroda'); });
 
     tugma.addEventListener('click', function () {
         if (audio.paused) { ijroEt(); } else { audio.pause(); }
         saqla();
     });
 
-    if (foydalanuvchiOchirgan) {
-        tugma.textContent = '🔇';
-    } else {
+    if (!foydalanuvchiOchirgan) {
         ijroEt();
     }
 })();

@@ -236,7 +236,10 @@
                 {% trans "Dizaynni tanlang, ma'lumotlaringizni kiriting va tayyor taklifnomani shu zahoti ko'ring — bor-yo'g'i 5 daqiqada, ro'yxatdan o'tmasdan. To'lov — faqat yoqqanidan keyin." %}
             </p>
             <div class="oq-hero-tugmalar">
-                <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
+                <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    {% trans "Taklifnoma yaratish" %}
+                </a>
                 <a class="oq-cta" href="#dizaynlar">{% trans "Barcha dizaynlarni ko'rish" %}</a>
             </div>
         </div>

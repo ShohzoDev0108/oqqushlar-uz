@@ -15,6 +15,7 @@ o'ziga (18 dizayn) bu tizim ta'sir qilmaydi.
     --tilla-toq: #8a6a1f;     /* to'qroq oltin (hover, matn) */
     --tilla-yumshoq: rgba(176,140,51,.12);
     --chiziq: #e9e1d1;        /* chegara chiziqlari */
+    --xavf: #a13d3d;          /* xavfli amallar (o'chirish va h.k.) */
     --serif: 'Playfair Display', Georgia, serif;
     --sans: 'Manrope', 'Segoe UI', sans-serif;
 }
@@ -41,24 +42,42 @@ body { background: var(--oq); color: var(--siyoh); font-family: var(--sans); ove
 .oq-logo img { display: block; border-radius: 50%; }
 .oq-nav-linklar { display: flex; gap: 8px 26px; flex-wrap: wrap; }
 .oq-nav-linklar a {
-    color: var(--siyoh); text-decoration: none; font-size: .76rem;
-    letter-spacing: 2.5px; text-transform: uppercase; opacity: .7; transition: .2s;
-    padding: 6px 0;
+    position: relative; color: var(--siyoh); text-decoration: none; font-size: .76rem;
+    letter-spacing: 2.5px; text-transform: uppercase; opacity: .75; transition: opacity .2s, color .2s;
+    padding: 6px 0 8px;
+}
+.oq-nav-linklar a::after {
+    content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 1.5px;
+    background: var(--tilla); transition: right .25s ease;
 }
 .oq-nav-linklar a:hover { opacity: 1; color: var(--tilla-toq); }
+.oq-nav-linklar a:hover::after { right: 0; }
 .oq-nav-ong { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
 /* --- Tugmalar --- */
 .oq-cta {
-    display: inline-block; padding: 14px 30px; border: 1px solid var(--tilla);
-    color: var(--tilla-toq); text-decoration: none; font-size: .76rem; letter-spacing: 2.5px;
-    text-transform: uppercase; transition: .25s; background: transparent; cursor: pointer;
-    font-family: inherit; border-radius: 2px;
+    display: inline-flex; align-items: center; gap: 9px; padding: 14px 30px 14px 26px; border: 1px solid var(--tilla);
+    color: var(--tilla-toq); text-decoration: none; font-size: .76rem; letter-spacing: 2.2px;
+    text-transform: uppercase; transition: transform .2s ease, box-shadow .2s ease, background .2s, color .2s;
+    background: transparent; cursor: pointer;
+    font-family: inherit; border-radius: 3px;
 }
-.oq-cta:hover { background: var(--tilla); color: #fff; }
-.oq-cta.toliq { background: var(--tilla); color: #fff; }
-.oq-cta.toliq:hover { background: var(--tilla-toq); border-color: var(--tilla-toq); }
-.oq-cta.kichik { padding: 10px 20px; font-size: .7rem; }
+.oq-cta svg { width: 15px; height: 15px; flex-shrink: 0; }
+.oq-cta:hover { background: var(--tilla); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(176,140,51,.28); }
+.oq-cta.toliq { background: var(--tilla); color: #fff; box-shadow: 0 4px 14px rgba(176,140,51,.22); }
+.oq-cta.toliq:hover { background: var(--tilla-toq); box-shadow: 0 10px 24px rgba(138,106,31,.32); }
+.oq-cta.kichik { padding: 10px 20px 10px 16px; font-size: .7rem; gap: 7px; }
+.oq-cta.kichik svg { width: 13px; height: 13px; }
+{% comment %}
+Taftish topilmasi: bu qoida <button type="submit"> ustida ham ishlatiladi.
+"background" xususiyatini aniq belgilamasak, quyidagi umumiy
+"button[type=submit] { background: var(--tilla) }" qoidasi (element+atribut,
+.oq-cta'ning o'zidan kuchliroq) tafovutni yutib, tugmani xavfli (qizil)
+o'rniga oltin rangda ko'rsatib qo'yardi — shuning uchun fonni shu yerda ham
+aniq belgilaymiz.
+{% endcomment %}
+.oq-cta.xavfli { background: transparent; border-color: var(--xavf); color: var(--xavf); }
+.oq-cta.xavfli:hover { background: var(--xavf); color: #fff; box-shadow: 0 8px 20px rgba(161,61,61,.24); }
 
 /* --- Breadcrumb (yo'l izlari) --- */
 .oq-izlar {
@@ -107,6 +126,12 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 #sayt-musiqa-tugma {
     background: var(--toza) !important; border-color: var(--tilla) !important;
     color: var(--tilla-toq) !important; box-shadow: 0 4px 16px rgba(34,28,20,.14) !important;
+}
+#sayt-musiqa-tugma.ijroda::before { border-color: var(--tilla) !important; }
+#sayt-musiqa-tugma.bloklangan { animation-name: sayt-musiqa-puls-oq !important; }
+@keyframes sayt-musiqa-puls-oq {
+    0%, 100% { box-shadow: 0 0 0 0 var(--tilla-yumshoq); }
+    50% { box-shadow: 0 0 0 12px rgba(176,140,51,0); }
 }
 
 /* --- Dizayn galereyasi (bosh sahifa + shablon tanlash uchun umumiy) --- */

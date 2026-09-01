@@ -20,13 +20,11 @@
 {% comment %}
 Taftish topilmasi: bu tugma <button type="submit"> bo'lgani uchun,
 _sayt_uslubi.html'dagi umumiy "button[type=submit] { background: var(--tilla) }"
-qoidasi (CSS solishtirmasi bo'yicha .oq-cta'ning shaffof foniga qaraganda
-kuchliroq) uni oltin rangga bo'yab yuborardi — o'chirish tugmasi xavfli
-(qizil) emas, asosiy chaqiruv tugmasi kabi ko'rinardi. Fonni aniq
-belgilab qo'yamiz, shunda .xavfli klassi haqiqatan g'olib chiqadi.
+qoidasi uni oltin rangga bo'yab yuborishi mumkin edi — lekin
+.oq-cta.xavfli (ikkita klass) shu qoidadan (element+atribut) har doim
+kuchliroq bo'lgani uchun _sayt_uslubi.html'dagi markazlashtirilgan
+.oq-cta.xavfli qoidasi bu yerda ham to'g'ri g'olib chiqadi.
 {% endcomment %}
-.oq-cta.xavfli { background: transparent; color: #a33; border-color: #a33; }
-.oq-cta.xavfli:hover { background: #a33; color: #fff; }
 .bosh { color: var(--kul); margin-top: 30px; }
 .yaratish-katta { margin-bottom: 36px; }
 {% endblock %}
@@ -50,9 +48,15 @@ belgilab qo'yamiz, shunda .xavfli klassi haqiqatan g'olib chiqadi.
 <div class="oq-ichki">
     <div class="yaratish-katta">
         {% if taklifnomalar %}
-        <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">+ {% trans "Yana bitta yaratish" %}</a>
+        <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            {% trans "Yana bitta yaratish" %}
+        </a>
         {% else %}
-        <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">+ {% trans "Birinchi taklifnomangizni yarating" %}</a>
+        <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            {% trans "Birinchi taklifnomangizni yarating" %}
+        </a>
         {% endif %}
     </div>
 
@@ -72,12 +76,18 @@ belgilab qo'yamiz, shunda .xavfli klassi haqiqatan g'olib chiqadi.
                 <a class="oq-cta kichik" href="{{ t.get_absolute_url }}">{% trans "Ko'rish" %}</a>
                 <a class="oq-cta kichik" href="{{ t.get_statistika_url }}">{% trans "Statistika" %}</a>
                 {% if not t.tolangan %}
-                <a class="oq-cta kichik" href="{% url 'taklif:yoqdi' t.slug %}">{% trans "Yoqdi" %}</a>
+                <a class="oq-cta kichik" href="{% url 'taklif:yoqdi' t.slug %}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2 4.5 5.5 4c2-.3 3.7.7 4.5 2.2C10.8 4.7 12.5 3.7 14.5 4c3.5.5 5 4 3.5 7.7C15.5 16.3 12 21 12 21z"/></svg>
+                    {% trans "Yoqdi" %}
+                </a>
                 {% endif %}
                 <form method="post" action="{% url 'taklif:taklifnoma_ochirish' t.slug %}"
                       onsubmit="return confirm('{% if t.tolangan %}{% trans "DIQQAT: bu taklifnoma FAOLLASHTIRILGAN — mehmonlarga yuborilgan va RSVP javoblari bo'lishi mumkin! O'chirilsa, darhol ko'rinmay qoladi (30 kun ichida administratorga murojaat qilib tiklash mumkin). Rostdan ham davom etasizmi?" %}{% else %}{% trans "Rostdan ham ushbu taklifnomani butunlay o'chirmoqchimisiz? Bu amalni ortga qaytarib bo'lmaydi." %}{% endif %}');">
                     {% csrf_token %}
-                    <button type="submit" class="oq-cta kichik xavfli">{% trans "O'chirish" %}</button>
+                    <button type="submit" class="oq-cta kichik xavfli">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>
+                        {% trans "O'chirish" %}
+                    </button>
                 </form>
             </div>
         </div>
