@@ -11,12 +11,12 @@ bo'lim havolalari, til tanlash va "Taklifnoma yaratish" chaqiriq tugmasi.
             Oqqushlar
         </a>
         <div class="oq-nav-linklar">
-            <a href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
-            <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
+            <a href="{% url 'taklif:shablon_tanlash' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Dizaynlar" %}</a>
+            <a href="{% url 'taklif:mening_taklifnomalarim' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Mening taklifnomalarim" %}</a>
         </div>
         <div class="oq-nav-ong">
             {% include "taklif/_til_almashtirish.html" %}
-            <a class="oq-cta kichik" href="{% url 'taklif:shablon_tanlash' %}">
+            <a class="oq-cta kichik toliq" href="{% url 'taklif:shablon_tanlash' %}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
                 {% trans "Taklifnoma yaratish" %}
             </a>

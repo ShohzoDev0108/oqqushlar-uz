@@ -76,7 +76,7 @@ kuchliroq bo'lgani uchun _sayt_uslubi.html'dagi markazlashtirilgan
                 <a class="oq-cta kichik" href="{{ t.get_absolute_url }}">{% trans "Ko'rish" %}</a>
                 <a class="oq-cta kichik" href="{{ t.get_statistika_url }}">{% trans "Statistika" %}</a>
                 {% if not t.tolangan %}
-                <a class="oq-cta kichik" href="{% url 'taklif:yoqdi' t.slug %}">
+                <a class="oq-cta kichik toliq" href="{% url 'taklif:yoqdi' t.slug %}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2 4.5 5.5 4c2-.3 3.7.7 4.5 2.2C10.8 4.7 12.5 3.7 14.5 4c3.5.5 5 4 3.5 7.7C15.5 16.3 12 21 12 21z"/></svg>
                     {% trans "Yoqdi" %}
                 </a>

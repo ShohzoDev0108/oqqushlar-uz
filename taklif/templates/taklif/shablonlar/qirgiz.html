@@ -34,12 +34,13 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 .mijoz-panel { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 12px 16px; position: relative; z-index: 40; }
 .mp-tugma {
     display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px 9px 14px; border-radius: 22px;
-    font-size: .82rem; background: var(--karta-fon); border: 1px solid var(--asos); color: var(--asos);
-    text-decoration: none; transition: transform .18s ease, box-shadow .18s ease;
+    font-size: .82rem; background: var(--asos); border: none; color: var(--asos-matn);
+    text-decoration: none; font-weight: 600; box-shadow: 0 6px 16px rgba(0,0,0,.18);
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s;
 }
 .mp-tugma svg { width: 15px; height: 15px; flex-shrink: 0; }
-.mp-tugma:hover { background: var(--asos); color: var(--asos-matn); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.14); }
-.mp-tugma.yoqdi { font-weight: bold; }
+.mp-tugma:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.24); }
+.mp-tugma.yoqdi { font-weight: 700; }
 
 /* --- 3D konvert-ochilish pardasi --- */
 #parda { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--parda-fon); text-align: center; padding: 24px; transition: opacity .8s ease, visibility .8s ease; }
