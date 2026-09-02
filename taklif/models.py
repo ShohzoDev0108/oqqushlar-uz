@@ -55,6 +55,16 @@ MAROSIM_TURLARI = [
     ("boshqa", _("Boshqa")),
 ]
 
+# Shablon tanlash sahifasida "Marosim turi" filtri barcha 8 turni bir xil
+# darajadagi tugma sifatida ko'rsatsa — vizual jihatdan tig'iz/og'ir
+# ko'rinadi. Shu sabab faqat eng ko'p tanlanadigan 4 tasi asosiy qatorda
+# doim ko'rinadi, qolganlari "Yana" ochiladigan qatorida beriladi (nomi
+# "Boshqa" emas — bu so'z Taklifnoma.marosim_turi'dagi "boshqa" qiymati
+# bilan chalkashmasligi uchun ataylab boshqacha tanlandi). Ro'yxat
+# MAROSIM_TURLARI bilan bir xil kalitlardan foydalanadi — shu yerda faqat
+# GURUHLASH belgilanadi, nomlar yuqoridagi ro'yxatdan olinadi.
+MAROSIM_ASOSIY_KALITLAR = ["toy", "fotiha_toy", "qizlar_bazmi", "sunnat_toy"]
+
 # Bu marosim turlarida odatda ikkita ism (masalan kuyov-kelin) kerak bo'ladi;
 # qolganlarida odatda bitta ism yetarli (forma shunga qarab moslashadi).
 IKKI_ISMLI_MAROSIM_TURLARI = {"toy", "fotiha_toy", "yubiley"}

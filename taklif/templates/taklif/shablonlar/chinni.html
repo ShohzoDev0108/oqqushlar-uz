@@ -21,6 +21,7 @@
     --puls: rgba(29,78,137,.3);
     --bolim-bezak: "❋ ✻ ❋";
     --hero-ramka: url('{% static "taklif/hero-ramka/ramka-dala-guli-tl.png" %}');
+    --parda-tasvir: url('{% static "taklif/parda-tasvir/akvarel.png" %}');
 }
 
 body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
@@ -43,24 +44,93 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 .mp-tugma:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.24); }
 .mp-tugma.yoqdi { font-weight: 700; }
 
-/* --- 3D konvert-ochilish pardasi --- */
-#parda { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--parda-fon); text-align: center; padding: 24px; transition: opacity .8s ease, visibility .8s ease; }
+/* --- Taklifnoma ochilish pardasi (to'liq ekran surat + yurak shaklidagi shaffof karta) --- */
+#parda { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: var(--parda-fon); background-image: var(--parda-tasvir, none); background-size: cover; background-position: top; background-repeat: no-repeat; text-align: center; padding: 24px; transition: opacity .9s ease 1.85s, visibility .9s ease 1.85s; }
 #parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
-.konvert { position: relative; width: 310px; height: 205px; max-width: 86vw; perspective: 1000px; margin-bottom: 30px; }
-.konvert-orqa { position: absolute; inset: 0; background: var(--konvert); border-radius: 10px; box-shadow: 0 14px 40px rgba(0,0,0,.28); }
-.konvert-xat { position: absolute; left: 14px; right: 14px; top: 14px; bottom: 14px; background: #fffdf8; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; overflow: hidden; opacity: 0; transition: transform .8s cubic-bezier(.2,.7,.3,1) .6s, box-shadow .8s ease .6s, opacity .5s ease .55s; }
-.konvert-xat p { font-size: 1.2rem; color: var(--asos); margin: 0; font-weight: bold; word-break: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.konvert-old { position: absolute; inset: 0; background: var(--konvert); border-radius: 10px; clip-path: polygon(0 34%, 50% 62%, 100% 34%, 100% 100%, 0 100%); z-index: 3; }
-.konvert-qopqoq { position: absolute; left: 0; right: 0; top: 0; height: 105px; background: var(--konvert-qopqoq); clip-path: polygon(0 0, 100% 0, 50% 100%); border-radius: 10px 10px 0 0; transform-origin: top center; transition: transform .7s ease, z-index 0s .7s; z-index: 4; }
-.muhr { position: absolute; left: 50%; top: 105px; width: 46px; height: 46px; transform: translate(-50%,-50%); z-index: 6; pointer-events: none; filter: drop-shadow(0 3px 8px rgba(0,0,0,.35)); transition: opacity .45s ease, transform .45s ease; }
-.muhr svg { display: block; width: 100%; height: 100%; }
-.konvert.ochildi .konvert-qopqoq { transform: rotateX(180deg); z-index: 1; }
-.konvert.ochildi .konvert-xat { opacity: 1; transform: translateY(-96px) scale(1.06); box-shadow: 0 12px 32px rgba(0,0,0,.25); z-index: 5; }
-.konvert.ochildi .muhr { opacity: 0; transform: translate(-50%,-50%) scale(.7); }
-.parda-salom { font-size: .95rem; color: var(--matn); line-height: 1.65; max-width: 300px; margin: 0 0 24px; }
-#ochish-tugma { padding: 14px 34px; border-radius: 30px; border: 1px solid var(--asos); background: transparent; color: var(--asos); font-size: 1rem; letter-spacing: 1px; cursor: pointer; transition: background .3s, color .3s, opacity .5s; font-family: inherit; }
-#ochish-tugma:hover { background: var(--asos); color: var(--asos-matn); }
-#ochish-tugma.yashirin { opacity: 0; pointer-events: none; }
+/* Yurak DOIM shu qat'iy nisbatda (aspect-ratio) qoladi — matn miqdoridan
+   qat'i nazar shakl hech qachon cho'zilib, tabiiyligini yo'qotmaydi.
+   Sig'may qolgan matn esa JS orqali (.parda-yurak-matn) kichraytiriladi. */
+.parda-kichik { display: inline-block; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.96); margin: 0 0 30px; max-width: 68vw; background: rgba(20,16,12,.36); backdrop-filter: blur(7px) saturate(1.1); -webkit-backdrop-filter: blur(7px) saturate(1.1); padding: 8px 18px; border-radius: 999px; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.parda-yurak-wrap { position: relative; width: min(280px, 78vw); aspect-ratio: 280 / 300; min-height: 0; filter: drop-shadow(0 18px 40px rgba(0,0,0,.22)); }
+.parda-yurak-chizigi { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.parda-yurak-chizigi path { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+/* Naqshinkor oltin yurak-ramka (AI bilan yaratilgan tasvir) — yurak
+   ichidagi shaffof kartadan sal kattaroq va tashqariga "toshib" turadi,
+   shunda uning ichki teshigi bizning clip-path chegaramizni TO'LIQ qoplab
+   (orasida tirqish qolmasligi uchun ataylab bir oz "ortiqcha" qoplaydi). */
+.parda-yurak-ramka { position: absolute; left: 50%; top: 50%; width: 119%; height: 119%; transform: translate(-50%, -50%); pointer-events: none; z-index: 2; }
+/* Gullar bilan o'ralgan ramka (parda_dizayn="gulli"/"kabutar_*") — bu
+   rasmning tabiiy nisbati (kenroq/pastroq) sodda ramkanikidan farq
+   qilgani uchun alohida o'lcham beriladi. */
+.parda-yurak-ramka--gulli { width: 132%; height: 132%; }
+/* Kabutarlar + osma (qulf yoki maktub) — gulli ramka ustida, yurakning
+   yuqori qismida. Bosilganda (.yashirin) ikkalasi ham qulf-kalit
+   animatsiyasi bilan bir vaqtda (~1.9s) ishga tushadi. */
+.parda-kabutarlar { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
+.parda-kabutar { position: absolute; width: 34%; height: auto; top: -9%; filter: drop-shadow(0 3px 8px rgba(0,0,0,.2)); }
+.parda-kabutar--chap { left: 3%; }
+.parda-kabutar--ong { right: 3%; }
+.parda-osma { position: absolute; left: 50%; top: 11%; width: 24%; height: auto; transform: translateX(-50%); filter: drop-shadow(0 3px 6px rgba(0,0,0,.3)); }
+.parda-osma--maktub { width: 33%; top: 13%; }
+.parda-kabutarlar.yashirin .parda-kabutar--chap { animation: kabutar-uchish-chap 1.9s ease-in forwards; }
+.parda-kabutarlar.yashirin .parda-kabutar--ong { animation: kabutar-uchish-ong 1.9s ease-in forwards; }
+.parda-kabutarlar.yashirin .parda-osma { animation: osma-tushish 1.9s ease-in forwards; }
+@keyframes kabutar-uchish-chap {
+    0%, 28% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100%    { transform: translate(-65%, -60%) rotate(-24deg); opacity: 0; }
+}
+@keyframes kabutar-uchish-ong {
+    0%, 28% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100%    { transform: translate(65%, -60%) rotate(24deg); opacity: 0; }
+}
+@keyframes osma-tushish {
+    0%, 38% { transform: translateX(-50%) translateY(0) rotate(0deg); opacity: 1; }
+    100%    { transform: translateX(-50%) translateY(50%) rotate(14deg); opacity: 0; }
+}
+.parda-yurak-ichi { position: relative; width: 100%; height: 100%; box-sizing: border-box; overflow: hidden; clip-path: url(#yurak-qirqish); background: color-mix(in srgb, var(--parda-fon) 62%, transparent); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); display: flex; align-items: center; justify-content: center; padding: 24% 13% 22%; text-align: center; }
+.parda-yurak-matn { display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 100%; transform-origin: 50% 50%; }
+.parda-ism { font-size: 1.12rem; font-weight: normal; color: var(--sarlavha); margin: 0; letter-spacing: .6px; line-height: 1.3; max-width: 100%; white-space: nowrap; overflow-wrap: break-word; word-break: break-word; hyphens: auto; }
+.parda-ism::after { content: ''; display: block; width: 34px; height: 1px; margin: 9px auto 0; background: var(--asos); opacity: .5; }
+.parda-ism-qism { white-space: nowrap; }
+.parda-va { color: var(--asos); font-size: 1.25em; font-style: italic; margin: 0 7px; }
+/* Ikkita ism bitta qatorga sig'masa — har biri BUTUN holda o'z alohida
+   qatoriga chiqadi (Ism1 / & / Ism2), so'z o'rtasidan bo'linib qolmasin. */
+.parda-ism.ism-qatorlangan { white-space: normal; }
+.parda-ism.ism-qatorlangan .parda-ism-qism,
+.parda-ism.ism-qatorlangan .parda-va { display: block; }
+.parda-ism.ism-qatorlangan .parda-va { margin: 2px 0; }
+#ochish-tugma { position: relative; width: 64px; height: 78px; margin-top: 14px; border: none; background: transparent; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .3s ease; flex-shrink: 0; }
+#ochish-tugma:hover { transform: scale(1.06); }
+#ochish-tugma.yashirin { pointer-events: none; animation: qulf-tugma-yopilishi 1.9s ease forwards; }
+.parda-qulf-anim { position: relative; width: 100%; height: 100%; }
+.parda-qulf-img { position: absolute; left: 50%; top: 50%; width: 38px; height: auto; transform: translate(-50%, -50%); filter: drop-shadow(0 3px 6px rgba(0,0,0,.35)); animation: qulf-nafas 1.8s ease-in-out infinite; }
+@keyframes qulf-nafas {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50%      { transform: translate(-50%, -50%) scale(1.09); }
+}
+.parda-kalit-img { position: absolute; left: 50%; top: 42%; width: 18px; height: auto; opacity: 0; transform-origin: 50% 18%; transform: translate(-50%, -85%) rotate(-35deg) scale(.7); }
+#ochish-tugma.yashirin .parda-kalit-img { animation: kalit-burash 1.9s cubic-bezier(.4,0,.2,1) forwards; }
+#ochish-tugma.yashirin .parda-qulf-img { animation: qulf-titrash 1.9s ease forwards; }
+@keyframes kalit-burash {
+    0%   { opacity: 0; transform: translate(-50%, -85%) rotate(-35deg) scale(.7); }
+    32%  { opacity: 1; transform: translate(-50%, -8%) rotate(-6deg) scale(1); }
+    55%  { opacity: 1; transform: translate(-50%, -8%) rotate(-6deg) scale(1); }
+    82%  { opacity: 1; transform: translate(-50%, -8%) rotate(100deg) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -8%) rotate(100deg) scale(1); }
+}
+@keyframes qulf-titrash {
+    0%, 55%   { transform: translate(-50%, -50%) rotate(0deg); }
+    62%       { transform: translate(-50%, -50%) rotate(-4deg); }
+    68%       { transform: translate(-50%, -50%) rotate(4deg); }
+    74%       { transform: translate(-50%, -50%) rotate(-3deg); }
+    80%       { transform: translate(-50%, -50%) rotate(2deg); }
+    88%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+@keyframes qulf-tugma-yopilishi {
+    0%, 82% { opacity: 1; }
+    100%    { opacity: 0; }
+}
+.parda-korsatma { display: inline-block; font-size: .82rem; color: rgba(255,255,255,.96); margin: 30px 0 0; max-width: 68vw; background: rgba(20,16,12,.36); backdrop-filter: blur(7px) saturate(1.1); -webkit-backdrop-filter: blur(7px) saturate(1.1); padding: 9px 20px; border-radius: 999px; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 
 /* --- Hero --- */
 .hero { min-height: 74vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 50px 24px; position: relative; z-index: 1; }
@@ -134,7 +204,7 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
 <div class="dekor-fon"></div>
 {% include "taklif/shablonlar/_mijoz_qismi.html" %}
 
-{% include "taklif/shablonlar/_konvert_parda.html" %}
+{% include "taklif/shablonlar/_parda_rasmli.html" with parda_dizayn="gulli" %}
 
 <div class="hero hero-ramkali">
     <div class="hero-ramka-burchak hrb-tl"></div>

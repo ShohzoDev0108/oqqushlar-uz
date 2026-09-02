@@ -25,6 +25,7 @@ from .forms import (
 from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
     IKKI_ISMLI_MAROSIM_TURLARI,
+    MAROSIM_ASOSIY_KALITLAR,
     MAROSIM_TURLARI,
     MILLATLAR,
     RASM_MAKS_HAJM_MB,
@@ -276,15 +277,25 @@ def shablon_tanlash(request):
     Islomiy) + Millat (faqat Milliy ichida, JS orqali ochiladi/yopiladi).
     "Boshqa" marosim turi filtr sifatida ko'rsatilmaydi — dizayn
     kategoriyasi sifatida ma'nosiz (Taklifnoma.marosim_turi'da esa qoladi).
+
+    Marosim turi qatori vizual jihatdan tig'iz ko'rinmasligi uchun ikkiga
+    bo'linadi: asosiy (doim ko'rinadigan, MAROSIM_ASOSIY_KALITLAR bo'yicha)
+    va qo'shimcha ("Yana ▾" ochiladigan qatorida, shablon_tanlash.html'da).
     """
     shablonlar = Shablon.objects.filter(ommaviy=True)
+    barcha_marosimlar = [(k, v) for k, v in MAROSIM_TURLARI if k != "boshqa"]
     return render(
         request,
         "taklif/shablon_tanlash.html",
         {
             "shablonlar": shablonlar,
             "sayt_musiqa": _sayt_musiqasi(),
-            "marosim_turlari": [(k, v) for k, v in MAROSIM_TURLARI if k != "boshqa"],
+            "marosim_asosiy": [
+                (k, v) for k, v in barcha_marosimlar if k in MAROSIM_ASOSIY_KALITLAR
+            ],
+            "marosim_qoshimcha": [
+                (k, v) for k, v in barcha_marosimlar if k not in MAROSIM_ASOSIY_KALITLAR
+            ],
             "millatlar": MILLATLAR,
         },
     )

@@ -1,0 +1,254 @@
+{% load i18n static %}
+{% comment %}
+Taklifnoma ochilish pardasi — orqa fonda to'liq ekranli (aniq, loyqasiz)
+gulli surat, o'rtada naqshinkor oltin RAMKALI yurak shaklidagi shaffof
+"glass" karta.
+
+Tuzilma (namuna rasm + mijoz fikri asosida qayta ko'rib chiqildi):
+- "Sizga taklifnoma keldi" — yurakdan TASHQARIDA, TEPADA (to'g'ridan-to'g'ri
+  gulli surat ustida, matn ustiga yengil "shisha" effekt/soya bilan, chunki
+  endi shaffof karta ustida emas).
+- Yurak ICHIDA endi FAQAT ism(lar) va qulfcha bor — shu bilan yurak ichi
+  bo'sh joy ko'proq, kontent kamroq, demak deyarli hech qachon
+  kichraytirish (JS) kerak bo'lmaydi va ism doim erkin, chiroyli ko'rinadi.
+- "Taklifnomani ko'rish uchun qulfcha ustiga bosing" — yurakdan TASHQARIDA,
+  PASTDA (ramka pastga "toshib" chiqqani uchun margin-top yetarlicha katta
+  qilingan, aks holda ramka bu matnni yopib qo'yardi).
+
+Yurak DOIM qat'iy (fixed) o'lcham/nisbatda (.parda-yurak-wrap uchun
+aspect-ratio CSS'da belgilangan) — shakl hech qachon matn uzunligiga qarab
+cho'zilib, tabiiyligini yo'qotmaydi. Agar ism juda uzun bo'lib, baribir
+sig'may qolsa, pastdagi kichik JS (.parda-yurak-matn) uni proporsional
+ravishda kichraytiradi — lekin endi yurak ichida faqat ism+qulf borligi
+sababli bu deyarli hech qachon ishga tushmaydi.
+
+Yurak shakli ikki qatlamdan iborat:
+1) <clipPath objectBoundingBox> — .parda-yurak-ichi'ni yurak shakliga kesadi
+   (shaffof "glass" to'ldiruvchi fon).
+2) Naqshinkor oltin RAMKA rasmi (.parda-yurak-ramka, Gemini AI bilan
+   yaratilgan, fon olib tashlangan) — glass to'ldiruvchidan sal kattaroq
+   qilib qo'yilgan, shunda uning ichki bo'sh joyi bizning clip-path
+   chegaramizni to'liq qoplab, orasida "tirqish" qolmaydi. Ingichka
+   SVG chizig'i (.parda-yurak-chizigi) ham pastda, qo'shimcha aniqlik
+   uchun saqlanmoqda.
+
+Qulf + kalit: statik holatda faqat qulf ko'rinadi (fotografik PNG, Gemini
+bilan yaratilgan). Kalit boshida yashirin turadi. Tugma bosilganda
+(#ochish-tugma.yashirin) — kalit paydo bo'lib pastga tushadi, qulfning
+teshigiga kirib buraladi (CSS animatsiya, ~1.9s), qulf sal "titraydi",
+so'ng hammasi birga so'nadi — shundan keyingina orqa fondagi parda o'zi
+so'nib ochiladi (#parda transition-delay shu animatsiya bilan mos kelishi
+uchun, umumiy jarayon ~2.7-2.8s).
+
+Diqqat: bu yerda atayin id="konvert" YO'Q — _skript.html'dagi ochish
+mantig'i "if (konvert) {...}" tekshiruvi orqali konvert-ochilish 3D
+animatsiyasini o'tkazib yuboradi (bu bizga kerak emas, chunki o'z
+animatsiyamiz bor) va tugma bosilgach parda.classList.add('yopilgan')
+darhol chaqiriladi — CSS transition-delay orqali biz buni kechiktiramiz.
+
+RAMKA VARIANTLARI (`parda_dizayn` context o'zgaruvchisi, {% include %}
+orqali "with parda_dizayn=..." bilan uzatiladi — shablon fayli belgilaydi):
+- (berilmagan/bo'sh) — joriy sodda oltin ramka (yurak-ramka.png).
+- "gulli" — gullar bilan o'ralgan oltin ramka (yurak-ramka-gulli.png),
+  qulf-kalit tizimi o'zgarishsiz qoladi.
+- "kabutar_qulf" — gulli ramka + ikkita kabutar tepada, ular orasida
+  ingichka lentaga osilgan kichik oltin yurak-qulfcha (.parda-kabutarlar).
+  Bosilganda (.parda-kabutarlar.yashirin — _skript.html orqali qo'yiladi)
+  kabutarlar ikki tomonga uchib ketadi, osma pastga tushib so'nadi —
+  bu ODDIY qulf-kalit animatsiyasi bilan PARALLEL ishlaydi (ikkalasi ham
+  bir xil ~1.9s davomiylikda, shu bilan umumiy jarayon vaqti o'zgarmaydi).
+- "kabutar_maktub" — xuddi shunday, lekin qulfcha o'rniga kichik "Love
+  Letter" konverti osilgan.
+{% endcomment %}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <clipPath id="yurak-qirqish" clipPathUnits="objectBoundingBox">
+            <path d="M0.5,0.9778 C0.5,0.9778 0.06,0.6 0.06,0.3333 C0.06,0.1111 0.22,0 0.36,0 C0.46,0 0.5,0.1 0.5,0.1 C0.5,0.1 0.54,0 0.64,0 C0.78,0 0.94,0.1111 0.94,0.3333 C0.94,0.6 0.5,0.9778 0.5,0.9778 Z"/>
+        </clipPath>
+    </defs>
+</svg>
+<div id="parda">
+    {% if mehmon %}
+    <p class="parda-kichik"><span aria-hidden="true">❧</span> {% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}! <span aria-hidden="true">❧</span></p>
+    {% else %}
+    <p class="parda-kichik"><span aria-hidden="true">❧</span> {% trans "Sizga taklifnoma keldi" %}! <span aria-hidden="true">❧</span></p>
+    {% endif %}
+    <div class="parda-yurak-wrap">
+        <svg class="parda-yurak-chizigi" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0.5,0.9778 C0.5,0.9778 0.06,0.6 0.06,0.3333 C0.06,0.1111 0.22,0 0.36,0 C0.46,0 0.5,0.1 0.5,0.1 C0.5,0.1 0.54,0 0.64,0 C0.78,0 0.94,0.1111 0.94,0.3333 C0.94,0.6 0.5,0.9778 0.5,0.9778 Z"/>
+        </svg>
+        <div class="parda-yurak-ichi">
+            <div class="parda-yurak-matn">
+                <h2 class="parda-ism">
+                    {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}
+                    {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}{{ taklifnoma.boshqa_tadbir_nomi }}
+                    {% elif taklifnoma.ism_2 %}<span class="parda-ism-qism">{{ taklifnoma.ism_1 }}</span><span class="parda-va">&amp;</span><span class="parda-ism-qism">{{ taklifnoma.ism_2 }}</span>
+                    {% else %}{{ taklifnoma.ism_1 }}
+                    {% endif %}
+                </h2>
+                <button id="ochish-tugma" type="button" aria-label="{% trans 'Taklifnomani ochish' %}">
+                    <span class="parda-qulf-anim">
+                        <img class="parda-qulf-img" src="{% static 'taklif/parda-ikona/qulf.png' %}" alt="" aria-hidden="true">
+                        <img class="parda-kalit-img" src="{% static 'taklif/parda-ikona/kalit.png' %}" alt="" aria-hidden="true">
+                    </span>
+                </button>
+            </div>
+        </div>
+        {% if parda_dizayn == "gulli" or parda_dizayn == "kabutar_qulf" or parda_dizayn == "kabutar_maktub" %}
+        <img class="parda-yurak-ramka parda-yurak-ramka--gulli" src="{% static 'taklif/parda-ikona/yurak-ramka-gulli.png' %}" alt="" aria-hidden="true">
+        {% else %}
+        <img class="parda-yurak-ramka" src="{% static 'taklif/parda-ikona/yurak-ramka.png' %}" alt="" aria-hidden="true">
+        {% endif %}
+        {% if parda_dizayn == "kabutar_qulf" or parda_dizayn == "kabutar_maktub" %}
+        <div class="parda-kabutarlar" aria-hidden="true">
+            <img class="parda-kabutar parda-kabutar--chap" src="{% static 'taklif/parda-ikona/kabutar-chap.png' %}" alt="">
+            <img class="parda-kabutar parda-kabutar--ong" src="{% static 'taklif/parda-ikona/kabutar-ong.png' %}" alt="">
+            {% if parda_dizayn == "kabutar_qulf" %}
+            <img class="parda-osma parda-osma--qulf" src="{% static 'taklif/parda-ikona/qulf-osma.png' %}" alt="">
+            {% else %}
+            <img class="parda-osma parda-osma--maktub" src="{% static 'taklif/parda-ikona/maktub-osma.png' %}" alt="">
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <p class="parda-korsatma">{% trans "Qulfcha ustiga bosing" %}😊</p>
+</div>
+<script>
+(function () {
+    // Yurak ichidagi matnni moslashtirish: yurak DOIM bir xil (fixed)
+    // o'lcham/proporsiyada qoladi (CSS'dagi aspect-ratio orqali). Ism
+    // avvalo BITTA qatorda (white-space:nowrap) sig'dirilishga harakat
+    // qilinadi va kerak bo'lsa .parda-yurak-matn bir yaxlit holda
+    // proporsional kichraytiriladi. Yurak to'rtburchak emas, egri chiziqli
+    // shakl bo'lgani uchun oddiy to'rtburchak o'lchov yetarli emas — shu
+    // sababli quyida clip-path chizig'ining aynan ism turgan balandlikdagi
+    // haqiqiy (torroq) kengligi alohida hisoblanadi (Path2D + isPointInPath
+    // orqali), toki matn oltin ramka chizig'iga tegib/undan chiqib
+    // ketmasin. Juda-juda uzun ism (masalan 25+ belgi) hatto eng kichik
+    // ruxsat etilgan o'lchamda ham bitta qatorga sig'masa — oxirgi chora
+    // sifatida ikki qatorga bo'linishiga ruxsat beriladi.
+    var yurakYoli;
+    function yurakYoliniOl() {
+        if (yurakYoli !== undefined) return yurakYoli;
+        var el = document.querySelector('#yurak-qirqish path');
+        yurakYoli = el ? new Path2D(el.getAttribute('d')) : null;
+        return yurakYoli;
+    }
+    var tekshiruvCtx;
+    function tekshiruvContext() {
+        if (!tekshiruvCtx) tekshiruvCtx = document.createElement('canvas').getContext('2d');
+        return tekshiruvCtx;
+    }
+    // Berilgan vertikal nisbatda (0..1, .parda-yurak-ichi balandligiga
+    // nisbatan) yurak shaklining shu balandlikdagi ICHKI gorizontal
+    // kengligini (0..1 nisbatda) topadi.
+    function yurakKengligiNisbat(yNisbat) {
+        var yol = yurakYoliniOl();
+        var ctx = tekshiruvContext();
+        if (!yol || !ctx || yNisbat < 0 || yNisbat > 1) return null;
+        var chap = null, ong = null;
+        for (var x = 0; x <= 1.001; x += 0.01) {
+            if (ctx.isPointInPath(yol, x, yNisbat)) {
+                if (chap === null) chap = x;
+                ong = x;
+            }
+        }
+        return chap === null ? null : (ong - chap);
+    }
+    // Ism turgan balandlik oralig'ida (yuqori/o'rta/past) yurakning eng
+    // tor joyini topib, shu asosda xavfsiz kenglikni (piksel) qaytaradi.
+    function yurakGaMosKengligi(ichi, ism, toliqKenglik) {
+        if (!ism) return toliqKenglik;
+        var ichiRect = ichi.getBoundingClientRect();
+        if (ichiRect.height <= 0) return toliqKenglik;
+        var ismRect = ism.getBoundingClientRect();
+        var eng = null;
+        [0.15, 0.5, 0.85].forEach(function (ulush) {
+            var y = (ismRect.top + ismRect.height * ulush - ichiRect.top) / ichiRect.height;
+            var n = yurakKengligiNisbat(y);
+            if (n !== null && (eng === null || n < eng)) eng = n;
+        });
+        if (eng === null) return toliqKenglik;
+        // Naqshinkor ramka surati aniq matematik yurak chizig'iga 100%
+        // mos kelmaydi (organik, notekis chegara) — shu sababli xavfsizlik
+        // uchun ancha katta zaxira (~24%) qoldiramiz.
+        var piksel = eng * ichi.clientWidth * 0.76;
+        return piksel > 0 ? Math.min(toliqKenglik, piksel) : toliqKenglik;
+    }
+    function nisbatniHisobla(joyKengligi, joyBalandligi, matn) {
+        var matnKengligi = matn.scrollWidth;
+        var matnBalandligi = matn.scrollHeight;
+        if (matnKengligi <= 0 || matnBalandligi <= 0 || joyKengligi <= 0 || joyBalandligi <= 0) return null;
+        return Math.min(1, joyKengligi / matnKengligi, joyBalandligi / matnBalandligi);
+    }
+    function moslashtir() {
+        var ichi = document.querySelector('.parda-yurak-ichi');
+        var matn = document.querySelector('.parda-yurak-matn');
+        var ism = document.querySelector('.parda-ism');
+        if (!ichi || !matn) return;
+        matn.style.transform = 'scale(1)';
+        var ikkiIsmligi = !!(ism && ism.querySelectorAll('.parda-ism-qism').length === 2);
+        if (ism) {
+            ism.classList.remove('ism-qatorlangan');
+            ism.style.whiteSpace = 'nowrap';
+        }
+        var ichiStil = getComputedStyle(ichi);
+        var joyKengligiToliq = ichi.clientWidth - parseFloat(ichiStil.paddingLeft) - parseFloat(ichiStil.paddingRight);
+        var joyBalandligi = ichi.clientHeight - parseFloat(ichiStil.paddingTop) - parseFloat(ichiStil.paddingBottom);
+        if (joyKengligiToliq <= 0 || joyBalandligi <= 0) return;
+
+        var haqiqiyKenglik = yurakGaMosKengligi(ichi, ism, joyKengligiToliq);
+        var nisbat = nisbatniHisobla(haqiqiyKenglik, joyBalandligi, matn);
+        if (nisbat === null) return;
+
+        if (nisbat < 0.8 && ism) {
+            if (ikkiIsmligi) {
+                // Ikkita ism (Ism1 & Ism2) bitta qatorga sig'masa — har bir
+                // ismni BUTUN holda (so'z o'rtasidan bo'linmasdan) o'z
+                // alohida qatoriga chiqaramiz: Ism1 / & / Ism2. Shunday
+                // qilib ism hech qachon xunuk tarzda ikkiga bo'linib
+                // qolmaydi.
+                ism.classList.add('ism-qatorlangan');
+                var haqiqiyKenglikQ = yurakGaMosKengligi(ichi, ism, joyKengligiToliq);
+                var nisbatQ = nisbatniHisobla(haqiqiyKenglikQ, joyBalandligi, matn);
+                if (nisbatQ !== null && nisbatQ > nisbat) {
+                    nisbat = nisbatQ;
+                } else {
+                    ism.classList.remove('ism-qatorlangan');
+                }
+            } else {
+                // Bitta nom/sarlavha (masalan maxsus uzun sarlavha) — oddiy
+                // so'z chegarasida bo'linishga ruxsat beramiz.
+                ism.style.whiteSpace = 'normal';
+                var haqiqiyKenglikN = yurakGaMosKengligi(ichi, ism, joyKengligiToliq);
+                var nisbatN = nisbatniHisobla(haqiqiyKenglikN, joyBalandligi, matn);
+                if (nisbatN !== null && nisbatN > nisbat) {
+                    nisbat = nisbatN;
+                } else {
+                    ism.style.whiteSpace = 'nowrap';
+                }
+            }
+        }
+
+        if (nisbat < 1) {
+            matn.style.transform = 'scale(' + Math.max(nisbat, 0.55).toFixed(3) + ')';
+        }
+    }
+    function ishgaTushir() {
+        moslashtir();
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(moslashtir);
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', ishgaTushir);
+    } else {
+        ishgaTushir();
+    }
+    var vaqtchi;
+    window.addEventListener('resize', function () {
+        clearTimeout(vaqtchi);
+        vaqtchi = setTimeout(moslashtir, 120);
+    });
+})();
+</script>

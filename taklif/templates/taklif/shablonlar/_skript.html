@@ -134,6 +134,11 @@
             // Avval konvert ochiladi (3D animatsiya), keyin parda yo'qoladi
             if (konvert) { konvert.classList.add('ochildi'); }
             tugma.classList.add('yashirin');
+            // Kabutarli dizaynlarda (agar mavjud bo'lsa) — kabutarlar va
+            // osma (qulf/maktub) qulf-kalit animatsiyasi bilan PARALLEL
+            // ravishda uchib/tushib ketadi (CSS: .parda-kabutarlar.yashirin).
+            var kabutarlar = document.querySelector('.parda-kabutarlar');
+            if (kabutarlar) { kabutarlar.classList.add('yashirin'); }
             setTimeout(function () {
                 parda.classList.add('yopilgan');
             }, konvert ? 1500 : 0);
