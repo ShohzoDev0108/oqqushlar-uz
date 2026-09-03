@@ -37,11 +37,22 @@ html {
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
+/* "Yopishqoq footer": kontenti kam sahifalarda (masalan bo'sh
+   "Taklifnomalarim") footer ekran o'rtasida osilib qolmasin — u har doim
+   eng pastda turadi. Buning uchun body va uning ichki o'ramasi ustun
+   shaklidagi flex bo'ladi, footer esa "margin-top: auto" bilan pastga
+   suriladi. 100dvh (100vh emas) — mobil brauzerlarda pastdagi manzil
+   paneli balandlikni o'zgartirganda ham to'g'ri ishlaydi. */
 body {
     background: var(--oq) url('{% static "taklif/naqshli-fon-xira.png" %}') 0 0 / 620px repeat;
     color: var(--siyoh); font-family: var(--sans);
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column;
 }
-.wrapper { max-width: none; padding: 0; }
+.wrapper {
+    max-width: none; padding: 0;
+    flex: 1 0 auto; display: flex; flex-direction: column;
+}
 .oq-ichki { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
 /* --- Yuqori navigatsiya (yopishqoq — skrollda ham til tanlash ko'rinib turadi) --- */
@@ -354,7 +365,16 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     .til-tugma { gap: 6px; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
-    .oq-footer { margin-top: 50px; }
+    /* Mobil footer: logotip tepada markazda, havolalar esa ostida ikki
+       ustunli tekis to'rda. Ilgari ular bitta qatorga sig'may notekis
+       o'ralib ketardi (oltita havola). */
+    .oq-footer { padding: 48px 0 40px; }
+    .oq-footer-ich { flex-direction: column; align-items: center; text-align: center; gap: 22px; }
+    .oq-footer-linklar {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px;
+        width: 100%; max-width: 330px; justify-items: center;
+    }
+    .oq-footer-linklar a { padding: 4px 0; }
 
     /* Filtr tugmalari (Marosim turi/Uslub/Millat va h.k.) — matn
        uzunligiga qarab kengligi turlicha bo'lgan flex-wrap chiplar
@@ -385,8 +405,13 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 }
 
 /* --- Footer --- */
+/* margin-top: auto — footerni doim sahifaning eng pastiga suradi
+   (yuqoridagi body/.wrapper flex tuzilishiga qarang). Kontentdan ajratib
+   turadigan bo'shliq endi margin emas, padding orqali beriladi: "auto"
+   bilan margin birga ishlamaydi, padding esa ikkala holatda ham
+   saqlanadi. */
 .oq-footer {
-    border-top: 1px solid var(--chiziq); margin-top: 80px; padding: 40px 0 50px;
+    border-top: 1px solid var(--chiziq); margin-top: auto; padding: 76px 0 50px;
     position: relative; overflow: hidden;
 }
 .oq-footer-ich { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; position: relative; z-index: 1; }

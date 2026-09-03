@@ -43,7 +43,14 @@
 </div>
 
 <section class="oq-bolim">
-    <div class="oq-ichki bh-matn">
+    <div class="oq-ichki">
+    {% comment %}
+    Matn kengligi ("bh-matn") ATAYLAB alohida ichki blokda: uni to'g'ridan
+    to'g'ri .oq-ichki'ga qo'shsak, max-width 62ch bo'lib qoladi-yu, lekin
+    .oq-ichki'ning "margin: 0 auto" markazlashi saqlanadi — natijada matn
+    sarlavhaga tekislanmay, ekran o'rtasiga surilib ketadi.
+    {% endcomment %}
+    <div class="bh-matn">
         <p>{% blocktrans %}<strong>Oqqushlar</strong> — to'y, fotiha, beshik to'yi va boshqa oilaviy marosimlar uchun raqamli taklifnomalar tayyorlaydigan xizmat. Bosma taklifnomadan farqli o'laroq, sizning taklifnomangiz oddiy havola bo'lib, uni Telegram yoki boshqa istalgan joyda ulashasiz — mehmon uni telefonida ochadi, manzilni xaritada ko'radi va "kelaman" deb javob beradi.{% endblocktrans %}</p>
         <p>{% blocktrans %}Xizmatni o'zingiz boshqarasiz: dizaynni tanlaysiz, ma'lumotlarni to'ldirasiz va taklifnoma shu zahoti tayyor bo'ladi. Bizga yozib o'tirish, kutish yoki kelishuv shart emas — hammasi telefoningizda, bir necha daqiqada.{% endblocktrans %}</p>
 
@@ -73,6 +80,7 @@
                 </div>
             </li>
         </ul>
+    </div>
     </div>
 </section>
 
