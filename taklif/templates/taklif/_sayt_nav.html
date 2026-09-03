@@ -22,6 +22,7 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
         <div class="oq-nav-linklar">
             <a href="{% url 'taklif:shablon_tanlash' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Dizaynlar" %}</a>
             <a href="{% url 'taklif:mening_taklifnomalarim' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Mening taklifnomalarim" %}</a>
+            <a href="{% url 'taklif:bosh_sahifa' %}#savol-javob"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Savol-javob" %}</a>
         </div>
         <div class="oq-nav-ong">
             {% include "taklif/_til_almashtirish.html" %}
@@ -45,8 +46,10 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
         <span class="oq-menyu-nomi">{% trans "Menyu" %}</span>
         <button type="button" class="oq-menyu-yop" id="oq-menyu-yop" aria-label="{% trans "Yopish" %}">✕</button>
     </div>
+    <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
     <a href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
     <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
+    <a href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Savol-javob" %}</a>
     <a class="oq-menyu-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
 </nav>
 {% if mobil_cta %}
@@ -74,6 +77,12 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
         holat(tugma.getAttribute('aria-expanded') !== 'true');
     });
     fon.addEventListener('click', function () { holat(false); });
+    // Havola bosilganda panel yopiladi — "Savol-javob" kabi shu sahifaning
+    // o'z bo'limiga olib boradigan havolalarda sahifa yangilanmaydi, panel
+    // esa ochiq qolib, kontentni to'sib turardi.
+    menyu.addEventListener('click', function (e) {
+        if (e.target.closest('a')) { holat(false); }
+    });
     if (yop) {
         yop.addEventListener('click', function () { holat(false); tugma.focus(); });
     }
