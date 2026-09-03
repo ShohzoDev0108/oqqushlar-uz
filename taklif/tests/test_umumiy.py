@@ -43,6 +43,9 @@ class UmumiySahifalarTest(TestCase):
     def test_boglanish_ochiladi(self):
         self.assertEqual(self.client.get("/boglanish/").status_code, 200)
 
+    def test_savol_javob_ochiladi(self):
+        self.assertEqual(self.client.get("/savol-javob/").status_code, 200)
+
     def test_taklifnoma_korish_ochiladi(self):
         self.assertEqual(self.client.get(f"/{self.taklifnoma.slug}/").status_code, 200)
 

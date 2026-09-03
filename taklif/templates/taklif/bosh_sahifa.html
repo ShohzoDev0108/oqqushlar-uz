@@ -274,9 +274,11 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
                     {% trans "Taklifnoma yaratish" %}
                 </a>
-                {# Ilgari bu havola shu sahifadagi namunalar lentasiga
-                   ("#dizaynlar") olib borardi — mijoz esa to'liq katalogni
-                   kutadi. Endi to'g'ridan-to'g'ri Dizaynlar sahifasiga. #}
+                {% comment %}
+                Ilgari bu havola shu sahifadagi namunalar lentasiga
+                ("#dizaynlar") olib borardi — mijoz esa to'liq katalogni
+                kutadi. Endi to'g'ridan-to'g'ri Dizaynlar sahifasiga.
+                {% endcomment %}
                 <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha dizaynlarni ko'rish" %}</a>
             </div>
         </div>
@@ -460,36 +462,7 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
             <span class="oq-yorliq">{% trans "Savol-javob" %}</span>
             <h2 class="oq-h2">{% trans "Ko'p so'raladigan savollar" %}</h2>
         </div>
-        <div class="oq-savollar">
-            <details class="oq-savol">
-                <summary>{% trans "To'lovni qanday amalga oshiraman?" %}</summary>
-                <p class="javob">{% blocktrans %}Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, taklifnoma sahifasidagi "Yoqdi" tugmasini bosing — shu orqali sizni to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz faollashtiriladi.{% endblocktrans %}</p>
-            </details>
-            <details class="oq-savol">
-                <summary>{% trans "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?" %}</summary>
-                <p class="javob">{% blocktrans %}Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. "Mening taklifnomalarim" bo'limi orqali shu brauzeringizda yaratgan barcha taklifnomalaringizni istalgan vaqt qayta topishingiz mumkin.{% endblocktrans %}</p>
-            </details>
-            <details class="oq-savol">
-                <summary>{% trans "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?" %}</summary>
-                <p class="javob">{% blocktrans %}Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi. Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi "Yoqdi" tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin.{% endblocktrans %}</p>
-            </details>
-            <details class="oq-savol">
-                <summary>{% trans "Taklifnoma linki qachon tugaydi?" %}</summary>
-                <p class="javob">{% trans "Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin panelidan) qilinadi." %}</p>
-            </details>
-            <details class="oq-savol">
-                <summary>{% trans "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?" %}</summary>
-                <p class="javob">{% blocktrans %}Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika sahifasi bor — u yerda nechta kishi ko'rgani, kim "kelaman" yoki "kelolmayman" deb javob bergani va mehmonlarga bergan shaxsiy linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "Taklifnomangiz tayyor!" sahifasida topasiz.{% endblocktrans %}</p>
-            </details>
-            <details class="oq-savol">
-                <summary>{% trans "Nechta rasm va qanday musiqa qo'sha olaman?" %}</summary>
-                <p class="javob">{% blocktrans %}Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini tanlashingiz mumkin.{% endblocktrans %}</p>
-            </details>
-            <details class="oq-savol">
-                <summary>{% trans "Qaysi tillarda ishlaydi?" %}</summary>
-                <p class="javob">{% trans "Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida joylashgan." %}</p>
-            </details>
-        </div>
+        {% include "taklif/_savol_javob_royxati.html" %}
     </div>
 </section>
 

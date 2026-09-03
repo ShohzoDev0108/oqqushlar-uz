@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Mening taklifnomalarim" %} — Oqqushlar{% endblock %}
+{% block title %}{% trans "Taklifnomalarim" %} — Oqqushlar{% endblock %}
 
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
@@ -37,9 +37,9 @@ kuchliroq bo'lgani uchun _sayt_uslubi.html'dagi markazlashtirilgan
     <div class="oq-izlar">
         <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
         <span>›</span>
-        <span class="joriy">{% trans "Mening taklifnomalarim" %}</span>
+        <span class="joriy">{% trans "Taklifnomalarim" %}</span>
     </div>
-    <h1 class="oq-h1">{% trans "Mening taklifnomalarim" %}</h1>
+    <h1 class="oq-h1">{% trans "Taklifnomalarim" %}</h1>
     <p class="oq-matn" style="max-width:600px; margin-top:0;">
         {% trans "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni ko'rsatadi — ularni solishtirib, eng yoqqanini tanlashingiz mumkin." %}
     </p>

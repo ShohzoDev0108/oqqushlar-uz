@@ -20,6 +20,7 @@ urlpatterns = [
     ),
     path("biz-haqimizda/", views.biz_haqimizda, name="biz_haqimizda"),
     path("boglanish/", views.boglanish, name="boglanish"),
+    path("savol-javob/", views.savol_javob, name="savol_javob"),
     path("yaratish/<slug:shablon_kod>/", views.yaratish, name="yaratish"),
     path("tayyor/<slug:slug>/", views.yaratildi, name="yaratildi"),
     path("statistika/<str:token>/", views.statistika, name="statistika"),

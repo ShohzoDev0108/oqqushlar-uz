@@ -111,7 +111,7 @@ footer { text-align: center; padding: 24px 0; opacity: .5; font-size: .8rem; }
 <div class="mijoz-panel">
     <a class="mp-tugma yoqdi" href="{% url 'taklif:yoqdi' taklifnoma.slug %}">{% if taklifnoma.yoqdi_bosildi %}✅ {% trans "Yoqdi (yuborildi)" %}{% else %}💛 {% trans "Yoqdi — adminga yozish" %}{% endif %}</a>
     <a class="mp-tugma" href="{% url 'taklif:shablon_tanlash' %}">🔄 {% trans "Qayta yaratish" %}</a>
-    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Mening taklifnomalarim" %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Taklifnomalarim" %}</a>
 </div>
 {% endif %}
 

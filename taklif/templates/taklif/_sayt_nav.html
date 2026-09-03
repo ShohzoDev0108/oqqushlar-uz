@@ -22,7 +22,9 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
         <div class="oq-nav-linklar">
             <a href="{% url 'taklif:shablon_tanlash' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Dizaynlar" %}</a>
             <a href="{% url 'taklif:mening_taklifnomalarim' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Taklifnomalarim" %}</a>
-            <a href="{% url 'taklif:bosh_sahifa' %}#savol-javob"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Savol-javob" %}</a>
+            <a href="{% url 'taklif:biz_haqimizda' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Biz haqimizda" %}</a>
+            <a href="{% url 'taklif:savol_javob' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Savol-javob" %}</a>
+            <a href="{% url 'taklif:boglanish' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Bog'lanish" %}</a>
         </div>
         <div class="oq-nav-ong">
             {% include "taklif/_til_almashtirish.html" %}
@@ -55,7 +57,7 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
     <a href="{% url 'taklif:biz_haqimizda' %}">{% trans "Biz haqimizda" %}</a>
     <a href="{% url 'taklif:boglanish' %}">{% trans "Bog'lanish" %}</a>
-    <a href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Savol-javob" %}</a>
+    <a href="{% url 'taklif:savol_javob' %}">{% trans "Savol-javob" %}</a>
     <a class="oq-menyu-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
 </nav>
 </div>

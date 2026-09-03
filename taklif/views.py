@@ -311,6 +311,20 @@ def biz_haqimizda(request):
     )
 
 
+def savol_javob(request):
+    """Savol-javob — o'z sahifasi sifatida.
+
+    Savollar ro'yxatining o'zi _savol_javob_royxati.html qismida: xuddi
+    shu ro'yxat bosh sahifada ham ko'rsatiladi, ya'ni javoblar bir joyda
+    saqlanadi va ikki nusxaga bo'linib ketmaydi.
+    """
+    return render(
+        request,
+        "taklif/savol_javob.html",
+        {"sayt_musiqa": _sayt_musiqasi()},
+    )
+
+
 def boglanish(request):
     """Bog'lanish — o'z sahifasi sifatida.
 

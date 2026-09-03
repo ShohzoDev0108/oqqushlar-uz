@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Savol-javob" %} — Oqqushlar{% endblock %}
+
+{% block extra_style %}
+{% include "taklif/_sayt_uslubi.html" %}
+
+.oq-sahifa-bosh { padding-bottom: 10px; }
+.sj-kirish { max-width: 58ch; color: var(--kul); line-height: 1.85; margin: 0 0 8px; }
+
+/* Savol-javob ro'yxati uslubi (bosh sahifadagi bilan bir xil — ikkalasi
+   ham _savol_javob_royxati.html qismidan foydalanadi). */
+.oq-savollar { max-width: 760px; }
+.oq-savol { border-top: 1px solid var(--chiziq); }
+.oq-savol:last-child { border-bottom: 1px solid var(--chiziq); }
+.oq-savol summary {
+    cursor: pointer; list-style: none; padding: 22px 4px; display: flex;
+    justify-content: space-between; align-items: center; gap: 20px;
+    font-family: var(--serif); font-size: 1.12rem; color: var(--siyoh); font-weight: 500;
+}
+.oq-savol summary::-webkit-details-marker { display: none; }
+.oq-savol summary::after {
+    content: "+"; color: var(--tilla); font-size: 1.5rem; line-height: 1; flex-shrink: 0;
+    transition: transform .2s ease; font-family: var(--sans); font-weight: 400;
+}
+.oq-savol[open] summary::after { transform: rotate(45deg); }
+.oq-savol summary:hover { color: var(--tilla-toq); }
+.oq-savol .javob { margin: 0; padding: 0 30px 24px 4px; color: var(--kul); line-height: 1.8; font-size: .96rem; }
+
+.sj-oxiri {
+    margin-top: 36px; padding: 26px; border: 1px solid var(--chiziq); border-radius: 4px;
+    background: rgba(255,255,255,.4); max-width: 760px;
+}
+.sj-oxiri p { margin: 0 0 18px; color: var(--kul); }
+{% endblock %}
+
+{% block content %}
+{% include "taklif/_sayt_nav.html" %}
+{% include "taklif/_sayt_musiqa.html" %}
+
+<div class="oq-ichki oq-sahifa-bosh">
+    <div class="oq-izlar">
+        <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
+        <span>›</span>
+        <span class="joriy">{% trans "Savol-javob" %}</span>
+    </div>
+    <h1 class="oq-h1">{% trans "Savol-javob" %}</h1>
+</div>
+
+<section class="oq-bolim">
+    <div class="oq-ichki">
+        <p class="sj-kirish">{% blocktrans %}Mijozlarimiz eng ko'p beradigan savollar va ularga aniq javoblar. Savolingizga javob topolmasangiz, bizga yozing — yordam beramiz.{% endblocktrans %}</p>
+        {% include "taklif/_savol_javob_royxati.html" %}
+
+        <div class="sj-oxiri">
+            <p>{% trans "Javobini topa olmadingizmi?" %}</p>
+            <a class="oq-cta toliq" href="{% url 'taklif:boglanish' %}">{% trans "Bizga yozing" %}</a>
+        </div>
+    </div>
+</section>
+
+{% include "taklif/_sayt_footer.html" %}
+{% endblock %}

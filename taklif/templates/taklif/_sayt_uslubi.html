@@ -51,20 +51,24 @@ body {
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--chiziq);
 }
+/* Yuqori panel sahifa kontentidan KENGROQ: logotip chap chekkaga,
+   "Taklifnoma yaratish" o'ng chekkaga suriladi va o'rtada barcha bo'lim
+   havolalari bir qatorga sig'adi (kontent 1180px'da qolaveradi). */
+.oq-nav-tashqi .oq-ichki { max-width: 1560px; padding: 0 36px; }
 .oq-nav {
-    display: flex; align-items: center; justify-content: space-between; gap: 16px 24px;
-    padding: 20px 0; flex-wrap: wrap;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px 20px;
+    padding: 18px 0; flex-wrap: wrap;
 }
 .oq-logo {
     font-family: var(--serif); font-size: 1.55rem; color: var(--siyoh);
     text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: .5px;
 }
 .oq-logo img { display: block; border-radius: 50%; }
-.oq-nav-linklar { display: flex; gap: 8px 12px; flex-wrap: wrap; }
+.oq-nav-linklar { display: flex; gap: 6px 4px; flex-wrap: wrap; }
 .oq-nav-linklar a {
-    display: inline-flex; align-items: center; gap: 6px; color: var(--siyoh); text-decoration: none;
-    font-size: .76rem; letter-spacing: 1.8px; text-transform: uppercase; white-space: nowrap;
-    padding: 7px 10px; border-radius: 20px; transition: background .2s, color .2s;
+    display: inline-flex; align-items: center; gap: 5px; color: var(--siyoh); text-decoration: none;
+    font-size: .72rem; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap;
+    padding: 7px 9px; border-radius: 20px; transition: background .2s, color .2s;
 }
 .oq-nav-linklar a .oq-nav-tuk {
     width: 5px; height: 5px; border-radius: 50%; background: var(--tilla); opacity: 0; transition: opacity .2s;
@@ -246,17 +250,13 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 .turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
 
 /* --- Navigatsiya: qachon ☰ ga o'tadi ---
-   1200px'gacha yuqori paneldagi "Taklifnoma yaratish" tugmasi olib
-   qo'yiladi (u hero'da, menyuda va mobil yopishqoq tugmada baribir bor),
-   1000px'gacha esa havolalarning o'zi ham ☰ menyusiga ko'chadi. Sabab
-   o'lchov bilan aniqlangan: 1180px kenglikdagi konteynerda logotip (171)
-   + havolalar (554) + o'ng qism (364) = 1137px, ya'ni panel sig'may
-   ikkinchi qatorga tushib ketardi. */
-@media (max-width: 1199px) {
+   Panel kengaytirilgani (max-width 1560px) uchun keng ekranlarda beshta
+   havola ham, CTA tugmasi ham bitta qatorga sig'adi. 1150px'dan tor
+   ekranlarda esa havolalar ☰ menyusiga ko'chadi — aks holda panel
+   ikkinchi qatorga sinib ketardi. */
+@media (max-width: 1149px) {
     .oq-nav-ong .oq-cta { display: none; }
-}
-
-@media (max-width: 999px) {
+    .oq-nav-tashqi .oq-ichki { padding: 0 28px; }
     .oq-nav-linklar { display: none; }
     .oq-nav-ong { margin-left: auto; }
 

@@ -13,6 +13,7 @@ ASOSIY_SAHIFA_BOSHLARI = (
     "/yaratish",
     "/biz-haqimizda",
     "/boglanish",
+    "/savol-javob",
     "/statistika/",
     "/mening-taklifnomalarim",
     "/tayyor/",
