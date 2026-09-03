@@ -274,12 +274,14 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                 {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
             </div>
             {% elif field.name != "ommaviy_korsatishga_rozi" %}
-            {# "Marosim turi" mijozdan shablon tanlash sahifasida allaqachon
-               so'ralgan bo'lsa (?marosim=...), bu yerda qayta so'ralmaydi:
-               qatori yashiriladi, lekin maydonning o'zi DOM'da qoladi —
-               pastdagi JS uning qiymatiga qarab qolgan maydonlarni,
-               musiqa va rasm namunalarini moslashtiradi va POST'da ham
-               shu qiymat yuboriladi. #}
+            {% comment %}
+            "Marosim turi" mijozdan shablon tanlash sahifasida allaqachon
+            so'ralgan bo'lsa (?marosim=...), bu yerda qayta so'ralmaydi:
+            qatori yashiriladi, lekin maydonning o'zi DOM'da qoladi —
+            pastdagi JS uning qiymatiga qarab qolgan maydonlarni, musiqa
+            va rasm namunalarini moslashtiradi va POST'da ham shu qiymat
+            yuboriladi.
+            {% endcomment %}
             <div {% if field.name == "ism_2" %}id="ism2-qatori"{% elif field.name == "ism_3" %}id="ism3-qatori" hidden{% elif field.name == "boshqa_tadbir_nomi" %}id="boshqa-tadbir-nomi-qatori" hidden{% elif field.name == "marosim_turi" and marosim_oldindan %}id="marosim-turi-qatori" hidden{% endif %}>
                 <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.name == "ism_2" %}<span class="majburiy-belgi" id="ism2-majburiy" hidden> *</span>{% elif field.field.required %} *{% endif %}</label>
                 {{ field }}

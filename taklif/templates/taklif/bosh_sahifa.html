@@ -392,11 +392,13 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
             <span class="oq-yorliq">{% trans "Dizayn shablonlari" %}</span>
             <h2 class="oq-h2">{% trans "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring" %}</h2>
         </div>
-        {# Turkum filtri bu yerdan ataylab olib tashlandi: bosh sahifaning
-           vazifasi tanlatish emas, ta'm berish va harakatga undash. Xuddi
-           shu filtr (ustiga marosim turi bilan birga) bir qadam narida —
-           "Barcha dizaynlar" sahifasida bor, ikki joyda takrorlanishi esa
-           mijozni "qayerda tanlayman?" degan savolga qo'yardi. #}
+        {% comment %}
+        Turkum filtri bu yerdan ataylab olib tashlandi: bosh sahifaning
+        vazifasi tanlatish emas, ta'm berish va harakatga undash. Xuddi
+        shu filtr (ustiga marosim turi bilan birga) bir qadam narida —
+        "Barcha dizaynlar" sahifasida bor, ikki joyda takrorlanishi esa
+        mijozni "qayerda tanlayman?" degan savolga qo'yardi.
+        {% endcomment %}
         <div class="dizayn-grid dizayn-lenta" id="shablonlar-grid">
             {% for s in shablonlar %}
             <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">

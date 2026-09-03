@@ -29,8 +29,8 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
                 {% trans "Taklifnoma yaratish" %}
             </a>
-            {# Faqat mobilda ko'rinadi (CSS: _sayt_uslubi.html) — desktopda
-               havolalar panelning o'zida ochiq turadi. #}
+            {% comment %}Faqat mobilda ko'rinadi (CSS: _sayt_uslubi.html) —
+            desktopda havolalar panelning o'zida ochiq turadi.{% endcomment %}
             <button type="button" class="oq-burger" id="oq-burger" aria-expanded="false" aria-controls="oq-menyu" aria-label="{% trans "Menyu" %}">
                 <span></span><span></span><span></span>
             </button>
