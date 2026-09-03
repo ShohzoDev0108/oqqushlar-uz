@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Bog'lanish" %} — Oqqushlar{% endblock %}
+
+{% block extra_style %}
+{% include "taklif/_sayt_uslubi.html" %}
+
+.oq-sahifa-bosh { padding-bottom: 10px; }
+.bg-matn { max-width: 60ch; }
+.bg-matn p { color: var(--kul); line-height: 1.85; margin: 0 0 18px; }
+
+.bg-kartalar { display: grid; gap: 16px; margin-top: 30px; max-width: 760px; }
+@media (min-width: 760px) { .bg-kartalar { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.bg-karta {
+    border: 1px solid var(--chiziq); border-radius: 4px; padding: 24px;
+    background: rgba(255,255,255,.4); display: flex; flex-direction: column;
+}
+.bg-karta b {
+    display: block; font-family: var(--serif); font-size: 1.15rem;
+    font-weight: 500; margin-bottom: 8px;
+}
+.bg-karta p { color: var(--kul); font-size: .93rem; line-height: 1.75; margin: 0 0 20px; }
+.bg-karta .oq-cta { align-self: flex-start; margin-top: auto; }
+{% endblock %}
+
+{% block content %}
+{% include "taklif/_sayt_nav.html" %}
+{% include "taklif/_sayt_musiqa.html" %}
+
+<div class="oq-ichki oq-sahifa-bosh">
+    <div class="oq-izlar">
+        <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
+        <span>›</span>
+        <span class="joriy">{% trans "Bog'lanish" %}</span>
+    </div>
+    <h1 class="oq-h1">{% trans "Bog'lanish" %}</h1>
+</div>
+
+<section class="oq-bolim">
+    <div class="oq-ichki">
+        <div class="bg-matn">
+            <p>{% blocktrans %}Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
+        </div>
+
+        <div class="bg-kartalar">
+            {% if admin_telegram %}
+            <div class="bg-karta">
+                <b>{% trans "Telegram" %}</b>
+                <p>{% blocktrans %}Eng tez yo'l — xabar yozsangiz, odatda shu kuniyoq javob beramiz.{% endblocktrans %}</p>
+                {# Manzilda "@" bo'lmasligi kerak: t.me/@nom ishlamaydi. #}
+                <a class="oq-cta toliq" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">{{ admin_telegram }}</a>
+            </div>
+            {% endif %}
+            <div class="bg-karta">
+                <b>{% trans "Ko'p so'raladigan savollar" %}</b>
+                <p>{% blocktrans %}To'lov qanday, havola qachongacha ishlaydi, ma'lumotni keyin o'zgartirsa bo'ladimi — ko'p savollarga javob shu yerda tayyor.{% endblocktrans %}</p>
+                <a class="oq-cta" href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Javoblarni ko'rish" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "taklif/_sayt_footer.html" %}
+{% endblock %}

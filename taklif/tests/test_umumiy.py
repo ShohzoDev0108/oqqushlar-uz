@@ -40,6 +40,9 @@ class UmumiySahifalarTest(TestCase):
     def test_biz_haqimizda_ochiladi(self):
         self.assertEqual(self.client.get("/biz-haqimizda/").status_code, 200)
 
+    def test_boglanish_ochiladi(self):
+        self.assertEqual(self.client.get("/boglanish/").status_code, 200)
+
     def test_taklifnoma_korish_ochiladi(self):
         self.assertEqual(self.client.get(f"/{self.taklifnoma.slug}/").status_code, 200)
 

@@ -76,21 +76,13 @@
     </div>
 </section>
 
-<section class="oq-bolim" id="boglanish">
+<section class="oq-bolim">
     <div class="oq-ichki">
-        <div class="oq-bolim-bosh">
-            <span class="oq-yorliq">{% trans "Bog'lanish" %}</span>
-            <h2 class="oq-h2">{% trans "Savolingiz bormi? Yozing" %}</h2>
-        </div>
         <div class="bh-boglanish">
-            <p class="oq-matn" style="margin-top:0;">{% blocktrans %}Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
+            <p class="oq-matn" style="margin-top:0;">{% blocktrans %}Savolingiz bormi yoki yordam kerakmi — xijolat bo'lmang, bizga yozing. Bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
             <div class="bh-aloqa">
-                {% if admin_telegram %}
-                {# Manzilda "@" bo'lmasligi kerak (t.me/@nom ishlamaydi) —
-                   saytning boshqa joylarida ham shu naqsh ishlatilgan. #}
-                <a class="oq-cta toliq" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">{% trans "Telegram orqali yozish" %}</a>
-                {% endif %}
-                <a class="oq-cta" href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Ko'p so'raladigan savollar" %}</a>
+                <a class="oq-cta toliq" href="{% url 'taklif:boglanish' %}">{% trans "Bog'lanish" %}</a>
+                <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlarni ko'rish" %}</a>
             </div>
         </div>
     </div>

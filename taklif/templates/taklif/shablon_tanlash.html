@@ -9,35 +9,28 @@
 .oq-sahifa-bosh { padding-bottom: 34px; }
 .bosh { color: var(--kul); margin-top: 30px; }
 
-/* Uch bosqichli filtr — uchalasi ham BIR XIL "akkordeon" ko'rinishida:
+/* Bu sahifa — dizaynlar KATALOGI: ochilishi bilan barcha shablonlar
+   ko'rinadi. Ustidagi uch filtr esa bir xil "akkordeon" ko'rinishida —
    sarlavha qatori (bo'lim nomi + joriy tanlov + strelka) bosilganda
-   ochiladi, tanlov qilinganda esa o'zi yopiladi va faqat bitta ixcham
-   qator bo'lib qoladi. Shu sababli ekranda bir vaqtning o'zida faqat
-   kerakli ro'yxat ochiq turadi, qolgani bir qatordan joy egallaydi:
+   ochiladi, tanlov qilinganda o'zi yopiladi va bir qatorlik joy
+   egallaydi:
 
-     1. Marosim turi — majburiy, birinchi qadam (sahifa ochilganda ochiq
-        turadi, chunki mijoz undan boshlashi kerak). Tanlangach yopiladi
-        va pastdagi natijalar bloki ochiladi.
-     2. Uslub — ixtiyoriy (standart: Barchasi), yopiq holda boshlanadi.
+     1. Marosim turi (standart: Barchasi)
+     2. Uslub (standart: Barchasi)
      3. Millat — faqat Uslub="Milliy" tanlanganda paydo bo'ladi.
 
-   Tanlangan marosim turiga ANIQ mos (marosim_turlari'da bor) dizayn
-   topilmasa — masalan Qiz uzatish/Xatna to'yi kabi hali maxsus dizayni
-   yo'q turlar — to'r bo'sh qoladi va #marosim-eslatma "tez orada"
-   matnini ko'rsatadi.
+   Ilgari dizaynlar marosim turi tanlanmaguncha umuman ko'rinmasdi —
+   ya'ni "Dizaynlar" havolasi mijozni bo'sh sahifaga olib borardi. Endi
+   filtr ixtiyoriy: tanlansa, u tanlov keyingi sahifaga ?marosim=...
+   bo'lib uzatiladi va u yerda qayta so'ralmaydi; tanlanmasa, marosim
+   turi taklifnoma to'ldirish formasida odatdagidek so'raladi.
 
-   DIQQAT: Marosim turida "Barchasi" ATAYLAB yo'q — mijoz aniq bitta
-   marosim uchun taklifnoma yasaydi, "barchasi" esa unga hech qachon
-   to'g'ri javob emas edi. Endi tanlov doim aniq bo'lgani uchun u
-   keyingi sahifaga (?marosim=...) uzatiladi va u yerda qayta
-   so'ralmaydi. Uslub/Millatda esa "Barchasi" mazmunli — "farqi yo'q"
-   degani.
+   Aniq bir marosim turiga mos dizayn topilmasa (masalan Qiz uzatish
+   yoki Xatna to'yi — ularga hali maxsus dizayn yo'q) to'r bo'sh qoladi
+   va #marosim-eslatma "tez orada" matnini ko'rsatadi.
 
-   Marosim turlari ro'yxati to'liq va ochiq ko'rsatiladi (yashirilgan
-   "Boshqa ▾" ochilmasi yo'q) — bo'lim tanlovdan keyin o'zi yopilgani
-   uchun joyni tejashga hojat qolmadi. Ro'yxatda "Boshqa" ham bor:
-   mijoz tadbir nomini o'zi yozadigan tur (masalan "11-sinf
-   o'quvchilari") — u faqat shu yerdan tanlanadi. */
+   Ro'yxatda "Boshqa" ham bor: mijoz tadbir nomini o'zi yozadigan tur
+   (masalan "11-sinf o'quvchilari"). */
 .oq-filtr-akkordeon {
     display: flex; align-items: center; gap: 8px; width: 100%;
     background: none; border: none; padding: 0; margin: 0 0 14px;
@@ -56,7 +49,6 @@
 .filtr-akkordeon-panel .turkum-qatori { margin-bottom: 0; }
 
 .marosim-qatori .turkum-tugma { font-size: .78rem; }
-.marosim-boshlangich { color: var(--kul); font-size: .9rem; margin: 4px 0 0; }
 .marosim-eslatma { color: var(--kul); font-size: .85rem; margin: 0 0 26px; }
 .yashirin { display: none !important; }
 
@@ -110,22 +102,22 @@
 <div class="oq-ichki">
 {% if shablonlar %}
 
-{# 1-bosqich: Marosim turi — sahifa ochilganda ochiq (majburiy qadam) #}
-<button type="button" class="oq-filtr-akkordeon ochiq" id="marosim-akkordeon-tugma" aria-expanded="true">
+{# 1-bosqich: Marosim turi — boshqa filtrlar kabi yopiq holda boshlanadi #}
+<button type="button" class="oq-filtr-akkordeon" id="marosim-akkordeon-tugma" aria-expanded="false">
     <span class="oq-filtr-nomi">{% trans "Marosim turi" %}</span>
-    <span class="akkordeon-qiymat" id="marosim-joriy-qiymat"></span>
+    <span class="akkordeon-qiymat" id="marosim-joriy-qiymat">{% trans "Barchasi" %}</span>
     <span class="yana-strelka" aria-hidden="true">▾</span>
 </button>
-<div class="filtr-akkordeon-panel" id="marosim-akkordeon-panel">
+<div class="filtr-akkordeon-panel yashirin" id="marosim-akkordeon-panel">
     <div class="turkum-qatori marosim-qatori" id="marosim-qatori">
+        <button type="button" class="turkum-tugma faol" data-marosim="barchasi">{% trans "Barchasi" %}</button>
         {% for kalit, nomi in marosim_turlari %}
         <button type="button" class="turkum-tugma" data-marosim="{{ kalit }}">{{ nomi }}</button>
         {% endfor %}
     </div>
 </div>
-<p class="marosim-boshlangich" id="marosim-boshlangich">{% trans "Davom etish uchun marosim turini tanlang." %}</p>
 
-<div class="yashirin" id="natijalar-blok">
+<div id="natijalar-blok">
 
 {# 2-bosqich: Uslub — ixtiyoriy, yopiq holda boshlanadi #}
 <button type="button" class="oq-filtr-akkordeon" id="uslub-akkordeon-tugma" aria-expanded="false">
@@ -196,8 +188,6 @@
     // kelgan dizaynlargina ko'rsatiladi, universal/teglanmagan dizaynga
     // orqaga qaytilmaydi.
     var marosimQatori = document.getElementById('marosim-qatori');
-    var marosimBoshlangich = document.getElementById('marosim-boshlangich');
-    var natijalarBlok = document.getElementById('natijalar-blok');
     var turkumQatori = document.getElementById('turkum-qatori');
     var millatBlok = document.getElementById('millat-blok');
     var millatQatori = document.getElementById('millat-qatori');
@@ -206,7 +196,7 @@
     if (!grid) { return; }
     var kartalar = grid.querySelectorAll('.shablon-karta');
 
-    var tanlangan = { marosim: null, turkum: 'barchasi', millat: 'barchasi' };
+    var tanlangan = { marosim: 'barchasi', turkum: 'barchasi', millat: 'barchasi' };
 
     // Uchala bo'lim ham bitta xil xulqqa ega bo'lishi uchun umumiy
     // akkordeon yasovchi: sarlavha bosilsa ochiladi/yopiladi, tanlov
@@ -262,8 +252,6 @@
         tugmalarniYangila(marosimQatori, 'marosim', kalit);
         marosimAkk.qiymat(tugmaMatni(marosimQatori, 'marosim', kalit));
         marosimAkk.ochish(false);
-        if (natijalarBlok) { natijalarBlok.classList.remove('yashirin'); }
-        if (marosimBoshlangich) { marosimBoshlangich.classList.add('yashirin'); }
         qollash();
     }
 
@@ -272,10 +260,11 @@
     // ikkinchi marta so'ralmaydi (yaratish.html'da maydon tayyor
     // tanlangan holda ochiladi).
     function havolalarniYangila() {
+        var aniqTur = tanlangan.marosim && tanlangan.marosim !== 'barchasi';
         kartalar.forEach(function (k) {
             var asosiy = k.dataset.asosiyHavola;
             if (!asosiy) { return; }
-            k.href = tanlangan.marosim ? (asosiy + '?marosim=' + encodeURIComponent(tanlangan.marosim)) : asosiy;
+            k.href = aniqTur ? (asosiy + '?marosim=' + encodeURIComponent(tanlangan.marosim)) : asosiy;
         });
     }
 
@@ -284,7 +273,8 @@
         kartalar.forEach(function (k) {
             var turkumMos = tanlangan.turkum === 'barchasi' || k.dataset.turkum === tanlangan.turkum;
             var millatMos = tanlangan.millat === 'barchasi' || !k.dataset.millat || k.dataset.millat === tanlangan.millat;
-            var marosimMos = marosimGaMosKeladi(k.dataset.marosim, tanlangan.marosim);
+            var marosimMos = tanlangan.marosim === 'barchasi'
+                || marosimGaMosKeladi(k.dataset.marosim, tanlangan.marosim);
             var mos = turkumMos && millatMos && marosimMos;
             k.classList.toggle('yashirin', !mos);
             if (mos) { mosSoni++; }
@@ -339,6 +329,11 @@
             qollash();
         });
     }
+
+    // Sahifa ochilishi bilan BARCHA dizaynlar ko'rinadi — filtrlar esa
+    // ustida, yopiq holda turadi. Shu chaqiruv kartalarning havolasini
+    // ham to'g'ri holatga keltiradi.
+    qollash();
 
 })();
 </script>

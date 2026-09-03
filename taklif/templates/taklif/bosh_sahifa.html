@@ -274,7 +274,10 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
                     {% trans "Taklifnoma yaratish" %}
                 </a>
-                <a class="oq-cta" href="#dizaynlar">{% trans "Barcha dizaynlarni ko'rish" %}</a>
+                {# Ilgari bu havola shu sahifadagi namunalar lentasiga
+                   ("#dizaynlar") olib borardi — mijoz esa to'liq katalogni
+                   kutadi. Endi to'g'ridan-to'g'ri Dizaynlar sahifasiga. #}
+                <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha dizaynlarni ko'rish" %}</a>
             </div>
         </div>
     </div>

@@ -320,11 +320,13 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     .oq-logo { font-size: 1.2rem; gap: 8px; }
     .oq-logo img { width: 32px; height: 32px; }
     .oq-nav-ong { gap: 8px; flex-wrap: nowrap; }
-    /* Til nomi mobilda ham KO'RINADI — u yerda faqat globus qolsa, mijoz
-       qaysi til tanlanganini bilmaydi. Havolalar ☰ ga ko'chgani uchun
-       endi qatorda joy bor; juda uzun nomlar ("Qaraqalpaqsha") esa
-       kesiladi (.til-joriy'da text-overflow: ellipsis bor). */
-    .til-joriy { max-width: 84px; }
+    /* Til nomi to'liq ko'rinishi kerak — eng uzuni "Qaraqalpaqsha"
+       kesilib qolayotgan edi. Qisqartma ("O'z", "Ru") o'rniga nomni
+       to'liq qoldirdik, joyni esa globus belgisini olib tashlab
+       bo'shatdik: yonida til nomi turgach, globus baribir ortiqcha. */
+    .til-globus { display: none; }
+    .til-joriy { max-width: 108px; }
+    .til-tugma { gap: 6px; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
     .oq-footer { margin-top: 50px; }

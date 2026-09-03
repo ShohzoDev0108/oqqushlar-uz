@@ -19,6 +19,7 @@ urlpatterns = [
         name="shablon_tanlash_eski",
     ),
     path("biz-haqimizda/", views.biz_haqimizda, name="biz_haqimizda"),
+    path("boglanish/", views.boglanish, name="boglanish"),
     path("yaratish/<slug:shablon_kod>/", views.yaratish, name="yaratish"),
     path("tayyor/<slug:slug>/", views.yaratildi, name="yaratildi"),
     path("statistika/<str:token>/", views.statistika, name="statistika"),
