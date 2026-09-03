@@ -20,13 +20,17 @@ class MarosimTurlariFormMixin(forms.ModelForm):
     """Shablon/MusiqaVariant/NamunaRasm — bir nechta marosim turini
     belgilash uchun umumiy forma qismi (marosim_turlari_raw'ni checkbox
     ro'yxati sifatida ko'rsatadi, saqlashda qaytadan vergul bilan
-    ajratilgan matnga aylantiradi). "Boshqa" filtr sifatida ma'nosiz
-    bo'lgani uchun (shablon_tanlash view'iga qarang) shu yerda ham
-    ko'rsatilmaydi.
+    ajratilgan matnga aylantiradi).
+
+    Ro'yxatda "Boshqa" ham bor: shablon tanlash sahifasida mijoz uni
+    tanlay oladi (o'z nomli tadbir uchun — masalan "11-sinf
+    o'quvchilari"), shuning uchun dizayn/musiqa/rasmni unga ham moslash
+    imkoni bo'lishi kerak. Aks holda "Boshqa"ni tanlagan mijoz doim
+    bo'sh ro'yxatga tushib qolardi.
     """
 
     marosim_turlari = forms.MultipleChoiceField(
-        choices=[(k, v) for k, v in MAROSIM_TURLARI if k != "boshqa"],
+        choices=list(MAROSIM_TURLARI),
         required=False,
         widget=forms.CheckboxSelectMultiple,
         label="Marosim turlari",

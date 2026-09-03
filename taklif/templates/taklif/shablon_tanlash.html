@@ -31,7 +31,13 @@
    to'g'ri javob emas edi. Endi tanlov doim aniq bo'lgani uchun u
    keyingi sahifaga (?marosim=...) uzatiladi va u yerda qayta
    so'ralmaydi. Uslub/Millatda esa "Barchasi" mazmunli — "farqi yo'q"
-   degani. */
+   degani.
+
+   Marosim turlari ro'yxati to'liq va ochiq ko'rsatiladi (yashirilgan
+   "Boshqa ▾" ochilmasi yo'q) — bo'lim tanlovdan keyin o'zi yopilgani
+   uchun joyni tejashga hojat qolmadi. Ro'yxatda "Boshqa" ham bor:
+   mijoz tadbir nomini o'zi yozadigan tur (masalan "11-sinf
+   o'quvchilari") — u faqat shu yerdan tanlanadi. */
 .oq-filtr-akkordeon {
     display: flex; align-items: center; gap: 8px; width: 100%;
     background: none; border: none; padding: 0; margin: 0 0 14px;
@@ -54,16 +60,13 @@
 .marosim-eslatma { color: var(--kul); font-size: .85rem; margin: 0 0 26px; }
 .yashirin { display: none !important; }
 
-.marosim-yana-tugma { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
 .yana-strelka { font-size: .65em; display: inline-block; transition: transform .2s ease; }
-.marosim-yana-tugma.ochiq .yana-strelka { transform: rotate(180deg); }
-.marosim-yana-tugma.yana-tanlandi { border-color: var(--asos); color: var(--asos); }
-.marosim-yana-qatori { margin-top: 10px; }
 
 @media (max-width: 700px) {
-    /* Asosiy qatorda 4 ta marosim turi + "Boshqa" = 5 ta tugma; oxirgi
-       qatorda yolg'iz qolmasligi uchun "Boshqa" ikkala ustunni egallaydi. */
-    .marosim-yana-tugma { grid-column: 1 / -1; }
+    /* Mobilda tugmalar 2 ustunli to'rga tushadi (_sayt_uslubi.html).
+       Ro'yxatdagi tugmalar soni toq bo'lsa, oxirgisi yolg'iz qolmasin —
+       ikkala ustunni egallaydi. */
+    .turkum-qatori .turkum-tugma:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 
 {% endblock %}
@@ -95,13 +98,7 @@
 </button>
 <div class="filtr-akkordeon-panel" id="marosim-akkordeon-panel">
     <div class="turkum-qatori marosim-qatori" id="marosim-qatori">
-        {% for kalit, nomi in marosim_asosiy %}
-        <button type="button" class="turkum-tugma" data-marosim="{{ kalit }}">{{ nomi }}</button>
-        {% endfor %}
-        <button type="button" class="turkum-tugma marosim-yana-tugma" id="marosim-yana-tugma" aria-expanded="false">{% trans "Boshqa" %} <span class="yana-strelka" aria-hidden="true">▾</span></button>
-    </div>
-    <div class="turkum-qatori marosim-qatori marosim-yana-qatori yashirin" id="marosim-yana-qatori">
-        {% for kalit, nomi in marosim_qoshimcha %}
+        {% for kalit, nomi in marosim_turlari %}
         <button type="button" class="turkum-tugma" data-marosim="{{ kalit }}">{{ nomi }}</button>
         {% endfor %}
     </div>
@@ -178,9 +175,7 @@
     // bo'lishi mumkin (marosim_turlari) — tanlangan turga ANIQ mos
     // kelgan dizaynlargina ko'rsatiladi, universal/teglanmagan dizaynga
     // orqaga qaytilmaydi.
-    var marosimYanaTugma = document.getElementById('marosim-yana-tugma');
     var marosimQatori = document.getElementById('marosim-qatori');
-    var marosimYanaQatori = document.getElementById('marosim-yana-qatori');
     var marosimBoshlangich = document.getElementById('marosim-boshlangich');
     var natijalarBlok = document.getElementById('natijalar-blok');
     var turkumQatori = document.getElementById('turkum-qatori');
@@ -242,33 +237,10 @@
         });
     }
 
-    // Marosim turi ikki qatorga bo'lingan (asosiy + "Boshqa ▾" ochiladigan
-    // qo'shimcha qator) — "faol" holati IKKALASI bo'ylab yangilanadi, va
-    // tanlov qo'shimcha qatordan bo'lsa "Boshqa" tugmasi ham belgilanadi.
-    function marosimniYangila() {
-        [marosimQatori, marosimYanaQatori].forEach(function (qatori) {
-            if (!qatori) { return; }
-            qatori.querySelectorAll('.turkum-tugma[data-marosim]').forEach(function (b) {
-                b.classList.toggle('faol', b.dataset.marosim === tanlangan.marosim);
-            });
-        });
-        if (marosimYanaTugma) {
-            var qoshimchadanTanlandi = !!(marosimYanaQatori && marosimYanaQatori.querySelector('.turkum-tugma.faol'));
-            marosimYanaTugma.classList.toggle('yana-tanlandi', qoshimchadanTanlandi);
-        }
-    }
-
-    function yanaQatorniOchish(ochiqmi) {
-        if (!marosimYanaQatori || !marosimYanaTugma) { return; }
-        marosimYanaQatori.classList.toggle('yashirin', !ochiqmi);
-        marosimYanaTugma.classList.toggle('ochiq', ochiqmi);
-        marosimYanaTugma.setAttribute('aria-expanded', ochiqmi ? 'true' : 'false');
-    }
-
     function marosimTanla(kalit) {
         tanlangan.marosim = kalit;
-        marosimniYangila();
-        marosimAkk.qiymat(tugmaMatni(null, 'marosim', kalit));
+        tugmalarniYangila(marosimQatori, 'marosim', kalit);
+        marosimAkk.qiymat(tugmaMatni(marosimQatori, 'marosim', kalit));
         marosimAkk.ochish(false);
         if (natijalarBlok) { natijalarBlok.classList.remove('yashirin'); }
         if (marosimBoshlangich) { marosimBoshlangich.classList.add('yashirin'); }
@@ -305,24 +277,9 @@
 
     if (marosimQatori) {
         marosimQatori.addEventListener('click', function (e) {
-            if (e.target.closest('#marosim-yana-tugma')) {
-                yanaQatorniOchish(!(marosimYanaTugma && marosimYanaTugma.classList.contains('ochiq')));
-                return;
-            }
             var tugma = e.target.closest('.turkum-tugma[data-marosim]');
             if (!tugma) { return; }
             marosimTanla(tugma.dataset.marosim);
-            yanaQatorniOchish(false);
-        });
-    }
-
-    if (marosimYanaQatori) {
-        marosimYanaQatori.addEventListener('click', function (e) {
-            var tugma = e.target.closest('.turkum-tugma[data-marosim]');
-            if (!tugma) { return; }
-            marosimTanla(tugma.dataset.marosim);
-            // Qayta ochilganda mijoz o'z tanlovini shu yerdan ko'rsin.
-            yanaQatorniOchish(true);
         });
     }
 

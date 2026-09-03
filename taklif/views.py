@@ -25,7 +25,6 @@ from .forms import (
 from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
     IKKI_ISMLI_MAROSIM_TURLARI,
-    MAROSIM_ASOSIY_KALITLAR,
     MAROSIM_TURLARI,
     MILLATLAR,
     RASM_MAKS_HAJM_MB,
@@ -273,29 +272,28 @@ def bosh_sahifa(request):
 def shablon_tanlash(request):
     """Mijoz o'zi taklifnoma yaratishni shu yerdan — shablon tanlashdan boshlaydi.
 
-    Uch qatorli filtr: Marosim turi (asosiy) + Turkum (Zamonaviy/Milliy/
-    Islomiy) + Millat (faqat Milliy ichida, JS orqali ochiladi/yopiladi).
-    "Boshqa" marosim turi filtr sifatida ko'rsatilmaydi — dizayn
-    kategoriyasi sifatida ma'nosiz (Taklifnoma.marosim_turi'da esa qoladi).
+    Uch bosqichli filtr: Marosim turi (majburiy, birinchi qadam) + Turkum
+    (Zamonaviy/Milliy/Islomiy) + Millat (faqat Milliy ichida).
 
-    Marosim turi qatori vizual jihatdan tig'iz ko'rinmasligi uchun ikkiga
-    bo'linadi: asosiy (doim ko'rinadigan, MAROSIM_ASOSIY_KALITLAR bo'yicha)
-    va qo'shimcha ("Yana ▾" ochiladigan qatorida, shablon_tanlash.html'da).
+    Marosim turlari BUTUN ro'yxat bilan, yashirmasdan ko'rsatiladi —
+    "Boshqa" ham shular qatorida. "Boshqa" — mijoz tadbir nomini o'zi
+    yozadigan tur (masalan "11-sinf o'quvchilari"); u faqat shu yerdan
+    tanlanadi, chunki taklifnoma to'ldirish sahifasida marosim turi
+    endi qayta so'ralmaydi (yaratish() ga qarang). Shu sababli uni
+    ro'yxatdan chiqarib tashlab bo'lmaydi — aks holda mijoz o'z nomli
+    tadbiriga taklifnoma yasay olmay qolardi.
+
+    Tanlangan tur mijoz bosgan dizayn havolasiga ?marosim=<kalit> bo'lib
+    qo'shiladi (shablon_tanlash.html'dagi JS).
     """
     shablonlar = Shablon.objects.filter(ommaviy=True)
-    barcha_marosimlar = [(k, v) for k, v in MAROSIM_TURLARI if k != "boshqa"]
     return render(
         request,
         "taklif/shablon_tanlash.html",
         {
             "shablonlar": shablonlar,
             "sayt_musiqa": _sayt_musiqasi(),
-            "marosim_asosiy": [
-                (k, v) for k, v in barcha_marosimlar if k in MAROSIM_ASOSIY_KALITLAR
-            ],
-            "marosim_qoshimcha": [
-                (k, v) for k, v in barcha_marosimlar if k not in MAROSIM_ASOSIY_KALITLAR
-            ],
+            "marosim_turlari": list(MAROSIM_TURLARI),
             "millatlar": MILLATLAR,
         },
     )
@@ -312,12 +310,18 @@ def yaratish(request, shablon_kod):
     shablon = get_object_or_404(Shablon, kod=shablon_kod, ommaviy=True)
     eski_taklifnoma = None
 
-    # Mijoz shablon tanlash sahifasida allaqachon ma'lum bir marosim turini
-    # tanlagan bo'lsa (masalan "Fotiha to'yi" filtri bilan shu shablonni
-    # topgan bo'lsa), bu yerga ?marosim=<kalit> orqali uzatiladi
-    # (shablon_tanlash.html'dagi JS havolani shunday yasaydi) — shu bilan
-    # mijozdan xuddi shu savol yana so'ralmaydi, forma tayyor tanlangan
-    # holda ochiladi. Noma'lum/soxta qiymat sokin e'tiborsiz qoldiriladi.
+    # Mijoz shablon tanlash sahifasida marosim turini allaqachon tanlagan
+    # bo'ladi va u bu yerga ?marosim=<kalit> orqali keladi
+    # (shablon_tanlash.html'dagi JS havolani shunday yasaydi). Shu holda
+    # "Marosim turi" maydoni formada UMUMAN ko'rsatilmaydi — javob
+    # ma'lum, mijozdan ikkinchi marta so'rash faqat chalkashtiradi
+    # (maydonning o'zi DOM'da qoladi: sahifadagi JS uning qiymatiga
+    # qarab boshqa maydonlar yorlig'ini, musiqa va rasm namunalarini
+    # moslaydi).
+    #
+    # Agar qiymat kelmasa yoki noto'g'ri bo'lsa (mijoz to'g'ridan-to'g'ri
+    # havola bilan kirgan, xatcho'pdan ochgan va h.k.) — maydon odatdagidek
+    # ko'rinadi va so'raladi.
     marosim_kalitlari = {k for k, _ in MAROSIM_TURLARI}
     oldindan_marosim = request.GET.get("marosim") or ""
     if oldindan_marosim not in marosim_kalitlari:
@@ -415,6 +419,7 @@ def yaratish(request, shablon_kod):
             "uch_ismli_turlar": list(UCHINCHI_ISM_MAROSIM_TURLARI),
             "marosim_maydon_matnlari": marosim_maydon_matnlari_json,
             "standart_marosim_turi": STANDART_MAROSIM_TURI,
+            "marosim_oldindan": bool(oldindan_marosim),
             "oy_nomlari": [str(oy) for oy in OY_NOMLARI],
             "maksimal_rasmlar_soni": MAKSIMAL_RASMLAR_SONI,
             "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
