@@ -133,11 +133,13 @@
 .oq-yordam-chaqiruv p { margin: 0; color: var(--siyoh); line-height: 1.7; font-size: .95rem; max-width: 480px; }
 .oq-yordam-chaqiruv p strong { color: var(--tilla-toq); }
 .oq-yordam-tugma {
-    flex-shrink: 0; display: inline-block; padding: 12px 26px; border-radius: 2px;
+    flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 26px; border-radius: 2px;
     background: var(--tilla); color: #fff; text-decoration: none; font-size: .85rem;
     letter-spacing: .5px; transition: .2s;
 }
 .oq-yordam-tugma:hover { background: var(--tilla-toq); }
+.oq-yordam-tugma svg { width: 15px; height: 15px; flex-shrink: 0; }
 
 /* So'nggi taklifnomalar */
 .oq-royxat { list-style: none; padding: 0; margin: 0; }
@@ -284,7 +286,7 @@
             </p>
             <div class="oq-hero-tugmalar">
                 <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    {% include "taklif/_ikonalar/yarat.svg" %}
                     {% trans "Taklifnoma yaratish" %}
                 </a>
                 {% comment %}
@@ -292,7 +294,10 @@
                 ("#dizaynlar") olib borardi — mijoz esa to'liq katalogni
                 kutadi. Endi to'g'ridan-to'g'ri Dizaynlar sahifasiga.
                 {% endcomment %}
-                <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha dizaynlarni ko'rish" %}</a>
+                <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">
+                    {% include "taklif/_ikonalar/koz.svg" %}
+                    {% trans "Barcha dizaynlarni ko'rish" %}
+                </a>
             </div>
         </div>
     </div>
@@ -384,7 +389,10 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
         {% if admin_telegram %}
         <div class="oq-yordam-chaqiruv">
             <p>{% blocktrans %}Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
-            <a class="oq-yordam-tugma" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">{% trans "Telegram orqali yozish" %}</a>
+            <a class="oq-yordam-tugma" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">
+                {% include "taklif/_ikonalar/telegram.svg" %}
+                {% trans "Telegram orqali yozish" %}
+            </a>
         </div>
         {% endif %}
     </div>

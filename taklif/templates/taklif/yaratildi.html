@@ -19,11 +19,13 @@
     font-family: monospace; font-size: .95rem; color: var(--tilla-toq);
 }
 .link-nusxa-tugma {
-    flex-shrink: 0; background: var(--tilla); color: #fff; border: none; border-radius: 2px;
+    flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
+    background: var(--tilla); color: #fff; border: none; border-radius: 2px;
     padding: 9px 14px; font-family: inherit; font-size: .78rem; letter-spacing: .5px;
     text-transform: uppercase; cursor: pointer; white-space: nowrap;
 }
 .link-nusxa-tugma:hover { background: var(--tilla-toq); }
+.link-nusxa-tugma svg { width: 13px; height: 13px; flex-shrink: 0; }
 .qadamlar { text-align: left; max-width: 480px; margin: 30px auto; padding-left: 20px; }
 .qadamlar li { margin-bottom: 12px; color: var(--kul); line-height: 1.7; }
 .qadamlar li::marker { color: var(--tilla); font-family: var(--serif); }
@@ -48,7 +50,15 @@
         <p class="link-izoh">{% trans "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:" %}</p>
         <div class="link-blok">
             <span class="link-matni" id="shaxsiy-havola">{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}</span>
-            <button type="button" class="link-nusxa-tugma" data-nusxalash="{% trans "Nusxalash" %}" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(document.getElementById('shaxsiy-havola').textContent); this.textContent=this.dataset.nusxalandi; var t=this; setTimeout(function(){ t.textContent=t.dataset.nusxalash; }, 2000);">{% trans "Nusxalash" %}</button>
+            {% comment %}
+            Matn ATAYLAB alohida <span class="matni"> ichida: onclick "nusxalandi!"
+            deb almashtiradigan qism faqat shu span, butun tugma emas — aks holda
+            yuqoridagi ikonka ham matn bilan birga o'chib qolardi.
+            {% endcomment %}
+            <button type="button" class="link-nusxa-tugma" data-nusxalash="{% trans "Nusxalash" %}" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(document.getElementById('shaxsiy-havola').textContent); var m=this.querySelector('.matni'); m.textContent=this.dataset.nusxalandi; var t=this; setTimeout(function(){ m.textContent=t.dataset.nusxalash; }, 2000);">
+                {% include "taklif/_ikonalar/havola-nusxa.svg" %}
+                <span class="matni">{% trans "Nusxalash" %}</span>
+            </button>
         </div>
 
         <a class="oq-cta toliq" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>

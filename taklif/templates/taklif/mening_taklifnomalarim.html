@@ -49,12 +49,12 @@ kuchliroq bo'lgani uchun _sayt_uslubi.html'dagi markazlashtirilgan
     <div class="yaratish-katta">
         {% if taklifnomalar %}
         <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            {% include "taklif/_ikonalar/yarat.svg" %}
             {% trans "Yana bitta yaratish" %}
         </a>
         {% else %}
         <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            {% include "taklif/_ikonalar/yarat.svg" %}
             {% trans "Birinchi taklifnomangizni yarating" %}
         </a>
         {% endif %}
