@@ -50,15 +50,20 @@ body {
     display: flex; flex-direction: column;
 }
 .wrapper {
-    max-width: none; padding: 0;
+    max-width: none; padding: 0; width: 100%;
     flex: 1 0 auto; display: flex; flex-direction: column;
     min-width: 0;
 }
-/* MUHIM: flex elementining standart "min-width: auto" qiymati uni
-   ichidagi eng keng narsadan (masalan 700px lik hero surati) torroq
-   bo'lishga qo'ymaydi. Natijada telefon ekranida butun sahifa ~730px
-   kenglikda chizilib, o'ngga chiqib ketardi. min-width: 0 bu cheklovni
-   olib tashlaydi va bloklar ekran kengligiga to'g'ri siqiladi. */
+/* MUHIM (ikkita alohida muammo, ikkalasi ham "700px lik hero surati
+   ekrandan chiqib ketishi"ga olib kelgan):
+   1) flex elementining standart "min-width: auto" qiymati uni ichidagi
+      eng keng narsadan torroq bo'lishga qo'ymaydi — min-width: 0 buni
+      tuzatadi (pastda, .wrapper'ning ichki bo'limlariga).
+   2) .wrapper'ning O'ZI ham body'ning flex elementi, lekin brauzer uni
+      har doim ham avtomatik "stretch" qilib, ekran kengligiga cho'zib
+      bermaydi — ba'zan mazmuni bo'yicha (masalan 1180px) kengayib
+      ketadi. Shuning uchun .wrapper'ga ham aniq "width: 100%" kerak
+      (yuqorida) — xuddi .oq-ichki'ga qo'shilgani kabi. */
 .wrapper > * { min-width: 0; }
 /* width: 100% ATAYLAB: .wrapper endi ustunli flex (yopishqoq footer
    uchun), flex elementida esa "margin: 0 auto" bo'lsa avtomatik
