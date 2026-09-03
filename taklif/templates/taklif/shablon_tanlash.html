@@ -69,6 +69,26 @@
     .turkum-qatori .turkum-tugma:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 
+@media (max-width: 600px) {
+    /* Dizaynlar mobilda bitta ustunda, butun ekran kengligida edi —
+       13 ta karta ~4300px joy egallardi va mijoz ikkita dizaynni
+       yonma-yon TAQQOSLAY olmasdi (bu sahifaning butun vazifasi esa
+       aynan tanlash). Ikki ustun balandlikni ikki barobar qisqartiradi;
+       kartaning ichidagi matnlar shunga yarasha kichiklashtiriladi,
+       aks holda tor katakda siqilib qolardi. */
+    .dizayn-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dizayn-grid .shablon-mini { padding: 12px; gap: 5px; }
+    .dizayn-grid .shablon-mini .m-ramka { inset: 7px; }
+    .dizayn-grid .shablon-mini .m-bezak { font-size: .55rem; letter-spacing: 3px; }
+    .dizayn-grid .shablon-mini .m-ism { font-size: .95rem; line-height: 1.2; }
+    .dizayn-grid .shablon-mini .m-ism em { font-size: .75rem; }
+    .dizayn-grid .shablon-mini .m-chiziq { width: 28px; }
+    .dizayn-grid .shablon-mini .m-sana { font-size: .5rem; letter-spacing: 1.5px; }
+    .dizayn-grid .shablon-karta .matn { padding: 10px 12px 14px; flex-direction: column; align-items: flex-start; gap: 2px; }
+    .dizayn-grid .shablon-karta .nomi { font-size: 1rem; }
+    .dizayn-grid .shablon-karta .narx { font-size: .75rem; }
+}
+
 {% endblock %}
 
 {% block content %}

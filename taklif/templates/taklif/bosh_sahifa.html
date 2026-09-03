@@ -166,6 +166,43 @@
 .oq-savol[open] summary::after { transform: rotate(45deg); }
 .oq-savol summary:hover { color: var(--tilla-toq); }
 .oq-savol .javob { margin: 0; padding: 0 30px 24px 4px; color: var(--kul); line-height: 1.8; font-size: .96rem; }
+
+/* Dizaynlar bo'limi — mobilda o'ngga-chapga suriladigan lenta.
+   Sababi o'lchov bilan aniqlandi: 13 ta karta ustma-ust ~4300px joy
+   egallardi, ya'ni tashrifchi pastdagi bo'limlarga yetib borish uchun
+   o'nlab ekran aylantirishi kerak edi. Bosh sahifaning vazifasi —
+   hammasini tanlatish emas, ta'm berish; to'liq katalog "Barcha
+   dizaynlar" havolasi orqali ochiladi.
+
+   Karta kengligi 82% — keyingi kartaning bir qismi ataylab "mo'ralab"
+   turadi: bu foydalanuvchiga yon tomonda davomi borligini aytadi
+   (aks holda lenta oddiy rasm bo'lib ko'rinadi va hech kim surmaydi).
+   Pastidagi nuqtalar nechta dizayn borligini va qayerdaligini
+   ko'rsatadi. */
+.lenta-nuqtalar { display: none; justify-content: center; gap: 7px; margin-top: 18px; }
+.lenta-nuqta {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--chiziq);
+    cursor: pointer; transition: background .2s ease, transform .2s ease;
+}
+.lenta-nuqta.faol { background: var(--tilla); transform: scale(1.4); }
+.lenta-havola {
+    display: inline-block; margin-top: 20px; color: var(--tilla-toq);
+    text-decoration: none; font-size: .78rem; letter-spacing: 2px; text-transform: uppercase;
+}
+.lenta-havola:hover { color: var(--tilla); }
+
+@media (max-width: 700px) {
+    .dizayn-lenta {
+        display: flex; gap: 14px; overflow-x: auto;
+        scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Chetdagi paddingdan chiqib, lenta ekran chetigacha surilsin */
+        margin: 0 -18px; padding: 0 18px 4px;
+    }
+    .dizayn-lenta::-webkit-scrollbar { display: none; }
+    .dizayn-lenta > .shablon-karta { flex: 0 0 82%; scroll-snap-align: center; }
+    .lenta-nuqtalar { display: flex; }
+}
 {% endblock %}
 
 {% block content %}
@@ -361,7 +398,7 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
             <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
             <button type="button" class="turkum-tugma" data-turkum="islomiy">{% trans "Islomiy" %}</button>
         </div>
-        <div class="dizayn-grid" id="shablonlar-grid">
+        <div class="dizayn-grid dizayn-lenta" id="shablonlar-grid">
             {% for s in shablonlar %}
             <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
                 <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
@@ -379,6 +416,8 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
             </a>
             {% endfor %}
         </div>
+        <div class="lenta-nuqtalar" id="lenta-nuqtalar" aria-hidden="true"></div>
+        <a class="lenta-havola" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha dizaynlar" %} →</a>
     </div>
 </section>
 {% endif %}
@@ -437,11 +476,66 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
 
 <script>
 (function () {
-    // Turkum bo'yicha filtr (Zamonaviy/Milliy/Islomiy)
+    // Turkum bo'yicha filtr (Zamonaviy/Milliy/Islomiy) + mobil lenta
+    // nuqtalari. Nuqtalar soni ko'rinayotgan kartalarga bog'liq, shuning
+    // uchun har filtrdan keyin qaytadan yasaladi. Desktopda lenta emas,
+    // oddiy to'r bo'lgani uchun nuqtalar CSS orqali yashirin turadi.
     var turkumQatori = document.getElementById('turkum-qatori');
     var grid = document.getElementById('shablonlar-grid');
     if (!turkumQatori || !grid) { return; }
     var kartalar = grid.querySelectorAll('.shablon-karta');
+    var nuqtalarBlok = document.getElementById('lenta-nuqtalar');
+
+    function korinuvchilar() {
+        return Array.prototype.filter.call(kartalar, function (k) {
+            return !k.classList.contains('yashirin');
+        });
+    }
+
+    function nuqtalarniYasa() {
+        if (!nuqtalarBlok) { return; }
+        nuqtalarBlok.innerHTML = '';
+        var ro = korinuvchilar();
+        if (ro.length < 2) { return; }
+        ro.forEach(function (karta, i) {
+            var nuqta = document.createElement('span');
+            nuqta.className = 'lenta-nuqta' + (i === 0 ? ' faol' : '');
+            nuqta.addEventListener('click', function () {
+                karta.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            });
+            nuqtalarBlok.appendChild(nuqta);
+        });
+    }
+
+    // Qaysi karta ekran markaziga eng yaqin bo'lsa — o'sha nuqta yonadi.
+    function faolNuqtaniBelgila() {
+        if (!nuqtalarBlok || !nuqtalarBlok.children.length) { return; }
+        var ro = korinuvchilar();
+        var lentaR = grid.getBoundingClientRect();
+        var markaz = lentaR.left + lentaR.width / 2;
+        var eng = 0;
+        var engMasofa = Infinity;
+        ro.forEach(function (karta, i) {
+            var r = karta.getBoundingClientRect();
+            var masofa = Math.abs((r.left + r.width / 2) - markaz);
+            if (masofa < engMasofa) { engMasofa = masofa; eng = i; }
+        });
+        Array.prototype.forEach.call(nuqtalarBlok.children, function (n, i) {
+            n.classList.toggle('faol', i === eng);
+        });
+    }
+
+    var kutmoqda = false;
+    grid.addEventListener('scroll', function () {
+        // scroll hodisasi juda tez-tez keladi — kadrga bir marta hisoblaymiz.
+        if (kutmoqda) { return; }
+        kutmoqda = true;
+        requestAnimationFrame(function () {
+            kutmoqda = false;
+            faolNuqtaniBelgila();
+        });
+    });
+
     turkumQatori.addEventListener('click', function (e) {
         var tugma = e.target.closest('.turkum-tugma');
         if (!tugma) { return; }
@@ -454,7 +548,11 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
             var mos = tanlangan === 'barchasi' || k.dataset.turkum === tanlangan;
             k.classList.toggle('yashirin', !mos);
         });
+        grid.scrollLeft = 0;
+        nuqtalarniYasa();
     });
+
+    nuqtalarniYasa();
 })();
 </script>
 {% endblock %}
