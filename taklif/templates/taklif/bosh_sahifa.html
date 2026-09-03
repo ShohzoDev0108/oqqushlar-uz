@@ -392,12 +392,11 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
             <span class="oq-yorliq">{% trans "Dizayn shablonlari" %}</span>
             <h2 class="oq-h2">{% trans "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring" %}</h2>
         </div>
-        <div class="turkum-qatori" id="turkum-qatori">
-            <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
-            <button type="button" class="turkum-tugma" data-turkum="zamonaviy">{% trans "Zamonaviy" %}</button>
-            <button type="button" class="turkum-tugma" data-turkum="milliy">{% trans "Milliy" %}</button>
-            <button type="button" class="turkum-tugma" data-turkum="islomiy">{% trans "Islomiy" %}</button>
-        </div>
+        {# Turkum filtri bu yerdan ataylab olib tashlandi: bosh sahifaning
+           vazifasi tanlatish emas, ta'm berish va harakatga undash. Xuddi
+           shu filtr (ustiga marosim turi bilan birga) bir qadam narida —
+           "Barcha dizaynlar" sahifasida bor, ikki joyda takrorlanishi esa
+           mijozni "qayerda tanlayman?" degan savolga qo'yardi. #}
         <div class="dizayn-grid dizayn-lenta" id="shablonlar-grid">
             {% for s in shablonlar %}
             <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
@@ -476,26 +475,17 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
 
 <script>
 (function () {
-    // Turkum bo'yicha filtr (Zamonaviy/Milliy/Islomiy) + mobil lenta
-    // nuqtalari. Nuqtalar soni ko'rinayotgan kartalarga bog'liq, shuning
-    // uchun har filtrdan keyin qaytadan yasaladi. Desktopda lenta emas,
-    // oddiy to'r bo'lgani uchun nuqtalar CSS orqali yashirin turadi.
-    var turkumQatori = document.getElementById('turkum-qatori');
+    // Mobil dizayn lentasining nuqtalari (desktopda lenta emas, oddiy
+    // to'r bo'lgani uchun nuqtalar CSS orqali yashirin turadi).
     var grid = document.getElementById('shablonlar-grid');
-    if (!turkumQatori || !grid) { return; }
+    if (!grid) { return; }
     var kartalar = grid.querySelectorAll('.shablon-karta');
     var nuqtalarBlok = document.getElementById('lenta-nuqtalar');
-
-    function korinuvchilar() {
-        return Array.prototype.filter.call(kartalar, function (k) {
-            return !k.classList.contains('yashirin');
-        });
-    }
 
     function nuqtalarniYasa() {
         if (!nuqtalarBlok) { return; }
         nuqtalarBlok.innerHTML = '';
-        var ro = korinuvchilar();
+        var ro = Array.prototype.slice.call(kartalar);
         if (ro.length < 2) { return; }
         ro.forEach(function (karta, i) {
             var nuqta = document.createElement('span');
@@ -510,7 +500,7 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
     // Qaysi karta ekran markaziga eng yaqin bo'lsa — o'sha nuqta yonadi.
     function faolNuqtaniBelgila() {
         if (!nuqtalarBlok || !nuqtalarBlok.children.length) { return; }
-        var ro = korinuvchilar();
+        var ro = Array.prototype.slice.call(kartalar);
         var lentaR = grid.getBoundingClientRect();
         var markaz = lentaR.left + lentaR.width / 2;
         var eng = 0;
@@ -534,22 +524,6 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
             kutmoqda = false;
             faolNuqtaniBelgila();
         });
-    });
-
-    turkumQatori.addEventListener('click', function (e) {
-        var tugma = e.target.closest('.turkum-tugma');
-        if (!tugma) { return; }
-        turkumQatori.querySelectorAll('.turkum-tugma').forEach(function (b) {
-            b.classList.remove('faol');
-        });
-        tugma.classList.add('faol');
-        var tanlangan = tugma.dataset.turkum;
-        kartalar.forEach(function (k) {
-            var mos = tanlangan === 'barchasi' || k.dataset.turkum === tanlangan;
-            k.classList.toggle('yashirin', !mos);
-        });
-        grid.scrollLeft = 0;
-        nuqtalarniYasa();
     });
 
     nuqtalarniYasa();
