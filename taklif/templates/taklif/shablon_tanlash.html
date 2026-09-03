@@ -42,6 +42,22 @@
 .marosim-yana-tugma.yana-tanlandi { border-color: var(--asos); color: var(--asos); }
 .marosim-yana-qatori { margin-top: -10px; margin-bottom: 22px; }
 
+/* Uslub/Millat — mobilda joy tejash uchun akkordeon: standart holatda
+   yopiq, sarlavhaga bosilganda ochiladi, tanlov qilingach avtomatik
+   yopiladi (Milliy tanlanganda Millat tanlanguncha ochiq qoladi). */
+.oq-filtr-akkordeon {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    background: none; border: none; padding: 0; margin: 0 0 10px;
+    cursor: pointer; text-align: left; font: inherit;
+}
+.oq-filtr-akkordeon .oq-filtr-nomi {
+    color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+}
+.oq-filtr-akkordeon .akkordeon-qiymat { color: var(--asos); font-size: .85rem; }
+.oq-filtr-akkordeon .yana-strelka { color: var(--kul); }
+.oq-filtr-akkordeon.ochiq .yana-strelka { transform: rotate(180deg); }
+.uslub-akkordeon-panel { margin-bottom: 20px; }
+
 {% endblock %}
 
 {% block content %}
@@ -78,7 +94,12 @@
 <p class="marosim-boshlangich" id="marosim-boshlangich">{% trans "Davom etish uchun marosim turini tanlang." %}</p>
 
 <div class="yashirin" id="natijalar-blok">
-<span class="oq-filtr-yorliq">{% trans "Uslub" %}</span>
+<button type="button" class="oq-filtr-akkordeon" id="uslub-akkordeon-tugma" aria-expanded="false">
+    <span class="oq-filtr-nomi">{% trans "Uslub" %}</span>
+    <span class="akkordeon-qiymat" id="uslub-joriy-qiymat">{% trans "Barchasi" %}</span>
+    <span class="yana-strelka" aria-hidden="true">▾</span>
+</button>
+<div class="uslub-akkordeon-panel yashirin" id="uslub-akkordeon-panel">
 <div class="turkum-qatori" id="turkum-qatori">
     <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
     <button type="button" class="turkum-tugma" data-turkum="zamonaviy">{% trans "Zamonaviy" %}</button>
@@ -90,6 +111,7 @@
     {% for kalit, nomi in millatlar %}
     <button type="button" class="turkum-tugma" data-millat="{{ kalit }}">{{ nomi }}</button>
     {% endfor %}
+</div>
 </div>
 <p class="marosim-eslatma yashirin" id="marosim-eslatma">{% trans "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi." %}</p>
 <div class="dizayn-grid" id="shablonlar-grid">
@@ -137,6 +159,9 @@
     var marosimYanaQatori = document.getElementById('marosim-yana-qatori');
     var marosimBoshlangich = document.getElementById('marosim-boshlangich');
     var natijalarBlok = document.getElementById('natijalar-blok');
+    var uslubAkkordeonTugma = document.getElementById('uslub-akkordeon-tugma');
+    var uslubAkkordeonPanel = document.getElementById('uslub-akkordeon-panel');
+    var uslubJoriyQiymat = document.getElementById('uslub-joriy-qiymat');
     var turkumQatori = document.getElementById('turkum-qatori');
     var millatQatori = document.getElementById('millat-qatori');
     var eslatma = document.getElementById('marosim-eslatma');
@@ -180,6 +205,33 @@
         marosimYanaQatori.classList.toggle('yashirin', !ochiqmi);
         marosimYanaTugma.classList.toggle('ochiq', ochiqmi);
         marosimYanaTugma.setAttribute('aria-expanded', ochiqmi ? 'true' : 'false');
+    }
+
+    // Uslub/Millat akkordeoni: yopiq holatda sarlavha yonida joriy
+    // tanlov (masalan "Milliy · Qozoq") ko'rsatiladi, tugmaga bosilsa
+    // ochiladi/yopiladi; biror qiymat tanlanganda esa (Milliy tanlab,
+    // Millatni ham tanlab bo'lgach) avtomatik yopiladi — shu bilan
+    // foydalanuvchi tezroq dizaynlar to'riga qaytadi.
+    function tugmaMatni(qatori, kalitAttr, qiymat) {
+        if (!qatori) { return qiymat; }
+        var b = qatori.querySelector('.turkum-tugma[data-' + kalitAttr + '="' + qiymat + '"]');
+        return b ? b.textContent.trim() : qiymat;
+    }
+
+    function uslubQiymatiniYangila() {
+        if (!uslubJoriyQiymat) { return; }
+        var matn = tugmaMatni(turkumQatori, 'turkum', tanlangan.turkum);
+        if (tanlangan.turkum === 'milliy' && tanlangan.millat !== 'barchasi') {
+            matn += ' · ' + tugmaMatni(millatQatori, 'millat', tanlangan.millat);
+        }
+        uslubJoriyQiymat.textContent = matn;
+    }
+
+    function uslubniOchish(ochiqmi) {
+        if (!uslubAkkordeonPanel || !uslubAkkordeonTugma) { return; }
+        uslubAkkordeonPanel.classList.toggle('yashirin', !ochiqmi);
+        uslubAkkordeonTugma.classList.toggle('ochiq', ochiqmi);
+        uslubAkkordeonTugma.setAttribute('aria-expanded', ochiqmi ? 'true' : 'false');
     }
 
     function marosimTanla(kalit) {
@@ -240,7 +292,14 @@
                     tugmalarniYangila(millatQatori, 'millat', 'barchasi');
                 }
             }
+            uslubQiymatiniYangila();
             qollash();
+            // "Milliy" tanlansa, Millat tanlanguncha akkordeon ochiq
+            // qoladi — boshqa uslub tanlansa, tanlov yakunlangan
+            // hisoblanadi va akkordeon avtomatik yopiladi.
+            if (tanlangan.turkum !== 'milliy') {
+                uslubniOchish(false);
+            }
         });
     }
 
@@ -250,7 +309,15 @@
             if (!tugma) { return; }
             tanlangan.millat = tugma.dataset.millat;
             tugmalarniYangila(millatQatori, 'millat', tanlangan.millat);
+            uslubQiymatiniYangila();
             qollash();
+            uslubniOchish(false);
+        });
+    }
+
+    if (uslubAkkordeonTugma) {
+        uslubAkkordeonTugma.addEventListener('click', function () {
+            uslubniOchish(!uslubAkkordeonTugma.classList.contains('ochiq'));
         });
     }
 
