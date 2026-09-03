@@ -28,7 +28,17 @@ class UmumiySahifalarTest(TestCase):
         self.assertContains(r, '<html lang="uz"')
 
     def test_shablon_tanlash_ochiladi(self):
-        self.assertEqual(self.client.get("/yaratish/").status_code, 200)
+        self.assertEqual(self.client.get("/dizaynlar/").status_code, 200)
+
+    def test_eski_yaratish_manzili_dizaynlarga_yonaltiradi(self):
+        # Mijozlarda saqlanib qolgan eski havolalar (QR kod, Telegramdagi
+        # xabar va h.k.) ishlashda davom etishi shart.
+        r = self.client.get("/yaratish/")
+        self.assertEqual(r.status_code, 301)
+        self.assertEqual(r["Location"], "/dizaynlar/")
+
+    def test_biz_haqimizda_ochiladi(self):
+        self.assertEqual(self.client.get("/biz-haqimizda/").status_code, 200)
 
     def test_taklifnoma_korish_ochiladi(self):
         self.assertEqual(self.client.get(f"/{self.taklifnoma.slug}/").status_code, 200)

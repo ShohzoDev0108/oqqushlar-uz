@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import RedirectView
 
 from . import views
 
@@ -6,7 +7,18 @@ app_name = "taklif"
 
 urlpatterns = [
     path("", views.bosh_sahifa, name="bosh_sahifa"),
-    path("yaratish/", views.shablon_tanlash, name="shablon_tanlash"),
+    # Dizaynlar katalogi. Manzil ataylab "/dizaynlar/" — sahifaning
+    # o'zi ham, menyudagi havola ham "Dizaynlar" deb ataladi, oldingi
+    # "/yaratish/" esa nomi bilan mazmuni bir-biriga mos kelmasdi.
+    # Eski manzil ishlashda davom etadi (mijozlarda saqlangan havolalar,
+    # QR kodlar, qidiruv natijalari uchun) — u shu yerga yo'naltiriladi.
+    path("dizaynlar/", views.shablon_tanlash, name="shablon_tanlash"),
+    path(
+        "yaratish/",
+        RedirectView.as_view(pattern_name="taklif:shablon_tanlash", permanent=True),
+        name="shablon_tanlash_eski",
+    ),
+    path("biz-haqimizda/", views.biz_haqimizda, name="biz_haqimizda"),
     path("yaratish/<slug:shablon_kod>/", views.yaratish, name="yaratish"),
     path("tayyor/<slug:slug>/", views.yaratildi, name="yaratildi"),
     path("statistika/<str:token>/", views.statistika, name="statistika"),

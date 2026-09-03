@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Biz haqimizda" %} — Oqqushlar{% endblock %}
+
+{% block extra_style %}
+{% include "taklif/_sayt_uslubi.html" %}
+
+.oq-sahifa-bosh { padding-bottom: 10px; }
+.oq-bolim-bosh { max-width: 620px; margin-bottom: 34px; }
+.bh-matn { max-width: 62ch; }
+.bh-matn p { color: var(--kul); line-height: 1.85; margin: 0 0 18px; }
+.bh-matn p strong { color: var(--siyoh); font-weight: 600; }
+
+.bh-royxat { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 20px; }
+@media (min-width: 760px) { .bh-royxat { grid-template-columns: 1fr 1fr; gap: 24px 34px; } }
+.bh-royxat li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
+.bh-royxat li::before {
+    content: "❦"; color: var(--tilla); font-size: .9rem; line-height: 1.7;
+}
+.bh-royxat b { display: block; font-family: var(--serif); font-size: 1.08rem; font-weight: 500; margin-bottom: 4px; }
+.bh-royxat span { color: var(--kul); font-size: .93rem; line-height: 1.75; }
+
+.bh-boglanish {
+    margin-top: 20px; padding: 30px; border: 1px solid var(--chiziq); border-radius: 4px;
+    background: rgba(255,255,255,.4);
+}
+.bh-boglanish p { max-width: 54ch; }
+.bh-aloqa { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+{% endblock %}
+
+{% block content %}
+{% include "taklif/_sayt_nav.html" %}
+{% include "taklif/_sayt_musiqa.html" %}
+
+<div class="oq-ichki oq-sahifa-bosh">
+    <div class="oq-izlar">
+        <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
+        <span>›</span>
+        <span class="joriy">{% trans "Biz haqimizda" %}</span>
+    </div>
+    <h1 class="oq-h1">{% trans "Biz haqimizda" %}</h1>
+</div>
+
+<section class="oq-bolim">
+    <div class="oq-ichki bh-matn">
+        <p>{% blocktrans %}<strong>Oqqushlar</strong> — to'y, fotiha, beshik to'yi va boshqa oilaviy marosimlar uchun raqamli taklifnomalar tayyorlaydigan xizmat. Bosma taklifnomadan farqli o'laroq, sizning taklifnomangiz oddiy havola bo'lib, uni Telegram yoki boshqa istalgan joyda ulashasiz — mehmon uni telefonida ochadi, manzilni xaritada ko'radi va "kelaman" deb javob beradi.{% endblocktrans %}</p>
+        <p>{% blocktrans %}Xizmatni o'zingiz boshqarasiz: dizaynni tanlaysiz, ma'lumotlarni to'ldirasiz va taklifnoma shu zahoti tayyor bo'ladi. Bizga yozib o'tirish, kutish yoki kelishuv shart emas — hammasi telefoningizda, bir necha daqiqada.{% endblocktrans %}</p>
+
+        <ul class="bh-royxat">
+            <li>
+                <div>
+                    <b>{% trans "Sakkiz tilda" %}</b>
+                    <span>{% blocktrans %}O'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman va qoraqalpoq tillarida — mehmonlaringiz taklifnomani o'z tilida o'qiydi.{% endblocktrans %}</span>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <b>{% trans "Ro'yxatdan o'tish shart emas" %}</b>
+                    <span>{% blocktrans %}Email ham, parol ham so'ralmaydi. Yaratgan taklifnomalaringizni "Mening taklifnomalarim" bo'limidan istalgan vaqt topasiz.{% endblocktrans %}</span>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <b>{% trans "Har bir mehmonga shaxsiy havola" %}</b>
+                    <span>{% blocktrans %}Taklifnoma mehmonni ismi bilan kutib oladi, siz esa kim ko'rgani va kim javob berganini kuzatib borasiz.{% endblocktrans %}</span>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <b>{% trans "Avval ko'rasiz, keyin to'laysiz" %}</b>
+                    <span>{% blocktrans %}Taklifnomangizni bepul yaratib, to'liq ko'rib chiqasiz. To'lov — faqat yoqqanidan keyin.{% endblocktrans %}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="oq-bolim" id="boglanish">
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Bog'lanish" %}</span>
+            <h2 class="oq-h2">{% trans "Savolingiz bormi? Yozing" %}</h2>
+        </div>
+        <div class="bh-boglanish">
+            <p class="oq-matn" style="margin-top:0;">{% blocktrans %}Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
+            <div class="bh-aloqa">
+                {% if admin_telegram %}
+                <a class="oq-cta toliq" href="https://t.me/{{ admin_telegram }}" target="_blank" rel="noopener">{% trans "Telegram orqali yozish" %}</a>
+                {% endif %}
+                <a class="oq-cta" href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Ko'p so'raladigan savollar" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "taklif/_sayt_footer.html" %}
+{% endblock %}

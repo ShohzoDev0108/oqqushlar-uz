@@ -53,6 +53,8 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
     <a href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
     <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
+    <a href="{% url 'taklif:biz_haqimizda' %}">{% trans "Biz haqimizda" %}</a>
+    <a href="{% url 'taklif:biz_haqimizda' %}#boglanish">{% trans "Bog'lanish" %}</a>
     <a href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Savol-javob" %}</a>
     <a class="oq-menyu-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
 </nav>
@@ -98,6 +100,23 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
             holat(false);
             tugma.focus();
         }
+    });
+})();
+
+(function () {
+    // Boshqa sahifadan "#savol-javob" kabi langar bilan kelinganda:
+    // brauzer to'g'ri joyga siljiydi, lekin keyin suratlar yuklanib
+    // sahifa balandligini o'zgartiradi va mijoz butunlay boshqa joyda
+    // (ko'pincha eng tepada) qolib ketadi. Shuning uchun barcha
+    // suratlar yuklangach, kerakli bo'limga qayta siljiymiz.
+    if (!location.hash || location.hash.length < 2) { return; }
+    var nishon;
+    try { nishon = document.querySelector(location.hash); } catch (e) { return; }
+    if (!nishon) { return; }
+    window.addEventListener('load', function () {
+        setTimeout(function () {
+            nishon.scrollIntoView({ block: 'start' });
+        }, 60);
     });
 })();
 </script>

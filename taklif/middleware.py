@@ -9,7 +9,9 @@ from django.utils import translation
 # mehmonning o'z brauzer/qurilma tiliga avtomatik moslashadi (quyida
 # batafsil izohlangan).
 ASOSIY_SAHIFA_BOSHLARI = (
+    "/dizaynlar",
     "/yaratish",
+    "/biz-haqimizda",
     "/statistika/",
     "/mening-taklifnomalarim",
     "/tayyor/",

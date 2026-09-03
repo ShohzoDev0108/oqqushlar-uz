@@ -299,6 +299,25 @@ def shablon_tanlash(request):
     )
 
 
+def biz_haqimizda(request):
+    """"Biz haqimizda" + "Bog'lanish" — bitta sahifada.
+
+    Alohida "Bog'lanish" sahifasi yasalmadi: unda faqat bitta Telegram
+    havolasi bo'lardi, mijoz esa avval "bu kim?" degan savolga javob
+    izlaydi. Shuning uchun bog'lanish shu sahifaning oxirgi bo'limi
+    (#boglanish) — menyudagi "Bog'lanish" havolasi to'g'ridan-to'g'ri
+    o'sha yerga olib boradi.
+    """
+    return render(
+        request,
+        "taklif/biz_haqimizda.html",
+        {
+            "admin_telegram": _admin_telegram(),
+            "sayt_musiqa": _sayt_musiqasi(),
+        },
+    )
+
+
 def yaratish(request, shablon_kod):
     """Mijoz tanlagan shablon bo'yicha o'z taklifnomasini to'ldiradi (self-service).
 
