@@ -81,6 +81,23 @@
 }
 .oq-hero-rasm .rasm-osti .chiziqcha { flex: 1; height: 1px; background: var(--chiziq); }
 
+/* Kengroq ekranlarda rasm va matn YONMA-YON.
+   Ilgari ular ustma-ust turardi va hero 1168px balandlikda edi — ya'ni
+   noutbukda (900px) faqat surat ko'rinib, sarlavha ham, "Taklifnoma
+   yaratish" tugmasi ham ekrandan pastda qolib ketardi. Endi ikkalasi
+   ham birinchi ekranga sig'adi. */
+@media (min-width: 1000px) {
+    .oq-hero { padding: 40px 0 66px; }
+    .oq-hero-ich { flex-direction: row; align-items: center; gap: 54px; }
+    .oq-hero-matn {
+        order: 1; flex: 1 1 46%; text-align: left; align-items: flex-start;
+    }
+    .oq-hero-matn .oq-matn { margin-bottom: 30px; }
+    .oq-hero-tugmalar { justify-content: flex-start; }
+    .oq-hero .ajratish { margin-left: 0; margin-right: 0; }
+    .oq-hero-rasm { order: 2; flex: 1 1 54%; max-width: 600px; }
+}
+
 /* --- Bo'limlar --- */
 .oq-bolim { padding: 70px 0 10px; }
 .oq-bolim-bosh { max-width: 620px; margin-bottom: 46px; }

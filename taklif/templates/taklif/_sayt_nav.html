@@ -38,9 +38,13 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
         </div>
     </nav>
 </div>
-</div>
-
-<div class="oq-menyu-fon" id="oq-menyu-fon"></div>
+{% comment %}
+Menyu ATAYLAB yuqori panelning ICHIDA: shunda u "position: absolute"
+bilan aynan panel ostidan ochiladi va panel balandligi o'zgarsa
+(mobil/desktop) o'zi moslashadi — qat'iy piksel hisoblash kerak emas.
+Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
+"position: fixed" elementni o'ziga bog'lab qo'yardi.
+{% endcomment %}
 <nav class="oq-menyu" id="oq-menyu" aria-label="{% trans "Asosiy menyu" %}">
     <div class="oq-menyu-bosh">
         <span class="oq-menyu-nomi">{% trans "Menyu" %}</span>
@@ -52,6 +56,9 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
     <a href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Savol-javob" %}</a>
     <a class="oq-menyu-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
 </nav>
+</div>
+
+<div class="oq-menyu-fon" id="oq-menyu-fon"></div>
 {% if mobil_cta %}
 <a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">✨ {% trans "Taklifnoma yaratish" %}</a>
 {% endif %}

@@ -24,9 +24,22 @@ bu tizim ta'sir qilmaydi.
     --sans: 'Manrope', 'Segoe UI', sans-serif;
 }
 
+/* DIQQAT: "overflow-x: hidden" ATAYLAB body'da emas, html'da.
+   Body'da bo'lganda brauzer body'ni alohida skroll idishiga aylantiradi
+   va sahifa ichidagi langarlar (#savol-javob kabi) ishlamay qoladi —
+   manzil qatorida hash turadi, lekin sahifa joyidan qimirlamaydi.
+   scroll-padding-top — yopishqoq yuqori panel langar sarlavhasini
+   to'sib qo'ymasligi uchun. */
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
 body {
     background: var(--oq) url('{% static "taklif/naqshli-fon-xira.png" %}') 0 0 / 620px repeat;
-    color: var(--siyoh); font-family: var(--sans); overflow-x: hidden;
+    color: var(--siyoh); font-family: var(--sans);
 }
 .wrapper { max-width: none; padding: 0; }
 .oq-ichki { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
@@ -47,11 +60,11 @@ body {
     text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: .5px;
 }
 .oq-logo img { display: block; border-radius: 50%; }
-.oq-nav-linklar { display: flex; gap: 8px 26px; flex-wrap: wrap; }
+.oq-nav-linklar { display: flex; gap: 8px 12px; flex-wrap: wrap; }
 .oq-nav-linklar a {
     display: inline-flex; align-items: center; gap: 6px; color: var(--siyoh); text-decoration: none;
-    font-size: .76rem; letter-spacing: 2.2px; text-transform: uppercase;
-    padding: 7px 14px; border-radius: 20px; transition: background .2s, color .2s;
+    font-size: .76rem; letter-spacing: 1.8px; text-transform: uppercase; white-space: nowrap;
+    padding: 7px 10px; border-radius: 20px; transition: background .2s, color .2s;
 }
 .oq-nav-linklar a .oq-nav-tuk {
     width: 5px; height: 5px; border-radius: 50%; background: var(--tilla); opacity: 0; transition: opacity .2s;
@@ -232,21 +245,20 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 .turkum-tugma:hover { color: var(--tilla-toq); border-color: var(--tilla); }
 .turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
 
-/* --- Mobil (95% mijozlar telefonda) --- */
-@media (max-width: 700px) {
-    .oq-ichki { padding: 0 18px; }
-    /* Navigatsiya mobilda BITTA qatorga siqiladi: logotip chapda, til
-       belgisi va ☰ o'ngda. Havolalar ilgari ikkinchi qatorni to'liq
-       egallab, sahifa sarlavhasini pastga surib turardi — endi ular ☰
-       ochadigan panelda. Til tugmasidan esa faqat globus qoladi
-       (til nomlari uzun: "Qaraqalpaqsha" bir qatorga sig'masdi). */
-    .oq-nav { padding: 12px 0; gap: 10px; flex-wrap: nowrap; }
-    .oq-logo { font-size: 1.2rem; gap: 8px; }
-    .oq-logo img { width: 32px; height: 32px; }
+/* --- Navigatsiya: qachon ☰ ga o'tadi ---
+   1200px'gacha yuqori paneldagi "Taklifnoma yaratish" tugmasi olib
+   qo'yiladi (u hero'da, menyuda va mobil yopishqoq tugmada baribir bor),
+   1000px'gacha esa havolalarning o'zi ham ☰ menyusiga ko'chadi. Sabab
+   o'lchov bilan aniqlangan: 1180px kenglikdagi konteynerda logotip (171)
+   + havolalar (554) + o'ng qism (364) = 1137px, ya'ni panel sig'may
+   ikkinchi qatorga tushib ketardi. */
+@media (max-width: 1199px) {
+    .oq-nav-ong .oq-cta { display: none; }
+}
+
+@media (max-width: 999px) {
     .oq-nav-linklar { display: none; }
-    .oq-nav-ong { margin-left: auto; gap: 8px; flex-wrap: nowrap; }
-    .oq-nav-ong .oq-cta { display: none; } /* CTA — pastdagi yopishqoq tugmada va menyu ichida */
-    .til-joriy { display: none; }
+    .oq-nav-ong { margin-left: auto; }
 
     .oq-burger {
         display: grid; place-content: center; gap: 4px;
@@ -262,44 +274,53 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     .oq-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
     .oq-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
+    /* Menyu — ekranni to'liq egallaydigan panel EMAS, ☰ ostidan
+       ochiladigan, mazmuni qancha bo'lsa shuncha balandlikdagi ixcham
+       oyna. Panel butun bo'yiga cho'zilganda to'rtta havola tepada
+       qolib, ostida katta bo'sh joy hosil bo'lardi. */
     .oq-menyu-fon {
-        display: block; position: fixed; inset: 0; z-index: 80;
-        background: rgba(23,19,15,.42);
-        opacity: 0; pointer-events: none; transition: opacity .25s ease;
+        display: block; position: fixed; inset: 0; z-index: 60;
+        background: rgba(23,19,15,.22);
+        opacity: 0; pointer-events: none; transition: opacity .2s ease;
     }
     .oq-menyu-fon.ochiq { opacity: 1; pointer-events: auto; }
 
     .oq-menyu {
         display: flex; flex-direction: column;
-        position: fixed; top: 0; right: 0; bottom: 0; z-index: 90;
-        width: min(78vw, 300px); padding: 20px;
-        background: var(--oq); border-left: 1px solid var(--chiziq);
-        box-shadow: -16px 0 40px rgba(23,19,15,.14);
-        transform: translateX(100%); visibility: hidden;
-        transition: transform .25s ease, visibility .25s;
+        position: absolute; top: calc(100% + 8px); right: 18px; z-index: 95;
+        width: min(84vw, 268px); padding: 4px 6px 6px;
+        background: var(--oq); border: 1px solid var(--chiziq); border-radius: 4px;
+        box-shadow: 0 18px 44px rgba(23,19,15,.16);
+        opacity: 0; transform: translateY(-6px); visibility: hidden;
+        transition: opacity .18s ease, transform .18s ease, visibility .18s;
     }
-    .oq-menyu.ochiq { transform: translateX(0); visibility: visible; }
-    .oq-menyu-bosh {
-        display: flex; align-items: center; justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    .oq-menyu-nomi {
-        font-size: .68rem; letter-spacing: 2.2px; text-transform: uppercase; color: var(--kul);
-    }
-    .oq-menyu-yop {
-        background: none; border: 0; cursor: pointer; padding: 6px;
-        font-size: 1.1rem; line-height: 1; color: var(--kul);
-    }
+    .oq-menyu.ochiq { opacity: 1; transform: translateY(0); visibility: visible; }
+    .oq-menyu-bosh { display: none; } /* ixcham oynada sarlavha va ✕ ortiqcha */
     .oq-menyu a {
-        color: var(--siyoh); text-decoration: none; padding: 14px 0;
-        border-bottom: 1px solid var(--chiziq);
-        font-size: .74rem; letter-spacing: 2.2px; text-transform: uppercase;
+        color: var(--siyoh); text-decoration: none; padding: 13px 12px;
+        border-bottom: 1px solid var(--chiziq); border-radius: 2px;
+        font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+        transition: background .15s ease, color .15s ease;
     }
+    .oq-menyu a:hover { background: var(--tilla-yumshoq); color: var(--tilla-toq); }
     .oq-menyu a.oq-menyu-cta {
-        margin-top: auto; border: 0; text-align: center; border-radius: 3px;
-        background: var(--tilla); color: #fff; padding: 15px 10px;
+        margin-top: 8px; border: 0; text-align: center; border-radius: 3px;
+        background: var(--tilla); color: #fff; padding: 13px 10px; letter-spacing: 1.8px;
     }
-    body.menyu-ochiq { overflow: hidden; }
+    .oq-menyu a.oq-menyu-cta:hover { background: var(--tilla-toq); color: #fff; }
+}
+
+/* --- Mobil (95% mijozlar telefonda) --- */
+@media (max-width: 700px) {
+    .oq-ichki { padding: 0 18px; }
+    /* Navigatsiya mobilda BITTA qatorga siqiladi: logotip chapda, til
+       belgisi va ☰ o'ngda. Til tugmasidan faqat globus qoladi — til
+       nomlari uzun ("Qaraqalpaqsha") va bir qatorga sig'masdi. */
+    .oq-nav { padding: 12px 0; gap: 10px; flex-wrap: nowrap; }
+    .oq-logo { font-size: 1.2rem; gap: 8px; }
+    .oq-logo img { width: 32px; height: 32px; }
+    .oq-nav-ong { gap: 8px; flex-wrap: nowrap; }
+    .til-joriy { display: none; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
     .oq-footer { margin-top: 50px; }
