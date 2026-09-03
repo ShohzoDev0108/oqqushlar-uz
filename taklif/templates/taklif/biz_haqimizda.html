@@ -86,7 +86,9 @@
             <p class="oq-matn" style="margin-top:0;">{% blocktrans %}Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
             <div class="bh-aloqa">
                 {% if admin_telegram %}
-                <a class="oq-cta toliq" href="https://t.me/{{ admin_telegram }}" target="_blank" rel="noopener">{% trans "Telegram orqali yozish" %}</a>
+                {# Manzilda "@" bo'lmasligi kerak (t.me/@nom ishlamaydi) —
+                   saytning boshqa joylarida ham shu naqsh ishlatilgan. #}
+                <a class="oq-cta toliq" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">{% trans "Telegram orqali yozish" %}</a>
                 {% endif %}
                 <a class="oq-cta" href="{% url 'taklif:bosh_sahifa' %}#savol-javob">{% trans "Ko'p so'raladigan savollar" %}</a>
             </div>
