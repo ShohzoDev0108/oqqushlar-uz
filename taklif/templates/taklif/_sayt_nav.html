@@ -29,10 +29,59 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
                 {% trans "Taklifnoma yaratish" %}
             </a>
+            {# Faqat mobilda ko'rinadi (CSS: _sayt_uslubi.html) — desktopda
+               havolalar panelning o'zida ochiq turadi. #}
+            <button type="button" class="oq-burger" id="oq-burger" aria-expanded="false" aria-controls="oq-menyu" aria-label="{% trans "Menyu" %}">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 </div>
 </div>
+
+<div class="oq-menyu-fon" id="oq-menyu-fon"></div>
+<nav class="oq-menyu" id="oq-menyu" aria-label="{% trans "Asosiy menyu" %}">
+    <div class="oq-menyu-bosh">
+        <span class="oq-menyu-nomi">{% trans "Menyu" %}</span>
+        <button type="button" class="oq-menyu-yop" id="oq-menyu-yop" aria-label="{% trans "Yopish" %}">✕</button>
+    </div>
+    <a href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
+    <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Mening taklifnomalarim" %}</a>
+    <a class="oq-menyu-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
+</nav>
 {% if mobil_cta %}
 <a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">✨ {% trans "Taklifnoma yaratish" %}</a>
 {% endif %}
+
+<script>
+(function () {
+    // Mobil menyu: ☰ ochadi, ✕ / fon / Escape yopadi. Ochiq turganda
+    // sahifaning o'zi aylanmaydi (body.menyu-ochiq).
+    var tugma = document.getElementById('oq-burger');
+    var menyu = document.getElementById('oq-menyu');
+    var fon = document.getElementById('oq-menyu-fon');
+    var yop = document.getElementById('oq-menyu-yop');
+    if (!tugma || !menyu || !fon) { return; }
+
+    function holat(ochiqmi) {
+        menyu.classList.toggle('ochiq', ochiqmi);
+        fon.classList.toggle('ochiq', ochiqmi);
+        tugma.setAttribute('aria-expanded', ochiqmi ? 'true' : 'false');
+        document.body.classList.toggle('menyu-ochiq', ochiqmi);
+    }
+
+    tugma.addEventListener('click', function () {
+        holat(tugma.getAttribute('aria-expanded') !== 'true');
+    });
+    fon.addEventListener('click', function () { holat(false); });
+    if (yop) {
+        yop.addEventListener('click', function () { holat(false); tugma.focus(); });
+    }
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menyu.classList.contains('ochiq')) {
+            holat(false);
+            tugma.focus();
+        }
+    });
+})();
+</script>

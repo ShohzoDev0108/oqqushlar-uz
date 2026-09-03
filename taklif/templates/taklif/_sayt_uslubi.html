@@ -60,6 +60,11 @@ body {
 .oq-nav-linklar a:hover .oq-nav-tuk { opacity: 1; }
 .oq-nav-ong { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
+/* Mobil menyu — desktopda butunlay yo'q: u yerda havolalar panelning
+   o'zida, bitta qatorda ochiq turadi. */
+.oq-burger { display: none; }
+.oq-menyu, .oq-menyu-fon { display: none; }
+
 /* --- Tugmalar --- */
 .oq-cta {
     display: inline-flex; align-items: center; gap: 9px; padding: 14px 28px; border: 1.5px solid var(--tilla);
@@ -230,13 +235,71 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 /* --- Mobil (95% mijozlar telefonda) --- */
 @media (max-width: 700px) {
     .oq-ichki { padding: 0 18px; }
-    .oq-nav { padding: 12px 0; gap: 10px 14px; }
+    /* Navigatsiya mobilda BITTA qatorga siqiladi: logotip chapda, til
+       belgisi va ☰ o'ngda. Havolalar ilgari ikkinchi qatorni to'liq
+       egallab, sahifa sarlavhasini pastga surib turardi — endi ular ☰
+       ochadigan panelda. Til tugmasidan esa faqat globus qoladi
+       (til nomlari uzun: "Qaraqalpaqsha" bir qatorga sig'masdi). */
+    .oq-nav { padding: 12px 0; gap: 10px; flex-wrap: nowrap; }
     .oq-logo { font-size: 1.2rem; gap: 8px; }
     .oq-logo img { width: 32px; height: 32px; }
-    .oq-nav-linklar { order: 3; width: 100%; justify-content: center; gap: 8px 22px; }
-    .oq-nav-linklar a { font-size: .68rem; padding: 2px 0; }
-    .oq-nav-ong { margin-left: auto; }
-    .oq-nav-ong .oq-cta { display: none; } /* CTA — pastdagi yopishqoq tugmada */
+    .oq-nav-linklar { display: none; }
+    .oq-nav-ong { margin-left: auto; gap: 8px; flex-wrap: nowrap; }
+    .oq-nav-ong .oq-cta { display: none; } /* CTA — pastdagi yopishqoq tugmada va menyu ichida */
+    .til-joriy { display: none; }
+
+    .oq-burger {
+        display: grid; place-content: center; gap: 4px;
+        width: 38px; height: 34px; padding: 0; flex-shrink: 0;
+        border: 1px solid var(--chiziq); border-radius: 3px;
+        background: none; cursor: pointer;
+    }
+    .oq-burger span {
+        display: block; width: 17px; height: 1.5px; background: var(--siyoh);
+        transition: transform .2s ease, opacity .2s ease;
+    }
+    .oq-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+    .oq-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .oq-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+    .oq-menyu-fon {
+        display: block; position: fixed; inset: 0; z-index: 80;
+        background: rgba(23,19,15,.42);
+        opacity: 0; pointer-events: none; transition: opacity .25s ease;
+    }
+    .oq-menyu-fon.ochiq { opacity: 1; pointer-events: auto; }
+
+    .oq-menyu {
+        display: flex; flex-direction: column;
+        position: fixed; top: 0; right: 0; bottom: 0; z-index: 90;
+        width: min(78vw, 300px); padding: 20px;
+        background: var(--oq); border-left: 1px solid var(--chiziq);
+        box-shadow: -16px 0 40px rgba(23,19,15,.14);
+        transform: translateX(100%); visibility: hidden;
+        transition: transform .25s ease, visibility .25s;
+    }
+    .oq-menyu.ochiq { transform: translateX(0); visibility: visible; }
+    .oq-menyu-bosh {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .oq-menyu-nomi {
+        font-size: .68rem; letter-spacing: 2.2px; text-transform: uppercase; color: var(--kul);
+    }
+    .oq-menyu-yop {
+        background: none; border: 0; cursor: pointer; padding: 6px;
+        font-size: 1.1rem; line-height: 1; color: var(--kul);
+    }
+    .oq-menyu a {
+        color: var(--siyoh); text-decoration: none; padding: 14px 0;
+        border-bottom: 1px solid var(--chiziq);
+        font-size: .74rem; letter-spacing: 2.2px; text-transform: uppercase;
+    }
+    .oq-menyu a.oq-menyu-cta {
+        margin-top: auto; border: 0; text-align: center; border-radius: 3px;
+        background: var(--tilla); color: #fff; padding: 15px 10px;
+    }
+    body.menyu-ochiq { overflow: hidden; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
     .oq-footer { margin-top: 50px; }
