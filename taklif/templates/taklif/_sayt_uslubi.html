@@ -51,10 +51,15 @@ body {
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--chiziq);
 }
-/* Yuqori panel sahifa kontentidan KENGROQ: logotip chap chekkaga,
-   "Taklifnoma yaratish" o'ng chekkaga suriladi va o'rtada barcha bo'lim
-   havolalari bir qatorga sig'adi (kontent 1180px'da qolaveradi). */
-.oq-nav-tashqi .oq-ichki { max-width: 1560px; padding: 0 36px; }
+/* Yuqori panel va footer — sahifa kontentidan farqli o'laroq, ekranning
+   o'z chetlariga tayanadi: logotip chap chekkada, "Taklifnoma yaratish"
+   o'ng chekkada, o'rtada esa barcha bo'lim havolalari bir qatorda.
+   Kontentning o'zi (matn, kartalar) avvalgidek 1180px'da markazda
+   qoladi — o'qish qulayligi shuni talab qiladi. Chekka bo'shliq ekran
+   kengligiga qarab 20px'dan 64px'gacha o'sadi: kichik noutbukda joy
+   tejaydi, katta monitorda esa panel chetga yopishib qolmaydi. */
+.oq-nav-tashqi .oq-ichki,
+.oq-footer .oq-ichki { max-width: none; padding: 0 clamp(20px, 3.4vw, 64px); }
 .oq-nav {
     display: flex; align-items: center; justify-content: space-between; gap: 14px 20px;
     padding: 18px 0; flex-wrap: wrap;
@@ -64,8 +69,9 @@ body {
     text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: .5px;
 }
 .oq-logo img { display: block; border-radius: 50%; }
-.oq-nav-linklar { display: flex; gap: 6px 4px; flex-wrap: wrap; }
+.oq-nav-linklar { display: flex; gap: 6px 2px; flex-wrap: wrap; }
 .oq-nav-linklar a {
+    position: relative;
     display: inline-flex; align-items: center; gap: 5px; color: var(--siyoh); text-decoration: none;
     font-size: .72rem; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap;
     padding: 7px 9px; border-radius: 20px; transition: background .2s, color .2s;
@@ -75,6 +81,17 @@ body {
 }
 .oq-nav-linklar a:hover { background: var(--tilla-yumshoq); color: var(--tilla-toq); }
 .oq-nav-linklar a:hover .oq-nav-tuk { opacity: 1; }
+
+/* Joriy bo'lim — oltin rang, yonida nuqta va ostida nozik chiziq.
+   To'ldirilgan "tabletka" emas: u hover holati bilan chalkashardi va
+   saytning nozik uslubiga qo'pol tushardi. */
+.oq-nav-linklar a.joriy { color: var(--tilla-toq); }
+.oq-nav-linklar a.joriy .oq-nav-tuk { opacity: 1; }
+.oq-nav-linklar a.joriy::after {
+    content: ""; position: absolute; left: 9px; right: 9px; bottom: 1px;
+    height: 1px; background: var(--tilla);
+}
+.oq-menyu a.joriy { color: var(--tilla-toq); }
 .oq-nav-ong { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
 /* Mobil menyu — desktopda butunlay yo'q: u yerda havolalar panelning
@@ -254,9 +271,17 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
    havola ham, CTA tugmasi ham bitta qatorga sig'adi. 1150px'dan tor
    ekranlarda esa havolalar ☰ menyusiga ko'chadi — aks holda panel
    ikkinchi qatorga sinib ketardi. */
-@media (max-width: 1149px) {
+/* Oltita havola + CTA hammasi bir qatorga faqat keng ekranda sig'adi.
+   Shuning uchun ikki bosqich: avval paneldagi CTA olib qo'yiladi (u
+   hero'da, menyuda va mobil yopishqoq tugmada baribir bor), keyin
+   havolalarning o'zi ☰ menyusiga ko'chadi. Chegaralar taxminan emas —
+   haqiqiy o'lchamlar bo'yicha hisoblangan (logotip 171px, oltita havola
+   ~764px, til ~110px, CTA ~200px). */
+@media (max-width: 1399px) {
     .oq-nav-ong .oq-cta { display: none; }
-    .oq-nav-tashqi .oq-ichki { padding: 0 28px; }
+}
+
+@media (max-width: 1249px) {
     .oq-nav-linklar { display: none; }
     .oq-nav-ong { margin-left: auto; }
 
