@@ -240,6 +240,21 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
     .oq-footer { margin-top: 50px; }
+
+    /* Filtr tugmalari (Marosim turi/Uslub/Millat va h.k.) — matn
+       uzunligiga qarab kengligi turlicha bo'lgan flex-wrap chiplar
+       tor ekranda notekis, "sochilgan" qatorlar hosil qilardi (masalan
+       "Fotiha to'yi" va "Qiz uzatish" yonma-yon turganda ustunlar mos
+       kelmasdi). Mobilda buning o'rniga 2 ustunli, teng kenglikdagi
+       to'r (grid) ishlatiladi — har bir tugma o'z katagini to'liq
+       egallaydi, natijada barcha qatorlar tekis va tartibli ko'rinadi. */
+    .turkum-qatori {
+        display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .turkum-tugma {
+        width: 100%; box-sizing: border-box; padding: 10px 10px;
+        letter-spacing: 1.4px; text-align: center;
+    }
 }
 
 /* Mobil pastki yopishqoq "Taklifnoma yaratish" tugmasi (faqat kerakli sahifada) */
