@@ -116,7 +116,7 @@
 <p class="marosim-eslatma yashirin" id="marosim-eslatma">{% trans "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi." %}</p>
 <div class="dizayn-grid" id="shablonlar-grid">
     {% for s in shablonlar %}
-    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turlari|join:' ' }}" data-millat="{{ s.millat }}" href="{% url 'taklif:yaratish' s.kod %}">
+    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turlari|join:' ' }}" data-millat="{{ s.millat }}" data-asosiy-havola="{% url 'taklif:yaratish' s.kod %}" href="{% url 'taklif:yaratish' s.kod %}">
         <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
              {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
             <span class="m-ramka"></span>
@@ -242,6 +242,21 @@
         qollash();
     }
 
+    // Mijoz shu sahifada allaqachon aniq bir marosim turini tanlagan
+    // bo'lsa (masalan "Fotiha to'yi"), buni keyingi — taklifnoma
+    // to'ldirish — sahifasiga ?marosim=<kalit> orqali uzatamiz, shunda
+    // o'sha savol mijozdan ikkinchi marta so'ralmaydi (yaratish.html'da
+    // "Marosim turi" maydoni tayyor tanlangan holda ochiladi). "Barchasi"
+    // tanlangan bo'lsa (aniq javob yo'q) — havola o'zgarishsiz qoladi.
+    function havolalarniYangila() {
+        kartalar.forEach(function (k) {
+            var asosiy = k.dataset.asosiyHavola;
+            if (!asosiy) { return; }
+            var aniqMarosim = tanlangan.marosim && tanlangan.marosim !== 'barchasi';
+            k.href = aniqMarosim ? (asosiy + '?marosim=' + encodeURIComponent(tanlangan.marosim)) : asosiy;
+        });
+    }
+
     function qollash() {
         var mosSoni = 0;
         kartalar.forEach(function (k) {
@@ -255,6 +270,7 @@
         if (eslatma) {
             eslatma.classList.toggle('yashirin', mosSoni > 0);
         }
+        havolalarniYangila();
     }
 
     if (marosimQatori) {

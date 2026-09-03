@@ -312,6 +312,17 @@ def yaratish(request, shablon_kod):
     shablon = get_object_or_404(Shablon, kod=shablon_kod, ommaviy=True)
     eski_taklifnoma = None
 
+    # Mijoz shablon tanlash sahifasida allaqachon ma'lum bir marosim turini
+    # tanlagan bo'lsa (masalan "Fotiha to'yi" filtri bilan shu shablonni
+    # topgan bo'lsa), bu yerga ?marosim=<kalit> orqali uzatiladi
+    # (shablon_tanlash.html'dagi JS havolani shunday yasaydi) — shu bilan
+    # mijozdan xuddi shu savol yana so'ralmaydi, forma tayyor tanlangan
+    # holda ochiladi. Noma'lum/soxta qiymat sokin e'tiborsiz qoldiriladi.
+    marosim_kalitlari = {k for k, _ in MAROSIM_TURLARI}
+    oldindan_marosim = request.GET.get("marosim") or ""
+    if oldindan_marosim not in marosim_kalitlari:
+        oldindan_marosim = ""
+
     if request.method == "POST":
         form = TaklifnomaYaratishForm(request.POST, request.FILES)
         if form.is_valid():
@@ -381,7 +392,9 @@ def yaratish(request, shablon_kod):
 
                     return redirect("taklif:yaratildi", slug=taklifnoma.slug)
     else:
-        form = TaklifnomaYaratishForm()
+        form = TaklifnomaYaratishForm(
+            initial={"marosim_turi": oldindan_marosim} if oldindan_marosim else None
+        )
 
     # MAROSIM_MAYDON_MATNLARI'dagi lazy tarjima obyektlarini shu yerda,
     # so'rov tiliga qarab, oddiy matnga aylantiramiz — json_script faqat
