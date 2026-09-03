@@ -254,7 +254,20 @@
     <div class="oq-ichki oq-hero-ich">
         <div class="oq-hero-rasm">
             <span class="burchak b1"></span><span class="burchak b2"></span>
-            <img src="{% static 'taklif/oqqushlar-yurak.jpg' %}" alt="Oqqushlar" fetchpriority="high">
+            {% comment %}
+            width/height ATAYLAB qo'shilgan (700x447 — rasmning haqiqiy
+            piksel o'lchami): brauzer rasm hali yuklanmasdan turib ham
+            to'g'ri nisbatda joy band qiladi (pastdagi CSS'dagi
+            width:100%;height:auto bilan birga — zamonaviy brauzerlar
+            width/height atributlaridan avtomatik aspect-ratio hisoblaydi).
+            ATAYLAB shu yerda: bu rasm hali yuklanmagan bo'lsa (sahifa
+            birinchi ochilganda, sekin internetda) YOKI til almashtirish
+            AJAX orqali butun <body>'ni qayta chizganda (yangi <img>
+            elementi hali dekodlanmagan bo'lsa) — oldin joy band
+            qilinmagani uchun rasm paydo bo'lgan payt pastdagi BUTUN
+            kontent bir zumda pastga siljib qolardi ("sahifa suriladi").
+            {% endcomment %}
+            <img src="{% static 'taklif/oqqushlar-yurak.jpg' %}" alt="Oqqushlar" width="700" height="447" fetchpriority="high">
             <div class="rasm-osti">
                 <span class="chiziqcha"></span>
                 <span>Oqqushlar</span>

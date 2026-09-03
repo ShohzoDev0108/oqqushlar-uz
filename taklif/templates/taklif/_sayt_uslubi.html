@@ -171,14 +171,25 @@ aniq belgilaymiz.
 
 /* --- Sarlavha ierarxiyasi --- */
 .oq-yorliq { font-size: .72rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--tilla-toq); }
+{% comment %}
+Taftish topilmasi: oldingi qiymatda (clamp(2.5rem, 5.5vw, 4.2rem)) 5.5vw
+minimal chegaraga (2.5rem = 40px) faqat ~727px'dan tor ekranlarda YETMAS
+edi — ya'ni 727px'dan tor BARCHA telefon o'lchamlarida (mijozlarning
+95%'i!) sarlavha doim qattiq 40px'da, ekran kengligidan qat'i nazar,
+ko'rinardi. Natijada 3 qatorga bo'linib, "haddan tashqari katta"
+taassurot qoldirardi. Yangi qiymat kichik ekranlarda ~34px'gacha
+(taxminan 16% kichikroq) tushadi, keng ekranda esa deyarli avvalgidek
+salobatli (64px) qoladi — faqat servli (fluid) diapazon torroq ekran
+qiymatlaridan boshlanadi. Xuddi shu mantiq .oq-h2'ga ham qo'llangan.
+{% endcomment %}
 .oq-h1 {
     font-family: var(--serif); font-weight: 500;
-    font-size: clamp(2.5rem, 5.5vw, 4.2rem); line-height: 1.08; margin: 14px 0 20px;
+    font-size: clamp(2.1rem, 6.5vw, 4rem); line-height: 1.1; margin: 14px 0 20px;
 }
 .oq-h1 em { font-style: italic; color: var(--tilla-toq); font-weight: 400; }
 .oq-h2 {
     font-family: var(--serif); font-weight: 500;
-    font-size: clamp(1.7rem, 3.4vw, 2.5rem); line-height: 1.15; margin: 10px 0 14px;
+    font-size: clamp(1.5rem, 4vw, 2.3rem); line-height: 1.18; margin: 10px 0 14px;
 }
 .oq-matn { color: var(--kul); line-height: 1.85; font-size: 1.03rem; }
 

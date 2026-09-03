@@ -170,7 +170,16 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
                             yangi.textContent = eski.textContent;
                             eski.parentNode.replaceChild(yangi, eski);
                         });
-                        window.scrollTo(0, joriyScroll);
+                        // ATAYLAB "instant": sahifada global "html { scroll-behavior:
+                        // smooth }" bor — oddiy window.scrollTo(0, joriyScroll) shu
+                        // qoidani meros qilib olib, skrollni SEKIN-ASTA (animatsiya
+                        // bilan) joyiga qaytarardi, ya'ni foydalanuvchi buni "sahifa
+                        // suriladi" deb ko'rardi. "instant" shu animatsiyani o'chirib,
+                        // pozitsiyani darhol, sezilmas holda tiklaydi.
+                        if (window.scrollTo) {
+                            try { window.scrollTo({ top: joriyScroll, left: 0, behavior: 'instant' }); }
+                            catch (e) { window.scrollTo(0, joriyScroll); }
+                        }
                     })
                     .catch(function () { tilForma.submit(); });
             });
