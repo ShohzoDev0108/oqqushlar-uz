@@ -166,13 +166,33 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
                         // turgan yuqori qismi joyidan qimirlamaydi, pastda —
                         // hali ko'rinmayotgan joylarda — balandlik farqi
                         // bo'lsa ham bu foydalanuvchiga sezilmaydi.
+                        // TAFTISH: birinchi urinishda "langar" sifatida ko'pincha
+                        // yopishqoq (position: sticky/fixed) yuqori navigatsiya
+                        // paneli tanlanib qolardi — u skroll qanday bo'lishidan
+                        // qat'i nazar HAR DOIM ekranning bir xil joyida turadi,
+                        // shuning uchun "farq"i doim 0 chiqib, pastroqdagi
+                        // haqiqiy kontent (masalan hero matni) sezilarli
+                        // siljisa ham, buni umuman payqamas edik. Endi sticky/
+                        // fixed elementlar (va ularning ichidagi barcha
+                        // bolalari) langar sifatida OLINMAYDI — haqiqatan ham
+                        // sahifa oqimi bilan birga suriladigan element
+                        // topilguncha davom etiladi.
+                        function yopishqoqmi(el) {
+                            var node = el;
+                            while (node && node !== document.body) {
+                                var holat = getComputedStyle(node).position;
+                                if (holat === 'fixed' || holat === 'sticky') { return true; }
+                                node = node.parentElement;
+                            }
+                            return false;
+                        }
                         function langarTop() {
                             var kengEkran = window.innerWidth || document.documentElement.clientWidth || 0;
                             var x = Math.min(Math.max(Math.round(kengEkran / 2), 1), Math.max(kengEkran - 1, 1));
-                            var yLar = [2, 12, 30, 60, 100];
+                            var yLar = [2, 12, 30, 60, 100, 140, 200, 280];
                             for (var yi = 0; yi < yLar.length; yi++) {
                                 var el = document.elementFromPoint(x, yLar[yi]);
-                                if (el && el !== document.documentElement && el !== document.body) {
+                                if (el && el !== document.documentElement && el !== document.body && !yopishqoqmi(el)) {
                                     return { el: el, y: yLar[yi] };
                                 }
                             }
