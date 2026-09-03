@@ -9,21 +9,31 @@
 .oq-sahifa-bosh { padding-bottom: 34px; }
 .bosh { color: var(--kul); margin-top: 30px; }
 
-/* 3 qatorli filtr: Marosim turi (asosiy, kattaroq) + Turkum + Millat
-   (faqat Milliy ichida). Barchasi mavjud .turkum-qatori/.turkum-tugma
-   uslubidan foydalanadi — faqat ierarxiya uchun kichik farqlar.
+/* Bosqichma-bosqich filtr: avval faqat Marosim turi qatori ko'rinadi.
+   Foydalanuvchi shundan birontasini (yoki "Barchasi"ni) tanlagandan
+   keyingina Uslub/Millat qatorlari va dizaynlar to'ri ochiladi
+   (#natijalar-blok) — shu bosqichgacha "boshlang'ich" eslatma matni
+   ko'rinadi. Barchasi mavjud .turkum-qatori/.turkum-tugma uslubidan
+   foydalanadi — faqat ierarxiya uchun kichik farqlar.
 
    Marosim turi qatori vizual tig'izlikni kamaytirish uchun ikkiga
    bo'lingan: asosiy qator doim ko'rinadi (4 ta eng ko'p tanlanadigan tur
-   + "Yana ▾" tugmasi), qolgan kamdan-kam turlar shu tugma bosilganda
-   ochiladigan ikkinchi, ixcham qatorda beriladi. */
+   + "Boshqa ▾" tugmasi), qolgan kamdan-kam turlar shu tugma bosilganda
+   ochiladigan ikkinchi, ixcham qatorda beriladi.
+
+   Tanlangan marosim turiga ANIQ mos (marosim_turlari'da bor) dizayn
+   topilmasa — masalan Qiz uzatish/Xatna to'yi kabi hali maxsus dizayni
+   yo'q turlar — endi hech qanday "universal" dizaynga orqaga
+   qaytilmaydi: to'r bo'sh qoladi va #marosim-eslatma "tez orada"
+   matnini ko'rsatadi. */
 .oq-filtr-yorliq {
     display: block; color: var(--kul); font-size: .72rem; letter-spacing: 2px;
     text-transform: uppercase; margin: 0 0 10px;
 }
 .marosim-qatori .turkum-tugma { font-size: .78rem; }
 .turkum-qatori.millat-qatori { margin-left: 18px; margin-bottom: 30px; }
-.marosim-eslatma { color: var(--kul); font-size: .85rem; margin: -14px 0 26px; }
+.marosim-boshlangich { color: var(--kul); font-size: .9rem; margin: 4px 0 0; }
+.marosim-eslatma { color: var(--kul); font-size: .85rem; margin: 0 0 26px; }
 .yashirin { display: none !important; }
 
 .marosim-yana-tugma { display: inline-flex; align-items: center; gap: 5px; }
@@ -54,19 +64,20 @@
 {% if shablonlar %}
 <span class="oq-filtr-yorliq">{% trans "Marosim turi" %}</span>
 <div class="turkum-qatori marosim-qatori" id="marosim-qatori">
-    <button type="button" class="turkum-tugma faol" data-marosim="barchasi">{% trans "Barchasi" %}</button>
+    <button type="button" class="turkum-tugma" data-marosim="barchasi">{% trans "Barchasi" %}</button>
     {% for kalit, nomi in marosim_asosiy %}
     <button type="button" class="turkum-tugma" data-marosim="{{ kalit }}">{{ nomi }}</button>
     {% endfor %}
-    <button type="button" class="turkum-tugma marosim-yana-tugma" id="marosim-yana-tugma" aria-expanded="false">{% trans "Yana" %} <span class="yana-strelka" aria-hidden="true">▾</span></button>
+    <button type="button" class="turkum-tugma marosim-yana-tugma" id="marosim-yana-tugma" aria-expanded="false">{% trans "Boshqa" %} <span class="yana-strelka" aria-hidden="true">▾</span></button>
 </div>
 <div class="turkum-qatori marosim-qatori marosim-yana-qatori yashirin" id="marosim-yana-qatori">
     {% for kalit, nomi in marosim_qoshimcha %}
     <button type="button" class="turkum-tugma" data-marosim="{{ kalit }}">{{ nomi }}</button>
     {% endfor %}
 </div>
-<p class="marosim-eslatma yashirin" id="marosim-eslatma">{% trans "Bu marosim uchun maxsus dizaynlar tez orada qo'shiladi — hozircha barcha dizaynlarni ko'rishingiz mumkin." %}</p>
+<p class="marosim-boshlangich" id="marosim-boshlangich">{% trans "Davom etish uchun marosim turini tanlang." %}</p>
 
+<div class="yashirin" id="natijalar-blok">
 <span class="oq-filtr-yorliq">{% trans "Uslub" %}</span>
 <div class="turkum-qatori" id="turkum-qatori">
     <button type="button" class="turkum-tugma faol" data-turkum="barchasi">{% trans "Barchasi" %}</button>
@@ -80,9 +91,10 @@
     <button type="button" class="turkum-tugma" data-millat="{{ kalit }}">{{ nomi }}</button>
     {% endfor %}
 </div>
+<p class="marosim-eslatma yashirin" id="marosim-eslatma">{% trans "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi." %}</p>
 <div class="dizayn-grid" id="shablonlar-grid">
     {% for s in shablonlar %}
-    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turi }}" data-millat="{{ s.millat }}" href="{% url 'taklif:yaratish' s.kod %}">
+    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turlari|join:' ' }}" data-millat="{{ s.millat }}" href="{% url 'taklif:yaratish' s.kod %}">
         <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
              {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
             <span class="m-ramka"></span>
@@ -98,6 +110,7 @@
     </a>
     {% endfor %}
 </div>
+</div>
 {% else %}
 <p class="bosh">{% trans "Hozircha shablon yo'q. Admin panelda qo'shing." %}</p>
 {% endif %}
@@ -107,16 +120,23 @@
 
 <script>
 (function () {
-    // Uch mustaqil filtr o'lchovi baravar qo'llanadi: Marosim turi + Turkum
-    // + Millat (Millat faqat Turkum="milliy" bo'lganda ko'rinadi/hisobga
-    // olinadi). Shablon marosim_turi/millat maydoni BO'SH bo'lsa —
-    // "universal" hisoblanadi, tanlangan marosim/millatdan qat'i nazar
-    // ko'rinaveradi. Agar tanlangan marosimga ANIQ mos (bo'sh emas)
-    // shablon topilmasa, universal shablonlar ko'rsatiladi va ustiga
-    // eslatma matni chiqadi.
+    // Ikki bosqichli, uch mustaqil filtr o'lchovi: Marosim turi (birinchi
+    // bosqich, doim ko'rinadi) + Turkum + Millat (ikkinchi bosqich —
+    // Marosim turidan birontasi tanlangandan keyingina #natijalar-blok
+    // ochiladi; Millat esa shular ichida faqat Turkum="milliy" bo'lganda
+    // ko'rinadi/hisobga olinadi).
+    //
+    // Shablon.data-marosim endi bo'sh joy bilan ajratilgan bir nechta
+    // kalit bo'lishi mumkin (marosim_turlari). Tanlangan marosim
+    // "barchasi" bo'lmasa, ANIQ shu kalitga mos shablonlar ko'rsatiladi —
+    // universal/teglanmagan shablonlarga endi orqaga qaytilmaydi: mos
+    // topilmasa, to'r bo'sh qoladi va #marosim-eslatma "tez orada"
+    // matnini ko'rsatadi.
     var marosimQatori = document.getElementById('marosim-qatori');
     var marosimYanaTugma = document.getElementById('marosim-yana-tugma');
     var marosimYanaQatori = document.getElementById('marosim-yana-qatori');
+    var marosimBoshlangich = document.getElementById('marosim-boshlangich');
+    var natijalarBlok = document.getElementById('natijalar-blok');
     var turkumQatori = document.getElementById('turkum-qatori');
     var millatQatori = document.getElementById('millat-qatori');
     var eslatma = document.getElementById('marosim-eslatma');
@@ -124,7 +144,12 @@
     if (!grid) { return; }
     var kartalar = grid.querySelectorAll('.shablon-karta');
 
-    var tanlangan = { marosim: 'barchasi', turkum: 'barchasi', millat: 'barchasi' };
+    var tanlangan = { marosim: null, turkum: 'barchasi', millat: 'barchasi' };
+
+    function marosimGaMosKeladi(dataMarosim, kalit) {
+        if (!dataMarosim) { return false; }
+        return dataMarosim.split(/\s+/).indexOf(kalit) !== -1;
+    }
 
     function tugmalarniYangila(qatori, kalit, qiymat) {
         if (!qatori) { return; }
@@ -160,22 +185,23 @@
     function marosimTanla(kalit) {
         tanlangan.marosim = kalit;
         marosimniYangila();
+        if (natijalarBlok) { natijalarBlok.classList.remove('yashirin'); }
+        if (marosimBoshlangich) { marosimBoshlangich.classList.add('yashirin'); }
         qollash();
     }
 
     function qollash() {
-        var aniqMosSoni = 0;
+        var mosSoni = 0;
         kartalar.forEach(function (k) {
             var turkumMos = tanlangan.turkum === 'barchasi' || k.dataset.turkum === tanlangan.turkum;
             var millatMos = tanlangan.millat === 'barchasi' || !k.dataset.millat || k.dataset.millat === tanlangan.millat;
-            var marosimAniq = tanlangan.marosim !== 'barchasi' && k.dataset.marosim === tanlangan.marosim;
-            var marosimMos = tanlangan.marosim === 'barchasi' || marosimAniq || !k.dataset.marosim;
+            var marosimMos = tanlangan.marosim === 'barchasi' || marosimGaMosKeladi(k.dataset.marosim, tanlangan.marosim);
             var mos = turkumMos && millatMos && marosimMos;
             k.classList.toggle('yashirin', !mos);
-            if (mos && marosimAniq) { aniqMosSoni++; }
+            if (mos) { mosSoni++; }
         });
         if (eslatma) {
-            eslatma.classList.toggle('yashirin', tanlangan.marosim === 'barchasi' || aniqMosSoni > 0);
+            eslatma.classList.toggle('yashirin', mosSoni > 0);
         }
     }
 
@@ -228,7 +254,6 @@
         });
     }
 
-    qollash();
 })();
 </script>
 {% endblock %}

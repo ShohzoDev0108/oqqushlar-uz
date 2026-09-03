@@ -36,10 +36,10 @@ CHIQINDI_SAQLASH_KUNLARI = 30
 
 # Marosim turlari — bozorda qabul qilingan nomlar asosida (Nikoh to'yi,
 # Fotiha to'yi, Qiz uzatish, Xatna to'yi, Beshik to'yi, Nahor oshi,
-# Yubiley...). BU RO'YXAT Shablon.marosim_turi bilan ham baravar
-# ishlatiladi (kategoriyalash loyihasi) — shu ikkisi hech qachon
-# bir-biridan uzilib qolmasligi uchun har doim FAQAT shu yerda,
-# BITTA joyda o'zgartiriladi.
+# Yubiley...). BU RO'YXAT Shablon.marosim_turlari, MusiqaVariant.marosim_turlari
+# va NamunaRasm.marosim_turlari bilan ham baravar ishlatiladi (kategoriyalash
+# loyihasi) — shu ro'yxatlar hech qachon bir-biridan uzilib qolmasligi
+# uchun har doim FAQAT shu yerda, BITTA joyda o'zgartiriladi.
 # Eski kalitlar ("toy", "qizlar_bazmi", "sunnat_toy") bazadagi mavjud
 # yozuvlar buzilmasligi uchun saqlab qolindi — faqat ko'rinadigan nomlari
 # yangilandi ("Sunnat to'yi" endi "Xatna to'yi" deb ko'rsatiladi).
@@ -64,6 +64,41 @@ MAROSIM_TURLARI = [
 # MAROSIM_TURLARI bilan bir xil kalitlardan foydalanadi — shu yerda faqat
 # GURUHLASH belgilanadi, nomlar yuqoridagi ro'yxatdan olinadi.
 MAROSIM_ASOSIY_KALITLAR = ["toy", "fotiha_toy", "qizlar_bazmi", "sunnat_toy"]
+
+
+def _marosim_turlari_maydoni():
+    """Shablon/MusiqaVariant/NamunaRasm — bittasi bir nechta marosim turiga
+    mos bo'lishi mumkin (masalan bitta dizayn ham Nikoh, ham Fotiha
+    to'yiga mos) — shuning uchun BITTA emas, RO'YXAT sifatida saqlanadi.
+
+    Django'da bunga alohida M2M jadval kerak bo'lardi, lekin ro'yxat kichik
+    va o'zgarmas (yuqoridagi MAROSIM_TURLARI) bo'lgani uchun soddaroq yo'l
+    tanlandi: bitta CharField'da vergul bilan ajratilgan kalitlar sifatida
+    saqlanadi (masalan "toy,fotiha_toy,yubiley"), Python kodida va admin
+    panelda esa `<nomi>_ro'yxati`/property orqali RO'YXAT ko'rinishida
+    ishlatiladi (pastdagi har bir model shu naqshni takrorlaydi).
+    """
+    return models.CharField(
+        max_length=200,
+        blank=True,
+        default="",
+        help_text=(
+            "Qaysi marosim turlariga mos — bir nechtasini belgilash mumkin. "
+            "Hech biri belgilanmasa, HECH BIR marosim filtrida aniq mos "
+            "sifatida ko'rinmaydi (shablon tanlash sahifasida \"Barchasi\" "
+            "tanlanganda esa baribir ko'rinadi)."
+        ),
+    )
+
+
+def _turlar_royxati_dan_matn(qiymat):
+    if isinstance(qiymat, str):
+        return qiymat
+    return ",".join(qiymat) if qiymat else ""
+
+
+def _matndan_turlar_royxati(matn):
+    return [k for k in (matn or "").split(",") if k]
 
 # Bu marosim turlarida odatda ikkita ism (masalan kuyov-kelin) kerak bo'ladi;
 # qolganlarida odatda bitta ism yetarli (forma shunga qarab moslashadi).
@@ -129,18 +164,7 @@ class Shablon(models.Model):
             "Bo'sh qoldirilsa, millat filtridan qat'i nazar har doim ko'rinadi."
         ),
     )
-    marosim_turi = models.CharField(
-        max_length=20,
-        choices=MAROSIM_TURLARI,
-        blank=True,
-        default="",
-        help_text=(
-            "Agar shablon aynan shu marosim turiga (masalan Xatna to'yiga) "
-            "maxsus mo'ljallangan bo'lsa tanlang. Bo'sh qoldirilsa — barcha "
-            "marosim turlari uchun mos (universal) hisoblanadi va har qanday "
-            "marosim filtrida ko'rinadi."
-        ),
-    )
+    marosim_turlari_raw = _marosim_turlari_maydoni()
     rasm = models.ImageField(upload_to="shablonlar/", blank=True, null=True)
     narx = models.DecimalField(
         max_digits=10,
@@ -159,6 +183,14 @@ class Shablon(models.Model):
 
     def __str__(self):
         return self.nomi
+
+    @property
+    def marosim_turlari(self):
+        return _matndan_turlar_royxati(self.marosim_turlari_raw)
+
+    @marosim_turlari.setter
+    def marosim_turlari(self, qiymat):
+        self.marosim_turlari_raw = _turlar_royxati_dan_matn(qiymat)
 
 
 class MusiqaVariant(models.Model):
@@ -182,6 +214,7 @@ class MusiqaVariant(models.Model):
         ),
     )
     faol = models.BooleanField(default=True)
+    marosim_turlari_raw = _marosim_turlari_maydoni()
 
     class Meta:
         verbose_name = "Tayyor musiqa varianti"
@@ -190,6 +223,14 @@ class MusiqaVariant(models.Model):
 
     def __str__(self):
         return f"{self.nomi} ({self.get_til_display()})"
+
+    @property
+    def marosim_turlari(self):
+        return _matndan_turlar_royxati(self.marosim_turlari_raw)
+
+    @marosim_turlari.setter
+    def marosim_turlari(self, qiymat):
+        self.marosim_turlari_raw = _turlar_royxati_dan_matn(qiymat)
 
 
 class NamunaRasm(models.Model):
@@ -208,6 +249,7 @@ class NamunaRasm(models.Model):
     rasm = models.ImageField(upload_to="namuna_rasmlar/")
     tartib = models.PositiveSmallIntegerField(default=0)
     faol = models.BooleanField(default=True)
+    marosim_turlari_raw = _marosim_turlari_maydoni()
 
     class Meta:
         verbose_name = "Namuna rasm"
@@ -216,6 +258,14 @@ class NamunaRasm(models.Model):
 
     def __str__(self):
         return self.nomi or f"Namuna rasm #{self.pk}"
+
+    @property
+    def marosim_turlari(self):
+        return _matndan_turlar_royxati(self.marosim_turlari_raw)
+
+    @marosim_turlari.setter
+    def marosim_turlari(self, qiymat):
+        self.marosim_turlari_raw = _turlar_royxati_dan_matn(qiymat)
 
 
 class Taklifnoma(models.Model):

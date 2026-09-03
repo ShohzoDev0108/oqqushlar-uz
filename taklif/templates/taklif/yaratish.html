@@ -43,6 +43,11 @@
 .namuna-rasm-item.tanlangan { border-color: var(--tilla); }
 .namuna-rasm-item.tanlangan .namuna-belgi { opacity: 1; }
 .namuna-rasm-item.tanlangan img { filter: brightness(.85); }
+/* Marosim turiga mos kelmagan namunaviy musiqa/rasmlarni yashirish uchun
+   (elementlarning o'zida aniq "display" belgilangani sabab, oddiy
+   "hidden" atributi yetarli emas — shu klass !important bilan ustidan
+   bosadi). */
+.yashirin { display: none !important; }
 .yoki-chiziq { display: flex; align-items: center; gap: 10px; margin: 18px 0 4px; color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; }
 .yoki-chiziq::before, .yoki-chiziq::after { content: ""; flex: 1; height: 1px; background: var(--chiziq); }
 
@@ -255,7 +260,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                         <span class="mt-nomi">{% trans "Musiqasiz" %}</span>
                     </label>
                     {% for mv in musiqa_variantlar %}
-                    <label class="musiqa-tanlov-item{% if field.value == mv.pk|stringformat:"s" %} tanlangan{% endif %}">
+                    <label class="musiqa-tanlov-item{% if field.value == mv.pk|stringformat:"s" %} tanlangan{% endif %}" data-marosim="{{ mv.marosim_turlari|join:' ' }}">
                         <input type="radio" name="musiqa_variant" value="{{ mv.pk }}"{% if field.value == mv.pk|stringformat:"s" %} checked{% endif %}>
                         <button type="button" class="mt-tinglash" data-src="{{ mv.fayl.url }}" aria-label="{% trans "Tinglab ko'rish" %}">▶</button>
                         <span class="mt-nomi">{{ mv.nomi }}</span>
@@ -284,7 +289,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                 <div class="yordam">{% trans "O'z fotoyingiz hali bo'lmasa, tayyor namunalardan tanlashingiz mumkin:" %}</div>
                 <div class="namuna-rasm-grid" id="namuna-rasm-grid">
                     {% for nr in namuna_rasmlar %}
-                    <label class="namuna-rasm-item">
+                    <label class="namuna-rasm-item" data-marosim="{{ nr.marosim_turlari|join:' ' }}">
                         <input type="checkbox" name="namuna_rasm_ids" value="{{ nr.id }}">
                         <img src="{{ nr.rasm.url }}" alt="{% if nr.nomi %}{{ nr.nomi }}{% else %}{% blocktrans with soni=forloop.counter %}Namuna rasm {{ soni }}{% endblocktrans %}{% endif %}" loading="lazy">
                         <span class="namuna-belgi">✓</span>
@@ -400,9 +405,62 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
         }
     }
 
+    // Namunaviy musiqa va rasmlar — admin panelda har biriga qaysi marosim
+    // turlariga mos ekani belgilanadi (marosim_turlari, bo'sh joy bilan
+    // ajratilgan holda data-marosim'ga chiqariladi). Marosim turi
+    // o'zgarganda mos kelmaydiganlari yashiriladi. Hech qanday marosim
+    // turi belgilanmagan (data-marosim bo'sh) namunalar — "universal"
+    // hisoblanadi va doim ko'rinaveradi (mijozni tanlov jarayonida bo'sh
+    // ro'yxat bilan qoldirmaslik uchun; "Musiqasiz" varianti ham shu
+    // sababli har doim ko'rinadi — unda data-marosim atributi umuman yo'q).
+    function namunaMosKeladi(dataMarosim, turi) {
+        if (!dataMarosim) { return true; }
+        return dataMarosim.split(/\s+/).indexOf(turi) !== -1;
+    }
+
+    function musiqaVaRasmlarniFiltrlash() {
+        if (!marosimEl) { return; }
+        var turi = marosimEl.value;
+
+        var musiqaGrid = document.getElementById('musiqa-tanlov-grid');
+        if (musiqaGrid) {
+            var yashirilganTanlanganMi = false;
+            musiqaGrid.querySelectorAll('.musiqa-tanlov-item[data-marosim]').forEach(function (item) {
+                var mos = namunaMosKeladi(item.dataset.marosim, turi);
+                item.classList.toggle('yashirin', !mos);
+                var input = item.querySelector('input');
+                if (!mos && input && input.checked) { yashirilganTanlanganMi = true; }
+            });
+            if (yashirilganTanlanganMi) {
+                var yoqInput = musiqaGrid.querySelector('.musiqa-tanlov-item.mt-yoq input');
+                if (yoqInput) {
+                    yoqInput.checked = true;
+                    yoqInput.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            }
+        }
+
+        var namunaGrid = document.getElementById('namuna-rasm-grid');
+        if (namunaGrid) {
+            namunaGrid.querySelectorAll('.namuna-rasm-item[data-marosim]').forEach(function (item) {
+                var mos = namunaMosKeladi(item.dataset.marosim, turi);
+                item.classList.toggle('yashirin', !mos);
+                var cb = item.querySelector('input');
+                if (!mos && cb && cb.checked) {
+                    cb.checked = false;
+                    cb.dispatchEvent(new Event('change'));
+                }
+            });
+        }
+    }
+
     if (marosimEl) {
-        marosimEl.addEventListener('change', maydonlarniYangila);
+        marosimEl.addEventListener('change', function () {
+            maydonlarniYangila();
+            musiqaVaRasmlarniFiltrlash();
+        });
         maydonlarniYangila();
+        musiqaVaRasmlarniFiltrlash();
     }
 })();
 

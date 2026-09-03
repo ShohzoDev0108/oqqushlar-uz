@@ -1,9 +1,11 @@
+from django import forms
 from django.contrib import admin
 from django.shortcuts import redirect
 from django.utils.html import format_html
 
 from .models import (
     RSVP,
+    MAROSIM_TURLARI,
     Mehmon,
     MusiqaVariant,
     NamunaRasm,
@@ -12,6 +14,40 @@ from .models import (
     Taklifnoma,
     TaklifnomaRasm,
 )
+
+
+class MarosimTurlariFormMixin(forms.ModelForm):
+    """Shablon/MusiqaVariant/NamunaRasm — bir nechta marosim turini
+    belgilash uchun umumiy forma qismi (marosim_turlari_raw'ni checkbox
+    ro'yxati sifatida ko'rsatadi, saqlashda qaytadan vergul bilan
+    ajratilgan matnga aylantiradi). "Boshqa" filtr sifatida ma'nosiz
+    bo'lgani uchun (shablon_tanlash view'iga qarang) shu yerda ham
+    ko'rsatilmaydi.
+    """
+
+    marosim_turlari = forms.MultipleChoiceField(
+        choices=[(k, v) for k, v in MAROSIM_TURLARI if k != "boshqa"],
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        label="Marosim turlari",
+        help_text=(
+            "Qaysi marosim turlariga mos — bir nechtasini belgilash mumkin. "
+            "Hech biri belgilanmasa, hech bir aniq marosim filtrida "
+            "ko'rinmaydi."
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields["marosim_turlari"].initial = self.instance.marosim_turlari
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.marosim_turlari = self.cleaned_data["marosim_turlari"]
+        if commit:
+            instance.save()
+        return instance
 
 # Taftish topilmasi: admin panel standart Django nomlanishida edi
 # ("Django administration") — endi sayt nomiga mos (logotip va ranglar
@@ -48,32 +84,69 @@ class MehmonInline(admin.TabularInline):
         return "(saqlangach ko'rinadi)"
 
 
+class ShablonAdminForm(MarosimTurlariFormMixin):
+    class Meta:
+        model = Shablon
+        fields = "__all__"
+
+
 @admin.register(Shablon)
 class ShablonAdmin(admin.ModelAdmin):
-    # "narx", "turkum", "millat", "marosim_turi" — list_editable: ro'yxatdagi
-    # har bir shablonni alohida sahifaga kirmasdan, to'g'ridan-to'g'ri shu
-    # yerda belgilash mumkin (o'zgartirib, pastdagi "Saqlash" tugmasini
-    # bosish kifoya) — 19 ta mavjud shablonni tez kategoriyalash va
-    # kelajakda yangi shablon qo'shishda qulay bo'lishi uchun.
-    list_display = ("nomi", "kod", "turkum", "millat", "marosim_turi", "narx", "ommaviy")
-    list_editable = ("turkum", "millat", "marosim_turi", "narx")
-    list_filter = ("turkum", "millat", "marosim_turi", "ommaviy")
+    # "narx", "turkum", "millat" — list_editable: ro'yxatdagi har bir
+    # shablonni alohida sahifaga kirmasdan, to'g'ridan-to'g'ri shu yerda
+    # belgilash mumkin (o'zgartirib, pastdagi "Saqlash" tugmasini bosish
+    # kifoya). "Marosim turlari" endi bir nechta qiymat qabul qilgani
+    # uchun (checkbox ro'yxati) list_editable'da emas, faqat to'liq
+    # o'zgartirish sahifasida ko'rinadi.
+    form = ShablonAdminForm
+    list_display = ("nomi", "kod", "turkum", "millat", "marosim_turlari_korsatish", "narx", "ommaviy")
+    list_editable = ("turkum", "millat", "narx")
+    list_filter = ("turkum", "millat", "ommaviy")
     search_fields = ("nomi", "kod")
     prepopulated_fields = {"kod": ("nomi",)}
+
+    @admin.display(description="Marosim turlari")
+    def marosim_turlari_korsatish(self, obj):
+        nomlar = dict(MAROSIM_TURLARI)
+        return ", ".join(str(nomlar.get(k, k)) for k in obj.marosim_turlari) or "—"
+
+
+class MusiqaVariantAdminForm(MarosimTurlariFormMixin):
+    class Meta:
+        model = MusiqaVariant
+        fields = "__all__"
 
 
 @admin.register(MusiqaVariant)
 class MusiqaVariantAdmin(admin.ModelAdmin):
-    list_display = ("nomi", "til", "faol")
+    form = MusiqaVariantAdminForm
+    list_display = ("nomi", "til", "marosim_turlari_korsatish", "faol")
     list_filter = ("til", "faol")
     search_fields = ("nomi",)
+
+    @admin.display(description="Marosim turlari")
+    def marosim_turlari_korsatish(self, obj):
+        nomlar = dict(MAROSIM_TURLARI)
+        return ", ".join(str(nomlar.get(k, k)) for k in obj.marosim_turlari) or "—"
+
+
+class NamunaRasmAdminForm(MarosimTurlariFormMixin):
+    class Meta:
+        model = NamunaRasm
+        fields = "__all__"
 
 
 @admin.register(NamunaRasm)
 class NamunaRasmAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "tartib", "faol")
+    form = NamunaRasmAdminForm
+    list_display = ("__str__", "tartib", "marosim_turlari_korsatish", "faol")
     list_filter = ("faol",)
     search_fields = ("nomi",)
+
+    @admin.display(description="Marosim turlari")
+    def marosim_turlari_korsatish(self, obj):
+        nomlar = dict(MAROSIM_TURLARI)
+        return ", ".join(str(nomlar.get(k, k)) for k in obj.marosim_turlari) or "—"
 
 
 @admin.register(Taklifnoma)
