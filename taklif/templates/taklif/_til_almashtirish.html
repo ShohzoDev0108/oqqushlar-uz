@@ -148,6 +148,59 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
 
                         var joriyScroll = window.scrollY;
 
+                        // TAFTISH: piksel bo'yicha skrollni saqlash (eski usul)
+                        // yetarli emas edi — chunki tarjima matni uzunligi
+                        // tilga qarab farq qiladi (masalan rus tilida matn
+                        // ko'proq qator egallashi mumkin), shu sabab hero/nav
+                        // balandligi til almashganda biroz o'zgaradi. Xuddi
+                        // shu piksel qiymatiga qaytarilsa, foydalanuvchi
+                        // ko'rib turgan kontent "sirg'alib" boshqa joyga
+                        // ko'chib qolardi. Endi PIKSEL emas, EKRANNING ENG
+                        // YUQORISIDA turgan ELEMENTNING O'ZI "langar" qilib
+                        // olinadi (uning DOM yo'li — ota elementlar ichidagi
+                        // indekslar zanjiri saqlanadi) va almashtirishdan
+                        // keyin xuddi shu yo'l bo'yicha yangi hujjatdan
+                        // topiladi — shu langar aynan bosh ekranning YUQORI
+                        // chetida qolishi uchun skroll shunga moslab
+                        // tuzatiladi. Natijada: sahifaning HOZIR ko'rinib
+                        // turgan yuqori qismi joyidan qimirlamaydi, pastda —
+                        // hali ko'rinmayotgan joylarda — balandlik farqi
+                        // bo'lsa ham bu foydalanuvchiga sezilmaydi.
+                        function langarTop() {
+                            var kengEkran = window.innerWidth || document.documentElement.clientWidth || 0;
+                            var x = Math.min(Math.max(Math.round(kengEkran / 2), 1), Math.max(kengEkran - 1, 1));
+                            var yLar = [2, 12, 30, 60, 100];
+                            for (var yi = 0; yi < yLar.length; yi++) {
+                                var el = document.elementFromPoint(x, yLar[yi]);
+                                if (el && el !== document.documentElement && el !== document.body) {
+                                    return { el: el, y: yLar[yi] };
+                                }
+                            }
+                            return null;
+                        }
+                        function domYoli(el) {
+                            var yol = [];
+                            var node = el;
+                            while (node && node !== document.body && node.parentElement) {
+                                var ota = node.parentElement;
+                                yol.unshift(Array.prototype.indexOf.call(ota.children, node));
+                                node = ota;
+                            }
+                            return yol;
+                        }
+                        function yolBoyichaTop(root, yol) {
+                            var node = root;
+                            for (var i = 0; i < yol.length; i++) {
+                                if (!node || !node.children || !node.children[yol[i]]) { return null; }
+                                node = node.children[yol[i]];
+                            }
+                            return node;
+                        }
+
+                        var langar = langarTop();
+                        var langarYoli = langar ? domYoli(langar.el) : null;
+                        var langarEkranTepasi = langar ? langar.el.getBoundingClientRect().top : null;
+
                         // Ijrodagi fon musiqasi uzilmasligi uchun jonli
                         // <audio> elementini yangi tanaga ko'chiramiz.
                         var jonliAudio = document.getElementById('sayt-musiqa');
@@ -166,15 +219,24 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
                             yangi.textContent = eski.textContent;
                             eski.parentNode.replaceChild(yangi, eski);
                         });
+
+                        var yangiSkroll = joriyScroll;
+                        if (langarYoli) {
+                            var yangiLangar = yolBoyichaTop(document.body, langarYoli);
+                            if (yangiLangar) {
+                                var yangiEkranTepasi = yangiLangar.getBoundingClientRect().top;
+                                yangiSkroll = window.scrollY + (yangiEkranTepasi - langarEkranTepasi);
+                            }
+                        }
                         // ATAYLAB "instant": sahifada global "html { scroll-behavior:
-                        // smooth }" bor — oddiy window.scrollTo(0, joriyScroll) shu
-                        // qoidani meros qilib olib, skrollni SEKIN-ASTA (animatsiya
-                        // bilan) joyiga qaytarardi, ya'ni foydalanuvchi buni "sahifa
-                        // suriladi" deb ko'rardi. "instant" shu animatsiyani o'chirib,
-                        // pozitsiyani darhol, sezilmas holda tiklaydi.
+                        // smooth }" bor — oddiy window.scrollTo(...) shu qoidani
+                        // meros qilib olib, skrollni SEKIN-ASTA (animatsiya bilan)
+                        // joyiga qaytarardi, ya'ni foydalanuvchi buni "sahifa
+                        // suriladi" deb ko'rardi. "instant" shu animatsiyani
+                        // o'chirib, pozitsiyani darhol, sezilmas holda tiklaydi.
                         if (window.scrollTo) {
-                            try { window.scrollTo({ top: joriyScroll, left: 0, behavior: 'instant' }); }
-                            catch (e) { window.scrollTo(0, joriyScroll); }
+                            try { window.scrollTo({ top: yangiSkroll, left: 0, behavior: 'instant' }); }
+                            catch (e) { window.scrollTo(0, yangiSkroll); }
                         }
                     })
                     .catch(function () { tilForma.submit(); });
