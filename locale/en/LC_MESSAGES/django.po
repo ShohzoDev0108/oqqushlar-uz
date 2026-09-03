@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 11:04+0500\n"
+"POT-Creation-Date: 2026-09-03 12:44-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,12 @@ msgstr "Bride's name"
 
 msgid "Masalan: Malika"
 msgstr "E.g.: Malika"
+
+msgid "Yigit ismi"
+msgstr "Groom's name"
+
+msgid "Qiz ismi"
+msgstr "Bride's name"
 
 msgid "Kelinchakning ismi"
 msgstr "The bride's name"
@@ -217,10 +223,13 @@ msgstr "For this event type, please enter the second name too."
 msgid "Nikoh to'yi"
 msgstr "Wedding"
 
+msgid "Fotiha to'yi"
+msgstr "Engagement (Fotiha)"
+
 msgid "Qiz uzatish"
 msgstr "Bride's farewell"
 
-msgid "Sunnat to'yi"
+msgid "Xatna to'yi"
 msgstr "Circumcision Celebration"
 
 msgid "Beshik to'yi"
@@ -244,26 +253,155 @@ msgstr "Modern"
 msgid "Milliy"
 msgstr "National"
 
-msgid "Bolalar"
-msgstr "Kids"
+msgid "Islomiy"
+msgstr "Islamic"
+
+msgid "O'zbek"
+msgstr "Uzbek"
+
+msgid "Qozoq"
+msgstr "Kazakh"
+
+msgid "Qirg'iz"
+msgstr "Kyrgyz"
+
+msgid "Tojik"
+msgstr "Tajik"
+
+msgid "Turkman"
+msgstr "Turkmen"
+
+msgid "Qoraqalpoq"
+msgstr "Karakalpak"
+
+msgid "Rus"
+msgstr "Russian"
 
 msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
 msgid "va"
 msgstr "and"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'yi"
+msgid "%(ismlar)sning xatna to'yi"
 msgstr "Circumcision ceremony: %(ismlar)s"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'ylari"
+msgid "%(ismlar)sning xatna to'ylari"
 msgstr "Circumcision ceremonies: %(ismlar)s"
+
+msgid "To'lovni qanday amalga oshiraman?"
+msgstr "How do I make the payment?"
+
+msgid ""
+"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
+"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
+"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
+"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
+"faollashtiriladi."
+msgstr ""
+"First you create your invitation for free and review it in full. If you like"
+" it, press the \"Like\" button on the invitation page — this connects you "
+"directly with our admin on Telegram, where you'll agree on the payment "
+"details. Once payment is confirmed, your invitation is activated."
+
+msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
+msgstr "Do I need to register or come up with a password?"
+
+msgid ""
+"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
+"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Taklifnomalarim\" "
+"bo'limi orqali shu brauzeringizda yaratgan barcha taklifnomalaringizni "
+"istalgan vaqt qayta topishingiz mumkin."
+msgstr ""
+"No. No registration, email, or password is required — you just choose a "
+"design and fill in your details. Through the \"My invitations\" section you "
+"can find all the invitations you've created in this browser again at any "
+"time."
+
+msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
+msgstr "If I made a mistake in the details, can I fix it?"
+
+msgid ""
+"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
+"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
+" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
+"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
+msgstr ""
+"Yes. If you fill out the form again with the same names, the system "
+"recognizes your previous invitation and asks whether to update it or save it"
+" as a separate one. For a bigger change or a problem, you can message our "
+"admin directly through the \"Like\" button on the invitation page."
+
+msgid "Taklifnoma linki qachon tugaydi?"
+msgstr "Does the invitation link expire?"
+
+msgid ""
+"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
+"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
+"panelidan) qilinadi."
+msgstr ""
+"It doesn't expire automatically — the link keeps working even after the "
+"wedding or event is over. Deactivating it is only ever done manually, from "
+"the admin panel."
+
+msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
+msgstr "Can I track my guests' responses (attending / not attending)?"
+
+msgid ""
+"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
+"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
+"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
+"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
+"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
+msgstr ""
+"Yes. Every invitation has a private statistics page visible only to you — "
+"there you can track how many people have viewed it, who answered "
+"\"attending\" or \"not attending,\" and who has or hasn't seen the personal "
+"links you gave your guests. You'll find the link on the \"Your invitation is"
+" ready!\" page."
+
+msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
+msgstr "How many photos and what music can I add?"
+
+msgid ""
+"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
+"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
+"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
+"tanlashingiz mumkin."
+msgstr ""
+"You can add up to 2 of your own photos (up to 8 MB each) or choose from the "
+"ready-made samples. For music, you can also upload your own (up to 15 MB) or"
+" pick one of the ready-made options."
+
+msgid "Qaysi tillarda ishlaydi?"
+msgstr "What languages does it support?"
+
+msgid ""
+"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
+"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
+"joylashgan."
+msgstr ""
+"The site works in 8 languages: Uzbek, Russian, English, Tajik, Kazakh, "
+"Kyrgyz, Turkmen, and Karakalpak. The language switcher is at the top of "
+"every page."
+
+msgid "Bosh sahifa"
+msgstr "Home"
 
 msgid "Dizaynlar"
 msgstr "Designs"
 
-msgid "Mening taklifnomalarim"
+msgid "Taklifnomalarim"
 msgstr "My invitations"
+
+msgid "Biz haqimizda"
+msgstr "About us"
+
+msgid "Savol-javob"
+msgstr "FAQ"
+
+msgid "Bog'lanish"
+msgstr "Contact"
 
 msgid "Musiqani yoqish/o'chirish"
 msgstr "Turn music on/off"
@@ -271,8 +409,117 @@ msgstr "Turn music on/off"
 msgid "Taklifnoma yaratish"
 msgstr "Create an invitation"
 
+msgid "Menyu"
+msgstr "Menu"
+
+msgid "Asosiy menyu"
+msgstr "Main menu"
+
+msgid "Yopish"
+msgstr "Close"
+
 msgid "Tilni tanlang"
 msgstr "Select language"
+
+msgid ""
+"<strong>Oqqushlar</strong> — to'y, fotiha, beshik to'yi va boshqa oilaviy "
+"marosimlar uchun raqamli taklifnomalar tayyorlaydigan xizmat. Bosma "
+"taklifnomadan farqli o'laroq, sizning taklifnomangiz oddiy havola bo'lib, "
+"uni Telegram yoki boshqa istalgan joyda ulashasiz — mehmon uni telefonida "
+"ochadi, manzilni xaritada ko'radi va \"kelaman\" deb javob beradi."
+msgstr ""
+"<strong>Oqqushlar</strong> is a service for creating digital invitations for"
+" weddings, engagement ceremonies, cradle celebrations and other family "
+"events. Unlike a paper invitation, yours is a simple link you share on "
+"Telegram or anywhere else — the guest opens it on their phone, sees the "
+"address on a map, and replies \"I'll come.\""
+
+msgid ""
+"Xizmatni o'zingiz boshqarasiz: dizaynni tanlaysiz, ma'lumotlarni to'ldirasiz"
+" va taklifnoma shu zahoti tayyor bo'ladi. Bizga yozib o'tirish, kutish yoki "
+"kelishuv shart emas — hammasi telefoningizda, bir necha daqiqada."
+msgstr ""
+"You're in full control: pick a design, fill in the details, and your "
+"invitation is ready instantly. No need to message us, wait, or arrange "
+"anything — it all happens on your phone, in a few minutes."
+
+msgid "Sakkiz tilda"
+msgstr "In eight languages"
+
+msgid ""
+"O'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman va qoraqalpoq tillarida "
+"— mehmonlaringiz taklifnomani o'z tilida o'qiydi."
+msgstr ""
+"In Uzbek, Russian, English, Tajik, Kazakh, Kyrgyz, Turkmen and Karakalpak — "
+"your guests read the invitation in their own language."
+
+msgid "Ro'yxatdan o'tish shart emas"
+msgstr "No registration required"
+
+msgid ""
+"Email ham, parol ham so'ralmaydi. Yaratgan taklifnomalaringizni "
+"\"Taklifnomalarim\" bo'limidan istalgan vaqt topasiz."
+msgstr ""
+"No email or password needed. You can always find the invitations you've "
+"created in the \"My invitations\" section."
+
+msgid "Har bir mehmonga shaxsiy havola"
+msgstr "A personal link for every guest"
+
+msgid ""
+"Taklifnoma mehmonni ismi bilan kutib oladi, siz esa kim ko'rgani va kim "
+"javob berganini kuzatib borasiz."
+msgstr ""
+"The invitation greets each guest by name, while you can see who has viewed "
+"it and who has responded."
+
+msgid "Avval ko'rasiz, keyin to'laysiz"
+msgstr "See it first, pay later"
+
+msgid ""
+"Taklifnomangizni bepul yaratib, to'liq ko'rib chiqasiz. To'lov — faqat "
+"yoqqanidan keyin."
+msgstr ""
+"You create and fully preview your invitation for free. Payment — only after "
+"you like it."
+
+msgid ""
+"Savolingiz bormi yoki yordam kerakmi — xijolat bo'lmang, bizga yozing. Bepul"
+" va samimiy yordam beramiz."
+msgstr ""
+"Have a question or need help? Don't hesitate — write to us. We'll help for "
+"free and gladly."
+
+msgid "Dizaynlarni ko'rish"
+msgstr "View designs"
+
+msgid ""
+"Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus "
+"so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, "
+"to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz."
+msgstr ""
+"If you need help creating your invitation, have a special design request, or"
+" a question about payment — don't hesitate, write to us directly. We'll help"
+" for free and gladly."
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "Eng tez yo'l — xabar yozsangiz, odatda shu kuniyoq javob beramiz."
+msgstr "The fastest way — send us a message, we usually reply the same day."
+
+msgid "Ko'p so'raladigan savollar"
+msgstr "Frequently asked questions"
+
+msgid ""
+"To'lov qanday, havola qachongacha ishlaydi, ma'lumotni keyin o'zgartirsa "
+"bo'ladimi — ko'p savollarga javob shu yerda tayyor."
+msgstr ""
+"How payment works, how long the link stays active, whether you can edit "
+"details later — answers to the most common questions are right here."
+
+msgid "Javoblarni ko'rish"
+msgstr "View answers"
 
 msgid "chiroyli raqamli taklifnomalar"
 msgstr "beautiful digital invitations"
@@ -332,7 +579,7 @@ msgid "Forma marosim turingizni tushunadi"
 msgstr "The form understands your event type"
 
 msgid ""
-"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
 "savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 "Wedding, circumcision ceremony, or birthday — the questions the form asks "
@@ -445,113 +692,11 @@ msgstr "Design templates"
 msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Pick one and create yours right away"
 
-msgid "Barchasi"
-msgstr "All"
-
 msgid "so'm"
 msgstr "UZS"
 
-msgid "Savol-javob"
-msgstr "FAQ"
-
-msgid "Ko'p so'raladigan savollar"
-msgstr "Frequently asked questions"
-
-msgid "To'lovni qanday amalga oshiraman?"
-msgstr "How do I make the payment?"
-
-msgid ""
-"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
-"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
-"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
-"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
-"faollashtiriladi."
-msgstr ""
-"First you create your invitation for free and review it in full. If you like"
-" it, press the \"Like\" button on the invitation page — this connects you "
-"directly with our admin on Telegram, where you'll agree on the payment "
-"details. Once payment is confirmed, your invitation is activated."
-
-msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
-msgstr "Do I need to register or come up with a password?"
-
-msgid ""
-"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
-"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Mening "
-"taklifnomalarim\" bo'limi orqali shu brauzeringizda yaratgan barcha "
-"taklifnomalaringizni istalgan vaqt qayta topishingiz mumkin."
-msgstr ""
-"No. No registration, email, or password is required — you just choose a "
-"design and fill in your details. Through the \"My invitations\" section you "
-"can find all the invitations you've created in this browser again at any "
-"time."
-
-msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
-msgstr "If I made a mistake in the details, can I fix it?"
-
-msgid ""
-"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
-"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
-" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
-"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
-msgstr ""
-"Yes. If you fill out the form again with the same names, the system "
-"recognizes your previous invitation and asks whether to update it or save it"
-" as a separate one. For a bigger change or a problem, you can message our "
-"admin directly through the \"Like\" button on the invitation page."
-
-msgid "Taklifnoma linki qachon tugaydi?"
-msgstr "Does the invitation link expire?"
-
-msgid ""
-"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
-"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
-"panelidan) qilinadi."
-msgstr ""
-"It doesn't expire automatically — the link keeps working even after the "
-"wedding or event is over. Deactivating it is only ever done manually, from "
-"the admin panel."
-
-msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
-msgstr "Can I track my guests' responses (attending / not attending)?"
-
-msgid ""
-"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
-"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
-"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
-"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
-"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
-msgstr ""
-"Yes. Every invitation has a private statistics page visible only to you — "
-"there you can track how many people have viewed it, who answered "
-"\"attending\" or \"not attending,\" and who has or hasn't seen the personal "
-"links you gave your guests. You'll find the link on the \"Your invitation is"
-" ready!\" page."
-
-msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
-msgstr "How many photos and what music can I add?"
-
-msgid ""
-"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
-"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
-"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
-"tanlashingiz mumkin."
-msgstr ""
-"You can add up to 2 of your own photos (up to 8 MB each) or choose from the "
-"ready-made samples. For music, you can also upload your own (up to 15 MB) or"
-" pick one of the ready-made options."
-
-msgid "Qaysi tillarda ishlaydi?"
-msgstr "What languages does it support?"
-
-msgid ""
-"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
-"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
-"joylashgan."
-msgstr ""
-"The site works in 8 languages: Uzbek, Russian, English, Tajik, Kazakh, "
-"Kyrgyz, Turkmen, and Karakalpak. The language switcher is at the top of "
-"every page."
+msgid "Barcha dizaynlar"
+msgstr "All designs"
 
 msgid "Taklifnoma hali faollashtirilmagan"
 msgstr "Invitation not yet activated"
@@ -563,9 +708,6 @@ msgid ""
 "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
 "bog'laning."
 msgstr "This link is not yet activated. Please contact the invitation owner."
-
-msgid "Bosh sahifa"
-msgstr "Home"
 
 msgid ""
 "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
@@ -629,6 +771,19 @@ msgstr "This invitation page is closed"
 msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "The page for %(nomi)s is no longer active."
 
+msgid ""
+"Mijozlarimiz eng ko'p beradigan savollar va ularga aniq javoblar. "
+"Savolingizga javob topolmasangiz, bizga yozing — yordam beramiz."
+msgstr ""
+"The questions our customers ask most, with clear answers. If you can't find "
+"yours, write to us — we'll help."
+
+msgid "Javobini topa olmadingizmi?"
+msgstr "Didn't find your answer?"
+
+msgid "Bizga yozing"
+msgstr "Write to us"
+
 msgid "Shablon tanlang"
 msgstr "Choose a template"
 
@@ -637,6 +792,18 @@ msgid ""
 "to'ldirasiz."
 msgstr ""
 "Choose the design you like — you'll fill in your details in the next step."
+
+msgid "Barchasi"
+msgstr "All"
+
+msgid "Uslub"
+msgstr "Style"
+
+msgid "Millat"
+msgstr "Nationality"
+
+msgid "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi."
+msgstr "There are no designs for this selection yet — coming soon."
 
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "No templates yet. Add them in the admin panel."
@@ -767,6 +934,9 @@ msgstr "Like — message admin"
 msgid "Qayta yaratish"
 msgstr "Create another"
 
+msgid "Qulfcha ustiga bosing"
+msgstr "Tap the lock"
+
 msgid "Baxtli oilamizga"
 msgstr "Time since our happy day"
 
@@ -787,6 +957,43 @@ msgstr "Today — our happiest day"
 
 msgid "taklifnomasi"
 msgstr "invitation"
+
+msgid "Sana va vaqt"
+msgstr "Date and time"
+
+msgid "Xaritada ko'rish"
+msgstr "View on map"
+
+msgid "Izoh (ixtiyoriy)"
+msgstr "Comment (optional)"
+
+msgid "Mehmonlar"
+msgstr "Guests"
+
+#, python-format
+msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgstr "<strong>%(soni)s</strong> people have confirmed so far"
+
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s people"
+
+msgid "Mening taklifnomalarim"
+msgstr "My invitations"
+
+#, python-format
+msgid "Hurmatli %(ism)s"
+msgstr "Dear %(ism)s"
+
+msgid "Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:"
+msgstr "If you'd like to leave a gift:"
+
+#, python-format
+msgid "%(ism)s — %(soni)s kishi"
+msgstr "%(ism)s — %(soni)s people"
+
+msgid "Yangiliklar uchun Telegram guruhimizga qo'shiling"
+msgstr "Join our Telegram group for updates"
 
 msgid "Ochiq sahifani ko'rish"
 msgstr "View invitation"
@@ -818,10 +1025,6 @@ msgstr "Attending"
 
 msgid "Kelmaydi"
 msgstr "Not attending"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s people"
 
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Visible to everyone — hide"
@@ -1044,9 +1247,6 @@ msgstr "Create the invitation"
 msgid "Boshqa shablon tanlash"
 msgstr "Choose another template"
 
-msgid "Yopish"
-msgstr "Close"
-
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
@@ -1137,12 +1337,6 @@ msgid ""
 "Sahifa vaqtincha ishlamayapti. Iltimos, birozdan so'ng qayta urinib ko'ring."
 msgstr "The page is temporarily unavailable. Please try again shortly."
 
-msgid "Django site admin"
-msgstr "Django site admin"
-
-msgid "Django administration"
-msgstr "Django administration"
-
 #, python-format
 msgid "Sizni %(sana)s kunidagi marosimimizga taklif qilamiz"
 msgstr "We invite you to our celebration on %(sana)s"
@@ -1156,3 +1350,12 @@ msgid ""
 msgstr ""
 "The most beautiful and modern digital invitations for Uzbekistan. Create "
 "yours in a few minutes."
+
+#~ msgid "Bolalar"
+#~ msgstr "Kids"
+
+#~ msgid "Django site admin"
+#~ msgstr "Django site admin"
+
+#~ msgid "Django administration"
+#~ msgstr "Django administration"

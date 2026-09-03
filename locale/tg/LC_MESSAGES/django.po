@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 11:04+0500\n"
+"POT-Creation-Date: 2026-09-03 12:44-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,12 @@ msgstr "Номи арӯс"
 
 msgid "Masalan: Malika"
 msgstr "Масалан: Малика"
+
+msgid "Yigit ismi"
+msgstr "Номи домод"
+
+msgid "Qiz ismi"
+msgstr "Номи арӯс"
 
 msgid "Kelinchakning ismi"
 msgstr "Номи арӯс"
@@ -216,10 +222,13 @@ msgstr "Барои ин навъи маросим номи дуюмро низ �
 msgid "Nikoh to'yi"
 msgstr "Тӯйи никоҳ"
 
+msgid "Fotiha to'yi"
+msgstr "Тӯйи фотиҳа"
+
 msgid "Qiz uzatish"
 msgstr "Гусели арӯс"
 
-msgid "Sunnat to'yi"
+msgid "Xatna to'yi"
 msgstr "Ҷашни суннатӣ"
 
 msgid "Beshik to'yi"
@@ -243,26 +252,155 @@ msgstr "Муосир"
 msgid "Milliy"
 msgstr "Миллӣ"
 
-msgid "Bolalar"
-msgstr "Кӯдакона"
+msgid "Islomiy"
+msgstr "Исломӣ"
+
+msgid "O'zbek"
+msgstr "Узбекӣ"
+
+msgid "Qozoq"
+msgstr "Қазоқӣ"
+
+msgid "Qirg'iz"
+msgstr "Қирғизӣ"
+
+msgid "Tojik"
+msgstr "Тоҷикӣ"
+
+msgid "Turkman"
+msgstr "Туркманӣ"
+
+msgid "Qoraqalpoq"
+msgstr "Қароқалпоқӣ"
+
+msgid "Rus"
+msgstr "Русӣ"
 
 msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
 msgid "va"
 msgstr "ва"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'yi"
+msgid "%(ismlar)sning xatna to'yi"
 msgstr "Маросими суннат: %(ismlar)s"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'ylari"
+msgid "%(ismlar)sning xatna to'ylari"
 msgstr "Маросимҳои суннат: %(ismlar)s"
+
+msgid "To'lovni qanday amalga oshiraman?"
+msgstr "Пардохтро чӣ тавр анҷом диҳам?"
+
+msgid ""
+"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
+"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
+"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
+"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
+"faollashtiriladi."
+msgstr ""
+"Аввал таклифномаи худро ройгон месозед ва пурра дида мебароед. Агар маъқул "
+"шуд, тугмаи \"Маъқул шуд\"-ро дар саҳифаи таклифнома пахш кунед — ин шуморо "
+"бевосита бо администратори мо дар Telegram пайваст мекунад, дар он ҷо "
+"тафсилоти пардохтро мувофиқа мекунед. Пас аз тасдиқи пардохт, таклифномаи "
+"шумо фаъол мешавад."
+
+msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
+msgstr "Оё бояд бақайдгирӣ кунам ё парол фикр кунам?"
+
+msgid ""
+"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
+"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Taklifnomalarim\" "
+"bo'limi orqali shu brauzeringizda yaratgan barcha taklifnomalaringizni "
+"istalgan vaqt qayta topishingiz mumkin."
+msgstr ""
+"Не. Ҳеҷ гуна бақайдгирӣ, почтаи электронӣ ё парол лозим нест — шумо танҳо "
+"тарҳро интихоб карда, маълумоти худро ворид мекунед. Тавассути бахши "
+"\"Таклифномаҳои ман\" метавонед ҳамаи таклифномаҳое, ки дар ин браузер "
+"сохтаед, дар ҳар вақт дубора пайдо кунед."
+
+msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
+msgstr "Агар дар маълумот хато карда бошам, метавонам ислоҳ кунам?"
+
+msgid ""
+"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
+"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
+" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
+"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
+msgstr ""
+"Ҳа. Агар шаклро бо ҳамон номҳо дубора пур кунед, система таклифномаи қаблии "
+"шуморо мешиносад ва мепурсад, ки онро нав кунад ё алоҳида нигоҳ дорад. Барои"
+" тағйироти калонтар ё мушкилот, метавонед тавассути тугмаи \"Маъқул шуд\" "
+"дар саҳифаи таклифнома бевосита ба администратори мо нависед."
+
+msgid "Taklifnoma linki qachon tugaydi?"
+msgstr "Оё линки таклифнома тамом мешавад?"
+
+msgid ""
+"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
+"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
+"panelidan) qilinadi."
+msgstr ""
+"Ба таври худкор тамом намешавад — линк ҳатто пас аз гузаштани тӯй ё маросим "
+"низ кор мекунад. Ғайрифаъол кардани он танҳо дастӣ (аз панели админ) сурат "
+"мегирад."
+
+msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
+msgstr "Оё метавонам ҷавоби меҳмононамро (меоянд/намеоянд) пайгирӣ кунам?"
+
+msgid ""
+"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
+"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
+"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
+"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
+"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
+msgstr ""
+"Ҳа. Ҳар як таклифнома саҳифаи хусусии оморӣ дорад, ки танҳо ба шумо намоён "
+"аст — дар он ҷо метавонед пайгирӣ кунед, чанд нафар дида баромаданд, кӣ "
+"\"меоям\" ё \"намеоям\" гуфта ҷавоб дод ва кадом меҳмон линки шахсии худро "
+"дидааст ё не. Линкро дар саҳифаи \"Таклифномаи шумо тайёр аст!\" меёбед."
+
+msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
+msgstr "Чанд акс ва кадом мусиқиро илова карда метавонам?"
+
+msgid ""
+"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
+"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
+"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
+"tanlashingiz mumkin."
+msgstr ""
+"Шумо метавонед то 2 акси худро (то 8 МБ ҳар кадом) илова кунед ё аз "
+"намунаҳои тайёр интихоб кунед. Барои мусиқӣ низ метавонед мусиқии худро (то "
+"15 МБ) бор кунед ё яке аз вариантҳои тайёрро интихоб кунед."
+
+msgid "Qaysi tillarda ishlaydi?"
+msgstr "Бо кадом забонҳо кор мекунад?"
+
+msgid ""
+"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
+"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
+"joylashgan."
+msgstr ""
+"Сайт бо 8 забон кор мекунад: узбекӣ, русӣ, англисӣ, тоҷикӣ, қазоқӣ, қирғизӣ,"
+" туркманӣ ва қароқалпоқӣ. Тугмаи интихоби забон дар болои ҳар саҳифа ҷойгир "
+"аст."
+
+msgid "Bosh sahifa"
+msgstr "Саҳифаи асосӣ"
 
 msgid "Dizaynlar"
 msgstr "Дизайнҳо"
 
-msgid "Mening taklifnomalarim"
-msgstr "Даъватномаҳои ман"
+msgid "Taklifnomalarim"
+msgstr "Таклифномаҳои ман"
+
+msgid "Biz haqimizda"
+msgstr "Дар бораи мо"
+
+msgid "Savol-javob"
+msgstr "Саволу ҷавоб"
+
+msgid "Bog'lanish"
+msgstr "Тамос"
 
 msgid "Musiqani yoqish/o'chirish"
 msgstr "Мусиқиро фаъол/ғайрифаъол кунед"
@@ -270,8 +408,117 @@ msgstr "Мусиқиро фаъол/ғайрифаъол кунед"
 msgid "Taklifnoma yaratish"
 msgstr "Даъватнома сохтан"
 
+msgid "Menyu"
+msgstr "Меню"
+
+msgid "Asosiy menyu"
+msgstr "Менюи асосӣ"
+
+msgid "Yopish"
+msgstr "Пӯшидан"
+
 msgid "Tilni tanlang"
 msgstr "Забонро интихоб кунед"
+
+msgid ""
+"<strong>Oqqushlar</strong> — to'y, fotiha, beshik to'yi va boshqa oilaviy "
+"marosimlar uchun raqamli taklifnomalar tayyorlaydigan xizmat. Bosma "
+"taklifnomadan farqli o'laroq, sizning taklifnomangiz oddiy havola bo'lib, "
+"uni Telegram yoki boshqa istalgan joyda ulashasiz — mehmon uni telefonida "
+"ochadi, manzilni xaritada ko'radi va \"kelaman\" deb javob beradi."
+msgstr ""
+"<strong>Oqqushlar</strong> — хидмате барои тайёр кардани таклифномаҳои "
+"рақамӣ барои тӯй, фотиҳа, бешик-тӯй ва дигар маросимҳои оилавӣ. Бар хилофи "
+"таклифномаи коғазӣ, таклифномаи шумо як пайванди оддист, ки онро дар "
+"Telegram ё дар ҷои дигар мубодила мекунед — меҳмон онро дар телефонаш "
+"кушода, суроғаро дар харита мебинад ва «меоям» ҷавоб медиҳад."
+
+msgid ""
+"Xizmatni o'zingiz boshqarasiz: dizaynni tanlaysiz, ma'lumotlarni to'ldirasiz"
+" va taklifnoma shu zahoti tayyor bo'ladi. Bizga yozib o'tirish, kutish yoki "
+"kelishuv shart emas — hammasi telefoningizda, bir necha daqiqada."
+msgstr ""
+"Хидматро худатон идора мекунед: тарҳро интихоб мекунед, маълумотро пур "
+"мекунед ва таклифнома дарҳол тайёр мешавад. Ба мо навиштан, интизор шудан ё "
+"мувофиқа кардан лозим нест — ҳама чиз дар телефони шумо, дар якчанд дақиқа."
+
+msgid "Sakkiz tilda"
+msgstr "Ба ҳашт забон"
+
+msgid ""
+"O'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman va qoraqalpoq tillarida "
+"— mehmonlaringiz taklifnomani o'z tilida o'qiydi."
+msgstr ""
+"Бо забонҳои узбекӣ, русӣ, англисӣ, тоҷикӣ, қазоқӣ, қирғизӣ, туркманӣ ва "
+"қароқалпоқӣ — меҳмонони шумо таклифномаро бо забони худ мехонанд."
+
+msgid "Ro'yxatdan o'tish shart emas"
+msgstr "Бақайдгирӣ лозим нест"
+
+msgid ""
+"Email ham, parol ham so'ralmaydi. Yaratgan taklifnomalaringizni "
+"\"Taklifnomalarim\" bo'limidan istalgan vaqt topasiz."
+msgstr ""
+"На email, на рамз лозим нест. Таклифномаҳои сохтаатонро ҳамеша дар бахши "
+"«Таклифномаҳои ман» пайдо мекунед."
+
+msgid "Har bir mehmonga shaxsiy havola"
+msgstr "Пайванди шахсӣ барои ҳар меҳмон"
+
+msgid ""
+"Taklifnoma mehmonni ismi bilan kutib oladi, siz esa kim ko'rgani va kim "
+"javob berganini kuzatib borasiz."
+msgstr ""
+"Таклифнома меҳмонро бо ном пешвоз мегирад, шумо бошед мебинед, ки кӣ дидааст"
+" ва кӣ ҷавоб додааст."
+
+msgid "Avval ko'rasiz, keyin to'laysiz"
+msgstr "Аввал бинед, баъд пардохт кунед"
+
+msgid ""
+"Taklifnomangizni bepul yaratib, to'liq ko'rib chiqasiz. To'lov — faqat "
+"yoqqanidan keyin."
+msgstr ""
+"Шумо таклифномаро ройгон месозед ва пурра дида мебароед. Пардохт — танҳо "
+"баъд аз он ки хушатон омад."
+
+msgid ""
+"Savolingiz bormi yoki yordam kerakmi — xijolat bo'lmang, bizga yozing. Bepul"
+" va samimiy yordam beramiz."
+msgstr ""
+"Савол доред ё кӯмак лозим аст — хиҷолат накашед, ба мо нависед. Бепул ва "
+"самимона кӯмак мекунем."
+
+msgid "Dizaynlarni ko'rish"
+msgstr "Дидани дизайнҳо"
+
+msgid ""
+"Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus "
+"so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, "
+"to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz."
+msgstr ""
+"Агар ҳангоми эҷоди таклифнома кӯмак лозим бошад, дархости махсус оид ба тарҳ"
+" ё саволе дар бораи пардохт доред — хиҷолат накашед, мустақим нависед. Бепул"
+" ва самимона кӯмак мекунем."
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "Eng tez yo'l — xabar yozsangiz, odatda shu kuniyoq javob beramiz."
+msgstr "Роҳи тезтарин — агар паём нависед, одатан ҳамон рӯз ҷавоб медиҳем."
+
+msgid "Ko'p so'raladigan savollar"
+msgstr "Саволҳои зуд-зуд додашаванда"
+
+msgid ""
+"To'lov qanday, havola qachongacha ishlaydi, ma'lumotni keyin o'zgartirsa "
+"bo'ladimi — ko'p savollarga javob shu yerda tayyor."
+msgstr ""
+"Пардохт чӣ гуна аст, пайванд то кай кор мекунад, оё маълумотро баъдтар "
+"тағйир додан мумкин аст — ҷавоби бисёр саволҳо дар ҳамин ҷо тайёр."
+
+msgid "Javoblarni ko'rish"
+msgstr "Дидани ҷавобҳо"
 
 msgid "chiroyli raqamli taklifnomalar"
 msgstr "даъватномаҳои зебои рақамӣ"
@@ -332,7 +579,7 @@ msgid "Forma marosim turingizni tushunadi"
 msgstr "Шакл навъи чорабинии шуморо мефаҳмад"
 
 msgid ""
-"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
 "savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 "Тӯйи арӯсӣ, суннат ё зодрӯз — саволҳое, ки шакл медиҳад ва матнҳои намунавӣ "
@@ -446,113 +693,11 @@ msgstr "Шаблонҳои дизайн"
 msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Интихоб кунед ва дарҳол аз они худро созед"
 
-msgid "Barchasi"
-msgstr "Ҳама"
-
 msgid "so'm"
 msgstr "сум"
 
-msgid "Savol-javob"
-msgstr "Саволу ҷавоб"
-
-msgid "Ko'p so'raladigan savollar"
-msgstr "Саволҳои зуд-зуд додашаванда"
-
-msgid "To'lovni qanday amalga oshiraman?"
-msgstr "Пардохтро чӣ тавр анҷом диҳам?"
-
-msgid ""
-"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
-"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
-"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
-"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
-"faollashtiriladi."
-msgstr ""
-"Аввал таклифномаи худро ройгон месозед ва пурра дида мебароед. Агар маъқул "
-"шуд, тугмаи \"Маъқул шуд\"-ро дар саҳифаи таклифнома пахш кунед — ин шуморо "
-"бевосита бо администратори мо дар Telegram пайваст мекунад, дар он ҷо "
-"тафсилоти пардохтро мувофиқа мекунед. Пас аз тасдиқи пардохт, таклифномаи "
-"шумо фаъол мешавад."
-
-msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
-msgstr "Оё бояд бақайдгирӣ кунам ё парол фикр кунам?"
-
-msgid ""
-"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
-"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Mening "
-"taklifnomalarim\" bo'limi orqali shu brauzeringizda yaratgan barcha "
-"taklifnomalaringizni istalgan vaqt qayta topishingiz mumkin."
-msgstr ""
-"Не. Ҳеҷ гуна бақайдгирӣ, почтаи электронӣ ё парол лозим нест — шумо танҳо "
-"тарҳро интихоб карда, маълумоти худро ворид мекунед. Тавассути бахши "
-"\"Таклифномаҳои ман\" метавонед ҳамаи таклифномаҳое, ки дар ин браузер "
-"сохтаед, дар ҳар вақт дубора пайдо кунед."
-
-msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
-msgstr "Агар дар маълумот хато карда бошам, метавонам ислоҳ кунам?"
-
-msgid ""
-"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
-"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
-" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
-"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
-msgstr ""
-"Ҳа. Агар шаклро бо ҳамон номҳо дубора пур кунед, система таклифномаи қаблии "
-"шуморо мешиносад ва мепурсад, ки онро нав кунад ё алоҳида нигоҳ дорад. Барои"
-" тағйироти калонтар ё мушкилот, метавонед тавассути тугмаи \"Маъқул шуд\" "
-"дар саҳифаи таклифнома бевосита ба администратори мо нависед."
-
-msgid "Taklifnoma linki qachon tugaydi?"
-msgstr "Оё линки таклифнома тамом мешавад?"
-
-msgid ""
-"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
-"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
-"panelidan) qilinadi."
-msgstr ""
-"Ба таври худкор тамом намешавад — линк ҳатто пас аз гузаштани тӯй ё маросим "
-"низ кор мекунад. Ғайрифаъол кардани он танҳо дастӣ (аз панели админ) сурат "
-"мегирад."
-
-msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
-msgstr "Оё метавонам ҷавоби меҳмононамро (меоянд/намеоянд) пайгирӣ кунам?"
-
-msgid ""
-"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
-"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
-"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
-"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
-"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
-msgstr ""
-"Ҳа. Ҳар як таклифнома саҳифаи хусусии оморӣ дорад, ки танҳо ба шумо намоён "
-"аст — дар он ҷо метавонед пайгирӣ кунед, чанд нафар дида баромаданд, кӣ "
-"\"меоям\" ё \"намеоям\" гуфта ҷавоб дод ва кадом меҳмон линки шахсии худро "
-"дидааст ё не. Линкро дар саҳифаи \"Таклифномаи шумо тайёр аст!\" меёбед."
-
-msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
-msgstr "Чанд акс ва кадом мусиқиро илова карда метавонам?"
-
-msgid ""
-"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
-"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
-"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
-"tanlashingiz mumkin."
-msgstr ""
-"Шумо метавонед то 2 акси худро (то 8 МБ ҳар кадом) илова кунед ё аз "
-"намунаҳои тайёр интихоб кунед. Барои мусиқӣ низ метавонед мусиқии худро (то "
-"15 МБ) бор кунед ё яке аз вариантҳои тайёрро интихоб кунед."
-
-msgid "Qaysi tillarda ishlaydi?"
-msgstr "Бо кадом забонҳо кор мекунад?"
-
-msgid ""
-"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
-"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
-"joylashgan."
-msgstr ""
-"Сайт бо 8 забон кор мекунад: узбекӣ, русӣ, англисӣ, тоҷикӣ, қазоқӣ, қирғизӣ,"
-" туркманӣ ва қароқалпоқӣ. Тугмаи интихоби забон дар болои ҳар саҳифа ҷойгир "
-"аст."
+msgid "Barcha dizaynlar"
+msgstr "Ҳамаи дизайнҳо"
 
 msgid "Taklifnoma hali faollashtirilmagan"
 msgstr "Даъватнома ҳанӯз фаъол нашудааст"
@@ -565,9 +710,6 @@ msgid ""
 "bog'laning."
 msgstr ""
 "Ин пайванд ҳанӯз фаъол нашудааст. Лутфан, бо соҳиби даъватнома тамос гиред."
-
-msgid "Bosh sahifa"
-msgstr "Саҳифаи асосӣ"
 
 msgid ""
 "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
@@ -631,6 +773,19 @@ msgstr "Ин саҳифаи даъватнома баста аст"
 msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "Саҳифаи марбут ба %(nomi)s дигар фаъол нест."
 
+msgid ""
+"Mijozlarimiz eng ko'p beradigan savollar va ularga aniq javoblar. "
+"Savolingizga javob topolmasangiz, bizga yozing — yordam beramiz."
+msgstr ""
+"Саволҳое, ки мизоҷони мо бештар медиҳанд ва ҷавобҳои дақиқ ба онҳо. Агар "
+"ҷавоби саволатонро наёфтед — ба мо нависед, кӯмак мекунем."
+
+msgid "Javobini topa olmadingizmi?"
+msgstr "Ҷавобашро наёфтед?"
+
+msgid "Bizga yozing"
+msgstr "Ба мо нависед"
+
 msgid "Shablon tanlang"
 msgstr "Шаблон интихоб кунед"
 
@@ -640,6 +795,18 @@ msgid ""
 msgstr ""
 "Дизайни маъқулатонро интихоб кунед — дар қадами оянда маълумоти худро пур "
 "мекунед."
+
+msgid "Barchasi"
+msgstr "Ҳама"
+
+msgid "Uslub"
+msgstr "Услуб"
+
+msgid "Millat"
+msgstr "Миллат"
+
+msgid "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi."
+msgstr "Барои ин интихоб ҳоло тарҳ нест — ба зудӣ илова мекунем."
 
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "Ҳоло шаблон нест. Дар панели админ илова кунед."
@@ -769,6 +936,9 @@ msgstr "Маъқул шуд — ба админ нависед"
 msgid "Qayta yaratish"
 msgstr "Аз нав созед"
 
+msgid "Qulfcha ustiga bosing"
+msgstr "Ба қулфча зер кунед"
+
 msgid "Baxtli oilamizga"
 msgstr "Аз лаҳзаи ҷашни мо гузашт"
 
@@ -789,6 +959,43 @@ msgstr "Имрӯз — рӯзи хушбахттарини мо"
 
 msgid "taklifnomasi"
 msgstr "даъватнома"
+
+msgid "Sana va vaqt"
+msgstr "Сана ва вақт"
+
+msgid "Xaritada ko'rish"
+msgstr "Дидан дар харита"
+
+msgid "Izoh (ixtiyoriy)"
+msgstr "Шарҳ (ихтиёрӣ)"
+
+msgid "Mehmonlar"
+msgstr "Меҳмонон"
+
+#, python-format
+msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgstr "То ҳол <strong>%(soni)s</strong> нафар омаданашонро тасдиқ карданд"
+
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s нафар"
+
+msgid "Mening taklifnomalarim"
+msgstr "Даъватномаҳои ман"
+
+#, python-format
+msgid "Hurmatli %(ism)s"
+msgstr "Мӯҳтарам %(ism)s"
+
+msgid "Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:"
+msgstr "Агар хоҳед тӯҳфа гузоред:"
+
+#, python-format
+msgid "%(ism)s — %(soni)s kishi"
+msgstr "%(ism)s — %(soni)s нафар"
+
+msgid "Yangiliklar uchun Telegram guruhimizga qo'shiling"
+msgstr "Барои хабарҳо ба гурӯҳи Telegram мо ҳамроҳ шавед"
 
 msgid "Ochiq sahifani ko'rish"
 msgstr "Дидани даъватнома"
@@ -820,10 +1027,6 @@ msgstr "Меояд"
 
 msgid "Kelmaydi"
 msgstr "Намеояд"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s нафар"
 
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Ба ҳама намоён аст — пинҳон кардан"
@@ -1050,9 +1253,6 @@ msgstr "Даъватномаро сохтан"
 msgid "Boshqa shablon tanlash"
 msgstr "Шаблони дигар интихоб кардан"
 
-msgid "Yopish"
-msgstr "Пӯшидан"
-
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
@@ -1148,12 +1348,6 @@ msgid ""
 msgstr ""
 "Саҳифа муваққатан кор намекунад. Лутфан пас аз чанде дубора кӯшиш кунед."
 
-msgid "Django site admin"
-msgstr "Маъмурияти сомонаи Django"
-
-msgid "Django administration"
-msgstr "Маъмурияти Django"
-
 #, python-format
 msgid "Sizni %(sana)s kunidagi marosimimizga taklif qilamiz"
 msgstr "Шуморо ба маросими мо санаи %(sana)s даъват мекунем"
@@ -1167,3 +1361,12 @@ msgid ""
 msgstr ""
 "Зеботарин ва замонавитарин таклифномаҳои электронӣ барои Ӯзбекистон. Дар "
 "чанд дақиқа созед."
+
+#~ msgid "Bolalar"
+#~ msgstr "Кӯдакона"
+
+#~ msgid "Django site admin"
+#~ msgstr "Маъмурияти сомонаи Django"
+
+#~ msgid "Django administration"
+#~ msgstr "Маъмурияти Django"

@@ -135,9 +135,13 @@ umuman tegmaydi, oddiy to'liq sahifa yuklanishi bilan ochiladi.
     if (window.__oqIchkiNavOrnatildi) { return; }
     window.__oqIchkiNavOrnatildi = true;
 
-    // Faqat shu 5 ta "asosiy" sahifaga tegishli yo'llar — middleware.py'dagi
+    // Faqat "asosiy" sahifalarga tegishli yo'llar — middleware.py'dagi
     // ASOSIY_SAHIFA_BOSHLARI bilan bir xil mantiq (frontendda JS orqali).
-    var ICHKI_YOLLAR = [/^\/$/, /^\/yaratish(\/|$)/, /^\/mening-taklifnomalarim(\/|$)/, /^\/tayyor\//];
+    var ICHKI_YOLLAR = [
+        /^\/$/, /^\/dizaynlar(\/|$)/, /^\/yaratish(\/|$)/,
+        /^\/biz-haqimizda(\/|$)/, /^\/boglanish(\/|$)/, /^\/savol-javob(\/|$)/,
+        /^\/mening-taklifnomalarim(\/|$)/, /^\/tayyor\//
+    ];
 
     function ichkiYolMi(yol) {
         for (var i = 0; i < ICHKI_YOLLAR.length; i++) {

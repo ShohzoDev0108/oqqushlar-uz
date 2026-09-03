@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 11:04+0500\n"
+"POT-Creation-Date: 2026-09-03 12:44-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,12 @@ msgstr "Келіннің аты"
 
 msgid "Masalan: Malika"
 msgstr "Мысалы: Малика"
+
+msgid "Yigit ismi"
+msgstr "Күйеу баланың аты"
+
+msgid "Qiz ismi"
+msgstr "Қыздың аты"
 
 msgid "Kelinchakning ismi"
 msgstr "Қалыңдықтың аты"
@@ -216,10 +222,13 @@ msgstr "Бұл іс-шара түрі үшін екінші есімді де е
 msgid "Nikoh to'yi"
 msgstr "Неке тойы"
 
+msgid "Fotiha to'yi"
+msgstr "Фотиха тойы"
+
 msgid "Qiz uzatish"
 msgstr "Қыз ұзату"
 
-msgid "Sunnat to'yi"
+msgid "Xatna to'yi"
 msgstr "Сүндет той"
 
 msgid "Beshik to'yi"
@@ -243,26 +252,154 @@ msgstr "Заманауи"
 msgid "Milliy"
 msgstr "Ұлттық"
 
-msgid "Bolalar"
-msgstr "Балалар"
+msgid "Islomiy"
+msgstr "Исламдық"
+
+msgid "O'zbek"
+msgstr "Өзбек"
+
+msgid "Qozoq"
+msgstr "Қазақ"
+
+msgid "Qirg'iz"
+msgstr "Қырғыз"
+
+msgid "Tojik"
+msgstr "Тәжік"
+
+msgid "Turkman"
+msgstr "Түрікмен"
+
+msgid "Qoraqalpoq"
+msgstr "Қарақалпақ"
+
+msgid "Rus"
+msgstr "Орыс"
 
 msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
 msgid "va"
 msgstr "және"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'yi"
+msgid "%(ismlar)sning xatna to'yi"
 msgstr "Сүннет той: %(ismlar)s"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'ylari"
+msgid "%(ismlar)sning xatna to'ylari"
 msgstr "Сүннет тойлары: %(ismlar)s"
+
+msgid "To'lovni qanday amalga oshiraman?"
+msgstr "Төлемні қалай төлеймін?"
+
+msgid ""
+"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
+"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
+"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
+"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
+"faollashtiriladi."
+msgstr ""
+"Алдымен шақыруыңызды тегін жасап, оны толық қарап шығасыз. Ұнаса, шақыру "
+"бетіндегі «Ұнады» түймесін басыңыз — бұл сізді тікелей Telegram-дағы "
+"әкімшімізбен байланыстырады, сол жерде төлем егжей-тегжейін келісесіз. Төлем"
+" расталғаннан кейін шақыруыңыз белсендіріледі."
+
+msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
+msgstr "Тіркелуім немесе құпия сөз ойлап табуым керек пе?"
+
+msgid ""
+"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
+"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Taklifnomalarim\" "
+"bo'limi orqali shu brauzeringizda yaratgan barcha taklifnomalaringizni "
+"istalgan vaqt qayta topishingiz mumkin."
+msgstr ""
+"Жоқ. Ешқандай тіркелу, электрондық пошта немесе құпия сөз қажет емес — сіз "
+"тек дизайнды таңдап, деректеріңізді енгізесіз. «Менің шақыруларым» бөлімі "
+"арқылы осы браузерде жасаған барлық шақыруларыңызды кез келген уақытта қайта"
+" таба аласыз."
+
+msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
+msgstr "Деректерде қате жіберсем, түзете аламын ба?"
+
+msgid ""
+"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
+"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
+" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
+"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
+msgstr ""
+"Иә. Формаға сол аттармен қайта толтырсаңыз, жүйе алдыңғы шақыруыңызды таниды"
+" және оны жаңартуды немесе бөлек сақтауды сұрайды. Үлкенірек өзгеріс немесе "
+"мәселе болса, шақыру бетіндегі «Ұнады» түймесі арқылы тікелей әкімшімізге "
+"жаза аласыз."
+
+msgid "Taklifnoma linki qachon tugaydi?"
+msgstr "Шақыру сілтемесінің мерзімі бітеді ме?"
+
+msgid ""
+"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
+"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
+"panelidan) qilinadi."
+msgstr ""
+"Автоматты түрде аяқталмайды — той немесе шара өтіп кеткеннен кейін де "
+"сілтеме жұмыс істей береді. Оны сөндіру тек қолмен, әкімшілік панелінен ғана"
+" жасалады."
+
+msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
+msgstr "Қонақтарымның жауабын (келеді/келмейді) қадағалай аламын ба?"
+
+msgid ""
+"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
+"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
+"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
+"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
+"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
+msgstr ""
+"Иә. Әрбір шақырудың тек сізге ғана көрінетін жеке статистика беті бар — онда"
+" неше адам көргенін, кім «келемін» немесе «келмеймін» деп жауап бергенін "
+"және қонақтарға берген жеке сілтемелерді кім көріп, кім көрмегенін қадағалай"
+" аласыз. Сілтемені «Шақыруыңыз дайын!» бетінен табасыз."
+
+msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
+msgstr "Қанша сурет және қандай әуен қоса аламын?"
+
+msgid ""
+"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
+"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
+"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
+"tanlashingiz mumkin."
+msgstr ""
+"Сіз өзіңіздің 2 суретіңізге дейін (әрқайсысы 8 МБ дейін) қоса аласыз немесе "
+"дайын үлгілерден таңдай аласыз. Әуен үшін де өзіңізді жүктеуге (15 МБ дейін)"
+" немесе дайын нұсқалардың бірін таңдауға болады."
+
+msgid "Qaysi tillarda ishlaydi?"
+msgstr "Қандай тілдерде жұмыс істейді?"
+
+msgid ""
+"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
+"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
+"joylashgan."
+msgstr ""
+"Сайт 8 тілде жұмыс істейді: өзбекше, орысша, ағылшынша, тәжікше, қазақша, "
+"қырғызша, түрікменше және қарақалпақша. Тіл ауыстырғыш әр беттің жоғарғы "
+"жағында орналасқан."
+
+msgid "Bosh sahifa"
+msgstr "Басты бет"
 
 msgid "Dizaynlar"
 msgstr "Дизайндар"
 
-msgid "Mening taklifnomalarim"
+msgid "Taklifnomalarim"
 msgstr "Менің шақыруларым"
+
+msgid "Biz haqimizda"
+msgstr "Біз туралы"
+
+msgid "Savol-javob"
+msgstr "Сұрақ-жауап"
+
+msgid "Bog'lanish"
+msgstr "Байланыс"
 
 msgid "Musiqani yoqish/o'chirish"
 msgstr "Музыканы қосу/өшіру"
@@ -270,8 +407,117 @@ msgstr "Музыканы қосу/өшіру"
 msgid "Taklifnoma yaratish"
 msgstr "Шақыру жасау"
 
+msgid "Menyu"
+msgstr "Мәзір"
+
+msgid "Asosiy menyu"
+msgstr "Негізгі мәзір"
+
+msgid "Yopish"
+msgstr "Жабу"
+
 msgid "Tilni tanlang"
 msgstr "Тілді таңдаңыз"
+
+msgid ""
+"<strong>Oqqushlar</strong> — to'y, fotiha, beshik to'yi va boshqa oilaviy "
+"marosimlar uchun raqamli taklifnomalar tayyorlaydigan xizmat. Bosma "
+"taklifnomadan farqli o'laroq, sizning taklifnomangiz oddiy havola bo'lib, "
+"uni Telegram yoki boshqa istalgan joyda ulashasiz — mehmon uni telefonida "
+"ochadi, manzilni xaritada ko'radi va \"kelaman\" deb javob beradi."
+msgstr ""
+"<strong>Oqqushlar</strong> — той, фотиха, бесік той және басқа отбасылық іс-"
+"шаралар үшін цифрлық шақыру дайындайтын қызмет. Қағаз шақырудан "
+"айырмашылығы, сіздің шақыруыңыз — қарапайым сілтеме, оны Telegram немесе "
+"басқа кез келген жерде бөлісесіз: қонақ оны телефонында ашады, мекенжайды "
+"картадан көреді және «келемін» деп жауап береді."
+
+msgid ""
+"Xizmatni o'zingiz boshqarasiz: dizaynni tanlaysiz, ma'lumotlarni to'ldirasiz"
+" va taklifnoma shu zahoti tayyor bo'ladi. Bizga yozib o'tirish, kutish yoki "
+"kelishuv shart emas — hammasi telefoningizda, bir necha daqiqada."
+msgstr ""
+"Қызметті өзіңіз басқарасыз: дизайнды таңдайсыз, деректерді толтырасыз және "
+"шақыру сол сәтте дайын болады. Бізге жазып отырудың, күтудің немесе "
+"келісудің қажеті жоқ — бәрі телефоныңызда, бірнеше минутта."
+
+msgid "Sakkiz tilda"
+msgstr "Сегіз тілде"
+
+msgid ""
+"O'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman va qoraqalpoq tillarida "
+"— mehmonlaringiz taklifnomani o'z tilida o'qiydi."
+msgstr ""
+"Өзбек, орыс, ағылшын, тәжік, қазақ, қырғыз, түрікмен және қарақалпақ "
+"тілдерінде — қонақтарыңыз шақыруды өз тілінде оқиды."
+
+msgid "Ro'yxatdan o'tish shart emas"
+msgstr "Тіркелу қажет емес"
+
+msgid ""
+"Email ham, parol ham so'ralmaydi. Yaratgan taklifnomalaringizni "
+"\"Taklifnomalarim\" bo'limidan istalgan vaqt topasiz."
+msgstr ""
+"Email де, құпия сөз де қажет емес. Жасаған шақыруларыңызды әрдайым «Менің "
+"шақыруларым» бөлімінен табасыз."
+
+msgid "Har bir mehmonga shaxsiy havola"
+msgstr "Әр қонаққа жеке сілтеме"
+
+msgid ""
+"Taklifnoma mehmonni ismi bilan kutib oladi, siz esa kim ko'rgani va kim "
+"javob berganini kuzatib borasiz."
+msgstr ""
+"Шақыру қонақты атымен қарсы алады, ал сіз кімнің көргенін және кімнің жауап "
+"бергенін көресіз."
+
+msgid "Avval ko'rasiz, keyin to'laysiz"
+msgstr "Алдымен көресіз, содан кейін төлейсіз"
+
+msgid ""
+"Taklifnomangizni bepul yaratib, to'liq ko'rib chiqasiz. To'lov — faqat "
+"yoqqanidan keyin."
+msgstr ""
+"Шақыруды тегін жасайсыз және толық қарап шығасыз. Төлем — тек ұнағаннан "
+"кейін ғана."
+
+msgid ""
+"Savolingiz bormi yoki yordam kerakmi — xijolat bo'lmang, bizga yozing. Bepul"
+" va samimiy yordam beramiz."
+msgstr ""
+"Сұрағыңыз бар ма немесе көмек керек пе — ұялмай бізге жазыңыз. Тегін әрі шын"
+" жүректен көмектесеміз."
+
+msgid "Dizaynlarni ko'rish"
+msgstr "Дизайндарды көру"
+
+msgid ""
+"Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus "
+"so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, "
+"to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz."
+msgstr ""
+"Шақыру жасауда көмек керек болса, дизайн бойынша арнайы өтінішіңіз немесе "
+"төлем туралы сұрағыңыз болса — ұялмай, тікелей жазыңыз. Тегін әрі шын "
+"жүректен көмектесеміз."
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "Eng tez yo'l — xabar yozsangiz, odatda shu kuniyoq javob beramiz."
+msgstr "Ең жылдам жол — хабар жазсаңыз, әдетте сол күні жауап береміз."
+
+msgid "Ko'p so'raladigan savollar"
+msgstr "Жиі қойылатын сұрақтар"
+
+msgid ""
+"To'lov qanday, havola qachongacha ishlaydi, ma'lumotni keyin o'zgartirsa "
+"bo'ladimi — ko'p savollarga javob shu yerda tayyor."
+msgstr ""
+"Төлем қалай өтеді, сілтеме қашанға дейін жұмыс істейді, деректерді кейін "
+"өзгертуге бола ма — көп сұрақтардың жауабы осында дайын."
+
+msgid "Javoblarni ko'rish"
+msgstr "Жауаптарды қарау"
 
 msgid "chiroyli raqamli taklifnomalar"
 msgstr "әдемі цифрлық шақырулар"
@@ -331,7 +577,7 @@ msgid "Forma marosim turingizni tushunadi"
 msgstr "Форма іс-шара түрін түсінеді"
 
 msgid ""
-"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
 "savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 "Үйлену тойы ма, сүннет той ма, әлде туған күн бе — форма қоятын сұрақтар мен"
@@ -441,112 +687,11 @@ msgstr "Дизайн үлгілері"
 msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Таңдаңыз да, бірден өзіңіздікін жасап көріңіз"
 
-msgid "Barchasi"
-msgstr "Барлығы"
-
 msgid "so'm"
 msgstr "сум"
 
-msgid "Savol-javob"
-msgstr "Сұрақ-жауап"
-
-msgid "Ko'p so'raladigan savollar"
-msgstr "Жиі қойылатын сұрақтар"
-
-msgid "To'lovni qanday amalga oshiraman?"
-msgstr "Төлемні қалай төлеймін?"
-
-msgid ""
-"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
-"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
-"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
-"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
-"faollashtiriladi."
-msgstr ""
-"Алдымен шақыруыңызды тегін жасап, оны толық қарап шығасыз. Ұнаса, шақыру "
-"бетіндегі «Ұнады» түймесін басыңыз — бұл сізді тікелей Telegram-дағы "
-"әкімшімізбен байланыстырады, сол жерде төлем егжей-тегжейін келісесіз. Төлем"
-" расталғаннан кейін шақыруыңыз белсендіріледі."
-
-msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
-msgstr "Тіркелуім немесе құпия сөз ойлап табуым керек пе?"
-
-msgid ""
-"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
-"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Mening "
-"taklifnomalarim\" bo'limi orqali shu brauzeringizda yaratgan barcha "
-"taklifnomalaringizni istalgan vaqt qayta topishingiz mumkin."
-msgstr ""
-"Жоқ. Ешқандай тіркелу, электрондық пошта немесе құпия сөз қажет емес — сіз "
-"тек дизайнды таңдап, деректеріңізді енгізесіз. «Менің шақыруларым» бөлімі "
-"арқылы осы браузерде жасаған барлық шақыруларыңызды кез келген уақытта қайта"
-" таба аласыз."
-
-msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
-msgstr "Деректерде қате жіберсем, түзете аламын ба?"
-
-msgid ""
-"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
-"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
-" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
-"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
-msgstr ""
-"Иә. Формаға сол аттармен қайта толтырсаңыз, жүйе алдыңғы шақыруыңызды таниды"
-" және оны жаңартуды немесе бөлек сақтауды сұрайды. Үлкенірек өзгеріс немесе "
-"мәселе болса, шақыру бетіндегі «Ұнады» түймесі арқылы тікелей әкімшімізге "
-"жаза аласыз."
-
-msgid "Taklifnoma linki qachon tugaydi?"
-msgstr "Шақыру сілтемесінің мерзімі бітеді ме?"
-
-msgid ""
-"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
-"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
-"panelidan) qilinadi."
-msgstr ""
-"Автоматты түрде аяқталмайды — той немесе шара өтіп кеткеннен кейін де "
-"сілтеме жұмыс істей береді. Оны сөндіру тек қолмен, әкімшілік панелінен ғана"
-" жасалады."
-
-msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
-msgstr "Қонақтарымның жауабын (келеді/келмейді) қадағалай аламын ба?"
-
-msgid ""
-"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
-"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
-"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
-"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
-"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
-msgstr ""
-"Иә. Әрбір шақырудың тек сізге ғана көрінетін жеке статистика беті бар — онда"
-" неше адам көргенін, кім «келемін» немесе «келмеймін» деп жауап бергенін "
-"және қонақтарға берген жеке сілтемелерді кім көріп, кім көрмегенін қадағалай"
-" аласыз. Сілтемені «Шақыруыңыз дайын!» бетінен табасыз."
-
-msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
-msgstr "Қанша сурет және қандай әуен қоса аламын?"
-
-msgid ""
-"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
-"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
-"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
-"tanlashingiz mumkin."
-msgstr ""
-"Сіз өзіңіздің 2 суретіңізге дейін (әрқайсысы 8 МБ дейін) қоса аласыз немесе "
-"дайын үлгілерден таңдай аласыз. Әуен үшін де өзіңізді жүктеуге (15 МБ дейін)"
-" немесе дайын нұсқалардың бірін таңдауға болады."
-
-msgid "Qaysi tillarda ishlaydi?"
-msgstr "Қандай тілдерде жұмыс істейді?"
-
-msgid ""
-"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
-"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
-"joylashgan."
-msgstr ""
-"Сайт 8 тілде жұмыс істейді: өзбекше, орысша, ағылшынша, тәжікше, қазақша, "
-"қырғызша, түрікменше және қарақалпақша. Тіл ауыстырғыш әр беттің жоғарғы "
-"жағында орналасқан."
+msgid "Barcha dizaynlar"
+msgstr "Барлық дизайндар"
 
 msgid "Taklifnoma hali faollashtirilmagan"
 msgstr "Шақыру әлі белсендірілмеген"
@@ -558,9 +703,6 @@ msgid ""
 "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
 "bog'laning."
 msgstr "Бұл сілтеме әлі белсендірілмеген. Шақыру иесіне хабарласыңыз."
-
-msgid "Bosh sahifa"
-msgstr "Басты бет"
 
 msgid ""
 "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
@@ -623,6 +765,19 @@ msgstr "Бұл шақыру беті жабық"
 msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "%(nomi)s бетімен байланысты бет енді белсенді емес."
 
+msgid ""
+"Mijozlarimiz eng ko'p beradigan savollar va ularga aniq javoblar. "
+"Savolingizga javob topolmasangiz, bizga yozing — yordam beramiz."
+msgstr ""
+"Клиенттеріміз жиі қоятын сұрақтар және оларға нақты жауаптар. Сұрағыңызға "
+"жауап таппасаңыз — бізге жазыңыз, көмектесеміз."
+
+msgid "Javobini topa olmadingizmi?"
+msgstr "Жауабын таппадыңыз ба?"
+
+msgid "Bizga yozing"
+msgstr "Бізге жазыңыз"
+
 msgid "Shablon tanlang"
 msgstr "Үлгі таңдаңыз"
 
@@ -631,6 +786,18 @@ msgid ""
 "to'ldirasiz."
 msgstr ""
 "Ұнаған дизайнды таңдаңыз — келесі қадамда өз деректеріңізді толтырасыз."
+
+msgid "Barchasi"
+msgstr "Барлығы"
+
+msgid "Uslub"
+msgstr "Стиль"
+
+msgid "Millat"
+msgstr "Ұлты"
+
+msgid "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi."
+msgstr "Бұл таңдау бойынша әзірге дизайн жоқ — жақында қосамыз."
 
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "Әзірге үлгі жоқ. Әкімші панелінде қосыңыз."
@@ -761,6 +928,9 @@ msgstr "Ұнады — әкімшіге жазу"
 msgid "Qayta yaratish"
 msgstr "Қайта жасау"
 
+msgid "Qulfcha ustiga bosing"
+msgstr "Құлыпшаны басыңыз"
+
 msgid "Baxtli oilamizga"
 msgstr "Бақытты болғанымызға"
 
@@ -781,6 +951,43 @@ msgstr "Бүгін — біздің ең бақытты күніміз"
 
 msgid "taklifnomasi"
 msgstr "шақыруы"
+
+msgid "Sana va vaqt"
+msgstr "Күні мен уақыты"
+
+msgid "Xaritada ko'rish"
+msgstr "Картадан қарау"
+
+msgid "Izoh (ixtiyoriy)"
+msgstr "Пікір (міндетті емес)"
+
+msgid "Mehmonlar"
+msgstr "Қонақтар"
+
+#, python-format
+msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgstr "Қазірге дейін <strong>%(soni)s</strong> адам келетінін растады"
+
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s адам"
+
+msgid "Mening taklifnomalarim"
+msgstr "Менің шақыруларым"
+
+#, python-format
+msgid "Hurmatli %(ism)s"
+msgstr "Құрметті %(ism)s"
+
+msgid "Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:"
+msgstr "Егер сыйлық қалдырғыңыз келсе:"
+
+#, python-format
+msgid "%(ism)s — %(soni)s kishi"
+msgstr "%(ism)s — %(soni)s адам"
+
+msgid "Yangiliklar uchun Telegram guruhimizga qo'shiling"
+msgstr "Жаңалықтар үшін Telegram тобымызға қосылыңыз"
 
 msgid "Ochiq sahifani ko'rish"
 msgstr "Шақыруды қарау"
@@ -812,10 +1019,6 @@ msgstr "Келеді"
 
 msgid "Kelmaydi"
 msgstr "Келмейді"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s адам"
 
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Барлығына көрінеді — жасыру"
@@ -1039,9 +1242,6 @@ msgstr "Шақыруды жасау"
 msgid "Boshqa shablon tanlash"
 msgstr "Басқа үлгі таңдау"
 
-msgid "Yopish"
-msgstr "Жабу"
-
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
@@ -1133,12 +1333,6 @@ msgid ""
 "Sahifa vaqtincha ishlamayapti. Iltimos, birozdan so'ng qayta urinib ko'ring."
 msgstr "Бет уақытша жұмыс істемей тұр. Аздан кейін қайта көріңіз."
 
-msgid "Django site admin"
-msgstr "Django сайт әкімшілігі"
-
-msgid "Django administration"
-msgstr "Django әкімшілігі"
-
 #, python-format
 msgid "Sizni %(sana)s kunidagi marosimimizga taklif qilamiz"
 msgstr "Сізді %(sana)s күнгі тойымызға шақырамыз"
@@ -1152,3 +1346,12 @@ msgid ""
 msgstr ""
 "Өзбекстан үшін ең әдемі және заманауи электрондық шақыру хаттары. Бірнеше "
 "минутта жасаңыз."
+
+#~ msgid "Bolalar"
+#~ msgstr "Балалар"
+
+#~ msgid "Django site admin"
+#~ msgstr "Django сайт әкімшілігі"
+
+#~ msgid "Django administration"
+#~ msgstr "Django әкімшілігі"

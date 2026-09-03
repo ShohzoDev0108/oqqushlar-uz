@@ -3,20 +3,23 @@
 Til tanlash — to'liq maxsus (custom) dropdown.
 
 Haqiqiy <select name="language"> DOM'da SAQLANIB QOLADI (faqat ko'zga
-ko'rinmas holda), chunki taklifnoma shablon sahifalarida (_skript.html)
-tilni AJAX orqali (sahifani to'liq qayta yuklamasdan, fon musiqasi
-uzilmasdan) almashtiradigan alohida skript aynan shu <select>'ning
-"change" hodisasini kuzatadi. Shu sababli bu yerda ko'rinadigan
-tugma+ro'yxat FAQAT vizual qatlam — bosilganda haqiqiy <select>'ning
-qiymatini o'zgartirib, unga "change" hodisasini yuboradi, xuddi
-foydalanuvchi native select'ni o'zi o'zgartirgandek.
+ko'rinmas holda) — bosilganda haqiqiy <select>'ning qiymatini
+o'zgartirib, unga "change" hodisasini yuboradi, xuddi foydalanuvchi
+native select'ni o'zi o'zgartirgandek. Shu <select>'ning "change"
+hodisasini pastdagi skript (umumiy sayt sahifalarida) HAM, taklifnoma
+shablon sahifalarida (_skript.html) HAM kuzatadi — ikkalasi ham tilni
+AJAX orqali (sahifani to'liq qayta yuklamasdan, fon musiqasi
+uzilmasdan, skroll pozitsiyasi saqlanib) almashtiradi. Ikkalasi bir
+sahifada ikki marta ishga tushmasligi uchun pastdagi skript ATAYLAB
+".til-qatori" ichidagi (shablon sahifalar) formalarni o'tkazib
+yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
 {% endcomment %}
 <form action="{% url 'set_language' %}" method="post" class="til-forma">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.path }}">
 
     <div class="til-dropdown">
-        <select name="language" id="til-tanlash" class="til-tabiiy" onchange="this.form.submit()" tabindex="-1" aria-hidden="true">
+        <select name="language" id="til-tanlash" class="til-tabiiy" tabindex="-1" aria-hidden="true">
             {% for til_kodi, til_nomi in TIL_ROYXATI %}
             <option value="{{ til_kodi }}" {% if til_kodi == JORIY_TIL_KODI %}selected{% endif %}>{{ til_nomi }}</option>
             {% endfor %}
@@ -121,6 +124,57 @@ foydalanuvchi native select'ni o'zi o'zgartirgandek.
         var bandlar = Array.prototype.slice.call(dropdown.querySelectorAll('.til-band'));
         var haqiqiySelect = dropdown.querySelector('select');
         var joriySpan = dropdown.querySelector('.til-joriy');
+        var tilForma = dropdown.closest('form.til-forma');
+        // ".til-qatori" ichidagi forma — bu taklifnoma shablon (preview)
+        // sahifasi, uni _skript.html o'zi AJAX bilan boshqaradi. Shu yerda
+        // qayta ishlov berilsa, ikkalasi bir vaqtda ishga tushib qoladi.
+        var shablonSahifaTili = !!dropdown.closest('.til-qatori');
+
+        if (tilForma && !shablonSahifaTili) {
+            haqiqiySelect.addEventListener('change', function () {
+                if (!window.fetch || !window.DOMParser) { tilForma.submit(); return; }
+                var yubor = new FormData(tilForma);
+                fetch(tilForma.action, { method: 'POST', body: yubor, credentials: 'same-origin' })
+                    .then(function () { return fetch(location.href, { credentials: 'same-origin' }); })
+                    .then(function (javob) {
+                        if (!javob.ok) { throw new Error('http-xato'); }
+                        return javob.text();
+                    })
+                    .then(function (matn) {
+                        var yangiHujjat = new DOMParser().parseFromString(matn, 'text/html');
+                        document.title = yangiHujjat.title;
+
+                        // Har bir sahifaning o'z uslubi (extra_style) — aks
+                        // holda yangi til eski sahifa uslubida qolib ketardi.
+                        var eskiUslub = document.getElementById('oq-uslub');
+                        var yangiUslub = yangiHujjat.getElementById('oq-uslub');
+                        if (eskiUslub && yangiUslub) { eskiUslub.textContent = yangiUslub.textContent; }
+
+                        var joriyScroll = window.scrollY;
+
+                        // Ijrodagi fon musiqasi uzilmasligi uchun jonli
+                        // <audio> elementini yangi tanaga ko'chiramiz.
+                        var jonliAudio = document.getElementById('sayt-musiqa');
+                        var yangiTana = document.adoptNode(yangiHujjat.body);
+                        if (jonliAudio) {
+                            var yangiAudioJoyi = yangiTana.querySelector('#sayt-musiqa');
+                            if (yangiAudioJoyi) { yangiAudioJoyi.parentNode.replaceChild(jonliAudio, yangiAudioJoyi); }
+                        }
+
+                        document.body.parentNode.replaceChild(yangiTana, document.body);
+                        Array.prototype.slice.call(document.body.querySelectorAll('script')).forEach(function (eski) {
+                            var yangi = document.createElement('script');
+                            for (var si = 0; si < eski.attributes.length; si++) {
+                                yangi.setAttribute(eski.attributes[si].name, eski.attributes[si].value);
+                            }
+                            yangi.textContent = eski.textContent;
+                            eski.parentNode.replaceChild(yangi, eski);
+                        });
+                        window.scrollTo(0, joriyScroll);
+                    })
+                    .catch(function () { tilForma.submit(); });
+            });
+        }
 
         function ochish() {
             dropdown.classList.add('ochiq');

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 11:04+0500\n"
+"POT-Creation-Date: 2026-09-03 12:44-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,12 @@ msgstr "Kelinshektiń atı"
 
 msgid "Masalan: Malika"
 msgstr "Mısalı: Malika"
+
+msgid "Yigit ismi"
+msgstr "Jigittiń atı"
+
+msgid "Qiz ismi"
+msgstr "Qızdıń atı"
 
 msgid "Kelinchakning ismi"
 msgstr "Kelinshektiń atı"
@@ -215,10 +221,13 @@ msgstr "Bul ilaj túri ushın ekinshi attı da kiritiń."
 msgid "Nikoh to'yi"
 msgstr "Neke toyı"
 
+msgid "Fotiha to'yi"
+msgstr "Pátiya toyı"
+
 msgid "Qiz uzatish"
 msgstr "Qız uzatıw"
 
-msgid "Sunnat to'yi"
+msgid "Xatna to'yi"
 msgstr "Sünnet toyı"
 
 msgid "Beshik to'yi"
@@ -242,26 +251,154 @@ msgstr "Zamanago'y"
 msgid "Milliy"
 msgstr "Milliy"
 
-msgid "Bolalar"
-msgstr "Bala'lar"
+msgid "Islomiy"
+msgstr "Islam"
+
+msgid "O'zbek"
+msgstr "Ózbek"
+
+msgid "Qozoq"
+msgstr "Qazaq"
+
+msgid "Qirg'iz"
+msgstr "Qirgiz"
+
+msgid "Tojik"
+msgstr "Tájik"
+
+msgid "Turkman"
+msgstr "Túrkmen"
+
+msgid "Qoraqalpoq"
+msgstr "Qaraqalpaq"
+
+msgid "Rus"
+msgstr "Rus"
 
 msgctxt "ismlarni bog'lovchi so'z ('Amir VA Botir')"
 msgid "va"
 msgstr "hám"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'yi"
+msgid "%(ismlar)sning xatna to'yi"
 msgstr "Súnnet toyı: %(ismlar)s"
 
 #, python-format
-msgid "%(ismlar)sning sunnat to'ylari"
+msgid "%(ismlar)sning xatna to'ylari"
 msgstr "Súnnet toyları: %(ismlar)s"
+
+msgid "To'lovni qanday amalga oshiraman?"
+msgstr "Tólemdi qalay ámelge asıraman?"
+
+msgid ""
+"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
+"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
+"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
+"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
+"faollashtiriladi."
+msgstr ""
+"Aldı sizler shaqırıwıńızdı biykar jaratıp, onı tolıq kóriwden ótkeresiz. "
+"Unasa, shaqırıw betindegi \"Unadı\" túymesin basıń — bul sizdi tikkeley "
+"Telegram'dagı adminimiz benen baylanıstıradı, sol jerde tólem tәsiylatların "
+"kelisesiz. Tólem tastıyıqlanǵannan keyin shaqırıwıńız aktivlestiriledi."
+
+msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
+msgstr "Dizimnen ótiwim yamasa parol oylap tabıwım kerekpe?"
+
+msgid ""
+"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
+"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Taklifnomalarim\" "
+"bo'limi orqali shu brauzeringizda yaratgan barcha taklifnomalaringizni "
+"istalgan vaqt qayta topishingiz mumkin."
+msgstr ""
+"Yaq. Esh qanday dizimnen ótiw, elektron pochta yamasa parol talap etilmeydi "
+"— siz tek dizayndı tańlap, maǵlıwmatlarıńızdı kiritesiz. \"Meniń "
+"shaqırıwlarım\" bólimi arqalı usı brauzerde jaratqan barlıq "
+"shaqırıwlarıńızdı qálegen waqıtta qayta tabasız."
+
+msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
+msgstr "Maǵlıwmatlarda qátelik jiberip qoysam, dúzetip alalarmanba?"
+
+msgid ""
+"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
+"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
+" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
+"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
+msgstr ""
+"Awa. Sol atlar menen formanı qayta toltırsańız, sistema aldıńǵı "
+"shaqırıwıńızdı tanıydı hám onı jańalawdı yamasa bólek saqlawdı soraydı. "
+"Úlkenirek ózgeris yamasa másele bolsa, shaqırıw betindegi \"Unadı\" túymesi "
+"arqalı tikkeley adminimizge jaza alasız."
+
+msgid "Taklifnoma linki qachon tugaydi?"
+msgstr "Shaqırıw siltemesiniń móhleti tamam boladıma?"
+
+msgid ""
+"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
+"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
+"panelidan) qilinadi."
+msgstr ""
+"Avtomat túrde tamamlanbaydı — toy yamasa marasim ótip ketkennen keyin de "
+"silteme jumıs isleydi. Onı iske túsirmew tek qol menen, admin panelinen "
+"islenedi."
+
+msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
+msgstr "Qonaqlarımnıń juwabın (keledi/kelmeydi) baqlap barsam boladıma?"
+
+msgid ""
+"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
+"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
+"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
+"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
+"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
+msgstr ""
+"Awa. Hár bir shaqırıwdıń tek sizge ǵana kórinetuǵın jeke statistika beti bar"
+" — onda neshe adam kórgenin, kim \"kelemen\" yamasa \"kelmeymen\" dep juwap "
+"bergenin hám qonaqlarǵa bergen jeke siltemelerińizdi kim kórip-kórmegenin "
+"baqlap barasız. Siltemesin \"Shaqırıwıńız tayın!\" betinen tabasız."
+
+msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
+msgstr "Neshe súwret hám qanday múzıyka qosıp alaman?"
+
+msgid ""
+"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
+"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
+"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
+"tanlashingiz mumkin."
+msgstr ""
+"Siz óziniztiń 2 súwretińizge shekem (hár qaysısı 8 MB shekem) qosıp alasız "
+"yamasa tayın úlgilerden tańlay alasız. Múzıyka ushın da óziniztikin júkley "
+"alasız (15 MB shekem) yamasa tayın variantlardıń birin tańlay alasız."
+
+msgid "Qaysi tillarda ishlaydi?"
+msgstr "Qanday tillerde jumıs isleydi?"
+
+msgid ""
+"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
+"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
+"joylashgan."
+msgstr ""
+"Sayt 8 tilde jumıs isleydi: ózbekshe, oríssha, agılshınsha, tájikshe, "
+"qazaqsha, qırgızsha, túrkmenshe hám qaraqalpaqsha. Til almastırıw túymesi "
+"hár bir bettiń joqarı jaǵında ornalasqan."
+
+msgid "Bosh sahifa"
+msgstr "Bas bet"
 
 msgid "Dizaynlar"
 msgstr "Dizaynlar"
 
-msgid "Mening taklifnomalarim"
+msgid "Taklifnomalarim"
 msgstr "Meniń shaqırıwlarım"
+
+msgid "Biz haqimizda"
+msgstr "Biz haqqımızda"
+
+msgid "Savol-javob"
+msgstr "Soraw-juwap"
+
+msgid "Bog'lanish"
+msgstr "Baylanıs"
 
 msgid "Musiqani yoqish/o'chirish"
 msgstr "Muzıkanı qosıw/óshiriw"
@@ -269,8 +406,117 @@ msgstr "Muzıkanı qosıw/óshiriw"
 msgid "Taklifnoma yaratish"
 msgstr "Shaqırıw jaratıw"
 
+msgid "Menyu"
+msgstr "Menyu"
+
+msgid "Asosiy menyu"
+msgstr "Tiykarǵı menyu"
+
+msgid "Yopish"
+msgstr "Jabıw"
+
 msgid "Tilni tanlang"
 msgstr "Tildi tanlań"
+
+msgid ""
+"<strong>Oqqushlar</strong> — to'y, fotiha, beshik to'yi va boshqa oilaviy "
+"marosimlar uchun raqamli taklifnomalar tayyorlaydigan xizmat. Bosma "
+"taklifnomadan farqli o'laroq, sizning taklifnomangiz oddiy havola bo'lib, "
+"uni Telegram yoki boshqa istalgan joyda ulashasiz — mehmon uni telefonida "
+"ochadi, manzilni xaritada ko'radi va \"kelaman\" deb javob beradi."
+msgstr ""
+"<strong>Oqqushlar</strong> — toy, pátiya, besik toyı hám basqa shańaraq "
+"dábdebeleri ushın sanlı shaqırıwlar tayarlaytuǵın xızmet. Qaǵaz shaqırıwdan "
+"aırmasınan, sizdiń shaqırıwıńız — ápiwayı siltewe, onı Telegram yamasa basqa"
+" qálegen jerde bólisesiz: qonaq onı telefonınan ashadı, mánzildi kartadan "
+"kóredi hám \"kelemen\" dep juwap beredi."
+
+msgid ""
+"Xizmatni o'zingiz boshqarasiz: dizaynni tanlaysiz, ma'lumotlarni to'ldirasiz"
+" va taklifnoma shu zahoti tayyor bo'ladi. Bizga yozib o'tirish, kutish yoki "
+"kelishuv shart emas — hammasi telefoningizda, bir necha daqiqada."
+msgstr ""
+"Xızmetti ózińiz basqarasız: dizaındı tańlaysız, maǵlıwmatlardı tolтırasız "
+"hám shaqırıw sol zaman tayar boladı. Bizge jazıp otırıwdıń, kútiwdiń yamasa "
+"kelisiwdiń zárúrligi joq — hámmesi telefonıńızda, birneshe minutta."
+
+msgid "Sakkiz tilda"
+msgstr "Segiz tilde"
+
+msgid ""
+"O'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman va qoraqalpoq tillarida "
+"— mehmonlaringiz taklifnomani o'z tilida o'qiydi."
+msgstr ""
+"Ózbek, oris, agılshın, tájik, qazaq, qırgız, túrkmen hám qaraqalpaq "
+"tillerinde — qonaqlarıńız shaqırıwdı óz tilinde oqıydı."
+
+msgid "Ro'yxatdan o'tish shart emas"
+msgstr "Dizimnen ótiw shárt emes"
+
+msgid ""
+"Email ham, parol ham so'ralmaydi. Yaratgan taklifnomalaringizni "
+"\"Taklifnomalarim\" bo'limidan istalgan vaqt topasiz."
+msgstr ""
+"Email de, parol de kerek emes. Jaratqan shaqırıwlarıńızdı hámme waqıt "
+"\"Meniń shaqırıwlarım\" bóliminen tabasız."
+
+msgid "Har bir mehmonga shaxsiy havola"
+msgstr "Hár bir qonaqqa jeke siltewe"
+
+msgid ""
+"Taklifnoma mehmonni ismi bilan kutib oladi, siz esa kim ko'rgani va kim "
+"javob berganini kuzatib borasiz."
+msgstr ""
+"Shaqırıw qonaqtı atı menen qarsı aladı, al siz kimniń kórgenin hám kimniń "
+"juwap bergenin kóresiz."
+
+msgid "Avval ko'rasiz, keyin to'laysiz"
+msgstr "Aldın kóresiz, sonnan soń tólewsiz"
+
+msgid ""
+"Taklifnomangizni bepul yaratib, to'liq ko'rib chiqasiz. To'lov — faqat "
+"yoqqanidan keyin."
+msgstr ""
+"Shaqırıwıńızdı tegin jaratıp, tolıq kóriр shıǵasız. Tólem — tek unaǵannan "
+"keyin."
+
+msgid ""
+"Savolingiz bormi yoki yordam kerakmi — xijolat bo'lmang, bizga yozing. Bepul"
+" va samimiy yordam beramiz."
+msgstr ""
+"Sorawıńız bar ma yamasa kómek kerek pe — uyalmań, bizge jazıń. Biykar hám "
+"ıqlaslı kómek beremiz."
+
+msgid "Dizaynlarni ko'rish"
+msgstr "Dizaynlardı kóriw"
+
+msgid ""
+"Taklifnoma yaratishda yordam kerak bo'lsa, dizayn bo'yicha maxsus "
+"so'rovingiz bo'lsa yoki to'lov haqida savolingiz bo'lsa — xijolat bo'lmang, "
+"to'g'ridan-to'g'ri yozing. Bepul va samimiy yordam beramiz."
+msgstr ""
+"Shaqırıw jasawda kómek kerek bolsa, dizayn boyınsha arnawlı ótinishińiz "
+"yamasa tólem haqqında sorawıńız bolsa — uyalmań, tikkeley jaziń. Biykar hám "
+"ıqlaslı kómek beremiz."
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "Eng tez yo'l — xabar yozsangiz, odatda shu kuniyoq javob beramiz."
+msgstr "Eń tez jol — xabar jazsańız, ádette sol kúni juwap beremiz."
+
+msgid "Ko'p so'raladigan savollar"
+msgstr "Kóp beriletugın sorawlar"
+
+msgid ""
+"To'lov qanday, havola qachongacha ishlaydi, ma'lumotni keyin o'zgartirsa "
+"bo'ladimi — ko'p savollarga javob shu yerda tayyor."
+msgstr ""
+"Tólem qalay ótedi, siltewe qashanǵa deyin isleydi, maǵlıwmattı keyin "
+"ózgertiw múmkinbe — kóp sorawlardıń juwabı usı jerde tayar."
+
+msgid "Javoblarni ko'rish"
+msgstr "Juwaplardı kóriw"
 
 msgid "chiroyli raqamli taklifnomalar"
 msgstr "shıraylı sanlı shaqırıwlar"
@@ -330,7 +576,7 @@ msgid "Forma marosim turingizni tushunadi"
 msgstr "Forma ma'resim túriniźdi túsinedi"
 
 msgid ""
-"Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
+"Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
 "savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 "Toy ma, súnnet toy ma, ya'ki tuwılǵan kún be — forma soraytuǵın sorawlar hám"
@@ -441,112 +687,11 @@ msgstr "Dizayn shablonları"
 msgid "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring"
 msgstr "Tanlań hám sol waqıtta ózińizdikin jaratıp kóriń"
 
-msgid "Barchasi"
-msgstr "Barlıg'ı"
-
 msgid "so'm"
 msgstr "sum"
 
-msgid "Savol-javob"
-msgstr "Soraw-juwap"
-
-msgid "Ko'p so'raladigan savollar"
-msgstr "Kóp beriletugın sorawlar"
-
-msgid "To'lovni qanday amalga oshiraman?"
-msgstr "Tólemdi qalay ámelge asıraman?"
-
-msgid ""
-"Avval taklifnomangizni bepul yaratib, uni to'liq ko'rib chiqasiz. Yoqsa, "
-"taklifnoma sahifasidagi \"Yoqdi\" tugmasini bosing — shu orqali sizni "
-"to'g'ridan-to'g'ri Telegram'dagi adminimiz bilan bog'laymiz va to'lov "
-"tafsilotlarini o'sha yerda kelishasiz. To'lov tasdiqlangach, taklifnomangiz "
-"faollashtiriladi."
-msgstr ""
-"Aldı sizler shaqırıwıńızdı biykar jaratıp, onı tolıq kóriwden ótkeresiz. "
-"Unasa, shaqırıw betindegi \"Unadı\" túymesin basıń — bul sizdi tikkeley "
-"Telegram'dagı adminimiz benen baylanıstıradı, sol jerde tólem tәsiylatların "
-"kelisesiz. Tólem tastıyıqlanǵannan keyin shaqırıwıńız aktivlestiriledi."
-
-msgid "Ro'yxatdan o'tishim yoki parol o'ylab topishim kerakmi?"
-msgstr "Dizimnen ótiwim yamasa parol oylap tabıwım kerekpe?"
-
-msgid ""
-"Yo'q. Hech qanday ro'yxatdan o'tish, email yoki parol talab qilinmaydi — "
-"dizaynni tanlab, ma'lumotlaringizni kiritasiz, xolos. \"Mening "
-"taklifnomalarim\" bo'limi orqali shu brauzeringizda yaratgan barcha "
-"taklifnomalaringizni istalgan vaqt qayta topishingiz mumkin."
-msgstr ""
-"Yaq. Esh qanday dizimnen ótiw, elektron pochta yamasa parol talap etilmeydi "
-"— siz tek dizayndı tańlap, maǵlıwmatlarıńızdı kiritesiz. \"Meniń "
-"shaqırıwlarım\" bólimi arqalı usı brauzerde jaratqan barlıq "
-"shaqırıwlarıńızdı qálegen waqıtta qayta tabasız."
-
-msgid "Ma'lumotlarda xato qilib qo'ysam, tuzata olamanmi?"
-msgstr "Maǵlıwmatlarda qátelik jiberip qoysam, dúzetip alalarmanba?"
-
-msgid ""
-"Ha. Xuddi shu ism bilan formani qayta to'ldirsangiz, tizim avvalgi "
-"taklifnomangizni taniydi va uni yangilashni yoki alohida saqlashni so'raydi."
-" Kattaroq o'zgarish yoki muammo bo'lsa, taklifnoma sahifasidagi \"Yoqdi\" "
-"tugmasi orqali to'g'ridan-to'g'ri adminimizga yozishingiz mumkin."
-msgstr ""
-"Awa. Sol atlar menen formanı qayta toltırsańız, sistema aldıńǵı "
-"shaqırıwıńızdı tanıydı hám onı jańalawdı yamasa bólek saqlawdı soraydı. "
-"Úlkenirek ózgeris yamasa másele bolsa, shaqırıw betindegi \"Unadı\" túymesi "
-"arqalı tikkeley adminimizge jaza alasız."
-
-msgid "Taklifnoma linki qachon tugaydi?"
-msgstr "Shaqırıw siltemesiniń móhleti tamam boladıma?"
-
-msgid ""
-"Avtomatik tugamaydi — to'y yoki marosim o'tib ketgandan keyin ham link "
-"ishlab turadi. Uni faolsizlantirish kerak bo'lsa, faqat qo'lda (admin "
-"panelidan) qilinadi."
-msgstr ""
-"Avtomat túrde tamamlanbaydı — toy yamasa marasim ótip ketkennen keyin de "
-"silteme jumıs isleydi. Onı iske túsirmew tek qol menen, admin panelinen "
-"islenedi."
-
-msgid "Mehmonlarim javobini (kelaman/kelolmayman) kuzatib borsam bo'ladimi?"
-msgstr "Qonaqlarımnıń juwabın (keledi/kelmeydi) baqlap barsam boladıma?"
-
-msgid ""
-"Ha. Har bir taklifnomaning faqat sizga ko'rinadigan maxfiy statistika "
-"sahifasi bor — u yerda nechta kishi ko'rgani, kim \"kelaman\" yoki "
-"\"kelolmayman\" deb javob bergani va mehmonlarga bergan shaxsiy "
-"linklaringizni kim ko'rib-ko'rmaganini kuzatib borasiz. Havolasini "
-"\"Taklifnomangiz tayyor!\" sahifasida topasiz."
-msgstr ""
-"Awa. Hár bir shaqırıwdıń tek sizge ǵana kórinetuǵın jeke statistika beti bar"
-" — onda neshe adam kórgenin, kim \"kelemen\" yamasa \"kelmeymen\" dep juwap "
-"bergenin hám qonaqlarǵa bergen jeke siltemelerińizdi kim kórip-kórmegenin "
-"baqlap barasız. Siltemesin \"Shaqırıwıńız tayın!\" betinen tabasız."
-
-msgid "Nechta rasm va qanday musiqa qo'sha olaman?"
-msgstr "Neshe súwret hám qanday múzıyka qosıp alaman?"
-
-msgid ""
-"Taklifnomangizga eng ko'pi bilan 2 ta o'z rasmingizni (har biri 8 MB gacha) "
-"yoki tayyor namunalardan tanlab qo'shishingiz mumkin. Musiqa uchun ham "
-"o'zingiznikini yuklashingiz (15 MB gacha) yoki tayyor variantlardan birini "
-"tanlashingiz mumkin."
-msgstr ""
-"Siz óziniztiń 2 súwretińizge shekem (hár qaysısı 8 MB shekem) qosıp alasız "
-"yamasa tayın úlgilerden tańlay alasız. Múzıyka ushın da óziniztikin júkley "
-"alasız (15 MB shekem) yamasa tayın variantlardıń birin tańlay alasız."
-
-msgid "Qaysi tillarda ishlaydi?"
-msgstr "Qanday tillerde jumıs isleydi?"
-
-msgid ""
-"Sayt 8 tilda ishlaydi: o'zbek, rus, ingliz, tojik, qozoq, qirg'iz, turkman "
-"va qoraqalpoq. Til tanlash tugmasi har bir sahifaning yuqori qismida "
-"joylashgan."
-msgstr ""
-"Sayt 8 tilde jumıs isleydi: ózbekshe, oríssha, agılshınsha, tájikshe, "
-"qazaqsha, qırgızsha, túrkmenshe hám qaraqalpaqsha. Til almastırıw túymesi "
-"hár bir bettiń joqarı jaǵında ornalasqan."
+msgid "Barcha dizaynlar"
+msgstr "Barlıq dizaynlar"
 
 msgid "Taklifnoma hali faollashtirilmagan"
 msgstr "Shaqırıw äli belsendirilmegen"
@@ -558,9 +703,6 @@ msgid ""
 "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan "
 "bog'laning."
 msgstr "Bul silteme äli belsendirilmegen. Shaqırıw iesi menen baylanısıń."
-
-msgid "Bosh sahifa"
-msgstr "Bas bet"
 
 msgid ""
 "Bu ro'yxat sizning shu brauzerda yaratgan barcha taklifnomalaringizni "
@@ -624,6 +766,19 @@ msgstr "Bul shaqırıw beti jabıq"
 msgid "%(nomi)s bilan bog'liq sahifa endi faol emas."
 msgstr "%(nomi)s ge baylanıslı bet endi belsendi emes."
 
+msgid ""
+"Mijozlarimiz eng ko'p beradigan savollar va ularga aniq javoblar. "
+"Savolingizga javob topolmasangiz, bizga yozing — yordam beramiz."
+msgstr ""
+"Müsteriylerimizdiń eń kóp beretuǵın sorawları hám olarǵa anıq juwaplar. "
+"Sorawıńızǵa juwap tabalmasańız — bizge jazıń, járdem beremiz."
+
+msgid "Javobini topa olmadingizmi?"
+msgstr "Juwabın tabalmadıńız ba?"
+
+msgid "Bizga yozing"
+msgstr "Bizge jazıń"
+
 msgid "Shablon tanlang"
 msgstr "Shablon tanlań"
 
@@ -632,6 +787,18 @@ msgid ""
 "to'ldirasiz."
 msgstr ""
 "Unaǵan dizayndı tanlań — keyingi basqıshta óz maǵlıwmatlarıńızdı toltırasız."
+
+msgid "Barchasi"
+msgstr "Barlıg'ı"
+
+msgid "Uslub"
+msgstr "Stil"
+
+msgid "Millat"
+msgstr "Milleti"
+
+msgid "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi."
+msgstr "Bul tańlaw boyınsha házirshe dizayn joq — jaqında qosamız."
 
 msgid "Hozircha shablon yo'q. Admin panelda qo'shing."
 msgstr "Házirshe shablon joq. Admin panelde qosıń."
@@ -762,6 +929,9 @@ msgstr "Unadı — administratorǵa jazıw"
 msgid "Qayta yaratish"
 msgstr "Qayta jaratıw"
 
+msgid "Qulfcha ustiga bosing"
+msgstr "Qulıpshanı basıń"
+
 msgid "Baxtli oilamizga"
 msgstr "Baxıtlı shańaraq bolǵanımızǵa"
 
@@ -782,6 +952,43 @@ msgstr "Búgin — bizdiń eń baxıtlı kúnimiz"
 
 msgid "taklifnomasi"
 msgstr "shaqırıwı"
+
+msgid "Sana va vaqt"
+msgstr "Sáne hám waqıt"
+
+msgid "Xaritada ko'rish"
+msgstr "Kartadan kóriw"
+
+msgid "Izoh (ixtiyoriy)"
+msgstr "Pikir (mindetli emes)"
+
+msgid "Mehmonlar"
+msgstr "Qonaqlar"
+
+#, python-format
+msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgstr "Házirshe <strong>%(soni)s</strong> adam keletuǵının tastıyıqladı"
+
+#, python-format
+msgid "%(soni)s kishi"
+msgstr "%(soni)s adam"
+
+msgid "Mening taklifnomalarim"
+msgstr "Meniń shaqırıwlarım"
+
+#, python-format
+msgid "Hurmatli %(ism)s"
+msgstr "Húrmetli %(ism)s"
+
+msgid "Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:"
+msgstr "Eger sıylıq qaldırıwdı qáleseńiz:"
+
+#, python-format
+msgid "%(ism)s — %(soni)s kishi"
+msgstr "%(ism)s — %(soni)s adam"
+
+msgid "Yangiliklar uchun Telegram guruhimizga qo'shiling"
+msgstr "Jańalıqlar ushın Telegram gruppamızǵa qosılıń"
 
 msgid "Ochiq sahifani ko'rish"
 msgstr "Shaqırıwdı kóriw"
@@ -813,10 +1020,6 @@ msgstr "Keledi"
 
 msgid "Kelmaydi"
 msgstr "Kelmeydi"
-
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s adam"
 
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr "Barlıǵına kórinedi — jasırıw"
@@ -1039,9 +1242,6 @@ msgstr "Shaqırıwdı jaratıw"
 msgid "Boshqa shablon tanlash"
 msgstr "Basqa shablon tanlaw"
 
-msgid "Yopish"
-msgstr "Jabıw"
-
 #, python-format
 msgid ""
 "Eng ko'pi bilan %(soni)s ta rasm tanlashingiz mumkin. Iltimos, qaytadan "
@@ -1134,12 +1334,6 @@ msgid ""
 "Sahifa vaqtincha ishlamayapti. Iltimos, birozdan so'ng qayta urinib ko'ring."
 msgstr "Bet waqtınsha islemey atır. Birazdan keyin qayta urınıp kóriń."
 
-msgid "Django site admin"
-msgstr "Django sayt basqarıwı"
-
-msgid "Django administration"
-msgstr "Django basqarıwı"
-
 #, python-format
 msgid "Sizni %(sana)s kunidagi marosimimizga taklif qilamiz"
 msgstr "Sizdi %(sana)s kúngi toyımızǵa shaqıramız"
@@ -1153,3 +1347,12 @@ msgid ""
 msgstr ""
 "Ózbekstan ushın eń sulıw ha'm zamanagóy elektron shaqırıw xatları. Birneshe "
 "minutta jaratıń."
+
+#~ msgid "Bolalar"
+#~ msgstr "Bala'lar"
+
+#~ msgid "Django site admin"
+#~ msgstr "Django sayt basqarıwı"
+
+#~ msgid "Django administration"
+#~ msgstr "Django basqarıwı"

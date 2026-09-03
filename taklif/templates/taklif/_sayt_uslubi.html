@@ -382,16 +382,13 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     .til-tugma { gap: 6px; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
-    /* Mobil footer: logotip tepada markazda, havolalar esa ostida ikki
-       ustunli tekis to'rda. Ilgari ular bitta qatorga sig'may notekis
-       o'ralib ketardi (oltita havola). */
-    .oq-footer { padding: 48px 0 40px; }
-    .oq-footer-ich { flex-direction: column; align-items: center; text-align: center; gap: 22px; }
-    .oq-footer-linklar {
-        display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px;
-        width: 100%; max-width: 330px; justify-items: center;
-    }
-    .oq-footer-linklar a { padding: 4px 0; }
+    /* Mobil footer: faqat logotip, chapga tekislangan (headerdagi kabi).
+       Havolalar (Bosh sahifa, Dizaynlar va h.k.) ataylab OLIB TASHLANGAN —
+       ular allaqachon ☰ menyuda bor, shu yerda takrorlanishi ortiqcha va
+       tor ekranda joy band qilardi. */
+    .oq-footer { padding: 36px 0 32px; }
+    .oq-footer-ich { justify-content: flex-start; }
+    .oq-footer-linklar { display: none; }
 
     /* Filtr tugmalari (Marosim turi/Uslub/Millat va h.k.) — matn
        uzunligiga qarab kengligi turlicha bo'lgan flex-wrap chiplar
