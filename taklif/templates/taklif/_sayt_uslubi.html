@@ -382,13 +382,6 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     .til-tugma { gap: 6px; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
-    /* Mobil footer: faqat logotip, chapga tekislangan (headerdagi kabi).
-       Havolalar (Bosh sahifa, Dizaynlar va h.k.) ataylab OLIB TASHLANGAN —
-       ular allaqachon ☰ menyuda bor, shu yerda takrorlanishi ortiqcha va
-       tor ekranda joy band qilardi. */
-    .oq-footer { padding: 36px 0 32px; }
-    .oq-footer-ich { justify-content: flex-start; }
-    .oq-footer-linklar { display: none; }
 
     /* Filtr tugmalari (Marosim turi/Uslub/Millat va h.k.) — matn
        uzunligiga qarab kengligi turlicha bo'lgan flex-wrap chiplar
@@ -436,6 +429,21 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
     letter-spacing: 2px; text-transform: uppercase;
 }
 .oq-footer-linklar a:hover { color: var(--tilla-toq); }
+
+/* Mobil footer: faqat logotip, chapga tekislangan (headerdagi kabi).
+   Havolalar (Bosh sahifa, Dizaynlar va h.k.) ataylab OLIB TASHLANGAN —
+   ular allaqachon ☰ menyuda bor, shu yerda takrorlanishi ortiqcha va
+   tor ekranda joy band qilardi. ATAYLAB shu yerda, footer'ning bazaviy
+   qoidalaridan KEYIN: xuddi shu selektorlar (.oq-footer va h.k.) yuqorida,
+   umumiy @media (max-width:700px) blokida ham bor edi, lekin ular
+   manba tartibida bazaviy qoidalardan OLDIN turgani uchun (bir xil
+   spetsifiklik + keyingi qoida g'olib chiqadi qoidasiga ko'ra) amalda
+   bekor bo'lib qolardi. */
+@media (max-width: 700px) {
+    .oq-footer { padding: 36px 0 32px; }
+    .oq-footer-ich { justify-content: flex-start; }
+    .oq-footer-linklar { display: none; }
+}
 
 /* --- Naqshli fon: gul burchak bezagi (barcha sayt sahifalarida umumiy) ---
    Manba: chiziqli lola/anor motivli AI-generatsiya qilingan naqsh, faqat
