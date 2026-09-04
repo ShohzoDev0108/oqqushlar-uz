@@ -17,7 +17,7 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
 <div class="oq-ichki">
     <nav class="oq-nav">
         <a class="oq-logo" href="{% url 'taklif:bosh_sahifa' %}">
-            <img src="{% static 'taklif/logo-belgi.png' %}" alt="Oqqushlar" width="40" height="40">
+            {% include "taklif/_ikonalar/belgi.svg" %}
             Oqqushlar
         </a>
         {% comment %}

@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Taklifnoma{% endblock %}</title>
-    <link rel="icon" type="image/png" href="{% static 'taklif/favicon.png' %}">
+    {% comment %}
+    Favicon: zamonaviy brauzerlar SVG'ni oladi (istalgan o'lchamda tiniq,
+    Retina ekranlarda ham aniq), eskilari PNG'ga tushadi. Apple-touch —
+    iPhone'da "bosh ekranga qo'shish" uchun (shaffof emas, krem fonli).
+    {% endcomment %}
+    <link rel="icon" type="image/svg+xml" href="{% static 'taklif/favicon.svg' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'taklif/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'taklif/apple-touch-icon.png' %}">
 
     {% if GOOGLE_ANALYTICS_ID %}
     {% comment %}
@@ -37,7 +44,7 @@
     {% if rasmlar.0 %}
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ rasmlar.0.rasm.url }}">
     {% else %}
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/logo-belgi.png' %}">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/og-rasm.png' %}">
     {% endif %}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ taklifnoma.sarlavha }}">
@@ -45,12 +52,12 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{% block og_title %}{% trans "Oqqushlar — chiroyli elektron taklifnomalar" %}{% endblock %}">
     <meta property="og:description" content="{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}">
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/logo-belgi.png' %}">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/og-rasm.png' %}">
     <meta name="twitter:card" content="summary_large_image">
     {% endif %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <style id="oq-uslub">
         * { box-sizing: border-box; }
         body {

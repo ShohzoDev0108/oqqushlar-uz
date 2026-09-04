@@ -20,7 +20,7 @@ bu tizim ta'sir qilmaydi.
     --tilla-yumshoq: rgba(169,129,46,.12);
     --chiziq: #e6dcc5;        /* chegara chiziqlari */
     --xavf: #a13d3d;          /* xavfli amallar (o'chirish va h.k.) */
-    --serif: 'Playfair Display', Georgia, serif;
+    --serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     --sans: 'Manrope', 'Segoe UI', sans-serif;
 }
 
@@ -96,7 +96,22 @@ body {
     font-family: var(--serif); font-size: 1.55rem; color: var(--siyoh);
     text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: .5px;
 }
-.oq-logo img { display: block; border-radius: 50%; }
+{% comment %}
+Logotip belgisi endi PNG rasm emas, inline SVG (taklif/_ikonalar/belgi.svg):
+"currentColor" bilan chizilgani uchun rangni CSS beradi, istalgan ekranda
+(Retina ham) mutlaqo tiniq, va alohida so'rov yubormaydi. Bu — to'liq
+gerbning (static/taklif/gerb.svg) kichik o'lchamlar uchun soddalashtirilgan
+varianti: naqshli gerb 40px'da loyqa dog'ga aylanadi, shu bois panel va
+favicon'da faqat shu belgi ishlatiladi.
+{% endcomment %}
+.oq-logo svg { display: block; width: 34px; height: 34px; color: var(--tilla); flex-shrink: 0; }
+.oq-footer .oq-logo svg { width: 27px; height: 27px; }
+{% comment %}
+Cormorant Garamond Playfair'ga qaraganda nozikroq va optik kichikroq
+ko'rinadi — logotip yozuvi yo'qolib qolmasligi uchun unga biroz qalinroq
+va kengroq harf oralig'i beriladi.
+{% endcomment %}
+.oq-logo { font-weight: 600; letter-spacing: 1.2px; }
 .oq-nav-linklar { display: flex; gap: 6px 2px; flex-wrap: wrap; }
 .oq-nav-linklar a {
     position: relative;
