@@ -5,7 +5,81 @@ faollashtirilmagan" banneri, mijoz paneli (Yoqdi/Qayta yaratish/Mening
 taklifnomalarim) va fon musiqasi elementi. Ranglar har bir shablonning
 o'z CSS'ida (--asos, --banner-fon va h.k. o'zgaruvchilari orqali) beriladi.
 {% endcomment %}
-<div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+{% comment %}
+Yuqori boshqaruv qatori: chapda musiqa tugmasi, o'ngda til tanlash.
+
+TAFTISH: musiqa tugmasi ilgari "position: fixed; bottom: 20px; right: 20px"
+edi — ya'ni ekranning o'ng pastki burchagida osilib turardi va sahifa
+kontenti ustiga chiqardi. iPhone o'lchamida (390x844) u sanoq blokining
+"sekund" ustuni bilan aynan 44x47 px kesishardi.
+
+Muammo tasodifiy emas: kontent butun kenglikni egallaydi, shuning uchun
+ekranga yopishgan istalgan burchak tugmasi ertami-kechmi biror narsani
+to'sadi — uni sal surish yordam bermaydi.
+
+Yechim — tugmani kontent ustidan olib, allaqachon mavjud bo'lgan
+yopishqoq (sticky) yuqori qatorga qo'yish. U doim ko'z oldida turadi
+(o'z-o'zidan musiqa yonadigan sahifada "o'chirish" har doim qo'l ostida
+bo'lishi shart), lekin endi hech qachon hech narsani to'smaydi.
+{% endcomment %}
+<div class="til-qatori">
+    {% if taklifnoma.musiqa_manbai %}
+    <audio id="fon-musiqa" src="{{ taklifnoma.musiqa_manbai }}" loop preload="auto"></audio>
+    <button id="musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}" aria-label="{% trans "Musiqani yoqish/o'chirish" %}">
+        {% comment %}
+        Ikkita holat, ikkita chizma — emoji EMAS. Ilgari tugmada 🎵 / 🔇
+        turardi: rangli emoji har bir qurilmada boshqacha ko'rinadi va
+        shablon palitrasiga bo'ysunmaydi. Endi ijro paytida jonli
+        ekvalayzer chiziqlari, o'chirilganda esa chizilgan karnay —
+        ikkalasi ham --asos rangida.
+        {% endcomment %}
+        <span class="mt-ekval" aria-hidden="true"><span></span><span></span><span></span></span>
+        <svg class="mt-jim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5H4z"/>
+            <path d="M16.5 9.5l4 5M20.5 9.5l-4 5" opacity=".8"/>
+        </svg>
+    </button>
+    {% endif %}
+    {% include "taklif/_til_almashtirish.html" %}
+</div>
+<style>
+/* Bu qoidalar shablonlarning o'z CSS'idan KEYIN o'qiladi (shablon uslubi
+   <head>'da, bu esa <body> ichida), shuning uchun bir xil kuchdagi
+   selektorda ham ular ustun keladi — 26 ta shablon faylini alohida
+   tahrirlash shart emas. */
+.til-qatori { align-items: center; gap: 10px; }
+.mp-tugma { display: inline-flex; align-items: center; gap: 7px; }
+.mp-ikon {
+    width: 17px; height: 17px; flex: none;
+    fill: none; stroke: currentColor; stroke-width: 1.7;
+    stroke-linecap: round; stroke-linejoin: round;
+}
+#musiqa-tugma {
+    position: static; margin-right: auto;
+    width: 40px; height: 40px; min-width: 40px; padding: 0;
+    border-radius: 50%; border: 1px solid var(--asos);
+    background: var(--karta-fon); color: var(--asos);
+    cursor: pointer; align-items: center; justify-content: center;
+}
+#musiqa-tugma .mt-ekval { display: flex; align-items: flex-end; gap: 3px; height: 14px; }
+#musiqa-tugma .mt-ekval span {
+    width: 3px; background: currentColor; border-radius: 1px;
+    animation: mt-chiziq 1s ease-in-out infinite;
+}
+#musiqa-tugma .mt-ekval span:nth-child(1) { height: 45%; animation-delay: -.30s; }
+#musiqa-tugma .mt-ekval span:nth-child(2) { height: 100%; animation-delay: -.10s; }
+#musiqa-tugma .mt-ekval span:nth-child(3) { height: 65%; animation-delay: -.50s; }
+@keyframes mt-chiziq { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+#musiqa-tugma .mt-jim { display: none; width: 19px; height: 19px; }
+/* O'chirilgan holat: ekvalayzer o'rniga karnay chizmasi. */
+#musiqa-tugma.ochirilgan .mt-ekval { display: none; }
+#musiqa-tugma.ochirilgan .mt-jim { display: block; }
+#musiqa-tugma.ochirilgan { opacity: .62; animation: none; }
+@media (prefers-reduced-motion: reduce) {
+    #musiqa-tugma .mt-ekval span { animation: none; }
+    #musiqa-tugma.korinadi { animation: none; }
+}
+</style>
 
 {% if not taklifnoma.tolangan and not mehmon %}
 <div class="faollashtirilmagan-banner">
@@ -14,10 +88,32 @@ o'z CSS'ida (--asos, --banner-fon va h.k. o'zgaruvchilari orqali) beriladi.
     <a href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank">{{ admin_telegram }}</a>
     {% trans "bilan bog'laning." %}
 </div>
+{% comment %}
+Bu panelni FAQAT to'lovdan oldingi mijoz ko'radi — ya'ni bu uning
+mahsulot bilan birinchi uchrashuvi. Shu bois bu yerdagi ✅ 💛 🔄 📂
+rangli emojilar oddiy bezak emas, sotuvga to'g'ridan-to'g'ri ta'sir
+qiladigan tafsilot edi: har bir telefonda boshqacha ko'rinadi va
+shablonning nafis palitrasiga mutlaqo yopishmaydi. O'rniga — shablon
+rangida chizilgan ingichka ikonkalar.
+{% endcomment %}
 <div class="mijoz-panel">
-    <a class="mp-tugma yoqdi" href="{% url 'taklif:yoqdi' taklifnoma.slug %}">{% if taklifnoma.yoqdi_bosildi %}✅ {% trans "Yoqdi (yuborildi)" %}{% else %}💛 {% trans "Yoqdi — adminga yozish" %}{% endif %}</a>
-    <a class="mp-tugma" href="{% url 'taklif:shablon_tanlash' %}">🔄 {% trans "Qayta yaratish" %}</a>
-    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Taklifnomalarim" %}</a>
+    <a class="mp-tugma yoqdi" href="{% url 'taklif:yoqdi' taklifnoma.slug %}">
+        {% if taklifnoma.yoqdi_bosildi %}
+        <svg class="mp-ikon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="4.5,12.6 9.5,17.5 19.5,6.5"/></svg>
+        {% trans "Yoqdi (yuborildi)" %}
+        {% else %}
+        <svg class="mp-ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.2 4.6 13a4.7 4.7 0 0 1 6.6-6.7l.8.8.8-.8A4.7 4.7 0 0 1 19.4 13z"/></svg>
+        {% trans "Yoqdi — adminga yozish" %}
+        {% endif %}
+    </a>
+    <a class="mp-tugma" href="{% url 'taklif:shablon_tanlash' %}">
+        <svg class="mp-ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><polyline points="20,3.5 20,7.5 16,7.5"/></svg>
+        {% trans "Qayta yaratish" %}
+    </a>
+    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">
+        <svg class="mp-ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5a1.5 1.5 0 0 1 1.5-1.5H9l2 2.4h8.5A1.5 1.5 0 0 1 21 9.9V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18z"/></svg>
+        {% trans "Taklifnomalarim" %}
+    </a>
 </div>
 {% elif taklifnoma.tolangan and mening_taklifnomam and not mehmon %}
 {% comment %}
@@ -28,11 +124,14 @@ yaratgan brauzer sessiyasiga (mehmonlarga emas) ko'rinadigan yengil qaytish
 havolasi.
 {% endcomment %}
 <div class="mijoz-panel">
-    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">📂 {% trans "Taklifnomalarim" %}</a>
+    <a class="mp-tugma" href="{% url 'taklif:mening_taklifnomalarim' %}">
+        <svg class="mp-ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5a1.5 1.5 0 0 1 1.5-1.5H9l2 2.4h8.5A1.5 1.5 0 0 1 21 9.9V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18z"/></svg>
+        {% trans "Taklifnomalarim" %}
+    </a>
 </div>
 {% endif %}
 
-{% if taklifnoma.musiqa_manbai %}
-<audio id="fon-musiqa" src="{{ taklifnoma.musiqa_manbai }}" loop preload="auto"></audio>
-<button id="musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">🎵</button>
-{% endif %}
+{% comment %}
+<audio> va musiqa tugmasi endi yuqoridagi ".til-qatori" ichida —
+bu yerdagi eski, ekranga yopishgan nusxasi olib tashlandi.
+{% endcomment %}

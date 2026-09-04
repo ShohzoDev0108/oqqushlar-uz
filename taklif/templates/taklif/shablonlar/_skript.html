@@ -36,7 +36,7 @@
         if (ijro && ijro.catch) {
             ijro.catch(function (xato) {
                 console.warn('Musiqani avtomatik ijro etib bo\'lmadi:', xato);
-                if (musiqaTugma) { musiqaTugma.classList.add('ochirilgan'); musiqaTugma.textContent = '🔇'; }
+                if (musiqaTugma) { musiqaTugma.classList.add('ochirilgan'); }
             });
         }
     }
@@ -71,7 +71,7 @@
             musiqaTugma.classList.add('korinadi');
             if (!musiqa.paused && musiqa.currentTime > 0) {
                 // Audio allaqachon ijroda (sahifa yangilanmasdan almashtirilgan) — tegmaymiz.
-                musiqaTugma.textContent = '🎵';
+                musiqaTugma.classList.remove('ochirilgan');
             } else {
                 var holat = null;
                 try { holat = JSON.parse(sessionStorage.getItem(MUSIQA_KALITI) || 'null'); } catch (e) {}
@@ -79,7 +79,7 @@
                 if (!holat || !holat.ochirilgan) {
                     musiqaniIjroEt();
                 } else {
-                    musiqaTugma.textContent = '🔇';
+                    musiqaTugma.classList.add('ochirilgan');
                 }
             }
         }
@@ -144,11 +144,10 @@
         musiqaTugma.addEventListener('click', function () {
             if (musiqa.paused) {
                 musiqaniIjroEt();
-                musiqaTugma.textContent = '🎵';
                 musiqaTugma.classList.remove('ochirilgan');
             } else {
                 musiqa.pause();
-                musiqaTugma.textContent = '🔇';
+                musiqaTugma.classList.add('ochirilgan');
             }
             musiqaHolatiniSaqla();
         });
@@ -156,7 +155,7 @@
 
     if (musiqa) {
         musiqa.addEventListener('play', function () {
-            if (musiqaTugma) { musiqaTugma.textContent = '🎵'; musiqaTugma.classList.remove('ochirilgan'); }
+            if (musiqaTugma) { musiqaTugma.classList.remove('ochirilgan'); }
         });
     }
 
@@ -262,7 +261,20 @@
     if (nusxaTugma) {
         nusxaTugma.addEventListener('click', function () {
             var havola = nusxaTugma.dataset.havola;
-            var tayyor = function () { nusxaTugma.textContent = '✓ ' + nusxaTugma.dataset.nusxalandi; };
+            // DIQQAT: tugma ichida SVG ikonka bor, shuning uchun bu yerda
+            // "textContent = ..." ishlatib bo'lmaydi — u ikonkani ham
+            // o'chirib yuborardi. Faqat matn tuguni almashtiriladi va
+            // ikonka "belgi"ga (✓ chizmasiga) o'tkaziladi.
+            var tayyor = function () {
+                var ikon = nusxaTugma.querySelector('.ikon use');
+                if (ikon) { ikon.setAttribute('href', '#ikon-belgi'); }
+                var oxirgi = nusxaTugma.lastChild;
+                if (oxirgi && oxirgi.nodeType === 3) {
+                    oxirgi.textContent = nusxaTugma.dataset.nusxalandi;
+                } else {
+                    nusxaTugma.appendChild(document.createTextNode(nusxaTugma.dataset.nusxalandi));
+                }
+            };
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(havola).then(tayyor);
             } else {

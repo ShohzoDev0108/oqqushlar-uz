@@ -281,7 +281,7 @@ footer { text-align: center; padding: 30px 24px; opacity: .5; font-size: .8rem; 
 
 </div>
 
-<footer>{{ taklifnoma.sarlavha }} — {{ taklifnoma.sana|date:"Y" }}</footer>
+{% include "taklif/shablonlar/_taklif_footer.html" %}
 
 {% trans "Baxtli oilamizga" as SO_BAXTLI %}
 {% trans "yil" as SO_YIL %}

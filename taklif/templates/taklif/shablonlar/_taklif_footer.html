@@ -1,0 +1,61 @@
+{% load i18n %}
+{% comment %}
+Taklifnoma pastki qismi — barcha shablonlar uchun yagona.
+
+TAFTISH — ikkita muammo bir joyda edi:
+
+1) Har bir shablon o'z footer'ini o'zi yozgan va ular 34 ta faylda 21 xil
+   unicode bezak bilan boshlanardi: "❖", "✿", "☾", hatto "🎈". Bular
+   tizim shriftidan olinadi — ba'zi telefonlarda rangli emoji bo'lib
+   chiqadi, ba'zilarida umuman kvadrat bo'lib qoladi va shablon rangiga
+   bo'ysunmaydi. Endi o'rnida sof CSS ajratkich (.nafis-chiziq) turadi.
+
+2) Footer'da "Oqqushlar" so'zi umuman yo'q edi. Har bir taklifnoma
+   o'nlab, ba'zan yuzlab odamga tarqaladi — bu bizning eng arzon va eng
+   ishonchli reklama kanalimiz, lekin ochib ko'rgan odam saytimiz nomini
+   bilib qolmasdi. Endi past tovushda, kelin-kuyov nomidan keyin, kichik
+   havola turadi. ATAYLAB xira (opacity) va kichik: bu taklifnoma —
+   mijozniki, biznikimas.
+{% endcomment %}
+<footer class="taklif-footer">
+    <div class="nafis-chiziq" aria-hidden="true"><i></i></div>
+    <div class="tf-nom">{{ taklifnoma.sarlavha }}</div>
+    <div class="tf-yil">{{ taklifnoma.sana|date:"Y" }}</div>
+    <a class="tf-brend" href="https://oqqushlar.uz/" target="_blank" rel="noopener">{% trans "Oqqushlar'da yaratilgan" %}</a>
+</footer>
+<style>
+/* .nafis-chiziq _bolimlar.html'da ham e'lon qilingan. Bu yerda ATAYLAB
+   takrorlanadi: 8 ta eski shablon (atlas, bolajon, gulbarg, marmar,
+   registon, sodda, yulduz, zumrad) _bolimlar.html'ni umuman
+   include qilmaydi — u yerda ajratkich chizilmay qolardi. Qoidalar
+   bir xil, shuning uchun ular birga bo'lganda ham to'qnashuv yo'q. */
+.nafis-chiziq {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin: 20px auto 22px; max-width: 240px;
+}
+.nafis-chiziq::before, .nafis-chiziq::after {
+    content: ""; flex: 1; height: 1px; opacity: .55;
+    background: linear-gradient(90deg, transparent, var(--asos));
+}
+.nafis-chiziq::after { background: linear-gradient(90deg, var(--asos), transparent); }
+.nafis-chiziq i {
+    width: 6px; height: 6px; background: var(--asos);
+    transform: rotate(45deg); opacity: .9; flex: none;
+}
+.taklif-footer .nafis-chiziq { margin: 0 auto 18px; max-width: 180px; }
+.taklif-footer .tf-nom {
+    font-family: var(--oq-serif); font-size: 1.12rem;
+    color: var(--sarlavha, currentColor); line-height: 1.35;
+}
+.taklif-footer .tf-yil {
+    margin-top: 4px; font-size: .78rem; letter-spacing: 3px; opacity: .75;
+}
+.taklif-footer .tf-brend {
+    display: inline-block; margin-top: 22px;
+    font-size: .7rem; letter-spacing: 1.6px; text-transform: uppercase;
+    color: inherit; opacity: .45; text-decoration: none;
+    border-bottom: 1px solid currentColor; padding-bottom: 2px;
+    transition: opacity .2s;
+}
+.taklif-footer .tf-brend:hover { opacity: .8; }
+</style>

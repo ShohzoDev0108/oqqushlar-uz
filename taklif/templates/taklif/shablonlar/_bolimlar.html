@@ -68,11 +68,58 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     .hero-ramka-burchak { width: 320px; height: 320px; }
 }
 
+/* Mehmonga shaxsiy murojaat — sahifadagi ENG BIRINCHI bo'lim.
+
+   TAFTISH: bu blok ilgari umuman yo'q edi. Har bir mehmonga alohida
+   havola beramiz (.../davron-mushtariy/aziz-oila/), lekin mehmonning
+   ismi sahifada bir marta ham aytilmasdi — u faqat RSVP formasining
+   input'iga yozib qo'yilardi. Ya'ni shaxsiy havolaning butun qiymati
+   ishlatilmay qolardi: mehmon ochadi va uni darhol sanoq raqamlari
+   kutib oladi. Qog'oz taklifnomada ham birinchi so'z — murojaat.
+   Endi sahifa shu bilan boshlanadi. */
+.murojaat { text-align: center; max-width: 560px; margin: 0 auto; }
+.murojaat .kimga {
+    font-family: var(--oq-serif);
+    font-size: clamp(1.45rem, 6.5vw, 2.05rem);
+    line-height: 1.25; font-weight: 500;
+    color: var(--sarlavha); margin: 0;
+}
+.murojaat-matn {
+    font-size: 1.02rem; line-height: 1.85; color: var(--matn);
+    white-space: pre-line; margin: 0;
+}
+.murojaat-imzo {
+    font-family: var(--oq-serif); font-size: 1.18rem;
+    color: var(--asos); margin-top: 26px;
+}
+
+/* Nafis ajratkich — chiziq + o'rtada romb.
+
+   ATAYLAB unicode belgi ("◆", "✦", "❖") EMAS: ular tizim shriftidan
+   olinadi, ba'zi telefonlarda rangli emoji bo'lib chiqadi va shablon
+   palitrasiga bo'ysunmaydi. Bu esa sof CSS — har doim bir xil va
+   har doim --asos rangida. */
+.nafis-chiziq {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin: 20px auto 22px; max-width: 240px;
+}
+.nafis-chiziq::before, .nafis-chiziq::after {
+    content: ""; flex: 1; height: 1px; opacity: .55;
+    background: linear-gradient(90deg, transparent, var(--asos));
+}
+.nafis-chiziq::after { background: linear-gradient(90deg, var(--asos), transparent); }
+.nafis-chiziq i {
+    width: 6px; height: 6px; background: var(--asos);
+    transform: rotate(45deg); opacity: .9; flex: none;
+}
+
 /* Yangi bo'limlar uchun umumiy uslublar (ranglar shablon o'zgaruvchilaridan) */
 .kalendar-oy { text-align: center; letter-spacing: 3px; text-transform: uppercase; font-size: .8rem; color: var(--ikkinchi); margin-bottom: 14px; }
 .kalendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 380px; margin: 0 auto; }
 .k-kun { position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: .88rem; border-radius: 50%; }
-.k-sarlavha { font-size: .62rem; letter-spacing: 1px; text-transform: uppercase; color: var(--ikkinchi); aspect-ratio: auto; padding: 4px 0; }
+/* Hafta kunlari. Ilgari .62rem — ya'ni 9.9px edi: telefonda o'qish uchun
+   juda mayda (qulay minimum ~12px). .75rem = 12px. */
+.k-sarlavha { font-size: .75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--ikkinchi); aspect-ratio: auto; padding: 5px 0; }
 .k-tanlangan { background: var(--asos); color: var(--asos-matn); font-weight: bold; border-radius: 0; clip-path: url(#yurak-shakli); position: relative; z-index: 2; transform: scale(1.38); filter: drop-shadow(0 3px 6px rgba(0,0,0,.3)); }
 .k-tanlangan span { display: block; transform: translateY(-10%); }
 .xarita-tugmalar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -95,14 +142,23 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 /* Katta fotolavha — mijoz eng ko'pi bilan 2 ta rasm yuklaydi; ular kartadan
    tashqariga chiqib (full-bleed), ekranni kenglik bo'yicha to'ldirib
    ko'rsatiladi. 1 ta bo'lsa — to'liq kenglikda, 2 ta bo'lsa — yonma-yon. */
-.galereya-katta { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); display: flex; gap: 3px; }
+/* TAFTISH — suratlar juda qattiq kesilardi.
+   Balandlik ekran balandligidan olinardi (52vh), kenglik esa ikkiga
+   bo'lingan ekran kengligidan. iPhone'da bu 194x439 px, ya'ni 1:2.26
+   nisbatdagi tor tasma degani. Mijozlar deyarli har doim yotiq (3:2)
+   surat yuklaydi — natijada suratning yarmidan ko'pi kesib tashlanardi
+   va odamlarning boshi yoki oyog'i qirqilib qolardi.
+   Endi katak nisbati suratga yaqin (2 ta bo'lsa 4/5, 1 ta bo'lsa 3/4)
+   va kesish yuqoridan hisoblanadi (object-position) — portretda yuz
+   odatda yuqori uchdan birda bo'ladi. */
+.galereya-katta { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); display: flex; gap: 4px; }
 .galereya-katta .g-rasm { flex: 1 1 0; overflow: hidden; }
-.galereya-katta .g-rasm img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.galereya-katta.g-bitta .g-rasm { height: 62vh; min-height: 320px; max-height: 620px; }
-.galereya-katta.g-ikkita .g-rasm { height: 52vh; min-height: 260px; max-height: 500px; }
+.galereya-katta .g-rasm img { width: 100%; height: 100%; object-fit: cover; object-position: center 32%; display: block; }
+.galereya-katta.g-bitta .g-rasm { aspect-ratio: 3 / 4; max-height: 620px; }
+.galereya-katta.g-ikkita .g-rasm { aspect-ratio: 4 / 5; max-height: 500px; }
 @media (min-width: 640px) {
-    .galereya-katta.g-bitta .g-rasm { height: 70vh; max-height: 680px; }
-    .galereya-katta.g-ikkita .g-rasm { height: 58vh; max-height: 560px; }
+    .galereya-katta.g-bitta .g-rasm { aspect-ratio: 16 / 10; }
+    .galereya-katta.g-ikkita .g-rasm { aspect-ratio: 4 / 5; max-height: 560px; }
 }
 
 /* Tadbir tafsilotlari — ilgarigi ingichka ro'yxat o'rniga, alohida
@@ -133,7 +189,8 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     background: color-mix(in srgb, var(--asos) 13%, var(--karta-fon));
     border: 1px solid color-mix(in srgb, var(--asos) 28%, transparent);
 }
-.tafsilot-karta .label { display: block; color: var(--ikkinchi); font-size: .7rem; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 6px; }
+/* .7rem = 11.2px edi — mayda. .78rem = 12.5px. */
+.tafsilot-karta .label { display: block; color: var(--ikkinchi); font-size: .78rem; letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 6px; }
 .tafsilot-karta .qiymat { font-size: 1.02rem; line-height: 1.4; font-weight: 500; }
 
 /* Emoji o'rniga — nafis, bir rangli chiziqli ikonkalar (shablon rangiga
@@ -143,6 +200,13 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 .tafsilot-karta .ikon { width: 24px; height: 24px; vertical-align: 0; }
 .xarita-tugma .ikon, .telegram-tugma .ikon { width: 16px; height: 16px; }
 .ikon-nuqta { fill: var(--asos); stroke: none; }
+/* Tugma ichidagi ikonka tugmaning O'Z rangini oladi (stroke: currentColor).
+   Bu shart: "Ha, albatta kelaman" bosilganda tugma foni --asos rangiga
+   bo'yaladi — agar ikonka ham --asos'da qolsa, u fonga singib yo'qoladi. */
+.keladi-tugma .ikon, .ulashish-tugma .ikon {
+    stroke: currentColor; width: 17px; height: 17px;
+    vertical-align: -3px; margin-right: 5px;
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -191,59 +255,66 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
             <circle cx="12" cy="12" r="9"/>
             <polygon points="14.5,9.5 13,13 9.5,14.5 11,11"/>
         </symbol>
+        {% comment %}
+        Quyidagi to'rttasi eski rangli emojilar o'rniga. Emoji har bir
+        telefonda boshqacha chiziladi, rangini o'zgartirib bo'lmaydi va
+        oltin/binafsha palitraga mos kelmasdi — bitta rangli taklifnomada
+        Apple'ning ko'k samolyoti turardi. Bular esa --asos rangida.
+
+        DIQQAT: bu izoh ATAYLAB "{% templatetag openblock %} comment {% templatetag closeblock %}",
+        HTML izohi ("<!-- -->") emas — HTML izohi brauzerga jo'natiladi va
+        sahifa manbasida ko'rinib qoladi.
+        {% endcomment %}
+        <symbol id="ikon-telegram" viewBox="0 0 24 24">
+            <path d="M21 4.5 2.8 11.3l5.4 1.8L19 6.6l-8.2 8.1.3 5 2.6-3.6 4.6 3.3z"/>
+        </symbol>
+        <symbol id="ikon-havola" viewBox="0 0 24 24">
+            <path d="M10.2 13.8a3.6 3.6 0 0 0 5.3.3l2.6-2.6a3.6 3.6 0 0 0-5.1-5.1l-1.3 1.3"/>
+            <path d="M13.8 10.2a3.6 3.6 0 0 0-5.3-.3l-2.6 2.6a3.6 3.6 0 0 0 5.1 5.1l1.3-1.3"/>
+        </symbol>
+        <symbol id="ikon-belgi" viewBox="0 0 24 24">
+            <polyline points="4.5,12.6 9.5,17.5 19.5,6.5"/>
+        </symbol>
+        <symbol id="ikon-yoq" viewBox="0 0 24 24">
+            <line x1="6" y1="6" x2="18" y2="18"/>
+            <line x1="18" y1="6" x2="6" y2="18"/>
+        </symbol>
     </defs>
 </svg>
 
-<div class="bolim" data-anim>
-    <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">
-        <div><div class="son" id="kun">--</div><div>{% trans "kun" %}</div></div>
-        <div><div class="son" id="soat">--</div><div>{% trans "soat" %}</div></div>
-        <div><div class="son" id="minut">--</div><div>{% trans "minut" %}</div></div>
-        <div><div class="son" id="sekund">--</div><div>{% trans "sekund" %}</div></div>
-    </div>
-    <p id="countdown-matn" class="countdown-matn"></p>
-</div>
+{% comment %}
+1-BO'LIM: mehmonga murojaat.
 
-<div class="bolim" data-anim>
-    <h2>{% trans "Marosim kalendari" %}</h2>
-    <div class="blok">
-        <div class="kalendar-oy">{{ taklifnoma.sana|date:"F Y" }}</div>
-        <div class="kalendar-grid" id="kalendar-grid"
-             data-sana="{{ taklifnoma.sana|date:'c' }}"
-             data-hafta="{% trans 'Du Se Ch Pa Ju Sh Ya' %}"></div>
-    </div>
-</div>
+Qog'oz taklifnomada birinchi so'z har doim murojaat bo'ladi — sahifada
+ham shunday bo'lishi kerak. "mehmon" faqat shaxsiy havola bilan
+kirilganda mavjud (.../taklifnoma-slug/mehmon-slug/); umumiy havolada
+u bo'lmaydi, shuning uchun o'sha holat uchun alohida, hurmatli
+murojaat matni bor.
 
-{% if taklifnoma.matn %}
+Marosim egasining o'z matni (taklifnoma.matn) ilgari kalendardan
+KEYIN, sarlavhasiz va bezaksiz turardi — ya'ni sahifadagi eng
+hissiyotli qism 3-o'ringa tushib qolgandi. Endi u aynan shu yerda,
+murojaatning davomi sifatida chiqadi. Matn kiritilmagan bo'lsa,
+har qanday marosimga to'g'ri keladigan umumiy taklif matni ishlatiladi.
+{% endcomment %}
 <div class="bolim" data-anim>
-    <div class="blok" style="text-align:center;">{{ taklifnoma.matn|linebreaks }}</div>
+    <div class="murojaat">
+        {% if mehmon %}
+        <p class="kimga">{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}!{% endblocktrans %}</p>
+        {% else %}
+        <p class="kimga">{% trans "Aziz mehmon!" %}</p>
+        {% endif %}
+        <div class="nafis-chiziq" aria-hidden="true"><i></i></div>
+        <div class="murojaat-matn">
+            {% if taklifnoma.matn %}{{ taklifnoma.matn|linebreaksbr }}{% else %}{% blocktrans with sana=taklifnoma.sana|date:"d-F, Y" %}Sizni {{ sana }} kuni bo'lib o'tadigan xursandchiligimizga chin dildan taklif qilamiz. Kelib, quvonchimizga sherik bo'lsangiz — biz uchun katta baxt bo'ladi.{% endblocktrans %}{% endif %}
+        </div>
+        {% if taklifnoma.ism_1 %}
+        <div class="murojaat-imzo">
+            {% if taklifnoma.ism_2 %}{{ taklifnoma.ism_1 }} {% trans "va" %} {{ taklifnoma.ism_2 }}{% else %}{{ taklifnoma.ism_1 }}{% endif %}
+        </div>
+        {% endif %}
+    </div>
 </div>
-{% endif %}
-
-{% if rasmlar %}
-<div class="bolim" data-anim>
-    <h2>{% trans "Fotolavha" %}</h2>
-    {% if rasmlar|length == 1 %}
-    <div class="galereya-katta g-bitta">
-        {% for r in rasmlar %}
-        <div class="g-rasm"><img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy"></div>
-        {% endfor %}
-    </div>
-    {% elif rasmlar|length == 2 %}
-    <div class="galereya-katta g-ikkita">
-        {% for r in rasmlar %}
-        <div class="g-rasm"><img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy"></div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <div class="galereya">
-        {% for r in rasmlar %}
-        <img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy">
-        {% endfor %}
-    </div>
-    {% endif %}
-</div>
-{% endif %}
 
 <div class="bolim" data-anim>
     <h2>{% trans "Tadbir tafsilotlari" %}</h2>
@@ -294,6 +365,54 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     {% endif %}
 </div>
 
+<div class="bolim" data-anim>
+    <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">
+        <div><div class="son" id="kun">--</div><div>{% trans "kun" %}</div></div>
+        <div><div class="son" id="soat">--</div><div>{% trans "soat" %}</div></div>
+        <div><div class="son" id="minut">--</div><div>{% trans "minut" %}</div></div>
+        <div><div class="son" id="sekund">--</div><div>{% trans "sekund" %}</div></div>
+    </div>
+    <p id="countdown-matn" class="countdown-matn"></p>
+</div>
+
+<div class="bolim" data-anim>
+    <h2>{% trans "Marosim kalendari" %}</h2>
+    <div class="blok">
+        <div class="kalendar-oy">{{ taklifnoma.sana|date:"F Y" }}</div>
+        <div class="kalendar-grid" id="kalendar-grid"
+             data-sana="{{ taklifnoma.sana|date:'c' }}"
+             data-hafta="{% trans 'Du Se Ch Pa Ju Sh Ya' %}"></div>
+    </div>
+</div>
+
+
+
+{% if rasmlar %}
+<div class="bolim" data-anim>
+    <h2>{% trans "Fotolavha" %}</h2>
+    {% if rasmlar|length == 1 %}
+    <div class="galereya-katta g-bitta">
+        {% for r in rasmlar %}
+        <div class="g-rasm"><img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy"></div>
+        {% endfor %}
+    </div>
+    {% elif rasmlar|length == 2 %}
+    <div class="galereya-katta g-ikkita">
+        {% for r in rasmlar %}
+        <div class="g-rasm"><img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy"></div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="galereya">
+        {% for r in rasmlar %}
+        <img src="{{ r.rasm.url }}" alt="{{ taklifnoma.sarlavha }}" loading="lazy">
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+
 {% if taklifnoma.sovga_karta %}
 <div class="bolim" data-anim>
     <h2>{% trans "Tabrik sovg'asi" %}</h2>
@@ -327,8 +446,8 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
             <label>{% trans "Kelasizmi?" %}</label>
             <input type="hidden" name="keladi" id="keladi" value="ha">
             <div class="keladi-tugmalar">
-                <button type="button" class="keladi-tugma faol" data-qiymat="ha">✓ {% trans "Ha, albatta kelaman" %}</button>
-                <button type="button" class="keladi-tugma" data-qiymat="yoq">✗ {% trans "Afsuski, kela olmayman" %}</button>
+                <button type="button" class="keladi-tugma faol" data-qiymat="ha"><svg class="ikon" aria-hidden="true"><use href="#ikon-belgi"></use></svg>{% trans "Ha, albatta kelaman" %}</button>
+                <button type="button" class="keladi-tugma" data-qiymat="yoq"><svg class="ikon" aria-hidden="true"><use href="#ikon-yoq"></use></svg>{% trans "Afsuski, kela olmayman" %}</button>
             </div>
 
             <label for="tilak">{% trans "Tilak / tabrigingiz (ixtiyoriy)" %}</label>
@@ -369,10 +488,10 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
         <p class="muted" style="margin-top:0;">{% trans "Taklifnomani yaqinlaringizga ham yuboring" %}</p>
         {% trans "Nusxalandi!" as ULASH_NUSXALANDI %}
         <div class="ulashish-tugmalar">
-            <a class="ulashish-tugma" href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ taklifnoma.sarlavha|urlencode }}" target="_blank" rel="noopener">✈️ Telegram</a>
+            <a class="ulashish-tugma" href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ taklifnoma.sarlavha|urlencode }}" target="_blank" rel="noopener"><svg class="ikon" aria-hidden="true"><use href="#ikon-telegram"></use></svg>Telegram</a>
             <button type="button" class="ulashish-tugma" id="havola-nusxa"
                     data-havola="{{ request.build_absolute_uri }}"
-                    data-nusxalandi="{{ ULASH_NUSXALANDI|escapejs }}">🔗 {% trans "Havolani nusxalash" %}</button>
+                    data-nusxalandi="{{ ULASH_NUSXALANDI|escapejs }}"><svg class="ikon" aria-hidden="true"><use href="#ikon-havola"></use></svg>{% trans "Havolani nusxalash" %}</button>
         </div>
     </div>
 </div>

@@ -205,7 +205,7 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
 {% include "taklif/shablonlar/_bolimlar.html" %}
 </div>
 
-<footer>☾ {{ taklifnoma.sarlavha }} — {{ taklifnoma.sana|date:"Y" }} ☾</footer>
+{% include "taklif/shablonlar/_taklif_footer.html" %}
 
 {% include "taklif/shablonlar/_skript.html" %}
 {% endblock %}

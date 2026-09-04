@@ -60,12 +60,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <style id="oq-uslub">
         * { box-sizing: border-box; }
+        {% comment %}
+        BREND SHRIFTLARI — barcha sahifalar uchun yagona manba.
+
+        TAFTISH: bu yerda ilgari "font-family: Georgia, Segoe UI, serif"
+        turardi va 39 ta shablonning hammasi "font-family: inherit"
+        ishlatgani uchun BUTUN mahsulot Georgia'da chiqardi. Ya'ni
+        yuqoridagi <link> Cormorant Garamond va Manrope'ni yuklab olardi,
+        lekin ular hech qayerda ishlatilmasdi (document.fonts holati:
+        "unloaded"). Natijada marketing sahifamiz nafis Cormorant'da,
+        sotayotgan mahsulotimiz esa Windows'ning standart shriftida
+        ko'rinardi — mijoz uchun eng sezilarli sifat farqi shu edi.
+
+        Endi tizim saytnikiga aynan mos: matn Manrope (o'qish uchun),
+        sarlavha va ismlar Cormorant Garamond (nafislik uchun).
+        Zaxira shriftlar ATAYLAB ikki xil: sans uchun sans, serif uchun
+        serif — internet sekin bo'lsa ham sahifa qiyofasini yo'qotmaydi.
+        {% endcomment %}
+        :root {
+            --oq-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --oq-sans: 'Manrope', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
         body {
             margin: 0;
-            font-family: "Georgia", "Segoe UI", serif;
+            font-family: var(--oq-sans);
             background: #0f2027;
             color: #f5efe0;
         }
+        {% comment %}
+        Sarlavhalar va ismlar serif'da. Shablonlar h1/h2 uchun o'z
+        font-family'sini e'lon qilmaydi (tekshirildi: 39 taning hech
+        birida yo'q), shuning uchun shu bitta qoida barchasiga yetadi.
+        .son — sanoq raqamlari, .sana-matn — hero ostidagi sana:
+        ular ham "raqam" emas, "yozuv" bo'lib ko'rinishi kerak.
+        {% endcomment %}
+        h1, h2, h3, .son, .sana-matn, .kalendar-oy, blockquote {
+            font-family: var(--oq-serif);
+        }
+        {% comment %}
+        Cormorant nafis, lekin ingichka — mayda o'lchamda oqarib ketadi.
+        Shuning uchun sarlavhalarda vazn 500/600, harflar orasi esa
+        biroz siqilgan (katta o'lchamda serif juda yoyilib ketmasin).
+        {% endcomment %}
+        h1 { font-weight: 600; letter-spacing: .005em; }
+        h2, h3 { font-weight: 500; }
         .wrapper { max-width: 720px; margin: 0 auto; padding: 24px; }
         {% block extra_style %}{% endblock %}
     </style>
