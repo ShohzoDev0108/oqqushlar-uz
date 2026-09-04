@@ -88,10 +88,44 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     font-size: 1.02rem; line-height: 1.85; color: var(--matn);
     white-space: pre-line; margin: 0;
 }
-.murojaat-imzo {
-    font-family: var(--oq-serif); font-size: 1.18rem;
-    color: var(--asos); margin-top: 26px;
+.murojaat-imzo { margin-top: 26px; }
+.murojaat-imzo .mi-yorliq {
+    display: block; font-size: .76rem; letter-spacing: 2.2px;
+    text-transform: uppercase; color: var(--ikkinchi); margin-bottom: 6px;
 }
+.murojaat-imzo .mi-nom {
+    font-family: var(--oq-serif); font-size: 1.24rem; color: var(--asos);
+}
+
+/* Kun tartibi — vertikal chiziqli jadval.
+
+   Bu bo'lim mijoz uni to'ldirgan bo'lsagina chiqadi. Ko'rinishi ataylab
+   "jadval" emas, "yo'l" shaklida: chapdan pastga tushuvchi ingichka chiziq,
+   har bir bandda nuqta. Telefonda ustunli jadval siqilib o'qilmay qoladi,
+   bu esa istalgan kenglikda bir xil o'qiladi. */
+.dastur-royxat {
+    position: relative; max-width: 460px; margin: 0 auto;
+    padding-left: 26px; text-align: left;
+}
+.dastur-royxat::before {
+    content: ""; position: absolute; left: 4px; top: 8px; bottom: 8px;
+    width: 1px; background: var(--asos); opacity: .35;
+}
+.dastur-band { position: relative; padding: 0 0 22px; }
+.dastur-band:last-child { padding-bottom: 0; }
+.dastur-band::before {
+    content: ""; position: absolute; left: -26px; top: 6px;
+    width: 9px; height: 9px; background: var(--asos);
+    transform: rotate(45deg); border-radius: 1px;
+}
+.dastur-band .db-vaqt {
+    font-family: var(--oq-serif); font-size: 1.14rem;
+    color: var(--sarlavha); line-height: 1.2;
+}
+.dastur-band .db-nom { font-size: .98rem; line-height: 1.5; color: var(--matn); margin-top: 2px; }
+.dastur-band .db-izoh { font-size: .86rem; color: var(--ikkinchi); margin-top: 3px; }
+/* Vaqtsiz band ham to'g'ri ko'rinsin — nomi yuqoriga chiqadi. */
+.dastur-band.vaqtsiz .db-nom { font-family: var(--oq-serif); font-size: 1.1rem; color: var(--sarlavha); }
 
 /* Nafis ajratkich — chiziq + o'rtada romb.
 
@@ -308,9 +342,17 @@ har qanday marosimga to'g'ri keladigan umumiy taklif matni ishlatiladi.
         <div class="murojaat-matn">
             {% if taklifnoma.matn %}{{ taklifnoma.matn|linebreaksbr }}{% else %}{% blocktrans with sana=taklifnoma.sana|date:"d-F, Y" %}Sizni {{ sana }} kuni bo'lib o'tadigan xursandchiligimizga chin dildan taklif qilamiz. Kelib, quvonchimizga sherik bo'lsangiz — biz uchun katta baxt bo'ladi.{% endblocktrans %}{% endif %}
         </div>
-        {% if taklifnoma.ism_1 %}
+        {% comment %}
+        Imzo. O'zbek marosimida taklifnoma an'anaviy ravishda AILA nomidan
+        keladi ("Hurmat bilan, Karimovlar oilasi") — nafaqat kelin-kuyov
+        nomidan. Shu sabab mijoz istasa o'z imzosini yozadi; yozmasa,
+        avvalgidek ismlar ishlatiladi (ya'ni eski taklifnomalar
+        o'zgarishsiz ishlayveradi).
+        {% endcomment %}
+        {% if taklifnoma.imzo or taklifnoma.ism_1 %}
         <div class="murojaat-imzo">
-            {% if taklifnoma.ism_2 %}{{ taklifnoma.ism_1 }} {% trans "va" %} {{ taklifnoma.ism_2 }}{% else %}{{ taklifnoma.ism_1 }}{% endif %}
+            <span class="mi-yorliq">{% trans "Hurmat bilan," %}</span>
+            <span class="mi-nom">{% if taklifnoma.imzo %}{{ taklifnoma.imzo }}{% elif taklifnoma.ism_2 %}{{ taklifnoma.ism_1 }} {% trans "va" %} {{ taklifnoma.ism_2 }}{% else %}{{ taklifnoma.ism_1 }}{% endif %}</span>
         </div>
         {% endif %}
     </div>
@@ -364,6 +406,34 @@ har qanday marosimga to'g'ri keladigan umumiy taklif matni ishlatiladi.
     </div>
     {% endif %}
 </div>
+
+{% if taklifnoma.dastur %}
+{% comment %}
+KUN TARTIBI — faqat mijoz to'ldirgan bo'lsa chiqadi.
+
+Nega kerak: marosim bir necha soat davom etadi, mehmon esa faqat bitta
+"boshlanish vaqti"ni ko'rardi. Qachon kelish, qachon asosiy qism, qachon
+tugashini bilmaslik — mehmon uchun eng ko'p uchraydigan noqulaylik.
+Raqobatchilarning premium shablonlarida bu bo'lim bor, bizda yo'q edi.
+
+"tafsilotlar" bo'limidan KEYIN turadi: avval mijoz qayerga va qachon
+borishini biladi, keyin o'sha yerda nima bo'lishini.
+{% endcomment %}
+<div class="bolim" data-anim>
+    <h2>{% trans "Kun tartibi" %}</h2>
+    <div class="blok">
+        <div class="dastur-royxat">
+            {% for band in taklifnoma.dastur %}
+            <div class="dastur-band{% if not band.vaqt %} vaqtsiz{% endif %}">
+                {% if band.vaqt %}<div class="db-vaqt">{{ band.vaqt }}</div>{% endif %}
+                <div class="db-nom">{{ band.nom }}</div>
+                {% if band.izoh %}<div class="db-izoh">{{ band.izoh }}</div>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="bolim" data-anim>
     <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">

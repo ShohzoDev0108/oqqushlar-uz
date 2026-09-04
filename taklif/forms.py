@@ -1,13 +1,22 @@
+import json
+import re
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
+    DASTUR_MAKS_BAND,
     IKKI_ISMLI_MAROSIM_TURLARI,
     MAROSIM_TURLARI,
     UCHINCHI_ISM_MAROSIM_TURLARI,
     MusiqaVariant,
     Taklifnoma,
 )
+
+# "18:00" ko'rinishidagi 24 soatlik vaqt. Mijozning brauzeri <input type="time">
+# ni qo'llab-quvvatlamasa (yoki qiymat qo'lda o'zgartirilsa) shakli buzilgan
+# matn kelishi mumkin — shu sabab serverda ham qayta tekshiriladi.
+VAQT_QOLIPI = re.compile(r"^([01]\d|2[0-3]):[0-5]\d$")
 
 # Bu so'zlar bilan tugaydigan/mos keladigan slug'larni taqiqlaymiz,
 # chunki ular URL'da tizim sahifalari sifatida band (urls.py'ga qarang).
@@ -142,6 +151,15 @@ class TaklifnomaYaratishForm(forms.ModelForm):
         required=False,
         empty_label=_("Tanlanmagan"),
     )
+    # Kun tartibi formaga JSON matn sifatida keladi (yaratish.html'dagi
+    # qatorlar tahrirlagichi to'ldiradigan yashirin maydon). Modeldagi
+    # maydon JSONField bo'lgani uchun clean_dastur() tozalangan RO'YXAT
+    # qaytaradi — ModelForm uni to'g'ridan-to'g'ri modelga yozadi.
+    dastur = forms.CharField(
+        label=_("Kun tartibi (ixtiyoriy)"),
+        required=False,
+        widget=forms.HiddenInput(attrs={"id": "id_dastur"}),
+    )
 
     class Meta:
         model = Taklifnoma
@@ -159,6 +177,8 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "musiqa_variant",
             "musiqa",
             "matn",
+            "imzo",
+            "dastur",
             "sovga_karta",
             "telegram_link",
             "ommaviy_korsatishga_rozi",
@@ -205,6 +225,9 @@ class TaklifnomaYaratishForm(forms.ModelForm):
                     ),
                 }
             ),
+            "imzo": forms.TextInput(
+                attrs={"placeholder": _("Masalan: Karimovlar oilasi")}
+            ),
             "sovga_karta": forms.TextInput(
                 attrs={"placeholder": "8600 1234 5678 9012"}
             ),
@@ -231,6 +254,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "kiyim_kodi": _("Kiyinish kodi (ixtiyoriy)"),
             "musiqa": _("O'zingiz musiqa yuklash (ixtiyoriy)"),
             "matn": _("Mehmonlarga atalgan so'zingiz (ixtiyoriy)"),
+            "imzo": _("Taklifnoma kim nomidan (ixtiyoriy)"),
             "sovga_karta": _("Sovg'a-pul uchun karta raqami (ixtiyoriy)"),
             "telegram_link": _("Mehmonlar uchun Telegram guruhi (ixtiyoriy)"),
             "ommaviy_korsatishga_rozi": _(
@@ -253,6 +277,10 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             ),
             "kiyim_kodi": "",
             "matn": _("Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."),
+            "imzo": _(
+                "Taklifnoma oxirida imzo o'rnida chiqadi. Bo'sh qoldirsangiz, "
+                "yuqorida yozgan ismlaringiz ishlatiladi."
+            ),
             "sovga_karta": "",
             "telegram_link": "",
             "musiqa": _("O'zingiz yuklamoqchi bo'lsangiz"),
@@ -261,6 +289,57 @@ class TaklifnomaYaratishForm(forms.ModelForm):
                 "ishlayveradi — bu faqat bosh sahifadagi namunalar ro'yxatiga tegishli."
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Mavjud taklifnoma tahrirlanayotgan bo'lsa, modeldagi ro'yxatni
+        # yashirin maydon kutayotgan JSON matnga aylantiramiz — aks holda
+        # Python'ning repr'i (bitta tirnoqlar bilan) chiqib, JS uni o'qiy
+        # olmasdi.
+        mavjud = getattr(self.instance, "dastur", None)
+        if mavjud:
+            self.initial["dastur"] = json.dumps(mavjud, ensure_ascii=False)
+
+    def clean_dastur(self):
+        """Kun tartibini JSON matndan xavfsiz, tozalangan ro'yxatga aylantiradi.
+
+        Bu maydon mijozning brauzeridan JSON bo'lib keladi, ya'ni unga
+        ISHONIB BO'LMAYDI: uzunligi, bandlar soni va vaqt formati shu yerda
+        qat'iy cheklanadi. Noto'g'ri band butun formani yiqitmaydi — u
+        shunchaki tashlab yuboriladi, chunki bu maydon ixtiyoriy va mijozni
+        ikkilamchi tafsilot uchun to'xtatib qo'yish o'rinsiz.
+        """
+        xom = (self.cleaned_data.get("dastur") or "").strip()
+        if not xom:
+            return []
+        try:
+            malumot = json.loads(xom)
+        except (ValueError, TypeError):
+            # Buzuq JSON — mijozga xato ko'rsatmaymiz, chunki u buni o'zi
+            # yozmagan (JS yozgan). Kun tartibisiz davom etaveramiz.
+            return []
+        if not isinstance(malumot, list):
+            return []
+
+        natija = []
+        for band in malumot[:DASTUR_MAKS_BAND]:
+            if not isinstance(band, dict):
+                continue
+            nom = str(band.get("nom", "")).strip()[:80]
+            if not nom:
+                # Nomsiz band mehmonga hech narsa aytmaydi — tashlaymiz.
+                continue
+            vaqt = str(band.get("vaqt", "")).strip()[:5]
+            if vaqt and not VAQT_QOLIPI.match(vaqt):
+                vaqt = ""
+            natija.append(
+                {
+                    "vaqt": vaqt,
+                    "nom": nom,
+                    "izoh": str(band.get("izoh", "")).strip()[:120],
+                }
+            )
+        return natija
 
     def clean(self):
         cleaned_data = super().clean()

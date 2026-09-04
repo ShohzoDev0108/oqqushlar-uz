@@ -110,6 +110,76 @@ IKKI_ISMLI_MAROSIM_TURLARI = {"toy", "fotiha_toy", "yubiley"}
 # turlarida uchinchi ism kerak bo'lmaydi.
 UCHINCHI_ISM_MAROSIM_TURLARI = {"sunnat_toy"}
 
+# Kun tartibi uchun NAMUNALAR.
+#
+# Mijozdan bo'sh jadvalni to'ldirishni so'rash — deyarli har doim bo'sh
+# qoladigan maydon degani: odam "nima yozishim kerak?" degan savolda
+# to'xtaydi. Shu sabab har bir marosim turi uchun O'ZBEK marosimlarida
+# odatiy bo'lgan tayyor jadval bor: mijoz bir tugma bosadi, tayyor qatorlar
+# chiqadi va u faqat vaqtini/nomini o'ziga moslab tahrirlaydi. Bu — bo'sh
+# maydondan ko'ra ancha oson va natija ham ancha sifatliroq bo'ladi.
+#
+# Vaqtlar ATAYLAB "tadbir boshlanish vaqti"ga nisbatan emas, mutlaq
+# qiymatda: mijozning ko'z oldida real soat turgani tushunarliroq, va u
+# istagan qiymatga o'zgartira oladi.
+MAROSIM_DASTUR_NAMUNALARI = {
+    "toy": [
+        {"vaqt": "17:30", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "18:00", "nom": _("Marosim boshlanishi"), "izoh": ""},
+        {"vaqt": "19:00", "nom": _("Kelin-kuyov raqsi"), "izoh": ""},
+        {"vaqt": "20:00", "nom": _("Tortni kesish"), "izoh": ""},
+        {"vaqt": "22:00", "nom": _("Marosim yakuni"), "izoh": ""},
+    ],
+    "fotiha_toy": [
+        {"vaqt": "11:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "11:30", "nom": _("Fotiha marosimi"), "izoh": ""},
+        {"vaqt": "12:30", "nom": _("Ziyofat"), "izoh": ""},
+    ],
+    "qizlar_bazmi": [
+        {"vaqt": "17:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "17:30", "nom": _("Marosim boshlanishi"), "izoh": ""},
+        {"vaqt": "19:00", "nom": _("Oq yo'l tilaklari"), "izoh": ""},
+        {"vaqt": "20:30", "nom": _("Qizni kuzatish"), "izoh": ""},
+    ],
+    "sunnat_toy": [
+        {"vaqt": "10:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "11:00", "nom": _("Marosim boshlanishi"), "izoh": ""},
+        {"vaqt": "12:00", "nom": _("Ziyofat"), "izoh": ""},
+        {"vaqt": "14:00", "nom": _("Bolalar uchun o'yin-kulgi"), "izoh": ""},
+    ],
+    "beshik_toy": [
+        {"vaqt": "11:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "11:30", "nom": _("Beshik marosimi"), "izoh": ""},
+        {"vaqt": "12:30", "nom": _("Ziyofat"), "izoh": ""},
+    ],
+    "nahor_oshi": [
+        {"vaqt": "06:30", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "07:00", "nom": _("Osh"), "izoh": ""},
+        {"vaqt": "08:30", "nom": _("Duo va yakun"), "izoh": ""},
+    ],
+    "yubiley": [
+        {"vaqt": "17:30", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "18:00", "nom": _("Tabriklar"), "izoh": ""},
+        {"vaqt": "19:30", "nom": _("Ziyofat va konsert"), "izoh": ""},
+        {"vaqt": "22:00", "nom": _("Marosim yakuni"), "izoh": ""},
+    ],
+    "tugilgan_kun": [
+        {"vaqt": "15:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "15:30", "nom": _("O'yinlar va tabriklar"), "izoh": ""},
+        {"vaqt": "16:30", "nom": _("Tortni kesish"), "izoh": ""},
+    ],
+    "boshqa": [
+        {"vaqt": "18:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "18:30", "nom": _("Tadbir boshlanishi"), "izoh": ""},
+        {"vaqt": "20:00", "nom": _("Ziyofat"), "izoh": ""},
+    ],
+}
+
+# Bitta taklifnomada eng ko'pi bilan shuncha band bo'lishi mumkin. Cheklov
+# ikki sababdan: (1) uzun jadval mehmonni o'qishdan charchatadi, (2) forma
+# orqali kelayotgan JSON'ning hajmini oldindan chegaralab qo'yamiz.
+DASTUR_MAKS_BAND = 10
+
 # sunnat_toy_qoshma_sarlavha uchun: ismlarni "va" bilan bog'lab, oxirgisiga
 # ko'plik+egalik qo'shimchasi ("...larning") qo'shish FAQAT o'zbekchada shu
 # grammatik qolipda tabiiy eshitiladi ("Amir va Botirlarning xatna to'yi").
@@ -337,6 +407,23 @@ class Taklifnoma(models.Model):
     )
     kiyim_kodi = models.CharField(
         max_length=200, blank=True, help_text="Masalan: rasmiy, yorug' ranglar"
+    )
+    imzo = models.CharField(
+        max_length=120,
+        blank=True,
+        help_text=(
+            "Taklifnoma kim nomidan kelayotgani — masalan “Karimovlar oilasi”. "
+            "Bo'sh qoldirilsa, marosim egalarining ismlari ishlatiladi."
+        ),
+    )
+    dastur = models.JSONField(
+        default=list,
+        blank=True,
+        help_text=(
+            "Kun tartibi — [{'vaqt': '18:00', 'nom': 'Mehmonlarni kutib olish', "
+            "'izoh': ''}] ko'rinishidagi ro'yxat. Bo'sh bo'lsa, taklifnomada bu "
+            "bo'lim umuman ko'rsatilmaydi."
+        ),
     )
     telegram_link = models.URLField(
         blank=True, help_text="Mehmonlar uchun Telegram guruh/kanal havolasi"

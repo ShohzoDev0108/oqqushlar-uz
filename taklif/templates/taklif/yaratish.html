@@ -51,6 +51,68 @@
 .yoki-chiziq { display: flex; align-items: center; gap: 10px; margin: 18px 0 4px; color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; }
 .yoki-chiziq::before, .yoki-chiziq::after { content: ""; flex: 1; height: 1px; background: var(--chiziq); }
 
+/* --- Kun tartibi (ixtiyoriy, yopiladigan bo'lim) --- */
+.dastur-blok { margin: 22px 0; border: 1px solid var(--chiziq); border-radius: 4px; background: var(--toza); }
+.dastur-ochish {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 15px 18px; background: none; border: none; cursor: pointer;
+    font: inherit; color: var(--siyoh); text-align: left;
+}
+.dastur-ochish-matn { font-weight: 500; }
+.dastur-strelka { color: var(--tilla-toq); transition: transform .2s ease; font-size: 1.1rem; line-height: 1; }
+.dastur-ochish[aria-expanded="true"] .dastur-strelka { transform: rotate(180deg); }
+.dastur-ichki { padding: 0 18px 18px; }
+.dastur-ichki .yordam { margin: 0 0 14px; }
+.dastur-qatorlar { display: flex; flex-direction: column; gap: 8px; }
+.dastur-qator { display: flex; align-items: center; gap: 8px; }
+{% comment %}
+&lt;input type="time"&gt; kengligi ATAYLAB saxovatli (152px).
+
+Sabab: brauzer vaqt formatini SAHIFA tilidan emas, o'zining tilidan
+oladi. Telefoni inglizcha bo'lgan mijozda maydon "05:30 PM" ko'rinishida
+chiqadi — bu 24 soatlik "17:30" dan ancha uzun. Tor maydonda u "05:30 P"
+bo'lib kesilardi (sinovda aynan shunday chiqdi). Bu yerda ortiqcha
+bo'shliq zarar qilmaydi, kesilgan vaqt esa mijozni chalg'itadi.
+{% endcomment %}
+.dastur-qator .dq-vaqt { width: 152px; flex: none; }
+.dastur-qator .dq-nom { flex: 1; min-width: 0; }
+{% comment %}
+Maydonlar formaning umumiy input uslubini oladi (yuqorida e'lon qilingan),
+shu sabab bu yerda faqat kenglik va joylashuv beriladi — ikki xil ko'rinishli
+input paydo bo'lib qolmasligi uchun.
+{% endcomment %}
+.dastur-qator input { margin: 0; }
+.dq-ochir {
+    flex: none; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--chiziq);
+    background: none; color: var(--kul); cursor: pointer; font-size: 1rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+}
+.dq-ochir:hover { border-color: var(--xavf); color: var(--xavf); }
+.dastur-tugmalar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.dastur-kichik {
+    padding: 8px 15px; border-radius: 999px; border: 1px solid var(--tilla);
+    background: var(--tilla-yumshoq); color: var(--tilla-toq); cursor: pointer;
+    font: inherit; font-size: .84rem;
+}
+.dastur-kichik.dk-ikkinchi { border-color: var(--chiziq); background: none; color: var(--kul); }
+.dastur-kichik:hover { filter: brightness(.97); }
+{% comment %}
+Mobilda uchta maydon bitta qatorga sig'maydi, shuning uchun nom pastga
+tushadi. Lekin shunchaki o'ralganda qatorlar bir-biriga qo'shilib ketib,
+qaysi vaqt qaysi nomga tegishli ekani bilinmay qolardi (sinovda shunday
+chiqdi). Endi har bir band o'z ramkasi ichida — ko'z bilan bitta blok
+bo'lib o'qiladi.
+{% endcomment %}
+@media (max-width: 560px) {
+    .dastur-qatorlar { gap: 10px; }
+    .dastur-qator {
+        flex-wrap: wrap; gap: 8px;
+        border: 1px solid var(--chiziq); border-radius: 4px; padding: 10px;
+    }
+    .dastur-qator .dq-nom { flex: 1 1 100%; order: 3; }
+    .dastur-qator .dq-ochir { margin-left: auto; }
+}
+
 /* --- Namuna rasmni yaqindan ko'rish (lightbox) tugmasi --- */
 .namuna-kattalashtir {
     position: absolute; bottom: 5px; right: 5px; width: 24px; height: 24px; border-radius: 50%;
@@ -273,7 +335,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                 {% endif %}
                 {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
             </div>
-            {% elif field.name != "ommaviy_korsatishga_rozi" %}
+            {% elif field.name != "ommaviy_korsatishga_rozi" and field.name != "dastur" %}
             {% comment %}
             "Marosim turi" mijozdan shablon tanlash sahifasida allaqachon
             so'ralgan bo'lsa (?marosim=...), bu yerda qayta so'ralmaydi:
@@ -290,6 +352,37 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
             </div>
             {% endif %}
             {% endfor %}
+
+            {% comment %}
+            KUN TARTIBI — ataylab yopiq holda boshlanadi.
+
+            Bu bo'lim mijoz uchun eng "og'ir" maydon: bo'sh jadval ko'rgan
+            odam "nima yozay?" degan savolda qotib qoladi va formani tashlab
+            ketishi mumkin. Shu sabab uchta qaror qabul qilindi:
+              1) Bo'lim yopiq turadi — kerak bo'lmasa mijoz uni umuman
+                 ochmaydi va formaning uzunligini his qilmaydi.
+              2) Ochilganda BO'SH emas, marosim turiga mos tayyor jadval
+                 bilan to'ladi — mijoz yozmaydi, tahrirlaydi.
+              3) Bo'sh qolsa, taklifnomada bu bo'lim umuman ko'rsatilmaydi
+                 (_bolimlar.html'dagi "{% templatetag openblock %} if taklifnoma.dastur {% templatetag closeblock %}").
+            {% endcomment %}
+            <div class="dastur-blok">
+                <button type="button" class="dastur-ochish" id="dastur-ochish" aria-expanded="false" aria-controls="dastur-ichki">
+                    <span class="dastur-ochish-matn">{% trans "Kun tartibi (ixtiyoriy)" %}</span>
+                    <span class="dastur-strelka" aria-hidden="true">⌄</span>
+                </button>
+                <div class="dastur-ichki" id="dastur-ichki" hidden>
+                    <div class="yordam">{% trans "Marosim qachon boshlanib, qachon nima bo'lishini mehmon oldindan biladi. Quyida marosimingizga mos tayyor jadval turibdi — vaqtini va nomini o'zingizga moslab tahrirlang." %}</div>
+                    <div class="dastur-qatorlar" id="dastur-qatorlar"></div>
+                    <div class="dastur-tugmalar">
+                        <button type="button" class="dastur-kichik" id="dastur-qosh">+ {% trans "Qator qo'shish" %}</button>
+                        <button type="button" class="dastur-kichik dk-ikkinchi" id="dastur-namuna">{% trans "Namunani qaytarish" %}</button>
+                        <button type="button" class="dastur-kichik dk-ikkinchi" id="dastur-tozalash">{% trans "Hammasini tozalash" %}</button>
+                    </div>
+                </div>
+                {{ form.dastur }}
+                {% if form.dastur.errors %}<div class="xato">{{ form.dastur.errors|striptags }}</div>{% endif %}
+            </div>
 
             <div>
                 <label>{% blocktrans with soni=maksimal_rasmlar_soni %}Rasmlar (eng ko'pi bilan {{ soni }} ta, ixtiyoriy){% endblocktrans %}</label>
@@ -347,6 +440,7 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
 {{ ikki_ismli_turlar|json_script:"ikki-ismli-turlar-data" }}
 {{ uch_ismli_turlar|json_script:"uch-ismli-turlar-data" }}
 {{ marosim_maydon_matnlari|json_script:"marosim-maydon-matnlari-data" }}
+{{ dastur_namunalari|json_script:"dastur-namunalari-data" }}
 {{ oy_nomlari|json_script:"oy-nomlari-data" }}
 
 <script>
@@ -813,6 +907,140 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
         input.addEventListener('change', yangila);
         yangila();
     });
+})();
+
+(function () {
+    // ---- Kun tartibi tahrirlagichi ----
+    //
+    // Ma'lumot serverga bitta yashirin maydonda, JSON matn sifatida boradi
+    // (#id_dastur). Har bir qator uchun alohida name="..." maydonlar yasash
+    // ham mumkin edi, lekin unda qator qo'shish/o'chirishda indekslarni
+    // qayta raqamlash kerak bo'lardi va forma xato bilan qaytganda tartib
+    // buzilishi mumkin edi. Bitta JSON — soddaroq va ishonchliroq.
+    var ochish = document.getElementById('dastur-ochish');
+    var ichki = document.getElementById('dastur-ichki');
+    var qatorlar = document.getElementById('dastur-qatorlar');
+    var yashirin = document.getElementById('id_dastur');
+    var forma = document.getElementById('yaratish-forma');
+    if (!ochish || !ichki || !qatorlar || !yashirin || !forma) { return; }
+
+    var namunaEl = document.getElementById('dastur-namunalari-data');
+    var NAMUNALAR = namunaEl ? JSON.parse(namunaEl.textContent) : {};
+    var MAKS = {{ dastur_maks_band|default:10 }};
+    var VAQT_YORLIQ = {% trans "Vaqt" as V %}"{{ V|escapejs }}";
+    var NOM_YORLIQ = {% trans "Nima bo'ladi" as N %}"{{ N|escapejs }}";
+    var OCHIR_YORLIQ = {% trans "Qatorni o'chirish" as O %}"{{ O|escapejs }}";
+    var NOM_NAMUNA = {% trans "Masalan: Mehmonlarni kutib olish" as NN %}"{{ NN|escapejs }}";
+
+    function qatorQosh(band) {
+        if (qatorlar.children.length >= MAKS) { return; }
+        band = band || {};
+        var qator = document.createElement('div');
+        qator.className = 'dastur-qator';
+
+        var vaqt = document.createElement('input');
+        vaqt.type = 'time';
+        vaqt.className = 'dq-vaqt';
+        vaqt.value = band.vaqt || '';
+        vaqt.setAttribute('aria-label', VAQT_YORLIQ);
+
+        var nom = document.createElement('input');
+        nom.type = 'text';
+        nom.className = 'dq-nom';
+        nom.maxLength = 80;
+        nom.value = band.nom || '';
+        nom.placeholder = NOM_NAMUNA;
+        nom.setAttribute('aria-label', NOM_YORLIQ);
+
+        var ochir = document.createElement('button');
+        ochir.type = 'button';
+        ochir.className = 'dq-ochir';
+        ochir.textContent = '×';
+        ochir.setAttribute('aria-label', OCHIR_YORLIQ);
+        ochir.addEventListener('click', function () {
+            qator.remove();
+            saqla();
+        });
+
+        qator.appendChild(vaqt);
+        qator.appendChild(nom);
+        qator.appendChild(ochir);
+        qatorlar.appendChild(qator);
+    }
+
+    function saqla() {
+        var natija = [];
+        Array.prototype.forEach.call(qatorlar.children, function (q) {
+            var v = q.querySelector('.dq-vaqt');
+            var n = q.querySelector('.dq-nom');
+            var nomi = (n && n.value || '').trim();
+            // Nomsiz qator mehmonga hech narsa aytmaydi — yubormaymiz.
+            // (Serverda ham xuddi shu qoida bor: clean_dastur.)
+            if (!nomi) { return; }
+            natija.push({ vaqt: (v && v.value || '').trim(), nom: nomi, izoh: '' });
+        });
+        yashirin.value = natija.length ? JSON.stringify(natija) : '';
+    }
+
+    function toldir(bandlar) {
+        qatorlar.innerHTML = '';
+        (bandlar || []).slice(0, MAKS).forEach(qatorQosh);
+        saqla();
+    }
+
+    function joriyNamuna() {
+        var turEl = document.getElementById('id_marosim_turi');
+        var turi = turEl ? turEl.value : 'toy';
+        return NAMUNALAR[turi] || NAMUNALAR['boshqa'] || [];
+    }
+
+    // Forma xato bilan qaytgan bo'lsa, mijoz kiritgan jadval yashirin
+    // maydonda saqlanib qoladi — uni qatorlarga qaytaramiz va bo'limni
+    // ochiq holda ko'rsatamiz, aks holda mijoz mehnati ko'rinmay qolardi.
+    var boshlangich = [];
+    if (yashirin.value) {
+        try { boshlangich = JSON.parse(yashirin.value) || []; } catch (e) { boshlangich = []; }
+    }
+    if (boshlangich.length) {
+        toldir(boshlangich);
+        ichki.hidden = false;
+        ochish.setAttribute('aria-expanded', 'true');
+    }
+
+    ochish.addEventListener('click', function () {
+        var ochiqmi = ochish.getAttribute('aria-expanded') === 'true';
+        ichki.hidden = ochiqmi;
+        ochish.setAttribute('aria-expanded', ochiqmi ? 'false' : 'true');
+        // BIRINCHI ochilishda bo'sh jadval emas, tayyor namuna chiqadi —
+        // mijoz yozmaydi, faqat tahrirlaydi.
+        if (!ochiqmi && !qatorlar.children.length) {
+            toldir(joriyNamuna());
+        }
+    });
+
+    document.getElementById('dastur-qosh').addEventListener('click', function () {
+        qatorQosh({});
+        saqla();
+        var oxirgi = qatorlar.lastElementChild;
+        if (oxirgi) { oxirgi.querySelector('.dq-nom').focus(); }
+    });
+    document.getElementById('dastur-namuna').addEventListener('click', function () {
+        toldir(joriyNamuna());
+    });
+    document.getElementById('dastur-tozalash').addEventListener('click', function () {
+        toldir([]);
+    });
+
+    qatorlar.addEventListener('input', saqla);
+    qatorlar.addEventListener('change', saqla);
+    // Oxirgi kafolat: yuborishdan oldin ham bir marta sinxronlaymiz —
+    // mijoz maydonga yozib turib, "input" hodisasisiz (masalan brauzer
+    // avtomatik to'ldirishi bilan) yuborsa ham qiymat to'g'ri ketadi.
+    forma.addEventListener('submit', saqla);
+
+    // Marosim turi almashsa, mijoz hali hech narsa tahrirlamagan bo'lsa
+    // (bo'lim ochilmagan) — keyingi ochilishda YANGI turga mos namuna
+    // chiqadi, chunki namuna faqat o'sha paytda hisoblanadi.
 })();
 </script>
 {% endblock %}

@@ -24,7 +24,9 @@ from .forms import (
 )
 from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
+    DASTUR_MAKS_BAND,
     IKKI_ISMLI_MAROSIM_TURLARI,
+    MAROSIM_DASTUR_NAMUNALARI,
     MAROSIM_TURLARI,
     MILLATLAR,
     RASM_MAKS_HAJM_MB,
@@ -452,6 +454,16 @@ def yaratish(request, shablon_kod):
         for turi, matnlar in MAROSIM_MAYDON_MATNLARI.items()
     }
 
+    # Kun tartibi namunalari ham xuddi shunday: lazy tarjimalar JSON'ga
+    # tushmaydi, shuning uchun so'rov tilida oddiy matnga aylantiriladi.
+    dastur_namunalari_json = {
+        turi: [
+            {kalit: str(qiymat) for kalit, qiymat in band.items()}
+            for band in bandlar
+        ]
+        for turi, bandlar in MAROSIM_DASTUR_NAMUNALARI.items()
+    }
+
     return render(
         request,
         "taklif/yaratish.html",
@@ -461,6 +473,8 @@ def yaratish(request, shablon_kod):
             "ikki_ismli_turlar": list(IKKI_ISMLI_MAROSIM_TURLARI),
             "uch_ismli_turlar": list(UCHINCHI_ISM_MAROSIM_TURLARI),
             "marosim_maydon_matnlari": marosim_maydon_matnlari_json,
+            "dastur_namunalari": dastur_namunalari_json,
+            "dastur_maks_band": DASTUR_MAKS_BAND,
             "standart_marosim_turi": STANDART_MAROSIM_TURI,
             "marosim_oldindan": bool(oldindan_marosim),
             "oy_nomlari": [str(oy) for oy in OY_NOMLARI],

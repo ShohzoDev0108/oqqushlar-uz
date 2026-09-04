@@ -198,7 +198,8 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         ("Manzil va qo'shimcha", {
             "fields": (
                 "toyxona", "manzil", "xarita_link", "kiyim_kodi",
-                "musiqa_variant", "musiqa", "matn", "sovga_karta", "telegram_link",
+                "musiqa_variant", "musiqa", "matn", "imzo", "dastur",
+                "sovga_karta", "telegram_link",
             )
         }),
         ("Holat", {
