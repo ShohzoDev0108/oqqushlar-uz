@@ -6,51 +6,31 @@
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
 
-/* --- Orqa fon: sahifa bo'ylab suzuvchi yaltiroq oltin uzuklar --- */
-#uzuklar-fon { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+{% comment %}
+TAFTISH: bu yerda ilgari sahifa bo'ylab suzib yuruvchi 3D oltin uzuk
+suratlari (8 dona) va miltillovchi ✦ yulduzchalar (8 dona) bor edi.
+Ular olib tashlandi, uchta sabab bilan:
+  1) Ular brend gerbi va sarlavha ustiga tushib, tartibsizlik hosil
+     qilardi — gerb chap yuqorida aynan uzuk ustida turardi.
+  2) 3D klipart "premium" emas, "tayyor shablon" hissini beradi;
+     hashamat bo'sh joydan va bitta kuchli urg'udan keladi.
+  3) Har biri alohida surat + doimiy CSS animatsiya — mobil qurilmada
+     ortiqcha trafik va batareya sarfi (mijozlarimizning 95% telefonda).
+Sahifaning nozik naqshli foni (_sayt_uslubi.html) va bo'lim burchak
+bezaklari saqlanib qoldi — ular kontent bilan urishmaydi.
+{% endcomment %}
 .oq-nav, .oq-hero, .oq-bolim, .oq-footer { position: relative; z-index: 1; }
 
-/* Haqiqiy uzuk suratlari — suzadi, yaltiroq nur bilan nafas oladi */
-.uzuk-rasm {
-    position: absolute; height: auto;
-    animation:
-        uzuk-suzish ease-in-out infinite alternate,
-        uzuk-porlash 4s ease-in-out infinite;
-}
-@keyframes uzuk-suzish {
-    0% { transform: translateY(0) rotate(-5deg); }
-    100% { transform: translateY(-26px) rotate(6deg); }
-}
-@keyframes uzuk-porlash {
-    0%, 100% { opacity: .75; filter: drop-shadow(0 8px 14px rgba(23,19,15,.16)) drop-shadow(0 0 6px rgba(232,212,138,.15)); }
-    50% { opacity: .95; filter: drop-shadow(0 10px 18px rgba(23,19,15,.18)) drop-shadow(0 0 16px rgba(232,212,138,.55)); }
-}
-
-/* Mobilda: uzuklar kamroq, kichikroq va xiraroq — kontent tiqilib qolmasin */
 @media (max-width: 700px) {
-    #uzuklar-fon { opacity: .45; }
-    .uzuk-rasm.faqat-katta { display: none; }
-    .uzuk-rasm.u-asosiy1 { width: 96px !important; }
-    .uzuk-rasm.u-asosiy2 { width: 104px !important; }
-    .uzuk-rasm.u-asosiy3 { width: 78px !important; }
-    .oq-hero-rasm { padding: 10px; }
     body { padding-bottom: 74px; } /* yopishqoq CTA joyi */
     #sayt-musiqa-tugma { bottom: 88px !important; }
 }
 
-/* Miltillovchi yulduzchalar */
-.uchqun {
-    position: absolute; color: var(--tilla); font-size: 1rem;
-    animation: uchqun-miltillash ease-in-out infinite;
-}
-@keyframes uchqun-miltillash {
-    0%, 100% { opacity: .12; transform: scale(.8); }
-    50% { opacity: .75; transform: scale(1.15); }
-}
-
 /* --- Hero: avval oqqushlar surati (nav ostida), keyin matn --- */
 .oq-hero { padding: 44px 0 90px; }
-.oq-hero-ich { display: flex; flex-direction: column; align-items: center; gap: 50px; }
+.oq-hero-ich { display: flex; flex-direction: column; align-items: center; gap: 44px; }
+.oq-hero-matn { order: 1; }
+.oq-telefon-blok { order: 2; }
 .oq-hero-matn { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .oq-hero-matn .oq-yorliq { display: block; margin-bottom: 4px; }
 {% comment %}
@@ -70,25 +50,90 @@ butun sarlavha pastga siljib ketardi (til almashtirishdagi kabi).
 .oq-hero-tugmalar { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 .oq-hero .ajratish { height: 1px; background: var(--chiziq); width: 90px; margin: 26px auto 22px; }
 
-/* Oqqushlar surati — oq ramka ichida, ostida oltin chiziqli panel */
-.oq-hero-rasm {
-    position: relative; border: 1px solid var(--chiziq); border-radius: 4px;
-    background: var(--toza); padding: 14px; box-shadow: 0 24px 60px rgba(23,19,15,.12);
-    width: 100%; max-width: 728px;
+{% comment %}
+Telefon maketi — bosh sahifaning eng muhim qismi.
+Ilgari bu yerda oqqushlarning stok fotosi turardi: chiroyli, lekin u
+MAHSULOTNI ko'rsatmasdi. Mijoz "raqamli taklifnoma" deganda ko'pincha
+oddiy PDF tasavvur qiladi va bizning eng kuchli, hech kimda yo'q
+jihatimiz — qulfcha bosilganda ochiladigan taklifnoma — umuman
+ko'rinmasdi. Endi u birinchi ekranda turibdi.
+
+Maket ATAYLAB sof CSS/SVG bilan qurilgan (yangi surat qo'shilmagan):
+haqiqiy parda suratlari 600-690 KB, ular hero'da mobil trafikni behuda
+yeb qo'yardi. Bu variant esa istalgan ekranda tiniq va deyarli vaznsiz.
+{% endcomment %}
+.oq-telefon-blok { display: flex; justify-content: center; width: 100%; }
+{% comment %}
+Maket kengligi emas, BALANDLIGI cheklanadi (aspect-ratio kenglikni o'zi
+hisoblaydi). Sababi: telefon shakli juda tik (9:18.6) — kenglik bo'yicha
+o'lchansa, tor ekranda balandligi 600px'dan oshib, sarlavha va tugmani
+ekrandan pastga surib yuborardi. Mobilda maket ATAYLAB matndan KEYIN
+turadi (order): mijoz avval sarlavha va "Taklifnoma yaratish" tugmasini
+ko'rishi kerak, mahsulot ko'rinishi esa darhol keyin keladi.
+{% endcomment %}
+.oq-telefon {
+    position: relative; height: min(430px, 50vh); width: auto; aspect-ratio: 9 / 18.6;
+    background: linear-gradient(160deg, #2a2118, #17130f 60%);
+    border-radius: 42px; padding: 9px;
+    box-shadow: 0 34px 70px rgba(23,19,15,.30), 0 6px 16px rgba(23,19,15,.18);
 }
-.oq-hero-rasm img {
-    display: block; width: 100%; height: auto; border-radius: 2px;
+/* Yon tugmalar — maketga "haqiqiy qurilma" hissi beradi */
+.oq-telefon::after {
+    content: ""; position: absolute; right: -2px; top: 27%; width: 2px; height: 58px;
+    background: rgba(169,129,46,.5); border-radius: 2px;
 }
-.oq-hero-rasm .burchak {
-    position: absolute; width: 54px; height: 54px; border-color: var(--tilla); opacity: .8; z-index: 2;
+.oq-telefon-ekran {
+    position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden;
+    background: radial-gradient(120% 90% at 50% 0%, #fbf4ea 0%, #f4e6d6 52%, #ecd8c2 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 34px 22px 26px; text-align: center;
 }
-.oq-hero-rasm .b1 { top: -8px; left: -8px; border-top: 1px solid; border-left: 1px solid; }
-.oq-hero-rasm .b2 { bottom: -8px; right: -8px; border-bottom: 1px solid; border-right: 1px solid; }
-.oq-hero-rasm .rasm-osti {
-    display: flex; justify-content: space-between; align-items: center; gap: 10px;
-    padding: 12px 4px 0; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--kul);
+/* Dinamik orol (kamera) */
+.oq-telefon-ekran::before {
+    content: ""; position: absolute; left: 50%; top: 12px; transform: translateX(-50%);
+    width: 66px; height: 18px; border-radius: 10px; background: #17130f; z-index: 4;
 }
-.oq-hero-rasm .rasm-osti .chiziqcha { flex: 1; height: 1px; background: var(--chiziq); }
+.oq-taklif-yorliq {
+    font-size: .5rem; letter-spacing: 2.6px; text-transform: uppercase; color: var(--kul);
+    margin-bottom: 16px;
+}
+/* Yurak ramkasi — brend belgimizning o'zi, kattalashtirilgan holda */
+.oq-taklif-yurak { position: relative; width: 108px; height: 108px; margin-bottom: 4px; }
+.oq-taklif-yurak svg { width: 100%; height: 100%; color: var(--tilla); display: block; }
+.oq-taklif-ismlar {
+    font-family: var(--serif); font-size: 1.24rem; font-weight: 500; color: var(--siyoh);
+    line-height: 1.3; margin-top: 14px;
+}
+.oq-taklif-ismlar .va { color: var(--tilla); font-style: italic; margin: 0 5px; }
+.oq-taklif-sana {
+    font-size: .58rem; letter-spacing: 3px; color: var(--kul); margin-top: 8px;
+}
+.oq-taklif-sana::before {
+    content: ""; display: block; width: 34px; height: 1px; background: var(--tilla);
+    opacity: .5; margin: 0 auto 9px;
+}
+/* Qulfcha — mahsulotning "wow" nuqtasi, shuning uchun nafas oladi */
+.oq-taklif-qulf {
+    margin-top: 22px; width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid rgba(169,129,46,.45); background: rgba(255,255,255,.55);
+    display: flex; align-items: center; justify-content: center;
+    animation: qulf-nafas 2.4s ease-in-out infinite;
+}
+.oq-taklif-qulf svg { width: 17px; height: 17px; color: var(--tilla-toq); }
+@keyframes qulf-nafas {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(169,129,46,.30); }
+    50%      { transform: scale(1.06); box-shadow: 0 0 0 9px rgba(169,129,46,0); }
+}
+.oq-taklif-izoh {
+    font-size: .56rem; letter-spacing: 1.4px; color: var(--kul); margin-top: 12px;
+}
+@media (prefers-reduced-motion: reduce) { .oq-taklif-qulf { animation: none; } }
+
+/* Maket ostidagi izoh — bu haqiqiy mahsulot ekranini ko'rsatayotganini aytadi */
+.oq-telefon-izoh {
+    margin-top: 20px; text-align: center;
+    font-size: .62rem; letter-spacing: 2.4px; text-transform: uppercase; color: var(--kul);
+}
 
 /* Kengroq ekranlarda rasm va matn YONMA-YON.
    Ilgari ular ustma-ust turardi va hero 1168px balandlikda edi — ya'ni
@@ -104,7 +149,8 @@ butun sarlavha pastga siljib ketardi (til almashtirishdagi kabi).
     .oq-hero-matn .oq-matn { margin-bottom: 30px; }
     .oq-hero-tugmalar { justify-content: flex-start; }
     .oq-hero .ajratish { margin-left: 0; margin-right: 0; }
-    .oq-hero-rasm { order: 2; flex: 1 1 54%; max-width: 600px; }
+    .oq-telefon-blok { order: 2; flex: 1 1 46%; }
+    .oq-telefon { height: min(600px, 66vh); }
 }
 
 /* --- Bo'limlar --- */
@@ -234,26 +280,6 @@ butun sarlavha pastga siljib ketardi (til almashtirishdagi kabi).
 {% endblock %}
 
 {% block content %}
-<div id="uzuklar-fon" aria-hidden="true">
-    <img class="uzuk-rasm u-asosiy1" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:150px; top:14%; left:3%;   animation-duration:7s, 4s;">
-    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:92px; top:40%; left:9%;  animation-duration:9s, 4.6s; animation-delay:-3s, -1s;">
-    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:150px; top:66%; left:4%;   animation-duration:8s, 5s; animation-delay:-1.5s, -2s;">
-    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:70px; top:87%; left:14%; animation-duration:10s, 4.2s; animation-delay:-5s, -.6s;">
-    <img class="uzuk-rasm u-asosiy2" src="{% static 'taklif/uzuk-olmos.png' %}" alt="" style="width:160px; top:11%; right:3%;  animation-duration:8.5s, 4.4s; animation-delay:-2s, -1.4s;">
-    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:84px; top:38%; right:8%; animation-duration:7.5s, 5.2s; animation-delay:-4s, -2.4s;">
-    <img class="uzuk-rasm u-asosiy3" src="{% static 'taklif/uzuk-juft.png' %}" alt="" style="width:120px; top:64%; right:4%;  animation-duration:9.5s, 4.8s; animation-delay:-1s, -.8s;">
-    <img class="uzuk-rasm faqat-katta" src="{% static 'taklif/uzuk-ingichka.png' %}" alt="" style="width:64px; top:88%; right:15%; animation-duration:8s, 4.1s; animation-delay:-6s, -1.8s;">
-
-    <span class="uchqun" style="top:10%;  left:20%; animation-duration:3.2s;">✦</span>
-    <span class="uchqun" style="top:28%;  left:6%;  animation-duration:4.1s; animation-delay:-1s;">✧</span>
-    <span class="uchqun" style="top:52%;  left:12%; animation-duration:3.6s; animation-delay:-2s;">✦</span>
-    <span class="uchqun" style="top:78%;  left:7%;  animation-duration:4.4s; animation-delay:-.5s;">✧</span>
-    <span class="uchqun" style="top:8%;   right:18%; animation-duration:3.9s; animation-delay:-1.4s;">✧</span>
-    <span class="uchqun" style="top:30%;  right:5%;  animation-duration:3.3s; animation-delay:-2.2s;">✦</span>
-    <span class="uchqun" style="top:56%;  right:12%; animation-duration:4.2s; animation-delay:-.8s;">✦</span>
-    <span class="uchqun" style="top:82%;  right:7%;  animation-duration:3.7s; animation-delay:-1.8s;">✧</span>
-</div>
-
 {% include "taklif/_sayt_nav.html" with mobil_cta=True yashirin_burchak=True %}
 {% include "taklif/_sayt_musiqa.html" %}
 
@@ -263,26 +289,27 @@ butun sarlavha pastga siljib ketardi (til almashtirishdagi kabi).
     <div class="oq-romka-burchak orb-bl"></div>
     <div class="oq-romka-burchak orb-br"></div>
     <div class="oq-ichki oq-hero-ich">
-        <div class="oq-hero-rasm">
-            <span class="burchak b1"></span><span class="burchak b2"></span>
-            {% comment %}
-            width/height ATAYLAB qo'shilgan (700x447 — rasmning haqiqiy
-            piksel o'lchami): brauzer rasm hali yuklanmasdan turib ham
-            to'g'ri nisbatda joy band qiladi (pastdagi CSS'dagi
-            width:100%;height:auto bilan birga — zamonaviy brauzerlar
-            width/height atributlaridan avtomatik aspect-ratio hisoblaydi).
-            ATAYLAB shu yerda: bu rasm hali yuklanmagan bo'lsa (sahifa
-            birinchi ochilganda, sekin internetda) YOKI til almashtirish
-            AJAX orqali butun <body>'ni qayta chizganda (yangi <img>
-            elementi hali dekodlanmagan bo'lsa) — oldin joy band
-            qilinmagani uchun rasm paydo bo'lgan payt pastdagi BUTUN
-            kontent bir zumda pastga siljib qolardi ("sahifa suriladi").
-            {% endcomment %}
-            <img src="{% static 'taklif/oqqushlar-yurak.jpg' %}" alt="Oqqushlar" width="700" height="447" fetchpriority="high">
-            <div class="rasm-osti">
-                <span class="chiziqcha"></span>
-                <span>Oqqushlar</span>
-                <span class="chiziqcha"></span>
+        <div class="oq-telefon-blok">
+            <div class="oq-telefon">
+                <div class="oq-telefon-ekran">
+                    <div class="oq-taklif-yorliq">{% trans "Sizga taklifnoma keldi" %}</div>
+                    <div class="oq-taklif-yurak">{% include "taklif/_ikonalar/belgi.svg" %}</div>
+                    <div class="oq-taklif-ismlar">Aziz<span class="va">&amp;</span>Nilufar</div>
+                    <div class="oq-taklif-sana">12 · 09 · 2026</div>
+                    {% comment %}
+                    Qulfcha — taklifnoma ochilish animatsiyasining ramzi.
+                    Bu yerda u faqat ko'rsatish uchun (bosilmaydi), shuning
+                    uchun <button> emas, oddiy blok.
+                    {% endcomment %}
+                    <div class="oq-taklif-qulf" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="10.5" width="16" height="11" rx="2.5"/>
+                            <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+                            <circle cx="12" cy="15.6" r="1.3" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </div>
+                    <div class="oq-taklif-izoh">{% trans "Qulfcha ustiga bosing" %}</div>
+                </div>
             </div>
         </div>
         <div class="oq-hero-matn">
