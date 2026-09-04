@@ -165,12 +165,23 @@ ko'rishi kerak, mahsulot ko'rinishi esa darhol keyin keladi.
 }
 
 /* --- Bo'limlar --- */
-.oq-bolim { padding: 70px 0 10px; }
-.oq-bolim-bosh { max-width: 620px; margin-bottom: 46px; }
+{% comment %}
+Bo'limlar ritmi. Ilgari "padding: 70px 0 10px" edi — ya'ni tepasida 70px,
+pastida atigi 10px. Natijada bo'limlar bir-biriga yopishib, sahifaning
+pastki yarmi hero'ga qaraganda ancha zich ko'rinardi: mijoz uchun bu
+"ikki xil sayt" hissini berardi. Endi bo'shliq yuqori va pastda teng,
+va hero'dagi kabi saxovatli. Hashamat aynan shu bo'sh joydan keladi.
+{% endcomment %}
+.oq-bolim { padding: 96px 0; }
+.oq-bolim-bosh { max-width: 620px; margin-bottom: 56px; }
+@media (max-width: 700px) {
+    .oq-bolim { padding: 66px 0; }
+    .oq-bolim-bosh { margin-bottom: 38px; }
+}
 
 /* Qanday ishlaydi */
-.oq-qadamlar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 44px; }
-.oq-qadam { border-top: 1px solid var(--chiziq); padding: 26px 0 20px; }
+.oq-qadamlar { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px 56px; }
+.oq-qadam { border-top: 1px solid var(--chiziq); padding: 30px 0 22px; }
 .oq-qadam .raqam {
     font-family: var(--serif); color: var(--tilla); font-size: 1rem; letter-spacing: 2px;
     display: block; margin-bottom: 14px;
@@ -181,8 +192,17 @@ ko'rishi kerak, mahsulot ko'rinishi esa darhol keyin keladi.
 /* Nega Oqqushlar? (afzalliklar) — .oq-qadam bilan bir xil vizual tilda,
    lekin raqamli qadam emas, shuning uchun "01/02/03" o'rniga har bir
    kartaning o'ziga xos qisqa yorlig'i (eyebrow) ko'rsatiladi. */
-.oq-afzalliklar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 44px; }
-.oq-afzallik { border-top: 1px solid var(--chiziq); padding: 26px 0 20px; }
+.oq-afzalliklar { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px 56px; }
+.oq-afzallik { border-top: 1px solid var(--chiziq); padding: 30px 0 22px; }
+{% comment %}
+Ustunlar soni ATAYLAB uchtadan oshmaydi. "auto-fit" o'zi holicha keng
+monitorda oltita afzallikni bitta qatorga tiqib qo'yardi — har biri tor
+ustunga siqilib, matn 6-7 qatorga bo'linib ketardi va bo'lim devor kabi
+ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
+{% endcomment %}
+@media (min-width: 1080px) {
+    .oq-afzalliklar, .oq-qadamlar { grid-template-columns: repeat(3, 1fr); }
+}
 .oq-afzallik .yorliq {
     font-family: var(--serif); color: var(--tilla); font-size: .78rem; letter-spacing: 2px;
     text-transform: uppercase; display: block; margin-bottom: 14px;
@@ -251,6 +271,46 @@ ko'rishi kerak, mahsulot ko'rinishi esa darhol keyin keladi.
 .oq-savol[open] summary::after { transform: rotate(45deg); }
 .oq-savol summary:hover { color: var(--tilla-toq); }
 .oq-savol .javob { margin: 0; padding: 0 30px 24px 4px; color: var(--kul); line-height: 1.8; font-size: .96rem; }
+
+{% comment %}
+Narx bloki. Ilgari narx faqat har bir dizayn kartasining ostida mayda
+yozuv bo'lib turardi — ya'ni mijoz "bu qancha turadi va nima kiradi?"
+degan savoliga sahifada aniq javob yo'q edi, u esa sotib olishdan
+oldingi eng muhim savol. Endi u alohida, tinch kartada: bitta katta
+raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
+{% endcomment %}
+.oq-narx-karta {
+    max-width: 620px; margin: 0 auto; padding: 48px 44px;
+    border: 1px solid var(--chiziq); border-radius: 4px; background: var(--toza);
+    text-align: center;
+}
+.oq-narx-son { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.oq-narx-son .dan { font-size: .68rem; letter-spacing: 2.6px; text-transform: uppercase; color: var(--kul); }
+.oq-narx-son strong {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 7vw, 3.6rem);
+    line-height: 1; color: var(--siyoh);
+}
+.oq-narx-son .birlik { font-family: var(--serif); font-size: 1.2rem; color: var(--tilla-toq); }
+.oq-narx-royxat {
+    list-style: none; padding: 0; margin: 34px 0 0; text-align: left;
+    display: inline-block;
+}
+.oq-narx-royxat li {
+    position: relative; padding: 10px 0 10px 30px; color: var(--kul);
+    line-height: 1.65; font-size: .95rem; border-top: 1px solid var(--chiziq);
+}
+.oq-narx-royxat li:first-child { border-top: none; }
+.oq-narx-royxat li::before {
+    content: ""; position: absolute; left: 6px; top: 19px;
+    width: 9px; height: 5px; border-left: 1.5px solid var(--tilla);
+    border-bottom: 1.5px solid var(--tilla); transform: rotate(-45deg);
+}
+.oq-narx-tag { margin-top: 36px; }
+.oq-narx-izoh { margin: 16px 0 0; font-size: .85rem; color: var(--kul); line-height: 1.6; }
+@media (max-width: 700px) {
+    .oq-narx-karta { padding: 36px 24px; }
+    .oq-narx-royxat { display: block; }
+}
 
 /* Dizaynlar bo'limi — mobilda o'ngga-chapga suriladigan lenta.
    Sababi o'lchov bilan aniqlandi: 13 ta karta ustma-ust ~4300px joy
@@ -496,7 +556,7 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
                 <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
                      {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
                     <span class="m-ramka"></span>
-                    <span class="m-bezak">✦ ❦ ✦</span>
+                    <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
                     <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
                     <span class="m-chiziq"></span>
                     <span class="m-sana">21 · 06 · 2026</span>
@@ -523,6 +583,47 @@ har bir javob loyihaning haqiqiy ishlash tartibiga mos (views.py'dagi
 "eski taklifnoma" mantig'i, muddati_tugagan oqimi, MAKSIMAL_RASMLAR_SONI
 va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
 {% endcomment %}
+{% if shablonlar %}
+<section class="oq-bolim" id="narx">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Narx" %}</span>
+            <h2 class="oq-h2">{% trans "Bir marta to'laysiz — oylik to'lov yo'q" %}</h2>
+        </div>
+        {% comment %}
+        Eng arzon dizayn narxi shu yerda hisoblanadi (dictsort) — views.py
+        ga alohida o'zgaruvchi qo'shish shart emas va narx admin panelda
+        o'zgartirilsa, bu yerda ham o'zi yangilanadi.
+        {% endcomment %}
+        {% with arzon=shablonlar|dictsort:"narx"|first %}
+        <div class="oq-narx-karta">
+            <div class="oq-narx-son">
+                <span class="dan">{% trans "boshlanadi" %}</span>
+                <strong>{{ arzon.narx|floatformat:0 }}</strong>
+                <span class="birlik">{% trans "so'm" %}</span>
+            </div>
+            <ul class="oq-narx-royxat">
+                <li>{% trans "Tanlagan dizayningiz to'liq holda — hech qanday cheklovsiz" %}</li>
+                <li>{% trans "Cheksiz mehmon va har biriga alohida shaxsiy havola" %}</li>
+                <li>{% trans "Kim ko'rgani va kim kelishini ko'rsatadigan statistika sahifasi" %}</li>
+                <li>{% trans "Mehmonlar uchun bir necha tilda avtomatik ko'rinish" %}</li>
+                <li>{% trans "Havola muddatsiz ishlaydi — marosimdan keyin ham esdalik bo'lib qoladi" %}</li>
+            </ul>
+            <div class="oq-narx-tag">
+                <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
+                    {% include "taklif/_ikonalar/yarat.svg" %}
+                    {% trans "Bepul yaratib ko'rish" %}
+                </a>
+                <p class="oq-narx-izoh">{% trans "To'lov faqat tayyor taklifnomani o'z ko'zingiz bilan ko'rib, yoqqanidan keyin." %}</p>
+            </div>
+        </div>
+        {% endwith %}
+    </div>
+</section>
+{% endif %}
+
 <section class="oq-bolim" id="savol-javob">
     <div class="oq-romka-burchak orb-tl"></div>
     <div class="oq-romka-burchak orb-tr"></div>

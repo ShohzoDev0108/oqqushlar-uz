@@ -254,16 +254,29 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 .shablon-karta .narx { color: var(--kul); font-size: .85rem; white-space: nowrap; }
 .shablon-karta.yashirin { display: none; }
 
-/* Mini-namuna — taklifnomaning kichik muqovasi ko'rinishida */
+{% comment %}
+Mini-namuna — taklifnomaning kichik ko'rinishi.
+
+TAFTISH: nisbat ilgari 4/3 (albom, ya'ni yotiq) edi. Bu haqiqatga
+to'g'ri kelmasdi: taklifnoma amalda deyarli har doim TELEFONDA, tik
+holda ochiladi. Natijada mijoz katalogda ko'rgan shakl bilan qo'liga
+tekkan mahsulot shakli bir-biriga o'xshamasdi. Endi nisbat tik (3/4)
+va chetlari yumaloqlangan — bosh sahifadagi telefon maketi bilan bir
+tilda gapiradi. To'liq telefon nisbati (9/16) ATAYLAB olinmadi:
+katalogda 20+ karta bo'lgani uchun sahifa haddan tashqari cho'zilib
+ketardi.
+{% endcomment %}
 .shablon-mini {
-    position: relative; overflow: hidden; aspect-ratio: 4 / 3;
+    position: relative; overflow: hidden; aspect-ratio: 3 / 4; border-radius: 10px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 9px; padding: 26px; text-align: center;
+    gap: 11px; padding: 26px; text-align: center;
 }
 .shablon-mini .m-ramka {
-    position: absolute; inset: 11px; border: 1px solid currentColor; opacity: .4; pointer-events: none;
+    position: absolute; inset: 11px; border: 1px solid currentColor; opacity: .4;
+    border-radius: 5px; pointer-events: none;
 }
-.shablon-mini .m-bezak { font-size: .8rem; letter-spacing: 6px; opacity: .85; }
+.shablon-mini .m-belgi { display: block; line-height: 0; opacity: .9; }
+.shablon-mini .m-belgi svg { width: 30px; height: 30px; color: currentColor; display: block; }
 .shablon-mini .m-ism { font-family: var(--serif); font-size: 1.55rem; line-height: 1.25; }
 .shablon-mini .m-ism em { font-style: italic; font-size: 1.05rem; opacity: .8; padding: 0 3px; }
 .shablon-mini .m-chiziq { width: 44px; height: 1px; background: currentColor; opacity: .5; }
