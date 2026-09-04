@@ -1,6 +1,7 @@
 import secrets
 
 from django.conf import settings
+from django.core.cache import cache
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
@@ -724,9 +725,30 @@ class SaytSozlamalari(models.Model):
         ),
     )
 
+    telefon = models.CharField(
+        max_length=40,
+        blank=True,
+        help_text=(
+            "Bog'lanish uchun telefon raqami, masalan: +998 90 123 45 67. "
+            "Bo'sh qoldirilsa, saytda telefon umuman ko'rsatilmaydi."
+        ),
+    )
+    instagram = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text=(
+            "Instagram username — @ bilan ham, to'liq havola bilan ham "
+            "yozish mumkin (masalan: oqqushlar.uz). Bo'sh qoldirilsa "
+            "ko'rsatilmaydi."
+        ),
+    )
+
     class Meta:
         verbose_name = "Sayt sozlamalari"
         verbose_name_plural = "Sayt sozlamalari"
+
+    KESH_KALITI = "oq_sayt_sozlamalari"
+    KESH_MUDDATI = 300  # soniya
 
     def __str__(self):
         return "Sayt sozlamalari"
@@ -734,12 +756,44 @@ class SaytSozlamalari(models.Model):
     def save(self, *args, **kwargs):
         self.pk = 1
         super().save(*args, **kwargs)
+        # Keshni darhol tozalaymiz — admin panelda o'zgartirilgan raqam
+        # keyingi sahifadayoq ko'rinsin, 5 daqiqa kutmasin.
+        cache.delete(self.KESH_KALITI)
 
     def delete(self, *args, **kwargs):
         # Singleton — o'chirishga yo'l qo'ymaymiz.
         pass
 
+    @property
+    def telefon_raqami(self):
+        """"tel:" havolasi uchun — faqat raqamlar (va boshidagi "+").
+
+        Ko'rinadigan matn chiroyli bo'lishi kerak ("+998 90 123 45 67"),
+        havola esa bo'shliqsiz — aks holda ba'zi telefonlarda bosilganda
+        raqam noto'g'ri terilardi."""
+        if not self.telefon:
+            return ""
+        raqamlar = "".join(b for b in self.telefon if b.isdigit())
+        return ("+" + raqamlar) if self.telefon.strip().startswith("+") else raqamlar
+
+    @property
+    def instagram_nomi(self):
+        """Mijoz @ bilan ham, to'liq havola bilan ham yozishi mumkin —
+        ikkalasidan ham toza username qaytariladi."""
+        nom = (self.instagram or "").strip().rstrip("/")
+        for old in ("https://", "http://", "www.", "instagram.com/"):
+            if nom.startswith(old):
+                nom = nom[len(old):]
+        return nom.lstrip("@")
+
     @classmethod
     def olish(cls):
-        obj, _ = cls.objects.get_or_create(pk=1)
+        """Sozlamalar deyarli hech qachon o'zgarmaydi, lekin endi HAR BIR
+        sahifada o'qiladi (footerdagi aloqa kanallari uchun) — jumladan
+        mehmonlar ochadigan taklifnomalarda ham. Shu sabab keshlanadi:
+        aks holda har bir tashrif bitta ortiqcha bazaga so'rov qilardi."""
+        obj = cache.get(cls.KESH_KALITI)
+        if obj is None:
+            obj, _ = cls.objects.get_or_create(pk=1)
+            cache.set(cls.KESH_KALITI, obj, cls.KESH_MUDDATI)
         return obj

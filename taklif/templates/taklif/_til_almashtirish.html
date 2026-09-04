@@ -26,7 +26,19 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
         </select>
 
         <button type="button" class="til-tugma" aria-haspopup="listbox" aria-expanded="false" aria-label="{% trans 'Tilni tanlang' %}">
-            
+            {% comment %}
+            Globus qaytarildi.
+
+            Uni ilgari olib tashlagandim, lekin sabab boshqa edi: o'shanda
+            tugmada globus PLUS to'liq til nomi turardi va u mobilda
+            ~155px joy egallardi. Endi tugmada faqat qisqa belgi bor
+            ("O'Z"), globus bilan birga ~70px — bemalol sig'adi.
+
+            Foydasi bor: yolg'iz "O'Z" nimani anglatishi noaniq (shahar?
+            o'lcham?), globus esa hech qanday so'zsiz "til" deydi va bu
+            barcha 8 tilda bir xil ishlaydi.
+            {% endcomment %}
+            <span class="til-globus" aria-hidden="true">{% include "taklif/_ikonalar/globus.svg" %}</span>
             <span class="til-joriy">{{ JORIY_TIL_QISQA }}</span>
         </button>
 
@@ -61,13 +73,18 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
     overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 {% comment %}
-Til tugmasi — ixcham "tabletka".
+Til tugmasi — ixcham "tabletka": globus + qisqa belgi ("O'Z", "РУ").
 
-Ilgari u globus + to'liq til nomi + strelka edi, ya'ni panelda ~155px
-joy egallardi. Mobilda bu shunchalik ko'p ediki, globusni butunlay
-yashirishga to'g'ri kelgandi. Endi tugmada faqat qisqa belgi turadi
-("O'Z", "РУ", "ҚАЗ") — u ~52px, ya'ni uch baravar kam joy. Har qanday
-ekranda bemalol sig'adi va panel toza qoladi.
+Tarixi ikki qadamdan iborat va ikkalasi ham o'lchovga asoslangan:
+
+  1) Dastlab tugmada globus + TO'LIQ til nomi + strelka turardi —
+     panelda ~155px. Mobilda bu shunchalik ko'p ediki, globusni
+     butunlay yashirishga to'g'ri kelgandi.
+  2) Keyin to'liq nom qisqa belgiga almashtirildi va tugma ~52px
+     bo'ldi. Shu bilan globusni yashirishga sabab ham yo'qoldi:
+     globus bilan birga ~70px, ya'ni hamon dastlabkisining yarmidan
+     kam. Shuning uchun globus qaytarildi — yolg'iz "O'Z" nimani
+     anglatishi noaniq, globus esa so'zsiz "til" deydi.
 
 To'liq til nomlari yo'qolmadi: ular ochilgan ro'yxatda ko'rinadi, ya'ni
 qisqartma hech qachon yagona ma'lumot manbai emas. Joriy til ro'yxatda
@@ -86,7 +103,10 @@ oltin fon bilan ajratib ko'rsatiladi.
 }
 .til-tugma:hover { transform: translateY(-1px); filter: brightness(1.06); }
 .til-tugma:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--til-accent) 30%, transparent); }
+.til-tugma { gap: 6px; }
 .til-tugma .til-joriy { white-space: nowrap; }
+.til-tugma .til-globus { display: flex; flex: none; opacity: .9; }
+.til-tugma .til-globus svg { width: 14px; height: 14px; display: block; }
 
 .til-royxat {
     position: absolute; top: calc(100% + 8px); right: 0; z-index: 200;
@@ -115,7 +135,8 @@ oltin fon bilan ajratib ko'rsatiladi.
 .til-band:hover, .til-band.fokus { background: var(--til-accent); color: var(--til-accent-matn); }
 
 @media (max-width: 700px) {
-    .til-tugma { padding: 8px 12px; font-size: .7rem; min-width: 48px; }
+    .til-tugma { padding: 8px 11px; font-size: .7rem; min-width: 48px; gap: 5px; }
+    .til-tugma .til-globus svg { width: 13px; height: 13px; }
     {% comment %}
     Taftish topilmasi: ro'yxat tugma markazi bo'yicha markazlashtirilgan edi
     (left:50%; translateX(-50%)) — tugma sahifaning o'ng chekkasiga yaqin

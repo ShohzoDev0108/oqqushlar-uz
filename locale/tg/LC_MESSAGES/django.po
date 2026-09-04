@@ -2366,3 +2366,19 @@ msgstr "Шуморо ба маросими мо даъват менамоем �
 #: taklif/templates/taklif/_ulashish_oyna.html
 msgid "Hurmatli %(ism)s! Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
 msgstr "Муҳтарам %(ism)s! Шуморо ба маросими мо даъват менамоем — %(sarlavha)s:"
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Telefon"
+msgstr "Телефон"
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Instagram"
+msgstr "Instagram"
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Yozishni yoqtirmasangiz — qo'ng'iroq qiling, jonli gaplashamiz."
+msgstr "Агар навиштанро дӯст надоред — занг занед, зинда сӯҳбат мекунем."
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
+msgstr "Дар ин ҷо тарҳҳои нав ва корҳои тайёрамонро ҷойгир мекунем."

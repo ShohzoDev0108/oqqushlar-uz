@@ -2356,3 +2356,19 @@ msgstr "We invite you to our celebration — %(sarlavha)s:"
 #: taklif/templates/taklif/_ulashish_oyna.html
 msgid "Hurmatli %(ism)s! Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
 msgstr "Dear %(ism)s! We invite you to our celebration — %(sarlavha)s:"
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Telefon"
+msgstr "Phone"
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Instagram"
+msgstr "Instagram"
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Yozishni yoqtirmasangiz — qo'ng'iroq qiling, jonli gaplashamiz."
+msgstr "If you would rather not type, give us a call and we will talk it through."
+
+#: taklif/templates/taklif/boglanish.html
+msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
+msgstr "We post new designs and finished work here."

@@ -161,6 +161,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "taklif.context_processors.til_royxati",
                 "taklif.context_processors.google_analytics",
+                "taklif.context_processors.aloqa",
             ],
         },
     },

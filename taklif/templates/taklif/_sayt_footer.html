@@ -25,5 +25,30 @@
             {# Bundan tashqari bu havola /admin/ ga qattiq yozilgan bo'lib, admin  #}
             {# manzili ko'chirilgach umuman ishlamay qolgan (404) edi.            #}
         </div>
+        {% comment %}
+        Aloqa kanallari footerda ham turadi — mijoz "bog'lanish" sahifasini
+        qidirib yurmasin. Har biri o'z ishini bajaradigan havola: telefon
+        bosilganda o'zi teriladi ("tel:"), Telegram va Instagram esa
+        ilovada ochiladi. Bo'sh qoldirilgan kanal chiqmaydi.
+        {% endcomment %}
+        {% if ALOQA_TELEFON or ALOQA_TELEGRAM or ALOQA_INSTAGRAM %}
+        <div class="oq-footer-aloqa">
+            {% if ALOQA_TELEFON %}
+            <a href="tel:{{ ALOQA_TELEFON_RAQAMI }}" aria-label="{% trans "Telefon" %}" title="{{ ALOQA_TELEFON }}">
+                {% include "taklif/_ikonalar/telefon.svg" %}
+            </a>
+            {% endif %}
+            {% if ALOQA_TELEGRAM %}
+            <a href="https://t.me/{{ ALOQA_TELEGRAM }}" target="_blank" rel="noopener" aria-label="Telegram" title="@{{ ALOQA_TELEGRAM }}">
+                {% include "taklif/_ikonalar/telegram.svg" %}
+            </a>
+            {% endif %}
+            {% if ALOQA_INSTAGRAM %}
+            <a href="https://instagram.com/{{ ALOQA_INSTAGRAM }}" target="_blank" rel="noopener" aria-label="Instagram" title="@{{ ALOQA_INSTAGRAM }}">
+                {% include "taklif/_ikonalar/instagram.svg" %}
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
 </footer>

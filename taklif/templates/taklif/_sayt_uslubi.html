@@ -506,6 +506,19 @@ ketardi.
    manba tartibida bazaviy qoidalardan OLDIN turgani uchun (bir xil
    spetsifiklik + keyingi qoida g'olib chiqadi qoidasiga ko'ra) amalda
    bekor bo'lib qolardi. */
+/* Footerdagi aloqa kanallari — mayda, aylana ichida chizilgan ikonkalar.
+   Mobilda havolalar ro'yxati yashiriladi, LEKIN aloqa ikonkalari qoladi:
+   telefonda odam aynan "qo'ng'iroq qilish" tugmasini qidiradi. */
+.oq-footer-aloqa { display: flex; gap: 10px; align-items: center; }
+.oq-footer-aloqa a {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--chiziq); color: var(--kul);
+    display: flex; align-items: center; justify-content: center;
+    transition: color .18s ease, border-color .18s ease;
+}
+.oq-footer-aloqa a:hover { color: var(--tilla-toq); border-color: var(--tilla); }
+.oq-footer-aloqa svg { width: 17px; height: 17px; display: block; }
+
 @media (max-width: 700px) {
     .oq-footer { padding: 36px 0 32px; }
     .oq-footer-ich { justify-content: flex-start; }

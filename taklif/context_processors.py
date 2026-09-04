@@ -69,3 +69,26 @@ def google_analytics(request):
     return {
         "GOOGLE_ANALYTICS_ID": os.environ.get("GOOGLE_ANALYTICS_ID", ""),
     }
+
+
+def aloqa(request):
+    """Aloqa kanallari — barcha sahifalarda (footerda) kerak.
+
+    Har bir view'ga alohida qo'shish o'rniga shu yerda beriladi: kanallar
+    footerda turadi, footer esa hamma joyda. Qiymatlar admin panelidan
+    o'zgartiriladi (SaytSozlamalari), ya'ni raqamni almashtirish uchun
+    deploy qilish shart emas.
+
+    SaytSozlamalari.olish() keshlangan — bu context processor har bir
+    so'rovda ishlagani uchun keshsiz bo'lsa, har bir tashrifga bitta
+    ortiqcha bazaga so'rov qo'shilardi.
+    """
+    from .models import SaytSozlamalari
+
+    sozlama = SaytSozlamalari.olish()
+    return {
+        "ALOQA_TELEGRAM": (sozlama.admin_telegram or settings.SAYT_ADMIN_TELEGRAM or "").lstrip("@"),
+        "ALOQA_TELEFON": sozlama.telefon,
+        "ALOQA_TELEFON_RAQAMI": sozlama.telefon_raqami,
+        "ALOQA_INSTAGRAM": sozlama.instagram_nomi,
+    }

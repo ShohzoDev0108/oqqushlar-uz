@@ -44,14 +44,44 @@
         </div>
 
         <div class="bg-kartalar">
-            {% if admin_telegram %}
+            {% comment %}
+            TAFTISH: bu sahifada ilgari FAQAT Telegram bor edi — telefon
+            ham, Instagram ham yo'q edi. Bu bezak masalasi emas: to'y
+            xarajatiga pul to'laydigan odamning ko'pchiligi avval
+            qo'ng'iroq qilib, jonli ovoz eshitishni istaydi.
+
+            Raqam va Instagram admin panelida (Sayt sozlamalari) turadi,
+            ya'ni ularni o'zgartirish uchun deploy qilish shart emas.
+            Bo'sh qoldirilgan kanal umuman ko'rsatilmaydi.
+            {% endcomment %}
+            {% if ALOQA_TELEFON %}
+            <div class="bg-karta">
+                <b>{% trans "Telefon" %}</b>
+                <p>{% blocktrans %}Yozishni yoqtirmasangiz — qo'ng'iroq qiling, jonli gaplashamiz.{% endblocktrans %}</p>
+                <a class="oq-cta toliq" href="tel:{{ ALOQA_TELEFON_RAQAMI }}">
+                    {% include "taklif/_ikonalar/telefon.svg" %}
+                    {{ ALOQA_TELEFON }}
+                </a>
+            </div>
+            {% endif %}
+            {% if ALOQA_TELEGRAM %}
             <div class="bg-karta">
                 <b>{% trans "Telegram" %}</b>
                 <p>{% blocktrans %}Eng tez yo'l — xabar yozsangiz, odatda shu kuniyoq javob beramiz.{% endblocktrans %}</p>
                 {# Manzilda "@" bo'lmasligi kerak: t.me/@nom ishlamaydi. #}
-                <a class="oq-cta toliq" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">
+                <a class="oq-cta toliq" href="https://t.me/{{ ALOQA_TELEGRAM }}" target="_blank" rel="noopener">
                     {% include "taklif/_ikonalar/telegram.svg" %}
-                    {{ admin_telegram }}
+                    @{{ ALOQA_TELEGRAM }}
+                </a>
+            </div>
+            {% endif %}
+            {% if ALOQA_INSTAGRAM %}
+            <div class="bg-karta">
+                <b>{% trans "Instagram" %}</b>
+                <p>{% blocktrans %}Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz.{% endblocktrans %}</p>
+                <a class="oq-cta toliq" href="https://instagram.com/{{ ALOQA_INSTAGRAM }}" target="_blank" rel="noopener">
+                    {% include "taklif/_ikonalar/instagram.svg" %}
+                    @{{ ALOQA_INSTAGRAM }}
                 </a>
             </div>
             {% endif %}
