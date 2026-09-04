@@ -2218,3 +2218,123 @@ msgstr ""
 
 #~ msgid "Django administration"
 #~ msgstr "Маъмурияти Django"
+
+#: taklif/models.py
+msgid "Kun tartibi (ixtiyoriy)"
+msgstr "Барномаи рӯз (ихтиёрӣ)"
+
+#: taklif/models.py
+msgid "Kun tartibi"
+msgstr "Барномаи рӯз"
+
+#: taklif/models.py
+msgid "Masalan: Aliyevlar oilasi"
+msgstr "Масалан: оилаи Алиевҳо"
+
+#: taklif/models.py
+msgid "Taklifnoma kim nomidan (ixtiyoriy)"
+msgstr "Даъватнома аз номи кӣ (ихтиёрӣ)"
+
+#: taklif/models.py
+msgid "Taklifnoma oxirida imzo o'rnida chiqadi. Bo'sh qoldirsangiz, yuqorida yozgan ismlaringiz ishlatiladi."
+msgstr "Дар охири даъватнома ба ҷои имзо пайдо мешавад. Агар холӣ монад, номҳои дар боло навишташуда истифода мешаванд."
+
+#: taklif/models.py
+msgid "Marosim qachon boshlanib, qachon nima bo'lishini mehmon oldindan biladi. Quyida marosimingizga mos tayyor jadval turibdi — vaqtini va nomini o'zingizga moslab tahrirlang."
+msgstr "Меҳмон пешакӣ медонад, ки маросим кай оғоз мешавад ва пас аз он чӣ мешавад. Дар поён ҷадвали тайёр барои маросими шумо ҳаст — вақт ва номҳоро мувофиқи худ тағйир диҳед."
+
+#: taklif/models.py
+msgid "Hurmat bilan,"
+msgstr "Бо эҳтиром,"
+
+#: taklif/models.py
+msgid "Mehmonlarni qarshi olish"
+msgstr "Пешвози меҳмонон"
+
+#: taklif/models.py
+msgid "Marosim boshlanishi"
+msgstr "Оғози маросим"
+
+#: taklif/models.py
+msgid "Kelin-kuyov raqsi"
+msgstr "Рақси арӯсу домод"
+
+#: taklif/models.py
+msgid "Tortni kesish"
+msgstr "Буридани торт"
+
+#: taklif/models.py
+msgid "Marosim yakuni"
+msgstr "Анҷоми маросим"
+
+#: taklif/models.py
+msgid "Fotiha marosimi"
+msgstr "Маросими фотиҳа"
+
+#: taklif/models.py
+msgid "Ziyofat"
+msgstr "Зиёфат"
+
+#: taklif/models.py
+msgid "Oq yo'l tilaklari"
+msgstr "Таманниёти нек"
+
+#: taklif/models.py
+msgid "Qizni kuzatish"
+msgstr "Гуселони арӯс"
+
+#: taklif/models.py
+msgid "Bolalar uchun o'yin-kulgi"
+msgstr "Бозиҳо барои кӯдакон"
+
+#: taklif/models.py
+msgid "Beshik marosimi"
+msgstr "Маросими гаҳвора"
+
+#: taklif/models.py
+msgid "Osh"
+msgstr "Ош"
+
+#: taklif/models.py
+msgid "Duo va yakun"
+msgstr "Дуо ва анҷом"
+
+#: taklif/models.py
+msgid "Tabriklar"
+msgstr "Табрикот"
+
+#: taklif/models.py
+msgid "Ziyofat va konsert"
+msgstr "Зиёфат ва консерт"
+
+#: taklif/models.py
+msgid "O'yinlar va tabriklar"
+msgstr "Бозиҳо ва табрикот"
+
+#: taklif/models.py
+msgid "Tadbir boshlanishi"
+msgstr "Оғози чорабинӣ"
+
+#: taklif/models.py
+msgid "Qator qo'shish"
+msgstr "Илова кардани сатр"
+
+#: taklif/models.py
+msgid "Namunani qaytarish"
+msgstr "Баргардонидани намуна"
+
+#: taklif/models.py
+msgid "Hammasini tozalash"
+msgstr "Ҳамаро тоза кардан"
+
+#: taklif/models.py
+msgid "Nima bo'ladi"
+msgstr "Чӣ мешавад"
+
+#: taklif/models.py
+msgid "Qatorni o'chirish"
+msgstr "Нест кардани сатр"
+
+#: taklif/models.py
+msgid "Masalan: Mehmonlarni qarshi olish"
+msgstr "Масалан: пешвози меҳмонон"

@@ -2208,3 +2208,123 @@ msgstr ""
 
 #~ msgid "Django administration"
 #~ msgstr "Django administration"
+
+#: taklif/models.py
+msgid "Kun tartibi (ixtiyoriy)"
+msgstr "Schedule of the day (optional)"
+
+#: taklif/models.py
+msgid "Kun tartibi"
+msgstr "Schedule of the day"
+
+#: taklif/models.py
+msgid "Masalan: Aliyevlar oilasi"
+msgstr "For example: the Aliyev family"
+
+#: taklif/models.py
+msgid "Taklifnoma kim nomidan (ixtiyoriy)"
+msgstr "Who the invitation is from (optional)"
+
+#: taklif/models.py
+msgid "Taklifnoma oxirida imzo o'rnida chiqadi. Bo'sh qoldirsangiz, yuqorida yozgan ismlaringiz ishlatiladi."
+msgstr "It appears at the end of the invitation as the signature. If you leave it empty, the names you entered above are used."
+
+#: taklif/models.py
+msgid "Marosim qachon boshlanib, qachon nima bo'lishini mehmon oldindan biladi. Quyida marosimingizga mos tayyor jadval turibdi — vaqtini va nomini o'zingizga moslab tahrirlang."
+msgstr "Your guests will know in advance when things start and what follows. A ready-made schedule for your celebration is below — adjust the times and titles to suit you."
+
+#: taklif/models.py
+msgid "Hurmat bilan,"
+msgstr "With respect,"
+
+#: taklif/models.py
+msgid "Mehmonlarni qarshi olish"
+msgstr "Welcoming the guests"
+
+#: taklif/models.py
+msgid "Marosim boshlanishi"
+msgstr "The ceremony begins"
+
+#: taklif/models.py
+msgid "Kelin-kuyov raqsi"
+msgstr "The couple's first dance"
+
+#: taklif/models.py
+msgid "Tortni kesish"
+msgstr "Cutting the cake"
+
+#: taklif/models.py
+msgid "Marosim yakuni"
+msgstr "End of the celebration"
+
+#: taklif/models.py
+msgid "Fotiha marosimi"
+msgstr "The fotiha ceremony"
+
+#: taklif/models.py
+msgid "Ziyofat"
+msgstr "The banquet"
+
+#: taklif/models.py
+msgid "Oq yo'l tilaklari"
+msgstr "Blessings for the journey"
+
+#: taklif/models.py
+msgid "Qizni kuzatish"
+msgstr "Seeing the bride off"
+
+#: taklif/models.py
+msgid "Bolalar uchun o'yin-kulgi"
+msgstr "Games for the children"
+
+#: taklif/models.py
+msgid "Beshik marosimi"
+msgstr "The cradle ceremony"
+
+#: taklif/models.py
+msgid "Osh"
+msgstr "Osh (pilaf)"
+
+#: taklif/models.py
+msgid "Duo va yakun"
+msgstr "Prayer and closing"
+
+#: taklif/models.py
+msgid "Tabriklar"
+msgstr "Congratulations"
+
+#: taklif/models.py
+msgid "Ziyofat va konsert"
+msgstr "Banquet and concert"
+
+#: taklif/models.py
+msgid "O'yinlar va tabriklar"
+msgstr "Games and greetings"
+
+#: taklif/models.py
+msgid "Tadbir boshlanishi"
+msgstr "The event begins"
+
+#: taklif/models.py
+msgid "Qator qo'shish"
+msgstr "Add a row"
+
+#: taklif/models.py
+msgid "Namunani qaytarish"
+msgstr "Restore the example"
+
+#: taklif/models.py
+msgid "Hammasini tozalash"
+msgstr "Clear everything"
+
+#: taklif/models.py
+msgid "Nima bo'ladi"
+msgstr "What happens"
+
+#: taklif/models.py
+msgid "Qatorni o'chirish"
+msgstr "Remove the row"
+
+#: taklif/models.py
+msgid "Masalan: Mehmonlarni qarshi olish"
+msgstr "For example: welcoming the guests"

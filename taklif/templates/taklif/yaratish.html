@@ -289,7 +289,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
             <div>
                 <label for="sv-tugma">{{ field.label }} *</label>
                 <button type="button" class="sv-tugma sv-bosh" id="sv-tugma" aria-haspopup="dialog" aria-expanded="false">
-                    <span id="sv-tugma-matn">{% trans "Sanani va soatni tanlang" %}</span>
+                    <span id="sv-tugma-matn" data-jonli data-bosh="{% trans "Sanani va soatni tanlang" %}">{% trans "Sanani va soatni tanlang" %}</span>
                 </button>
                 {{ field }}
                 <div class="yordam">{% trans "Tadbir qachon va soat nechada boshlanishini tanlang" %}</div>
@@ -301,12 +301,12 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                         <span class="sv-oy-nomi" id="sv-oy-nomi"></span>
                         <button type="button" class="sv-oy-tugma" id="sv-keyingi" aria-label="{% trans 'Keyingi oy' %}">&rarr;</button>
                     </div>
-                    <div class="sv-kalendar" id="sv-kalendar"></div>
+                    <div class="sv-kalendar" id="sv-kalendar" data-jonli data-hafta="{% trans 'Du Se Ch Pa Ju Sh Ya' %}"></div>
                     <div class="sv-vaqt-qatori">
                         <span class="sv-vaqt-yorliq">{% trans "Soat" %}</span>
-                        <select id="sv-soat" aria-label="{% trans 'Soat' %}"></select>
+                        <select id="sv-soat" aria-label="{% trans 'Soat' %}" data-jonli></select>
                         <span class="sv-ikki-nuqta">:</span>
-                        <select id="sv-minut" aria-label="{% trans 'Minut' %}"></select>
+                        <select id="sv-minut" aria-label="{% trans 'Minut' %}" data-jonli></select>
                     </div>
                     <button type="button" class="sv-tayyor" id="sv-tayyor">{% trans "Tayyor" %}</button>
                 </div>
@@ -373,7 +373,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                 </button>
                 <div class="dastur-ichki" id="dastur-ichki" hidden>
                     <div class="yordam">{% trans "Marosim qachon boshlanib, qachon nima bo'lishini mehmon oldindan biladi. Quyida marosimingizga mos tayyor jadval turibdi — vaqtini va nomini o'zingizga moslab tahrirlang." %}</div>
-                    <div class="dastur-qatorlar" id="dastur-qatorlar"></div>
+                    <div class="dastur-qatorlar" id="dastur-qatorlar" data-jonli></div>
                     <div class="dastur-tugmalar">
                         <button type="button" class="dastur-kichik" id="dastur-qosh">+ {% trans "Qator qo'shish" %}</button>
                         <button type="button" class="dastur-kichik dk-ikkinchi" id="dastur-namuna">{% trans "Namunani qaytarish" %}</button>
@@ -402,7 +402,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                 {% endif %}
                 <label for="rasmlar">{% trans "O'zingizning rasmingizni yuklang" %}</label>
                 <input type="file" id="rasmlar" name="rasmlar" accept="image/*" multiple>
-                <div class="yordam" id="rasmlar-soni"></div>
+                <div class="yordam" id="rasmlar-soni" data-jonli></div>
             </div>
 
             <div class="rozilik-qatori">
@@ -572,8 +572,34 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
     // qarardi (sayt tiliga emas). Bu yerda hamma narsa saytning o'z
     // dizayni va joriy interfeys tilida ko'rsatiladi.
     var oyNomlariEl = document.getElementById('oy-nomlari-data');
-    var oyNomlari = oyNomlariEl ? JSON.parse(oyNomlariEl.textContent) : [];
-    var hafta = "{% trans 'Du Se Ch Pa Ju Sh Ya' %}".split(' ');
+    // Oy nomlari HAR CHIZISHDA qaytadan o'qiladi, bir marta emas.
+    //
+    // Sabab: til almashganda sahifa endi qayta yuklanmaydi (faqat matn
+    // yamaladi — _til_almashtirish.html'ga qarang), ya'ni bu skript qayta
+    // ishga tushmaydi. Bir marta o'qib qo'yilgan ro'yxat eski tilda muzlab
+    // qolardi va mijoz "Sentyabr" o'rniga "Сентябрь" ni ko'rmasdi.
+    function oyNomlariniOl() {
+        try { return oyNomlariEl ? JSON.parse(oyNomlariEl.textContent) : []; }
+        catch (e) { return []; }
+    }
+    var oyNomlari = oyNomlariniOl();
+    document.addEventListener('oq-til-yangilandi', function () {
+        oyNomlari = oyNomlariniOl();
+        hafta = haftaniOl();
+        // Tanlangan sana tugmasi va kalendar sarlavhasi darhol yangi
+        // tilda ko'rinsin (bu funksiyalar quyida e'lon qilingan —
+        // hoisting tufayli bu yerdan chaqirish xavfsiz).
+        tugmaMatniniYangila();
+        kalendarniChiz();
+    });
+    // Hafta kunlari ham DOM'dan (kalendarning data-hafta atributidan)
+    // o'qiladi — til almashganda atribut yamaladi va kalendar yangi
+    // tilda qayta chiziladi.
+    function haftaniOl() {
+        return (kalendarEl && kalendarEl.dataset.hafta ? kalendarEl.dataset.hafta
+            : "{% trans 'Du Se Ch Pa Ju Sh Ya' %}").split(' ');
+    }
+    var hafta = haftaniOl();
 
     var yashirinInput = document.getElementById('id_sana');
     var tugma = document.getElementById('sv-tugma');
@@ -642,7 +668,7 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
 
     function tugmaMatniniYangila() {
         if (holat.yil === null) {
-            tugmaMatn.textContent = "{% trans 'Sanani va soatni tanlang' %}";
+            tugmaMatn.textContent = tugmaMatn.dataset.bosh || "{% trans 'Sanani va soatni tanlang' %}";
             tugma.classList.add('sv-bosh');
             return;
         }
@@ -882,6 +908,11 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
 
         var qutisi = document.createElement('div');
         qutisi.className = 'oq-fayl-qutisi';
+        // Bu blok JS tomonidan yasaladi, ya'ni serverdan kelgan HTML'da
+        // yo'q. "data-jonli" bo'lmasa, til almashishdagi matn yamash
+        // tuzilma mos kelmadi deb butun sahifani almashtirishga o'tib
+        // ketardi — va mijoz formaga yozganlari yo'qolardi.
+        qutisi.setAttribute('data-jonli', '');
         input.parentNode.insertBefore(qutisi, input);
         qutisi.appendChild(input);
 

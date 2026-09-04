@@ -436,20 +436,36 @@ borishini biladi, keyin o'sha yerda nima bo'lishini.
 {% endif %}
 
 <div class="bolim" data-anim>
-    <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}">
-        <div><div class="son" id="kun">--</div><div>{% trans "kun" %}</div></div>
-        <div><div class="son" id="soat">--</div><div>{% trans "soat" %}</div></div>
-        <div><div class="son" id="minut">--</div><div>{% trans "minut" %}</div></div>
-        <div><div class="son" id="sekund">--</div><div>{% trans "sekund" %}</div></div>
+    {% comment %}
+    Sanoq matnlari ATAYLAB shu yerda, data-atributlarda turadi — ilgari
+    ular _skript.html ichida JS o'zgaruvchisiga yozilardi. Sababi: til
+    almashganda endi sahifa qayta yuklanmaydi va skriptlar qayta ishga
+    tushmaydi (_til_almashtirish.html'dagi "MATN YAMASH" izohiga qarang),
+    ya'ni JS ichidagi eski tildagi matnlar o'sha yerda qolib ketardi.
+    Data-atribut esa yamash paytida yangilanadi va sanoq keyingi
+    soniyadayoq yangi tilda gapiradi.
+    {% endcomment %}
+    <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}"
+         data-baxtli="{% trans "Baxtli oilamizga" %}"
+         data-yil="{% trans "yil" %}"
+         data-oy="{% trans "oy" %}"
+         data-kun="{% trans "kun" %}"
+         data-boldi="{% trans "bo'ldi" %}"
+         data-marosimgacha="{% trans "Marosimgacha" %}"
+         data-bugun="{% trans "Bugun — bizning eng baxtli kunimiz" %}">
+        <div><div class="son" id="kun" data-jonli>--</div><div>{% trans "kun" %}</div></div>
+        <div><div class="son" id="soat" data-jonli>--</div><div>{% trans "soat" %}</div></div>
+        <div><div class="son" id="minut" data-jonli>--</div><div>{% trans "minut" %}</div></div>
+        <div><div class="son" id="sekund" data-jonli>--</div><div>{% trans "sekund" %}</div></div>
     </div>
-    <p id="countdown-matn" class="countdown-matn"></p>
+    <p id="countdown-matn" class="countdown-matn" data-jonli></p>
 </div>
 
 <div class="bolim" data-anim>
     <h2>{% trans "Marosim kalendari" %}</h2>
     <div class="blok">
         <div class="kalendar-oy">{{ taklifnoma.sana|date:"F Y" }}</div>
-        <div class="kalendar-grid" id="kalendar-grid"
+        <div class="kalendar-grid" id="kalendar-grid" data-jonli
              data-sana="{{ taklifnoma.sana|date:'c' }}"
              data-hafta="{% trans 'Du Se Ch Pa Ju Sh Ya' %}"></div>
     </div>
@@ -508,7 +524,7 @@ borishini biladi, keyin o'sha yerda nima bo'lishini.
             <input type="hidden" name="mehmonlar_soni" id="mehmonlar_soni" value="1">
             <div class="soni-stepper">
                 <button type="button" class="soni-tugma" data-yon="-1" aria-label="−">−</button>
-                <span class="soni-korsatkich" id="soni-korsatkich">1</span>
+                <span class="soni-korsatkich" id="soni-korsatkich" data-jonli>1</span>
                 <button type="button" class="soni-tugma" data-yon="1" aria-label="+">+</button>
             </div>
             <div class="soni-izoh">{% trans "1 dan 5 gacha" %}</div>

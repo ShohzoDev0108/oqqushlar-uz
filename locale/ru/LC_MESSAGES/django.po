@@ -2209,3 +2209,123 @@ msgstr ""
 
 #~ msgid "Django administration"
 #~ msgstr "Администрирование Django"
+
+#: taklif/models.py
+msgid "Kun tartibi (ixtiyoriy)"
+msgstr "Программа дня (необязательно)"
+
+#: taklif/models.py
+msgid "Kun tartibi"
+msgstr "Программа дня"
+
+#: taklif/models.py
+msgid "Masalan: Aliyevlar oilasi"
+msgstr "Например: семья Алиевых"
+
+#: taklif/models.py
+msgid "Taklifnoma kim nomidan (ixtiyoriy)"
+msgstr "От чьего имени приглашение (необязательно)"
+
+#: taklif/models.py
+msgid "Taklifnoma oxirida imzo o'rnida chiqadi. Bo'sh qoldirsangiz, yuqorida yozgan ismlaringiz ishlatiladi."
+msgstr "Появится в конце приглашения вместо подписи. Если оставите пустым, будут использованы имена, указанные выше."
+
+#: taklif/models.py
+msgid "Marosim qachon boshlanib, qachon nima bo'lishini mehmon oldindan biladi. Quyida marosimingizga mos tayyor jadval turibdi — vaqtini va nomini o'zingizga moslab tahrirlang."
+msgstr "Гость заранее знает, когда начнётся торжество и что за чем последует. Ниже уже готовое расписание для вашего торжества — измените время и названия под себя."
+
+#: taklif/models.py
+msgid "Hurmat bilan,"
+msgstr "С уважением,"
+
+#: taklif/models.py
+msgid "Mehmonlarni qarshi olish"
+msgstr "Встреча гостей"
+
+#: taklif/models.py
+msgid "Marosim boshlanishi"
+msgstr "Начало торжества"
+
+#: taklif/models.py
+msgid "Kelin-kuyov raqsi"
+msgstr "Танец молодожёнов"
+
+#: taklif/models.py
+msgid "Tortni kesish"
+msgstr "Разрезание торта"
+
+#: taklif/models.py
+msgid "Marosim yakuni"
+msgstr "Завершение торжества"
+
+#: taklif/models.py
+msgid "Fotiha marosimi"
+msgstr "Обряд фотиха"
+
+#: taklif/models.py
+msgid "Ziyofat"
+msgstr "Банкет"
+
+#: taklif/models.py
+msgid "Oq yo'l tilaklari"
+msgstr "Напутственные слова"
+
+#: taklif/models.py
+msgid "Qizni kuzatish"
+msgstr "Проводы невесты"
+
+#: taklif/models.py
+msgid "Bolalar uchun o'yin-kulgi"
+msgstr "Игры и развлечения для детей"
+
+#: taklif/models.py
+msgid "Beshik marosimi"
+msgstr "Обряд бешик-туй"
+
+#: taklif/models.py
+msgid "Osh"
+msgstr "Плов"
+
+#: taklif/models.py
+msgid "Duo va yakun"
+msgstr "Молитва и завершение"
+
+#: taklif/models.py
+msgid "Tabriklar"
+msgstr "Поздравления"
+
+#: taklif/models.py
+msgid "Ziyofat va konsert"
+msgstr "Банкет и концерт"
+
+#: taklif/models.py
+msgid "O'yinlar va tabriklar"
+msgstr "Игры и поздравления"
+
+#: taklif/models.py
+msgid "Tadbir boshlanishi"
+msgstr "Начало мероприятия"
+
+#: taklif/models.py
+msgid "Qator qo'shish"
+msgstr "Добавить строку"
+
+#: taklif/models.py
+msgid "Namunani qaytarish"
+msgstr "Вернуть образец"
+
+#: taklif/models.py
+msgid "Hammasini tozalash"
+msgstr "Очистить всё"
+
+#: taklif/models.py
+msgid "Nima bo'ladi"
+msgstr "Что происходит"
+
+#: taklif/models.py
+msgid "Qatorni o'chirish"
+msgstr "Удалить строку"
+
+#: taklif/models.py
+msgid "Masalan: Mehmonlarni qarshi olish"
+msgstr "Например: встреча гостей"

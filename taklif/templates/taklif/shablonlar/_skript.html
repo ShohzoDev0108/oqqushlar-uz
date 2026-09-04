@@ -1,22 +1,27 @@
 {% load i18n %}
-{% trans "Baxtli oilamizga" as SO_BAXTLI %}
-{% trans "yil" as SO_YIL %}
-{% trans "oy" as SO_OY %}
-{% trans "kun" as SO_KUN %}
-{% trans "bo'ldi" as SO_BOLDI %}
-{% trans "Marosimgacha" as SO_MAROSIMGACHA %}
-{% trans "Bugun — bizning eng baxtli kunimiz" as SO_BUGUN %}
+{% comment %}
+Sanoq matnlari endi bu yerda emas, _bolimlar.html'dagi #countdown
+elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
+{% endcomment %}
 <script>
 (function () {
-    var SO = {
-        baxtli: "{{ SO_BAXTLI|escapejs }}",
-        yil: "{{ SO_YIL|escapejs }}",
-        oy: "{{ SO_OY|escapejs }}",
-        kun: "{{ SO_KUN|escapejs }}",
-        boldi: "{{ SO_BOLDI|escapejs }}",
-        marosimgacha: "{{ SO_MAROSIMGACHA|escapejs }}",
-        bugun: "{{ SO_BUGUN|escapejs }}"
-    };
+    // Sanoq matnlari #countdown elementining data-atributlaridan o'qiladi
+    // (ilgari ular shu yerga, JS ichiga yozilardi).
+    //
+    // Sabab: til almashganda sahifa endi qayta yuklanmaydi — faqat matn
+    // yamaladi (_til_almashtirish.html) va SHU SKRIPT qayta ishga
+    // tushmaydi. JS ichiga yozilgan matn esa o'sha eski tilda muzlab
+    // qolardi. Data-atribut yamash paytida yangilanadi, shuning uchun
+    // quyidagi funksiya har chaqirilganda joriy tildagi matnni beradi.
+    function soMatnlari() {
+        var c = document.getElementById('countdown');
+        var d = (c && c.dataset) || {};
+        return {
+            baxtli: d.baxtli || '', yil: d.yil || '', oy: d.oy || '',
+            kun: d.kun || '', boldi: d.boldi || '',
+            marosimgacha: d.marosimgacha || '', bugun: d.bugun || ''
+        };
+    }
 
     // 3D konvert-ochilish pardasi va musiqa.
     // Til almashtirilganda sahifa qayta yuklanadi — shunda konvert qayta
@@ -181,6 +186,7 @@
     }
 
     function tick() {
+        var SO = soMatnlari();
         var endi = new Date();
         var farq = target - endi.getTime();
 
@@ -212,7 +218,8 @@
 
     // Marosim kalendari — sana yurakcha bilan belgilanadi (dushanbadan boshlanadi)
     var kalendar = document.getElementById('kalendar-grid');
-    if (kalendar) {
+    function kalendarniChiz() {
+        if (!kalendar) { return; }
         var kSana = new Date(kalendar.dataset.sana);
         var kYil = kSana.getFullYear(), kOy = kSana.getMonth();
         var hafta = (kalendar.dataset.hafta || 'Du Se Ch Pa Ju Sh Ya').split(' ');
@@ -229,6 +236,15 @@
         }
         kalendar.innerHTML = ichki;
     }
+    kalendarniChiz();
+
+    // Til almashganda sahifa qayta yuklanmaydi (faqat matn yamaladi),
+    // shuning uchun JS O'ZI chizadigan joylar o'zini qayta chizishi kerak:
+    // kalendardagi hafta kunlari va sanoq ostidagi matn.
+    document.addEventListener('oq-til-yangilandi', function () {
+        kalendarniChiz();
+        tick();
+    });
 
     // RSVP: mehmonlar soni hisoblagichi (1..5)
     var soniInput = document.getElementById('mehmonlar_soni');

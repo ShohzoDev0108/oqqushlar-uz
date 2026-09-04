@@ -261,6 +261,127 @@ oltin fon bilan ajratib ko'rsatiladi.
             return el.tagName + '|' + (typeof el.className === 'string' ? el.className : '');
         }
 
+        // ==============================================================
+        // MATN YAMASH — asosiy usul.
+        //
+        // TAFTISH (mijozning shikoyati: "sahifa yonib o'chmoqda").
+        //
+        // Avvalgi mantiq shunday edi: ekran ustiga parda tortilib,
+        // <body> butunlay yangisiga almashtirilar, keyin parda tushardi.
+        // Parda rangi body'ning background-color'idan olinardi va
+        // "fonga mos rang bilan yopsak sezilmaydi" deb hisoblangandi.
+        //
+        // Bu faraz SAYT sahifalarida to'g'ri (fon tekis fil suyagi rangi),
+        // lekin TAKLIFNOMADA butunlay noto'g'ri: u yerda body'da tekis
+        // rang tursa ham, ko'z ko'radigan narsa uning ustidagi qatlamlar —
+        // ".kristall-fon", nurlar, gradientlar, burchak bezaklari. Parda
+        // ularning hammasini yopib, ekranni tarmoq so'rovi davomida
+        // (mobil internetda bu yarim soniya ham bo'lishi mumkin) TEKIS
+        // BIR RANGGA aylantirardi. Mijoz aynan shuni "yonib o'chish" deb
+        // ta'rifladi — va u haq edi.
+        //
+        // Yechim: hech narsani yopmaslik va <body> ni umuman
+        // almashtirmaslik. Ikkala hujjat bir xil shablondan, bir xil
+        // ma'lumot bilan chiqadi — tuzilma aynan bir xil, faqat so'zlar
+        // boshqa. Demak eski va yangi DOM'ni yonma-yon aylanib chiqib,
+        // FAQAT matn tugunlarini va tarjima qilinadigan atributlarni
+        // yangilash kifoya. Natijada:
+        //   • hech qanday parda, hech qanday xiralashish yo'q;
+        //   • jonli <audio>, ishlab turgan taymerlar, ochiq menyular,
+        //     foydalanuvchi yozib qo'ygan forma qiymatlari — hammasi
+        //     joyida qoladi (ilgari ularning bari yo'q qilinardi);
+        //   • skriptlarni qayta ishga tushirish shart emas.
+        //
+        // Tuzilmada eng kichik mos kelmaslik topilsa — yamash bekor
+        // qilinadi va eski, ishonchli usulga (tanani almashtirish)
+        // qaytiladi. Ya'ni bu optimallashtirish hech qachon sahifani
+        // buzib qo'ymaydi.
+        // ==============================================================
+
+        // Ichini yamamaydigan teglar. SCRIPT/STYLE — kod, tarjima emas;
+        // TEXTAREA — foydalanuvchi yozgan matn.
+        var YAMAMA_TEG = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, CANVAS: 1, SVG: 1, svg: 1 };
+
+        // Tarjima qilinadigan atributlar. "value" ATAYLAB yo'q:
+        // foydalanuvchi yozib qo'ygan qiymatni bosib ketishi mumkin.
+        var YAMALADIGAN_ATRIBUTLAR = [
+            'placeholder', 'title', 'aria-label', 'alt',
+            'data-nusxalandi', 'data-hafta',
+            // sanoq matnlari (_bolimlar.html'dagi #countdown izohiga qarang)
+            'data-baxtli', 'data-yil', 'data-oy', 'data-kun', 'data-boldi',
+            'data-marosimgacha', 'data-bugun',
+            // sana tanlagichning bo'sh holatdagi matni (yaratish.html)
+            'data-bosh'
+        ];
+
+        function yamashMumkinmi(el) {
+            // data-jonli — ichidagi matnni JS chizadi (sanoq raqamlari,
+            // kalendar katakchalari, mehmonlar soni). Serverdan kelgan
+            // HTML'da u yerda "--" kabi bo'sh qiymat turadi; yamasak,
+            // ishlab turgan raqam bir lahzaga "--" ga qaytib ketardi.
+            return !el.hasAttribute('data-jonli');
+        }
+
+        function atributlarniYama(eski, yangi) {
+            for (var i = 0; i < YAMALADIGAN_ATRIBUTLAR.length; i++) {
+                var nom = YAMALADIGAN_ATRIBUTLAR[i];
+                var q = yangi.getAttribute(nom);
+                if (q !== null && eski.getAttribute(nom) !== q) {
+                    eski.setAttribute(nom, q);
+                }
+            }
+        }
+
+        // Ikkala daraxtni yonma-yon aylanadi. Tuzilma mos kelmasa
+        // darhol false qaytaradi va HECH NARSANI o'zgartirmagan bo'ladi —
+        // shuning uchun avval butun daraxt TEKSHIRILADI, keyin yamaladi.
+        function tuzilmaMosmi(a, b) {
+            // "data-jonli" hudud ENG BIRINCHI tekshiriladi — hatto teg
+            // nomi solishtirilishidan ham oldin. Sababi: JS ba'zan
+            // elementni O'RAB oladi (masalan fayl tanlash inputi
+            // "div.oq-fayl-qutisi" ichiga ko'chiriladi), ya'ni jonli
+            // DOM'dagi teg serverdan kelganidan boshqacha bo'ladi.
+            // Bu bizning o'z belgimiz va "bu joyga tegilmasin" degani —
+            // demak farqni ham muammo deb hisoblamaymiz.
+            if (a.nodeType === 1 && !yamashMumkinmi(a)) { return true; }
+            if (a.nodeType !== b.nodeType) { return false; }
+            if (a.nodeType === 1) {
+                if (a.tagName !== b.tagName) { return false; }
+                if (YAMAMA_TEG[a.tagName]) { return true; }
+                if (a.childNodes.length !== b.childNodes.length) { return false; }
+                for (var i = 0; i < a.childNodes.length; i++) {
+                    if (!tuzilmaMosmi(a.childNodes[i], b.childNodes[i])) { return false; }
+                }
+            }
+            return true;
+        }
+
+        function yama(a, b) {
+            if (a.nodeType === 3) {
+                if (a.nodeValue !== b.nodeValue) { a.nodeValue = b.nodeValue; }
+                return;
+            }
+            if (a.nodeType !== 1) { return; }
+            if (!yamashMumkinmi(a)) {
+                // Jonli hudud: faqat teg mos kelsa atributlarini
+                // yangilaymiz (data-hafta, data-bosh kabi tarjimalar
+                // shu yo'l bilan yetib boradi), ichiga esa tegmaymiz.
+                if (b.nodeType === 1 && a.tagName === b.tagName) { atributlarniYama(a, b); }
+                return;
+            }
+            atributlarniYama(a, b);
+            if (YAMAMA_TEG[a.tagName]) { return; }
+            for (var i = 0; i < a.childNodes.length; i++) {
+                yama(a.childNodes[i], b.childNodes[i]);
+            }
+        }
+
+        function matnYamash(yangiTana) {
+            if (!tuzilmaMosmi(document.body, yangiTana)) { return false; }
+            yama(document.body, yangiTana);
+            return true;
+        }
+
         var OTKAZ = { SCRIPT: 1, STYLE: 1, LINK: 1, META: 1, NOSCRIPT: 1, BR: 1, SOURCE: 1, TEMPLATE: 1 };
 
         // Langar nomzodlarini yig'ish.
@@ -298,6 +419,12 @@ oltin fon bilan ajratib ko'rsatiladi.
                 var yol = domYoli(el);
                 if (!yol || !yol.length) { continue; }
                 nomzodlar.push({
+                    // Matn yamash yo'lida DOM buzilmaydi, shuning uchun
+                    // elementning O'ZIGA murojaat qilish mumkin — bu yo'l
+                    // bo'yicha qidirishdan aniqroq. Zaxira yo'lda (tana
+                    // almashtirilganda) bu murojaat eskirib qoladi va
+                    // o'shanda "yol" ishlatiladi.
+                    el: el,
                     yol: yol,
                     belgi: belgi(el),
                     top: r.top,
@@ -315,10 +442,18 @@ oltin fon bilan ajratib ko'rsatiladi.
 
         // Langarni yangi tanadan topib, uni AYNAN oldingi balandligiga
         // qaytaradigan skrollni qo'llaydi.
+        // langarniTopish — avval elementning o'ziga (agar u hali
+        // hujjatda bo'lsa), keyin DOM yo'liga tayanadi.
+        function langarniTopish(langar) {
+            if (langar.el && langar.el.isConnected) { return langar.el; }
+            var el = yolBoyicha(document.body, langar.yol);
+            return (el && belgi(el) === langar.belgi) ? el : null;
+        }
+
         function langarniTikla(langarlar) {
             for (var i = 0; i < langarlar.length; i++) {
-                var el = yolBoyicha(document.body, langarlar[i].yol);
-                if (!el || belgi(el) !== langarlar[i].belgi) { continue; }
+                var el = langarniTopish(langarlar[i]);
+                if (!el) { continue; }
                 var farq = el.getBoundingClientRect().top - langarlar[i].top;
                 if (Math.abs(farq) > 0.5) { window.scrollTo(0, window.scrollY + farq); }
                 return langarlar[i];
@@ -354,8 +489,8 @@ oltin fon bilan ajratib ko'rsatiladi.
 
             function kadr() {
                 if (toxtatildi) { tozala(); return; }
-                var el = yolBoyicha(document.body, langar.yol);
-                if (el && belgi(el) === langar.belgi) {
+                var el = langarniTopish(langar);
+                if (el) {
                     var farq = el.getBoundingClientRect().top - langar.top;
                     if (Math.abs(farq) > 0.5) {
                         window.scrollTo(0, window.scrollY + farq);
@@ -386,11 +521,11 @@ oltin fon bilan ajratib ko'rsatiladi.
                 return;
             }
 
-            var parda = pardaOl();
-            // Xiralashish DARHOL boshlanadi, tarmoq so'rovi esa unga
-            // parallel ketadi — shu bois kutish vaqti ham ko'rinmaydi.
-            parda.offsetHeight;
-            parda.style.opacity = '1';
+            // DIQQAT: parda bu yerda YARATILMAYDI va ko'tarilmaydi.
+            // U faqat zaxira yo'lda (tanani almashtirishda) kerak bo'ladi
+            // va o'sha yerda ko'tariladi — yuqoridagi "MATN YAMASH"
+            // izohiga qarang.
+            var parda = null;
 
             // Sahifada global "html { scroll-behavior: smooth }" bor:
             // uni vaqtincha o'chiramiz, aks holda har bir to'g'rilash
@@ -407,7 +542,7 @@ oltin fon bilan ajratib ko'rsatiladi.
                 yakunlandi = true;
                 clearTimeout(xavfsizlikTaymeri);
                 document.documentElement.style.scrollBehavior = eskiSkrollUslubi;
-                parda.style.opacity = '0';
+                if (parda) { parda.style.opacity = '0'; }
             }
             // Kutilmagan holatda (tarmoq osilib qolsa, brauzer taymerni
             // to'xtatib qo'ysa) parda sahifa ustida qolib ketmasligi
@@ -416,7 +551,6 @@ oltin fon bilan ajratib ko'rsatiladi.
             // bosishga to'sqinlik qilmaydi, faqat ko'rinishni yopadi.)
             var xavfsizlikTaymeri = setTimeout(yakunla, XAVFSIZLIK_MS);
 
-            var kutish = new Promise(function (bajar) { setTimeout(bajar, PARDA_MS); });
             var sorov = fetch(tilForma.action, {
                     method: 'POST',
                     body: new FormData(tilForma),
@@ -428,8 +562,8 @@ oltin fon bilan ajratib ko'rsatiladi.
                     return javob.text();
                 });
 
-            Promise.all([sorov, kutish]).then(function (natijalar) {
-                var yangiHujjat = new DOMParser().parseFromString(natijalar[0], 'text/html');
+            sorov.then(function (matn) {
+                var yangiHujjat = new DOMParser().parseFromString(matn, 'text/html');
                 document.title = yangiHujjat.title;
                 // <html lang="..."> ham yangilanishi kerak — skrin-riderlar
                 // va qidiruv tizimlari sahifa tilini shundan oladi.
@@ -440,7 +574,36 @@ oltin fon bilan ajratib ko'rsatiladi.
                 // yangi til eski sahifa uslubida qolib ketardi.
                 var eskiUslub = document.getElementById('oq-uslub');
                 var yangiUslub = yangiHujjat.getElementById('oq-uslub');
-                if (eskiUslub && yangiUslub) { eskiUslub.textContent = yangiUslub.textContent; }
+                if (eskiUslub && yangiUslub && eskiUslub.textContent !== yangiUslub.textContent) {
+                    eskiUslub.textContent = yangiUslub.textContent;
+                }
+
+                // ---- ASOSIY YO'L: faqat matnni yamash ----
+                if (matnYamash(yangiHujjat.body)) {
+                    // Sahifadagi JS chizadigan joylar (kalendar, sanoq
+                    // matni) o'zini yangi tilda qayta chizishi uchun
+                    // xabar. Ular shu hodisaga obuna bo'ladi
+                    // (_skript.html'ga qarang).
+                    try {
+                        document.dispatchEvent(new CustomEvent('oq-til-yangilandi', {
+                            detail: { til: document.documentElement.lang }
+                        }));
+                    } catch (e) {}
+                    // Tarjima matnlari uzunligi boshqa — joylashuv
+                    // biroz suriladi. Langar shu surilishni ko'zga
+                    // ko'rinmas qiladi.
+                    tinchlantir(langarniTikla(langarlar), yakunla);
+                    return;
+                }
+
+                // ---- ZAXIRA YO'L: tuzilma mos kelmadi ----
+                // Bu holat kutilmagan (masalan shablon sahifasi kesh'dan
+                // boshqacha kelgan). Bunda eski, ishonchli usul: tanani
+                // butunlay almashtiramiz. Faqat SHU yerda parda kerak,
+                // chunki almashuv paytida sahifa bir lahza bo'sh qoladi.
+                parda = pardaOl();
+                parda.offsetHeight;
+                parda.style.opacity = '1';
 
                 var yangiTana = document.adoptNode(yangiHujjat.body);
 

@@ -2203,3 +2203,123 @@ msgstr ""
 
 #~ msgid "Django administration"
 #~ msgstr "Django dolandyrmasy"
+
+#: taklif/models.py
+msgid "Kun tartibi (ixtiyoriy)"
+msgstr "Gün tertibi (hökmany däl)"
+
+#: taklif/models.py
+msgid "Kun tartibi"
+msgstr "Gün tertibi"
+
+#: taklif/models.py
+msgid "Masalan: Aliyevlar oilasi"
+msgstr "Meselem: Alyýewler maşgalasy"
+
+#: taklif/models.py
+msgid "Taklifnoma kim nomidan (ixtiyoriy)"
+msgstr "Çakylyk kimiň adyndan (hökmany däl)"
+
+#: taklif/models.py
+msgid "Taklifnoma oxirida imzo o'rnida chiqadi. Bo'sh qoldirsangiz, yuqorida yozgan ismlaringiz ishlatiladi."
+msgstr "Çakylygyň ahyrynda gol ýerine çykar. Boş goýsaňyz, ýokarda ýazan atlaryňyz ulanylar."
+
+#: taklif/models.py
+msgid "Marosim qachon boshlanib, qachon nima bo'lishini mehmon oldindan biladi. Quyida marosimingizga mos tayyor jadval turibdi — vaqtini va nomini o'zingizga moslab tahrirlang."
+msgstr "Myhman dabaranyň haçan başlajakdygyny we nämäniň boljakdygyny öňünden biler. Aşakda dabaraňyza laýyk taýýar tertip dur — wagtyny we adyny özüňize görä üýtgediň."
+
+#: taklif/models.py
+msgid "Hurmat bilan,"
+msgstr "Hormat bilen,"
+
+#: taklif/models.py
+msgid "Mehmonlarni qarshi olish"
+msgstr "Myhmanlary garşylamak"
+
+#: taklif/models.py
+msgid "Marosim boshlanishi"
+msgstr "Dabaranyň başlanmagy"
+
+#: taklif/models.py
+msgid "Kelin-kuyov raqsi"
+msgstr "Ýaş çatynjalaryň tansy"
+
+#: taklif/models.py
+msgid "Tortni kesish"
+msgstr "Tortuň kesilmegi"
+
+#: taklif/models.py
+msgid "Marosim yakuni"
+msgstr "Dabaranyň tamamlanmagy"
+
+#: taklif/models.py
+msgid "Fotiha marosimi"
+msgstr "Patyha dabarasy"
+
+#: taklif/models.py
+msgid "Ziyofat"
+msgstr "Saçak"
+
+#: taklif/models.py
+msgid "Oq yo'l tilaklari"
+msgstr "Ak ýol dilegleri"
+
+#: taklif/models.py
+msgid "Qizni kuzatish"
+msgstr "Gelni ugratmak"
+
+#: taklif/models.py
+msgid "Bolalar uchun o'yin-kulgi"
+msgstr "Çagalar üçin oýunlar"
+
+#: taklif/models.py
+msgid "Beshik marosimi"
+msgstr "Sallançak dabarasy"
+
+#: taklif/models.py
+msgid "Osh"
+msgstr "Palaw"
+
+#: taklif/models.py
+msgid "Duo va yakun"
+msgstr "Doga we tamamlanma"
+
+#: taklif/models.py
+msgid "Tabriklar"
+msgstr "Gutlaglar"
+
+#: taklif/models.py
+msgid "Ziyofat va konsert"
+msgstr "Saçak we konsert"
+
+#: taklif/models.py
+msgid "O'yinlar va tabriklar"
+msgstr "Oýunlar we gutlaglar"
+
+#: taklif/models.py
+msgid "Tadbir boshlanishi"
+msgstr "Çäräniň başlanmagy"
+
+#: taklif/models.py
+msgid "Qator qo'shish"
+msgstr "Setir goşmak"
+
+#: taklif/models.py
+msgid "Namunani qaytarish"
+msgstr "Nusgany gaýtarmak"
+
+#: taklif/models.py
+msgid "Hammasini tozalash"
+msgstr "Hemmesini arassalamak"
+
+#: taklif/models.py
+msgid "Nima bo'ladi"
+msgstr "Näme bolýar"
+
+#: taklif/models.py
+msgid "Qatorni o'chirish"
+msgstr "Setiri pozmak"
+
+#: taklif/models.py
+msgid "Masalan: Mehmonlarni qarshi olish"
+msgstr "Meselem: myhmanlary garşylamak"
