@@ -264,7 +264,11 @@ class RSVPAdmin(admin.ModelAdmin):
 class SaytSozlamalariAdmin(admin.ModelAdmin):
     """Singleton — ro'yxatda bitta yozuv, yangi qo'shib yoki o'chirib bo'lmaydi."""
 
-    fields = ("admin_telegram",)
+    # DIQQAT: "fields" aniq sanab o'tilgan, ya'ni modelga yangi maydon
+    # qo'shilganda u admin panelda O'ZI paydo bo'lmaydi — shu yerga ham
+    # qo'shish kerak. (Telefon va Instagram maydonlari aynan shu sababdan
+    # bir marta ko'rinmay qolgandi.)
+    fields = ("admin_telegram", "telefon", "instagram")
 
     def has_add_permission(self, request):
         # Agar allaqachon bitta yozuv bo'lsa, yana qo'shishga ruxsat bermaymiz.
