@@ -24,6 +24,17 @@ bezaklari saqlanib qoldi — ular kontent bilan urishmaydi.
 @media (max-width: 700px) {
     body { padding-bottom: 74px; } /* yopishqoq CTA joyi */
     #sayt-musiqa-tugma { bottom: 88px !important; }
+    {% comment %}
+    Mobilda ekranning pastida "Taklifnoma yaratish" yopishqoq tugmasi
+    DOIM turadi (_sayt_nav.html, mobil_cta=True). Hero ichida yana
+    aynan shu matnli, shu rangdagi tugma bo'lsa — bitta ekranda ikkita
+    bir xil chaqiriq bo'lib, ular bir-biri bilan raqobatlashadi va
+    arzon ko'rinadi. Shuning uchun mobilda hero'dagi asosiy tugma
+    yashiriladi: mijoz uchun harakat yo'li bittaligicha qoladi, hero
+    esa yengillashadi. Desktopda yopishqoq tugma yo'q — u yerda
+    ikkala tugma ham o'z joyida qoladi.
+    {% endcomment %}
+    .oq-hero-tugmalar .oq-cta.toliq { display: none; }
 }
 
 /* --- Hero: avval oqqushlar surati (nav ostida), keyin matn --- */
