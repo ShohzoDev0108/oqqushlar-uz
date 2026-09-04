@@ -114,6 +114,353 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
 
 <script>
 (function () {
+    // ==================================================================
+    // TIL ALMASHTIRISH YADROSI (yagona amalga oshiruv)
+    //
+    // Sayt sahifalari ham, taklifnoma (shablon) sahifalari ham AYNAN shu
+    // funksiyadan foydalanadi — shablonlardagi _skript.html uni
+    // window.oqTilSwap orqali chaqiradi. Ilgari ikki joyda ikkita alohida
+    // nusxa bor edi va ular bir-biridan uzoqlashib ketgandi (biri langarli,
+    // ikkinchisi esa oddiy piksel bo'yicha tiklash) — shuning uchun
+    // taklifnoma sahifalarida sirg'alish umuman tuzatilmagan edi.
+    //
+    // MUAMMONING ASLI. Til almashganda sahifa "sirg'aladi", chunki
+    // tarjima matnining uzunligi tillarda har xil: bir xil bo'lim rus
+    // tilida 3 qator, o'zbekchada 2 qator bo'lishi mumkin. Ya'ni
+    // "umuman qimirlamasin" deyish jismonan imkonsiz — kontent
+    // haqiqatan ham boshqacha joylashadi. Shuning uchun maqsad "nol
+    // siljish" emas, balki "SEZILMAYDIGAN almashuv".
+    //
+    // YECHIM — uch qatlam (professional saytlarda shu tarzda ishlanadi):
+    //
+    //   1) LANGAR (scroll anchoring). Ekranning yuqori qismida turgan
+    //      HAQIQIY element (bir nechta zaxira nomzodi bilan birga) eslab
+    //      qolinadi, almashuvdan keyin esa aynan o'sha element yana
+    //      o'sha balandlikda turadigan qilib skroll to'g'rilanadi.
+    //      Shunday qilib foydalanuvchining "o'qiyotgan joyi" saqlanadi,
+    //      undan yuqoridagi bo'limlar balandligi o'zgargan bo'lsa ham.
+    //      Yopishqoq (position: sticky/fixed) panellar langar bo'la
+    //      OLMAYDI: ular skrolldan qat'i nazar doim bir joyda turadi,
+    //      shu sabab ular bo'yicha o'lchansa "farq yo'q" degan noto'g'ri
+    //      xulosa chiqadi.
+    //
+    //   2) PARDA (cross-fade). Almashuv qisqa xiralashish ostida
+    //      bajariladi. Ko'z xiralashish paytida sodir bo'lgan siljishni
+    //      ilg'ay olmaydi — birinchi qatlamdan keyin qolgan mayda
+    //      farqlar (masalan tugma matni ikki qatorga o'tib ketishi) shu
+    //      bilan butunlay yopiladi. Ayni paytda tarmoq so'rovi ham shu
+    //      parda ostida ketadi, ya'ni kutish vaqti ham yashiriladi.
+    //
+    //   3) TINCHLANISH (settle). Tana almashtirilgandan keyin ham
+    //      suratlar va shriftlar yuklanib, joylashuvni yana surib
+    //      yuborishi mumkin. Shuning uchun langar bir necha yuz
+    //      millisekund davomida har kadrda qayta tekshirilib, joyida
+    //      ushlab turiladi. Foydalanuvchi shu orada o'zi skroll qilsa —
+    //      darhol to'xtaymiz, unga xalaqit bermaymiz.
+    // ==================================================================
+    if (!window.oqTilSwap) { (function () {
+        var PARDA_ID = 'oq-til-parda';
+        var TINCH_MS = 800;   // langarni ushlab turish muddati
+        var XAVFSIZLIK_MS = 6000; // parda har qanday holatda shu muddatda ochiladi
+
+        // Foydalanuvchi tizim sozlamasida harakatni kamaytirishni tanlagan
+        // bo'lsa (vestibulyar sezuvchanlik, ba'zi qurilmalarda batareya
+        // rejimi) — xiralashishni umuman qo'llamaymiz. Bunda langar va
+        // tinchlantirish qatlamlari o'z ishini bajaraveradi.
+        function harakatKamaytirilganmi() {
+            try {
+                return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+            } catch (e) { return false; }
+        }
+        var PARDA_MS = harakatKamaytirilganmi() ? 0 : 170;
+
+        function fonRangi() {
+            var nomzodlar = [document.body, document.documentElement];
+            for (var i = 0; i < nomzodlar.length; i++) {
+                if (!nomzodlar[i]) { continue; }
+                try {
+                    var rang = getComputedStyle(nomzodlar[i]).backgroundColor;
+                    if (rang && rang !== 'transparent' && rang.indexOf('rgba(0, 0, 0, 0)') === -1) {
+                        return rang;
+                    }
+                } catch (e) {}
+            }
+            return '#ffffff';
+        }
+
+        // Parda ATAYLAB <html> ga qo'yiladi, <body> ga emas — chunki
+        // almashuvda <body> butunlay yangisi bilan almashtiriladi va
+        // uning ichidagi har qanday element yo'q bo'lib ketardi.
+        function pardaOl() {
+            var parda = document.getElementById(PARDA_ID);
+            if (!parda) {
+                parda = document.createElement('div');
+                parda.id = PARDA_ID;
+                parda.setAttribute('aria-hidden', 'true');
+                parda.style.cssText =
+                    'position:fixed;left:0;top:0;right:0;bottom:0;z-index:2147483000;' +
+                    'opacity:0;pointer-events:none;transition:opacity ' + (PARDA_MS / 1000) + 's linear;';
+                document.documentElement.appendChild(parda);
+            }
+            parda.style.background = fonRangi();
+            return parda;
+        }
+
+        function yopishqoqmi(el) {
+            var node = el;
+            while (node && node !== document.body) {
+                var holat = '';
+                try { holat = getComputedStyle(node).position; } catch (e) {}
+                if (holat === 'fixed' || holat === 'sticky') { return true; }
+                node = node.parentElement;
+            }
+            return false;
+        }
+
+        // Element manzili: ota elementlar ichidagi indekslar zanjiri.
+        // Yangi (boshqa tildagi) hujjatda ham xuddi shu zanjir bo'yicha
+        // topiladi — matn o'zgargani bilan tuzilma bir xil qoladi.
+        function domYoli(el) {
+            var yol = [];
+            var node = el;
+            while (node && node !== document.body && node.parentElement) {
+                yol.unshift(Array.prototype.indexOf.call(node.parentElement.children, node));
+                node = node.parentElement;
+            }
+            return node === document.body ? yol : null;
+        }
+
+        function yolBoyicha(ildiz, yol) {
+            var node = ildiz;
+            for (var i = 0; i < yol.length; i++) {
+                if (!node || !node.children || !node.children[yol[i]]) { return null; }
+                node = node.children[yol[i]];
+            }
+            return node;
+        }
+
+        // Langar to'g'ri topilganini tekshirish uchun "barmoq izi".
+        function belgi(el) {
+            return el.tagName + '|' + (typeof el.className === 'string' ? el.className : '');
+        }
+
+        var OTKAZ = { SCRIPT: 1, STYLE: 1, LINK: 1, META: 1, NOSCRIPT: 1, BR: 1, SOURCE: 1, TEMPLATE: 1 };
+
+        // Langar nomzodlarini yig'ish.
+        //
+        // TAFTISH: avval bu ish elementFromPoint() bilan — "ekran
+        // tepasida nima turibdi" deb — qilingandi. Muammo shundaki, u
+        // eng chuqur elementni qaytaradi va ko'pincha bo'sh joyga
+        // tushib, KATTA konteynerni (masalan butun <header>) tanlab
+        // qolardi; uning yuqori cheti esa ekrandan 800px yuqorida
+        // bo'lishi mumkin. Bunday langar bo'yicha o'lchov noaniq:
+        // konteyner ichidagi matn o'zgarsa ham uning cheti qimirlamaydi,
+        // ya'ni "farq yo'q" degan noto'g'ri xulosa chiqadi.
+        //
+        // Endi butun sahifa bo'ylab o'tib, YUQORI CHETI aynan ekran
+        // tepasiga eng yaqin turgan elementlar tanlanadi — bu
+        // foydalanuvchi ko'rib turgan joyning haqiqiy chegara chizig'i.
+        // Bir nechta nomzod saqlanadi: birinchisi yangi hujjatda mos
+        // kelmasa (tarjimada tuzilma biroz o'zgargan bo'lsa) — keyingisi.
+        function langarlarniYig() {
+            var balandlik = window.innerHeight || document.documentElement.clientHeight || 0;
+            if (!balandlik) { return []; }
+            var nishon = Math.min(80, balandlik * 0.15);
+            var pastChegara = balandlik * 0.6;
+            var barcha = document.body.querySelectorAll('*');
+            var nomzodlar = [];
+            for (var i = 0; i < barcha.length; i++) {
+                var el = barcha[i];
+                if (OTKAZ[el.tagName]) { continue; }
+                var r = el.getBoundingClientRect();
+                // Juda kichik (ikonka, ajratuvchi chiziq) yoki ko'rinmas
+                // elementlar ishonchli langar bo'la olmaydi.
+                if (r.width < 40 || r.height < 8) { continue; }
+                if (r.top < -8 || r.top > pastChegara) { continue; }
+                if (yopishqoqmi(el)) { continue; }
+                var yol = domYoli(el);
+                if (!yol || !yol.length) { continue; }
+                nomzodlar.push({
+                    yol: yol,
+                    belgi: belgi(el),
+                    top: r.top,
+                    masofa: Math.abs(r.top - nishon),
+                    chuqurlik: yol.length
+                });
+            }
+            // Ekran tepasiga eng yaqini birinchi; teng bo'lsa — DOM'da
+            // chuqurrog'i (aniqroq, maydaroq bo'lagi) afzal.
+            nomzodlar.sort(function (a, b) {
+                return (a.masofa - b.masofa) || (b.chuqurlik - a.chuqurlik);
+            });
+            return nomzodlar.slice(0, 4);
+        }
+
+        // Langarni yangi tanadan topib, uni AYNAN oldingi balandligiga
+        // qaytaradigan skrollni qo'llaydi.
+        function langarniTikla(langarlar) {
+            for (var i = 0; i < langarlar.length; i++) {
+                var el = yolBoyicha(document.body, langarlar[i].yol);
+                if (!el || belgi(el) !== langarlar[i].belgi) { continue; }
+                var farq = el.getBoundingClientRect().top - langarlar[i].top;
+                if (Math.abs(farq) > 0.5) { window.scrollTo(0, window.scrollY + farq); }
+                return langarlar[i];
+            }
+            return null;
+        }
+
+        function tinchlantir(langar, korsat) {
+            if (!langar) { korsat(); return; }
+            var boshlandi = Date.now();
+            var toxtatildi = false;
+            var korsatildi = false;
+            var barqaror = 0;
+
+            function korsatBir() {
+                if (korsatildi) { return; }
+                korsatildi = true;
+                korsat();
+            }
+            // Foydalanuvchi o'zi skroll qilishga urinsa — darhol qo'yib
+            // yuboramiz, aks holda uning harakati bilan "kurashgan"
+            // bo'lardik.
+            function toxtat() { toxtatildi = true; korsatBir(); }
+            var hodisalar = ['wheel', 'touchstart', 'keydown'];
+            for (var h = 0; h < hodisalar.length; h++) {
+                window.addEventListener(hodisalar[h], toxtat, { passive: true });
+            }
+            function tozala() {
+                for (var h2 = 0; h2 < hodisalar.length; h2++) {
+                    window.removeEventListener(hodisalar[h2], toxtat);
+                }
+            }
+
+            function kadr() {
+                if (toxtatildi) { tozala(); return; }
+                var el = yolBoyicha(document.body, langar.yol);
+                if (el && belgi(el) === langar.belgi) {
+                    var farq = el.getBoundingClientRect().top - langar.top;
+                    if (Math.abs(farq) > 0.5) {
+                        window.scrollTo(0, window.scrollY + farq);
+                        barqaror = 0;
+                    } else {
+                        barqaror++;
+                    }
+                }
+                // Uch kadr ketma-ket qimirlamadi — ko'rsatsa bo'ladi.
+                // Lekin ushlab turishni davom ettiramiz: kechroq
+                // yuklanadigan suratlar hali ham surib yuborishi mumkin.
+                if (barqaror >= 3) { korsatBir(); }
+                if (Date.now() - boshlandi > TINCH_MS) { korsatBir(); tozala(); return; }
+                requestAnimationFrame(kadr);
+            }
+            requestAnimationFrame(kadr);
+        }
+
+        // sozlama.audioId            — ijrodagi <audio> elementi id'si
+        //                              (yangi tanaga jonli ko'chiriladi,
+        //                              musiqa uzilmasligi uchun)
+        // sozlama.almashishdanOldin  — eski tana o'chirilishidan oldin
+        //                              chaqiriladi (taymerlarni tozalash)
+        window.oqTilSwap = function (tilForma, sozlama) {
+            sozlama = sozlama || {};
+            if (!window.fetch || !window.DOMParser || !window.requestAnimationFrame) {
+                tilForma.submit();
+                return;
+            }
+
+            var parda = pardaOl();
+            // Xiralashish DARHOL boshlanadi, tarmoq so'rovi esa unga
+            // parallel ketadi — shu bois kutish vaqti ham ko'rinmaydi.
+            parda.offsetHeight;
+            parda.style.opacity = '1';
+
+            // Sahifada global "html { scroll-behavior: smooth }" bor:
+            // uni vaqtincha o'chiramiz, aks holda har bir to'g'rilash
+            // animatsiya bilan sekin bajarilib, ko'zga tashlanardi.
+            var eskiSkrollUslubi = document.documentElement.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = 'auto';
+
+            var joriyScroll = window.scrollY;
+            var langarlar = langarlarniYig();
+
+            var yakunlandi = false;
+            function yakunla() {
+                if (yakunlandi) { return; }
+                yakunlandi = true;
+                clearTimeout(xavfsizlikTaymeri);
+                document.documentElement.style.scrollBehavior = eskiSkrollUslubi;
+                parda.style.opacity = '0';
+            }
+            // Kutilmagan holatda (tarmoq osilib qolsa, brauzer taymerni
+            // to'xtatib qo'ysa) parda sahifa ustida qolib ketmasligi
+            // kerak — shu sabab so'zsiz ochiladigan zaxira taymer.
+            // (Parda "pointer-events: none" bo'lgani uchun u hech qachon
+            // bosishga to'sqinlik qilmaydi, faqat ko'rinishni yopadi.)
+            var xavfsizlikTaymeri = setTimeout(yakunla, XAVFSIZLIK_MS);
+
+            var kutish = new Promise(function (bajar) { setTimeout(bajar, PARDA_MS); });
+            var sorov = fetch(tilForma.action, {
+                    method: 'POST',
+                    body: new FormData(tilForma),
+                    credentials: 'same-origin'
+                })
+                .then(function () { return fetch(location.href, { credentials: 'same-origin' }); })
+                .then(function (javob) {
+                    if (!javob.ok) { throw new Error('http-xato'); }
+                    return javob.text();
+                });
+
+            Promise.all([sorov, kutish]).then(function (natijalar) {
+                var yangiHujjat = new DOMParser().parseFromString(natijalar[0], 'text/html');
+                document.title = yangiHujjat.title;
+                // <html lang="..."> ham yangilanishi kerak — skrin-riderlar
+                // va qidiruv tizimlari sahifa tilini shundan oladi.
+                if (yangiHujjat.documentElement.lang) {
+                    document.documentElement.lang = yangiHujjat.documentElement.lang;
+                }
+                // Har bir sahifaning o'z uslubi (extra_style) — aks holda
+                // yangi til eski sahifa uslubida qolib ketardi.
+                var eskiUslub = document.getElementById('oq-uslub');
+                var yangiUslub = yangiHujjat.getElementById('oq-uslub');
+                if (eskiUslub && yangiUslub) { eskiUslub.textContent = yangiUslub.textContent; }
+
+                var yangiTana = document.adoptNode(yangiHujjat.body);
+
+                if (sozlama.audioId) {
+                    var jonliAudio = document.getElementById(sozlama.audioId);
+                    if (jonliAudio) {
+                        var yangiJoy = yangiTana.querySelector('#' + sozlama.audioId);
+                        if (yangiJoy) { yangiJoy.parentNode.replaceChild(jonliAudio, yangiJoy); }
+                    }
+                }
+
+                if (typeof sozlama.almashishdanOldin === 'function') {
+                    sozlama.almashishdanOldin();
+                }
+
+                document.body.parentNode.replaceChild(yangiTana, document.body);
+
+                // DOMParser orqali kelgan <script>lar o'z-o'zidan
+                // ishlamaydi — ularni qayta yaratib ishga tushiramiz.
+                Array.prototype.slice.call(document.body.querySelectorAll('script')).forEach(function (eski) {
+                    var yangi = document.createElement('script');
+                    for (var si = 0; si < eski.attributes.length; si++) {
+                        yangi.setAttribute(eski.attributes[si].name, eski.attributes[si].value);
+                    }
+                    yangi.textContent = eski.textContent;
+                    eski.parentNode.replaceChild(yangi, eski);
+                });
+
+                window.scrollTo(0, joriyScroll);
+                tinchlantir(langarniTikla(langarlar), yakunla);
+            }).catch(function () {
+                yakunla();
+                tilForma.submit();
+            });
+        };
+    })(); }
+
     document.querySelectorAll('.til-dropdown').forEach(function (dropdown) {
         var tugma = dropdown.querySelector('.til-tugma');
         var royxat = dropdown.querySelector('.til-royxat');
@@ -128,138 +475,7 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
 
         if (tilForma && !shablonSahifaTili) {
             haqiqiySelect.addEventListener('change', function () {
-                if (!window.fetch || !window.DOMParser) { tilForma.submit(); return; }
-                var yubor = new FormData(tilForma);
-                fetch(tilForma.action, { method: 'POST', body: yubor, credentials: 'same-origin' })
-                    .then(function () { return fetch(location.href, { credentials: 'same-origin' }); })
-                    .then(function (javob) {
-                        if (!javob.ok) { throw new Error('http-xato'); }
-                        return javob.text();
-                    })
-                    .then(function (matn) {
-                        var yangiHujjat = new DOMParser().parseFromString(matn, 'text/html');
-                        document.title = yangiHujjat.title;
-
-                        // Har bir sahifaning o'z uslubi (extra_style) — aks
-                        // holda yangi til eski sahifa uslubida qolib ketardi.
-                        var eskiUslub = document.getElementById('oq-uslub');
-                        var yangiUslub = yangiHujjat.getElementById('oq-uslub');
-                        if (eskiUslub && yangiUslub) { eskiUslub.textContent = yangiUslub.textContent; }
-
-                        var joriyScroll = window.scrollY;
-
-                        // TAFTISH: piksel bo'yicha skrollni saqlash (eski usul)
-                        // yetarli emas edi — chunki tarjima matni uzunligi
-                        // tilga qarab farq qiladi (masalan rus tilida matn
-                        // ko'proq qator egallashi mumkin), shu sabab hero/nav
-                        // balandligi til almashganda biroz o'zgaradi. Xuddi
-                        // shu piksel qiymatiga qaytarilsa, foydalanuvchi
-                        // ko'rib turgan kontent "sirg'alib" boshqa joyga
-                        // ko'chib qolardi. Endi PIKSEL emas, EKRANNING ENG
-                        // YUQORISIDA turgan ELEMENTNING O'ZI "langar" qilib
-                        // olinadi (uning DOM yo'li — ota elementlar ichidagi
-                        // indekslar zanjiri saqlanadi) va almashtirishdan
-                        // keyin xuddi shu yo'l bo'yicha yangi hujjatdan
-                        // topiladi — shu langar aynan bosh ekranning YUQORI
-                        // chetida qolishi uchun skroll shunga moslab
-                        // tuzatiladi. Natijada: sahifaning HOZIR ko'rinib
-                        // turgan yuqori qismi joyidan qimirlamaydi, pastda —
-                        // hali ko'rinmayotgan joylarda — balandlik farqi
-                        // bo'lsa ham bu foydalanuvchiga sezilmaydi.
-                        // TAFTISH: birinchi urinishda "langar" sifatida ko'pincha
-                        // yopishqoq (position: sticky/fixed) yuqori navigatsiya
-                        // paneli tanlanib qolardi — u skroll qanday bo'lishidan
-                        // qat'i nazar HAR DOIM ekranning bir xil joyida turadi,
-                        // shuning uchun "farq"i doim 0 chiqib, pastroqdagi
-                        // haqiqiy kontent (masalan hero matni) sezilarli
-                        // siljisa ham, buni umuman payqamas edik. Endi sticky/
-                        // fixed elementlar (va ularning ichidagi barcha
-                        // bolalari) langar sifatida OLINMAYDI — haqiqatan ham
-                        // sahifa oqimi bilan birga suriladigan element
-                        // topilguncha davom etiladi.
-                        function yopishqoqmi(el) {
-                            var node = el;
-                            while (node && node !== document.body) {
-                                var holat = getComputedStyle(node).position;
-                                if (holat === 'fixed' || holat === 'sticky') { return true; }
-                                node = node.parentElement;
-                            }
-                            return false;
-                        }
-                        function langarTop() {
-                            var kengEkran = window.innerWidth || document.documentElement.clientWidth || 0;
-                            var x = Math.min(Math.max(Math.round(kengEkran / 2), 1), Math.max(kengEkran - 1, 1));
-                            var yLar = [2, 12, 30, 60, 100, 140, 200, 280];
-                            for (var yi = 0; yi < yLar.length; yi++) {
-                                var el = document.elementFromPoint(x, yLar[yi]);
-                                if (el && el !== document.documentElement && el !== document.body && !yopishqoqmi(el)) {
-                                    return { el: el, y: yLar[yi] };
-                                }
-                            }
-                            return null;
-                        }
-                        function domYoli(el) {
-                            var yol = [];
-                            var node = el;
-                            while (node && node !== document.body && node.parentElement) {
-                                var ota = node.parentElement;
-                                yol.unshift(Array.prototype.indexOf.call(ota.children, node));
-                                node = ota;
-                            }
-                            return yol;
-                        }
-                        function yolBoyichaTop(root, yol) {
-                            var node = root;
-                            for (var i = 0; i < yol.length; i++) {
-                                if (!node || !node.children || !node.children[yol[i]]) { return null; }
-                                node = node.children[yol[i]];
-                            }
-                            return node;
-                        }
-
-                        var langar = langarTop();
-                        var langarYoli = langar ? domYoli(langar.el) : null;
-                        var langarEkranTepasi = langar ? langar.el.getBoundingClientRect().top : null;
-
-                        // Ijrodagi fon musiqasi uzilmasligi uchun jonli
-                        // <audio> elementini yangi tanaga ko'chiramiz.
-                        var jonliAudio = document.getElementById('sayt-musiqa');
-                        var yangiTana = document.adoptNode(yangiHujjat.body);
-                        if (jonliAudio) {
-                            var yangiAudioJoyi = yangiTana.querySelector('#sayt-musiqa');
-                            if (yangiAudioJoyi) { yangiAudioJoyi.parentNode.replaceChild(jonliAudio, yangiAudioJoyi); }
-                        }
-
-                        document.body.parentNode.replaceChild(yangiTana, document.body);
-                        Array.prototype.slice.call(document.body.querySelectorAll('script')).forEach(function (eski) {
-                            var yangi = document.createElement('script');
-                            for (var si = 0; si < eski.attributes.length; si++) {
-                                yangi.setAttribute(eski.attributes[si].name, eski.attributes[si].value);
-                            }
-                            yangi.textContent = eski.textContent;
-                            eski.parentNode.replaceChild(yangi, eski);
-                        });
-
-                        var yangiSkroll = joriyScroll;
-                        if (langarYoli) {
-                            var yangiLangar = yolBoyichaTop(document.body, langarYoli);
-                            if (yangiLangar) {
-                                var yangiEkranTepasi = yangiLangar.getBoundingClientRect().top;
-                                yangiSkroll = window.scrollY + (yangiEkranTepasi - langarEkranTepasi);
-                            }
-                        }
-                        // ATAYLAB "instant": sahifada global "html { scroll-behavior:
-                        // smooth }" bor — oddiy window.scrollTo(...) shu qoidani
-                        // meros qilib olib, skrollni SEKIN-ASTA (animatsiya bilan)
-                        // joyiga qaytarardi, ya'ni foydalanuvchi buni "sahifa
-                        // suriladi" deb ko'rardi. "instant" shu animatsiyani
-                        // o'chirib, pozitsiyani darhol, sezilmas holda tiklaydi.
-                        if (window.scrollTo) {
-                            try { window.scrollTo({ top: yangiSkroll, left: 0, behavior: 'instant' }); }
-                            catch (e) { window.scrollTo(0, yangiSkroll); }
-                        }
-                    })
-                    .catch(function () { tilForma.submit(); });
+                window.oqTilSwap(tilForma, { audioId: 'sayt-musiqa' });
             });
         }
 
