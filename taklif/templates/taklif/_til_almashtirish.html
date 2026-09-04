@@ -672,6 +672,41 @@ oltin fon bilan ajratib ko'rsatiladi.
         }
         function ochiqmi() { return dropdown.classList.contains('ochiq'); }
 
+        {% comment %}
+        TAFTISH: til almashgach ochilgan ro'yxat ochiq qolib ketardi.
+
+        Ilgari bu o'z-o'zidan "hal bo'lardi": almashuvda butun <body>
+        yangisi bilan almashtirilar, ochiq ro'yxat esa u bilan birga
+        yo'q bo'lib ketardi. Endi hech narsa yo'q qilinmaydi (faqat matn
+        yamaladi), shuning uchun holatni O'ZIMIZ tozalashimiz kerak.
+
+        Ikki joyda tozalanadi:
+          • tanlov bosilishi bilan DARHOL — mijoz tanladi, ro'yxat
+            yopiladi, bu unga "qabul qilindi" degan darhol javob;
+          • til yangilangach QAYTA — sahifada bir nechta til tanlagichi
+            bo'lsa (masalan yuqori panel va mobil menyu), ularning
+            hammasi bir xil holatga keladi.
+        {% endcomment %}
+        function tanlovniMoslashtir() {
+            var joriy = haqiqiySelect ? haqiqiySelect.value : null;
+            bandlar.forEach(function (b) {
+                var shumi = b.dataset.kod === joriy;
+                // Klasslar matn yamashda yangilanmaydi (ular sahifa
+                // holatiga tegishli, tarjimaga emas) — shu sabab joriy
+                // til belgisini qo'lda ko'chiramiz.
+                b.classList.toggle('tanlangan', shumi);
+                b.setAttribute('aria-selected', shumi ? 'true' : 'false');
+                if (shumi && joriySpan) {
+                    joriySpan.textContent = b.dataset.qisqa || b.textContent;
+                }
+            });
+        }
+
+        document.addEventListener('oq-til-yangilandi', function () {
+            yopish(false);
+            tanlovniMoslashtir();
+        });
+
         tugma.addEventListener('click', function () {
             if (ochiqmi()) { yopish(false); } else { ochish(); }
         });
@@ -681,6 +716,11 @@ oltin fon bilan ajratib ko'rsatiladi.
                 if (haqiqiySelect.value !== band.dataset.kod) {
                     haqiqiySelect.value = band.dataset.kod;
                     if (joriySpan) { joriySpan.textContent = band.dataset.qisqa || band.textContent; }
+                    // Ro'yxat DARHOL yopiladi — tarmoq javobini kutmasdan.
+                    // Aks holda mijoz tanladi, lekin ro'yxat ochiq turaverib,
+                    // "bosildimi yo'qmi?" degan noaniqlik qolardi.
+                    yopish(false);
+                    tanlovniMoslashtir();
                     haqiqiySelect.dispatchEvent(new Event('change', { bubbles: true }));
                 } else {
                     yopish(true);
