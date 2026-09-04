@@ -139,71 +139,106 @@ Maket ATAYLAB sof CSS/SVG bilan qurilgan (yangi surat qo'shilmagan):
 haqiqiy parda suratlari 600-690 KB, ular hero'da mobil trafikni behuda
 yeb qo'yardi. Bu variant esa istalgan ekranda tiniq va deyarli vaznsiz.
 {% endcomment %}
-.oq-telefon-blok { display: flex; justify-content: center; width: 100%; }
+.oq-telefon-blok { position: relative; display: flex; justify-content: center; width: 100%; }
 {% comment %}
-Maket kengligi emas, BALANDLIGI cheklanadi (aspect-ratio kenglikni o'zi
-hisoblaydi). Sababi: telefon shakli juda tik (9:18.6) — kenglik bo'yicha
-o'lchansa, tor ekranda balandligi 600px'dan oshib, sarlavha va tugmani
-ekrandan pastga surib yuborardi. Mobilda maket ATAYLAB matndan KEYIN
-turadi (order): mijoz avval sarlavha va "Taklifnoma yaratish" tugmasini
-ko'rishi kerak, mahsulot ko'rinishi esa darhol keyin keladi.
+Telefon maketi.
+
+Barcha o'lchamlar BITTA o'zgaruvchidan (--tb, maketning balandligi)
+hisoblanadi. Sababi: ilgari ramka nisbatlari va ekran ichidagi matn
+qat'iy piksellarda edi — maket kattalashsa, ichidagi kontent o'sha
+holicha qolib, "kichkina matnli katta telefon" bo'lib ko'rinardi.
+Endi hammasi nisbat bilan bog'langan, ya'ni maket har qanday
+o'lchamda bir xil to'g'ri ko'rinadi.
+
+Nisbatlar zamonaviy flagman telefondan olingan: 9:19.5 nisbat,
+juda ingichka ramka (kenglikning ~2.5%), katta yumaloqlik
+(kenglikning ~22%), tepada "dinamik orol", yon tomonlarda ovoz va
+quvvat tugmalari, korpus chetida titan metall yaltirashi.
 {% endcomment %}
 .oq-telefon {
-    position: relative; height: min(430px, 50vh); width: auto; aspect-ratio: 9 / 18.6;
-    background: linear-gradient(160deg, #2a2118, #17130f 60%);
-    border-radius: 42px; padding: 9px;
-    box-shadow: 0 34px 70px rgba(23,19,15,.30), 0 6px 16px rgba(23,19,15,.18);
+    --tb: min(430px, 50vh);
+    position: relative;
+    height: var(--tb);
+    width: calc(var(--tb) * 9 / 19.5);
+    padding: calc(var(--tb) * .0125);
+    border-radius: calc(var(--tb) * .105);
+    background: linear-gradient(150deg,
+        #8d8378 0%, #3b342c 14%, #161310 34%,
+        #100d0a 62%, #3f382f 84%, #7d7368 100%);
+    box-shadow:
+        0 calc(var(--tb) * .055) calc(var(--tb) * .13) rgba(23,19,15,.34),
+        0 calc(var(--tb) * .012) calc(var(--tb) * .03) rgba(23,19,15,.20),
+        inset 0 0 0 1px rgba(255,255,255,.16);
 }
 /* Yon tugmalar — maketga "haqiqiy qurilma" hissi beradi */
-.oq-telefon::after {
-    content: ""; position: absolute; right: -2px; top: 27%; width: 2px; height: 58px;
-    background: rgba(169,129,46,.5); border-radius: 2px;
+.oq-telefon .tel-tugma {
+    position: absolute; z-index: 3; border-radius: 2px;
+    width: calc(var(--tb) * .007);
+    background: linear-gradient(180deg, #6f665b, #2b241d);
 }
+.oq-telefon .tt-ovoz1 { left: calc(var(--tb) * -.006); top: calc(var(--tb) * .155); height: calc(var(--tb) * .038); }
+.oq-telefon .tt-ovoz2 { left: calc(var(--tb) * -.006); top: calc(var(--tb) * .215); height: calc(var(--tb) * .062); }
+.oq-telefon .tt-ovoz3 { left: calc(var(--tb) * -.006); top: calc(var(--tb) * .290); height: calc(var(--tb) * .062); }
+.oq-telefon .tt-quvvat { right: calc(var(--tb) * -.006); top: calc(var(--tb) * .245); height: calc(var(--tb) * .095); }
+
 .oq-telefon-ekran {
-    position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden;
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    border-radius: calc(var(--tb) * .0935);
+    padding: calc(var(--tb) * .055) calc(var(--tb) * .035) calc(var(--tb) * .045);
     background: radial-gradient(120% 90% at 50% 0%, #fbf4ea 0%, #f4e6d6 52%, #ecd8c2 100%);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.55);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 34px 22px 26px; text-align: center;
+    text-align: center;
+    /* Ichkaridagi hamma narsa shu o'lchamdan (em) kelib chiqadi */
+    font-size: calc(var(--tb) * .0285);
 }
 /* Dinamik orol (kamera) */
 .oq-telefon-ekran::before {
-    content: ""; position: absolute; left: 50%; top: 12px; transform: translateX(-50%);
-    width: 66px; height: 18px; border-radius: 10px; background: #17130f; z-index: 4;
+    content: ""; position: absolute; left: 50%; z-index: 4;
+    transform: translateX(-50%);
+    top: calc(var(--tb) * .017);
+    width: calc(var(--tb) * .118);
+    height: calc(var(--tb) * .0315);
+    border-radius: 999px; background: #080706;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
 }
+/* Shishaning yorug'lik akslanishi */
+.oq-telefon-ekran::after {
+    content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(122deg,
+        rgba(255,255,255,.30) 0%, rgba(255,255,255,.09) 16%,
+        rgba(255,255,255,0) 34%, rgba(255,255,255,0) 100%);
+}
+
 .oq-taklif-yorliq {
-    font-size: .5rem; letter-spacing: 2.6px; text-transform: uppercase; color: var(--kul);
-    margin-bottom: 16px;
+    font-size: .47em; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--kul); margin-bottom: .94em;
 }
-/* Yurak ramkasi — brend belgimizning o'zi, kattalashtirilgan holda */
-.oq-taklif-yurak { position: relative; width: 108px; height: 108px; margin-bottom: 4px; }
+.oq-taklif-yurak { position: relative; width: 6.3em; height: 6.3em; }
 .oq-taklif-yurak svg { width: 100%; height: 100%; color: var(--tilla); display: block; }
 .oq-taklif-ismlar {
-    font-family: var(--serif); font-size: 1.24rem; font-weight: 500; color: var(--siyoh);
-    line-height: 1.3; margin-top: 14px;
+    font-family: var(--serif); font-size: 1.16em; font-weight: 500;
+    color: var(--siyoh); line-height: 1.3; margin-top: .82em;
 }
-.oq-taklif-ismlar .va { color: var(--tilla); font-style: italic; margin: 0 5px; }
-.oq-taklif-sana {
-    font-size: .58rem; letter-spacing: 3px; color: var(--kul); margin-top: 8px;
-}
+.oq-taklif-ismlar .va { color: var(--tilla); font-style: italic; margin: 0 .3em; }
+.oq-taklif-sana { font-size: .54em; letter-spacing: .175em; color: var(--kul); margin-top: .47em; }
 .oq-taklif-sana::before {
-    content: ""; display: block; width: 34px; height: 1px; background: var(--tilla);
-    opacity: .5; margin: 0 auto 9px;
+    content: ""; display: block; width: 2em; height: 1px;
+    background: var(--tilla); opacity: .5; margin: 0 auto .53em;
 }
-/* Qulfcha — mahsulotning "wow" nuqtasi, shuning uchun nafas oladi */
 .oq-taklif-qulf {
-    margin-top: 22px; width: 40px; height: 40px; border-radius: 50%;
+    margin-top: 1.29em; width: 2.34em; height: 2.34em; border-radius: 50%;
     border: 1px solid rgba(169,129,46,.45); background: rgba(255,255,255,.55);
     display: flex; align-items: center; justify-content: center;
     animation: qulf-nafas 2.4s ease-in-out infinite;
 }
-.oq-taklif-qulf svg { width: 17px; height: 17px; color: var(--tilla-toq); }
+.oq-taklif-qulf svg { width: 1em; height: 1em; color: var(--tilla-toq); }
 @keyframes qulf-nafas {
     0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(169,129,46,.30); }
-    50%      { transform: scale(1.06); box-shadow: 0 0 0 9px rgba(169,129,46,0); }
+    50%      { transform: scale(1.06); box-shadow: 0 0 0 .55em rgba(169,129,46,0); }
 }
-.oq-taklif-izoh {
-    font-size: .56rem; letter-spacing: 1.4px; color: var(--kul); margin-top: 12px;
-}
+.oq-taklif-izoh { font-size: .53em; letter-spacing: .13em; color: var(--kul); margin-top: .7em; }
 @media (prefers-reduced-motion: reduce) { .oq-taklif-qulf { animation: none; } }
 
 /* Maket ostidagi izoh — bu haqiqiy mahsulot ekranini ko'rsatayotganini aytadi */
@@ -227,7 +262,7 @@ ko'rishi kerak, mahsulot ko'rinishi esa darhol keyin keladi.
     .oq-hero-tugmalar { justify-content: flex-start; }
     .oq-hero .ajratish { margin-left: 0; margin-right: 0; }
     .oq-telefon-blok { order: 2; flex: 1 1 46%; }
-    .oq-telefon { height: min(600px, 66vh); }
+    .oq-telefon { --tb: min(600px, 66vh); }
 }
 
 /* --- Bo'limlar --- */
@@ -428,6 +463,10 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
     <div class="oq-ichki oq-hero-ich">
         <div class="oq-telefon-blok">
             <div class="oq-telefon">
+                <span class="tel-tugma tt-ovoz1" aria-hidden="true"></span>
+                <span class="tel-tugma tt-ovoz2" aria-hidden="true"></span>
+                <span class="tel-tugma tt-ovoz3" aria-hidden="true"></span>
+                <span class="tel-tugma tt-quvvat" aria-hidden="true"></span>
                 <div class="oq-telefon-ekran">
                     <div class="oq-taklif-yorliq">{% trans "Sizga taklifnoma keldi" %}</div>
                     <div class="oq-taklif-yurak">{% include "taklif/_ikonalar/belgi.svg" %}</div>
