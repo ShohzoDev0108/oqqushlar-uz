@@ -24,7 +24,21 @@ qiladi, xuddi shu block'lar bilan).
 {% block branding %}
 <div id="site-name">
   <a href="{% url 'admin:index' %}">
-    <img id="branding-logo" src="{% static 'taklif/logo-belgi.png' %}" alt="">
+    {% comment %}
+    DIQQAT: bu yerda ilgari "taklif/logo-belgi.png" turardi. O'sha fayl
+    logotip qayta ishlanganda o'chirilgan, lekin havola qolib ketgan —
+    va bu butun admin panelni yiqitgan.
+
+    Nega saytda sezilmagan: statik fayllar "manifest" rejimida ishlaydi
+    (CompressedManifestStaticFilesStorage). Yo'q faylga murojaat qilinsa
+    Django ValueError tashlaydi va sahifa 500 bo'ladi. Bu havola faqat
+    admin shablonida bo'lgani uchun faqat admin qulagan; mijoz ko'radigan
+    sahifalar bemalol ishlayvergan.
+
+    Endi mavjud brend belgisi ishlatiladi (favicon.svg — vektor, 30px'da
+    ham aniq chiqadi).
+    {% endcomment %}
+    <img id="branding-logo" src="{% static 'taklif/favicon.svg' %}" alt="">
     {{ site_header|default:_('Django administration') }}
   </a>
 </div>
