@@ -352,14 +352,25 @@ ketardi.
     .oq-nav-linklar { display: none; }
     .oq-nav-ong { margin-left: auto; }
 
+    {% comment %}
+    ☰ tugmasi yonidagi til tanlash tugmasi bilan BIR XIL ko'rinishda
+    bo'lishi kerak — ular yonma-yon turadi va ilgari biri to'q siyoh
+    chiziqli, o'tkir burchakli, ikkinchisi esa oltin, yumaloq edi:
+    panel ikki xil dizayn tizimidan yig'ilgandek ko'rinardi. Endi
+    ikkalasi ham bir xil balandlik, bir xil yumaloqlik va oltin
+    chiziqlar bilan — saytdagi qolgan ikonkalar tili bilan bir xil.
+    {% endcomment %}
     .oq-burger {
-        display: grid; place-content: center; gap: 4px;
-        width: 38px; height: 34px; padding: 0; flex-shrink: 0;
-        border: 1px solid var(--chiziq); border-radius: 3px;
-        background: none; cursor: pointer;
+        display: grid; place-content: center; gap: 4.5px;
+        width: 40px; height: 36px; padding: 0; flex-shrink: 0;
+        border: 1px solid var(--chiziq); border-radius: var(--radius, 8px);
+        background: var(--toza); cursor: pointer;
+        transition: border-color .2s ease;
     }
+    .oq-burger:hover { border-color: var(--tilla); }
     .oq-burger span {
-        display: block; width: 17px; height: 1.5px; background: var(--siyoh);
+        display: block; width: 18px; height: 1.5px; border-radius: 1px;
+        background: var(--tilla-toq);
         transition: transform .2s ease, opacity .2s ease;
     }
     .oq-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
@@ -402,6 +413,18 @@ ketardi.
     .oq-menyu a.oq-menyu-cta:hover { background: var(--tilla-toq); color: #fff; }
 }
 
+{% comment %}
+Juda tor ekranlar (380px'dan past). Bu yerda yuqori panelga logotip
+yozuvi, til nomi va ☰ tugmasi birdaniga sig'maydi — biror narsa
+qurbon bo'lishi kerak. Eng kam yo'qotish: logotip YOZUVI. Brend
+belgisi joyida qoladi (u allaqachon tanitadi), til nomi esa to'liq
+ko'rinadi — chunki foydalanuvchi uchun "qaysi tildaman?" degan savol
+brend nomini o'qishdan muhimroq.
+{% endcomment %}
+@media (max-width: 379px) {
+    .oq-nav .oq-logo-matn { display: none; }
+}
+
 /* --- Mobil (95% mijozlar telefonda) --- */
 @media (max-width: 700px) {
     .oq-ichki { padding: 0 18px; }
@@ -409,16 +432,22 @@ ketardi.
        belgisi va ☰ o'ngda. Til tugmasidan faqat globus qoladi — til
        nomlari uzun ("Qaraqalpaqsha") va bir qatorga sig'masdi. */
     .oq-nav { padding: 12px 0; gap: 10px; flex-wrap: nowrap; }
-    .oq-logo { font-size: 1.2rem; gap: 8px; }
-    .oq-logo img { width: 32px; height: 32px; }
+    .oq-logo { font-size: 1.15rem; gap: 7px; }
+    .oq-logo svg { width: 30px; height: 30px; }
     .oq-nav-ong { gap: 8px; flex-wrap: nowrap; }
-    /* Til nomi to'liq ko'rinishi kerak — eng uzuni "Qaraqalpaqsha"
-       kesilib qolayotgan edi. Qisqartma ("O'z", "Ru") o'rniga nomni
-       to'liq qoldirdik, joyni esa globus belgisini olib tashlab
-       bo'shatdik: yonida til nomi turgach, globus baribir ortiqcha. */
-    .til-globus { display: none; }
-    .til-joriy { max-width: 108px; }
-    .til-tugma { gap: 6px; }
+    {% comment %}
+    Til tugmasi. Ilgari mobilda globus belgisi butunlay yashirilgan edi —
+    joy yetmagani uchun: eng uzun til nomi ("Qaraqalpaqsha") va logotip
+    yozuvi bir qatorga sig'masdi. Endi globus qaytarildi, joy esa
+    boshqacha yo'l bilan topildi: belgi va yozuv bir oz kichraytirildi,
+    juda tor ekranlarda (380px'dan past — eski Android telefonlar) esa
+    logotipdan faqat brend belgisi qoladi, "Oqqushlar" yozuvi olib
+    tashlanadi. Belgining o'zi brendni tanitish uchun yetarli, sahifa
+    nomi esa brauzer yorlig'ida baribir turadi.
+    {% endcomment %}
+    .til-globus { display: block; width: 14px; height: 14px; }
+    .til-joriy { max-width: 92px; }
+    .til-tugma { gap: 5px; padding: 7px 9px; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
 
