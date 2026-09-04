@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n oq_filtrlar %}
 
 {% block title %}{% trans "Shablon tanlang" %} — Oqqushlar{% endblock %}
 
@@ -165,7 +165,7 @@
         </div>
         <div class="matn">
             <div class="nomi">{{ s.nomi }}</div>
-            <div class="narx">{{ s.narx|floatformat:0 }} {% trans "so'm" %}</div>
+            <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
         </div>
     </a>
     {% endfor %}

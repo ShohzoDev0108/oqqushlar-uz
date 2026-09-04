@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static oq_filtrlar %}
 
 {% block title %}Oqqushlar — {% trans "chiroyli raqamli taklifnomalar" %}{% endblock %}
 
@@ -563,7 +563,7 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
                 </div>
                 <div class="matn">
                     <div class="nomi">{{ s.nomi }}</div>
-                    <div class="narx">{{ s.narx|floatformat:0 }} {% trans "so'm" %}</div>
+                    <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
                 </div>
             </a>
             {% endfor %}
@@ -601,7 +601,7 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
         <div class="oq-narx-karta">
             <div class="oq-narx-son">
                 <span class="dan">{% trans "boshlanadi" %}</span>
-                <strong>{{ arzon.narx|floatformat:0 }}</strong>
+                <strong>{{ arzon.narx|narx_ajrat }}</strong>
                 <span class="birlik">{% trans "so'm" %}</span>
             </div>
             <ul class="oq-narx-royxat">
