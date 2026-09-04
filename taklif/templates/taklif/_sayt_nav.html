@@ -16,9 +16,25 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
 <div class="oq-nav-tashqi">
 <div class="oq-ichki">
     <nav class="oq-nav">
+        {% comment %}
+        Logotip — YOZUV shaklida, rasmsiz.
+
+        TAFTISH: bu yerda ketma-ket uchta rasmli belgi sinaldi (yurak,
+        yolg'iz oqqush, juft oqqush siluetlari) va uchalasi ham 30px'da
+        tanib bo'lmas dog'ga aylandi — gerbning o'zi ham shunday.
+        Sababi jismoniy: naqshli yoki ikki figurali ramz shu o'lchamda
+        o'z tafsilotini yo'qotadi. Lyuks brendlarning ko'pchiligida
+        yuqori panelda umuman rasm bo'lmaydi — u yerda nafis yozuv
+        turadi, ramz esa hero'da, taklifnomada va favicon'da yashaydi.
+        Bizda ham shunday: gerb hero'da 220px'da to'liq ko'rinadi.
+        {% endcomment %}
         <a class="oq-logo" href="{% url 'taklif:bosh_sahifa' %}">
-            {% include "taklif/_ikonalar/belgi.svg" %}
-            <span class="oq-logo-matn">Oqqushlar</span>
+            <span class="oq-logo-nom">Oqqushlar</span>
+            <span class="oq-logo-tag" aria-hidden="true">
+                <span class="chiziq"></span>
+                <span class="yozuv">{% trans "Taklifnomalar" %}</span>
+                <span class="chiziq"></span>
+            </span>
         </a>
         {% comment %}
         Joriy sahifa serverda aniqlanadi (joriy_sahifa = url_name) — JS

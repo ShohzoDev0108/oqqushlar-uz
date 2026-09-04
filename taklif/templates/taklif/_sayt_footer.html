@@ -4,8 +4,12 @@
     <div class="oq-romka-burchak orb-br"></div>
     <div class="oq-ichki oq-footer-ich">
         <a class="oq-logo" href="{% url 'taklif:bosh_sahifa' %}">
-            {% include "taklif/_ikonalar/belgi.svg" %}
-            <span class="oq-logo-matn">Oqqushlar</span>
+            <span class="oq-logo-nom">Oqqushlar</span>
+            <span class="oq-logo-tag" aria-hidden="true">
+                <span class="chiziq"></span>
+                <span class="yozuv">{% trans "Taklifnomalar" %}</span>
+                <span class="chiziq"></span>
+            </span>
         </a>
         <div class="oq-footer-linklar">
             <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>

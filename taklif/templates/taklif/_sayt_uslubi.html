@@ -92,26 +92,41 @@ body {
     display: flex; align-items: center; justify-content: space-between; gap: 14px 20px;
     padding: 18px 0; flex-wrap: wrap;
 }
+{% comment %}
+LOGOTIP — yozuv shaklida (rasmsiz).
+
+Nima uchun rasmsiz: yuqori panelda belgi uchun bor-yo'g'i ~30px
+balandlik bor. Shu o'lchamda ketma-ket uchta rasmli variant sinaldi —
+yurak belgisi, yolg'iz oqqush silueti, juft oqqush silueti — va
+uchalasi ham tanib bo'lmas dog'ga aylandi; gerbning o'zi ham. Bu
+did masalasi emas, jismoniy chegara: naqshli yoki ikki figurali ramz
+30px'da o'z tafsilotini yo'qotadi.
+
+Shu sababli brend ramzi va brend YOZUVI vazifa bo'yicha ajratildi:
+  - gerb — hero'da 220px, og:image'da, favicon'da (u yerda o'lcham
+    yetarli yoki tafsilot talab qilinmaydi);
+  - yuqori panel va footer — faqat yozuv: keng harf oralig'i,
+    ostida ingichka oltin chiziqlar orasida kichik yorliq.
+Bu — lyuks uylarning (maison) klassik yechimi va u har qanday
+ekranda bir xil toza o'qiladi.
+{% endcomment %}
 .oq-logo {
-    font-family: var(--serif); font-size: 1.55rem; color: var(--siyoh);
-    text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: .5px;
+    display: inline-flex; flex-direction: column; align-items: flex-start; gap: 5px;
+    text-decoration: none; line-height: 1;
 }
-{% comment %}
-Logotip belgisi endi PNG rasm emas, inline SVG (taklif/_ikonalar/belgi.svg):
-"currentColor" bilan chizilgani uchun rangni CSS beradi, istalgan ekranda
-(Retina ham) mutlaqo tiniq, va alohida so'rov yubormaydi. Bu — to'liq
-gerbning (static/taklif/gerb.svg) kichik o'lchamlar uchun soddalashtirilgan
-varianti: naqshli gerb 40px'da loyqa dog'ga aylanadi, shu bois panel va
-favicon'da faqat shu belgi ishlatiladi.
-{% endcomment %}
-.oq-logo svg { display: block; width: 34px; height: 34px; color: var(--tilla); flex-shrink: 0; }
-.oq-footer .oq-logo svg { width: 27px; height: 27px; }
-{% comment %}
-Cormorant Garamond Playfair'ga qaraganda nozikroq va optik kichikroq
-ko'rinadi — logotip yozuvi yo'qolib qolmasligi uchun unga biroz qalinroq
-va kengroq harf oralig'i beriladi.
-{% endcomment %}
-.oq-logo { font-weight: 600; letter-spacing: 1.2px; }
+.oq-logo-nom {
+    font-family: var(--serif); font-weight: 600;
+    font-size: 1.44rem; letter-spacing: 4.5px; text-transform: uppercase;
+    color: var(--siyoh); line-height: 1;
+}
+.oq-logo-tag { display: flex; align-items: center; gap: 7px; width: 100%; }
+.oq-logo-tag .chiziq { height: 1px; flex: 1; background: var(--tilla); opacity: .55; }
+.oq-logo-tag .yozuv {
+    font-family: var(--sans); font-size: .46rem; letter-spacing: 3px;
+    color: var(--kul); white-space: nowrap; text-transform: uppercase;
+}
+.oq-logo:hover .oq-logo-nom { color: var(--tilla-toq); }
+.oq-footer .oq-logo-nom { font-size: 1.2rem; letter-spacing: 3.6px; }
 .oq-nav-linklar { display: flex; gap: 6px 2px; flex-wrap: wrap; }
 .oq-nav-linklar a {
     position: relative;
@@ -420,8 +435,8 @@ ketardi.
        belgisi va ☰ o'ngda. Til tugmasidan faqat globus qoladi — til
        nomlari uzun ("Qaraqalpaqsha") va bir qatorga sig'masdi. */
     .oq-nav { padding: 12px 0; gap: 10px; flex-wrap: nowrap; }
-    .oq-logo { font-size: 1.2rem; gap: 8px; }
-    .oq-logo svg { width: 31px; height: 31px; }
+    .oq-logo-nom { font-size: 1.12rem; letter-spacing: 3.2px; }
+    .oq-logo-tag .yozuv { font-size: .42rem; letter-spacing: 2.4px; }
     .oq-nav-ong { gap: 8px; flex-wrap: nowrap; }
     {% comment %}
     Til tugmasi endi ixcham "tabletka" (faqat qisqa belgi: O'Z, РУ, ҚАЗ)
@@ -474,7 +489,7 @@ ketardi.
     position: relative; overflow: hidden;
 }
 .oq-footer-ich { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; position: relative; z-index: 1; }
-.oq-footer .oq-logo { font-size: 1.2rem; }
+/* footer logotip o'lchami .oq-footer .oq-logo-nom qoidasida (yuqorida) */
 .oq-footer-linklar { display: flex; gap: 20px; flex-wrap: wrap; }
 .oq-footer-linklar a {
     color: var(--kul); text-decoration: none; font-size: .72rem;
