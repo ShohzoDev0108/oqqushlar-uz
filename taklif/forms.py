@@ -226,7 +226,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
                 }
             ),
             "imzo": forms.TextInput(
-                attrs={"placeholder": _("Masalan: Karimovlar oilasi")}
+                attrs={"placeholder": _("Masalan: Aliyevlar oilasi")}
             ),
             "sovga_karta": forms.TextInput(
                 attrs={"placeholder": "8600 1234 5678 9012"}

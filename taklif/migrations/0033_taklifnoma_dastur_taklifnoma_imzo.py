@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             field=models.JSONField(
                 blank=True,
                 default=list,
-                help_text="Kun tartibi — [{'vaqt': '18:00', 'nom': 'Mehmonlarni kutib olish', 'izoh': ''}] ko'rinishidagi ro'yxat. Bo'sh bo'lsa, taklifnomada bu bo'lim umuman ko'rsatilmaydi.",
+                help_text="Kun tartibi — [{'vaqt': '18:00', 'nom': 'Mehmonlarni qarshi olish', 'izoh': ''}] ko'rinishidagi ro'yxat. Bo'sh bo'lsa, taklifnomada bu bo'lim umuman ko'rsatilmaydi.",
             ),
         ),
         migrations.AddField(
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             name="imzo",
             field=models.CharField(
                 blank=True,
-                help_text="Taklifnoma kim nomidan kelayotgani — masalan “Karimovlar oilasi”. Bo'sh qoldirilsa, marosim egalarining ismlari ishlatiladi.",
+                help_text="Taklifnoma kim nomidan kelayotgani — masalan “Aliyevlar oilasi”. Bo'sh qoldirilsa, marosim egalarining ismlari ishlatiladi.",
                 max_length=120,
             ),
         ),

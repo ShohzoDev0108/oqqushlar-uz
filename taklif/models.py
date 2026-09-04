@@ -124,52 +124,52 @@ UCHINCHI_ISM_MAROSIM_TURLARI = {"sunnat_toy"}
 # istagan qiymatga o'zgartira oladi.
 MAROSIM_DASTUR_NAMUNALARI = {
     "toy": [
-        {"vaqt": "17:30", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "17:30", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "18:00", "nom": _("Marosim boshlanishi"), "izoh": ""},
         {"vaqt": "19:00", "nom": _("Kelin-kuyov raqsi"), "izoh": ""},
         {"vaqt": "20:00", "nom": _("Tortni kesish"), "izoh": ""},
         {"vaqt": "22:00", "nom": _("Marosim yakuni"), "izoh": ""},
     ],
     "fotiha_toy": [
-        {"vaqt": "11:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "11:00", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "11:30", "nom": _("Fotiha marosimi"), "izoh": ""},
         {"vaqt": "12:30", "nom": _("Ziyofat"), "izoh": ""},
     ],
     "qizlar_bazmi": [
-        {"vaqt": "17:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "17:00", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "17:30", "nom": _("Marosim boshlanishi"), "izoh": ""},
         {"vaqt": "19:00", "nom": _("Oq yo'l tilaklari"), "izoh": ""},
         {"vaqt": "20:30", "nom": _("Qizni kuzatish"), "izoh": ""},
     ],
     "sunnat_toy": [
-        {"vaqt": "10:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "10:00", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "11:00", "nom": _("Marosim boshlanishi"), "izoh": ""},
         {"vaqt": "12:00", "nom": _("Ziyofat"), "izoh": ""},
         {"vaqt": "14:00", "nom": _("Bolalar uchun o'yin-kulgi"), "izoh": ""},
     ],
     "beshik_toy": [
-        {"vaqt": "11:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "11:00", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "11:30", "nom": _("Beshik marosimi"), "izoh": ""},
         {"vaqt": "12:30", "nom": _("Ziyofat"), "izoh": ""},
     ],
     "nahor_oshi": [
-        {"vaqt": "06:30", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "06:30", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "07:00", "nom": _("Osh"), "izoh": ""},
         {"vaqt": "08:30", "nom": _("Duo va yakun"), "izoh": ""},
     ],
     "yubiley": [
-        {"vaqt": "17:30", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "17:30", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "18:00", "nom": _("Tabriklar"), "izoh": ""},
         {"vaqt": "19:30", "nom": _("Ziyofat va konsert"), "izoh": ""},
         {"vaqt": "22:00", "nom": _("Marosim yakuni"), "izoh": ""},
     ],
     "tugilgan_kun": [
-        {"vaqt": "15:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "15:00", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "15:30", "nom": _("O'yinlar va tabriklar"), "izoh": ""},
         {"vaqt": "16:30", "nom": _("Tortni kesish"), "izoh": ""},
     ],
     "boshqa": [
-        {"vaqt": "18:00", "nom": _("Mehmonlarni kutib olish"), "izoh": ""},
+        {"vaqt": "18:00", "nom": _("Mehmonlarni qarshi olish"), "izoh": ""},
         {"vaqt": "18:30", "nom": _("Tadbir boshlanishi"), "izoh": ""},
         {"vaqt": "20:00", "nom": _("Ziyofat"), "izoh": ""},
     ],
@@ -412,7 +412,7 @@ class Taklifnoma(models.Model):
         max_length=120,
         blank=True,
         help_text=(
-            "Taklifnoma kim nomidan kelayotgani — masalan “Karimovlar oilasi”. "
+            "Taklifnoma kim nomidan kelayotgani — masalan “Aliyevlar oilasi”. "
             "Bo'sh qoldirilsa, marosim egalarining ismlari ishlatiladi."
         ),
     )
@@ -420,7 +420,7 @@ class Taklifnoma(models.Model):
         default=list,
         blank=True,
         help_text=(
-            "Kun tartibi — [{'vaqt': '18:00', 'nom': 'Mehmonlarni kutib olish', "
+            "Kun tartibi — [{'vaqt': '18:00', 'nom': 'Mehmonlarni qarshi olish', "
             "'izoh': ''}] ko'rinishidagi ro'yxat. Bo'sh bo'lsa, taklifnomada bu "
             "bo'lim umuman ko'rsatilmaydi."
         ),
