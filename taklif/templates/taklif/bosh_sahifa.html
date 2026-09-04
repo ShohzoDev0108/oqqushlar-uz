@@ -51,8 +51,74 @@ varianti bor). width/height atributlari ATAYLAB berilgan — rasm
 yuklanmasdan oldin ham joyi band bo'ladi, aks holda u paydo bo'lganda
 butun sarlavha pastga siljib ketardi (til almashtirishdagi kabi).
 {% endcomment %}
-.oq-hero-gerb { display: block; width: 104px; height: 104px; margin: 0 0 18px; opacity: .95; }
-@media (min-width: 700px) { .oq-hero-gerb { width: 124px; height: 124px; margin-bottom: 22px; } }
+{% comment %}
+Gerb sahnasi.
+
+TAFTISH: gerb 124px edi va katta sarlavha ostida yo'qolib ketardi —
+mijoz saytga kirganda uni umuman payqamasdi. Yechim tafsilot qo'shish
+EMAS (124px'da qanot patlari baribir ko'rinmaydi), balki SAHNA:
+  1) o'lchamni deyarli ikki baravar kattalashtirish;
+  2) orqasiga yumshoq oltin nur — oq oqqushlar krem fonda kam
+     ajralardi, ularga kontrast kerak edi;
+  3) bir martalik ochilish: gerb pastdan ko'tarilib paydo bo'ladi va
+     ustidan BIR MARTA oltin nur o'tadi, keyin butunlay jim qoladi.
+Doimiy yaltirash va harakat ATAYLAB yo'q: u premium emas, aksincha
+havaskor hissini beradi (shu sababli sahifadagi miltillovchi
+yulduzchalar ham olib tashlangan edi).
+{% endcomment %}
+.oq-hero-belgi {
+    position: relative; display: block; margin: 0 0 20px;
+    width: 180px; height: 180px; flex-shrink: 0;
+}
+.oq-hero-belgi::before {
+    content: ""; position: absolute; left: 50%; top: 50%; z-index: 0;
+    width: 200%; height: 200%; transform: translate(-50%, -50%);
+    background: radial-gradient(circle,
+        rgba(169,129,46,.20) 0%,
+        rgba(169,129,46,.09) 38%,
+        rgba(169,129,46,.03) 56%,
+        transparent 70%);
+    pointer-events: none;
+}
+.oq-hero-gerb {
+    position: relative; z-index: 1;
+    display: block; width: 100%; height: 100%;
+    animation: oq-gerb-kirish .9s cubic-bezier(.2,.7,.3,1) both;
+}
+@keyframes oq-gerb-kirish {
+    from { opacity: 0; transform: translateY(12px) scale(.94); }
+    to   { opacity: 1; transform: none; }
+}
+{% comment %}
+Oltin nur ATAYLAB gerb shakli bo'yicha kesiladi (mask) — aks holda u
+to'rtburchak bo'lib, gerb atrofidagi bo'sh joydan ham o'tib ketardi.
+Mask'ni qo'llab-quvvatlamaydigan eski brauzerlarda nur umuman
+ko'rsatilmaydi (@supports) — bu yo'qotish emas, chunki gerbning o'zi
+va nuri baribir joyida.
+{% endcomment %}
+@supports ((-webkit-mask-image: url("")) or (mask-image: url(""))) {
+    .oq-hero-belgi::after {
+        content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+        background: linear-gradient(102deg,
+            transparent 40%, rgba(255,255,255,.9) 50%, transparent 60%);
+        -webkit-mask: url('{% static "taklif/gerb.svg" %}') center / contain no-repeat;
+                mask: url('{% static "taklif/gerb.svg" %}') center / contain no-repeat;
+        opacity: 0;
+        animation: oq-gerb-yaltirash 1.5s ease-in-out 1.05s 1 both;
+    }
+}
+@keyframes oq-gerb-yaltirash {
+    0%   { opacity: 0; transform: translateX(-45%); }
+    30%  { opacity: 1; }
+    70%  { opacity: 1; }
+    100% { opacity: 0; transform: translateX(45%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .oq-hero-gerb { animation: none; }
+    .oq-hero-belgi::after { animation: none; opacity: 0; }
+}
+@media (min-width: 700px) { .oq-hero-belgi { width: 200px; height: 200px; margin-bottom: 24px; } }
+@media (min-width: 1000px) { .oq-hero-belgi { width: 220px; height: 220px; } }
 .oq-kichik-sarlavha {
     font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.8rem);
     margin: 8px 0 16px; font-weight: 500;
@@ -384,7 +450,9 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
             </div>
         </div>
         <div class="oq-hero-matn">
-            <img class="oq-hero-gerb" src="{% static 'taklif/gerb.svg' %}" alt="Oqqushlar" width="124" height="124">
+            <span class="oq-hero-belgi">
+                <img class="oq-hero-gerb" src="{% static 'taklif/gerb.svg' %}" alt="Oqqushlar" width="220" height="220">
+            </span>
             <h1 class="oq-h1">{% trans "Eng go'zal kuningiz uchun" %}<br><em>{% trans "raqamli taklifnoma" %}</em></h1>
             <div class="ajratish"></div>
             <span class="oq-yorliq">{% trans "Tez va oson" %}</span>
