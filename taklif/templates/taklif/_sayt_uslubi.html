@@ -413,18 +413,6 @@ ketardi.
     .oq-menyu a.oq-menyu-cta:hover { background: var(--tilla-toq); color: #fff; }
 }
 
-{% comment %}
-Juda tor ekranlar (380px'dan past). Bu yerda yuqori panelga logotip
-yozuvi, til nomi va ☰ tugmasi birdaniga sig'maydi — biror narsa
-qurbon bo'lishi kerak. Eng kam yo'qotish: logotip YOZUVI. Brend
-belgisi joyida qoladi (u allaqachon tanitadi), til nomi esa to'liq
-ko'rinadi — chunki foydalanuvchi uchun "qaysi tildaman?" degan savol
-brend nomini o'qishdan muhimroq.
-{% endcomment %}
-@media (max-width: 379px) {
-    .oq-nav .oq-logo-matn { display: none; }
-}
-
 /* --- Mobil (95% mijozlar telefonda) --- */
 @media (max-width: 700px) {
     .oq-ichki { padding: 0 18px; }
@@ -432,22 +420,16 @@ brend nomini o'qishdan muhimroq.
        belgisi va ☰ o'ngda. Til tugmasidan faqat globus qoladi — til
        nomlari uzun ("Qaraqalpaqsha") va bir qatorga sig'masdi. */
     .oq-nav { padding: 12px 0; gap: 10px; flex-wrap: nowrap; }
-    .oq-logo { font-size: 1.15rem; gap: 7px; }
-    .oq-logo svg { width: 30px; height: 30px; }
+    .oq-logo { font-size: 1.2rem; gap: 8px; }
+    .oq-logo svg { width: 31px; height: 31px; }
     .oq-nav-ong { gap: 8px; flex-wrap: nowrap; }
     {% comment %}
-    Til tugmasi. Ilgari mobilda globus belgisi butunlay yashirilgan edi —
-    joy yetmagani uchun: eng uzun til nomi ("Qaraqalpaqsha") va logotip
-    yozuvi bir qatorga sig'masdi. Endi globus qaytarildi, joy esa
-    boshqacha yo'l bilan topildi: belgi va yozuv bir oz kichraytirildi,
-    juda tor ekranlarda (380px'dan past — eski Android telefonlar) esa
-    logotipdan faqat brend belgisi qoladi, "Oqqushlar" yozuvi olib
-    tashlanadi. Belgining o'zi brendni tanitish uchun yetarli, sahifa
-    nomi esa brauzer yorlig'ida baribir turadi.
+    Til tugmasi endi ixcham "tabletka" (faqat qisqa belgi: O'Z, РУ, ҚАЗ)
+    — u ~52px joy egallaydi, avvalgi globus + to'liq nom + strelka
+    variantidan uch baravar kam. Shu sababli mobilda joy bo'shatish
+    uchun qilingan barcha chora-tadbirlar (globusni yashirish, til
+    nomini kesish) endi kerak emas va olib tashlandi.
     {% endcomment %}
-    .til-globus { display: block; width: 14px; height: 14px; }
-    .til-joriy { max-width: 92px; }
-    .til-tugma { gap: 5px; padding: 7px 9px; }
     .oq-izlar { padding-top: 20px; }
     .oq-bolim { padding: 48px 0 8px; }
 

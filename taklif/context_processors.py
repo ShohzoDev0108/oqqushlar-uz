@@ -8,6 +8,28 @@ from django.conf import settings
 from django.utils import translation
 
 
+# Til tugmasida ko'rsatiladigan qisqa belgilar.
+#
+# Nega ikki emas, uch harfli variantlar ham bor: sayt tillari orasida
+# uchta turkiy til bor (Qozoq, Qirg'iz, Qoraqalpoq) — ikki harfda ular
+# bir-biriga o'xshab, chalkashtiradi ("QQ" qaysi biri?). Uch harf bu
+# muammoni yechadi. Ro'yxatda esa har doim TO'LIQ nom ko'rinadi, ya'ni
+# qisqartma hech qachon yagona ma'lumot manbai bo'lib qolmaydi.
+#
+# Har bir belgi shu tilning O'Z alifbosida yozilgan — foydalanuvchi o'z
+# tilini boshqa til imlosida emas, o'zi tanigan shaklda ko'radi.
+TIL_QISQA = {
+    "uz": "O'Z",
+    "ru": "РУ",
+    "en": "EN",
+    "tg": "ТОҶ",
+    "kk": "ҚАЗ",
+    "ky": "КЫР",
+    "tk": "TÜR",
+    "kaa": "QRQ",
+}
+
+
 def til_royxati(request):
     """
     Til tanlash oynasi (dropdown) uchun til ro'yxatini uzatadi.
@@ -25,10 +47,14 @@ def til_royxati(request):
     """
     joriy_kod = translation.get_language()
     nomlar = dict(settings.LANGUAGES)
+    # (kod, to'liq nom, qisqa belgi) — qisqa belgi faqat tugmaning
+    # o'zida ko'rsatiladi, ro'yxatda esa to'liq nom qoladi.
+    royxat = [(kod, nom, TIL_QISQA.get(kod, kod.upper())) for kod, nom in settings.LANGUAGES]
     return {
-        "TIL_ROYXATI": settings.LANGUAGES,
+        "TIL_ROYXATI": royxat,
         "JORIY_TIL_KODI": joriy_kod,
         "JORIY_TIL_NOMI": nomlar.get(joriy_kod, joriy_kod),
+        "JORIY_TIL_QISQA": TIL_QISQA.get(joriy_kod, (joriy_kod or "").upper()),
     }
 
 
