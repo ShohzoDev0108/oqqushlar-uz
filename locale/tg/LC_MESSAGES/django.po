@@ -2338,3 +2338,31 @@ msgstr "Нест кардани сатр"
 #: taklif/models.py
 msgid "Masalan: Mehmonlarni qarshi olish"
 msgstr "Масалан: пешвози меҳмонон"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Qaysi orqali yuboramiz?"
+msgstr "Тавассути чӣ фиристем?"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Nusxalandi"
+msgstr "Нусхабардорӣ шуд"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Ulashish"
+msgstr "Мубодила"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Taklifnomani ulashish"
+msgstr "Мубодилаи даъватнома"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Mehmonlarga yuborish"
+msgstr "Ба меҳмонон фиристодан"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Шуморо ба маросими мо даъват менамоем — %(sarlavha)s:"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Hurmatli %(ism)s! Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Муҳтарам %(ism)s! Шуморо ба маросими мо даъват менамоем — %(sarlavha)s:"

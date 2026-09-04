@@ -1,0 +1,237 @@
+{% load i18n %}
+{% comment %}
+ULASHISH OYNASI — sahifaga BIR MARTA qo'shiladi.
+
+Ikki xil yo'l bor va bu ataylab shunday:
+
+  • TELEFONDA — qurilmaning O'Z ulashish oynasi ochiladi
+    (navigator.share). U mijozda HAQIQATAN o'rnatilgan ilovalarni
+    ko'rsatadi (Telegram, WhatsApp, Instagram Direct, SMS) va bu odam
+    yuz marta ko'rgan tanish oyna. Bitta bosish — copy/paste umuman
+    yo'q. Biz o'z ro'yxatimizni chizsak, unda faqat biz o'ylagan
+    ilovalar bo'lardi va u begona ko'rinardi.
+
+  • KOMPYUTERDA — o'zimizning ro'yxat. Windows'ning tizim ulashish
+    oynasi kam foydali va ko'p mijozda umuman sozlanmagan; bu yerda
+    Telegram Web/Desktop havolasi ancha ishonchli.
+
+Ajratish "pointer: coarse" bo'yicha (barmoq bilan boshqariladigan
+ekran), brauzer nomi bo'yicha emas — brauzer nomiga qarab ish tutish
+har doim ertami-kechmi noto'g'ri ishlaydi.
+
+Yuboriladigan matn TAYYOR holda keladi (data-matn) — mijoz hech narsa
+yozmaydi: "Hurmatli Aziz oila! Sizni ... taklif qilamiz" + havola.
+{% endcomment %}
+<div class="oq-ulash-fon" id="oq-ulash-fon" hidden></div>
+<div class="oq-ulash-oyna" id="oq-ulash-oyna" role="dialog" aria-modal="true"
+     aria-labelledby="oq-ulash-sarlavha" hidden>
+    <div class="oq-ulash-bosh">
+        <span id="oq-ulash-sarlavha">{% trans "Qaysi orqali yuboramiz?" %}</span>
+        <button type="button" class="oq-ulash-yop" id="oq-ulash-yop"
+                aria-label="{% trans "Yopish" %}">&#10005;</button>
+    </div>
+    <p class="oq-ulash-oldin" id="oq-ulash-oldin"></p>
+    <div class="oq-ulash-kanallar">
+        <a class="oq-ulash-kanal" id="oq-ulash-telegram" target="_blank" rel="noopener">
+            <span class="ouk-belgi ouk-telegram">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 4.5 2.8 11.3l5.4 1.8L19 6.6l-8.2 8.1.3 5 2.6-3.6 4.6 3.3z"/></svg>
+            </span>
+            <span>Telegram</span>
+        </a>
+        <a class="oq-ulash-kanal" id="oq-ulash-whatsapp" target="_blank" rel="noopener">
+            <span class="ouk-belgi ouk-whatsapp">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.7-4.4-3.9-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.3.4c-.1.1-.3.3-.1.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.4z"/></svg>
+            </span>
+            <span>WhatsApp</span>
+        </a>
+        <a class="oq-ulash-kanal" id="oq-ulash-sms">
+            <span class="ouk-belgi ouk-sms">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.6-.4L3 21l1.4-4.1A8.3 8.3 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+            </span>
+            <span>SMS</span>
+        </a>
+        <button type="button" class="oq-ulash-kanal" id="oq-ulash-nusxa"
+                data-nusxalash="{% trans "Nusxalash" %}"
+                data-nusxalandi="{% trans "Nusxalandi" %}">
+            <span class="ouk-belgi ouk-nusxa">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg>
+            </span>
+            <span class="ouk-nom">{% trans "Nusxalash" %}</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.oq-ulash {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--tilla); background: var(--tilla-yumshoq);
+    color: var(--tilla-toq); font: inherit; font-size: .9rem;
+    transition: background .18s ease, color .18s ease;
+}
+.oq-ulash:hover { background: var(--tilla); color: #fff; }
+.oq-ulash.oq-ulash-kichik { padding: 7px 14px; font-size: .8rem; gap: 6px; }
+.oq-ulash-ikon { width: 17px; height: 17px; flex: none; }
+.oq-ulash.oq-ulash-kichik .oq-ulash-ikon { width: 14px; height: 14px; }
+
+.oq-ulash-fon { position: fixed; inset: 0; background: rgba(12,8,4,.5); z-index: 120; }
+.oq-ulash-fon[hidden], .oq-ulash-oyna[hidden] { display: none; }
+{% comment %}
+Oyna telefonda pastdan ko'tariladi (mobil ilovalardagi kabi), keng
+ekranda esa markazda turadi — barmoq pastda, sichqoncha markazda
+qulayroq.
+{% endcomment %}
+.oq-ulash-oyna {
+    position: fixed; z-index: 121; left: 0; right: 0; bottom: 0;
+    background: var(--toza); border-top: 1px solid var(--chiziq);
+    border-radius: 14px 14px 0 0; padding: 18px 20px 26px;
+    box-shadow: 0 -14px 40px rgba(0,0,0,.18);
+}
+@media (min-width: 620px) {
+    .oq-ulash-oyna {
+        left: 50%; bottom: auto; top: 50%; right: auto;
+        transform: translate(-50%, -50%);
+        width: min(420px, 92vw); border-radius: 10px;
+        border: 1px solid var(--chiziq); box-shadow: 0 24px 60px rgba(0,0,0,.24);
+    }
+}
+.oq-ulash-bosh {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; font-family: var(--serif); font-size: 1.15rem; color: var(--siyoh);
+}
+.oq-ulash-yop {
+    background: none; border: none; cursor: pointer; color: var(--kul);
+    font-size: 1rem; line-height: 1; padding: 6px;
+}
+.oq-ulash-yop:hover { color: var(--siyoh); }
+.oq-ulash-oldin {
+    margin: 10px 0 18px; padding: 12px 14px; border-radius: 6px;
+    background: var(--oq); border: 1px solid var(--chiziq);
+    color: var(--kul); font-size: .84rem; line-height: 1.55;
+    max-height: 96px; overflow: hidden;
+}
+.oq-ulash-kanallar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.oq-ulash-kanal {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 6px 2px; border: none; background: none; cursor: pointer;
+    color: var(--siyoh); font: inherit; font-size: .74rem; text-decoration: none;
+    text-align: center;
+}
+.oq-ulash-kanal[hidden] { display: none; }
+.ouk-belgi {
+    width: 46px; height: 46px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; transition: transform .15s ease;
+}
+.oq-ulash-kanal:hover .ouk-belgi { transform: translateY(-2px); }
+.ouk-belgi svg { width: 22px; height: 22px; display: block; }
+.ouk-telegram { background: #2aabee; }
+.ouk-whatsapp { background: #25d366; }
+.ouk-sms      { background: #7c5c1c; }
+.ouk-nusxa    { background: var(--kul); }
+</style>
+
+<script>
+(function () {
+    if (window.__oqUlashOrnatildi) { return; }
+    window.__oqUlashOrnatildi = true;
+
+    var fon = document.getElementById('oq-ulash-fon');
+    var oyna = document.getElementById('oq-ulash-oyna');
+    var yop = document.getElementById('oq-ulash-yop');
+    var oldin = document.getElementById('oq-ulash-oldin');
+    var telegram = document.getElementById('oq-ulash-telegram');
+    var whatsapp = document.getElementById('oq-ulash-whatsapp');
+    var sms = document.getElementById('oq-ulash-sms');
+    var nusxa = document.getElementById('oq-ulash-nusxa');
+    if (!oyna || !fon) { return; }
+
+    // Barmoq bilan boshqariladigan ekranmi? SMS faqat shunda ma'noli,
+    // tizim ulashish oynasi ham faqat shunda foydali.
+    function barmoqli() {
+        try { return window.matchMedia('(pointer: coarse)').matches; }
+        catch (e) { return false; }
+    }
+
+    function ochish(havola, matn) {
+        var toliq = matn ? (matn + '\n' + havola) : havola;
+        oldin.textContent = toliq;
+        telegram.href = 'https://t.me/share/url?url=' + encodeURIComponent(havola) +
+                        '&text=' + encodeURIComponent(matn || '');
+        whatsapp.href = 'https://wa.me/?text=' + encodeURIComponent(toliq);
+        sms.href = 'sms:?body=' + encodeURIComponent(toliq);
+        sms.hidden = !barmoqli();
+        nusxa.dataset.toliq = toliq;
+        var nom = nusxa.querySelector('.ouk-nom');
+        if (nom) { nom.textContent = nusxa.dataset.nusxalash; }
+        fon.hidden = false;
+        oyna.hidden = false;
+        yop.focus();
+    }
+
+    function yopish() {
+        fon.hidden = true;
+        oyna.hidden = true;
+    }
+
+    fon.addEventListener('click', yopish);
+    yop.addEventListener('click', yopish);
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !oyna.hidden) { yopish(); }
+    });
+    // Kanal tanlangach oyna yopiladi — mijoz Telegramdan qaytganda
+    // ochiq oyna uni kutib turmasin.
+    [telegram, whatsapp, sms].forEach(function (a) {
+        a.addEventListener('click', function () { setTimeout(yopish, 200); });
+    });
+
+    nusxa.addEventListener('click', function () {
+        var matn = nusxa.dataset.toliq || '';
+        var nom = nusxa.querySelector('.ouk-nom');
+        function tayyor() {
+            if (nom) { nom.textContent = nusxa.dataset.nusxalandi; }
+            setTimeout(yopish, 900);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(matn).then(tayyor, tayyor);
+        } else {
+            // Eski brauzerlar uchun zaxira usul.
+            var maydon = document.createElement('textarea');
+            maydon.value = matn;
+            maydon.setAttribute('readonly', '');
+            maydon.style.cssText = 'position:fixed;top:-1000px;opacity:0;';
+            document.body.appendChild(maydon);
+            maydon.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(maydon);
+            tayyor();
+        }
+    });
+
+    // Tugmalar sikl ichida yasalgani uchun har biriga alohida
+    // ulanmaymiz — bitta delegatsiya yetarli va keyin qo'shilgan
+    // tugmalar (masalan yangi mehmon) ham o'z-o'zidan ishlaydi.
+    document.addEventListener('click', function (e) {
+        var tugma = e.target.closest ? e.target.closest('.oq-ulash') : null;
+        if (!tugma) { return; }
+        e.preventDefault();
+        var havola = tugma.dataset.havola || '';
+        var matn = tugma.dataset.matn || '';
+        if (!havola) { return; }
+
+        // Telefonda — qurilmaning o'z oynasi. U foydalanuvchi
+        // harakatiga javoban CHAQIRILISHI shart, shuning uchun shu
+        // yerda, to'g'ridan-to'g'ri.
+        if (barmoqli() && navigator.share) {
+            navigator.share({ text: matn, url: havola }).catch(function (xato) {
+                // Foydalanuvchi bekor qilgan bo'lsa — hech narsa
+                // qilmaymiz. Boshqa xatolarda o'z oynamizni ochamiz.
+                if (xato && xato.name === 'AbortError') { return; }
+                ochish(havola, matn);
+            });
+            return;
+        }
+        ochish(havola, matn);
+    });
+})();
+</script>

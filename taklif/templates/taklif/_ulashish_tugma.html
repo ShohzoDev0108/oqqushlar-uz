@@ -1,0 +1,36 @@
+{% load i18n %}
+{% comment %}
+ULASHISH TUGMASI (sikl ichida ham ishlatilaveradi).
+
+Ishlatish (ikki xil yo'l bilan havola berish mumkin):
+    ulash_yol=m.get_absolute_url        — sayt manzili o'zi qo'shiladi
+    ulash_havola="https://..."          — to'liq havola tayyor bo'lsa
+    ulash_matn="Hurmatli ..."           — havolasiz matn
+    ulash_yorliq="Yuborish"             — ixtiyoriy
+    ulash_kichik=True                   — ixtiyoriy, kichik ko'rinish
+
+"ulash_yol" ko'proq ishlatiladi: Django shablonida satrlarni bir-biriga
+qo'shib bo'lmaydi, shuning uchun to'liq manzil aynan shu yerda yig'iladi.
+
+DIQQAT: sahifada BIR MARTA "taklif/_ulashish_oyna.html" ham include
+qilinishi shart — oyna va skript o'sha yerda.
+
+NEGA BU KERAK BO'LDI. Ilgari mehmonning shaxsiy havolasi shunchaki
+matn bo'lib turardi va bosilganda jimgina nusxalanardi. Undan keyin
+mijoz Telegramni ochib, suhbatni topib, matnni joylashtirishi kerak
+edi. Copy/paste bilmagan odam uchun bu yerda yo'l tugardi — biz esa
+aynan shunday mijozlar uchun ishlaymiz.
+{% endcomment %}
+<button type="button"
+        class="oq-ulash{% if ulash_kichik %} oq-ulash-kichik{% endif %}"
+        data-havola="{% if ulash_havola %}{{ ulash_havola }}{% else %}{{ request.scheme }}://{{ request.get_host }}{{ ulash_yol }}{% endif %}"
+        data-matn="{{ ulash_matn }}">
+    <svg class="oq-ulash-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="18" cy="5.5" r="2.6"/>
+        <circle cx="6" cy="12" r="2.6"/>
+        <circle cx="18" cy="18.5" r="2.6"/>
+        <path d="M8.4 10.8 15.6 6.7M8.4 13.2l7.2 4.1"/>
+    </svg>
+    <span>{% if ulash_yorliq %}{{ ulash_yorliq }}{% else %}{% trans "Ulashish" %}{% endif %}</span>
+</button>

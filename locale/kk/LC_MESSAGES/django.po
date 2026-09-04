@@ -2325,3 +2325,31 @@ msgstr "Жолды жою"
 #: taklif/models.py
 msgid "Masalan: Mehmonlarni qarshi olish"
 msgstr "Мысалы: қонақтарды қарсы алу"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Qaysi orqali yuboramiz?"
+msgstr "Не арқылы жіберейік?"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Nusxalandi"
+msgstr "Көшірілді"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Ulashish"
+msgstr "Бөлісу"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Taklifnomani ulashish"
+msgstr "Шақыруды бөлісу"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Mehmonlarga yuborish"
+msgstr "Қонақтарға жіберу"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Сізді тойымызға шақырамыз — %(sarlavha)s:"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Hurmatli %(ism)s! Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Құрметті %(ism)s! Сізді тойымызға шақырамыз — %(sarlavha)s:"

@@ -2329,3 +2329,31 @@ msgstr "Удалить строку"
 #: taklif/models.py
 msgid "Masalan: Mehmonlarni qarshi olish"
 msgstr "Например: встреча гостей"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Qaysi orqali yuboramiz?"
+msgstr "Через что отправим?"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Nusxalandi"
+msgstr "Скопировано"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Ulashish"
+msgstr "Поделиться"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Taklifnomani ulashish"
+msgstr "Поделиться приглашением"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Mehmonlarga yuborish"
+msgstr "Отправить гостям"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Приглашаем Вас на наше торжество — %(sarlavha)s:"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Hurmatli %(ism)s! Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Уважаемый(ая) %(ism)s! Приглашаем Вас на наше торжество — %(sarlavha)s:"

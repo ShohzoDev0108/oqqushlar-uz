@@ -2328,3 +2328,31 @@ msgstr "Qatardı óshiriw"
 #: taklif/models.py
 msgid "Masalan: Mehmonlarni qarshi olish"
 msgstr "Mısalı: mıymanlardı qarsı alıw"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Qaysi orqali yuboramiz?"
+msgstr "Ne arqalı jiberemiz?"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Nusxalandi"
+msgstr "Kóshirildi"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Ulashish"
+msgstr "Bólisiw"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Taklifnomani ulashish"
+msgstr "Shaqırıqtı bólisiw"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Mehmonlarga yuborish"
+msgstr "Mıymanlarǵa jiberiw"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Sizdi merekemizge shaqıramız — %(sarlavha)s:"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Hurmatli %(ism)s! Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Húrmetli %(ism)s! Sizdi merekemizge shaqıramız — %(sarlavha)s:"

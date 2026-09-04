@@ -69,7 +69,17 @@ button.mini-tugma {
 .mk-tepa { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .mk-ism { font-weight: 600; color: var(--siyoh); font-size: .94rem; }
 .mk-korilgan { font-size: .76rem; color: var(--kul); white-space: nowrap; }
-.mk-pastki { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+/* Rangli emoji (✅ 👁 ✓ ✗) o'rniga chizilgan ikonkalar — ular sahifa
+   rangiga bo'ysunadi va har bir telefonda bir xil ko'rinadi. */
+.stat-ikon { width: 13px; height: 13px; vertical-align: -2px; flex: none; }
+.mk-kordi { color: #2e7d4f; }
+.mk-pastki { display: flex; align-items: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+/* Havola endi asosiy amal emas — "Yuborish" tugmasi asosiy. Shu sabab
+   havola matni qolgan bo'shliqni egallaydi va o'chirish tugmasi o'ngga
+   suriladi. */
+.mk-pastki .mehmon-link { flex: 1 1 160px; min-width: 0; }
+.mk-pastki form { margin-left: auto; }
+.stat-ulash-qatori { margin: 0 0 22px; }
 .mehmon-link {
     font-family: monospace; font-size: .76rem; color: var(--kul); cursor: pointer;
     word-break: break-all; flex: 1; min-width: 0;
@@ -91,6 +101,17 @@ button.mini-tugma {
         <h1 class="oq-h1" style="font-size:clamp(1.6rem, 6vw, 2.6rem);">{% blocktrans with nomi=taklifnoma.sarlavha %}{{ nomi }} — statistika{% endblocktrans %}</h1>
         <p class="stat-ogohlantirish">{% trans "Bu sahifa faqat sizga ko'rinadi. Linkni hech kimga yubormang." %}</p>
 
+        {% comment %}
+        Umumiy havola — bitta mehmonga emas, hammaga birdan (masalan
+        Telegram guruhiga) yuborish uchun. Mehmon ismi bo'lmagani
+        sababli matn ham umumiy.
+        {% endcomment %}
+        {% blocktrans with sarlavha=taklifnoma.sarlavha asvar UMUMIY_MATN %}Sizni marosimimizga taklif qilamiz — {{ sarlavha }}:{% endblocktrans %}
+        {% trans "Taklifnomani ulashish" as UMUMIY_YORLIQ %}
+        <p class="stat-ulash-qatori">
+            {% include "taklif/_ulashish_tugma.html" with ulash_yol=taklifnoma.get_absolute_url ulash_matn=UMUMIY_MATN ulash_yorliq=UMUMIY_YORLIQ %}
+        </p>
+
         <div class="karta-blok">
             <div class="karta"><div class="son">{{ taklifnoma.korishlar }}</div><div class="yorliq">{% trans "ko'rishlar" %}</div></div>
             <div class="karta"><div class="son">{{ javoblar.count }}</div><div class="yorliq">{% trans "javoblar" %}</div></div>
@@ -104,7 +125,7 @@ button.mini-tugma {
             <div class="javob-karta">
                 <div class="jk-tepa">
                     <span class="jk-ism">{{ j.ism }}</span>
-                    <span class="jk-holat {% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}✓ {% trans "Keladi" %}{% else %}✗ {% trans "Kelmaydi" %}{% endif %}</span>
+                    <span class="jk-holat {% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}<svg class="stat-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4.5,12.6 9.5,17.5 19.5,6.5"/></svg> {% trans "Keladi" %}{% else %}<svg class="stat-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> {% trans "Kelmaydi" %}{% endif %}</span>
                 </div>
                 <div class="jk-tafsilot">
                     <span>{% blocktrans with soni=j.mehmonlar_soni %}{{ soni }} kishi{% endblocktrans %}</span>
@@ -116,9 +137,9 @@ button.mini-tugma {
                     <form method="post" action="{% url 'taklif:tilak_tasdiqlash' taklifnoma.statistika_token j.pk %}">
                         {% csrf_token %}
                         {% if j.tilak_tasdiqlangan %}
-                        <button type="submit" class="mini-tugma faol">✅ {% trans "Hammaga ko'rinmoqda — yashirish" %}</button>
+                        <button type="submit" class="mini-tugma faol"><svg class="stat-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4.5,12.6 9.5,17.5 19.5,6.5"/></svg> {% trans "Hammaga ko'rinmoqda — yashirish" %}</button>
                         {% else %}
-                        <button type="submit" class="mini-tugma asosiy">👁 {% trans "Hammaga ko'rsatish" %}</button>
+                        <button type="submit" class="mini-tugma asosiy"><svg class="stat-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg> {% trans "Hammaga ko'rsatish" %}</button>
                         {% endif %}
                     </form>
                 </div>
@@ -144,9 +165,25 @@ button.mini-tugma {
             <div class="mehmon-karta">
                 <div class="mk-tepa">
                     <span class="mk-ism">{{ m.ism }}</span>
-                    <span class="mk-korilgan">{% if m.korilgan %}✅ {% trans "ko'rdi" %}{% else %}— {% trans "hali ko'rmagan" %}{% endif %}</span>
+                    <span class="mk-korilgan">{% if m.korilgan %}<span class="mk-kordi"><svg class="stat-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4.5,12.6 9.5,17.5 19.5,6.5"/></svg> {% trans "ko'rdi" %}</span>{% else %}{% trans "hali ko'rmagan" %}{% endif %}</span>
                 </div>
+                {% comment %}
+                TAFTISH: bu yerda ilgari faqat havolaning YO'LI ("/davron-
+                mushtariy/aziz-oila/") matn bo'lib turardi va bosilganda
+                jimgina nusxalanardi. Mijoz uchun bu yerda yo'l tugardi:
+                keyin u Telegramni ochib, suhbatni topib, matnni
+                joylashtirishi kerak edi. Ko'p mijoz copy/paste bilmaydi.
+
+                Endi asosiy amal — "Yuborish" tugmasi: telefonda
+                qurilmaning o'z ulashish oynasi ochiladi, matn esa
+                MEHMON ISMI bilan oldindan yozilgan bo'ladi. Havolaning
+                o'zi ham qoldi (nusxalash uchun), lekin endi u ikkinchi
+                darajali.
+                {% endcomment %}
                 <div class="mk-pastki">
+                    {% blocktrans with ism=m.ism sarlavha=taklifnoma.sarlavha asvar MEHMON_MATNI %}Hurmatli {{ ism }}! Sizni marosimimizga taklif qilamiz — {{ sarlavha }}:{% endblocktrans %}
+                    {% trans "Yuborish" as YUBORISH_YORLIQ %}
+                    {% include "taklif/_ulashish_tugma.html" with ulash_yol=m.get_absolute_url ulash_matn=MEHMON_MATNI ulash_yorliq=YUBORISH_YORLIQ ulash_kichik=True %}
                     <span class="mehmon-link" data-nusxalandi="{% trans "Nusxalandi!" %}" onclick="navigator.clipboard.writeText(window.location.origin + '{{ m.get_absolute_url }}'); this.textContent=this.dataset.nusxalandi;">{{ m.get_absolute_url }}</span>
                     {% trans "Bu mehmonning shaxsiy linki o'chirilsinmi?" as OCHIRISH_TASDIQ %}
                     <form method="post" action="{% url 'taklif:mehmon_ochirish' taklifnoma.statistika_token m.pk %}" onsubmit="return confirm('{{ OCHIRISH_TASDIQ|escapejs }}');">
@@ -161,4 +198,5 @@ button.mini-tugma {
         </div>
     </div>
 </div>
+{% include "taklif/_ulashish_oyna.html" %}
 {% endblock %}

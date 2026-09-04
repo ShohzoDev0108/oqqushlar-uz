@@ -2323,3 +2323,31 @@ msgstr "Setiri pozmak"
 #: taklif/models.py
 msgid "Masalan: Mehmonlarni qarshi olish"
 msgstr "Meselem: myhmanlary garşylamak"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Qaysi orqali yuboramiz?"
+msgstr "Näme arkaly ibereli?"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Nusxalandi"
+msgstr "Göçürildi"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Ulashish"
+msgstr "Paýlaşmak"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Taklifnomani ulashish"
+msgstr "Çakylygy paýlaşmak"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Mehmonlarga yuborish"
+msgstr "Myhmanlara ibermek"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Sizi dabaramyza çagyrýarys — %(sarlavha)s:"
+
+#: taklif/templates/taklif/_ulashish_oyna.html
+msgid "Hurmatli %(ism)s! Sizni marosimimizga taklif qilamiz — %(sarlavha)s:"
+msgstr "Hormatly %(ism)s! Sizi dabaramyza çagyrýarys — %(sarlavha)s:"
