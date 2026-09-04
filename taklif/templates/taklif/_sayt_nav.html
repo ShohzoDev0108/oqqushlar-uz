@@ -73,7 +73,7 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
 <div class="oq-menyu-fon" id="oq-menyu-fon"></div>
 {% endwith %}
 {% if mobil_cta %}
-<a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">✨ {% trans "Taklifnoma yaratish" %}</a>
+<a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">{% include "taklif/_ikonalar/yarat.svg" %}{% trans "Taklifnoma yaratish" %}</a>
 {% endif %}
 
 <script>
