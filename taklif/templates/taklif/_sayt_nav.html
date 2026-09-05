@@ -161,42 +161,89 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     // funksiya darhol to'xtardi va hech qachon siljish bo'lmasdi.
     // Endi nishon "load" dan KEYIN, ya'ni butun sahifa tayyor bo'lgach
     // qidiriladi.
-    function langargaSil() {
-        if (!location.hash || location.hash.length < 2) { return; }
-        var nishon;
-        try { nishon = document.querySelector(location.hash); } catch (e) { return; }
-        if (nishon) { nishon.scrollIntoView({ block: 'start' }); }
+    //
+    // IKKINCHI TAFTISH. Yuqoridagi tuzatishdan keyin ham "Narxlar" ishlamadi.
+    // Jonli saytda o'lchab ko'rildi, ikkita sabab topildi:
+    //
+    //  1) <html> da "scroll-behavior: smooth" yoqilgan. Shu bois
+    //     scrollIntoView darhol siljitmaydi, balki ~6000 pikselli JONLI
+    //     ANIMATSIYA boshlaydi (taxminan 1,5 soniya). Biz esa uni
+    //     60/300/700 ms da qayta chaqirardik — har chaqiriq animatsiyani
+    //     boshidan uzib, yangisini boshlardi, natijada u hech qachon
+    //     manzilga yetmasdi. Ustiga-ustak mijozning eng kichik g'ildirak
+    //     harakati brauzerning silliq siljishini butunlay bekor qiladi.
+    //     Yechim: langar bo'yicha siljish ANIQ va bir zumda ("auto")
+    //     bajariladi. Bu CSS dagi "smooth" ni faqat shu bitta harakat
+    //     uchun bekor qiladi, qolgan joyda silliq siljish saqlanadi.
+    //
+    //  2) 1400 ms yetmasdi. Pastdagi suratlar "lazy" yuklanadi va sekin
+    //     internetda sahifa balandligi 1400 ms dan KEYIN ham o'zgaradi.
+    //     Jonli o'lchov: oxirgi tuzatishdan keyin nishon yana 274 piksel
+    //     pastga surilgan va mijoz bo'sh joyda qolgan. Endi qat'iy
+    //     jadval o'rniga nishon JOYIDA TURIB QOLGUNCHA kuzatib turamiz.
+    var KUZATISH_MUDDATI = 4000;   // eng ko'pi bilan shuncha ms kuzatamiz
+    var TEKSHIRISH_ORALIGI = 120;  // har shuncha ms da holatni solishtiramiz
+
+    function nishonTop() {
+        if (!location.hash || location.hash.length < 2) { return null; }
+        try { return document.querySelector(location.hash); } catch (e) { return null; }
     }
-    // "load" hodisasi HAMMA narsani kutmaydi: pastdagi suratlar
-    // loading="lazy" bilan yuklanadi va ular load'dan KEYIN kelib
-    // sahifa balandligini o'zgartiradi. Bir marta siljish shu bois
-    // yetarli emas — mijoz kerakli bo'limdan yuqorida yoki pastda
-    // qolib ketardi. Shuning uchun bir necha marta qayta tekshiramiz
-    // va nishon joyidan siljigan bo'lsa, unga qaytamiz. Mijoz o'zi
-    // aylantira boshlasa — to'xtaymiz, aks holda uni zo'rlab tortgan
-    // bo'lardik.
-    window.addEventListener('load', function () {
+    // Sarlavha yopishib turadi, shuning uchun nishonni ekran tepasiga emas,
+    // "scroll-padding-top" qadar pastroqqa qo'yamiz. Qiymat CSS dan olinadi
+    // — sarlavha balandligi o'zgarsa, bu yer o'zi moslashadi.
+    function langarQochishi() {
+        var q = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+        return isNaN(q) ? 0 : q;
+    }
+    function siljit(nishon) {
+        var y = window.pageYOffset + nishon.getBoundingClientRect().top - langarQochishi();
+        window.scrollTo({ top: Math.max(0, y), left: 0, behavior: 'auto' });
+    }
+
+    // Nishon o'z joyida turib qolgunicha kuzatamiz. Mijoz o'zi aylantira
+    // boshlasa darhol to'xtaymiz — aks holda uni zo'rlab tortgan bo'lardik.
+    function langarniUshla() {
+        if (!nishonTop()) { return; }
         var mijozAralashdi = false;
         function belgila() { mijozAralashdi = true; }
-        window.addEventListener('wheel', belgila, { passive: true, once: true });
-        window.addEventListener('touchstart', belgila, { passive: true, once: true });
-        [60, 300, 700, 1400].forEach(function (kechikish) {
-            setTimeout(function () {
-                if (mijozAralashdi) { return; }
-                langargaSil();
-            }, kechikish);
+        var hodisalar = ['wheel', 'touchstart', 'keydown'];
+        hodisalar.forEach(function (h) {
+            window.addEventListener(h, belgila, { passive: true });
         });
-        setTimeout(function () {
-            window.removeEventListener('wheel', belgila);
-            window.removeEventListener('touchstart', belgila);
-        }, 1600);
-    });
+        function tozala() {
+            hodisalar.forEach(function (h) { window.removeEventListener(h, belgila); });
+        }
+        var boshlandi = Date.now();
+        (function tekshir() {
+            if (mijozAralashdi) { tozala(); return; }
+            var nishon = nishonTop();
+            if (!nishon) { tozala(); return; }
+            var farq = nishon.getBoundingClientRect().top - langarQochishi();
+            if (Math.abs(farq) > 2) { siljit(nishon); }
+            if (Date.now() - boshlandi < KUZATISH_MUDDATI) {
+                setTimeout(tekshir, TEKSHIRISH_ORALIGI);
+            } else {
+                tozala();
+            }
+        })();
+    }
+
+    // "load" ni kutib turmasdan, sahifa o'qib bo'linishi bilan boshlaymiz —
+    // shunda mijoz kamroq sakrashni ko'radi. "load" da yana bir marta
+    // boshlaymiz, chunki suratlarning asosiy qismi aynan o'shanda keladi.
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', langarniUshla);
+    } else {
+        langarniUshla();
+    }
+    window.addEventListener('load', langarniUshla);
+
     // Mijoz ALLAQACHON shu sahifada bo'lsa (masalan bosh sahifada turib
     // menyudagi "Narxlar"ni bossa), brauzer hujjatni qayta yuklamaydi va
     // yuqoridagi "load" hodisasi ikkinchi marta ishlamaydi. Bu holatni
     // "hashchange" ushlaydi.
     window.addEventListener('hashchange', function () {
-        setTimeout(langargaSil, 20);
+        setTimeout(langarniUshla, 20);
     });
 })();
 </script>
