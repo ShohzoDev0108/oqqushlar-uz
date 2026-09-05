@@ -262,7 +262,14 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
         radial-gradient(circle at 20% 85%, rgba(140,180,130,.15), transparent 45%),
         #eef4ec;
 }
-.anor { position: fixed; z-index: 0; pointer-events: none; width: 44px; height: 44px;
+/* Anor donalari va barglari — endi "position: fixed" emas, hero ichida.
+
+   TAFTISH: ular sahifa bilan surilmagani uchun mehmon pastga tushgan sari
+   anorlar tabrik matni, kartalar va kun tartibi ustiga chiqib qolardi.
+   O'lchov: 390px ekranda kontent elementlari bilan 24 marta (anor) va
+   19 marta (barg) kesishardi. Endi ular taklifnoma kartasining o'z
+   yuzasidagi bezak bo'lib o'qiladi. */
+.anor { position: absolute; z-index: 0; pointer-events: none; width: 44px; height: 44px;
     border: 2.5px solid rgba(168,132,44,.75); border-radius: 50%; }
 .anor::before { content: ""; position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
     width: 14px; height: 10px; border: 2.5px solid rgba(168,132,44,.75); border-bottom: none;
@@ -271,19 +278,26 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
     background: radial-gradient(circle, rgba(179,50,59,.35) 2.5px, transparent 3px),
                 radial-gradient(circle at 30% 60%, rgba(179,50,59,.35) 2.5px, transparent 3px),
                 radial-gradient(circle at 70% 60%, rgba(179,50,59,.35) 2.5px, transparent 3px); }
-.barg { position: fixed; z-index: 0; pointer-events: none; width: 34px; height: 14px;
+.barg { position: absolute; z-index: 0; pointer-events: none; width: 34px; height: 14px;
     border: 2px solid rgba(168,132,44,.55); border-radius: 50% 50% 50% 50% / 100% 100% 0 0;
     border-bottom: none; }
 
 {% endblock %}
 
 {% block content %}
-<div class="dekor-fon"></div><span class="anor" style="top:9%;left:6%;"></span><span class="anor" style="top:15%;right:7%;width:34px;height:34px;"></span><span class="anor" style="bottom:12%;left:10%;width:30px;height:30px;"></span><span class="anor" style="bottom:8%;right:6%;"></span><span class="barg" style="top:20%;left:13%;transform:rotate(-25deg);"></span><span class="barg" style="top:8%;right:16%;transform:rotate(30deg);"></span><span class="barg" style="bottom:20%;right:12%;transform:rotate(-40deg);"></span>
+<div class="dekor-fon"></div>
 {% include "taklif/shablonlar/_mijoz_qismi.html" %}
 
 {% include "taklif/shablonlar/_parda_rasmli.html" with parda_dizayn="gulli" %}
 
 <div class="hero hero-ramkali">
+    <span class="anor hero-dekor" style="top:9%;left:6%;"></span>
+    <span class="anor hero-dekor" style="top:15%;right:7%;width:34px;height:34px;"></span>
+    <span class="anor hero-dekor" style="bottom:12%;left:10%;width:30px;height:30px;"></span>
+    <span class="anor hero-dekor" style="bottom:8%;right:6%;"></span>
+    <span class="barg hero-dekor" style="top:20%;left:13%;transform:rotate(-25deg);"></span>
+    <span class="barg hero-dekor" style="top:8%;right:16%;transform:rotate(30deg);"></span>
+    <span class="barg hero-dekor" style="bottom:20%;right:12%;transform:rotate(-40deg);"></span>
     <div class="hero-ramka-burchak hrb-rangli hrb-tl"></div>
     <div class="hero-ramka-burchak hrb-rangli hrb-tr"></div>
     <div class="hero-ramka-burchak hrb-rangli hrb-bl"></div>
