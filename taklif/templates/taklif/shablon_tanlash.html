@@ -154,20 +154,34 @@
 <p class="marosim-eslatma yashirin" id="marosim-eslatma">{% trans "Bu tanlov bo'yicha hozircha dizayn yo'q — tez orada qo'shiladi." %}</p>
 <div class="dizayn-grid" id="shablonlar-grid">
     {% for s in shablonlar %}
-    <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turlari|join:' ' }}" data-millat="{{ s.millat }}" data-asosiy-havola="{% url 'taklif:yaratish' s.kod %}" href="{% url 'taklif:yaratish' s.kod %}">
-        <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
-             {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
-            <span class="m-ramka"></span>
-            <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
-            <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
-            <span class="m-chiziq"></span>
-            <span class="m-sana">21 · 06 · 2026</span>
+    {% comment %}
+    TAFTISH: karta butunlay "yaratish" sahifasiga olib borardi — ya'ni
+    mijoz mahsulotni KO'RMASDAN turib forma to'ldirishga tushardi.
+    Endi kartaning ustki qismi va asosiy tugmasi NAMUNANI ochadi (u
+    to'liq ishlaydigan taklifnoma), "Tanlash" esa yaratishga o'tkazadi.
+    Karta endi <a> emas — ichida ikkita havola bor, <a> ichiga <a>
+    joylash mumkin emas.
+    {% endcomment %}
+    <div class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turlari|join:' ' }}" data-millat="{{ s.millat }}" data-asosiy-havola="{% url 'taklif:yaratish' s.kod %}" data-namuna-havola="{% url 'taklif:namuna' s.kod %}">
+        <a class="karta-ustki" href="{% url 'taklif:namuna' s.kod %}">
+            <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
+                 {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
+                <span class="m-ramka"></span>
+                <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
+                <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
+                <span class="m-chiziq"></span>
+                <span class="m-sana">21 · 06 · 2026</span>
+            </div>
+            <div class="matn">
+                <div class="nomi">{{ s.nomi }}</div>
+                <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
+            </div>
+        </a>
+        <div class="karta-tugmalar">
+            <a class="karta-tugma asosiy" href="{% url 'taklif:namuna' s.kod %}">{% trans "Ochib ko'rish" %}</a>
+            <a class="karta-tugma" href="{% url 'taklif:yaratish' s.kod %}">{% trans "Tanlash" %}</a>
         </div>
-        <div class="matn">
-            <div class="nomi">{{ s.nomi }}</div>
-            <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
-        </div>
-    </a>
+    </div>
     {% endfor %}
 </div>
 </div>
@@ -261,10 +275,20 @@
     // tanlangan holda ochiladi).
     function havolalarniYangila() {
         var aniqTur = tanlangan.marosim && tanlangan.marosim !== 'barchasi';
+        var qoshimcha = aniqTur ? ('?marosim=' + encodeURIComponent(tanlangan.marosim)) : '';
         kartalar.forEach(function (k) {
-            var asosiy = k.dataset.asosiyHavola;
-            if (!asosiy) { return; }
-            k.href = aniqTur ? (asosiy + '?marosim=' + encodeURIComponent(tanlangan.marosim)) : asosiy;
+            // Kartada endi ikkita havola bor: namuna (ustki qism va
+            // "Ochib ko'rish") hamda yaratish ("Tanlash"). Ikkalasi ham
+            // tanlangan marosim turini o'zi bilan olib ketishi kerak —
+            // aks holda namuna boshqa marosimda ochilib qolardi.
+            var yaratish = k.dataset.asosiyHavola;
+            var namuna = k.dataset.namunaHavola;
+            k.querySelectorAll('a').forEach(function (havola) {
+                var asos = havola.classList.contains('karta-tugma')
+                    && !havola.classList.contains('asosiy') ? yaratish : namuna;
+                if (!asos) { return; }
+                havola.href = asos + qoshimcha;
+            });
         });
     }
 

@@ -10,6 +10,7 @@ from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import get_language, gettext as _
@@ -39,6 +40,13 @@ from .models import (
     Shablon,
     Taklifnoma,
     TaklifnomaRasm,
+)
+from .namuna import (
+    marosim_tanlash,
+    namuna_taklifnomasi,
+    sessiyadagi_tilak,
+    sessiyaga_tilak_yoz,
+    tayyor_tilaklar,
 )
 
 _logger = logging.getLogger("django.request")
@@ -598,6 +606,81 @@ def mehmon_korish(request, slug, mehmon_slug):
     )
     mehmon = get_object_or_404(Mehmon, taklifnoma=taklifnoma, slug=mehmon_slug)
     return _taklifnoma_sahifasi(request, taklifnoma, mehmon=mehmon)
+
+
+def _namuna_manzili(shablon_kod, marosim_turi=""):
+    manzil = reverse("taklif:namuna", kwargs={"shablon_kod": shablon_kod})
+    if marosim_turi:
+        manzil = f"{manzil}?marosim={quote(marosim_turi)}"
+    return manzil
+
+
+def namuna(request, shablon_kod):
+    """Ochib ko'rish mumkin bo'lgan namuna taklifnoma.
+
+    Mijoz to'lashdan — hatto forma to'ldirishdan ham — oldin mahsulotni
+    to'liq, ishlaydigan holida ko'radi: parda ochiladi, musiqa yangraydi,
+    sanoq ishlaydi, RSVP formasi javob beradi.
+
+    Bazada hech qanday yozuv yaratilmaydi — sababi namuna.py boshidagi
+    izohda.
+    """
+    shablon = get_object_or_404(Shablon, kod=shablon_kod, ommaviy=True)
+    marosim_turi = marosim_tanlash(shablon, request.GET.get("marosim", "").strip())
+    taklifnoma = namuna_taklifnomasi(shablon, marosim_turi, _sayt_musiqasi())
+
+    # Mijozning o'z tilagi ro'yxatning ENG TEPASIDA turadi — u aynan
+    # o'zinikini izlaydi.
+    tilaklar = tayyor_tilaklar(marosim_turi)
+    oziniki = sessiyadagi_tilak(request, shablon.kod)
+    if oziniki is not None:
+        tilaklar.insert(0, oziniki)
+
+    context = {
+        "taklifnoma": taklifnoma,
+        "mehmon": None,
+        "tilaklar": tilaklar,
+        "rasmlar": [],
+        "admin_telegram": _admin_telegram(),
+        "mening_taklifnomam": False,
+        "marosim_otgan": False,
+        # Shablonlardagi namunaga xos farqlar shu bayroq orqali:
+        # yuqoridagi "bu namuna" qatori va RSVP formasining manzili.
+        "namuna": True,
+        "namuna_shablon_kod": shablon.kod,
+        "namuna_marosim_turi": marosim_turi,
+        "rsvp_manzili": reverse(
+            "taklif:namuna_rsvp", kwargs={"shablon_kod": shablon.kod}
+        ),
+    }
+    return render(request, _shablon_fayli(shablon.kod), context)
+
+
+@require_POST
+def namuna_rsvp(request, shablon_kod):
+    """Namunadagi RSVP — javob bazaga emas, sessiyaga yoziladi.
+
+    Mijoz o'z tilagini yozib, uni darhol tilaklar ro'yxatida ko'radi;
+    boshqa hech kim ko'rmaydi. Nega aynan shunday — namuna.py boshidagi
+    izohga qarang.
+    """
+    shablon = get_object_or_404(Shablon, kod=shablon_kod, ommaviy=True)
+    ism = _postdan_kesib_olish(request, "ism", 100)
+    tilak = _postdan_kesib_olish(request, "tilak", 500)
+    marosim_turi = marosim_tanlash(shablon, request.POST.get("marosim", "").strip())
+
+    if not ism:
+        messages.error(request, _("Iltimos, ismingizni kiriting."))
+    elif tilak:
+        sessiyaga_tilak_yoz(request, shablon.kod, ism, tilak)
+        messages.success(
+            request,
+            _("Tilagingiz namunaga qo'shildi — uni faqat siz ko'rasiz."),
+        )
+    else:
+        messages.success(request, _("Javobingiz uchun rahmat!"))
+
+    return redirect(_namuna_manzili(shablon.kod, marosim_turi))
 
 
 def _shablon_fayli(shablon_kod):

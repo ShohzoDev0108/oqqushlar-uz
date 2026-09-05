@@ -40,7 +40,12 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ taklifnoma.sarlavha }}">
     <meta property="og:description" content="{% if taklifnoma.matn %}{{ taklifnoma.matn|truncatechars:160 }}{% else %}{% blocktrans with sana=taklifnoma.sana|date:"d.m.Y" %}Sizni {{ sana }} kunidagi marosimimizga taklif qilamiz{% endblocktrans %}{% endif %}">
-    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}">
+    {% comment %}
+    Namuna sahifasida taklifnoma bazada yo'q, ya'ni "get_absolute_url"
+    mavjud bo'lmagan manzilni yasaydi. Shu sabab u yerda joriy manzilning
+    o'zi kanonik hisoblanadi.
+    {% endcomment %}
+    <meta property="og:url" content="{% if namuna %}{{ request.build_absolute_uri }}{% else %}{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}{% endif %}">
     {% if rasmlar.0 %}
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ rasmlar.0.rasm.url }}">
     {% else %}

@@ -28,6 +28,14 @@ REZERV_SLUGLAR = {
     "static",
     "tayyor",
     "mening-taklifnomalarim",
+    # Bu manzillar urls.py'da "<slug:slug>/" dan OLDIN turadi, ya'ni shu
+    # nomli taklifnoma yaratilsa, u hech qachon ochilmaydi — o'rniga tizim
+    # sahifasi chiqadi. Ro'yxatda yo'q edi, "namuna" bilan birga to'ldirildi.
+    "namuna",
+    "dizaynlar",
+    "biz-haqimizda",
+    "boglanish",
+    "savol-javob",
 }
 
 # Taftish topilmasi: forma har doim "1-ism (masalan: kuyov, tug'ilgan kun

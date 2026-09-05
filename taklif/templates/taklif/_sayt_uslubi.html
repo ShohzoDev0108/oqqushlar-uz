@@ -262,7 +262,26 @@ button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--
 @media (max-width: 980px) { .dizayn-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
 @media (max-width: 600px) { .dizayn-grid { grid-template-columns: 1fr; } }
 
-.shablon-karta { text-decoration: none; color: var(--siyoh); display: block; overflow: hidden; }
+/* Karta endi <a> emas, <div> — ichida ikkita havola bor: ustki qism
+   namunani ochadi, pastdagi "Tanlash" esa yaratishga o'tkazadi.
+   "flex column" — tugmalar qatori har doim kartaning eng pastida
+   tursin, nomi qisqa yoki uzun bo'lishidan qat'i nazar. */
+.shablon-karta { text-decoration: none; color: var(--siyoh); display: flex; flex-direction: column; overflow: hidden; }
+.shablon-karta .karta-ustki { text-decoration: none; color: inherit; display: block; }
+.shablon-karta .karta-tugmalar { display: flex; gap: 8px; padding: 0 16px 16px; margin-top: auto; }
+.shablon-karta .karta-tugma {
+    flex: 1; text-align: center; padding: 9px 12px; border-radius: 22px;
+    border: 1px solid var(--chiziq); color: var(--kul); background: transparent;
+    text-decoration: none; font-size: .74rem; letter-spacing: .5px;
+    text-transform: uppercase; transition: .2s;
+}
+.shablon-karta .karta-tugma:hover { border-color: var(--tilla); color: var(--tilla-toq); }
+.shablon-karta .karta-tugma.asosiy { border-color: var(--tilla); color: var(--tilla-toq); background: var(--tilla-yumshoq); }
+.shablon-karta .karta-tugma.asosiy:hover { background: var(--tilla); color: var(--toza); }
+@media (max-width: 420px) {
+    .shablon-karta .karta-tugmalar { padding: 0 10px 12px; gap: 6px; }
+    .shablon-karta .karta-tugma { padding: 8px 6px; font-size: .66rem; letter-spacing: .3px; }
+}
 .shablon-karta img.mini { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
 .shablon-karta .matn { padding: 18px 20px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .shablon-karta .nomi { font-family: var(--serif); font-size: 1.25rem; }

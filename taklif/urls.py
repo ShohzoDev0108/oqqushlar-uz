@@ -22,6 +22,13 @@ urlpatterns = [
     path("boglanish/", views.boglanish, name="boglanish"),
     path("savol-javob/", views.savol_javob, name="savol_javob"),
     path("yaratish/<slug:shablon_kod>/", views.yaratish, name="yaratish"),
+    # Ochib ko'rish mumkin bo'lgan namuna taklifnoma — mijoz mahsulotni
+    # to'lashdan oldin to'liq, ishlaydigan holida ko'radi. Bazada hech
+    # qanday yozuv yaratmaydi (sababi: namuna.py boshidagi izoh).
+    # "<slug:slug>/<slug:mehmon_slug>/" dan OLDIN turishi SHART — aks
+    # holda "namuna/sadaf/" mehmon havolasi deb tushunilardi.
+    path("namuna/<slug:shablon_kod>/rsvp/", views.namuna_rsvp, name="namuna_rsvp"),
+    path("namuna/<slug:shablon_kod>/", views.namuna, name="namuna"),
     path("tayyor/<slug:slug>/", views.yaratildi, name="yaratildi"),
     path("statistika/<str:token>/", views.statistika, name="statistika"),
     path(

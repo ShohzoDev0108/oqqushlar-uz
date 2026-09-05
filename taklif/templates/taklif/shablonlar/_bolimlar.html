@@ -260,6 +260,10 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 .tilak-karta { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 16px 18px; }
 .tilak-ism { font-weight: bold; margin-bottom: 4px; }
 .tilak-matn { font-size: .92rem; line-height: 1.55; white-space: pre-line; }
+/* Namunada mijozning O'ZI yozgan tilak — ro'yxatning tepasida, ajratib
+   ko'rsatiladi. Uni faqat shu brauzer ko'radi (qarang: namuna.py). */
+.tilak-oziniki { border-color: var(--asos); box-shadow: 0 0 0 1px var(--asos) inset; }
+.tilak-belgi { display: inline-block; margin-left: 8px; padding: 2px 9px; border-radius: 999px; background: var(--asos); color: var(--asos-matn); font-size: .66rem; font-weight: normal; letter-spacing: .5px; text-transform: uppercase; vertical-align: middle; }
 
 /* Katta fotolavha — mijoz eng ko'pi bilan 2 ta rasm yuklaydi; ular kartadan
    tashqariga chiqib (full-bleed), ekranni kenglik bo'yicha to'ldirib
@@ -609,8 +613,14 @@ bo'limni alohida siqish imkonini beradi.
 <div class="bolim" data-anim>
     <h2>{% trans "RSVP — kelasizmi?" %}</h2>
     <div class="blok">
-        <form method="post" action="{% url 'taklif:rsvp_submit' taklifnoma.slug %}">
+        {% comment %}
+        Odatda forma taklifnomaning o'z RSVP manziliga yuboriladi. Namunada
+        esa taklifnoma bazada yo'q (namuna.py) — shuning uchun manzil
+        view'dan "rsvp_manzili" bo'lib keladi va javob sessiyaga yoziladi.
+        {% endcomment %}
+        <form method="post" action="{% if rsvp_manzili %}{{ rsvp_manzili }}{% else %}{% url 'taklif:rsvp_submit' taklifnoma.slug %}{% endif %}">
             {% csrf_token %}
+            {% if namuna %}<input type="hidden" name="marosim" value="{{ namuna_marosim_turi }}">{% endif %}
             {% if mehmon %}<input type="hidden" name="mehmon_slug" value="{{ mehmon.slug }}">{% endif %}
             <label for="ism">{% trans "Ismingiz" %}</label>
             <input type="text" id="ism" name="ism" value="{{ mehmon.ism|default:'' }}" required>
@@ -641,12 +651,12 @@ bo'limni alohida siqish imkonini beradi.
 {% endif %}
 
 {% if tilaklar %}
-<div class="bolim" data-anim>
+<div class="bolim" id="tilaklar" data-anim>
     <h2>{% trans "Tilaklar" %}</h2>
     <div class="tilak-list">
         {% for j in tilaklar %}
-        <div class="tilak-karta">
-            <div class="tilak-ism">{{ j.ism }}</div>
+        <div class="tilak-karta{% if j.oziniki %} tilak-oziniki{% endif %}">
+            <div class="tilak-ism">{{ j.ism }}{% if j.oziniki %}<span class="tilak-belgi">{% trans "Sizning tilagingiz" %}</span>{% endif %}</div>
             <div class="tilak-matn">{{ j.tilak }}</div>
         </div>
         {% endfor %}
