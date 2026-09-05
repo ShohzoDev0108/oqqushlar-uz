@@ -83,11 +83,17 @@ def _marosim_turlari_maydoni():
         max_length=200,
         blank=True,
         default="",
+        # TAFTISH: bu izoh teskarisini aytardi — "hech biri belgilanmasa,
+        # HECH BIR marosim filtrida ko'rinmaydi". Filtrni bajaradigan kod
+        # esa buning aksi: yaratish.html'dagi namunaMosKeladi() birinchi
+        # qatorida "if (!dataMarosim) { return true; }", shablon tanlash
+        # sahifasida ham xuddi shu mantiq. Ya'ni bo'sh ro'yxat "cheklov
+        # yo'q" degani. Noto'g'ri izoh bo'sh qolgan yozuvlarni "buzuq" deb
+        # o'ylashga va keraksiz tuzatishlarga olib kelardi.
         help_text=(
             "Qaysi marosim turlariga mos — bir nechtasini belgilash mumkin. "
-            "Hech biri belgilanmasa, HECH BIR marosim filtrida aniq mos "
-            "sifatida ko'rinmaydi (shablon tanlash sahifasida \"Barchasi\" "
-            "tanlanganda esa baribir ko'rinadi)."
+            "Hech biri belgilanmasa, cheklov yo'q deb hisoblanadi va "
+            "BARCHA marosim turlarida ko'rinadi."
         ),
     )
 

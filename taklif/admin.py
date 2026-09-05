@@ -34,10 +34,17 @@ class MarosimTurlariFormMixin(forms.ModelForm):
         required=False,
         widget=forms.CheckboxSelectMultiple,
         label="Marosim turlari",
+        # TAFTISH: bu izoh teskarisini aytardi — "hech biri belgilanmasa,
+        # hech bir aniq marosim filtrida ko'rinmaydi". Kod esa buning aksi:
+        # yaratish.html'dagi namunaMosKeladi() birinchi qatorida
+        # "if (!dataMarosim) { return true; }" — ya'ni bo'sh ro'yxat
+        # "cheklov yo'q" degani va element HAMMA marosimda ko'rinadi.
+        # Noto'g'ri izoh bo'sh qolgan yozuvlarni "buzuq" deb o'ylashga va
+        # keraksiz tuzatishlarga olib kelardi.
         help_text=(
             "Qaysi marosim turlariga mos — bir nechtasini belgilash mumkin. "
-            "Hech biri belgilanmasa, hech bir aniq marosim filtrida "
-            "ko'rinmaydi."
+            "Hech biri belgilanmasa, cheklov yo'q deb hisoblanadi va "
+            "BARCHA marosim turlarida ko'rinadi."
         ),
     )
 
