@@ -335,6 +335,24 @@ def savol_javob(request):
     )
 
 
+
+def narxlar(request):
+    """Narxlar sahifasi — nima kiradi, nima alohida kelishiladi, to'lov tartibi.
+
+    "shablonlar" kerak: narx kartasi eng arzon dizayn narxini o'zi
+    hisoblaydi (_narx_karta.html), shu sabab admin panelda narx
+    o'zgartirilsa bu sahifa ham o'zi yangilanadi.
+    """
+    return render(
+        request,
+        "taklif/narxlar.html",
+        {
+            "shablonlar": Shablon.objects.filter(ommaviy=True),
+            "admin_telegram": _admin_telegram(),
+            "sayt_musiqa": _sayt_musiqasi(),
+        },
+    )
+
 def boglanish(request):
     """Bog'lanish — o'z sahifasi sifatida.
 

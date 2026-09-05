@@ -49,3 +49,9 @@ Thumbs.db
 
 # Loglar
 *.log
+
+# Ish jarayonidagi ekran suratlari va vaqtinchalik fayllar — loyihaning
+# o'ziga tegishli emas, lekin har commitda "untracked" bo'lib ko'zga
+# tashlanib turardi.
+Claude outputs/
+sinov_sozlamalari.py

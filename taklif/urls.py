@@ -21,6 +21,9 @@ urlpatterns = [
     path("biz-haqimizda/", views.biz_haqimizda, name="biz_haqimizda"),
     path("boglanish/", views.boglanish, name="boglanish"),
     path("savol-javob/", views.savol_javob, name="savol_javob"),
+    # Narxlar o'z sahifasida. Ilgari u faqat bosh sahifadagi "#narx"
+    # bo'limi edi — sabablari narxlar.html boshidagi izohda.
+    path("narxlar/", views.narxlar, name="narxlar"),
     path("yaratish/<slug:shablon_kod>/", views.yaratish, name="yaratish"),
     # Ochib ko'rish mumkin bo'lgan namuna taklifnoma — mijoz mahsulotni
     # to'lashdan oldin to'liq, ishlaydigan holida ko'radi. Bazada hech

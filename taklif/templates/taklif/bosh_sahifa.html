@@ -380,38 +380,9 @@ degan savoliga sahifada aniq javob yo'q edi, u esa sotib olishdan
 oldingi eng muhim savol. Endi u alohida, tinch kartada: bitta katta
 raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
 {% endcomment %}
-.oq-narx-karta {
-    max-width: 620px; margin: 0 auto; padding: 48px 44px;
-    border: 1px solid var(--chiziq); border-radius: 4px; background: var(--toza);
-    text-align: center;
-}
-.oq-narx-son { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; }
-.oq-narx-son .dan { font-size: .68rem; letter-spacing: 2.6px; text-transform: uppercase; color: var(--kul); }
-.oq-narx-son strong {
-    font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 7vw, 3.6rem);
-    line-height: 1; color: var(--siyoh);
-}
-.oq-narx-son .birlik { font-family: var(--serif); font-size: 1.2rem; color: var(--tilla-toq); }
-.oq-narx-royxat {
-    list-style: none; padding: 0; margin: 34px 0 0; text-align: left;
-    display: inline-block;
-}
-.oq-narx-royxat li {
-    position: relative; padding: 10px 0 10px 30px; color: var(--kul);
-    line-height: 1.65; font-size: .95rem; border-top: 1px solid var(--chiziq);
-}
-.oq-narx-royxat li:first-child { border-top: none; }
-.oq-narx-royxat li::before {
-    content: ""; position: absolute; left: 6px; top: 19px;
-    width: 9px; height: 5px; border-left: 1.5px solid var(--tilla);
-    border-bottom: 1.5px solid var(--tilla); transform: rotate(-45deg);
-}
-.oq-narx-tag { margin-top: 36px; }
-.oq-narx-izoh { margin: 16px 0 0; font-size: .85rem; color: var(--kul); line-height: 1.6; }
-@media (max-width: 700px) {
-    .oq-narx-karta { padding: 36px 24px; }
-    .oq-narx-royxat { display: block; }
-}
+/* DIQQAT: narx kartasining uslublari endi _sayt_uslubi.html'da —
+   xuddi shu karta "/narxlar/" sahifasida ham ishlatiladi, uslublar esa
+   ikki joyda takrorlanmasligi kerak. */
 
 /* Dizaynlar bo'limi — mobilda o'ngga-chapga suriladigan lenta.
    Sababi o'lchov bilan aniqlandi: 13 ta karta ustma-ust ~4300px joy
@@ -713,34 +684,17 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
             <span class="oq-yorliq">{% trans "Narx" %}</span>
             <h2 class="oq-h2">{% trans "Bir marta to'laysiz — oylik to'lov yo'q" %}</h2>
         </div>
+        {% include "taklif/_narx_karta.html" %}
         {% comment %}
-        Eng arzon dizayn narxi shu yerda hisoblanadi (dictsort) — views.py
-        ga alohida o'zgaruvchi qo'shish shart emas va narx admin panelda
-        o'zgartirilsa, bu yerda ham o'zi yangilanadi.
+        Bosh sahifadagi narx bo'limi — qisqa, sotuvchi versiya. To'liq
+        javob ("nima kiradi, nima kirmaydi, to'lov qanday ishlaydi")
+        endi o'z sahifasida: /narxlar/. Sabab: bosh sahifa uzun,
+        sarlavhadagi havola esa aniq bir manzilga olib borishi kerak —
+        Telegram'da ulashilganda ham o'z nomi bilan chiroyli ko'rinadi.
         {% endcomment %}
-        {% with arzon=shablonlar|dictsort:"narx"|first %}
-        <div class="oq-narx-karta">
-            <div class="oq-narx-son">
-                <span class="dan">{% trans "boshlanadi" %}</span>
-                <strong>{{ arzon.narx|narx_ajrat }}</strong>
-                <span class="birlik">{% trans "so'm" %}</span>
-            </div>
-            <ul class="oq-narx-royxat">
-                <li>{% trans "Tanlagan dizayningiz to'liq holda — hech qanday cheklovsiz" %}</li>
-                <li>{% trans "Cheksiz mehmon va har biriga alohida shaxsiy havola" %}</li>
-                <li>{% trans "Kim ko'rgani va kim kelishini ko'rsatadigan statistika sahifasi" %}</li>
-                <li>{% trans "Mehmonlar uchun bir necha tilda avtomatik ko'rinish" %}</li>
-                <li>{% trans "Havola muddatsiz ishlaydi — marosimdan keyin ham esdalik bo'lib qoladi" %}</li>
-            </ul>
-            <div class="oq-narx-tag">
-                <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
-                    {% include "taklif/_ikonalar/yarat.svg" %}
-                    {% trans "Bepul yaratib ko'rish" %}
-                </a>
-                <p class="oq-narx-izoh">{% trans "To'lov faqat tayyor taklifnomani o'z ko'zingiz bilan ko'rib, yoqqanidan keyin." %}</p>
-            </div>
-        </div>
-        {% endwith %}
+        <p style="text-align:center; margin-top:26px;">
+            <a class="lenta-havola" href="{% url 'taklif:narxlar' %}">{% trans "Narxlar haqida batafsil" %} &rarr;</a>
+        </p>
     </div>
 </section>
 {% endif %}

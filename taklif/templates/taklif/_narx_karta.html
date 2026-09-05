@@ -1,0 +1,36 @@
+{% load i18n oq_filtrlar %}
+{% comment %}
+Narx kartasi — bosh sahifadagi "#narx" bo'limida ham, "/narxlar/"
+sahifasida ham AYNAN shu karta ishlatiladi. Ilgari u faqat bosh
+sahifada, joyida yozilgan edi; ikkinchi joyga nusxa ko'chirilsa,
+ertaga narx ro'yxati bir joyda o'zgarib, ikkinchisida eski bo'lib
+qolardi.
+
+Eng arzon dizayn narxi shu yerda hisoblanadi (dictsort) — view'ga
+alohida o'zgaruvchi qo'shish shart emas va narx admin panelda
+o'zgartirilsa, bu yerda ham o'zi yangilanadi. Kartani chizadigan
+sahifa context'da "shablonlar" berishi kifoya.
+{% endcomment %}
+{% with arzon=shablonlar|dictsort:"narx"|first %}
+<div class="oq-narx-karta">
+    <div class="oq-narx-son">
+        <span class="dan">{% trans "boshlanadi" %}</span>
+        <strong>{{ arzon.narx|narx_ajrat }}</strong>
+        <span class="birlik">{% trans "so'm" %}</span>
+    </div>
+    <ul class="oq-narx-royxat">
+        <li>{% trans "Tanlagan dizayningiz to'liq holda — hech qanday cheklovsiz" %}</li>
+        <li>{% trans "Cheksiz mehmon va har biriga alohida shaxsiy havola" %}</li>
+        <li>{% trans "Kim ko'rgani va kim kelishini ko'rsatadigan statistika sahifasi" %}</li>
+        <li>{% trans "Mehmonlar uchun bir necha tilda avtomatik ko'rinish" %}</li>
+        <li>{% trans "Havola muddatsiz ishlaydi — marosimdan keyin ham esdalik bo'lib qoladi" %}</li>
+    </ul>
+    <div class="oq-narx-tag">
+        <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
+            {% include "taklif/_ikonalar/yarat.svg" %}
+            {% trans "Bepul yaratib ko'rish" %}
+        </a>
+        <p class="oq-narx-izoh">{% trans "To'lov faqat tayyor taklifnomani o'z ko'zingiz bilan ko'rib, yoqqanidan keyin." %}</p>
+    </div>
+</div>
+{% endwith %}

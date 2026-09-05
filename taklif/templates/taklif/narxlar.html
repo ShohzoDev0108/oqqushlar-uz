@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load i18n oq_filtrlar %}
+
+{% block title %}{% trans "Narxlar" %} — Oqqushlar{% endblock %}
+{% block og_title %}{% trans "Narxlar — Oqqushlar" %}{% endblock %}
+
+{% block extra_style %}
+{% include "taklif/_sayt_uslubi.html" %}
+
+{% comment %}
+NEGA ALOHIDA SAHIFA. Narx bosh sahifada "#narx" bo'limi bo'lib turardi,
+sarlavhadagi havola esa o'sha ichki havolaga olib borardi. Uchta jiddiy
+kamchiligi bor edi:
+
+  1. Telegram va Instagram — mijozlarimiz asosan shu yerdan keladi.
+     "oqqushlar.uz/narxlar/" yuborilsa, o'z sarlavhasi bilan chiroyli
+     karta chiqadi; "oqqushlar.uz/#narx" yuborilganda esa bosh sahifa
+     kartasi chiqadi va odam qayerga tushishini bilmaydi.
+  2. Qidiruv: bitta manzil — bitta sarlavha. "taklifnoma narxlari"
+     so'rovi bo'yicha alohida chiqa olmasdik.
+  3. Ichki havola ishonchsiz: suratlar kech yuklanib sahifa balandligini
+     o'zgartiradi, natijada mijoz kerakli bo'limdan boshqa joyda qoladi.
+     (Aynan shu muammo uzoq tuzatildi — _sayt_nav.html va
+     _sayt_musiqa.html izohlariga qarang.)
+
+Bosh sahifadagi bo'lim o'z joyida qoldi — u qisqa, sotuvchi versiya va
+shu yerga havola qiladi. Bu yerda esa mijozning sotib olishdan oldingi
+barcha savoliga javob bor.
+
+MUHIM: bu sahifadagi har bir raqam kodning haqiqiy holatidan olingan
+(views.MAKSIMAL_RASMLAR_SONI = 2, models.RASM_MAKS_HAJM_MB = 8,
+models.MUSIQA_MAKS_HAJM_MB = 15, settings.LANGUAGES = 8 ta til).
+O'ylab topilgan va'da yo'q — o'zgarsa, shu yer ham yangilanishi shart.
+{% endcomment %}
+
+/* ".oq-bolim" allaqachon 96px vertikal bo'shliq beradi (_sayt_uslubi.html),
+   shuning uchun bo'limlarga qo'shimcha bo'shliq berilmaydi — faqat
+   bo'limga o'ralmagan narx kartasi biroz nafas oladi. */
+.oq-ichki.narx-blok { padding-top: 12px; padding-bottom: 12px; }
+
+/* Uch qadam — "to'lov qanday ishlaydi" */
+.narx-qadamlar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
+.narx-qadam { padding: 26px 24px; border: 1px solid var(--chiziq); border-radius: 4px; background: var(--toza); }
+.narx-qadam .raqam {
+    font-family: var(--serif); font-size: 2rem; line-height: 1;
+    color: var(--tilla); display: block; margin-bottom: 12px;
+}
+.narx-qadam h3 { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; margin: 0 0 8px; }
+.narx-qadam p { margin: 0; color: var(--kul); font-size: .92rem; line-height: 1.65; }
+
+/* Ikki ustun: nima kiradi / nima alohida kelishiladi */
+/* "align-items: start" — ikki quti tabiiy balandligida qolsin.
+   Standart holatda ular teng cho'ziladi va qisqasining ostida katta
+   bo'sh joy qolib ketardi. */
+.narx-ikki { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.narx-quti { padding: 30px 28px; border: 1px solid var(--chiziq); border-radius: 4px; background: var(--toza); }
+.narx-quti h3 {
+    font-size: .72rem; letter-spacing: 2.4px; text-transform: uppercase;
+    color: var(--kul); margin: 0 0 18px; font-family: var(--sans); font-weight: 600;
+}
+.narx-quti ul { list-style: none; padding: 0; margin: 0; }
+.narx-quti li {
+    position: relative; padding: 9px 0 9px 26px; line-height: 1.6;
+    font-size: .93rem; border-top: 1px solid var(--chiziq); color: var(--siyoh);
+}
+.narx-quti li:first-child { border-top: none; }
+.narx-quti.kiradi li::before {
+    content: ""; position: absolute; left: 3px; top: 17px;
+    width: 9px; height: 5px; border-left: 1.5px solid var(--tilla);
+    border-bottom: 1.5px solid var(--tilla); transform: rotate(-45deg);
+}
+.narx-quti.alohida li { color: var(--kul); }
+.narx-quti.alohida li::before {
+    content: ""; position: absolute; left: 3px; top: 21px;
+    width: 10px; height: 1.5px; background: var(--chiziq);
+}
+
+.narx-eslatma { color: var(--kul); font-size: .9rem; line-height: 1.7; max-width: 640px; }
+
+@media (max-width: 780px) {
+    .narx-qadamlar, .narx-ikki { grid-template-columns: 1fr; }
+}
+{% endblock %}
+
+{% block content %}
+{% include "taklif/_sayt_nav.html" %}
+{% include "taklif/_sayt_musiqa.html" %}
+
+<div class="oq-ichki oq-sahifa-bosh">
+    <div class="oq-izlar">
+        <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
+        <span>›</span>
+        <span class="joriy">{% trans "Narxlar" %}</span>
+    </div>
+    <h1 class="oq-h1">{% trans "Narxlar" %}</h1>
+    <p class="oq-matn" style="max-width:620px; margin-top:0;">
+        {% trans "Bir marta to'laysiz va taklifnoma butunlay sizniki bo'ladi. Obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q." %}
+    </p>
+</div>
+
+<div class="oq-ichki narx-blok">
+    {% include "taklif/_narx_karta.html" %}
+    <p class="narx-eslatma" style="margin: 26px auto 0; text-align: center;">
+        {% blocktrans %}Narx dizaynga qarab biroz farq qiladi — har bir dizaynning aniq narxi uning kartasida yozilgan. Tanlaganingizdan keyin narx o'zgarmaydi.{% endblocktrans %}
+    </p>
+</div>
+
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "To'lov" %}</span>
+            <h2 class="oq-h2">{% trans "Avval ko'rasiz, keyin to'laysiz" %}</h2>
+        </div>
+        <div class="narx-qadamlar">
+            <div class="narx-qadam">
+                <span class="raqam">1</span>
+                <h3>{% trans "Yarating" %}</h3>
+                <p>{% blocktrans %}Dizaynni tanlab, ma'lumotlaringizni kiritasiz. Ro'yxatdan o'tish, email yoki parol kerak emas.{% endblocktrans %}</p>
+            </div>
+            <div class="narx-qadam">
+                <span class="raqam">2</span>
+                <h3>{% trans "Ko'rib chiqing" %}</h3>
+                <p>{% blocktrans %}Tayyor taklifnoma sizga shaxsiy havola bilan ochiladi. Uni to'liq, o'z ko'zingiz bilan ko'rasiz — hali to'lamasdan.{% endblocktrans %}</p>
+            </div>
+            <div class="narx-qadam">
+                <span class="raqam">3</span>
+                <h3>{% trans "Yoqsa — to'laysiz" %}</h3>
+                <p>{% blocktrans %}Taklifnoma sahifasidagi "Yoqdi" tugmasi sizni Telegram'dagi adminimiz bilan bog'laydi. To'lov tasdiqlangach, havola mehmonlarga ochiladi.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <p class="narx-eslatma" style="margin-top: 24px;">
+            {% blocktrans %}To'lamaguningizcha taklifnomani faqat siz ko'ra olasiz — havolani boshqa kim ochsa ham, sahifa ochilmaydi.{% endblocktrans %}
+        </p>
+    </div>
+</section>
+
+<section class="oq-bolim">
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Tafsilotlar" %}</span>
+            <h2 class="oq-h2">{% trans "Narxga nima kiradi" %}</h2>
+        </div>
+        <div class="narx-ikki">
+            <div class="narx-quti kiradi">
+                <h3>{% trans "Narxga kiradi" %}</h3>
+                <ul>
+                    <li>{% trans "Tanlagan dizayningiz to'liq holda, hech qanday cheklovsiz" %}</li>
+                    <li>{% trans "Cheksiz mehmon; har biriga ismi bilan ochiladigan shaxsiy havola" %}</li>
+                    <li>{% trans "Mehmonlarning javoblari va tilaklari — kim keladi, nechta kishi bilan" %}</li>
+                    <li>{% trans "Faqat sizga ko'rinadigan maxfiy statistika sahifasi" %}</li>
+                    <li>{% trans "Marosim sanasigacha sanoq, kalendar, xarita va Telegram tugmasi" %}</li>
+                    <li>{% trans "2 tagacha o'z rasmingiz (har biri 8 MB gacha) yoki tayyor namunalardan" %}</li>
+                    <li>{% trans "Fon musiqasi — o'zingiznikini yuklaysiz (15 MB gacha) yoki tayyorlaridan tanlaysiz" %}</li>
+                    <li>{% trans "Mehmon uchun 8 tilda avtomatik ko'rinish" %}</li>
+                    <li>{% trans "Muddatsiz havola — marosimdan keyin ham ishlab turadi" %}</li>
+                </ul>
+            </div>
+            <div class="narx-quti alohida">
+                <h3>{% trans "Alohida kelishiladi" %}</h3>
+                <ul>
+                    <li>{% trans "Faqat siz uchun noldan chiziladigan individual dizayn" %}</li>
+                    <li>{% trans "Ro'yxatda yo'q tilda taklifnoma" %}</li>
+                    <li>{% trans "Matnni biz yozib berishimiz yoki tahrirlashimiz" %}</li>
+                    <li>{% trans "Bosma (qog'oz) variant" %}</li>
+                </ul>
+                <p class="narx-eslatma" style="margin-top: 18px;">
+                    {% if admin_telegram %}
+                    {% blocktrans %}Bularning har biri holatiga qarab kelishiladi — Telegram orqali yozing.{% endblocktrans %}
+                    <a href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">{{ admin_telegram }}</a>
+                    {% else %}
+                    {% blocktrans %}Bularning har biri holatiga qarab kelishiladi — bog'lanish sahifasi orqali yozing.{% endblocktrans %}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki" style="text-align:center;">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Keyingi qadam" %}</span>
+            <h2 class="oq-h2">{% trans "Avval namunani ochib ko'ring" %}</h2>
+        </div>
+        <p class="oq-matn" style="max-width:560px; margin: 0 auto 26px;">
+            {% blocktrans %}Har bir dizayn to'liq ishlaydigan namuna bilan ochiladi — hech narsa to'lamasdan, hech narsa to'ldirmasdan.{% endblocktrans %}
+        </p>
+        <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
+            {% include "taklif/_ikonalar/yarat.svg" %}
+            {% trans "Namunalarni ko'rish" %}
+        </a>
+        <p class="narx-eslatma" style="margin: 22px auto 0;">
+            {% trans "Boshqa savol bormi?" %}
+            <a href="{% url 'taklif:savol_javob' %}">{% trans "Savol-javob bo'limiga qarang" %}</a>.
+        </p>
+    </div>
+</section>
+
+{% include "taklif/_sayt_footer.html" %}
+{% endblock %}

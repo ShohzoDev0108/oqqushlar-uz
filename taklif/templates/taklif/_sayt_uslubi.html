@@ -596,3 +596,40 @@ yubiley — olxo'ri.
 .oq-burchak-tirik.bt-chap { left: 0; }
 .oq-burchak-tirik.bt-ong { right: 0; transform: scaleX(-1); }
 @media (max-width: 780px) { .oq-burchak-tirik { display: none; } }
+
+/* --- Narx kartasi ---
+   Bosh sahifadagi "#narx" bo'limida ham, "/narxlar/" sahifasida ham
+   bir xil karta ishlatiladi (_narx_karta.html), shuning uchun uslublar
+   shu umumiy faylda turadi. */
+.oq-narx-karta {
+    max-width: 620px; margin: 0 auto; padding: 48px 44px;
+    border: 1px solid var(--chiziq); border-radius: 4px; background: var(--toza);
+    text-align: center;
+}
+.oq-narx-son { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.oq-narx-son .dan { font-size: .68rem; letter-spacing: 2.6px; text-transform: uppercase; color: var(--kul); }
+.oq-narx-son strong {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 7vw, 3.6rem);
+    line-height: 1; color: var(--siyoh);
+}
+.oq-narx-son .birlik { font-family: var(--serif); font-size: 1.2rem; color: var(--tilla-toq); }
+.oq-narx-royxat {
+    list-style: none; padding: 0; margin: 34px 0 0; text-align: left;
+    display: inline-block;
+}
+.oq-narx-royxat li {
+    position: relative; padding: 10px 0 10px 30px; color: var(--kul);
+    line-height: 1.65; font-size: .95rem; border-top: 1px solid var(--chiziq);
+}
+.oq-narx-royxat li:first-child { border-top: none; }
+.oq-narx-royxat li::before {
+    content: ""; position: absolute; left: 6px; top: 19px;
+    width: 9px; height: 5px; border-left: 1.5px solid var(--tilla);
+    border-bottom: 1.5px solid var(--tilla); transform: rotate(-45deg);
+}
+.oq-narx-tag { margin-top: 36px; }
+.oq-narx-izoh { margin: 16px 0 0; font-size: .85rem; color: var(--kul); line-height: 1.6; }
+@media (max-width: 700px) {
+    .oq-narx-karta { padding: 36px 24px; }
+    .oq-narx-royxat { display: block; }
+}

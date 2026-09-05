@@ -54,22 +54,19 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
             <a class="{% if joriy_sahifa == 'bosh_sahifa' %}joriy{% endif %}" href="{% url 'taklif:bosh_sahifa' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Bosh sahifa" %}</a>
             <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' or joriy_sahifa == 'namuna' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Namunalar" %}</a>
             {% comment %}
-            Narx — bosh sahifadagi "#narx" bo'limiga langar.
+            TAFTISH: narx bloki bor va yaxshi yozilgan edi, lekin unga
+            BIRORTA HAVOLA yo'q edi: na yuqori menyuda, na mobil
+            menyuda, na footerda. Ya'ni uni faqat bosh sahifani
+            oxirigacha aylantirgan odam ko'rardi. Narx esa xaridor
+            birinchi qidiradigan narsalardan biri.
 
-            TAFTISH: narx bloki bor va yaxshi yozilgan ("Bir marta
-            to'laysiz — oylik to'lov yo'q", eng arzon narx avtomatik
-            hisoblanadi), lekin unga BIRORTA HAVOLA yo'q edi: na yuqori
-            menyuda, na mobil menyuda, na footerda. Ya'ni uni faqat bosh
-            sahifani oxirigacha aylantirgan odam ko'rardi. Narx esa
-            xaridor birinchi qidiradigan narsalardan biri.
-
-            Alohida sahifa emas, langar: bo'limning matni allaqachon
-            joyida va uni ikki nusxaga bo'lish keraksiz. Yuqori panel
-            yopishqoq bo'lgani uchun sarlavha panel ostida qolib
-            ketmasligi _sayt_uslubi.html'dagi "scroll-padding-top: 96px"
-            bilan ta'minlanadi.
+            IKKINCHI TAFTISH: dastlab bu havola bosh sahifadagi "#narx"
+            bo'limiga ichki havola qilib qo'yilgan edi va uzoq vaqt
+            ishlamadi. Endi narx o'z sahifasida — sabablari
+            narxlar.html boshidagi izohda. Ichki havolalar faqat bosh
+            sahifaning O'Z ichida qoldi.
             {% endcomment %}
-            <a href="{% url 'taklif:bosh_sahifa' %}#narx"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Narxlar" %}</a>
+            <a class="{% if joriy_sahifa == 'narxlar' %}joriy{% endif %}" href="{% url 'taklif:narxlar' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Narxlar" %}</a>
             <a class="{% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Taklifnomalarim" %}</a>
             <a class="{% if joriy_sahifa == 'biz_haqimizda' %}joriy{% endif %}" href="{% url 'taklif:biz_haqimizda' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Biz haqimizda" %}</a>
             <a class="{% if joriy_sahifa == 'savol_javob' %}joriy{% endif %}" href="{% url 'taklif:savol_javob' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Savol-javob" %}</a>
@@ -103,7 +100,7 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     </div>
     <a class="{% if joriy_sahifa == 'bosh_sahifa' %}joriy{% endif %}" href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
     <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' or joriy_sahifa == 'namuna' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Namunalar" %}</a>
-    <a href="{% url 'taklif:bosh_sahifa' %}#narx">{% trans "Narxlar" %}</a>
+    <a class="{% if joriy_sahifa == 'narxlar' %}joriy{% endif %}" href="{% url 'taklif:narxlar' %}">{% trans "Narxlar" %}</a>
     <a class="{% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
     <a class="{% if joriy_sahifa == 'biz_haqimizda' %}joriy{% endif %}" href="{% url 'taklif:biz_haqimizda' %}">{% trans "Biz haqimizda" %}</a>
     <a class="{% if joriy_sahifa == 'savol_javob' %}joriy{% endif %}" href="{% url 'taklif:savol_javob' %}">{% trans "Savol-javob" %}</a>

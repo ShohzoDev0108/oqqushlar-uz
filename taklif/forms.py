@@ -36,6 +36,7 @@ REZERV_SLUGLAR = {
     "biz-haqimizda",
     "boglanish",
     "savol-javob",
+    "narxlar",
 }
 
 # Taftish topilmasi: forma har doim "1-ism (masalan: kuyov, tug'ilgan kun

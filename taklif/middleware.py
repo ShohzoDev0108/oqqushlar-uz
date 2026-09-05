@@ -14,6 +14,7 @@ ASOSIY_SAHIFA_BOSHLARI = (
     "/biz-haqimizda",
     "/boglanish",
     "/savol-javob",
+    "/narxlar",
     "/statistika/",
     "/mening-taklifnomalarim",
     "/tayyor/",
