@@ -490,6 +490,25 @@ class Taklifnoma(models.Model):
         return reverse("taklif:statistika", kwargs={"token": self.statistika_token})
 
     @property
+    def juftlik_marosimi(self):
+        """Marosim juftlik (kelin-kuyov) haqidami?
+
+        Shablonlardagi YURAK shakli — ochilish kartasining kesimi va
+        kalendardagi tanlangan kun — shu xususiyat orqali boshqariladi.
+
+        TAFTISH: ilgari yurak shakli hech qanday shartsiz, BARCHA marosim
+        turlari uchun chizilardi. Bu sezilmagan, chunki dizaynlar faqat
+        uchta turga (to'y, fotiha to'yi, yubiley) ruxsat etilgan edi.
+        Lekin beshik to'yi, nahor oshi yoki xatna to'yiga taklifnoma
+        ochgan mehmonga yurak shaklidagi karta ko'rsatish xato bo'lardi —
+        aynan shu narsa qolgan marosim turlarini ochishga to'sqinlik
+        qilayotgandi. Juftlik marosimlarining ro'yxati IKKI ISMLI
+        marosimlar ro'yxati bilan bir xil: kelin-kuyov (yoki yubiley
+        egalari) — ikki kishi.
+        """
+        return self.marosim_turi in IKKI_ISMLI_MAROSIM_TURLARI
+
+    @property
     def sarlavha(self):
         qoshma = self.sunnat_toy_qoshma_sarlavha
         if qoshma:

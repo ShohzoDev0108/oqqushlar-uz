@@ -208,7 +208,15 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 /* Hafta kunlari. Ilgari .62rem — ya'ni 9.9px edi: telefonda o'qish uchun
    juda mayda (qulay minimum ~12px). .75rem = 12px. */
 .k-sarlavha { font-size: .75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--ikkinchi); aspect-ratio: auto; padding: 5px 0; }
-.k-tanlangan { background: var(--asos); color: var(--asos-matn); font-weight: bold; border-radius: 0; clip-path: url(#yurak-shakli); position: relative; z-index: 2; transform: scale(1.38); filter: drop-shadow(0 3px 6px rgba(0,0,0,.3)); }
+/* Marosim kuni belgisi.
+
+   TAFTISH: bu belgi shartsiz YURAK shaklida edi. Beshik to'yi, nahor
+   oshi yoki xatna to'yi kalendarida yurak — noto'g'ri. Endi standart
+   shakl neytral doira; yurak faqat juftlik marosimlarida (to'y, fotiha
+   to'yi, yubiley) qo'shiladigan ".k-yurakli" klassi orqali chiqadi.
+   Taklifnoma.juftlik_marosimi'ga qarang. */
+.k-tanlangan { background: var(--asos); color: var(--asos-matn); font-weight: bold; position: relative; z-index: 2; transform: scale(1.28); filter: drop-shadow(0 3px 6px rgba(0,0,0,.3)); }
+.k-yurakli .k-tanlangan { border-radius: 0; clip-path: url(#yurak-shakli); transform: scale(1.38); }
 .k-tanlangan span { display: block; transform: translateY(-10%); }
 .xarita-tugmalar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .soni-stepper { display: flex; align-items: center; gap: 14px; }
@@ -526,7 +534,7 @@ bo'limni alohida siqish imkonini beradi.
     <h2>{% trans "Marosim kalendari" %}</h2>
     <div class="blok">
         <div class="kalendar-oy">{{ taklifnoma.sana|date:"F Y" }}</div>
-        <div class="kalendar-grid" id="kalendar-grid" data-jonli
+        <div class="kalendar-grid{% if taklifnoma.juftlik_marosimi %} k-yurakli{% endif %}" id="kalendar-grid" data-jonli
              data-sana="{{ taklifnoma.sana|date:'c' }}"
              data-hafta="{% trans 'Du Se Ch Pa Ju Sh Ya' %}"></div>
     </div>

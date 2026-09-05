@@ -60,14 +60,57 @@ orqali "with parda_dizayn=..." bilan uzatiladi — shablon fayli belgilaydi):
 - "kabutar_maktub" — xuddi shunday, lekin qulfcha o'rniga kichik "Love
   Letter" konverti osilgan.
 {% endcomment %}
+{% comment %}
+KARTA SHAKLI marosim turiga qarab tanlanadi.
+
+TAFTISH: ilgari bu shakl doim YURAK edi — hech qanday shartsiz. Bu
+sezilmasdan qolgan, chunki dizaynlarga faqat uchta marosim turi
+(to'y, fotiha to'yi, yubiley) ruxsat etilgandi. Lekin beshik to'yi,
+nahor oshi yoki xatna to'yiga taklifnoma ochgan mehmonga yurak
+shaklidagi karta chiqarish xato bo'lardi — aynan shu narsa qolgan
+marosim turlarini ochishga to'siq bo'lib turgan edi.
+
+Juftlik bo'lmagan marosimlar uchun RAVOQ (arch) shakli tanlandi:
+u milliy me'morchilikdan kelib chiqadi, tantanali, va hech qanday
+marosim turiga qarshi ma'no bermaydi.
+
+Ikkala shakl ham HAR DOIM chiziladi (clipPath'lar va chiziq SVG'sidagi
+ikkita path), joriysi esa .parda-yurak-wrap'dagi "shakl-yurak" /
+"shakl-ravoq" klassi orqali CSS bilan tanlanadi. Shu tufayli 30 ta
+shablon faylining birortasiga ham tegish shart emas.
+
+Pastdagi o'lchov mantiqi (ism kartaga sig'ishini tekshiradi) ham
+o'sha klassni o'qib, AYNAN joriy shaklning yo'lini oladi — aks holda
+ravoqli kartada matn yurak o'lchovi bo'yicha kichraytirilardi.
+{% endcomment %}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
         <clipPath id="yurak-qirqish" clipPathUnits="objectBoundingBox">
             <path d="M0.5,0.9778 C0.5,0.9778 0.06,0.6 0.06,0.3333 C0.06,0.1111 0.22,0 0.36,0 C0.46,0 0.5,0.1 0.5,0.1 C0.5,0.1 0.54,0 0.64,0 C0.78,0 0.94,0.1111 0.94,0.3333 C0.94,0.6 0.5,0.9778 0.5,0.9778 Z"/>
         </clipPath>
+        <clipPath id="ravoq-qirqish" clipPathUnits="objectBoundingBox">
+            <path d="M0.08,0.92 C0.08,0.955 0.098,0.97 0.13,0.97 L0.87,0.97 C0.902,0.97 0.92,0.955 0.92,0.92 L0.92,0.42 C0.92,0.17 0.72,0.03 0.5,0.03 C0.28,0.03 0.08,0.17 0.08,0.42 Z"/>
+        </clipPath>
     </defs>
 </svg>
 <style>
+/* Ravoq varianti. Har bir shablon o'z CSS'ida ".parda-yurak-ichi" ga
+   yurak kesimini beradi; bu qoida undan KEYIN o'qiladi va faqat
+   ".shakl-ravoq" holatida uni almashtiradi — ya'ni 30 ta shablon
+   faylini tahrirlash shart emas. */
+.shakl-ravoq .parda-yurak-ichi { clip-path: url(#ravoq-qirqish); }
+/* Ravoq yurakdan ko'ra "to'laroq" — yuqorisi torayib ketmaydi,
+   shuning uchun ichki bo'shliq kamroq bo'lishi kerak, aks holda matn
+   kartaning o'rtasida cho'kib qoladi. */
+.shakl-ravoq .parda-yurak-ichi { padding: 20% 13% 16%; }
+/* Naqshinkor ramka rasmi va kabutarlar aynan yurak shakliga chizilgan —
+   ravoqda ular mos kelmaydi. O'rniga shaklning o'z chizig'i qalinroq
+   va aniqroq qilinadi. */
+.shakl-ravoq .parda-yurak-ramka, .shakl-ravoq .parda-kabutarlar { display: none; }
+.shakl-ravoq .parda-yurak-chizigi path { stroke-width: 2.5; stroke: rgba(255,255,255,.82); }
+/* Chiziq SVG'sida ikkala shakl ham chizilgan — faqat joriysi ko'rinadi. */
+.shakl-yurak .sy-ravoq, .shakl-ravoq .sy-yurak { display: none; }
+
 /* Yuqoridagi matnni ikki yonidan ajratib turuvchi nozik chiziqcha.
 
    TAFTISH: ilgari bu yerda "❧" (U+2767) belgisi turardi. U shrift
@@ -87,9 +130,10 @@ orqali "with parda_dizayn=..." bilan uzatiladi — shablon fayli belgilaydi):
     {% else %}
     <p class="parda-kichik">{% trans "Sizga taklifnoma keldi" %}!</p>
     {% endif %}
-    <div class="parda-yurak-wrap">
+    <div class="parda-yurak-wrap {% if taklifnoma.juftlik_marosimi %}shakl-yurak{% else %}shakl-ravoq{% endif %}">
         <svg class="parda-yurak-chizigi" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0.5,0.9778 C0.5,0.9778 0.06,0.6 0.06,0.3333 C0.06,0.1111 0.22,0 0.36,0 C0.46,0 0.5,0.1 0.5,0.1 C0.5,0.1 0.54,0 0.64,0 C0.78,0 0.94,0.1111 0.94,0.3333 C0.94,0.6 0.5,0.9778 0.5,0.9778 Z"/>
+            <path class="sy-yurak" d="M0.5,0.9778 C0.5,0.9778 0.06,0.6 0.06,0.3333 C0.06,0.1111 0.22,0 0.36,0 C0.46,0 0.5,0.1 0.5,0.1 C0.5,0.1 0.54,0 0.64,0 C0.78,0 0.94,0.1111 0.94,0.3333 C0.94,0.6 0.5,0.9778 0.5,0.9778 Z"/>
+            <path class="sy-ravoq" d="M0.08,0.92 C0.08,0.955 0.098,0.97 0.13,0.97 L0.87,0.97 C0.902,0.97 0.92,0.955 0.92,0.92 L0.92,0.42 C0.92,0.17 0.72,0.03 0.5,0.03 C0.28,0.03 0.08,0.17 0.08,0.42 Z"/>
         </svg>
         <div class="parda-yurak-ichi">
             <div class="parda-yurak-matn">
@@ -151,7 +195,14 @@ orqali "with parda_dizayn=..." bilan uzatiladi — shablon fayli belgilaydi):
     var yurakYoli;
     function yurakYoliniOl() {
         if (yurakYoli !== undefined) return yurakYoli;
-        var el = document.querySelector('#yurak-qirqish path');
+        // Karta shakli marosim turiga qarab yurak yoki ravoq bo'lishi
+        // mumkin (yuqoridagi "KARTA SHAKLI" izohiga qarang) — o'lchov
+        // AYNAN chizilgan shakl bo'yicha bo'lishi kerak, aks holda matn
+        // kartaning chetidan chiqib ketardi.
+        var qopqich = document.querySelector('.parda-yurak-wrap');
+        var yolId = (qopqich && qopqich.classList.contains('shakl-ravoq'))
+            ? '#ravoq-qirqish path' : '#yurak-qirqish path';
+        var el = document.querySelector(yolId);
         yurakYoli = el ? new Path2D(el.getAttribute('d')) : null;
         return yurakYoli;
     }
