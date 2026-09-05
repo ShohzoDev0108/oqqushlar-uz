@@ -175,6 +175,32 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     transform: rotate(45deg); opacity: .9; flex: none;
 }
 
+/* Chegarali (to'ldirilmagan) tugmalar va sovg'a karta raqami uchun MATN
+   rangi.
+
+   TAFTISH. Bu elementlar matnini shablonning asosiy rangida
+   (--asos) yozardi. Oltin ohangdagi shablonlarda bu rang oq kartada
+   juda och chiqadi — piksel bo'yicha o'lchanganda kontrast:
+
+       zarnigor 2.59   qandil 2.98   sadaf 3.00   ravoq 3.59   qozoq 4.32
+
+   WCAG AA oddiy o'lchamdagi matn uchun kamida 4.5 talab qiladi. Ya'ni
+   "Google Maps", "Yandex Maps", "Telegram" va sovg'a kartasi raqami
+   quyoshda yoki arzon ekranda o'qilmay qolardi. (Diqqat: bu ko'z bilan
+   emas, sahifa suratining haqiqiy piksellari bo'yicha o'lchandi — fon
+   gradient bo'lgani uchun "background-color"ni o'qish yolg'on natija
+   beradi.)
+
+   Qorong'i shablonlarda esa muammo YO'Q (kristall 6.88, zardoz 7.99) —
+   ularda matnni qoraytirish aksincha zarar qilardi. Shuning uchun bu
+   yerda umumiy "qoraytirish" qoidasi emas, ixtiyoriy --asos-toq
+   o'zgaruvchisi ishlatiladi: u faqat kerak bo'lgan beshta shablonda
+   belgilangan, qolganlarida --asos o'z holicha qoladi. */
+.xarita-tugma, .telegram-tugma, .ulashish-tugma, .karta {
+    color: var(--asos-toq, var(--asos));
+    border-color: var(--asos-toq, var(--asos));
+}
+
 /* Sanoq — joylashuvi BARCHA shablonlar uchun bir xil.
 
    TAFTISH: har bir shablon sanoqni "flex + flex-wrap" bilan chizardi va
