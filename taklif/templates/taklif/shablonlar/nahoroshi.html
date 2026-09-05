@@ -44,6 +44,16 @@
     --bezak-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cpath d='M1 6h26M69 6h26' opacity='.5' stroke='%23b5651d' stroke-width='1' fill='none'/%3E%3Cg stroke='%23b5651d' stroke-width='1' fill='none'%3E%3Cpath d='M36 3l3 3-3 3-3-3z'/%3E%3Cpath d='M60 3l3 3-3 3-3-3z'/%3E%3C/g%3E%3Cpath d='M48 1.4L52.6 6 48 10.6 43.4 6z' fill='%23b5651d'/%3E%3C/svg%3E");
     --hero-ramka: url('{% static "taklif/hero-ramka/ramka-nahoroshi-tl.png" %}');
     --hero-ramka-rang: #b5651d;
+    /* Ochilish ekrani foni — tong yorug'i: yuqoridan tushayotgan iliq kahrabo nur — nahor oshi ertalabki marosim.
+       Fotosurat EMAS: mavjud 10 ta parda rasmining hammasi gulli/to'yona
+       (atirgul, pion, evkalipt) va bu marosimga mos kelmaydi — atirgul
+       bog'i fonidagi xatna taklifnomasi noto'g'ri ohang berardi. Gradient
+       ham background-image bo'lgani uchun shu o'zgaruvchiga tushaveradi. */
+    --parda-tasvir:
+        radial-gradient(95% 62% at 50% 4%, rgba(255,222,163,.85), transparent 58%),
+        radial-gradient(70% 46% at 16% 90%, rgba(184,112,38,.32), transparent 64%),
+        radial-gradient(60% 40% at 88% 78%, rgba(214,150,70,.28), transparent 62%),
+        linear-gradient(168deg, #f7e6c9 0%, #e9cb98 100%);
 }
 
 body { background: var(--fon); color: var(--matn); overflow-x: hidden; }

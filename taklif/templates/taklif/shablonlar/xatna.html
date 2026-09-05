@@ -38,6 +38,21 @@
     --bezak-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cpath d='M1 6h26M69 6h26' opacity='.5' stroke='%23234b7a' stroke-width='1' fill='none'/%3E%3Cg stroke='%23234b7a' stroke-width='1' fill='none'%3E%3Cpath d='M36 3l3 3-3 3-3-3z'/%3E%3Cpath d='M60 3l3 3-3 3-3-3z'/%3E%3C/g%3E%3Cpath d='M48 1.4L52.6 6 48 10.6 43.4 6z' fill='%23234b7a'/%3E%3C/svg%3E");
     --hero-ramka: url('{% static "taklif/hero-ramka/ramka-xatna-tl.png" %}');
     --hero-ramka-rang: #234b7a;
+    /* Ochilish ekrani foni — kechki osmon: to'q ko'k tusda tarqoq yulduzlar va oy nuri — shablonning o'z motiviga mos.
+       Fotosurat EMAS: mavjud 10 ta parda rasmining hammasi gulli/to'yona
+       (atirgul, pion, evkalipt) va bu marosimga mos kelmaydi — atirgul
+       bog'i fonidagi xatna taklifnomasi noto'g'ri ohang berardi. Gradient
+       ham background-image bo'lgani uchun shu o'zgaruvchiga tushaveradi. */
+    --parda-tasvir:
+        radial-gradient(circle at 20% 16%, rgba(255,255,255,.55) 0 1.4px, transparent 2.2px),
+        radial-gradient(circle at 74% 12%, rgba(255,255,255,.45) 0 1.2px, transparent 2px),
+        radial-gradient(circle at 38% 30%, rgba(255,255,255,.35) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 86% 34%, rgba(255,255,255,.5) 0 1.3px, transparent 2.1px),
+        radial-gradient(circle at 12% 62%, rgba(255,255,255,.35) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 62% 74%, rgba(255,255,255,.4) 0 1.2px, transparent 2px),
+        radial-gradient(circle at 30% 88%, rgba(255,255,255,.3) 0 1px, transparent 1.8px),
+        radial-gradient(120% 70% at 50% 6%, rgba(96,140,196,.45), transparent 62%),
+        linear-gradient(180deg, #16294a 0%, #0e1c33 100%);
 }
 
 body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
@@ -132,6 +147,15 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
     100%    { opacity: 0; }
 }
 .parda-korsatma { display: inline-block; font-size: .82rem; color: rgba(255,255,255,.96); margin: 30px 0 0; max-width: 68vw; background: rgba(20,16,12,.36); backdrop-filter: blur(7px) saturate(1.1); -webkit-backdrop-filter: blur(7px) saturate(1.1); padding: 9px 20px; border-radius: 999px; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+
+/* Ochilish kartasi — to'q ko'k osmon foni uchun alohida.
+
+   .parda-yurak-ichi standart holatda --parda-fon rangining 62% ini oladi
+   va qolgan qismidan orqa fon ko'rinib turadi ("shisha" effekt). Yorug'
+   fotosurat ustida bu chiroyli chiqadi, lekin to'q ko'k osmon ustida
+   karta kulrang-loyqa tusga kirib qoldi va ichidagi ko'k matn o'qilishi
+   yomonlashdi. Shu bois bu shablonda karta deyarli shaffof emas. */
+.parda-yurak-ichi { background: color-mix(in srgb, #f3f5ec 92%, transparent); }
 
 /* --- Hero ---
 
