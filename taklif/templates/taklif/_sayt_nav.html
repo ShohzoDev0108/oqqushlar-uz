@@ -39,12 +39,20 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
         {% comment %}
         Joriy sahifa serverda aniqlanadi (joriy_sahifa = url_name) — JS
         kerak emas, sahifa ochilishi bilanoq to'g'ri bo'lim belgilangan
-        bo'ladi. "yaratish" (bitta shablon bo'yicha forma) ham "Dizaynlar"
-        bo'limiga tegishli deb hisoblanadi: mijoz o'sha yerdan kelgan.
+        bo'ladi. "yaratish" (bitta shablon bo'yicha forma) va "namuna"
+        (ochib ko'riladigan taklifnoma) ham "Namunalar" bo'limiga
+        tegishli deb hisoblanadi: mijoz o'sha yerdan kelgan.
+
+        NOM: bo'lim ilgari "Dizaynlar" deb atalardi. Endi kartadan
+        namunani ochib ko'rish mumkin, ya'ni bu bo'lim endi ro'yxat
+        emas, ko'rgazma — "Namunalar" nomi mijozni ichkariga aynan
+        shuning uchun chaqiradi. Manzil ("/dizaynlar/") ataylab
+        o'zgartirilmadi: mijozlarda saqlangan havolalar, QR kodlar va
+        qidiruv natijalari buzilmasin.
         {% endcomment %}
         <div class="oq-nav-linklar">
             <a class="{% if joriy_sahifa == 'bosh_sahifa' %}joriy{% endif %}" href="{% url 'taklif:bosh_sahifa' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Bosh sahifa" %}</a>
-            <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Dizaynlar" %}</a>
+            <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' or joriy_sahifa == 'namuna' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Namunalar" %}</a>
             {% comment %}
             Narx — bosh sahifadagi "#narx" bo'limiga langar.
 
@@ -94,7 +102,7 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
         <button type="button" class="oq-menyu-yop" id="oq-menyu-yop" aria-label="{% trans "Yopish" %}">✕</button>
     </div>
     <a class="{% if joriy_sahifa == 'bosh_sahifa' %}joriy{% endif %}" href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
-    <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
+    <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' or joriy_sahifa == 'namuna' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Namunalar" %}</a>
     <a href="{% url 'taklif:bosh_sahifa' %}#narx">{% trans "Narxlar" %}</a>
     <a class="{% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
     <a class="{% if joriy_sahifa == 'biz_haqimizda' %}joriy{% endif %}" href="{% url 'taklif:biz_haqimizda' %}">{% trans "Biz haqimizda" %}</a>
@@ -172,9 +180,8 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     //     boshidan uzib, yangisini boshlardi, natijada u hech qachon
     //     manzilga yetmasdi. Ustiga-ustak mijozning eng kichik g'ildirak
     //     harakati brauzerning silliq siljishini butunlay bekor qiladi.
-    //     Yechim: langar bo'yicha siljish ANIQ va bir zumda ("auto")
-    //     bajariladi. Bu CSS dagi "smooth" ni faqat shu bitta harakat
-    //     uchun bekor qiladi, qolgan joyda silliq siljish saqlanadi.
+    //     Yechim: ichki havola bo'yicha siljish ANIQ, bir zumda
+    //     bajariladi (qanday — "siljit" funksiyasidagi izohga qarang).
     //
     //  2) 1400 ms yetmasdi. Pastdagi suratlar "lazy" yuklanadi va sekin
     //     internetda sahifa balandligi 1400 ms dan KEYIN ham o'zgaradi.
@@ -196,8 +203,28 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
         return isNaN(q) ? 0 : q;
     }
     function siljit(nishon) {
-        var y = window.pageYOffset + nishon.getBoundingClientRect().top - langarQochishi();
-        window.scrollTo({ top: Math.max(0, y), left: 0, behavior: 'auto' });
+        var y = Math.max(0, window.pageYOffset + nishon.getBoundingClientRect().top - langarQochishi());
+        // UCHINCHI TAFTISH — ikkinchi urinish ham shu yerda qulagan edi.
+        // scrollTo({ behavior: 'auto' }) "bir zumda" DEGANI EMAS.
+        // Standartda "auto" — "CSS dagi scroll-behavior xossasini
+        // qo'lla" degani, bizda esa u "smooth". Ya'ni bu chaqiruv ham
+        // 6000 pikselli animatsiya boshlardi, pastdagi 120 ms lik
+        // tekshiruv esa uni har safar boshidan uzardi — sahifa
+        // joyidan deyarli qimirlamasdi.
+        //
+        // Bir zumda siljitishning ishonchli yo'li — CSS xossasini shu
+        // elementning O'ZIDA vaqtincha o'chirib turish. Element ustidagi
+        // qiymat uslublar faylidagisidan ustun turadi, keyin esa uni
+        // qanday bo'lsa shundayligicha qaytaramiz — sahifaning qolgan
+        // joyida silliq siljish saqlanadi.
+        //
+        // ({ behavior: 'instant' }) ham to'g'ri javob bo'lardi, lekin uni
+        // bilmaydigan eski brauzerda bu qiymat xato beradi.
+        var ildiz = document.documentElement;
+        var eski = ildiz.style.scrollBehavior;
+        ildiz.style.scrollBehavior = 'auto';
+        window.scrollTo(0, y);
+        ildiz.style.scrollBehavior = eski;
     }
 
     // Nishon o'z joyida turib qolgunicha kuzatamiz. Mijoz o'zi aylantira
@@ -228,22 +255,31 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
         })();
     }
 
-    // "load" ni kutib turmasdan, sahifa o'qib bo'linishi bilan boshlaymiz —
-    // shunda mijoz kamroq sakrashni ko'radi. "load" da yana bir marta
-    // boshlaymiz, chunki suratlarning asosiy qismi aynan o'shanda keladi.
+    // Sayt sahifalari orasida fon musiqasi uzilmasligi uchun <body>
+    // almashtiriladi va shu skript QAYTADAN ishga tushadi
+    // (_sayt_musiqa.html). Shuning uchun window'dagi hodisalarni faqat
+    // bir marta ulaymiz — aks holda har o'tishda yangi nusxasi qo'shilib
+    // borardi va bitta siljish o'nlab marta bajarilardi.
+    if (!window.__oqIchkiHavolaOrnatildi) {
+        window.__oqIchkiHavolaOrnatildi = true;
+        // "load" — suratlarning asosiy qismi aynan o'shanda keladi.
+        window.addEventListener('load', langarniUshla);
+        // Mijoz ALLAQACHON shu sahifada bo'lsa (masalan bosh sahifada
+        // turib menyudagi "Narxlar"ni bossa), brauzer hujjatni qayta
+        // yuklamaydi va "load" ikkinchi marta ishlamaydi. Bu holatni
+        // "hashchange" ushlaydi.
+        window.addEventListener('hashchange', function () {
+            setTimeout(langarniUshla, 20);
+        });
+    }
+    // "load" ni kutib turmasdan, sahifa o'qib bo'linishi bilan
+    // boshlaymiz — shunda mijoz kamroq sakrashni ko'radi. <body>
+    // almashgandan keyin skript qayta ishga tushganda (readyState
+    // allaqachon "complete") siljish ham aynan shu yerdan boshlanadi.
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', langarniUshla);
     } else {
         langarniUshla();
     }
-    window.addEventListener('load', langarniUshla);
-
-    // Mijoz ALLAQACHON shu sahifada bo'lsa (masalan bosh sahifada turib
-    // menyudagi "Narxlar"ni bossa), brauzer hujjatni qayta yuklamaydi va
-    // yuqoridagi "load" hodisasi ikkinchi marta ishlamaydi. Bu holatni
-    // "hashchange" ushlaydi.
-    window.addEventListener('hashchange', function () {
-        setTimeout(langarniUshla, 20);
-    });
 })();
 </script>

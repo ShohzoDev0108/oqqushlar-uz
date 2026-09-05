@@ -191,9 +191,35 @@ umuman tegmaydi, oddiy to'liq sahifa yuklanishi bilan ochiladi.
                 }
 
                 document.body.parentNode.replaceChild(yangiTana, document.body);
-                skriptlarniQaytaIshgaTushir(document.body);
-                window.scrollTo(0, 0);
+
+                {% comment %}
+                TAFTISH — "Narxlar" havolasi shu yerda buzilardi.
+
+                Sarlavhadagi "Narxlar" boshqa sahifadan bosilganda mijoz
+                bosh sahifaning TEPASIGA tushardi. Sababi uch qatorning
+                TARTIBI edi:
+
+                  1) skriptlar qayta ishga tushardi — o'sha payt manzil
+                     hali ESKI sahifaniki, ya'ni "location.hash" bo'sh.
+                     Yangi sahifaning "#narx" ga siljitadigan skripti
+                     "hech qanday ichki havola yo'q" deb chiqib ketardi;
+                  2) keyin sahifa majburan tepaga qaytarilardi;
+                  3) va faqat SHUNDAN KEYIN manzil "/#narx" ga
+                     o'zgartirilardi — pushState esa "hashchange"
+                     hodisasini UYG'OTMAYDI, ya'ni ikkinchi imkoniyat
+                     ham bo'lmasdi.
+
+                Natijada manzil qatorida "#narx" turardi, sahifa esa eng
+                tepada. Endi avval manzil yangilanadi, so'ng skriptlar
+                ishga tushadi — va ichki havola bo'lsa, tepaga qaytarish
+                umuman bajarilmaydi (siljitishni sahifa skriptining o'zi
+                qiladi, _sayt_nav.html).
+                {% endcomment %}
                 if (tarixgaQoshish) { history.pushState({ oqIchkiNav: true }, '', url); }
+                if (!location.hash || location.hash.length < 2) {
+                    window.scrollTo(0, 0);
+                }
+                skriptlarniQaytaIshgaTushir(document.body);
                 if (window.gtag) { window.gtag('event', 'page_view', { page_path: location.pathname }); }
             })
             .catch(function () {

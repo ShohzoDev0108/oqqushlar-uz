@@ -642,13 +642,21 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
 </section>
 
 {% if shablonlar %}
+{% comment %}
+Bo'lim ilgari "Dizayn shablonlari" deb atalardi va kartalar to'g'ridan-
+to'g'ri forma to'ldirish sahifasiga olib borardi — ya'ni mijoz mahsulotni
+KO'RMASDAN turib ish boshlashi kerak edi. Endi har bir kartadan to'liq,
+ishlaydigan namuna ochiladi, shu sabab bo'lim nomi ham "Namunalar".
+Id ("dizaynlar") ataylab o'zgartirilmadi: tashqaridan kelgan eski
+havolalar buzilmasin.
+{% endcomment %}
 <section class="oq-bolim" id="dizaynlar">
     <div class="oq-romka-burchak orb-tl"></div>
     <div class="oq-romka-burchak orb-tr"></div>
     <div class="oq-ichki">
         <div class="oq-bolim-bosh">
-            <span class="oq-yorliq">{% trans "Dizayn shablonlari" %}</span>
-            <h2 class="oq-h2">{% trans "Tanlang va shu zahoti o'zingiznikini yaratib ko'ring" %}</h2>
+            <span class="oq-yorliq">{% trans "Namunalar" %}</span>
+            <h2 class="oq-h2">{% trans "Avval ochib ko'ring, keyin o'zingiznikini yarating" %}</h2>
         </div>
         {% comment %}
         Turkum filtri bu yerdan ataylab olib tashlandi: bosh sahifaning
@@ -659,24 +667,30 @@ ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
         {% endcomment %}
         <div class="dizayn-grid dizayn-lenta" id="shablonlar-grid">
             {% for s in shablonlar %}
-            <a class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" href="{% url 'taklif:yaratish' s.kod %}">
-                <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
-                     {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
-                    <span class="m-ramka"></span>
-                    <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
-                    <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
-                    <span class="m-chiziq"></span>
-                    <span class="m-sana">21 · 06 · 2026</span>
+            <div class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}">
+                <a class="karta-ustki" href="{% url 'taklif:namuna' s.kod %}">
+                    <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
+                         {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
+                        <span class="m-ramka"></span>
+                        <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
+                        <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
+                        <span class="m-chiziq"></span>
+                        <span class="m-sana">21 · 06 · 2026</span>
+                    </div>
+                    <div class="matn">
+                        <div class="nomi">{{ s.nomi }}</div>
+                        <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
+                    </div>
+                </a>
+                <div class="karta-tugmalar">
+                    <a class="karta-tugma asosiy" href="{% url 'taklif:namuna' s.kod %}">{% trans "Ochib ko'rish" %}</a>
+                    <a class="karta-tugma" href="{% url 'taklif:yaratish' s.kod %}">{% trans "Tanlash" %}</a>
                 </div>
-                <div class="matn">
-                    <div class="nomi">{{ s.nomi }}</div>
-                    <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
-                </div>
-            </a>
+            </div>
             {% endfor %}
         </div>
         <div class="lenta-nuqtalar" id="lenta-nuqtalar" aria-hidden="true" data-jonli></div>
-        <a class="lenta-havola" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha dizaynlar" %} →</a>
+        <a class="lenta-havola" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha namunalar" %} →</a>
     </div>
 </section>
 {% endif %}

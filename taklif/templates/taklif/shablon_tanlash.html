@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n oq_filtrlar %}
 
-{% block title %}{% trans "Shablon tanlang" %} — Oqqushlar{% endblock %}
+{% block title %}{% trans "Namunalar" %} — Oqqushlar{% endblock %}
 
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
@@ -91,11 +91,11 @@
     <div class="oq-izlar">
         <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
         <span>›</span>
-        <span class="joriy">{% trans "Dizaynlar" %}</span>
+        <span class="joriy">{% trans "Namunalar" %}</span>
     </div>
-    <h1 class="oq-h1">{% trans "Shablon tanlang" %}</h1>
+    <h1 class="oq-h1">{% trans "Namunalar" %}</h1>
     <p class="oq-matn" style="max-width:560px; margin-top:0;">
-        {% trans "Sizga yoqqan dizaynni tanlang — keyingi bosqichda o'z ma'lumotlaringizni to'ldirasiz." %}
+        {% trans "Har bir dizaynni to'liq, ishlaydigan holida ochib ko'ring — yoqqanini tanlab, o'zingiznikini yarating." %}
     </p>
 </div>
 
