@@ -2373,3 +2373,435 @@ msgstr "Мұнда жаңа дизайндар мен дайын жұмыста�
 #: taklif/templates/taklif/_sayt_nav.html
 msgid "Narxlar"
 msgstr "Бағалар"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "2 tagacha o'z rasmingiz (har biri 8 MB gacha) yoki tayyor namunalardan"
+msgstr "2-ге дейін өз суретіңіз (әрқайсысы 8 МБ дейін) немесе дайын үлгілерден"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Alohida kelishiladi"
+msgstr "Жеке келісіледі"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Andijon shahri, Bog'ishamol ko'chasi 15"
+msgstr "Әндіжан қаласы, Бағышамал көшесі 15"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Anvar amaki"
+msgstr "Анвар аға"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Avval namunani ochib ko'ring"
+msgstr "Алдымен үлгіні ашып көріңіз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Avval ochib ko'ring, keyin o'zingiznikini yarating"
+msgstr "Алдымен ашып көріңіз, содан кейін өзіңіздікін жасаңыз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bahor to'yxonasi"
+msgstr "Бахор той-мейрамханасы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Barcha namunalar"
+msgstr "Барлық үлгілер"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bayramona"
+msgstr "Мерекелік"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bekzod"
+msgstr "Бекзод"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Beshigi bo'sh qolmasin, farzandingiz baxtli bo'lsin."
+msgstr "Бесігі бос қалмасын, балаңыз бақытты болсын."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bir marta to'laysiz va taklifnoma butunlay sizniki bo'ladi. Obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q."
+msgstr "Бір рет төлейсіз және шақыру толығымен сіздікі болады. Жазылым да, айлық төлем де, жасырын қосымша төлем де жоқ."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bitiruv kechasi"
+msgstr "Бітіру кеші"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bitiruvchilar nomidan"
+msgstr "Бітірушілер атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bolalar quvonch markazi"
+msgstr "Балалар қуаныш орталығы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bolalar sog' bo'lsin, ota-onaga quvonch keltirsin!"
+msgstr "Балалар аман болсын, ата-анаға қуаныш әкелсін!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Boshqa savol bormi?"
+msgstr "Басқа сұрақ бар ма?"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bosiq, ochiq ranglar"
+msgstr "Ұстамды, ашық түстер"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bosma (qog'oz) variant"
+msgstr "Басылған (қағаз) нұсқа"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bu — namuna. Hamma narsa ishlaydi, lekin ma'lumotlar saqlanmaydi."
+msgstr "Бұл — үлгі. Барлығы жұмыс істейді, бірақ деректер сақталмайды."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bularning har biri holatiga qarab kelishiladi — Telegram orqali yozing."
+msgstr "Бұлардың әрқайсысы жағдайына қарай келісіледі — Telegram арқылы жазыңыз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bularning har biri holatiga qarab kelishiladi — bog'lanish sahifasi orqali yozing."
+msgstr "Бұлардың әрқайсысы жағдайына қарай келісіледі — байланыс беті арқылы жазыңыз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Buxoro shahri, Navoiy ko'chasi 8"
+msgstr "Бұхара қаласы, Науаи көшесі 8"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Cheksiz mehmon; har biriga ismi bilan ochiladigan shaxsiy havola"
+msgstr "Шексіз қонақ; әрқайсысына есімімен ашылатын жеке сілтеме"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Chinor to'yxonasi"
+msgstr "Шынар той-мейрамханасы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Dilnoza"
+msgstr "Дилноза"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Dizaynni tanlab, ma'lumotlaringizni kiritasiz. Ro'yxatdan o'tish, email yoki parol kerak emas."
+msgstr "Дизайнды таңдап, деректеріңізді енгізесіз. Тіркелу, email немесе құпиясөз қажет емес."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Do'stlik oshxonasi"
+msgstr "Достық асханасы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Erkin"
+msgstr "Еркін"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ertalabki oshimizga marhamat qiling. Sizni davramizda ko'rish biz uchun katta sharaf."
+msgstr "Таңғы асымызға мархабат. Сізді ортамызда көру біз үшін үлкен мәртебе."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Faqat siz uchun noldan chiziladigan individual dizayn"
+msgstr "Тек сіз үшін нөлден сызылатын жеке дизайн"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Faqat sizga ko'rinadigan maxfiy statistika sahifasi"
+msgstr "Тек сізге көрінетін құпия статистика беті"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Farg'ona shahri, Mustaqillik ko'chasi 27"
+msgstr "Ферғана қаласы, Мустақиллик көшесі 27"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Farzandlar va nabiralar nomidan"
+msgstr "Балалар мен немерелер атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Farzandlarimiz hayotidagi muhim kunni yaqinlarimiz bilan birga o'tkazishni istaymiz. Marhamat, tashrif buyuring."
+msgstr "Балаларымыз өміріндегі маңызды күнді жақындарымызбен бірге өткізгіміз келеді. Мархабат, төрлетіңіз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Fon musiqasi — o'zingiznikini yuklaysiz (15 MB gacha) yoki tayyorlaridan tanlaysiz"
+msgstr "Фон музыкасы — өзіңіздікін жүктейсіз (15 МБ дейін) немесе дайындарынан таңдайсыз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Har bir dizayn to'liq ishlaydigan namuna bilan ochiladi — hech narsa to'lamasdan, hech narsa to'ldirmasdan."
+msgstr "Әр дизайн толық жұмыс істейтін үлгімен ашылады — ештеңе төлемей, ештеңе толтырмай."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Har bir dizaynni to'liq, ishlaydigan holida ochib ko'ring — yoqqanini tanlab, o'zingiznikini yarating."
+msgstr "Әр дизайнды толық, жұмыс істеп тұрған күйінде ашып көріңіз — ұнағанын таңдап, өзіңіздікін жасаңыз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Hayotimizning eng baxtli kunini biz uchun eng qadrli insonlar bilan birga nishonlamoqchimiz. Kelishingizni sabrsizlik bilan kutamiz."
+msgstr "Өміріміздегі ең бақытты күнді біз үшін ең қымбат адамдармен бірге атап өткіміз келеді. Келуіңізді асыға күтеміз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ikkalangizga ham sabr, ham baxt tilayman. Qutlug' bo'lsin!"
+msgstr "Екеуіңізге сабыр да, бақыт та тілеймін. Құтты болсын!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ikki oila nomidan"
+msgstr "Екі отбасы атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ikki oilaning qo'shilishi — bir umrlik quvonch. Shu quvonchli kunda duo va oq yo'l tilaklaringiz biz uchun eng qimmatli sovg'a bo'ladi."
+msgstr "Екі отбасының қосылуы — өмірлік қуаныш. Осы қуанышты күні батаңыз бен ақ тілегіңіз біз үшін ең қымбат сыйлық болады."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Jahongir"
+msgstr "Жахонгир"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Kamola"
+msgstr "Камола"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Katta yigit bo'l, o'qishing zo'r bo'lsin!"
+msgstr "Үлкен жігіт бол, оқуың мықты болсын!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Kelin-kuyov nomidan"
+msgstr "Келін-күйеу атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Keyingi qadam"
+msgstr "Келесі қадам"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ko'rib chiqing"
+msgstr "Қарап шығыңыз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Maktab yig'inlar zali"
+msgstr "Мектеп жиналыс залы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Marosim sanasigacha sanoq, kalendar, xarita va Telegram tugmasi"
+msgstr "Рәсім күніне дейінгі кері санақ, күнтізбе, карта және Telegram түймесі"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Matnni biz yozib berishimiz yoki tahrirlashimiz"
+msgstr "Мәтінді біздің жазып беруіміз немесе өңдеуіміз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Mehmon uchun 8 tilda avtomatik ko'rinish"
+msgstr "Қонақ үшін 8 тілде автоматты көрініс"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Mehmonlarning javoblari va tilaklari — kim keladi, nechta kishi bilan"
+msgstr "Қонақтардың жауаптары мен тілектері — кім келеді, неше адаммен"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Milliy yoki bayramona"
+msgstr "Ұлттық немесе мерекелік"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Muddatsiz havola — marosimdan keyin ham ishlab turadi"
+msgstr "Мерзімсіз сілтеме — рәсімнен кейін де жұмыс істей береді"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Namangan shahri, Amir Temur ko'chasi 3"
+msgstr "Наманган қаласы, Әмір Темір көшесі 3"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Namunalar"
+msgstr "Үлгілер"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Namunalarni ko'rish"
+msgstr "Үлгілерді көру"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narx dizaynga qarab biroz farq qiladi — har bir dizaynning aniq narxi uning kartasida yozilgan. Tanlaganingizdan keyin narx o'zgarmaydi."
+msgstr "Баға дизайнға қарай сәл өзгеше болады — әр дизайнның нақты бағасы оның картасында жазылған. Таңдағаныңыздан кейін баға өзгермейді."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxga kiradi"
+msgstr "Бағаға кіреді"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxga nima kiradi"
+msgstr "Бағаға не кіреді"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxlar haqida batafsil"
+msgstr "Бағалар туралы толығырақ"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxlar — Oqqushlar"
+msgstr "Бағалар — Oqqushlar"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Nilufar bog'i"
+msgstr "Нилуфар бағы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Nodira opa"
+msgstr "Нодира апай"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Nukus shahri, Do'stlik ko'chasi 6"
+msgstr "Нүкіс қаласы, Достық көшесі 6"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "O'g'limiz yetti yoshga to'lyapti. Uning quvonchini do'stlari va yaqinlari bilan birga bo'lishishni istaymiz."
+msgstr "Ұлымыз жеті жасқа толып отыр. Оның қуанышын достары және жақындарымен бірге бөліскіміз келеді."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "O'n bir yillik yo'limiz yakuniga yetdi. Shu unutilmas kechani birga o'tkazaylik."
+msgstr "Он бір жылдық жолымыз аяқталды. Осы ұмытылмас кешті бірге өткізейік."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ochib ko'rish"
+msgstr "Ашып көру"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oila davrasi"
+msgstr "Отбасы ортасы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oila hovlisi"
+msgstr "Отбасы ауласы"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Onamizning tavallud sanasini eng yaqin insonlar davrasida nishonlamoqchimiz. Iliq so'zlaringiz bilan bu kunni bezashingizni so'raymiz."
+msgstr "Анамыздың туған күнін ең жақын адамдар ортасында атап өткіміз келеді. Жылы сөздеріңізбен осы күнді әрлеуіңізді сұраймыз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oq yo'l! Ikki oilaga tinchlik va totuvlik tilaymiz."
+msgstr "Ақ жол! Екі отбасына тыныштық пен татулық тілейміз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oshingiz halol, davrangiz keng bo'lsin!"
+msgstr "Асыңыз адал, ортаңыз кең болсын!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ota-ona nomidan"
+msgstr "Ата-ана атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ota-ona va buvi-bobolar nomidan"
+msgstr "Ата-ана және ата-әже атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ozoda"
+msgstr "Озода"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Qarshi shahri, Nasaf ko'chasi 21"
+msgstr "Қарши қаласы, Насаф көшесі 21"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Qiz ota-onasi nomidan"
+msgstr "Қыздың ата-анасы атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Qizimizni oq yo'l bilan kuzatayotgan kunimizda yonimizda bo'lsangiz, quvonchimiz ikki barobar bo'ladi."
+msgstr "Қызымызды ақ жолға шығарып салып отырған күні қасымызда болсаңыз, қуанышымыз екі есе болады."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Rasmiy"
+msgstr "Ресми"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ro'yxatda yo'q tilda taklifnoma"
+msgstr "Тізімде жоқ тілдегі шақыру"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Rustamovlar oilasi nomidan"
+msgstr "Рустамовтар отбасы атынан"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Samarqand shahri, Registon ko'chasi 4"
+msgstr "Самарқанд қаласы, Регистан көшесі 4"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Savol-javob bo'limiga qarang"
+msgstr "Сұрақ-жауап бөліміне қараңыз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sevinch"
+msgstr "Севинч"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Shahnoza"
+msgstr "Шахноза"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Shu dizaynda yaratish"
+msgstr "Осы дизайнда жасау"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sinfdosh"
+msgstr "Сыныптас"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sizning tilagingiz"
+msgstr "Сіздің тілегіңіз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sog'liq va tinchlik tilaymiz. Yana ko'p yillar shunday!"
+msgstr "Денсаулық пен тыныштық тілейміз. Тағы да көп жылдар осылай болсын!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tafsilotlar"
+msgstr "Мәліметтер"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Taklifnoma sahifasidagi \"Yoqdi\" tugmasi sizni Telegram'dagi adminimiz bilan bog'laydi. To'lov tasdiqlangach, havola mehmonlarga ochiladi."
+msgstr "Шақыру бетіндегі «Ұнады» түймесі сізді Telegram-дағы админімізбен байланыстырады. Төлем расталған соң, сілтеме қонақтарға ашылады."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tanlagan dizayningiz to'liq holda, hech qanday cheklovsiz"
+msgstr "Таңдаған дизайныңыз толық күйінде, ешқандай шектеусіз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tanlash"
+msgstr "Таңдау"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tayyor taklifnoma sizga shaxsiy havola bilan ochiladi. Uni to'liq, o'z ko'zingiz bilan ko'rasiz — hali to'lamasdan."
+msgstr "Дайын шақыру сізге жеке сілтеме арқылы ашылады. Оны толық, өз көзіңізбен көресіз — әлі төлемей тұрып."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tilagingiz namunaga qo'shildi — uni faqat siz ko'rasiz."
+msgstr "Тілегіңіз үлгіге қосылды — оны тек сіз көресіз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "To'lamaguningizcha taklifnomani faqat siz ko'ra olasiz — havolani boshqa kim ochsa ham, sahifa ochilmaydi."
+msgstr "Төлемегеніңізше шақыруды тек сіз көре аласыз — сілтемені басқа біреу ашса да, бет ашылмайды."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "To'lov"
+msgstr "Төлем"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Toshkent shahri, Chilonzor tumani, Bunyodkor shoh ko'chasi 12"
+msgstr "Ташкент қаласы, Шыланзар ауданы, Бунёдкор даңғылы 12"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi 108"
+msgstr "Ташкент қаласы, Юнусабад ауданы, Әмір Темір даңғылы 108"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Umringiz uzoq, dasturxoningiz doim to'kin bo'lsin!"
+msgstr "Өміріңіз ұзақ, дастарқаныңыз әрдайым мол болсын!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Xonadonimizga quvonch olib kirgan kichkintoyimizning beshik to'yiga sizni chin dildan taklif qilamiz."
+msgstr "Шаңырағымызға қуаныш әкелген кішкентайымыздың бесік тойына сізді шын жүректен шақырамыз."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yangi xonadoningda faqat quvonch ko'r, singlim."
+msgstr "Жаңа шаңырағыңда тек қуаныш көр, сіңлім."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yarating"
+msgstr "Жасаңыз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yo'lingiz ochiq bo'lsin, do'stlar. Uchrashib turaylik!"
+msgstr "Жолдарың ашық болсын, достар. Кездесіп тұрайық!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yoqsa — to'laysiz"
+msgstr "Ұнаса — төлейсіз"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Zamin restorani"
+msgstr "Замин мейрамханасы"

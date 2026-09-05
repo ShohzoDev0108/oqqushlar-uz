@@ -2376,3 +2376,435 @@ msgstr "Bul jerde jańa dizaynlar hám tayar jumıslarımızdı jaylastıramız.
 #: taklif/templates/taklif/_sayt_nav.html
 msgid "Narxlar"
 msgstr "Bahalar"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "2 tagacha o'z rasmingiz (har biri 8 MB gacha) yoki tayyor namunalardan"
+msgstr "2 danaǵa shekem óz súwretińiz (hár biri 8 MB ge shekem) yamasa tayyar úlgilerden"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Alohida kelishiladi"
+msgstr "Ayrıqsha kelisiledi"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Andijon shahri, Bog'ishamol ko'chasi 15"
+msgstr "Andijan qalası, Baǵıshamal kóshesi 15"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Anvar amaki"
+msgstr "Anvar aga"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Avval namunani ochib ko'ring"
+msgstr "Aldın úlgini ashıp kóriń"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Avval ochib ko'ring, keyin o'zingiznikini yarating"
+msgstr "Aldın ashıp kóriń, keyin ózińizdikin jaratıń"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bahor to'yxonasi"
+msgstr "«Bahar» toyxanası"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Barcha namunalar"
+msgstr "Barlıq úlgiler"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bayramona"
+msgstr "Bayramlıq"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bekzod"
+msgstr "Bekzod"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Beshigi bo'sh qolmasin, farzandingiz baxtli bo'lsin."
+msgstr "Besigi bos qalmasın, perzentińiz baxıtlı bolsın."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bir marta to'laysiz va taklifnoma butunlay sizniki bo'ladi. Obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q."
+msgstr "Bir márte tóleysiz hám shaqırıw pútkilley sizdiki boladı. Jazılıw da, aylıq tólem de, jasırın qosımsha da joq."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bitiruv kechasi"
+msgstr "Pitkeriw keshesi"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bitiruvchilar nomidan"
+msgstr "Pitkeriwshiler atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bolalar quvonch markazi"
+msgstr "«Balalar quwanıshı» orayı"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bolalar sog' bo'lsin, ota-onaga quvonch keltirsin!"
+msgstr "Balalar saw bolsın, ata-anaǵa quwanısh alıp kelsin!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Boshqa savol bormi?"
+msgstr "Basqa soraw barma?"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bosiq, ochiq ranglar"
+msgstr "Basıq, ashıq reńler"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bosma (qog'oz) variant"
+msgstr "Baspa (qaǵaz) variantı"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bu — namuna. Hamma narsa ishlaydi, lekin ma'lumotlar saqlanmaydi."
+msgstr "Bul — úlgi. Hámme nárse isleydi, biraq maǵlıwmatlar saqlanbaydı."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bularning har biri holatiga qarab kelishiladi — Telegram orqali yozing."
+msgstr "Bulardıń hár biri jaǵdayına qarap kelisiledi — Telegram arqalı jazıń."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Bularning har biri holatiga qarab kelishiladi — bog'lanish sahifasi orqali yozing."
+msgstr "Bulardıń hár biri jaǵdayına qarap kelisiledi — baylanıs beti arqalı jazıń."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Buxoro shahri, Navoiy ko'chasi 8"
+msgstr "Buxara qalası, Nawayı kóshesi 8"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Cheksiz mehmon; har biriga ismi bilan ochiladigan shaxsiy havola"
+msgstr "Sheksiz mıymán; hár birine atı menen ashılatuǵın jeke silteme"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Chinor to'yxonasi"
+msgstr "«Shınar» toyxanası"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Dilnoza"
+msgstr "Dilnoza"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Dizaynni tanlab, ma'lumotlaringizni kiritasiz. Ro'yxatdan o'tish, email yoki parol kerak emas."
+msgstr "Dizayndı saylap, maǵlıwmatlarıńızdı kirgizesiz. Dizimnen ótiw, email yamasa parol kerek emes."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Do'stlik oshxonasi"
+msgstr "«Dostlıq» asxanası"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Erkin"
+msgstr "Erkin"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ertalabki oshimizga marhamat qiling. Sizni davramizda ko'rish biz uchun katta sharaf."
+msgstr "Erteńgi asımızǵa márhamat etiń. Sizdi dáwremizde kóriw biz ushın úlken abıray."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Faqat siz uchun noldan chiziladigan individual dizayn"
+msgstr "Tek siz ushın noldan sızılatuǵın individual dizayn"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Faqat sizga ko'rinadigan maxfiy statistika sahifasi"
+msgstr "Tek sizge kórinetuǵın jasırın statistika beti"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Farg'ona shahri, Mustaqillik ko'chasi 27"
+msgstr "Ferǵana qalası, Ǵárezsizlik kóshesi 27"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Farzandlar va nabiralar nomidan"
+msgstr "Perzentler hám aqlıqlar atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Farzandlarimiz hayotidagi muhim kunni yaqinlarimiz bilan birga o'tkazishni istaymiz. Marhamat, tashrif buyuring."
+msgstr "Perzentlerimiz ómirindegi áhmiyetli kúndi jaqınlarımız benen birge ótkeriwdi qáleymiz. Márhamat, kelip qatnasıń."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Fon musiqasi — o'zingiznikini yuklaysiz (15 MB gacha) yoki tayyorlaridan tanlaysiz"
+msgstr "Fon muzıkası — ózińizdikin júkleysiz (15 MB ge shekem) yamasa tayyarlarınan saylaysız"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Har bir dizayn to'liq ishlaydigan namuna bilan ochiladi — hech narsa to'lamasdan, hech narsa to'ldirmasdan."
+msgstr "Hár bir dizayn tolıq isleytuǵın úlgi menen ashıladı — hesh nárse tólemey, hesh nárse toltırmay."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Har bir dizaynni to'liq, ishlaydigan holida ochib ko'ring — yoqqanini tanlab, o'zingiznikini yarating."
+msgstr "Hár bir dizayndı tolıq, isleytuǵın halında ashıp kóriń — unaǵanın saylap, ózińizdikin jaratıń."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Hayotimizning eng baxtli kunini biz uchun eng qadrli insonlar bilan birga nishonlamoqchimiz. Kelishingizni sabrsizlik bilan kutamiz."
+msgstr "Ómirimizdiń eń baxıtlı kúnin biz ushın eń qádirli insanlar menen birge belgilemekshimiz. Keliwińizdi shıdamsızlıq penen kútemiz."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ikkalangizga ham sabr, ham baxt tilayman. Qutlug' bo'lsin!"
+msgstr "Ekewińizge de shıdamlılıq, de baxıt tileymen. Qutlı bolsın!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ikki oila nomidan"
+msgstr "Eki shańaraq atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ikki oilaning qo'shilishi — bir umrlik quvonch. Shu quvonchli kunda duo va oq yo'l tilaklaringiz biz uchun eng qimmatli sovg'a bo'ladi."
+msgstr "Eki shańaraqtıń qosılıwı — bir ómirlik quwanısh. Usı quwanıshlı kúnde duwa hám aq jol tileklerińiz biz ushın eń qımbatlı sıylıq boladı."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Jahongir"
+msgstr "Jahangir"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Kamola"
+msgstr "Kamola"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Katta yigit bo'l, o'qishing zo'r bo'lsin!"
+msgstr "Úlken jigit bol, oqıwıń zor bolsın!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Kelin-kuyov nomidan"
+msgstr "Kelin-kúyew atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Keyingi qadam"
+msgstr "Keyingi qádem"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ko'rib chiqing"
+msgstr "Kórip shıǵıń"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Maktab yig'inlar zali"
+msgstr "Mektep jıynalıslar zalı"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Marosim sanasigacha sanoq, kalendar, xarita va Telegram tugmasi"
+msgstr "Máresim sánesine shekem esap, kalendar, karta hám Telegram túymesi"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Matnni biz yozib berishimiz yoki tahrirlashimiz"
+msgstr "Tekstti biz jazıp beriwimiz yamasa redaktorlawımız"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Mehmon uchun 8 tilda avtomatik ko'rinish"
+msgstr "Mıymán ushın 8 tilde avtomat kórinis"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Mehmonlarning javoblari va tilaklari — kim keladi, nechta kishi bilan"
+msgstr "Mıymánlardıń juwapları hám tilekleri — kim keledi, neshe adam menen"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Milliy yoki bayramona"
+msgstr "Milliy yamasa bayramlıq"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Muddatsiz havola — marosimdan keyin ham ishlab turadi"
+msgstr "Múddetsiz silteme — máresimnen keyin de islep turadı"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Namangan shahri, Amir Temur ko'chasi 3"
+msgstr "Namangan qalası, Ámir Temur kóshesi 3"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Namunalar"
+msgstr "Úlgiler"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Namunalarni ko'rish"
+msgstr "Úlgilerdi kóriw"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narx dizaynga qarab biroz farq qiladi — har bir dizaynning aniq narxi uning kartasida yozilgan. Tanlaganingizdan keyin narx o'zgarmaydi."
+msgstr "Baha dizaynǵa qarap azmaz parıq etedi — hár bir dizaynnıń anıq bahası onıń kartasında jazılǵan. Saylaǵanıńızdan keyin baha ózgermeydi."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxga kiradi"
+msgstr "Bahaǵa kiredi"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxga nima kiradi"
+msgstr "Bahaǵa ne kiredi"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxlar haqida batafsil"
+msgstr "Bahalar haqqında tolıǵıraq"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Narxlar — Oqqushlar"
+msgstr "Bahalar — Oqqushlar"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Nilufar bog'i"
+msgstr "«Nilupar» baǵı"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Nodira opa"
+msgstr "Nodira apa"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Nukus shahri, Do'stlik ko'chasi 6"
+msgstr "Nókis qalası, Dostlıq kóshesi 6"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "O'g'limiz yetti yoshga to'lyapti. Uning quvonchini do'stlari va yaqinlari bilan birga bo'lishishni istaymiz."
+msgstr "Ulımız jeti jasqa toladı. Onıń quwanıshın dosları hám jaqınları menen birge bólisiwdi qáleymiz."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "O'n bir yillik yo'limiz yakuniga yetdi. Shu unutilmas kechani birga o'tkazaylik."
+msgstr "On bir jıllıq jolımız juwmaqlandı. Usı umıtılmas keshedi birge ótkereyik."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ochib ko'rish"
+msgstr "Ashıp kóriw"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oila davrasi"
+msgstr "«Shańaraq dáwresi»"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oila hovlisi"
+msgstr "«Shańaraq» háwlisi"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Onamizning tavallud sanasini eng yaqin insonlar davrasida nishonlamoqchimiz. Iliq so'zlaringiz bilan bu kunni bezashingizni so'raymiz."
+msgstr "Anamızdıń tuwılǵan kúnin eń jaqın insanlar dáwresinde belgilemekshimiz. Jılı sózlerińiz benen bul kúndi bezewińizdi soraymız."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oq yo'l! Ikki oilaga tinchlik va totuvlik tilaymiz."
+msgstr "Aq jol! Eki shańaraqqa tınıshlıq hám awızbirshilik tileymiz."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Oshingiz halol, davrangiz keng bo'lsin!"
+msgstr "Asıńız halal, dáwreńiz keń bolsın!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ota-ona nomidan"
+msgstr "Ata-ana atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ota-ona va buvi-bobolar nomidan"
+msgstr "Ata-ana hám ata-ájeler atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ozoda"
+msgstr "Ozoda"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Qarshi shahri, Nasaf ko'chasi 21"
+msgstr "Qarshı qalası, Nasaf kóshesi 21"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Qiz ota-onasi nomidan"
+msgstr "Qız ata-anası atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Qizimizni oq yo'l bilan kuzatayotgan kunimizda yonimizda bo'lsangiz, quvonchimiz ikki barobar bo'ladi."
+msgstr "Qızımızdı aq jol menen uzatıp atırǵan kúnimizde janımızda bolsańız, quwanıshımız eki ese boladı."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Rasmiy"
+msgstr "Rásmiy"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Ro'yxatda yo'q tilda taklifnoma"
+msgstr "Dizimde joq tilde shaqırıw"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Rustamovlar oilasi nomidan"
+msgstr "Rustamovlar shańaraǵı atınan"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Samarqand shahri, Registon ko'chasi 4"
+msgstr "Samarqand qalası, Registan kóshesi 4"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Savol-javob bo'limiga qarang"
+msgstr "Soraw-juwap bólimine qarań"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sevinch"
+msgstr "Sevinch"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Shahnoza"
+msgstr "Shahnoza"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Shu dizaynda yaratish"
+msgstr "Usı dizaynda jaratıw"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sinfdosh"
+msgstr "Klasslas"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sizning tilagingiz"
+msgstr "Sizdiń tilegińiz"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Sog'liq va tinchlik tilaymiz. Yana ko'p yillar shunday!"
+msgstr "Densawlıq hám tınıshlıq tileymiz. Taǵı kóp jıllar usılay!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tafsilotlar"
+msgstr "Tápsilatlar"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Taklifnoma sahifasidagi \"Yoqdi\" tugmasi sizni Telegram'dagi adminimiz bilan bog'laydi. To'lov tasdiqlangach, havola mehmonlarga ochiladi."
+msgstr "Shaqırıw betindegi \"Unadı\" túymesi sizdi Telegram'daǵı adminimiz benen baylanıstıradı. Tólem tastıyıqlanǵannan soń, silteme mıymánlarǵa ashıladı."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tanlagan dizayningiz to'liq holda, hech qanday cheklovsiz"
+msgstr "Saylaǵan dizaynıńız tolıq halda, hesh qanday sheklewsiz"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tanlash"
+msgstr "Saylaw"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tayyor taklifnoma sizga shaxsiy havola bilan ochiladi. Uni to'liq, o'z ko'zingiz bilan ko'rasiz — hali to'lamasdan."
+msgstr "Tayyar shaqırıw sizge jeke silteme menen ashıladı. Onı tolıq, óz kózińiz benen kóresiz — ele tólemey turıp."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Tilagingiz namunaga qo'shildi — uni faqat siz ko'rasiz."
+msgstr "Tilegińiz úlgige qosıldı — onı tek siz kóresiz."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "To'lamaguningizcha taklifnomani faqat siz ko'ra olasiz — havolani boshqa kim ochsa ham, sahifa ochilmaydi."
+msgstr "Tólegenińizge shekem shaqırıwdı tek siz kóre alasız — sıltemeni basqa kim ashsa da, bet ashılmaydı."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "To'lov"
+msgstr "Tólem"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Toshkent shahri, Chilonzor tumani, Bunyodkor shoh ko'chasi 12"
+msgstr "Tashkent qalası, Shılanzar rayonı, Bunyodkor shah kóshesi 12"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi 108"
+msgstr "Tashkent qalası, Yunusabad rayonı, Ámir Temur shah kóshesi 108"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Umringiz uzoq, dasturxoningiz doim to'kin bo'lsin!"
+msgstr "Ómirińiz uzaq, dastıxanıńız hámiyshe mol bolsın!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Xonadonimizga quvonch olib kirgan kichkintoyimizning beshik to'yiga sizni chin dildan taklif qilamiz."
+msgstr "Shańaraǵımızǵa quwanısh alıp kirgen kishkenemizdiń besik toyına sizdi shın júrekten shaqıramız."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yangi xonadoningda faqat quvonch ko'r, singlim."
+msgstr "Jańa shańaraǵıńda tek quwanısh kór, sińlim."
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yarating"
+msgstr "Jaratıń"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yo'lingiz ochiq bo'lsin, do'stlar. Uchrashib turaylik!"
+msgstr "Jolıńız ashıq bolsın, doslar. Ushırasıp turayıq!"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Yoqsa — to'laysiz"
+msgstr "Unasa — tóleysiz"
+
+#: taklif/namuna.py taklif/templates/taklif/narxlar.html
+msgid "Zamin restorani"
+msgstr "«Zamin» restoranı"
