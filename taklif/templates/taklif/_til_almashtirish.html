@@ -68,7 +68,20 @@ yuboradi — ular _skript.html'ning o'z ulanishiga tegishli.
     display: inline-block;
     font-family: var(--sans, inherit);
 }
-.til-tabiiy {
+{% comment %}
+Yashirin zaxira <select>. Tanlagich ataylab "select.til-tabiiy" —
+shunchaki ".til-tabiiy" emas.
+
+NEGA: shablonlarda "...select { width: auto; padding: ... }" ko'rinishidagi
+qoidalar uchraydi (eski til almashtirgichdan qolgan — o'sha paytda til
+haqiqiy <select> orqali tanlanardi). Ularning ustunligi (0,1,1) oddiy
+".til-tabiiy"nikidan (0,1,0) yuqori bo'lgani uchun ular bu yashirin
+elementga kenglik qaytarib berardi: u ~145px bo'lib, ekrandan chetga
+chiqib, sahifani yonboshga surilar qilib qo'yardi. Element tegi bilan
+birga yozilgan tanlagich (0,1,1) esa hech qanday shablon qoidasidan
+past qolmaydi.
+{% endcomment %}
+select.til-tabiiy {
     position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
     overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }

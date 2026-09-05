@@ -8,10 +8,15 @@ body { background: #fdfaf4; color: #2b2b2b; }
 .wrapper { max-width: 640px; }
 
 .til-qatori { display: flex; justify-content: flex-end; padding: 10px 0; position: sticky; top: 0; z-index: 45; }
-.til-forma select {
-    width: auto; padding: 6px 10px; border-radius: 6px; border: 1px solid #e8ddc7;
-    font-size: .8rem; background: #fff; color: #2b2b2b;
-}
+/* TAFTISH: bu yerda ".til-forma select { width: auto; ... }" qoidasi
+   turardi — eski til almashtirgichdan qolgan, o'sha paytda til tanlash
+   haqiqiy <select> orqali amalga oshirilardi. Endi u yashirin zaxira
+   element (.til-tabiiy), ko'rinadigan boshqaruv esa tugma + ro'yxat.
+   Lekin bu qoidaning ustunligi (0,1,1) yashirish qoidasinikidan (0,1,0)
+   yuqori bo'lgani uchun <select> yana 140-146px kenglik olardi va
+   ekrandan chetga chiqib, sahifani YONBOSHGA surilar qilib qo'yardi
+   (390px telefonda ~60px ortiqcha). Boshqa 26 shablonda buni
+   "body { overflow-x: hidden }" yashirgan, bu 8 tasida esa yo'q edi. */
 
 .faollashtirilmagan-banner {
     background: #f4c95d; color: #2b2b2b; text-align: center;
@@ -35,7 +40,19 @@ body { background: #fdfaf4; color: #2b2b2b; }
 .bolim { margin: 26px 0; }
 .bolim h2 { font-size: 1.2rem; color: #8a6d3b; border-bottom: 1px solid #e8ddc7; padding-bottom: 6px; }
 
-.countdown { display: flex; justify-content: center; gap: 14px; margin: 10px 0; }
+/* TAFTISH: sanoq "flex + flex-wrap" bilan chizilardi va har bir katak
+   kamida 72px talab qilardi. 390px telefonda to'rtinchi katak ("sekund",
+   ruschada "секунды" — yanada uzun) sig'may, o'zi alohida qatorga tushib
+   qolardi: sanoq "3 + 1" bo'lib, buzuq ko'rinish berardi. Grid'da to'rtala
+   ustun teng va birgalikda torayadi, shuning uchun doim bitta qatorda
+   qoladi. "min-width: 0" — eski talabni va grid elementining standart
+   "min-width: auto" xatti-harakatini bekor qiladi. */
+.countdown {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; margin: 8px auto; max-width: 420px;
+}
+.countdown > div { min-width: 0; }
+@media (min-width: 480px) { .countdown { gap: 12px; } }
 .countdown div { text-align: center; }
 .countdown .son { font-size: 1.5rem; font-weight: bold; color: #8a6d3b; }
 

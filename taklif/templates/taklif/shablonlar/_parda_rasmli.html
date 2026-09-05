@@ -67,11 +67,25 @@ orqali "with parda_dizayn=..." bilan uzatiladi — shablon fayli belgilaydi):
         </clipPath>
     </defs>
 </svg>
+<style>
+/* Yuqoridagi matnni ikki yonidan ajratib turuvchi nozik chiziqcha.
+
+   TAFTISH: ilgari bu yerda "❧" (U+2767) belgisi turardi. U shrift
+   belgisi bo'lgani uchun ko'rinishi qurilmaga bog'liq edi: ba'zi
+   Android shriftlarida umuman yo'q va bo'sh kvadrat bo'lib chiqardi.
+   Bu esa mehmon ko'radigan birinchi ekran. Endi bu — oddiy CSS
+   chizig'i: hamma joyda bir xil va matn rangiga o'zi moslashadi. */
+.parda-kichik::before, .parda-kichik::after {
+    content: ""; display: inline-block; width: 18px; height: 1px;
+    background: currentColor; opacity: .5; vertical-align: middle;
+    margin: 0 10px;
+}
+</style>
 <div id="parda">
     {% if mehmon %}
-    <p class="parda-kichik"><span aria-hidden="true">❧</span> {% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}! <span aria-hidden="true">❧</span></p>
+    <p class="parda-kichik">{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}!</p>
     {% else %}
-    <p class="parda-kichik"><span aria-hidden="true">❧</span> {% trans "Sizga taklifnoma keldi" %}! <span aria-hidden="true">❧</span></p>
+    <p class="parda-kichik">{% trans "Sizga taklifnoma keldi" %}!</p>
     {% endif %}
     <div class="parda-yurak-wrap">
         <svg class="parda-yurak-chizigi" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
@@ -111,7 +125,14 @@ orqali "with parda_dizayn=..." bilan uzatiladi — shablon fayli belgilaydi):
         </div>
         {% endif %}
     </div>
-    <p class="parda-korsatma">{% trans "Qulfcha ustiga bosing" %}😊</p>
+    {% comment %}
+    TAFTISH: bu yerda matndan keyin "😊" emoji turardi. Bu — mehmon
+    ko'radigan ENG BIRINCHI ekran, ya'ni mahsulotning birinchi taassuroti.
+    Marosim taklifnomasi uchun chat emojisi juda erkin ohang beradi va
+    qolgan barcha bezaklar (SVG, nafis chiziqlar) bilan bir tilda emas.
+    Bundan tashqari emoji har qurilmada boshqacha chiziladi.
+    {% endcomment %}
+    <p class="parda-korsatma">{% trans "Qulfcha ustiga bosing" %}</p>
 </div>
 <script>
 (function () {

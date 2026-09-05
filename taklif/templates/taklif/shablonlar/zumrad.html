@@ -9,10 +9,15 @@ body { background: #06231d; color: #eaf5f0; overflow-x: hidden; }
 .ichki { max-width: 680px; margin: 0 auto; padding: 24px; }
 
 .til-qatori { display: flex; justify-content: flex-end; padding: 10px 16px; position: sticky; top: 0; z-index: 45; }
-.til-forma select {
-    width: auto; padding: 6px 12px; border-radius: 4px; border: 1px solid rgba(212,175,55,.4);
-    font-size: .8rem; background: #0a2f27; color: #eaf5f0;
-}
+/* TAFTISH: bu yerda ".til-forma select { width: auto; ... }" qoidasi
+   turardi — eski til almashtirgichdan qolgan, o'sha paytda til tanlash
+   haqiqiy <select> orqali amalga oshirilardi. Endi u yashirin zaxira
+   element (.til-tabiiy), ko'rinadigan boshqaruv esa tugma + ro'yxat.
+   Lekin bu qoidaning ustunligi (0,1,1) yashirish qoidasinikidan (0,1,0)
+   yuqori bo'lgani uchun <select> yana 140-146px kenglik olardi va
+   ekrandan chetga chiqib, sahifani YONBOSHGA surilar qilib qo'yardi
+   (390px telefonda ~60px ortiqcha). Boshqa 26 shablonda buni
+   "body { overflow-x: hidden }" yashirgan, bu 8 tasida esa yo'q edi. */
 
 .faollashtirilmagan-banner {
     background: #d4af37; color: #06231d; text-align: center;
@@ -77,7 +82,19 @@ body { background: #06231d; color: #eaf5f0; overflow-x: hidden; }
 .bolim h2 { text-align: center; font-size: 1.35rem; margin-bottom: 22px; color: #d4af37; font-weight: normal; letter-spacing: 2px; text-transform: uppercase; }
 .bolim h2::after { content: "◆ ◆ ◆"; display: block; font-size: .55rem; color: #9dbfb2; margin-top: 12px; letter-spacing: 8px; }
 
-.countdown { display: flex; justify-content: center; gap: 14px; margin: 8px 0; flex-wrap: wrap; }
+/* TAFTISH: sanoq "flex + flex-wrap" bilan chizilardi va har bir katak
+   kamida 72px talab qilardi. 390px telefonda to'rtinchi katak ("sekund",
+   ruschada "секунды" — yanada uzun) sig'may, o'zi alohida qatorga tushib
+   qolardi: sanoq "3 + 1" bo'lib, buzuq ko'rinish berardi. Grid'da to'rtala
+   ustun teng va birgalikda torayadi, shuning uchun doim bitta qatorda
+   qoladi. "min-width: 0" — eski talabni va grid elementining standart
+   "min-width: auto" xatti-harakatini bekor qiladi. */
+.countdown {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; margin: 8px auto; max-width: 420px;
+}
+.countdown > div { min-width: 0; }
+@media (min-width: 480px) { .countdown { gap: 12px; } }
 .countdown > div {
     text-align: center; min-width: 72px;
     background: rgba(212,175,55,.06); border: 1px solid rgba(212,175,55,.3);

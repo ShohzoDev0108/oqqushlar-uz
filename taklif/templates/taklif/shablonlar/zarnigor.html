@@ -246,20 +246,15 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
     background: var(--bezak-svg) center/contain no-repeat;
 }
 
-/* Sanoq — 4 ta teng ustun.
-
-   TAFTISH: ilgari bu "flex + flex-wrap" edi va har bir katak eng kamida
-   72px kenglikni talab qilardi. Telefonda ("sekund", "minutes" kabi
-   uzunroq so'zlar bilan) to'rtinchi katak sig'may, alohida qatorga
-   tushib qolardi — natijada "3 + 1" ko'rinishidagi nosimmetrik,
-   buzilgandek tuyuladigan tuzilma hosil bo'lardi. Grid'da to'rtala
-   katak birgalikda torayadi va HAR DOIM bitta qatorda qoladi. */
-.countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px auto; max-width: 420px; }
+/* Sanoq — joylashuvi (grid, 4 ta teng ustun) endi barcha shablonlar uchun
+   umumiy: _bolimlar.html'dagi "Sanoq" izohiga qarang. Bu yerda faqat
+   zarnigorning o'z ko'rinishi. */
+.countdown { margin: 8px auto; }
 .countdown > div { text-align: center; background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 14px 4px; }
 .countdown .son { font-size: clamp(1.45rem, 6.2vw, 1.8rem); font-weight: bold; color: var(--asos); line-height: 1.1; }
 .countdown > div > div:last-child { font-size: .78rem; color: var(--ikkinchi); letter-spacing: .5px; margin-top: 3px; }
 .countdown-matn { text-align: center; color: var(--ikkinchi); margin-top: 14px; }
-@media (min-width: 480px) { .countdown { gap: 12px; } .countdown > div { padding: 16px 8px; } }
+@media (min-width: 480px) { .countdown > div { padding: 16px 8px; } }
 
 /* Sarlavhasiz sanoq bo'limi boshqalarga qaraganda ixchamroq nafas oladi. */
 .bolim-sanoq { padding: var(--oraliq-3) 0; }

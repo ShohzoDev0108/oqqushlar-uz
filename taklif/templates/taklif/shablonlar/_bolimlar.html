@@ -175,6 +175,32 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     transform: rotate(45deg); opacity: .9; flex: none;
 }
 
+/* Sanoq — joylashuvi BARCHA shablonlar uchun bir xil.
+
+   TAFTISH: har bir shablon sanoqni "flex + flex-wrap" bilan chizardi va
+   har bir katakka kamida 72px talab qilardi. 390px kenglikdagi telefonda
+   (eng ko'p uchraydigan o'lcham) to'rtinchi katak — "sekund" — sig'may,
+   o'zi alohida qatorga tushib qolardi. Tekshiruvda 34 ta shablonning
+   28 tasi shu holatda edi: sanoq "3 + 1" bo'lib, markazga tortilgan
+   yolg'iz katak buzuq ko'rinish berardi.
+
+   Grid'da to'rtala ustun teng va birgalikda torayadi, shuning uchun
+   qanchalik tor ekranda ham bitta qatorda qoladi. "min-width: 0" —
+   shablonlardagi eski 72px talabini bekor qiladi (grid elementining
+   standart "min-width: auto" xatti-harakati ham shu bilan yopiladi).
+
+   Bu qoida ataylab shu yerda: u har bir shablonning o'z CSS'idan KEYIN
+   o'qiladi, ya'ni 28 ta faylni alohida tahrirlash shart emas. Ranglar,
+   ramka va ichki bo'shliq esa har bir shablonning o'zida qoladi —
+   bu yerda faqat joylashuv boshqariladi. */
+.countdown {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; max-width: 420px; margin-left: auto; margin-right: auto;
+}
+.countdown > div { min-width: 0; }
+.countdown .son { line-height: 1.15; }
+@media (min-width: 480px) { .countdown { gap: 12px; } }
+
 /* Yangi bo'limlar uchun umumiy uslublar (ranglar shablon o'zgaruvchilaridan) */
 .kalendar-oy { text-align: center; letter-spacing: 3px; text-transform: uppercase; font-size: .8rem; color: var(--ikkinchi); margin-bottom: 14px; }
 .kalendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 380px; margin: 0 auto; }
