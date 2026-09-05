@@ -2367,3 +2367,7 @@ msgstr "Ýazmagy halamasaňyz — jaň ediň, janly gürleşeris."
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
 msgstr "Bu ýerde täze dizaýnlary we taýýar işlerimizi ýerleşdirýäris."
+
+#: taklif/templates/taklif/_sayt_nav.html
+msgid "Narxlar"
+msgstr "Bahalar"

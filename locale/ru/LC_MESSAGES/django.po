@@ -2373,3 +2373,7 @@ msgstr "Не любите переписку — позвоните, погов�
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
 msgstr "Здесь мы публикуем новые дизайны и готовые работы."
+
+#: taklif/templates/taklif/_sayt_nav.html
+msgid "Narxlar"
+msgstr "Цены"

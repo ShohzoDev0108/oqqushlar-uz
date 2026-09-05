@@ -2369,3 +2369,7 @@ msgstr "Жазуды ұнатпасаңыз — қоңырау шалыңыз, �
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
 msgstr "Мұнда жаңа дизайндар мен дайын жұмыстарымызды жариялаймыз."
+
+#: taklif/templates/taklif/_sayt_nav.html
+msgid "Narxlar"
+msgstr "Бағалар"

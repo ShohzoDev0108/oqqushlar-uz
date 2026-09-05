@@ -2372,3 +2372,7 @@ msgstr "If you would rather not type, give us a call and we will talk it through
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
 msgstr "We post new designs and finished work here."
+
+#: taklif/templates/taklif/_sayt_nav.html
+msgid "Narxlar"
+msgstr "Pricing"

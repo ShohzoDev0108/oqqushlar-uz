@@ -2372,3 +2372,7 @@ msgstr "Jazıwdı unatpasańız — qońıraw shalıń, tikkeley sóylesemiz."
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
 msgstr "Bul jerde jańa dizaynlar hám tayar jumıslarımızdı jaylastıramız."
+
+#: taklif/templates/taklif/_sayt_nav.html
+msgid "Narxlar"
+msgstr "Bahalar"

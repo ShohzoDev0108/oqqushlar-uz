@@ -45,6 +45,23 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
         <div class="oq-nav-linklar">
             <a class="{% if joriy_sahifa == 'bosh_sahifa' %}joriy{% endif %}" href="{% url 'taklif:bosh_sahifa' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Bosh sahifa" %}</a>
             <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Dizaynlar" %}</a>
+            {% comment %}
+            Narx — bosh sahifadagi "#narx" bo'limiga langar.
+
+            TAFTISH: narx bloki bor va yaxshi yozilgan ("Bir marta
+            to'laysiz — oylik to'lov yo'q", eng arzon narx avtomatik
+            hisoblanadi), lekin unga BIRORTA HAVOLA yo'q edi: na yuqori
+            menyuda, na mobil menyuda, na footerda. Ya'ni uni faqat bosh
+            sahifani oxirigacha aylantirgan odam ko'rardi. Narx esa
+            xaridor birinchi qidiradigan narsalardan biri.
+
+            Alohida sahifa emas, langar: bo'limning matni allaqachon
+            joyida va uni ikki nusxaga bo'lish keraksiz. Yuqori panel
+            yopishqoq bo'lgani uchun sarlavha panel ostida qolib
+            ketmasligi _sayt_uslubi.html'dagi "scroll-padding-top: 96px"
+            bilan ta'minlanadi.
+            {% endcomment %}
+            <a href="{% url 'taklif:bosh_sahifa' %}#narx"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Narxlar" %}</a>
             <a class="{% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Taklifnomalarim" %}</a>
             <a class="{% if joriy_sahifa == 'biz_haqimizda' %}joriy{% endif %}" href="{% url 'taklif:biz_haqimizda' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Biz haqimizda" %}</a>
             <a class="{% if joriy_sahifa == 'savol_javob' %}joriy{% endif %}" href="{% url 'taklif:savol_javob' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Savol-javob" %}</a>
@@ -78,6 +95,7 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     </div>
     <a class="{% if joriy_sahifa == 'bosh_sahifa' %}joriy{% endif %}" href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
     <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Dizaynlar" %}</a>
+    <a href="{% url 'taklif:bosh_sahifa' %}#narx">{% trans "Narxlar" %}</a>
     <a class="{% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
     <a class="{% if joriy_sahifa == 'biz_haqimizda' %}joriy{% endif %}" href="{% url 'taklif:biz_haqimizda' %}">{% trans "Biz haqimizda" %}</a>
     <a class="{% if joriy_sahifa == 'savol_javob' %}joriy{% endif %}" href="{% url 'taklif:savol_javob' %}">{% trans "Savol-javob" %}</a>
@@ -136,14 +154,49 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     // sahifa balandligini o'zgartiradi va mijoz butunlay boshqa joyda
     // (ko'pincha eng tepada) qolib ketadi. Shuning uchun barcha
     // suratlar yuklangach, kerakli bo'limga qayta siljiymiz.
-    if (!location.hash || location.hash.length < 2) { return; }
-    var nishon;
-    try { nishon = document.querySelector(location.hash); } catch (e) { return; }
-    if (!nishon) { return; }
+    // TAFTISH: bu mantiq ishlamayotgan edi. Nishon elementi skript
+    // O'QILAYOTGAN paytda qidirilardi, skript esa menyu bilan birga
+    // sahifaning ENG BOSHIDA turadi — "#narx" yoki "#savol-javob"
+    // bo'limlari hali DOM'da yo'q. Natijada querySelector null qaytarib,
+    // funksiya darhol to'xtardi va hech qachon siljish bo'lmasdi.
+    // Endi nishon "load" dan KEYIN, ya'ni butun sahifa tayyor bo'lgach
+    // qidiriladi.
+    function langargaSil() {
+        if (!location.hash || location.hash.length < 2) { return; }
+        var nishon;
+        try { nishon = document.querySelector(location.hash); } catch (e) { return; }
+        if (nishon) { nishon.scrollIntoView({ block: 'start' }); }
+    }
+    // "load" hodisasi HAMMA narsani kutmaydi: pastdagi suratlar
+    // loading="lazy" bilan yuklanadi va ular load'dan KEYIN kelib
+    // sahifa balandligini o'zgartiradi. Bir marta siljish shu bois
+    // yetarli emas — mijoz kerakli bo'limdan yuqorida yoki pastda
+    // qolib ketardi. Shuning uchun bir necha marta qayta tekshiramiz
+    // va nishon joyidan siljigan bo'lsa, unga qaytamiz. Mijoz o'zi
+    // aylantira boshlasa — to'xtaymiz, aks holda uni zo'rlab tortgan
+    // bo'lardik.
     window.addEventListener('load', function () {
+        var mijozAralashdi = false;
+        function belgila() { mijozAralashdi = true; }
+        window.addEventListener('wheel', belgila, { passive: true, once: true });
+        window.addEventListener('touchstart', belgila, { passive: true, once: true });
+        [60, 300, 700, 1400].forEach(function (kechikish) {
+            setTimeout(function () {
+                if (mijozAralashdi) { return; }
+                langargaSil();
+            }, kechikish);
+        });
         setTimeout(function () {
-            nishon.scrollIntoView({ block: 'start' });
-        }, 60);
+            window.removeEventListener('wheel', belgila);
+            window.removeEventListener('touchstart', belgila);
+        }, 1600);
+    });
+    // Mijoz ALLAQACHON shu sahifada bo'lsa (masalan bosh sahifada turib
+    // menyudagi "Narxlar"ni bossa), brauzer hujjatni qayta yuklamaydi va
+    // yuqoridagi "load" hodisasi ikkinchi marta ishlamaydi. Bu holatni
+    // "hashchange" ushlaydi.
+    window.addEventListener('hashchange', function () {
+        setTimeout(langargaSil, 20);
     });
 })();
 </script>

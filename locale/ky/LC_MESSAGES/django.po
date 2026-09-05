@@ -2371,3 +2371,7 @@ msgstr "Жазууну жактырбасаңыз — чалыңыз, түз с�
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
 msgstr "Бул жерде жаңы дизайндарды жана даяр иштерибизди жарыялайбыз."
+
+#: taklif/templates/taklif/_sayt_nav.html
+msgid "Narxlar"
+msgstr "Баалар"
