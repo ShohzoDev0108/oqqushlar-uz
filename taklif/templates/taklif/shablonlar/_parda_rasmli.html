@@ -123,8 +123,126 @@ ravoqli kartada matn yurak o'lchovi bo'yicha kichraytirilardi.
     background: currentColor; opacity: .5; vertical-align: middle;
     margin: 0 10px;
 }
+
+/* Ochilish kartasidagi ismlar rangi.
+
+   Standart holatda --sarlavha ishlatiladi va aksariyat dizaynlarda bu
+   yetarli. Lekin uchta oltin ohangdagi dizaynda (qandil, ravoq, sadaf)
+   sarlavha rangi o'z kartasida juda och chiqardi — piksel bo'yicha
+   o'lchanganda 2.63, 3.81 va 3.30 (WCAG AA talabi 4.5). Bu mehmon
+   ko'radigan ENG BIRINCHI ekran va u yerdagi yagona muhim matn —
+   kuyov-kelinning ismi. Ular uchun --parda-ism-rang belgilangan;
+   qolgan dizaynlar o'zgarishsiz qoladi. */
+.parda-ism { color: var(--parda-ism-rang, var(--sarlavha)); }
+
+/* ================= OCHILISH EKRANI — MAROSIMGA QARAB =================
+
+   MUAMMO. Ochilish foni har bir dizaynning o'z --parda-tasvir
+   o'zgaruvchisidan olinardi, va 13 ta asosiy dizaynning 12 tasida u
+   gulli fotosurat: atirgul, pion, evkalipt. Ya'ni xatna to'yiga
+   "Suzani" dizaynini tanlagan mijozning mehmoni taklifnomani PUSHTI
+   ATIRGUL BOG'I fonida ochardi. Yurak shaklini marosimga bog'laganimiz
+   bu muammoni yopmagan edi — u faqat shakl edi, ohang esa rasmda.
+
+   YECHIM. Parda foni endi DIZAYNning emas, MAROSIMning ohangini
+   ko'rsatadi; dizaynning o'z qiyofasi taklifnoma ichida qoladi. Shu
+   tufayli bitta dizayn bir necha marosimda ishlay oladi va katalog
+   sun'iy ravishda bo'linmaydi.
+
+   Faqat gulli fon NOTO'G'RI bo'lgan marosimlar bu yerda qayta
+   belgilanadi. To'y, fotiha to'yi, qiz uzatish va yubiley uchun
+   dizaynning o'z rasmi qoladi — u yerda gul o'z o'rnida.
+
+   Texnik jihat: --parda-tasvir dizaynda ":root" da e'lon qilinadi, bu
+   yerda esa "#parda" elementining O'ZIDA — element ustidagi qiymat
+   merosxo'r qiymatdan ustun turadi, shuning uchun 33 ta shablon
+   faylining birortasiga ham tegish shart emas. */
+
+/* Xatna to'yi — kechki osmon: to'q ko'k tus, tarqoq yulduzlar, oy nuri. */
+#parda.marosim-sunnat_toy {
+    --parda-tasvir:
+        radial-gradient(circle at 20% 16%, rgba(255,255,255,.55) 0 1.4px, transparent 2.2px),
+        radial-gradient(circle at 74% 12%, rgba(255,255,255,.45) 0 1.2px, transparent 2px),
+        radial-gradient(circle at 38% 30%, rgba(255,255,255,.35) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 86% 34%, rgba(255,255,255,.5) 0 1.3px, transparent 2.1px),
+        radial-gradient(circle at 12% 62%, rgba(255,255,255,.35) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 62% 74%, rgba(255,255,255,.4) 0 1.2px, transparent 2px),
+        radial-gradient(circle at 30% 88%, rgba(255,255,255,.3) 0 1px, transparent 1.8px),
+        radial-gradient(120% 70% at 50% 6%, rgba(96,140,196,.45), transparent 62%),
+        linear-gradient(180deg, #16294a 0%, #0e1c33 100%);
+}
+/* To'q fon ustida yarim shaffof karta ("shisha" effekt) kulrang-loyqa
+   tusga kirib qoladi va ichidagi matn o'qilishi yomonlashadi. Shu bois
+   bu marosimda karta deyarli shaffof emas — ammo rangi baribir
+   dizaynning o'zinikidan olinadi, shunda to'q dizaynlar to'q, yorug'lari
+   yorug' kartada qoladi. */
+/* KARTA SHAFFOFLIGI — barcha dizayn va marosimlar uchun.
+
+   TAFTISH: karta --parda-fon rangining atigi 62% ini olardi, qolgan
+   38% dan orqa fon ko'rinib turardi ("shisha" effekt). Chiroyli, lekin
+   ustidagi ismlar shu tufayli yuvilib ketardi. Piksel bo'yicha
+   o'lchanganda, MAVJUD holatda (o'z fotosurati bilan, oddiy to'yda):
+
+       qandil 2.63   sadaf 3.30   ravoq 3.81   tugilgankun 3.95
+       fotiha 4.31   xatna 4.36   qozoq 4.43
+
+   Hammasi WCAG AA chegarasidan (4.5) past — ya'ni bu marosim pardasiga
+   bog'liq emas, avvaldan shunday edi va mehmon ko'radigan ENG BIRINCHI
+   ekranda ismlar sust chiqardi.
+
+   88% da shakl ham, yumshoq shaffoflik ham saqlanadi, lekin matn ortidagi
+   fon barqarorlashadi. Bu bir vaqtning o'zida marosim pardasi
+   almashganda yuzaga keladigan muammoni ham yopadi: to'q dizayn yorug'
+   fon ustida (yoki aksincha) kartasi "suzib" ketmaydi. */
+.parda-yurak-ichi {
+    background: color-mix(in srgb, var(--parda-fon) 88%, transparent);
+}
+/* Marosim pardasi almashganda karta BUTUNLAY noshaffof bo'ladi.
+
+   Sabab o'lchov bilan topildi: qolgan 12% shaffoflik ham yetarli emas
+   ekan. Kartaning rangi dizaynniki, orqa fon esa marosimniki — ular
+   bir-biriga aralashganda ikkalasi ham o'rta tusga siljiydi va ustidagi
+   ism bilan kontrast tushib ketadi. Masalan xatna to'yining to'q ko'k
+   osmoni ustida "Anor" dizaynining kartasi 2.46 gacha tushdi (o'z
+   fotosurati bilan esa 4.5 dan yuqori edi).
+
+   Noshaffof kartada rang aynan dizaynning --parda-fon'i bo'ladi, ya'ni
+   natija dizaynning o'z holatidagi bilan bir xil — u esa o'lchab
+   tekshirilgan. Shaffoflik effekti faqat shu to'rt marosimda yo'qoladi,
+   ular allaqachon boshqacha ohangda ochiladi. */
+#parda.marosim-sunnat_toy .parda-yurak-ichi,
+#parda.marosim-nahor_oshi .parda-yurak-ichi,
+#parda.marosim-beshik_toy .parda-yurak-ichi,
+#parda.marosim-boshqa .parda-yurak-ichi {
+    background: var(--parda-fon);
+}
+
+/* Nahor oshi — tong yorug'i: yuqoridan tushayotgan iliq kahrabo nur. */
+#parda.marosim-nahor_oshi {
+    --parda-tasvir:
+        radial-gradient(95% 62% at 50% 4%, rgba(255,222,163,.85), transparent 58%),
+        radial-gradient(70% 46% at 16% 90%, rgba(184,112,38,.32), transparent 64%),
+        radial-gradient(60% 40% at 88% 78%, rgba(214,150,70,.28), transparent 62%),
+        linear-gradient(168deg, #f7e6c9 0%, #e9cb98 100%);
+}
+
+/* Beshik to'yi — yumshoq evkalipt va oq gullar: mayin, chaqaloq
+   marosimiga xos; atirgul bog'idan ko'ra ancha mos. */
+#parda.marosim-beshik_toy {
+    --parda-tasvir: url('{% static "taklif/parda-tasvir/sage-yashil.png" %}');
+}
+
+/* "Boshqa" — mijoz o'zi nom beradigan tadbir. Qanday tadbir ekani
+   noma'lum, shu bois neytral: hech qanday marosimga ishora qilmaydigan
+   sokin yorug'lik. */
+#parda.marosim-boshqa {
+    --parda-tasvir:
+        radial-gradient(110% 65% at 50% 2%, rgba(255,255,255,.6), transparent 60%),
+        radial-gradient(80% 50% at 20% 92%, rgba(0,0,0,.05), transparent 62%),
+        linear-gradient(170deg, #f3efe8 0%, #e7e1d6 100%);
+}
 </style>
-<div id="parda">
+<div id="parda" class="marosim-{{ taklifnoma.marosim_turi }}">
     {% if mehmon %}
     <p class="parda-kichik">{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}!</p>
     {% else %}
