@@ -19,9 +19,25 @@
     --konvert-qopqoq: #c9a227;
     --radius: 4px;
     --puls: rgba(201,162,39,.3);
-    --bolim-bezak: "◇ ◆ ◇";
+    --bolim-bezak: "";
     --hero-ramka: url('{% static "taklif/hero-ramka/ramka-shoxcha-tl.png" %}');
+    --hero-ramka-rang: #c1992a;
     --parda-tasvir: url('{% static "taklif/parda-tasvir/pushti-bog.png" %}');
+
+    /* Bo'shliq shkalasi — bo'limlar orasidagi masofa "shunchaki ko'zga
+       chiroyli ko'ringan son" emas, bitta o'lchov birligining karrasi
+       bo'lsin. Shu tufayli sahifa bo'ylab bir xil nafas ritmi seziladi. */
+    --oraliq-1: 10px;
+    --oraliq-2: 18px;
+    --oraliq-3: 30px;
+    --oraliq-4: 52px;
+
+    /* Bo'lim ajratgichi va hero bezagi — Unicode belgi emas, SVG.
+       NEGA: ilgari "◇ ◆ ◇" matn sifatida chizilardi va uning ko'rinishi
+       qurilmadagi shriftga bog'liq edi (Android'da boshqa, iPhone'da
+       boshqa, ba'zi shriftlarda umuman kvadrat). Endi bu aniq vektor
+       chizma — hamma joyda bir xil, istalgan o'lchamda tiniq. */
+    --bezak-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cg stroke='%23c9a227' stroke-width='1' fill='none'%3E%3Cpath d='M1 6h26M69 6h26' opacity='.5'/%3E%3Cpath d='M36 3l3 3-3 3-3-3z'/%3E%3Cpath d='M60 3l3 3-3 3-3-3z'/%3E%3C/g%3E%3Cpath d='M48 1.4L52.6 6 48 10.6 43.4 6z' fill='%23c9a227'/%3E%3C/svg%3E");
 }
 
 body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
@@ -132,24 +148,132 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 }
 .parda-korsatma { display: inline-block; font-size: .82rem; color: rgba(255,255,255,.96); margin: 30px 0 0; max-width: 68vw; background: rgba(20,16,12,.36); backdrop-filter: blur(7px) saturate(1.1); -webkit-backdrop-filter: blur(7px) saturate(1.1); padding: 9px 20px; border-radius: 999px; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 
-/* --- Hero --- */
-.hero { min-height: 74vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 50px 24px; position: relative; z-index: 1; }
-.hero .kichik { letter-spacing: 4px; text-transform: uppercase; color: var(--ikkinchi); font-size: .78rem; margin-bottom: 16px; }
-.hero h1 { font-size: 2.6rem; margin: 0; color: var(--sarlavha); font-weight: normal; line-height: 1.25; }
-.hero .va { color: var(--asos); font-size: 1.6rem; display: block; margin: 6px 0; }
-.hero .sana-matn { margin-top: 16px; color: var(--ikkinchi); letter-spacing: 1px; }
-.hero .bezak { font-size: 1.4rem; letter-spacing: 8px; margin-bottom: 16px; color: var(--asos); }
+/* --- Hero ---
+
+   TIPOGRAFIKA. Ismlar sahifadagi eng katta va eng qimmat ko'rinishi
+   kerak bo'lgan element. Uchta o'zgarish kiritildi:
+
+   1) O'lcham. Avval qat'iy 2.6rem edi — telefonda kichik, katta ekranda
+      yo'qolib ketardi. Endi clamp() bilan ekranga qarab o'sadi.
+   2) Harflar oralig'i. Nafis serif shrift KENG oraliqda o'z qiyofasini
+      to'liq ochadi — bosma taklifnomalarda ham shunday teriladi.
+   3) "&" belgisi. Cormorant'ning KURSIV ampersandi shriftning eng
+      chiroyli belgisi — kalligrafik burama shaklda. Avval u oddiy tik
+      holda va ismlardan ancha kichik edi, ya'ni "Doston / & / Nilufar"
+      uchta alohida satr bo'lib ko'rinardi. Endi u ikkala ismni
+      bog'lovchi bezak sifatida o'qiladi.
+
+   Ataylab KALLIGRAFIK (yozma) shrift qo'shilmadi: ular deyarli hech
+   qachon kirill alifbosini qamramaydi (ruscha ismlar buzilib chiqardi)
+   va o'zbekcha apostroflarni ("O'tkir", "Go'zal") noto'g'ri chizadi. */
+.hero { min-height: 82vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 64px 30px; position: relative; z-index: 1; }
+.hero .kichik { letter-spacing: 5px; text-transform: uppercase; color: var(--ikkinchi); font-size: .72rem; margin-bottom: var(--oraliq-3); }
+.hero h1 {
+    font-size: clamp(2.6rem, 12.5vw, 4.4rem);
+    margin: 0; color: var(--sarlavha); font-weight: 400;
+    line-height: 1.06; letter-spacing: .012em;
+}
+.hero .va {
+    display: block; margin: .06em 0 .02em;
+    color: var(--asos); font-size: .5em; font-style: italic;
+    font-weight: 400; line-height: 1;
+}
+/* Sana — ismlardan nozik chiziq bilan ajratiladi, shunda hero uch
+   qavatli bo'lib ko'rinadi: nima / kim / qachon. */
+.hero .sana-matn {
+    margin-top: var(--oraliq-3); padding-top: var(--oraliq-3);
+    color: var(--ikkinchi); letter-spacing: 3px; font-size: .82rem;
+    text-transform: uppercase; position: relative;
+}
+.hero .sana-matn::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 46px; height: 1px; background: var(--asos); opacity: .45;
+}
+.hero .bezak {
+    width: clamp(104px, 13vw, 158px); aspect-ratio: 96 / 12;
+    height: auto; margin: 0 auto var(--oraliq-2);
+    background: var(--bezak-svg) center/contain no-repeat;
+}
+/* Keng ekranda burchak gullari 320px'gacha o'sadi va hero chetiga tegib
+   turgani uchun barglarning uchi ekran qirrasida kesilib qolardi. Kichik
+   ichkariga surish shu kesilishni yo'qotadi, ayni paytda gullar oltin
+   ramka ustidan o'tib turgan ko'rinishini saqlab qoladi. */
+@media (min-width: 700px) {
+    .hero-ramka-burchak.hrb-tl { top: 16px; left: 16px; }
+    .hero-ramka-burchak.hrb-tr { top: 16px; right: 16px; }
+    .hero-ramka-burchak.hrb-bl { bottom: 16px; left: 16px; }
+    .hero-ramka-burchak.hrb-br { bottom: 16px; right: 16px; }
+}
+
+/* Hero ichidagi yumshoq pushti yorug'lik.
+
+   TAFTISH: ilgari butun sahifa bo'ylab "position: fixed" kesishgan
+   pushti uchburchaklar va oltin diagonallar turardi. Ular sahifa bilan
+   BIRGA SURILMAGANI uchun har bir kartaning, tugmaning va matnning
+   ustidan kesib o'tardi — "Google Maps" tugmasi o'rtasidan oltin chiziq,
+   sanoq raqamlari ustida pushti burchak. Bezak kontentga xalaqit
+   berardi. Endi pushti tus faqat hero ichida va keskin qirralarsiz —
+   shakl emas, yorug'lik bo'lib seziladi. */
+.hero-yorug {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background:
+        radial-gradient(125% 70% at 50% 16%, rgba(232,201,196,.52), rgba(232,201,196,0) 70%),
+        radial-gradient(96% 46% at 50% 92%, rgba(240,222,214,.42), rgba(240,222,214,0) 68%);
+    /* Yorug'lik hero qutisining chetida keskin uzilib qolmasligi uchun
+       yuqori va quyi qirralari maska bilan nolga eritiladi — aks holda
+       hero boshlanadigan joyda ko'zga tashlanadigan gorizontal chok
+       paydo bo'lardi. */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 85%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 85%, transparent 100%);
+}
+/* Oltin qo'sh chiziqli ramka — endi butun sahifa emas, FAQAT hero
+   atrofida (ilgari "position: fixed" bo'lgani uchun u ham pastdagi
+   kartalar ustida suzib yurardi). Ikkita chiziq: tashqi ingichka,
+   ichki undan ham nozikroq — bosma taklifnomalardagi klassik usul. */
+.oltin-ramka { position: absolute; inset: 20px; z-index: 0; pointer-events: none; border: 1px solid rgba(201,162,39,.5); }
+.oltin-ramka::after { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(201,162,39,.26); }
+@media (min-width: 700px) {
+    .oltin-ramka { inset: 30px; }
+    .oltin-ramka::after { inset: 7px; }
+}
 
 /* --- Bo'limlar --- */
-.bolim { padding: 38px 0; opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; position: relative; z-index: 1; }
+.bolim { padding: var(--oraliq-4) 0; opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; position: relative; z-index: 1; }
 .bolim.korindi { opacity: 1; transform: translateY(0); }
-.bolim h2 { text-align: center; font-size: 1.4rem; margin-bottom: 22px; color: var(--sarlavha); font-weight: normal; }
-.bolim h2::after { content: var(--bolim-bezak); display: block; font-size: .7rem; color: var(--asos); margin-top: 10px; letter-spacing: 6px; }
+.bolim h2 { text-align: center; font-size: clamp(1.4rem, 5.4vw, 1.7rem); margin: 0 0 var(--oraliq-3); color: var(--sarlavha); font-weight: 400; letter-spacing: .01em; }
+.bolim h2::after {
+    content: ""; display: block; width: 88px; height: 11px; margin: var(--oraliq-2) auto 0;
+    background: var(--bezak-svg) center/contain no-repeat;
+}
 
-.countdown { display: flex; justify-content: center; gap: 14px; margin: 8px 0; flex-wrap: wrap; }
-.countdown > div { text-align: center; min-width: 72px; background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 14px 8px; }
-.countdown .son { font-size: 1.7rem; font-weight: bold; color: var(--asos); }
-.countdown-matn { text-align: center; color: var(--ikkinchi); margin-top: 12px; }
+/* Sanoq — 4 ta teng ustun.
+
+   TAFTISH: ilgari bu "flex + flex-wrap" edi va har bir katak eng kamida
+   72px kenglikni talab qilardi. Telefonda ("sekund", "minutes" kabi
+   uzunroq so'zlar bilan) to'rtinchi katak sig'may, alohida qatorga
+   tushib qolardi — natijada "3 + 1" ko'rinishidagi nosimmetrik,
+   buzilgandek tuyuladigan tuzilma hosil bo'lardi. Grid'da to'rtala
+   katak birgalikda torayadi va HAR DOIM bitta qatorda qoladi. */
+.countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px auto; max-width: 420px; }
+.countdown > div { text-align: center; background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 14px 4px; }
+.countdown .son { font-size: clamp(1.45rem, 6.2vw, 1.8rem); font-weight: bold; color: var(--asos); line-height: 1.1; }
+.countdown > div > div:last-child { font-size: .78rem; color: var(--ikkinchi); letter-spacing: .5px; margin-top: 3px; }
+.countdown-matn { text-align: center; color: var(--ikkinchi); margin-top: 14px; }
+@media (min-width: 480px) { .countdown { gap: 12px; } .countdown > div { padding: 16px 8px; } }
+
+/* Sarlavhasiz sanoq bo'limi boshqalarga qaraganda ixchamroq nafas oladi. */
+.bolim-sanoq { padding: var(--oraliq-3) 0; }
+
+/* Bo'lim ajratgichi — h2 ostidagi bezak bilan AYNAN bir xil shakl.
+   Ilgari sahifada ikki xil ajratgich ishlatilardi (biri bitta romb va
+   uzun so'nuvchi chiziqlar, ikkinchisi uchta romb) — bir sahifada ikki
+   xil bezak tili bo'lishi tasodifiy taassurot qoldiradi. */
+.nafis-chiziq {
+    display: block; width: 128px; height: 15px; max-width: none;
+    margin: var(--oraliq-2) auto var(--oraliq-3);
+    background: var(--bezak-svg) center/contain no-repeat;
+}
+.nafis-chiziq::before, .nafis-chiziq::after, .nafis-chiziq i { display: none; }
 /* Marosim sanasi o'tib ketgan bo'lsa (JS: _skript.html) — raqamli sanoq
    yashiriladi, o'rniga iliq, bayramona matn kattaroq va rangli chiqadi. */
 .countdown.otgan { display: none; }
@@ -184,34 +308,34 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
 @keyframes puls { 0%,100% { box-shadow: 0 0 0 0 var(--puls); } 50% { box-shadow: 0 0 0 10px transparent; } }
 
 
-/* Zarnigor — kesishgan oltin chiziqlar va nozik pushti panellar */
+/* Zarnigor — qog'oz tusi.
+
+   Bu qatlam ATAYLAB shaklsiz: sahifa foni qimmatbaho krem qog'ozdek
+   ko'rinsin, lekin kontentga hech qanday qirra bilan tegmasin. Butun
+   "zarnigor" xarakteri endi hero va bo'lim bezaklarida — matn oqimining
+   ustida emas. */
 .dekor-fon { position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background:
-        linear-gradient(115deg, transparent 0 18%, rgba(232,201,196,.5) 18% 34%, transparent 34%),
-        linear-gradient(65deg, transparent 0 68%, rgba(240,222,214,.45) 68% 84%, transparent 84%),
-        linear-gradient(115deg, transparent 0 calc(18% - 1px), #c9a227 calc(18% - 1px) 18%, transparent 18%),
-        linear-gradient(115deg, transparent 0 calc(34% - 1px), #c9a227 calc(34% - 1px) 34%, transparent 34%),
-        linear-gradient(65deg, transparent 0 calc(68% - 1px), #c9a227 calc(68% - 1px) 68%, transparent 68%),
-        linear-gradient(65deg, transparent 0 calc(84% - 1px), #c9a227 calc(84% - 1px) 84%, transparent 84%),
-        #f8f3ec;
-    opacity: .55;
+        radial-gradient(150% 55% at 50% -8%, rgba(232,201,196,.30), rgba(232,201,196,0) 58%),
+        linear-gradient(180deg, #f9f4ee 0%, #f5eee4 52%, #f9f4ee 100%);
 }
-.oltin-ramka { position: fixed; inset: 14px; z-index: 0; pointer-events: none; border: 1px solid rgba(201,162,39,.55); }
 
 {% endblock %}
 
 {% block content %}
-<div class="dekor-fon"></div><div class="oltin-ramka"></div>
+<div class="dekor-fon"></div>
 {% include "taklif/shablonlar/_mijoz_qismi.html" %}
 
 {% include "taklif/shablonlar/_parda_rasmli.html" %}
 
 <div class="hero hero-ramkali">
-    <div class="hero-ramka-burchak hrb-tl"></div>
-    <div class="hero-ramka-burchak hrb-tr"></div>
-    <div class="hero-ramka-burchak hrb-bl"></div>
-    <div class="hero-ramka-burchak hrb-br"></div>
-    <div class="bezak">◇ ◆ ◇</div>
+    <div class="hero-yorug hero-dekor"></div>
+    <div class="oltin-ramka hero-dekor"></div>
+    <div class="hero-ramka-burchak hrb-rangli hrb-tl"></div>
+    <div class="hero-ramka-burchak hrb-rangli hrb-tr"></div>
+    <div class="hero-ramka-burchak hrb-rangli hrb-bl"></div>
+    <div class="hero-ramka-burchak hrb-rangli hrb-br"></div>
+    <div class="bezak" aria-hidden="true"></div>
     <div class="kichik">{{ taklifnoma.marosim_turi_matni }} {% trans "taklifnomasi" %}</div>
     {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}
     <h1>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</h1>

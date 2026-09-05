@@ -31,7 +31,12 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 }
 /* Hero ichidagi asosiy matn (h1, va, kichik, sana-matn va h.k.) romka
    ustida ko'rinishi uchun har doim tepada qoladi. */
-.hero > *:not(.hero-burchak):not(.hero-ramka-burchak) { position: relative; z-index: 1; }
+/* ".hero-dekor" — hero ichidagi bezak qatlamlari (ramka chizig'i, yumshoq
+   yorug'lik dog'i). Ular ATAYLAB bu qoidadan chetda: o'zlari
+   "position: absolute" bo'lib, hero'ning to'liq yuzasini egallashi kerak.
+   Bu qoida ularga "position: relative" bersa, bezak o'z joyidan chiqib
+   ketardi. */
+.hero > *:not(.hero-burchak):not(.hero-ramka-burchak):not(.hero-dekor) { position: relative; z-index: 1; }
 
 /* Fotosuratga asoslangan burchak-romka (gul chizmasi, orqa foni haqiqiy
    shaffof PNG) — ".hero-ramkali" klassi qo'shilgan shablonlarda 4 ta
@@ -50,6 +55,29 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     position: absolute; width: 116px; height: 116px; pointer-events: none; z-index: 0;
     background-image: var(--hero-ramka); background-repeat: no-repeat;
     background-size: contain; background-position: top left;
+}
+/* ".hrb-rangli" — burchak chizmasini shablonning O'Z rangiga bo'yaydi.
+
+   NEGA KERAK. hero-ramka/*.png fayllari kulrang siyoh bilan chizilgan.
+   Oltin rangli shablonda (zarnigor) sahifadagi hamma narsa oltin, faqat
+   eng katta bezak — burchak gullari — kulrang chiqardi; ko'z darrov shu
+   nomuvofiqlikka tushardi.
+
+   Usul: rasmni fon sifatida emas, MASKA sifatida ishlatamiz — ya'ni
+   rasmning shaffof bo'lmagan joylarigina ko'rinadi, rangi esa
+   --hero-ramka-rang'dan olinadi. Shu bois bitta kulrang PNG istalgan
+   shablonda uning o'z rangida chiqaveradi, har rang uchun alohida fayl
+   tayyorlash shart emas.
+
+   Ixtiyoriy: klass qo'shilmagan shablonlar avvalgidek, rasmni asl
+   rangida ko'rsatishda davom etadi. */
+.hero-ramka-burchak.hrb-rangli {
+    background-image: none;
+    background-color: var(--hero-ramka-rang, var(--asos));
+    -webkit-mask-image: var(--hero-ramka); mask-image: var(--hero-ramka);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-position: top left; mask-position: top left;
 }
 .hero-ramka-burchak.hrb-tl { top: 0; left: 0; }
 .hero-ramka-burchak.hrb-tr { top: 0; right: 0; transform: scaleX(-1); }
@@ -435,7 +463,14 @@ borishini biladi, keyin o'sha yerda nima bo'lishini.
 </div>
 {% endif %}
 
-<div class="bolim" data-anim>
+{% comment %}
+"bolim-sanoq" — bu bo'limning sarlavhasi YO'Q (u ataylab shunday: sanoq
+raqamlari o'zi ko'zga tashlanadi). Shu sababli u boshqa bo'limlar bilan
+bir xil vertikal bo'shliq olsa, atrofida sarlavha o'rni bo'sh qolib,
+sahifada ikkita katta "teshik" hosil bo'ladi. Klass shablonga shu bitta
+bo'limni alohida siqish imkonini beradi.
+{% endcomment %}
+<div class="bolim bolim-sanoq" data-anim>
     {% comment %}
     Sanoq matnlari ATAYLAB shu yerda, data-atributlarda turadi — ilgari
     ular _skript.html ichida JS o'zgaruvchisiga yozilardi. Sababi: til
