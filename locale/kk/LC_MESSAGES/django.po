@@ -2805,3 +2805,27 @@ msgstr "Ұнаса — төлейсіз"
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Zamin restorani"
 msgstr "Замин мейрамханасы"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim"
+msgstr "Киім"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim haqida eslatma (ixtiyoriy)"
+msgstr "Киім туралы ескертпе (міндетті емес)"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Masalan: bayramona kiyim"
+msgstr "Мысалы: мерекелік киім"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Mehmon nima kiyishini oldindan bilsa qulay. Kerak bo'lmasa — bo'sh qoldiring."
+msgstr "Қонаққа не киетінін алдын ала білген ыңғайлы. Қажет болмаса — бос қалдырыңыз."
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Milliy libos"
+msgstr "Ұлттық киім"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Och ranglar"
+msgstr "Ашық түстер"

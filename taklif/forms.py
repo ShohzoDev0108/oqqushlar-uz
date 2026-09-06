@@ -222,8 +222,13 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "xarita_link": forms.URLInput(
                 attrs={"placeholder": "https://yandex.uz/maps/..."}
             ),
+            # "Kiyinish kodi" — o'zlashtirilgan atama, ko'p mijoz uni
+            # tushunmay maydonni tashlab ketardi. Nomi oddiy o'zbekchaga
+            # o'zgartirildi va pastiga tayyor tanlovlar qo'yildi
+            # (yaratish.html'dagi "kiyim-tanlov") — mijoz yozmaydi,
+            # bosadi. Maydonning o'zi avvalgidek ixtiyoriy.
             "kiyim_kodi": forms.TextInput(
-                attrs={"placeholder": _("Masalan: rasmiy kiyim, och ranglar")}
+                attrs={"placeholder": _("Masalan: bayramona kiyim")}
             ),
             "matn": forms.Textarea(
                 attrs={
@@ -260,7 +265,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "toyxona": _("To'yxona/manzil nomi"),
             "manzil": _("Manzil"),
             "xarita_link": _("Xarita havolasi (ixtiyoriy)"),
-            "kiyim_kodi": _("Kiyinish kodi (ixtiyoriy)"),
+            "kiyim_kodi": _("Kiyim haqida eslatma (ixtiyoriy)"),
             "musiqa": _("O'zingiz musiqa yuklash (ixtiyoriy)"),
             "matn": _("Mehmonlarga atalgan so'zingiz (ixtiyoriy)"),
             "imzo": _("Taklifnoma kim nomidan (ixtiyoriy)"),
@@ -284,7 +289,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "boshqa_tadbir_nomi": _(
                 "Marosim turini ro'yxatda topa olmasangiz shu yerga o'zingiz yozing."
             ),
-            "kiyim_kodi": "",
+            "kiyim_kodi": _("Mehmon nima kiyishini oldindan bilsa qulay. Kerak bo'lmasa — bo'sh qoldiring."),
             "matn": _("Taklifnomada mehmonlarga to'g'ridan-to'g'ri shu matn ko'rsatiladi."),
             "imzo": _(
                 "Taklifnoma oxirida imzo o'rnida chiqadi. Bo'sh qoldirsangiz, "

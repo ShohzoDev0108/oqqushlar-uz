@@ -95,6 +95,26 @@ input paydo bo'lib qolmasligi uchun.
     font: inherit; font-size: .84rem;
 }
 .dastur-kichik.dk-ikkinchi { border-color: var(--chiziq); background: none; color: var(--kul); }
+
+/* Kiyim bo'yicha tayyor tanlovlar.
+
+   TAFTISH: maydon "Kiyinish kodi" deb atalardi va bo'sh turardi. Mijoz
+   bu atamani tushunmasdi va "nima yozay?" degan savolda maydonni
+   tashlab ketardi — ya'ni muammo maydonda emas, uni to'ldirish
+   mumkinligini KO'RSATMAGANIMIZDA edi. Endi eng ko'p uchraydigan
+   javoblar tugma bo'lib turadi: bosdi — to'ldi. O'zi yozmoqchi bo'lsa,
+   maydon avvalgidek ochiq. Maydon baribir ixtiyoriy: bo'sh qolsa,
+   taklifnomada bu bo'lim umuman chizilmaydi. */
+.kiyim-tanlov { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+.kiyim-chip {
+    padding: 7px 14px; border-radius: 18px; cursor: pointer;
+    border: 1px solid var(--chiziq); background: none; color: var(--kul);
+    font-family: inherit; font-size: .78rem; transition: .18s;
+}
+.kiyim-chip:hover { border-color: var(--tilla); color: var(--tilla-toq); }
+.kiyim-chip.tanlangan {
+    border-color: var(--tilla); background: var(--tilla-yumshoq); color: var(--tilla-toq);
+}
 .dastur-kichik:hover { filter: brightness(.97); }
 {% comment %}
 Mobilda uchta maydon bitta qatorga sig'maydi, shuning uchun nom pastga
@@ -333,6 +353,20 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                 {% else %}
                 <div class="yordam">{% trans "Hozircha tayyor musiqa variantlari yo'q — o'zingizning musiqangizni pastdan yuklashingiz mumkin." %}</div>
                 {% endif %}
+                {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
+            </div>
+            {% elif field.name == "kiyim_kodi" %}
+            <div>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                <div class="kiyim-tanlov" id="kiyim-tanlov">
+                    <button type="button" class="kiyim-chip">{% trans "Bayramona" %}</button>
+                    <button type="button" class="kiyim-chip">{% trans "Milliy libos" %}</button>
+                    <button type="button" class="kiyim-chip">{% trans "Och ranglar" %}</button>
+                    <button type="button" class="kiyim-chip">{% trans "Rasmiy" %}</button>
+                    <button type="button" class="kiyim-chip">{% trans "Erkin" %}</button>
+                </div>
+                {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
                 {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
             </div>
             {% elif field.name != "ommaviy_korsatishga_rozi" and field.name != "dastur" %}
@@ -1072,6 +1106,34 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
     // Marosim turi almashsa, mijoz hali hech narsa tahrirlamagan bo'lsa
     // (bo'lim ochilmagan) — keyingi ochilishda YANGI turga mos namuna
     // chiqadi, chunki namuna faqat o'sha paytda hisoblanadi.
+})();
+</script>
+
+<script>
+(function () {
+    // Kiyim bo'yicha tayyor tanlovlar: bosilganda maydonni to'ldiradi,
+    // qayta bosilganda tozalaydi. Maydonni mijoz qo'lda tahrirlasa,
+    // tanlov belgisi o'zi o'chadi — ikkalasi bir-biriga xalaqit bermaydi.
+    var maydon = document.getElementById('id_kiyim_kodi');
+    var qatori = document.getElementById('kiyim-tanlov');
+    if (!maydon || !qatori) { return; }
+    var chiplar = qatori.querySelectorAll('.kiyim-chip');
+
+    function belgila() {
+        var joriy = maydon.value.trim().toLowerCase();
+        chiplar.forEach(function (c) {
+            c.classList.toggle('tanlangan', c.textContent.trim().toLowerCase() === joriy);
+        });
+    }
+    qatori.addEventListener('click', function (e) {
+        var chip = e.target.closest('.kiyim-chip');
+        if (!chip) { return; }
+        var qiymat = chip.textContent.trim();
+        maydon.value = (maydon.value.trim() === qiymat) ? '' : qiymat;
+        belgila();
+    });
+    maydon.addEventListener('input', belgila);
+    belgila();
 })();
 </script>
 {% endblock %}

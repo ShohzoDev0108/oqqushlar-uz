@@ -189,7 +189,7 @@ footer { text-align: center; padding: 24px 0; opacity: .5; font-size: .8rem; }
         <div class="tafsilot-row"><span class="label">{% trans "Sana va vaqt" %}</span>{{ taklifnoma.sana|date:"d.m.Y, H:i" }}</div>
         {% if taklifnoma.toyxona %}<div class="tafsilot-row"><span class="label">{% trans "To'yxona" %}</span>{{ taklifnoma.toyxona }}</div>{% endif %}
         {% if taklifnoma.manzil %}<div class="tafsilot-row"><span class="label">{% trans "Manzil" %}</span>{{ taklifnoma.manzil }}</div>{% endif %}
-        {% if taklifnoma.kiyim_kodi %}<div class="tafsilot-row"><span class="label">{% trans "Kiyinish kodi" %}</span>{{ taklifnoma.kiyim_kodi }}</div>{% endif %}
+        {% if taklifnoma.kiyim_kodi %}<div class="tafsilot-row"><span class="label">{% trans "Kiyim" %}</span>{{ taklifnoma.kiyim_kodi }}</div>{% endif %}
     </div>
     {% if taklifnoma.xarita_link %}
     <p><a class="xarita-tugma" href="{{ taklifnoma.xarita_link }}" target="_blank" rel="noopener">{% trans "Xaritada ko'rish" %}</a></p>

@@ -2818,3 +2818,27 @@ msgstr "Маъқул шуд — пардохт мекунед"
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Zamin restorani"
 msgstr "Ресторани «Замин»"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim"
+msgstr "Либос"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim haqida eslatma (ixtiyoriy)"
+msgstr "Ёддошт дар бораи либос (ихтиёрӣ)"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Masalan: bayramona kiyim"
+msgstr "Масалан: либоси идона"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Mehmon nima kiyishini oldindan bilsa qulay. Kerak bo'lmasa — bo'sh qoldiring."
+msgstr "Барои меҳмон донистани либос пешакӣ қулай аст. Агар лозим набошад — холӣ гузоред."
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Milliy libos"
+msgstr "Либоси миллӣ"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Och ranglar"
+msgstr "Рангҳои равшан"

@@ -2809,3 +2809,27 @@ msgstr "Понравится — оплатите"
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Zamin restorani"
 msgstr "Ресторан «Замин»"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim"
+msgstr "Одежда"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim haqida eslatma (ixtiyoriy)"
+msgstr "Пожелание к одежде (необязательно)"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Masalan: bayramona kiyim"
+msgstr "Например: праздничная одежда"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Mehmon nima kiyishini oldindan bilsa qulay. Kerak bo'lmasa — bo'sh qoldiring."
+msgstr "Гостям удобно знать заранее, что надеть. Если не нужно — оставьте пустым."
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Milliy libos"
+msgstr "Национальная одежда"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Och ranglar"
+msgstr "Светлые тона"

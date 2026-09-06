@@ -2803,3 +2803,27 @@ msgstr "Halasaňyz — töleýärsiňiz"
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Zamin restorani"
 msgstr "«Zamin» restorany"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim"
+msgstr "Eşik"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim haqida eslatma (ixtiyoriy)"
+msgstr "Eşik barada bellik (hökman däl)"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Masalan: bayramona kiyim"
+msgstr "Meselem: baýramçylyk eşigi"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Mehmon nima kiyishini oldindan bilsa qulay. Kerak bo'lmasa — bo'sh qoldiring."
+msgstr "Myhmanyň näme geýjegini öňünden bilmegi amatly. Gerek bolmasa — boş goýuň."
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Milliy libos"
+msgstr "Milli eşik"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Och ranglar"
+msgstr "Açyk reňkler"

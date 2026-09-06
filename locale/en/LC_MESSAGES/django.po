@@ -2808,3 +2808,27 @@ msgstr "If you like it — you pay"
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Zamin restorani"
 msgstr "Zamin Restaurant"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim"
+msgstr "Dress"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Kiyim haqida eslatma (ixtiyoriy)"
+msgstr "A note about dress (optional)"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Masalan: bayramona kiyim"
+msgstr "For example: festive attire"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Mehmon nima kiyishini oldindan bilsa qulay. Kerak bo'lmasa — bo'sh qoldiring."
+msgstr "It helps guests to know what to wear. Leave it empty if you don't need it."
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Milliy libos"
+msgstr "National dress"
+
+#: taklif/forms.py taklif/templates/taklif/yaratish.html
+msgid "Och ranglar"
+msgstr "Light colours"
