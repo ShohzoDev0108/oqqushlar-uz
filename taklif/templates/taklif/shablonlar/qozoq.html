@@ -64,7 +64,7 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
     transition: transform .18s ease, box-shadow .18s ease, filter .18s;
 }
 .mp-tugma svg { width: 15px; height: 15px; flex-shrink: 0; }
-.mp-tugma:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.24); }
+@media (hover: hover) { .mp-tugma:hover {filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.24);} }
 .mp-tugma.yoqdi { font-weight: 700; }
 
 /* --- Taklifnoma ochilish pardasi (to'liq ekran surat + yurak shaklidagi shaffof karta) --- */
@@ -123,7 +123,7 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 .parda-ism.ism-qatorlangan .parda-va { display: block; }
 .parda-ism.ism-qatorlangan .parda-va { margin: 2px 0; }
 #ochish-tugma { position: relative; width: 64px; height: 78px; margin-top: 14px; border: none; background: transparent; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .3s ease; flex-shrink: 0; }
-#ochish-tugma:hover { transform: scale(1.06); }
+@media (hover: hover) { #ochish-tugma:hover {transform: scale(1.06);} }
 #ochish-tugma.yashirin { pointer-events: none; animation: qulf-tugma-yopilishi 1.9s ease forwards; }
 .parda-qulf-anim { position: relative; width: 100%; height: 100%; }
 .parda-qulf-img { position: absolute; left: 50%; top: 50%; width: 38px; height: auto; transform: translate(-50%, -50%); filter: drop-shadow(0 3px 6px rgba(0,0,0,.35)); animation: qulf-nafas 1.8s ease-in-out infinite; }
@@ -238,12 +238,12 @@ body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
 .tafsilot-row .label { color: var(--ikkinchi); font-size: .78rem; display: block; }
 
 .xarita-tugma, .telegram-tugma { display: inline-block; margin-top: 12px; padding: 10px 22px; border-radius: 24px; border: 1px solid var(--asos); color: var(--asos); text-decoration: none; font-size: .9rem; background: var(--karta-fon); }
-.xarita-tugma:hover, .telegram-tugma:hover { background: var(--asos); color: var(--asos-matn); }
+@media (hover: hover) { .xarita-tugma:hover, .telegram-tugma:hover {background: var(--asos); color: var(--asos-matn);} }
 
 label { display: block; margin: 12px 0 4px; font-size: .9rem; color: var(--ikkinchi); }
 input, select, textarea { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid var(--chegara); font-family: inherit; background: var(--input-fon); color: var(--matn); }
 button[type="submit"] { margin-top: 16px; padding: 13px 22px; border-radius: 10px; border: none; background: var(--asos); color: var(--asos-matn); font-weight: bold; cursor: pointer; width: 100%; font-family: inherit; }
-button[type="submit"]:hover { filter: brightness(.92); }
+@media (hover: hover) { button[type="submit"]:hover {filter: brightness(.92);} }
 
 
 .karta { font-family: monospace; font-size: 1.05rem; letter-spacing: 1px; cursor: pointer; display: inline-block; background: var(--input-fon); border: 1px dashed var(--asos); padding: 9px 16px; border-radius: 10px; color: var(--asos); }

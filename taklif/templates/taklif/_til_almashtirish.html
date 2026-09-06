@@ -114,7 +114,7 @@ oltin fon bilan ajratib ko'rsatiladi.
     cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, filter .18s;
     box-shadow: 0 4px 12px color-mix(in srgb, var(--til-accent) 32%, transparent);
 }
-.til-tugma:hover { transform: translateY(-1px); filter: brightness(1.06); }
+@media (hover: hover) { .til-tugma:hover {transform: translateY(-1px); filter: brightness(1.06);} }
 .til-tugma:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--til-accent) 30%, transparent); }
 .til-tugma { gap: 6px; }
 .til-tugma .til-joriy { white-space: nowrap; }
@@ -142,10 +142,10 @@ oltin fon bilan ajratib ko'rsatiladi.
     font-size: .64rem; font-weight: 700; letter-spacing: 1.2px;
     color: var(--til-ikkinchi); flex-shrink: 0;
 }
-.til-band:hover .band-qisqa, .til-band.fokus .band-qisqa { color: inherit; opacity: .8; }
+@media (hover: hover) { .til-band:hover .band-qisqa, .til-band.fokus .band-qisqa {color: inherit; opacity: .8;} }
 .til-band.tanlangan { background: var(--til-accent); color: var(--til-accent-matn); }
 .til-band.tanlangan .band-qisqa { color: inherit; opacity: .85; }
-.til-band:hover, .til-band.fokus { background: var(--til-accent); color: var(--til-accent-matn); }
+@media (hover: hover) { .til-band:hover, .til-band.fokus {background: var(--til-accent); color: var(--til-accent-matn);} }
 
 @media (max-width: 700px) {
     .til-tugma { padding: 8px 11px; font-size: .7rem; min-width: 48px; gap: 5px; }

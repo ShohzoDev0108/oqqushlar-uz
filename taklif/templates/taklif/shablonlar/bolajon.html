@@ -30,7 +30,7 @@ body { background: #fef9f0; color: #4a4458; overflow-x: hidden; font-family: "Se
     display: inline-block; padding: 9px 16px; border-radius: 16px; font-size: .82rem;
     background: #fff; border: 2px solid #ef476f; color: #ef476f; text-decoration: none; font-weight: bold;
 }
-.mp-tugma:hover { background: #ef476f; color: #fff; }
+@media (hover: hover) { .mp-tugma:hover {background: #ef476f; color: #fff;} }
 
 /* --- Uchayotgan sharlar --- */
 .sharlar { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
@@ -66,7 +66,7 @@ body { background: #fef9f0; color: #4a4458; overflow-x: hidden; font-family: "Se
     cursor: pointer; font-family: inherit; font-weight: bold; box-shadow: 0 6px 22px rgba(239,71,111,.4);
     transition: transform .2s ease;
 }
-#ochish-tugma:hover { transform: scale(1.06); }
+@media (hover: hover) { #ochish-tugma:hover {transform: scale(1.06);} }
 
 /* --- Hero --- */
 .hero {
@@ -129,7 +129,7 @@ body { background: #fef9f0; color: #4a4458; overflow-x: hidden; font-family: "Se
     border: none; background: #118ab2; color: #fff; text-decoration: none; font-size: .9rem; font-weight: bold;
     box-shadow: 0 4px 14px rgba(17,138,178,.3);
 }
-.xarita-tugma:hover, .telegram-tugma:hover { background: #0e7196; }
+@media (hover: hover) { .xarita-tugma:hover, .telegram-tugma:hover {background: #0e7196;} }
 
 label { display: block; margin: 12px 0 4px; font-size: .9rem; color: #7b6fa0; font-weight: bold; }
 input, select, textarea { width: 100%; padding: 12px; border-radius: 14px; border: 2px solid #f0e9f5; font-family: inherit; background: #fdfbff; color: #4a4458; }
@@ -139,7 +139,7 @@ button[type="submit"] {
     background: linear-gradient(120deg, #ef476f, #ff7096); color: #fff; font-weight: bold; cursor: pointer; width: 100%;
     font-family: inherit; font-size: 1rem; box-shadow: 0 5px 18px rgba(239,71,111,.35);
 }
-button[type="submit"]:hover { filter: brightness(1.06); }
+@media (hover: hover) { button[type="submit"]:hover {filter: brightness(1.06);} }
 
 .mehmonlar-jami { text-align: center; color: #7b6fa0; margin-bottom: 14px; }
 .mehmon-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }

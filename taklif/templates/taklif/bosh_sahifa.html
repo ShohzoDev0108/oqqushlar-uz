@@ -345,7 +345,7 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
 .tel-karta.chap  { transform: translateX(-122%) scale(.7); opacity: .45; visibility: visible; z-index: 2; pointer-events: auto; cursor: pointer; }
 .tel-karta.ong   { transform: translateX(22%)   scale(.7); opacity: .45; visibility: visible; z-index: 2; pointer-events: auto; cursor: pointer; }
 .tel-karta.faol  { transform: translateX(-50%) scale(1);   opacity: 1;   visibility: visible; z-index: 3; pointer-events: auto; }
-.tel-karta.chap:hover, .tel-karta.ong:hover { opacity: .68; }
+@media (hover: hover) { .tel-karta.chap:hover, .tel-karta.ong:hover {opacity: .68;} }
 
 /* Marosim nomi — telefon TEPASIDA va FAQAT markazdagi kartada.
 
@@ -378,7 +378,7 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
     transition: opacity .45s ease .1s, transform .45s ease .1s, background .2s, color .2s;
 }
 .tel-karta.faol .tel-ochish { opacity: 1; transform: translateX(-50%); pointer-events: auto; }
-.tel-ochish:hover { background: var(--tilla); color: var(--toza); }
+@media (hover: hover) { .tel-ochish:hover {background: var(--tilla); color: var(--toza);} }
 
 {% comment %}
 "Barcha dizaynlar" havolasi — karuselning OSTIDA.
@@ -400,7 +400,7 @@ harakat esa "Taklifnoma yaratish" bo'lib qolishi kerak.
     transition: color .2s ease, border-color .2s ease;
 }
 .tel-hamma-havola svg { width: 13px; height: 13px; flex-shrink: 0; }
-.tel-hamma-havola:hover { color: var(--tilla); border-bottom-color: var(--tilla); }
+@media (hover: hover) { .tel-hamma-havola:hover {color: var(--tilla); border-bottom-color: var(--tilla);} }
 
 /* Ekran ichidagi kontent */
 .tel-ekran-ich {
@@ -536,7 +536,7 @@ ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
     background: var(--tilla); color: #fff; text-decoration: none; font-size: .85rem;
     letter-spacing: .5px; transition: .2s;
 }
-.oq-yordam-tugma:hover { background: var(--tilla-toq); }
+@media (hover: hover) { .oq-yordam-tugma:hover {background: var(--tilla-toq);} }
 .oq-yordam-tugma svg { width: 15px; height: 15px; flex-shrink: 0; }
 
 /* So'nggi taklifnomalar */
@@ -547,7 +547,7 @@ ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
     display: flex; justify-content: space-between; align-items: baseline; gap: 18px;
     padding: 20px 4px; color: var(--siyoh); text-decoration: none; flex-wrap: wrap; transition: .2s;
 }
-.oq-royxat a:hover { padding-left: 12px; color: var(--tilla-toq); }
+@media (hover: hover) { .oq-royxat a:hover {padding-left: 12px; color: var(--tilla-toq);} }
 .oq-royxat .nomi { font-family: var(--serif); font-size: 1.2rem; }
 .oq-royxat .sana { color: var(--kul); font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; }
 
@@ -581,7 +581,7 @@ ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
     transition: transform .2s ease; font-family: var(--sans); font-weight: 400;
 }
 .oq-savol[open] summary::after { transform: rotate(45deg); }
-.oq-savol summary:hover { color: var(--tilla-toq); }
+@media (hover: hover) { .oq-savol summary:hover {color: var(--tilla-toq);} }
 .oq-savol .javob { margin: 0; padding: 0 30px 24px 4px; color: var(--kul); line-height: 1.8; font-size: .96rem; }
 
 {% comment %}
@@ -617,7 +617,7 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
     display: inline-block; margin-top: 20px; color: var(--tilla-toq);
     text-decoration: none; font-size: .78rem; letter-spacing: 2px; text-transform: uppercase;
 }
-.lenta-havola:hover { color: var(--tilla); }
+@media (hover: hover) { .lenta-havola:hover {color: var(--tilla);} }
 
 @media (max-width: 700px) {
     .dizayn-lenta {

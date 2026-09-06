@@ -69,7 +69,7 @@ yozmaydi: "Hurmatli Aziz oila! Sizni ... taklif qilamiz" + havola.
     color: var(--tilla-toq); font: inherit; font-size: .9rem;
     transition: background .18s ease, color .18s ease;
 }
-.oq-ulash:hover { background: var(--tilla); color: #fff; }
+@media (hover: hover) { .oq-ulash:hover {background: var(--tilla); color: #fff;} }
 .oq-ulash.oq-ulash-kichik { padding: 7px 14px; font-size: .8rem; gap: 6px; }
 .oq-ulash-ikon { width: 17px; height: 17px; flex: none; }
 .oq-ulash.oq-ulash-kichik .oq-ulash-ikon { width: 14px; height: 14px; }
@@ -103,7 +103,7 @@ qulayroq.
     background: none; border: none; cursor: pointer; color: var(--kul);
     font-size: 1rem; line-height: 1; padding: 6px;
 }
-.oq-ulash-yop:hover { color: var(--siyoh); }
+@media (hover: hover) { .oq-ulash-yop:hover {color: var(--siyoh);} }
 .oq-ulash-oldin {
     margin: 10px 0 18px; padding: 12px 14px; border-radius: 6px;
     background: var(--oq); border: 1px solid var(--chiziq);
@@ -123,7 +123,7 @@ qulayroq.
     display: flex; align-items: center; justify-content: center;
     color: #fff; transition: transform .15s ease;
 }
-.oq-ulash-kanal:hover .ouk-belgi { transform: translateY(-2px); }
+@media (hover: hover) { .oq-ulash-kanal:hover .ouk-belgi {transform: translateY(-2px);} }
 .ouk-belgi svg { width: 22px; height: 22px; display: block; }
 .ouk-telegram { background: #2aabee; }
 .ouk-whatsapp { background: #25d366; }

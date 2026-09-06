@@ -15,7 +15,7 @@
 }
 .yordam { color: var(--kul); font-size: .78rem; margin-top: 4px; }
 .orqaga { display: block; text-align: center; margin-top: 22px; color: var(--kul); font-size: .85rem; }
-.orqaga:hover { color: var(--tilla-toq); }
+@media (hover: hover) { .orqaga:hover {color: var(--tilla-toq);} }
 .eski-ogohlantirish {
     background: rgba(178,140,40,.08); border: 1px solid rgba(178,140,40,.3);
     padding: 14px 16px; border-radius: 2px; margin-bottom: 16px;
@@ -28,12 +28,12 @@
     background: transparent; border: 1px solid var(--chiziq); color: var(--kul);
     padding: 12px 16px; border-radius: 2px; font-size: .85rem; cursor: pointer; font-family: inherit;
 }
-.tugma-ikkinchi:hover { border-color: var(--tilla-toq); color: var(--tilla-toq); }
+@media (hover: hover) { .tugma-ikkinchi:hover {border-color: var(--tilla-toq); color: var(--tilla-toq);} }
 
 .namuna-rasm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; margin-top: 8px; }
 .namuna-rasm-item { position: relative; display: block; aspect-ratio: 1; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; }
 .namuna-rasm-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
-.namuna-rasm-item:hover img { transform: scale(1.08); }
+@media (hover: hover) { .namuna-rasm-item:hover img {transform: scale(1.08);} }
 .namuna-rasm-item input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
 .namuna-rasm-item .namuna-belgi {
     position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%;
@@ -87,7 +87,7 @@ input paydo bo'lib qolmasligi uchun.
     background: none; color: var(--kul); cursor: pointer; font-size: 1rem; line-height: 1;
     display: flex; align-items: center; justify-content: center;
 }
-.dq-ochir:hover { border-color: var(--xavf); color: var(--xavf); }
+@media (hover: hover) { .dq-ochir:hover {border-color: var(--xavf); color: var(--xavf);} }
 .dastur-tugmalar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .dastur-kichik {
     padding: 8px 15px; border-radius: 999px; border: 1px solid var(--tilla);
@@ -111,11 +111,11 @@ input paydo bo'lib qolmasligi uchun.
     border: 1px solid var(--chiziq); background: none; color: var(--kul);
     font-family: inherit; font-size: .78rem; transition: .18s;
 }
-.kiyim-chip:hover { border-color: var(--tilla); color: var(--tilla-toq); }
+@media (hover: hover) { .kiyim-chip:hover {border-color: var(--tilla); color: var(--tilla-toq);} }
 .kiyim-chip.tanlangan {
     border-color: var(--tilla); background: var(--tilla-yumshoq); color: var(--tilla-toq);
 }
-.dastur-kichik:hover { filter: brightness(.97); }
+@media (hover: hover) { .dastur-kichik:hover {filter: brightness(.97);} }
 {% comment %}
 Mobilda uchta maydon bitta qatorga sig'maydi, shuning uchun nom pastga
 tushadi. Lekin shunchaki o'ralganda qatorlar bir-biriga qo'shilib ketib,
@@ -139,7 +139,7 @@ bo'lib o'qiladi.
     background: rgba(15,10,5,.6); color: #fff; border: none; display: flex; align-items: center;
     justify-content: center; font-size: .72rem; cursor: pointer; padding: 0; line-height: 1;
 }
-.namuna-kattalashtir:hover { background: rgba(15,10,5,.85); }
+@media (hover: hover) { .namuna-kattalashtir:hover {background: rgba(15,10,5,.85);} }
 .oq-lightbox { position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; padding: 24px; }
 .oq-lightbox[hidden] { display: none; }
 .oq-lightbox-orqa { position: absolute; inset: 0; background: rgba(10,7,4,.82); }
@@ -151,7 +151,7 @@ bo'lib o'qiladi.
     background: var(--toza); border: 1px solid var(--chiziq); color: var(--siyoh); cursor: pointer;
     font-size: 1rem; display: flex; align-items: center; justify-content: center;
 }
-.oq-lightbox-yopish:hover { color: var(--tilla-toq); border-color: var(--tilla-toq); }
+@media (hover: hover) { .oq-lightbox-yopish:hover {color: var(--tilla-toq); border-color: var(--tilla-toq);} }
 
 /* --- Tayyor musiqa variantlarini tanlash: eshitib ko'rish imkoniyati bilan --- */
 .musiqa-tanlov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 8px; }
@@ -159,7 +159,7 @@ bo'lib o'qiladi.
     display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 4px;
     border: 1px solid var(--chiziq); background: var(--toza); cursor: pointer; font-weight: normal;
 }
-.musiqa-tanlov-item:hover { border-color: var(--tilla-toq); }
+@media (hover: hover) { .musiqa-tanlov-item:hover {border-color: var(--tilla-toq);} }
 .musiqa-tanlov-item.tanlangan { border-color: var(--tilla); background: var(--tilla-yumshoq); }
 .musiqa-tanlov-item input[type="radio"] { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
 .mt-tinglash {
@@ -167,7 +167,7 @@ bo'lib o'qiladi.
     background: var(--toza); color: var(--tilla-toq); cursor: pointer; font-size: .78rem;
     display: flex; align-items: center; justify-content: center; padding: 0;
 }
-.mt-tinglash:hover { background: var(--tilla); color: #fff; }
+@media (hover: hover) { .mt-tinglash:hover {background: var(--tilla); color: #fff;} }
 .mt-nomi { font-size: .88rem; color: var(--siyoh); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* "Tanlanmagan" kartasi — tayyor musiqa nomlaridan aniq ajralib turishi
@@ -212,7 +212,7 @@ bo'lib o'qiladi.
     border: 1px solid var(--chiziq); background: var(--toza); color: var(--siyoh);
     font-size: .95rem; font-family: inherit; cursor: pointer; transition: .2s;
 }
-.sv-tugma:hover, .sv-tugma.sv-ochiq { border-color: var(--tilla-toq); }
+@media (hover: hover) { .sv-tugma:hover, .sv-tugma.sv-ochiq {border-color: var(--tilla-toq);} }
 .sv-tugma.sv-bosh { color: var(--kul); }
 .sv-panel {
     margin-top: 8px; border: 1px solid var(--chiziq); border-radius: 4px;
@@ -226,7 +226,7 @@ bo'lib o'qiladi.
     width: 30px; height: 30px; cursor: pointer; color: var(--kul); font-size: .9rem;
     font-family: inherit; line-height: 1; flex-shrink: 0;
 }
-.sv-oy-tugma:hover { border-color: var(--tilla); color: var(--tilla-toq); }
+@media (hover: hover) { .sv-oy-tugma:hover {border-color: var(--tilla); color: var(--tilla-toq);} }
 .sv-kalendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
 .sv-kun {
     aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
@@ -243,7 +243,7 @@ ko'rishni xohlaydi. Endi o'tgan kunlar ham tanlanadi — faqat rangi biroz
 xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
 {% endcomment %}
 .sv-kun.sv-otgan { color: var(--kul); }
-.sv-kun:not(.sv-sarlavha):not(.sv-bosh):hover { background: rgba(178,140,40,.12); }
+@media (hover: hover) { .sv-kun:not(.sv-sarlavha):not(.sv-bosh):hover {background: rgba(178,140,40,.12);} }
 .sv-kun.sv-tanlangan { background: var(--tilla); color: #fff; font-weight: 600; }
 .sv-kun.sv-bugun:not(.sv-tanlangan) { border-color: var(--tilla); }
 .sv-vaqt-qatori { display: flex; align-items: center; gap: 8px; margin: 16px 0 4px; }
@@ -258,7 +258,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
     background: var(--tilla); color: #fff; border-radius: 2px; cursor: pointer;
     font-size: .78rem; letter-spacing: 1px; text-transform: uppercase; font-family: inherit;
 }
-.sv-tayyor:hover { background: var(--tilla-toq); border-color: var(--tilla-toq); }
+@media (hover: hover) { .sv-tayyor:hover {background: var(--tilla-toq); border-color: var(--tilla-toq);} }
 @media (max-width: 400px) {
     .sv-panel { max-width: 100%; padding: 14px; }
 }
