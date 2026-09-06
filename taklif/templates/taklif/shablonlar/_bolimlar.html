@@ -18,35 +18,38 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 
    Mehmon pardani ochgach faqat hero'ni ko'radi — ismlar, sana va ko'p
    bo'sh joy. Sanoq, manzil, xarita, RSVP — hammasi pastda, lekin
-   ekranda ularga birorta ishora yo'q edi. Bu — kichik, lekin sotuvga
-   emas, MAROSIMGA ta'sir qiladigan narsa: RSVP ni ko'rmagan mehmon
-   javob ham bermaydi.
+   ekranda ularga birorta ishora yo'q edi. Bu kichik narsa emas:
+   RSVP ni ko'rmagan mehmon javob ham bermaydi.
 
-   Ishora sahifa ochilishi bilan emas, faqat parda ochilgandan keyin
-   chiqadi (_skript.html'dagi "pastgaIshora") va mijoz biror harakat
-   qilishi bilan yo'qoladi. */
+   TAFTISH: birinchi variant och fonli (--karta-fon) va och matnli
+   (--ikkinchi) edi — ya'ni och sahifada oq ustiga oq bo'lib, ba'zi
+   shablonlarda deyarli ko'rinmasdi. Endi u TO'LDIRILGAN tabletka:
+   foni --asos, matni --asos-matn. Bu juftlik har bir shablonda
+   tugmalar uchun ishlatiladi va kontrasti allaqachon AA ga
+   keltirilgan, ya'ni ishora hech qayerda yo'qolmaydi.
+
+   Ikkita element o'rniga bitta: yozuv va strelka bir tabletka
+   ichida — ixchamroq va ko'zga bir butun bo'lib tushadi. */
 .pastga-ishora {
-    position: fixed; left: 50%; bottom: 22px; z-index: 30;
-    transform: translateX(-50%) translateY(10px);
-    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    position: fixed; left: 50%; bottom: 20px; z-index: 30;
+    transform: translateX(-50%) translateY(12px);
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 17px 9px 19px; border-radius: 999px;
+    background: var(--asos); color: var(--asos-matn);
+    font-size: .7rem; letter-spacing: 1.7px; text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .24);
     opacity: 0; pointer-events: none;
-    transition: opacity .6s ease, transform .6s ease;
-    color: var(--ikkinchi);
+    transition: opacity .5s ease, transform .5s ease;
 }
 .pastga-ishora.korinadi { opacity: 1; transform: translateX(-50%); }
-.pastga-ishora .pi-yozuv {
-    font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
-    padding: 6px 15px; border-radius: 999px;
-    background: var(--karta-fon); border: 1px solid var(--chegara);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .10);
-}
 .pastga-ishora .pi-strelka {
-    width: 19px; height: 19px; color: var(--asos);
+    width: 15px; height: 15px; flex: none;
     animation: pi-sakra 1.9s ease-in-out infinite;
 }
 @keyframes pi-sakra {
-    0%, 100% { transform: translateY(0); opacity: .5; }
-    50%      { transform: translateY(6px); opacity: 1; }
+    0%, 100% { transform: translateY(-1px); opacity: .75; }
+    50%      { transform: translateY(3px); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .pastga-ishora .pi-strelka { animation: none; } }
 .hero-burchak {
@@ -372,9 +375,9 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 </style>
 
 <div class="pastga-ishora" id="pastga-ishora" aria-hidden="true">
-    <span class="pi-yozuv">{% trans "Pastga suring" %}</span>
+    <span>{% trans "Pastga suring" %}</span>
     <svg class="pi-strelka" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+         stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 9l6 6 6-6"/>
     </svg>
 </div>

@@ -112,6 +112,13 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
 <div class="oq-menyu-fon" id="oq-menyu-fon"></div>
 {% endwith %}
 {% if mobil_cta %}
+{% comment %}
+Ekranga yopishgan tugma sahifaning eng pastki kontentini to'sib
+qo'ymasligi uchun tanaga shuncha bo'shliq qo'shamiz. Buni bosh
+sahifadagi karusel ostidagi "Ochib ko'rish" tugmasi ochib berdi —
+u aynan shu qatorning tagida qolib ketgan edi.
+{% endcomment %}
+<style>body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }</style>
 <a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">{% include "taklif/_ikonalar/yarat.svg" %}{% trans "Taklifnoma yaratish" %}</a>
 {% endif %}
 

@@ -273,14 +273,18 @@ def _sayt_musiqasi():
 # tasvir yo'q, uning o'rniga saytning o'z belgisi chiziladi — shu
 # sabab "kod" bo'sh qoldirilgan.
 BOSH_SLAYDLAR = [
-    {"marosim": "toy", "kod": "", "ism_1": "Aziz", "ism_2": "Nilufar"},
-    {"marosim": "fotiha_toy", "kod": "fotiha", "ism_1": "Sanjar", "ism_2": "Nilufar"},
-    {"marosim": "qizlar_bazmi", "kod": "qizuzatish", "ism_1": "Zilola", "ism_2": ""},
-    {"marosim": "sunnat_toy", "kod": "xatna", "ism_1": "Amirbek", "ism_2": "Sardorbek"},
-    {"marosim": "beshik_toy", "kod": "beshik", "ism_1": "Oysha", "ism_2": ""},
-    {"marosim": "nahor_oshi", "kod": "nahoroshi", "ism_1": "Rustam", "ism_2": ""},
-    {"marosim": "yubiley", "kod": "yubiley", "ism_1": "Gulchehra", "ism_2": ""},
-    {"marosim": "tugilgan_kun", "kod": "tugilgankun", "ism_1": "Diyorbek", "ism_2": ""},
+    # "kod" — shu marosim uchun chizilgan tasvir papkasi
+    # (taklif/static/taklif/<kod>/<kod>-hero.webp). Nikoh to'yida bunday
+    # tasvir yo'q, uning o'rniga saytning o'z belgisi chiziladi.
+    # "namuna" — "Ochib ko'rish" tugmasi qaysi dizayn namunasini ochishi.
+    {"marosim": "toy", "kod": "", "namuna": "sadaf", "ism_1": "Aziz", "ism_2": "Nilufar"},
+    {"marosim": "fotiha_toy", "kod": "fotiha", "namuna": "fotiha", "ism_1": "Sanjar", "ism_2": "Nilufar"},
+    {"marosim": "qizlar_bazmi", "kod": "qizuzatish", "namuna": "qizuzatish", "ism_1": "Zilola", "ism_2": ""},
+    {"marosim": "sunnat_toy", "kod": "xatna", "namuna": "xatna", "ism_1": "Amirbek", "ism_2": "Sardorbek"},
+    {"marosim": "beshik_toy", "kod": "beshik", "namuna": "beshik", "ism_1": "Oysha", "ism_2": ""},
+    {"marosim": "nahor_oshi", "kod": "nahoroshi", "namuna": "nahoroshi", "ism_1": "Rustam", "ism_2": ""},
+    {"marosim": "yubiley", "kod": "yubiley", "namuna": "yubiley", "ism_1": "Gulchehra", "ism_2": ""},
+    {"marosim": "tugilgan_kun", "kod": "tugilgankun", "namuna": "tugilgankun", "ism_1": "Diyorbek", "ism_2": ""},
 ]
 
 
