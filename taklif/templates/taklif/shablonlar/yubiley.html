@@ -8,17 +8,17 @@
     --fon: #f6f0f3;
     --parda-fon: #f1e9ee;
     --matn: #402e3d;
-    --sarlavha: #4f2c49;
-    --asos: #6b3d63;
+    --sarlavha: #2c4a37;
+    --asos: #3f6b4e;
     --asos-matn: #fdf7fb;
-    --ikkinchi: #8a7286;
+    --ikkinchi: #7c6678;
     --karta-fon: #fffbfd;
     --chegara: #e6d7e2;
     --input-fon: #fffdfe;
-    --konvert: #6b3d63;
-    --konvert-qopqoq: #4f2c49;
+    --konvert: #3f6b4e;
+    --konvert-qopqoq: #2c4a37;
     --radius: 14px;
-    --puls: rgba(107,61,99,.3);
+    --puls: rgba(63,107,78,.3);
     --bolim-bezak: "";
 
     /* Bo'shliq shkalasi — bo'limlar orasidagi masofa bitta o'lchov
@@ -35,11 +35,10 @@
        shriftlarda umuman bo'sh kvadrat). Endi aniq vektor chizma — hamma
        joyda bir xil, istalgan o'lchamda tiniq. Shakli shablonning o'z
        motiviga mos tanlangan. */
-    --bezak-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cpath d='M1 6h26M69 6h26' opacity='.5' stroke='%236b3d63' stroke-width='1' fill='none'/%3E%3Cg stroke='%236b3d63' stroke-width='1' fill='none'%3E%3Cpath d='M36 3l3 3-3 3-3-3z'/%3E%3Cpath d='M60 3l3 3-3 3-3-3z'/%3E%3C/g%3E%3Cpath d='M48 1.4L52.6 6 48 10.6 43.4 6z' fill='%236b3d63'/%3E%3C/svg%3E");
-    --hero-ramka: url('{% static "taklif/hero-ramka/ramka-yubiley-tl.png" %}');
-    --hero-ramka-rang: #6b3d63;
+    --bezak-svg: url('{% static "taklif/yubiley/yubiley-ajratgich.png" %}');
+    --hero-ramka: url('{% static "taklif/yubiley/yubiley-burchak.png" %}');
     /* Ochilish ekrani foni — oq-qora pionlar — yubileyga mos vazmin, klassik ohang. */
-    --parda-tasvir: url('{% static "taklif/parda-tasvir/oq-qora.png" %}');
+    --parda-tasvir: url('{% static "taklif/yubiley/yubiley-parda.jpg" %}');
 }
 
 body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
@@ -237,26 +236,102 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
 @keyframes puls { 0%,100% { box-shadow: 0 0 0 0 var(--puls); } 50% { box-shadow: 0 0 0 10px transparent; } }
 
 
-/* Yubiley: hashamatli, hurmat va vazminlik — binafsha va oltin */
-.dafna-chiziq { height: 9px; opacity: .8; position: relative; z-index: 1;
-    background: repeating-linear-gradient(90deg, #a9812e 0 4px, transparent 4px 24px); }
-.hero .yubiley-belgi { font-size: 2.1rem; margin-bottom: 14px; color: #6b3d63; }
-.bolim h2::after { color: #a9812e; }
+/* Yuqoridagi rangli tirqishli chiziq olib tashlandi: u hech narsani
+   anglatmasdi va yangi akvarel bezaklar bilan bir sahifada qo'pol
+   ko'rinardi. Sahifa endi ravoq burchaklari bilan boshlanadi. */
+
+
+/* --- Chizma bezaklar (taklif/static/taklif/yubiley/) ---
+
+   Bu shablon ilgari umumiy to'y shablonining boshqa rangga bo'yalgan
+   nusxasi edi: burchaklarda barcha dizaynlarda takrorlanadigan o'sha
+   naqsh, ochilish ekranida esa nikoh to'yiga mo'ljallangan gul surati.
+   Marosimning o'ziga tegishli birorta belgi yo'q edi.
+
+   Endi markazda shu marosim uchun alohida chizilgan akvarel tasvir
+   turadi. Burchak bezagi, bo'lim ajratgichi va parda foni bitta umumiy
+   to'plamdan olinib, shu shablonning "--asos" rangiga qayta bo'yalgan —
+   shu bois olti marosim bir oilaga o'xshaydi, lekin har biri o'z
+   ohangida. */
+
+.marosim-chizma {
+    width: clamp(260px, 84vw, 420px); height: auto; display: block;
+    margin: 0 auto var(--oraliq-2);
+    filter: drop-shadow(0 16px 26px rgba(60, 50, 35, .13));
+    transform-origin: 50% 12%;
+    animation: chizma-nafas 9s ease-in-out infinite;
+}
+/* Deyarli sezilmas nafas — tasvir "tirik" tuyuladi, lekin diqqatni
+   tortmaydi. Harakatni kamaytirishni so'ragan qurilmada to'xtaydi. */
+@keyframes chizma-nafas {
+    0%, 100% { transform: scale(1) rotate(-.5deg); }
+    50%      { transform: scale(1.022) rotate(.5deg); }
+}
+@media (prefers-reduced-motion: reduce) { .marosim-chizma { animation: none; } }
+
+/* Burchak chizmasi kvadrat emas — o'z nisbatini beramiz. */
+.hero-ramka-burchak { width: 158px; height: 119px; }
+@media (max-width: 480px) { .hero-ramka-burchak { width: 118px; height: 89px; } }
+
+/* Ajratgich chizmasi 430x138 nisbatda. */
+.bolim h2::after { width: 168px; height: 54px; margin-top: var(--oraliq-1); }
+.nafis-chiziq { width: 200px; height: 64px; }
+.hero .bezak { width: clamp(150px, 20vw, 200px); aspect-ratio: 430 / 138; }
+
+#parda .parda-yurak-ichi::after {
+    content: ""; position: absolute; left: 50%; bottom: 17%;
+    transform: translateX(-50%); width: 118px; height: 38px;
+    background: var(--bezak-svg) center/contain no-repeat;
+    opacity: .85; pointer-events: none;
+}
+
+/* Parda yozuvlari _parda_rasmli.html'da TO'Q shisha va OQ matn bilan
+   chiziladi — u yerdagi fonlar to'q surat. Bu yerda fon ochiq mato,
+   shuning uchun teskarisiga aylantiramiz. */
+#parda .parda-kichik,
+#parda .parda-korsatma {
+    background: rgba(255, 253, 246, .82);
+    border: 1px solid color-mix(in srgb, var(--asos) 35%, transparent);
+    color: var(--sarlavha); text-shadow: none;
+    box-shadow: 0 6px 18px rgba(60, 50, 35, .10);
+}
+#parda .parda-kichik { letter-spacing: 3px; }
+#parda .parda-qulf-img { filter: drop-shadow(0 2px 4px rgba(60,50,35,.28)); }
+#parda .parda-ism { font-size: 1.34rem; }
+
+/* Parda foni: _parda_rasmli.html marosim bo'yicha o'z rasmini qo'yadi
+   va u <body> ichida, ya'ni bu fayldan KEYIN o'qiladi — shu sabab
+   kuchliroq selektor kerak. */
+body #parda.marosim-yubiley {
+    --parda-tasvir: url('{% static "taklif/yubiley/yubiley-parda.jpg" %}');
+    background-color: var(--parda-fon);
+    background-position: center;
+}
+body #parda.marosim-yubiley .parda-yurak-ichi { background: rgba(255,253,248,.94); }
 
 {% endblock %}
 
 {% block content %}
-<div class="dafna-chiziq"></div>
 {% include "taklif/shablonlar/_mijoz_qismi.html" %}
 
 {% include "taklif/shablonlar/_parda_rasmli.html" %}
 
 <div class="hero hero-ramkali">
-    <div class="hero-ramka-burchak hrb-rangli hrb-tl"></div>
-    <div class="hero-ramka-burchak hrb-rangli hrb-tr"></div>
-    <div class="hero-ramka-burchak hrb-rangli hrb-bl"></div>
-    <div class="hero-ramka-burchak hrb-rangli hrb-br"></div>
-    <div class="bezak" aria-hidden="true"></div>
+    <div class="hero-ramka-burchak hrb-tl"></div>
+    <div class="hero-ramka-burchak hrb-tr"></div>
+    <div class="hero-ramka-burchak hrb-bl"></div>
+    <div class="hero-ramka-burchak hrb-br"></div>
+    {% comment %}
+    Marosim tasviri hero markazida, ismdan yuqorida: mehmon sahifani
+    ochishi bilan bu qanday marosim ekanini bir qarashda biladi.
+    WebP birinchi — PNG dan bir necha barobar yengil; PNG esa eski
+    Safari uchun zaxira.
+    {% endcomment %}
+    <picture>
+        <source srcset="{% static "taklif/yubiley/yubiley-hero.webp" %}" type="image/webp">
+        <img class="marosim-chizma" src="{% static "taklif/yubiley/yubiley-hero.png" %}"
+             alt="" width="680" height="371" aria-hidden="true">
+    </picture>
     <div class="kichik">{{ taklifnoma.marosim_turi_matni }} {% trans "taklifnomasi" %}</div>
     {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}
     <h1>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</h1>
