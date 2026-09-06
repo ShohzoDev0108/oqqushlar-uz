@@ -739,128 +739,33 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
     </div>
 </header>
 
-{% if taklifnomalar %}
 {% comment %}
-Taftish topilmasi: ijtimoiy isbot (social proof) sifatida bu bo'lim
-avval sahifa pastida edi — endi hero'dan keyin, yuqorida joylashtirildi,
-shunda ziyoratchi qadam-baqadam yo'riqnomani o'qishdan oldin haqiqiy
-mijozlar borligini ko'radi. Faqat mijozlar rozilik bergan namunalar
-bo'lganda ko'rsatiladi — bo'sh "tez orada" xabari yuqorida yaxshi
-taassurot qoldirmaydi, shuning uchun bo'sh holatda bu bo'lim umuman
-chiqmaydi (pastdagi joyida bu muammo yo'q edi, chunki unchalik
-ko'zga tashlanmasdi).
-{% endcomment %}
-<section class="oq-bolim">
-    <div class="oq-romka-burchak orb-tl"></div>
-    <div class="oq-romka-burchak orb-tr"></div>
-    <div class="oq-ichki">
-        <div class="oq-bolim-bosh">
-            <span class="oq-yorliq">{% trans "So'nggi taklifnomalar" %}</span>
-            <h2 class="oq-h2">{% trans "Platformamizda faollashtirilgan taklifnomalardan namunalar" %}</h2>
-        </div>
-        <ul class="oq-royxat">
-            {% for t in taklifnomalar %}
-            <li>
-                <a href="{{ t.get_absolute_url }}">
-                    <span class="nomi">{{ t.sarlavha }}</span>
-                    <span class="sana">{{ t.marosim_turi_matni }} — {{ t.sana|date:"d.m.Y" }}</span>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-</section>
-{% endif %}
+BO'LIMLAR TARTIBI — o'lchovga asoslangan.
 
-{% comment %}
-Taftish topilmasi: sayt mijozga NEGA aynan shu platformani tanlashi
-kerakligini hech qayerda ochiq aytmasdi — faqat "qanday ishlaydi" va FAQ bor
-edi. Bu yerdagi har bir afzallik loyihaning haqiqiy, real ishlaydigan
-xususiyatiga tayanadi (statistika sahifasi, ko'p tillilik — settings.py
-LANGUAGES, marosim turiga moslashadigan forma va h.k.) — o'ylab topilgan
-va'da yo'q. Pastdagi Telegram chaqiruvi esa mijoz forma to'ldirishda
-qiynalganda ADMINGA to'g'ridan-to'g'ri, bepul murojaat qila olishini
-ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
-{% endcomment %}
-<section class="oq-bolim">
-    <div class="oq-romka-burchak orb-tl"></div>
-    <div class="oq-romka-burchak orb-tr"></div>
-    <div class="oq-ichki">
-        <div class="oq-bolim-bosh">
-            <span class="oq-yorliq">{% trans "Nega Oqqushlar?" %}</span>
-            <h2 class="oq-h2">{% trans "Boshqalardan nima bilan farq qilamiz" %}</h2>
-        </div>
-        <div class="oq-afzalliklar">
-            <div class="oq-afzallik">
-                <span class="yorliq">{% trans "To'lovsiz sinab ko'ring" %}</span>
-                <h3>{% trans "Avval ko'ring, keyin qaror qiling" %}</h3>
-                <p>{% trans "Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz." %}</p>
-            </div>
-            <div class="oq-afzallik">
-                <span class="yorliq">{% trans "Har bir marosimga moslashgan" %}</span>
-                <h3>{% trans "Forma marosim turingizni tushunadi" %}</h3>
-                <p>{% trans "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi." %}</p>
-            </div>
-            <div class="oq-afzallik">
-                <span class="yorliq">{% trans "Kim ko'rgani ma'lum" %}</span>
-                <h3>{% trans "Shaxsiy statistika sahifangiz" %}</h3>
-                <p>{% blocktrans %}Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "kelaman" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib borasiz.{% endblocktrans %}</p>
-            </div>
-            <div class="oq-afzallik">
-                <span class="yorliq">{% trans "Bir necha tilda" %}</span>
-                <h3>{% trans "Mehmonlaringiz o'z tilida o'qiydi" %}</h3>
-                <p>{% trans "Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham qiynalmaydi." %}</p>
-            </div>
-            <div class="oq-afzallik">
-                <span class="yorliq">{% trans "Istalgan qurilmada chiroyli" %}</span>
-                <h3>{% trans "Telefon, planshet, kompyuter" %}</h3>
-                <p>{% trans "Taklifnomangiz qaysi qurilmadan ochilmasin — ko'rinishi bir xil darajada sara va o'qish qulay bo'ladi." %}</p>
-            </div>
-            <div class="oq-afzallik">
-                <span class="yorliq">{% trans "Marosimdan keyin ham" %}</span>
-                <h3>{% trans "Esdalik sifatida saqlanib qoladi" %}</h3>
-                <p>{% trans "Taklifnoma marosim o'tib ketgach ham o'chib qolmaydi — istalgan vaqt qayta ochib, o'sha kunning iliqligini his qilishingiz mumkin." %}</p>
-            </div>
-        </div>
-        {% if admin_telegram %}
-        <div class="oq-yordam-chaqiruv">
-            <p>{% blocktrans %}Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
-            <a class="oq-yordam-tugma" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">
-                {% include "taklif/_ikonalar/telegram.svg" %}
-                {% trans "Telegram orqali yozish" %}
-            </a>
-        </div>
-        {% endif %}
-    </div>
-</section>
+Ilgari tartib shunday edi: hero -> "Nega Oqqushlar?" -> "Qanday
+ishlaydi" -> namunalar -> narx -> savol-javob. Telefonda (390x844)
+o'lchandi: mijoz NARXNI ko'rish uchun 5.6 ekran surishi kerak edi,
+dizaynlarni ko'rish uchun 4.5 ekran. Ya'ni sahifa mijozga "chiroylimi
+va qancha turadi?" degan savollarga javob bermasdan turib, o'zi haqida
+ikki ekran matn o'qitardi.
 
-<section class="oq-bolim">
-    <div class="oq-romka-burchak orb-tl"></div>
-    <div class="oq-romka-burchak orb-tr"></div>
-    <div class="oq-ichki">
-        <div class="oq-bolim-bosh">
-            <span class="oq-yorliq">{% trans "Qanday ishlaydi?" %}</span>
-            <h2 class="oq-h2">{% trans "Uch oddiy qadam — va taklifnomangiz tayyor" %}</h2>
-        </div>
-        <div class="oq-qadamlar">
-            <div class="oq-qadam">
-                <span class="raqam">01</span>
-                <h3>{% trans "Dizayn tanlang" %}</h3>
-                <p>{% trans "Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga xos uslubda." %}</p>
-            </div>
-            <div class="oq-qadam">
-                <span class="raqam">02</span>
-                <h3>{% trans "Ma'lumotlarni to'ldiring" %}</h3>
-                <p>{% trans "Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz kiritasiz." %}</p>
-            </div>
-            <div class="oq-qadam">
-                <span class="raqam">03</span>
-                <h3>{% trans "Ulashing" %}</h3>
-                <p>{% trans "Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga Telegram yoki Instagram orqali yuboring." %}</p>
-            </div>
-        </div>
-    </div>
-</section>
+Yangi tartib xaridorning savollar ketma-ketligiga qo'yilgan:
+
+  bu nima?            -> hero (karusel bilan)
+  chiroylimi?         -> namunalar
+  qancha turadi?      -> narx        (endi 2.4-ekranda, 5.6 emas)
+  qanchalik oson?     -> qanday ishlaydi
+  ishonsam bo'ladimi? -> so'nggi taklifnomalar (haqiqiy mijozlar)
+  nega aynan siz?     -> nega Oqqushlar
+  savollarim bor      -> savol-javob
+
+Narxni erta ko'rsatish ataylab: bizning taklif "avval bepul ko'ring,
+yoqsa to'laysiz" — ya'ni narx xavfni oshirmaydi, kamaytiradi. Narxi
+yashirilgan sayt esa "qimmat bo'lsa kerak" degan taassurot qoldiradi.
+
+Havolalarning id'lari ("#dizaynlar", "#narx", "#savol-javob")
+o'zgarmadi — tashqaridan kelgan eski havolalar ishlayveradi.
+{% endcomment %}
 
 {% if shablonlar %}
 {% comment %}
@@ -916,15 +821,6 @@ havolalar buzilmasin.
 </section>
 {% endif %}
 
-{% comment %}
-Taftish topilmasi: bosh sahifada mijozlarning eng ko'p beradigan
-savollariga (to'lov qanday ishlaydi, ro'yxatdan o'tish kerakmi, link
-tugaydimi va h.k.) javob beradigan bo'lim yo'q edi — bu savollar
-raqobatchi saytlarda alohida FAQ bo'limi orqali hal qilinadi. Bu yerdagi
-har bir javob loyihaning haqiqiy ishlash tartibiga mos (views.py'dagi
-"eski taklifnoma" mantig'i, muddati_tugagan oqimi, MAKSIMAL_RASMLAR_SONI
-va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
-{% endcomment %}
 {% if shablonlar %}
 <section class="oq-bolim" id="narx">
     <div class="oq-romka-burchak orb-tl"></div>
@@ -949,6 +845,143 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
 </section>
 {% endif %}
 
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Qanday ishlaydi?" %}</span>
+            <h2 class="oq-h2">{% trans "Uch oddiy qadam — va taklifnomangiz tayyor" %}</h2>
+        </div>
+        <div class="oq-qadamlar">
+            <div class="oq-qadam">
+                <span class="raqam">01</span>
+                <h3>{% trans "Dizayn tanlang" %}</h3>
+                <p>{% trans "Bir nechta tayyor shablondan o'zingizga yoqqanini tanlang — har biri o'ziga xos uslubda." %}</p>
+            </div>
+            <div class="oq-qadam">
+                <span class="raqam">02</span>
+                <h3>{% trans "Ma'lumotlarni to'ldiring" %}</h3>
+                <p>{% trans "Marosim turi, ismlar, sana, manzil, rasmlar va musiqa — hammasini o'zingiz kiritasiz." %}</p>
+            </div>
+            <div class="oq-qadam">
+                <span class="raqam">03</span>
+                <h3>{% trans "Ulashing" %}</h3>
+                <p>{% trans "Tayyor taklifnomani ko'rib chiqing, yoqsa faollashtiring va yaqinlaringizga Telegram yoki Instagram orqali yuboring." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if taklifnomalar %}
+{% comment %}
+Taftish topilmasi: ijtimoiy isbot (social proof) sifatida bu bo'lim
+avval sahifa pastida edi — endi hero'dan keyin, yuqorida joylashtirildi,
+shunda ziyoratchi qadam-baqadam yo'riqnomani o'qishdan oldin haqiqiy
+mijozlar borligini ko'radi. Faqat mijozlar rozilik bergan namunalar
+bo'lganda ko'rsatiladi — bo'sh "tez orada" xabari yuqorida yaxshi
+taassurot qoldirmaydi, shuning uchun bo'sh holatda bu bo'lim umuman
+chiqmaydi (pastdagi joyida bu muammo yo'q edi, chunki unchalik
+ko'zga tashlanmasdi).
+{% endcomment %}
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "So'nggi taklifnomalar" %}</span>
+            <h2 class="oq-h2">{% trans "Platformamizda faollashtirilgan taklifnomalardan namunalar" %}</h2>
+        </div>
+        <ul class="oq-royxat">
+            {% for t in taklifnomalar %}
+            <li>
+                <a href="{{ t.get_absolute_url }}">
+                    <span class="nomi">{{ t.sarlavha }}</span>
+                    <span class="sana">{{ t.marosim_turi_matni }} — {{ t.sana|date:"d.m.Y" }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+{% comment %}
+TAFTISH 2 — bo'lim oltita kartadan TO'RTTAGA qisqartirildi.
+
+Sabab o'lchov: bu bo'lim 1806px, ya'ni telefonda ikki ekrandan
+ko'proq sof matn edi va u sahifaning ikkinchi o'rnida turardi —
+mijoz hali narxni ham, dizaynlarni ham ko'rmasdan turib 700 so'q
+o'qishi kerak bo'lardi. O'qilmagan matn ishonch qo'shmaydi, faqat
+pastdagi bo'limlarni uzoqlashtiradi.
+
+Olib tashlangan ikkitasi:
+  - "Istalgan qurilmada chiroyli" — bugun bu afzallik emas, kutilgan
+    narsa; uni alohida va'da qilish aksincha shubha uyg'otadi.
+  - "Esdalik sifatida saqlanib qoladi" — yoqimli, lekin xarid
+    qaroriga ta'sir qilmaydi. O'rni — savol-javob yoki taklifnoma
+    tayyor bo'lgandan keyingi sahifa.
+
+TAFTISH 1: sayt mijozga NEGA aynan shu platformani tanlashi
+kerakligini hech qayerda ochiq aytmasdi — faqat "qanday ishlaydi" va FAQ bor
+edi. Bu yerdagi har bir afzallik loyihaning haqiqiy, real ishlaydigan
+xususiyatiga tayanadi (statistika sahifasi, ko'p tillilik — settings.py
+LANGUAGES, marosim turiga moslashadigan forma va h.k.) — o'ylab topilgan
+va'da yo'q. Pastdagi Telegram chaqiruvi esa mijoz forma to'ldirishda
+qiynalganda ADMINGA to'g'ridan-to'g'ri, bepul murojaat qila olishini
+ko'rsatadi (mijoz talabiga ko'ra qo'shildi).
+{% endcomment %}
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="oq-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Nega Oqqushlar?" %}</span>
+            <h2 class="oq-h2">{% trans "Boshqalardan nima bilan farq qilamiz" %}</h2>
+        </div>
+        <div class="oq-afzalliklar">
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "To'lovsiz sinab ko'ring" %}</span>
+                <h3>{% trans "Avval ko'ring, keyin qaror qiling" %}</h3>
+                <p>{% trans "Ro'yxatdan o'tmasdan, hech narsa to'lamasdan taklifnomangizni to'liq yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz." %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Har bir marosimga moslashgan" %}</span>
+                <h3>{% trans "Forma marosim turingizni tushunadi" %}</h3>
+                <p>{% trans "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi." %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Kim ko'rgani ma'lum" %}</span>
+                <h3>{% trans "Shaxsiy statistika sahifangiz" %}</h3>
+                <p>{% blocktrans %}Har bir mehmoningiz uchun alohida link yaratib, kim ko'rganini, kim "kelaman" deganini — hammasini faqat sizga ko'rinadigan sahifada kuzatib borasiz.{% endblocktrans %}</p>
+            </div>
+            <div class="oq-afzallik">
+                <span class="yorliq">{% trans "Bir necha tilda" %}</span>
+                <h3>{% trans "Mehmonlaringiz o'z tilida o'qiydi" %}</h3>
+                <p>{% trans "Taklifnoma o'zbek, rus, ingliz va boshqa bir necha tilda avtomatik ko'rinadi — chet elda yoki boshqa millat vakili bo'lgan mehmonlaringiz ham qiynalmaydi." %}</p>
+            </div>
+        </div>
+        {% if admin_telegram %}
+        <div class="oq-yordam-chaqiruv">
+            <p>{% blocktrans %}Taklifnoma yaratishda yordam kerak bo'lsa, <strong>xijolat bo'lmang</strong> — Telegram orqali yozing, sizga bepul va samimiy yordam beramiz.{% endblocktrans %}</p>
+            <a class="oq-yordam-tugma" href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">
+                {% include "taklif/_ikonalar/telegram.svg" %}
+                {% trans "Telegram orqali yozish" %}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% comment %}
+Taftish topilmasi: bosh sahifada mijozlarning eng ko'p beradigan
+savollariga (to'lov qanday ishlaydi, ro'yxatdan o'tish kerakmi, link
+tugaydimi va h.k.) javob beradigan bo'lim yo'q edi — bu savollar
+raqobatchi saytlarda alohida FAQ bo'limi orqali hal qilinadi. Bu yerdagi
+har bir javob loyihaning haqiqiy ishlash tartibiga mos (views.py'dagi
+"eski taklifnoma" mantig'i, muddati_tugagan oqimi, MAKSIMAL_RASMLAR_SONI
+va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
+{% endcomment %}
 <section class="oq-bolim" id="savol-javob">
     <div class="oq-romka-burchak orb-tl"></div>
     <div class="oq-romka-burchak orb-tr"></div>
