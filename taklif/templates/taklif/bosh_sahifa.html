@@ -239,6 +239,61 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
     50%      { transform: scale(1.06); box-shadow: 0 0 0 .55em rgba(169,129,46,0); }
 }
 .oq-taklif-izoh { font-size: .53em; letter-spacing: .13em; color: var(--kul); margin-top: .7em; }
+
+/* --- Telefon ekranidagi marosim aylanmasi ---
+
+   TAFTISH: maketda bitta o'zgarmas NIKOH TO'YI ekrani turardi. Ya'ni
+   birinchi ekranda sayt o'zini "to'y taklifnomalari sayti" deb
+   tanishtirardi, holbuki dizaynlarning yarmi boshqa marosimlar uchun:
+   beshik to'yi, nahor oshi, xatna to'yi, qiz uzatish, yubiley. Ular
+   borligini bilish uchun mijoz pastga tushib, katalogni ochib, marosim
+   filtrini topishi kerak edi — uch qadam.
+
+   Endi ekranning o'zi sakkiz marosimni birma-bir ko'rsatadi.
+   Qulf va uning ostidagi yozuv qimirlamaydi — faqat ustki qism
+   almashadi, shunda maket "buzilib turgan" emas, "varaqlanayotgan"
+   bo'lib ko'rinadi.
+
+   Aylanish MIJOZ TEGISHI BILAN TO'XTAYDI (sichqoncha, barmoq yoki
+   klaviatura fokusi) va ekrandan chiqib ketganda ham to'xtaydi —
+   ko'rinmayotgan animatsiya bekorga batareya yeydi. Harakatni
+   kamaytirishni so'ragan qurilmada esa umuman aylanmaydi. */
+.tel-slaydlar { position: absolute; left: 0; right: 0; top: 0; bottom: calc(var(--tb) * .20); }
+.tel-slayd {
+    position: absolute; inset: 0;
+    padding: calc(var(--tb) * .075) calc(var(--tb) * .04) 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; transform: translateX(15%); pointer-events: none;
+    transition: opacity .6s ease, transform .6s cubic-bezier(.32, 0, .18, 1);
+}
+.tel-slayd.faol { opacity: 1; transform: none; }
+.tel-slayd.chiqdi { opacity: 0; transform: translateX(-15%); }
+.tel-chizma {
+    width: 84%; max-height: 44%; height: auto; object-fit: contain;
+    filter: drop-shadow(0 6px 12px rgba(90, 74, 44, .13));
+}
+.tel-marosim {
+    font-size: .5em; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--tilla-toq); margin-top: .95em;
+}
+.tel-pastki {
+    position: absolute; left: 0; right: 0; bottom: calc(var(--tb) * .052);
+    display: flex; flex-direction: column; align-items: center;
+}
+
+/* Nuqtalar — nechta marosim borligini va qaysi biri turganini aytadi.
+   Bosilsa o'sha marosimga o'tadi, ya'ni bu shunchaki ko'rsatkich emas,
+   boshqaruv. */
+.tel-nuqtalar { display: flex; justify-content: center; gap: 7px; margin-top: 16px; }
+.tel-nuqta {
+    width: 6px; height: 6px; padding: 0; border: none; border-radius: 50%;
+    background: var(--chiziq); cursor: pointer;
+    transition: background .25s ease, transform .25s ease;
+}
+.tel-nuqta.faol { background: var(--tilla); transform: scale(1.45); }
+@media (prefers-reduced-motion: reduce) {
+    .tel-slayd { transition: none; }
+}
 @media (prefers-reduced-motion: reduce) { .oq-taklif-qulf { animation: none; } }
 
 /* Maket ostidagi izoh — bu haqiqiy mahsulot ekranini ko'rsatayotganini aytadi */
@@ -438,25 +493,54 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
                 <span class="tel-tugma tt-ovoz2" aria-hidden="true"></span>
                 <span class="tel-tugma tt-ovoz3" aria-hidden="true"></span>
                 <span class="tel-tugma tt-quvvat" aria-hidden="true"></span>
-                <div class="oq-telefon-ekran">
-                    <div class="oq-taklif-yorliq">{% trans "Sizga taklifnoma keldi" %}</div>
-                    <div class="oq-taklif-yurak">{% include "taklif/_ikonalar/belgi.svg" %}</div>
-                    <div class="oq-taklif-ismlar">Aziz<span class="va">&amp;</span>Nilufar</div>
-                    <div class="oq-taklif-sana">12 · 09 · 2026</div>
-                    {% comment %}
-                    Qulfcha — taklifnoma ochilish animatsiyasining ramzi.
-                    Bu yerda u faqat ko'rsatish uchun (bosilmaydi), shuning
-                    uchun <button> emas, oddiy blok.
-                    {% endcomment %}
-                    <div class="oq-taklif-qulf" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="4" y="10.5" width="16" height="11" rx="2.5"/>
-                            <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
-                            <circle cx="12" cy="15.6" r="1.3" fill="currentColor" stroke="none"/>
-                        </svg>
+                <div class="oq-telefon-ekran" id="tel-ekran">
+                    <div class="tel-slaydlar" id="tel-slaydlar" aria-live="off">
+                        {% for sl in bosh_slaydlar %}
+                        <div class="tel-slayd{% if forloop.first %} faol{% endif %}">
+                            <div class="oq-taklif-yorliq">{% trans "Sizga taklifnoma keldi" %}</div>
+                            {% if sl.kod %}
+                            {% comment %}
+                            Tasvirlar zanjir bo'lib yuklanmaydi: faqat ko'rinadigan
+                            va keyingi slayd "src" oladi (pastdagi JS). Aks holda
+                            birinchi ekran sakkizta rasm yuklanguncha kutib
+                            turardi — mijozlarimizning ko'pi mobil internetda.
+                            {% endcomment %}
+                            <img class="tel-chizma" alt="" aria-hidden="true"
+                                 data-src="{% static "taklif/"|add:sl.kod|add:"/"|add:sl.kod|add:"-hero.webp" %}"
+                                 {% if forloop.first %}src="{% static "taklif/"|add:sl.kod|add:"/"|add:sl.kod|add:"-hero.webp" %}"{% endif %}>
+                            {% else %}
+                            <div class="oq-taklif-yurak">{% include "taklif/_ikonalar/belgi.svg" %}</div>
+                            {% endif %}
+                            <div class="oq-taklif-ismlar">{{ sl.ism_1 }}{% if sl.ism_2 %}<span class="va">&amp;</span>{{ sl.ism_2 }}{% endif %}</div>
+                            <div class="oq-taklif-sana">{{ sl.sana|date:"d · m · Y" }}</div>
+                            <div class="tel-marosim">{{ sl.nomi }}</div>
+                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="oq-taklif-izoh">{% trans "Qulfcha ustiga bosing" %}</div>
+                    <div class="tel-pastki">
+                        {% comment %}
+                        Qulfcha — taklifnoma ochilish animatsiyasining ramzi.
+                        Bu yerda u faqat ko'rsatish uchun (bosilmaydi), shuning
+                        uchun <button> emas, oddiy blok. Slaydlar almashganda
+                        u qimirlamaydi.
+                        {% endcomment %}
+                        <div class="oq-taklif-qulf" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="10.5" width="16" height="11" rx="2.5"/>
+                                <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+                                <circle cx="12" cy="15.6" r="1.3" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </div>
+                        <div class="oq-taklif-izoh">{% trans "Qulfcha ustiga bosing" %}</div>
+                    </div>
                 </div>
+            </div>
+            <div class="tel-nuqtalar" id="tel-nuqtalar" role="tablist" aria-label="{% trans "Marosim turlari" %}">
+                {% for sl in bosh_slaydlar %}
+                <button type="button" class="tel-nuqta{% if forloop.first %} faol{% endif %}"
+                        role="tab" aria-label="{{ sl.nomi }}"
+                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+                {% endfor %}
             </div>
         </div>
         <div class="oq-hero-matn">
@@ -767,6 +851,89 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
     });
 
     nuqtalarniYasa();
+})();
+</script>
+
+<script>
+(function () {
+    // Telefon maketidagi marosim aylanmasi.
+    var ekran = document.getElementById('tel-ekran');
+    var qatori = document.getElementById('tel-slaydlar');
+    var nuqtalarBlok = document.getElementById('tel-nuqtalar');
+    if (!ekran || !qatori) { return; }
+    var slaydlar = Array.prototype.slice.call(qatori.querySelectorAll('.tel-slayd'));
+    var nuqtalar = nuqtalarBlok ? Array.prototype.slice.call(nuqtalarBlok.querySelectorAll('.tel-nuqta')) : [];
+    if (slaydlar.length < 2) { return; }
+
+    var ORALIQ = 4200;
+    var joriy = 0;
+    var taymer = null;
+    var toxtatilgan = false;
+    var korinadi = true;
+    var kamHarakat = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Rasm faqat kerak bo'lganda yuklanadi — joriy va keyingisi.
+    function rasmYukla(i) {
+        var img = slaydlar[i] && slaydlar[i].querySelector('.tel-chizma');
+        if (img && !img.getAttribute('src') && img.dataset.src) {
+            img.setAttribute('src', img.dataset.src);
+        }
+    }
+
+    function korsat(yangi) {
+        if (yangi === joriy) { return; }
+        var eski = slaydlar[joriy];
+        eski.classList.remove('faol');
+        eski.classList.add('chiqdi');
+        setTimeout(function () { eski.classList.remove('chiqdi'); }, 650);
+        joriy = (yangi + slaydlar.length) % slaydlar.length;
+        slaydlar[joriy].classList.add('faol');
+        rasmYukla(joriy);
+        rasmYukla((joriy + 1) % slaydlar.length);
+        nuqtalar.forEach(function (n, i) {
+            n.classList.toggle('faol', i === joriy);
+            n.setAttribute('aria-selected', i === joriy ? 'true' : 'false');
+        });
+    }
+
+    function yur() {
+        if (taymer || toxtatilgan || !korinadi || kamHarakat) { return; }
+        taymer = setInterval(function () { korsat(joriy + 1); }, ORALIQ);
+    }
+    function tur() {
+        if (taymer) { clearInterval(taymer); taymer = null; }
+    }
+
+    // Mijoz tegsa — to'xtaydi. Sichqoncha ketsa yana yuradi; barmoq
+    // bilan tegilgan bo'lsa, mijoz o'zi boshqarmoqchi degani —
+    // avtomatik aylanish butunlay to'xtaydi.
+    ekran.addEventListener('mouseenter', function () { toxtatilgan = true; tur(); });
+    ekran.addEventListener('mouseleave', function () { toxtatilgan = false; yur(); });
+    ekran.addEventListener('touchstart', function () { toxtatilgan = true; tur(); }, { passive: true });
+    if (nuqtalarBlok) {
+        nuqtalarBlok.addEventListener('click', function (e) {
+            var n = e.target.closest('.tel-nuqta');
+            if (!n) { return; }
+            toxtatilgan = true; tur();
+            korsat(nuqtalar.indexOf(n));
+        });
+        nuqtalarBlok.addEventListener('focusin', function () { toxtatilgan = true; tur(); });
+    }
+
+    // Ekrandan chiqib ketganda to'xtaydi — ko'rinmayotgan animatsiya
+    // bekorga batareya yeydi.
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (yozuvlar) {
+            korinadi = yozuvlar[0].isIntersecting;
+            if (korinadi) { yur(); } else { tur(); }
+        }, { threshold: .25 }).observe(ekran);
+    }
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) { tur(); } else { yur(); }
+    });
+
+    rasmYukla(1);
+    yur();
 })();
 </script>
 {% endblock %}

@@ -2827,3 +2827,7 @@ msgstr "Milli eşik"
 #: taklif/forms.py taklif/templates/taklif/yaratish.html
 msgid "Och ranglar"
 msgstr "Açyk reňkler"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html
+msgid "Pastga suring"
+msgstr "Aşak süýşüriň"

@@ -124,6 +124,64 @@ elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
         window.addEventListener('pagehide', musiqaHolatiniSaqla);
     }
 
+
+    // --- Parda ochilgach: pastda davomi borligini bildirish ---
+    //
+    // MUAMMO: parda ochilgandan keyin mehmon faqat hero'ni ko'radi —
+    // ismlar, sana va ko'p bo'sh joy. Sanoq, manzil, xarita, RSVP —
+    // hammasi pastda, lekin ekranda ularga birorta ishora yo'q. Ba'zi
+    // mehmonlar shu yerda to'xtab qoladi.
+    //
+    // NEGA AVTOMATIK AYLANTIRMAYMIZ: sahifani mijoz o'rniga aylantirish
+    // eng yoqimsiz naqshlardan biri — o'qiyotgan odam uchun sahifa
+    // "qochib ketayotgan"dek tuyuladi, va iOS'da barmoq inersiyasi bilan
+    // urishib, sakrash hosil qiladi. Buning o'rniga BITTA yumshoq
+    // turtki beriladi (ekran balandligining ~40% i) va pastda ishora
+    // ko'rsatiladi. Turtki mijoz tegishi bilan o'sha zahoti to'xtaydi.
+    function pastgaIshora() {
+        var kamHarakat = window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ishora = document.getElementById('pastga-ishora');
+        if (ishora) { ishora.classList.add('korinadi'); }
+
+        var aralashdi = false;
+        var hodisalar = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
+        function belgila() {
+            aralashdi = true;
+            if (ishora) { ishora.classList.remove('korinadi'); }
+            hodisalar.forEach(function (h) { window.removeEventListener(h, belgila); });
+        }
+        hodisalar.forEach(function (h) {
+            window.addEventListener(h, belgila, { passive: true });
+        });
+        // Mijoz O'ZI aylantirsa ishora ketadi. "aralashdi" sharti muhim:
+        // pastdagi turtki ham scroll hodisasini uyg'otadi va usiz ishora
+        // o'zi paydo bo'lgan zahoti yo'qolib qolardi.
+        window.addEventListener('scroll', function () {
+            if (aralashdi && ishora) { ishora.classList.remove('korinadi'); }
+        }, { passive: true });
+        setTimeout(function () { if (ishora) { ishora.classList.remove('korinadi'); } }, 9000);
+
+        if (kamHarakat) { return; }
+        setTimeout(function () {
+            if (aralashdi || window.pageYOffset > 10) { return; }
+            var boshi = window.pageYOffset;
+            var masofa = Math.round(window.innerHeight * 0.4);
+            var davomiylik = 1100;
+            var t0 = null;
+            function qadam(t) {
+                if (aralashdi) { return; }
+                if (t0 === null) { t0 = t; }
+                var p = Math.min((t - t0) / davomiylik, 1);
+                // yumshoq kirish-chiqish
+                var e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+                window.scrollTo(0, boshi + masofa * e);
+                if (p < 1) { requestAnimationFrame(qadam); }
+            }
+            requestAnimationFrame(qadam);
+        }, 700);
+    }
+
     if (tugma) {
         tugma.addEventListener('click', function () {
             // Avval konvert ochiladi (3D animatsiya), keyin parda yo'qoladi
@@ -136,6 +194,7 @@ elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
             if (kabutarlar) { kabutarlar.classList.add('yashirin'); }
             setTimeout(function () {
                 parda.classList.add('yopilgan');
+                pastgaIshora();
             }, konvert ? 1500 : 0);
             try { sessionStorage.setItem(OCHILDI_KALITI, '1'); } catch (e) {}
             if (musiqa && musiqaTugma) {

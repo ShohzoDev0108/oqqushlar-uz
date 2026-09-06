@@ -2833,3 +2833,7 @@ msgstr "Национальная одежда"
 #: taklif/forms.py taklif/templates/taklif/yaratish.html
 msgid "Och ranglar"
 msgstr "Светлые тона"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html
+msgid "Pastga suring"
+msgstr "Пролистайте вниз"

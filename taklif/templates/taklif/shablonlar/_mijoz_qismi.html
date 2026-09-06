@@ -32,6 +32,10 @@ body { padding-bottom: 88px; }
     background: var(--asos, #b39544); color: var(--asos-matn, #fff);
     text-decoration: none; font-size: .9rem; white-space: nowrap;
 }
+/* Pastga ishora shu qatorning ostida qolib ketmasin. Selektor
+   ataylab kuchliroq ("body" bilan): _bolimlar.html'dagi asosiy qoida
+   bu fayldan KEYIN o'qiladi va bir xil kuchda bo'lsa u ustun kelardi. */
+body .pastga-ishora { bottom: 104px; }
 @media (max-width: 520px) {
     .namuna-qatori { gap: 8px; padding-top: 10px; }
     .namuna-qatori .namuna-yozuv { font-size: .72rem; text-align: center; width: 100%; }

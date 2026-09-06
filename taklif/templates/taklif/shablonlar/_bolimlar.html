@@ -13,6 +13,42 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
    oyna/burilish (mirror/rotate) bilan qayta ishlatiladi — barcha burchaklar
    uchun alohida chizish shart emas. */
 .hero { position: relative; }
+
+/* Parda ochilgach pastda paydo bo'ladigan ishora.
+
+   Mehmon pardani ochgach faqat hero'ni ko'radi — ismlar, sana va ko'p
+   bo'sh joy. Sanoq, manzil, xarita, RSVP — hammasi pastda, lekin
+   ekranda ularga birorta ishora yo'q edi. Bu — kichik, lekin sotuvga
+   emas, MAROSIMGA ta'sir qiladigan narsa: RSVP ni ko'rmagan mehmon
+   javob ham bermaydi.
+
+   Ishora sahifa ochilishi bilan emas, faqat parda ochilgandan keyin
+   chiqadi (_skript.html'dagi "pastgaIshora") va mijoz biror harakat
+   qilishi bilan yo'qoladi. */
+.pastga-ishora {
+    position: fixed; left: 50%; bottom: 22px; z-index: 30;
+    transform: translateX(-50%) translateY(10px);
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .6s ease, transform .6s ease;
+    color: var(--ikkinchi);
+}
+.pastga-ishora.korinadi { opacity: 1; transform: translateX(-50%); }
+.pastga-ishora .pi-yozuv {
+    font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 15px; border-radius: 999px;
+    background: var(--karta-fon); border: 1px solid var(--chegara);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .10);
+}
+.pastga-ishora .pi-strelka {
+    width: 19px; height: 19px; color: var(--asos);
+    animation: pi-sakra 1.9s ease-in-out infinite;
+}
+@keyframes pi-sakra {
+    0%, 100% { transform: translateY(0); opacity: .5; }
+    50%      { transform: translateY(6px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .pastga-ishora .pi-strelka { animation: none; } }
 .hero-burchak {
     position: absolute; width: 42px; height: 42px; color: var(--asos);
     opacity: .5; pointer-events: none; z-index: 0;
@@ -334,6 +370,14 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     vertical-align: -3px; margin-right: 5px;
 }
 </style>
+
+<div class="pastga-ishora" id="pastga-ishora" aria-hidden="true">
+    <span class="pi-yozuv">{% trans "Pastga suring" %}</span>
+    <svg class="pi-strelka" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 9l6 6 6-6"/>
+    </svg>
+</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>

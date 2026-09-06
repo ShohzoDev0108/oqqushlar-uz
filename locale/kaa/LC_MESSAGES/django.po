@@ -2832,3 +2832,7 @@ msgstr "Milliy kiyim"
 #: taklif/forms.py taklif/templates/taklif/yaratish.html
 msgid "Och ranglar"
 msgstr "Ashıq reńler"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html
+msgid "Pastga suring"
+msgstr "Tómenge súyriń"

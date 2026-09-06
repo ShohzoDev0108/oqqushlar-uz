@@ -1,6 +1,7 @@
 import logging
 import os
 import secrets
+from datetime import timedelta
 from urllib.parse import quote
 
 from django.conf import settings
@@ -257,6 +258,45 @@ def _sayt_musiqasi():
     )
 
 
+# Bosh sahifadagi telefon maketi ichida aylanadigan slaydlar.
+#
+# NEGA. Maketda bitta, o'zgarmas nikoh to'yi ekrani turardi — ya'ni
+# tashrifchi saytga kirib "bu to'y taklifnomasi sayti ekan" degan
+# xulosaga kelardi. Holbuki dizaynlarning yarmi boshqa marosimlar
+# uchun: beshik to'yi, nahor oshi, xatna to'yi, yubiley... Ular haqida
+# bilish uchun pastga tushib, katalogni ochib, marosim filtrini
+# tanlash kerak edi. Endi telefon ekranining o'zi ularni birma-bir
+# ko'rsatadi.
+#
+# "kod" — shu marosim uchun chizilgan tasvir papkasi
+# (taklif/static/taklif/<kod>/<kod>-hero.webp). Nikoh to'yida bunday
+# tasvir yo'q, uning o'rniga saytning o'z belgisi chiziladi — shu
+# sabab "kod" bo'sh qoldirilgan.
+BOSH_SLAYDLAR = [
+    {"marosim": "toy", "kod": "", "ism_1": "Aziz", "ism_2": "Nilufar"},
+    {"marosim": "fotiha_toy", "kod": "fotiha", "ism_1": "Sanjar", "ism_2": "Nilufar"},
+    {"marosim": "qizlar_bazmi", "kod": "qizuzatish", "ism_1": "Zilola", "ism_2": ""},
+    {"marosim": "sunnat_toy", "kod": "xatna", "ism_1": "Amirbek", "ism_2": "Sardorbek"},
+    {"marosim": "beshik_toy", "kod": "beshik", "ism_1": "Oysha", "ism_2": ""},
+    {"marosim": "nahor_oshi", "kod": "nahoroshi", "ism_1": "Rustam", "ism_2": ""},
+    {"marosim": "yubiley", "kod": "yubiley", "ism_1": "Gulchehra", "ism_2": ""},
+    {"marosim": "tugilgan_kun", "kod": "tugilgankun", "ism_1": "Diyorbek", "ism_2": ""},
+]
+
+
+def _bosh_slaydlar():
+    """Telefon maketidagi slaydlarni marosim nomi va sanasi bilan to'ldiradi."""
+    nomlar = dict(MAROSIM_TURLARI)
+    hozir = timezone.localtime(timezone.now())
+    natija = []
+    for i, s in enumerate(BOSH_SLAYDLAR):
+        # Har bir slaydga o'z sanasi — bitta sana takrorlansa, maket
+        # "yasama" ko'rinadi.
+        sana = hozir + timedelta(days=38 + i * 11)
+        natija.append(dict(s, nomi=nomlar.get(s["marosim"], ""), sana=sana))
+    return natija
+
+
 def bosh_sahifa(request):
     """Platformaning asosiy landing sahifasi — wedding vibe, shablonlar galereyasi,
     faollashtirilgan taklifnomalar va taklifnoma yaratishga chorlovchi CTA."""
@@ -275,6 +315,7 @@ def bosh_sahifa(request):
             "shablonlar": shablonlar,
             "sayt_musiqa": _sayt_musiqasi(),
             "admin_telegram": _admin_telegram(),
+            "bosh_slaydlar": _bosh_slaydlar(),
         },
     )
 

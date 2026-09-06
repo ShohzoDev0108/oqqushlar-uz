@@ -2842,3 +2842,7 @@ msgstr "Либоси миллӣ"
 #: taklif/forms.py taklif/templates/taklif/yaratish.html
 msgid "Och ranglar"
 msgstr "Рангҳои равшан"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html
+msgid "Pastga suring"
+msgstr "Ба поён ғелонед"

@@ -2829,3 +2829,7 @@ msgstr "Ұлттық киім"
 #: taklif/forms.py taklif/templates/taklif/yaratish.html
 msgid "Och ranglar"
 msgstr "Ашық түстер"
+
+#: taklif/templates/taklif/shablonlar/_bolimlar.html
+msgid "Pastga suring"
+msgstr "Төмен сырғытыңыз"
