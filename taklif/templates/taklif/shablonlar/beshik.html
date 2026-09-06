@@ -5,47 +5,55 @@
 
 {% block extra_style %}
 :root {
-    --fon: #f5f3e9;
-    --parda-fon: #f0efe3;
-    --matn: #3a4a34;
-    --sarlavha: #4f6b40;
-    --asos: #6b8e5a;
-    /* Chegarali tugmalar va sovg'a karta raqami matni uchun
-       --asos'ning to'qroq varianti. --asos bilan bu kartada
-       kontrast atigi 3.65 edi (WCAG AA talabi 4.5); bu rang
-       bilan 4.88 ga chiqadi, ohang esa o'zgarmaydi.
-       _bolimlar.html'dagi "--asos-toq" izohiga qarang. */
-    --asos-toq: #5d774b;
-    --asos-matn: #fffef8;
-    --ikkinchi: #7c8a6f;
-    --karta-fon: #fffdf5;
-    --chegara: #dfe3cf;
+    /* PALITRA. Ilgari bu shablon sof yashil edi va boshqa 13 ta
+       dizayndan faqat rangi bilan farq qilardi. Endi u chizilgan
+       tasvirlar bilan ishlaydi (taklif/static/taklif/beshik/), shuning
+       uchun palitra ham o'sha tasvirlardan olindi: iliq fil suyagi
+       qog'oz, bronza-oltin yog'och, zaytun barg va tumordagi feruza.
+       Ranglar tasvirdan pipetka bilan olingan — sahifa va rasm bir
+       butun ko'rinishi uchun. */
+    --fon: #f8f4ea;
+    --parda-fon: #faf7ef;
+    --matn: #4c4639;
+    --sarlavha: #6a5c40;          /* bronza — kontrast 6.4 */
+    --parda-ism-rang: #6a5c40;
+    /* Tugmalardagi OQ matn shu fon ustida turadi, shuning uchun rang
+       kontrast bo'yicha tanlandi: #fffdf6 bilan 4.60 (WCAG AA talabi
+       4.5). Ilgari tanlangan #9a884f da bu ko'rsatkich 3.43 edi. */
+    --asos: #827343;              /* oltin-zaytun */
+    --asos-toq: #77683a;          /* chegarali tugmalar uchun to'qrog'i */
+    --asos-matn: #fffdf6;
+    /* Kichik yozuvlar ("SANA", "VAQT", ".muted") shu rangda — ular
+       kichkina bo'lgani uchun to'liq 4.5 talab qilinadi: fon ustida
+       4.60, kartada 4.98. Avvalgi #8b8371 da 3.42 edi. */
+    --ikkinchi: #756e5f;
+    --karta-fon: #fffdf8;
+    --chegara: #e6dfcd;
     --input-fon: #fffefa;
-    --konvert: #6b8e5a;
-    --konvert-qopqoq: #4f6b40;
-    --radius: 14px;
-    --puls: rgba(107,142,90,.3);
+    --konvert: #9a884f;
+    --konvert-qopqoq: #6a5c40;
+    --radius: 12px;
+    --puls: rgba(154,136,79,.28);
     --bolim-bezak: "";
 
-    /* Bo'shliq shkalasi — bo'limlar orasidagi masofa bitta o'lchov
-       birligining karrasi bo'lsin, shunda sahifa bo'ylab bir xil nafas
-       ritmi seziladi. */
     --oraliq-1: 10px;
     --oraliq-2: 18px;
     --oraliq-3: 30px;
     --oraliq-4: 52px;
 
-    /* Bo'lim ajratgichi — Unicode belgi emas, SVG.
-       NEGA: ilgari bezak matn sifatida chizilardi va ko'rinishi qurilmadagi
-       shriftga bog'liq edi (Android'da boshqa, iPhone'da boshqa, ba'zi
-       shriftlarda umuman bo'sh kvadrat). Endi aniq vektor chizma — hamma
-       joyda bir xil, istalgan o'lchamda tiniq. Shakli shablonning o'z
-       motiviga mos tanlangan. */
-    --bezak-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cpath d='M1 6h25M70 6h25' opacity='.5' stroke='%236b8e5a' stroke-width='1' fill='none'/%3E%3Cg stroke='%236b8e5a' stroke-width='1' fill='none'%3E%3Ccircle cx='34' cy='6' r='2.4'/%3E%3Ccircle cx='62' cy='6' r='2.4'/%3E%3C/g%3E%3Cg fill='%236b8e5a'%3E%3Cpath d='M48 0.8C50.4 3 50.4 3.6 48 6 45.6 3.6 45.6 3 48 0.8Z'/%3E%3Cpath d='M48 0.8C50.4 3 50.4 3.6 48 6 45.6 3.6 45.6 3 48 0.8Z' transform=%22rotate(90 48 6)%22/%3E%3Cpath d='M48 0.8C50.4 3 50.4 3.6 48 6 45.6 3.6 45.6 3 48 0.8Z' transform=%22rotate(180 48 6)%22/%3E%3Cpath d='M48 0.8C50.4 3 50.4 3.6 48 6 45.6 3.6 45.6 3 48 0.8Z' transform=%22rotate(270 48 6)%22/%3E%3C/g%3E%3C/svg%3E");
-    --hero-ramka: url('{% static "taklif/hero-ramka/ramka-beshik-tl.png" %}');
-    --hero-ramka-rang: #6b8e5a;
-    /* Ochilish ekrani foni — yumshoq evkalipt va oq gullar — beshik to'yiga xos mayin ohang. */
-    --parda-tasvir: url('{% static "taklif/parda-tasvir/sage-yashil.png" %}');
+    /* Bo'lim ajratgichi endi chizma — akvarel barglar va gul.
+       Boshqa shablonlardagi SVG romb o'rniga shu ishlatiladi, chunki
+       sahifadagi qolgan bezaklar ham aynan shu qo'l bilan chizilgan
+       to'plamdan. */
+    --bezak-svg: url('{% static "taklif/beshik/beshik-ajratgich.png" %}');
+    /* Hero burchaklari: g'o'za ko'sagi va zaytun shoxchasi. Bitta fayl —
+       qolgan uch burchak _bolimlar.html'da ko'zgu qilinadi. Bu yerda
+       "hrb-rangli" ISHLATILMAYDI: chizma ko'p rangli, uni bitta rangga
+       bo'yash butun mehnatni yo'qqa chiqarardi. */
+    --hero-ramka: url('{% static "taklif/beshik/beshik-burchak.png" %}');
+    /* Ochilish ekrani foni — krem mato burmalari, chetlarida oq gullar
+       va zaytun barglari; markazi ataylab bo'sh, u yerga karta tushadi. */
+    --parda-tasvir: url('{% static "taklif/beshik/beshik-parda.jpg" %}');
 }
 
 body { background: var(--fon); color: var(--matn); overflow-x: hidden; }
@@ -243,26 +251,124 @@ footer { text-align: center; padding: 30px 24px; color: var(--ikkinchi); font-si
 @keyframes puls { 0%,100% { box-shadow: 0 0 0 0 var(--puls); } 50% { box-shadow: 0 0 0 10px transparent; } }
 
 
-/* Beshik to'yi: yumshoq beshik-tebranish va tinch tun ranglari */
-.yumshoq-chiziq { height: 8px; opacity: .75; position: relative; z-index: 1;
-    background: repeating-linear-gradient(90deg, #a9812e 0 3px, transparent 3px 22px); }
-.hero .beshik-belgi { font-size: 2.1rem; margin-bottom: 14px; }
-.bolim h2::after { color: #a9812e; }
+/* --- Chizma bezaklar (taklif/static/taklif/beshik/) ---
+
+   TAFTISH: bu shablon ilgari umumiy to'y shablonining yashil rangga
+   bo'yalgan nusxasi edi. Ochilish ekranida oq atirgul va evkalipt
+   (ya'ni NIKOH to'yi flat-lay'i) turardi, burchaklarda esa boshqa 13 ta
+   dizaynda ishlatiladigan o'sha paisley naqsh. Beshik to'yiga tegishli
+   birorta belgi yo'q edi.
+
+   Endi to'rttala tasvir shu marosim uchun alohida chizilgan: o'ymakor
+   beshik, g'o'za shoxchasi, barg ajratgich va mato foni. Ular sahifaning
+   bezagi emas, MAZMUNI — shuning uchun hero'ning markazida turadi.
+
+   Sahifadagi eski "yumshoq-chiziq" (yuqoridagi to'q sariq tirqishlar)
+   olib tashlandi: u hech narsani anglatmasdi va yangi palitraga
+   umuman tushmasdi. */
+
+/* Hero markazidagi beshik. Sekin, deyarli sezilmas tebranish —
+   beshikning o'zi tebranadigan buyum. Harakatni kamaytirishni so'ragan
+   qurilmada butunlay to'xtaydi. */
+.beshik-chizma {
+    width: clamp(210px, 62vw, 330px); height: auto; display: block;
+    margin: 0 auto var(--oraliq-2);
+    filter: drop-shadow(0 16px 26px rgba(90,74,44,.14));
+    transform-origin: 50% 8%;
+    animation: beshik-tebranish 7s ease-in-out infinite;
+}
+@keyframes beshik-tebranish {
+    0%, 100% { transform: rotate(-1.05deg); }
+    50%      { transform: rotate(1.05deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .beshik-chizma { animation: none; }
+}
+
+/* Burchak chizmasi kvadrat emas (560x421), shuning uchun _bolimlar.html
+   dagi 116x116 qutisi uni ezib qo'yardi — o'z nisbatini beramiz. */
+.hero-ramka-burchak { width: 158px; height: 119px; }
+@media (max-width: 480px) {
+    .hero-ramka-burchak { width: 118px; height: 89px; }
+}
+
+/* Bo'lim ajratgichi endi 760x244 nisbatdagi chizma — SVG romb uchun
+   yozilgan o'lchamlar unga to'g'ri kelmaydi. */
+.bolim h2::after { width: 168px; height: 54px; margin-top: var(--oraliq-1); }
+.nafis-chiziq { width: 200px; height: 64px; }
+.hero .bezak { width: clamp(150px, 20vw, 200px); aspect-ratio: 760 / 244; }
+
+/* Ochilish kartasi: ichida ham o'sha barg ajratgichi turadi — parda va
+   sahifa bir tilda gapirsin. */
+#parda .parda-yurak-ichi::after {
+    content: ""; position: absolute; left: 50%; bottom: 17%;
+    transform: translateX(-50%);
+    width: 118px; height: 38px;
+    background: var(--bezak-svg) center/contain no-repeat;
+    opacity: .85; pointer-events: none;
+}
+
+/* Parda yozuvlari: _parda_rasmli.html ularni TO'Q shaffof tabletka va
+   OQ matn bilan chizadi — u yerdagi fonlar to'q surat bo'lgani uchun.
+   Bu yerda fon esa deyarli oq mato, natijada tabletkalar kulrang dog'
+   bo'lib turardi. Shu shablon uchun ularni teskarisiga aylantiramiz:
+   iliq krem shisha va bronza matn. */
+#parda .parda-kichik,
+#parda .parda-korsatma {
+    background: rgba(255, 253, 246, .82);
+    border: 1px solid rgba(154, 136, 79, .35);
+    color: var(--sarlavha);
+    text-shadow: none;
+    box-shadow: 0 6px 18px rgba(90, 74, 44, .10);
+}
+#parda .parda-kichik { letter-spacing: 3px; }
+/* Qulf chizmasi bronza rangda (181,151,104) — bu palitraga to'g'ri
+   keladi, faqat oq karta ustida biroz yo'qolib ketadi. */
+#parda .parda-qulf-img { filter: drop-shadow(0 2px 4px rgba(90,74,44,.28)); }
+/* Kartadagi ism kattaroq: karta keng (ravoq shakli) va ism unda
+   yolg'iz turadi. */
+#parda .parda-ism { font-size: 1.34rem; }
+
+/* Parda foni: _parda_rasmli.html marosim bo'yicha o'z rasmini
+   qo'yadi va u <body> ichida, ya'ni bu fayldan KEYIN o'qiladi.
+   Shuning uchun bu yerda kuchliroq selektor kerak (body + id + klass). */
+body #parda.marosim-beshik_toy {
+    --parda-tasvir: url('{% static "taklif/beshik/beshik-parda.jpg" %}');
+    background-color: #faf7ef;
+    background-position: center;
+}
+body #parda.marosim-beshik_toy .parda-yurak-ichi { background: rgba(255,253,248,.94); }
 
 {% endblock %}
 
 {% block content %}
-<div class="yumshoq-chiziq"></div>
 {% include "taklif/shablonlar/_mijoz_qismi.html" %}
 
 {% include "taklif/shablonlar/_parda_rasmli.html" with parda_dizayn="gulli" %}
 
 <div class="hero hero-ramkali">
-    <div class="hero-ramka-burchak hrb-rangli hrb-tl"></div>
-    <div class="hero-ramka-burchak hrb-rangli hrb-tr"></div>
-    <div class="hero-ramka-burchak hrb-rangli hrb-bl"></div>
-    <div class="hero-ramka-burchak hrb-rangli hrb-br"></div>
-    <div class="bezak" aria-hidden="true"></div>
+    <div class="hero-ramka-burchak hrb-tl"></div>
+    <div class="hero-ramka-burchak hrb-tr"></div>
+    <div class="hero-ramka-burchak hrb-bl"></div>
+    <div class="hero-ramka-burchak hrb-br"></div>
+    {% comment %}
+    Beshik chizmasi hero'ning markazida, ismdan YUQORIDA turadi: mehmon
+    sahifani ochishi bilan bu qanday marosim ekanini bir qarashda
+    biladi. "hero-dekor" klassi kerak emas — bu element oqimda turadi,
+    _bolimlar.html'dagi "position: relative" qoidasi unga to'g'ri keladi.
+    {% endcomment %}
+    {% comment %}
+    WebP birinchi turadi: aynan shu rasm PNG'da 561 KB, WebP'da 88 KB —
+    ya'ni mehmonning mobil trafigidan yarim megabayt tejaladi, ko'z esa
+    farqni sezmaydi (ko'rinadigan sohada o'rtacha farq 2.3/255, shaffof
+    chetlari esa aynan saqlangan). PNG eski Safari (iOS 13 va undan
+    pastrog'i) uchun zaxira bo'lib qoladi — u WebP'ni ochmaydi.
+    {% endcomment %}
+    <picture>
+        <source srcset="{% static "taklif/beshik/beshik-hero.webp" %}" type="image/webp">
+        <img class="beshik-chizma" src="{% static "taklif/beshik/beshik-hero.png" %}"
+             alt="" width="583" height="490" aria-hidden="true">
+    </picture>
     <div class="kichik">{{ taklifnoma.marosim_turi_matni }} {% trans "taklifnomasi" %}</div>
     {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}
     <h1>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</h1>
