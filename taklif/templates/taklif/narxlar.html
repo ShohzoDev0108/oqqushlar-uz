@@ -86,6 +86,22 @@ O'ylab topilgan va'da yo'q — o'zgarsa, shu yer ham yangilanishi shart.
 {% include "taklif/_sayt_nav.html" %}
 {% include "taklif/_sayt_musiqa.html" %}
 
+{% comment %}
+Sahifa sarlavhasi atrofidagi burchak bezagi.
+
+TAFTISH: bezak bosh sahifada har bir bo'limda bor edi, ichki
+sahifalarda esa umuman yo'q — natijada bosh sahifa boy, qolgan
+sahifalar esa oddiy oq quti bo'lib ko'rinardi. (Ekranga yopishgan
+".oq-burchak-tirik" bezagi bor edi, lekin u 780px dan tor ekranda
+butunlay o'chiriladi — ya'ni mijozlarning deyarli hammasi uni hech
+qachon ko'rmagan.)
+
+Bezak shu o'rovchi blokka bog'lanadi, "overflow: hidden" esa uni
+sarlavha balandligidan oshib ketishdan saqlaydi.
+{% endcomment %}
+<div class="oq-sahifa-bosh-tashqi">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
 <div class="oq-ichki oq-sahifa-bosh">
     <div class="oq-izlar">
         <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
@@ -96,6 +112,7 @@ O'ylab topilgan va'da yo'q — o'zgarsa, shu yer ham yangilanishi shart.
     <p class="oq-matn" style="max-width:620px; margin-top:0;">
         {% trans "Bir marta to'laysiz va taklifnoma butunlay sizniki bo'ladi. Obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q." %}
     </p>
+</div>
 </div>
 
 <div class="oq-ichki narx-blok">

@@ -728,6 +728,13 @@ ikonkalarini har doim o'z rangida beradi.
 .oq-burchak-tirik.bt-ong { right: 0; transform: scaleX(-1); }
 @media (max-width: 780px) { .oq-burchak-tirik { display: none; } }
 
+/* Ichki sahifalarning sarlavha bloki — bosh sahifadagi bo'limlar kabi
+   burchak bezagi bilan (sabab: sahifalarning o'z izohlarida).
+   "overflow: hidden" — bezak sarlavha balandligidan oshib ketmasin;
+   "z-index" berilmaydi, chunki bezakning o'zi 0 da, kontent esa
+   ".oq-ichki" qoidasi bilan 1 da turadi. */
+.oq-sahifa-bosh-tashqi { position: relative; overflow: hidden; padding-top: 6px; }
+
 /* --- Narx kartasi ---
    Bosh sahifadagi "#narx" bo'limida ham, "/narxlar/" sahifasida ham
    bir xil karta ishlatiladi (_narx_karta.html), shuning uchun uslublar
