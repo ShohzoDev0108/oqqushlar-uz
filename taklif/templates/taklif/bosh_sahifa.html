@@ -1110,8 +1110,59 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
         if (document.hidden) { tur(); } else { yur(); }
     });
 
+    {% comment %}
+    Yopishqoq "Taklifnoma yaratish" tugmasi bilan kesishishni kuzatish.
+
+    Nega o'lchov bilan, "karusel ko'rinsa yashir" degan oddiy shart bilan
+    emas: baland ekranlarda (iPhone 14 Pro Max va h.k.) ikkalasi ham
+    bemalol sig'adi. Agar u yerda ham tugmani yashirsak, hech qanday
+    sabab yo'q joyda asosiy harakatni yo'qotgan bo'lardik. Shuning uchun
+    shart aniq: FAQAT haqiqatan ustma-ust tushayotgan bo'lsa.
+
+    "ctaTepasi" tugmaning O'Z o'lchamidan emas, sahifadagi qat'iy
+    joylashuvidan (bottom: 14px) hisoblanadi. Sababi: tugma yashiringach
+    u pastga siljiydi va getBoundingClientRect boshqa qiymat qaytaradi —
+    shart darhol teskarisiga o'zgarib, tugma miltillay boshlardi.
+    {% endcomment %}
+    var mobilCta = document.querySelector('.oq-mobil-cta');
+    function kesishishniTekshir() {
+        // Sayt sahifalari o'rtasida o'tilganda <body> butunlay
+        // almashtiriladi (_sayt_musiqa.html), window'dagi kuzatuvchilar esa
+        // qoladi. Karusel sahifadan chiqib ketgan bo'lsa — o'zimizni
+        // yechib qo'yamiz, aks holda har bir tashrifda bittadan
+        // foydasiz kuzatuvchi to'planib borardi.
+        if (!document.body.contains(karusel)) {
+            window.removeEventListener('scroll', tekshirishniRejala);
+            window.removeEventListener('resize', tekshirishniRejala);
+            window.removeEventListener('orientationchange', tekshirishniRejala);
+            return;
+        }
+        if (!mobilCta || getComputedStyle(mobilCta).display === 'none') { return; }
+        var ochish = karusel.querySelector('.tel-karta.faol .tel-ochish');
+        if (!ochish) { return; }
+        var r = ochish.getBoundingClientRect();
+        var ctaTepasi = window.innerHeight - (14 + mobilCta.offsetHeight);
+        var ekranda = r.bottom > 0 && r.top < window.innerHeight;
+        mobilCta.classList.toggle('chetga-surilgan',
+            ekranda && r.bottom > ctaTepasi - 8);
+    }
+
+    var kadrKutmoqda = false;
+    function tekshirishniRejala() {
+        if (kadrKutmoqda) { return; }
+        kadrKutmoqda = true;
+        requestAnimationFrame(function () {
+            kadrKutmoqda = false;
+            kesishishniTekshir();
+        });
+    }
+    window.addEventListener('scroll', tekshirishniRejala, { passive: true });
+    window.addEventListener('resize', tekshirishniRejala);
+    window.addEventListener('orientationchange', tekshirishniRejala);
+
     chiz();
     yur();
+    kesishishniTekshir();
 })();
 </script>
 {% endblock %}
