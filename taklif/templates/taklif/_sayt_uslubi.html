@@ -431,7 +431,18 @@ yubiley — olxo'ri.
    havolalarning o'zi ☰ menyusiga ko'chadi. Chegaralar taxminan emas —
    haqiqiy o'lchamlar bo'yicha hisoblangan (logotip 171px, oltita havola
    ~764px, til ~110px, CTA ~200px). */
-@media (max-width: 1399px) {
+{% comment %}
+TAFTISH: chegara 1399px edi va u noto'g'ri hisoblangan ekan.
+
+O'lchov: panel bolalari (logotip + havolalar + o'ng guruh) o'zbekchada
+jami 1338px joy so'raydi; chekka bo'shliqlar (2x64) va oraliqlar (2x20)
+bilan birga panel bir qatorga faqat ~1500px dan keng ekranda sig'adi.
+Ya'ni 1400-1499px oralig'ida CTA ko'rinardi, lekin panel ikki qatorga
+sinib, balandligi 71px dan 119px ga chiqardi — bu eng keng tarqalgan
+noutbuk o'lchamida (1440x900) hero'dan 48px o'g'irlardi va "Ochib
+ko'rish" tugmasi ekran chetiga tushib qolardi.
+{% endcomment %}
+@media (max-width: 1499px) {
     .oq-nav-ong .oq-cta { display: none; }
 }
 

@@ -183,7 +183,13 @@ va nuri baribir joyida.
     .oq-hero-belgi { width: min(124px, 15vh); height: min(124px, 15vh); margin-bottom: 10px; }
 }
 @media (min-width: 700px) { .oq-hero-belgi { width: 200px; height: 200px; margin-bottom: 24px; } }
-@media (min-width: 1000px) { .oq-hero-belgi { width: 220px; height: 220px; } }
+{% comment %}
+220px -> 176px. Ikki ustunli hero'da gerb sarlavha bilan BIRGA chap
+ustunni tashkil qiladi va o'sha ustun butun hero'ning balandligini
+belgilaydi (u telefon maketidan baland). 220px'da hero 900px li
+ekranga sig'masdi. 176px hamon yirik va ko'zga tashlanadi.
+{% endcomment %}
+@media (min-width: 1000px) { .oq-hero-belgi { width: 176px; height: 176px; } }
 .oq-kichik-sarlavha {
     font-family: var(--serif); font-size: clamp(1.15rem, 2.4vw, 1.8rem);
     margin: 8px 0 16px; font-weight: 500;
@@ -374,8 +380,9 @@ siljish bilan bir xil tezlikda o'zgaradi.
    katalogni titkilab o'tirmaydi. */
 .tel-karusel {
     position: relative; width: 100%;
-    /* Tepada marosim nomi, pastda "Ochib ko'rish" uchun joy. */
-    height: calc(var(--tb) + 128px);
+    /* Tepada marosim nomi (52px), pastda "Ochib ko'rish" uchun joy.
+       128 -> 114: tugma ostida 26px ortiqcha bo'sh joy qolardi. */
+    height: calc(var(--tb) + 114px);
 }
 /* MUHIM: kartaning KENGLIGI faqat telefondan kelib chiqadi.
 
@@ -422,7 +429,9 @@ siljish bilan bir xil tezlikda o'zgaradi.
 /* "Ochib ko'rish" faqat markazdagi kartada — yonlarida u o'qilmas
    bo'lib, faqat shovqin qo'shardi. */
 .tel-ochish {
-    position: absolute; left: 50%; top: calc(100% + 18px);
+    /* 18px -> 12px: telefonning o'z soyasi ham pastga cho'ziladi, ya'ni
+       ko'zga ko'rinadigan masofa yozilganidan kattaroq. */
+    position: absolute; left: 50%; top: calc(100% + 12px);
     display: inline-flex; align-items: center; gap: 7px;
     padding: 9px 20px; border-radius: 999px;
     border: 1px solid var(--tilla); color: var(--tilla-toq);
@@ -506,7 +515,7 @@ harakat esa "Taklifnoma yaratish" bo'lib qolishi kerak.
    yaratish" tugmasi ham ekrandan pastda qolib ketardi. Endi ikkalasi
    ham birinchi ekranga sig'adi. */
 @media (min-width: 1000px) {
-    .oq-hero { padding: 40px 0 66px; }
+    .oq-hero { padding: 36px 0 48px; }
     {% comment %}
     Kengroq ekranda hero endi ikki ustunli TO'R (grid): chap ustunda
     sarlavha bloki va uning ostida qolgan matn, o'ng ustunda esa
@@ -525,7 +534,16 @@ harakat esa "Taklifnoma yaratish" bo'lib qolishi kerak.
     }
     .oq-hero-bosh { grid-area: bosh; text-align: left; align-items: flex-start; }
     .oq-hero-matn { grid-area: matn; text-align: left; align-items: flex-start; }
-    .oq-telefon-blok { grid-area: tel; --tb: min(560px, 62vh); }
+    {% comment %}
+    Maket balandligi 62vh dan 56vh ga tushirildi.
+
+    O'lchov (1440x900): telefon 558px edi, "Ochib ko'rish" tugmasi esa
+    865-pikselda tugardi — ekran balandligi 900px. Ya'ni tugma amalda
+    ekranning eng pastki chetida turardi va ko'z uni "sahifadan chiqib
+    ketgan" deb qabul qilardi. Endi butun kompozitsiya (marosim nomi +
+    telefon + tugma) ekranga bo'sh joy bilan sig'adi.
+    {% endcomment %}
+    .oq-telefon-blok { grid-area: tel; --tb: min(520px, 56vh); }
     .oq-hero-matn .oq-matn { margin-bottom: 30px; }
     .oq-hero-tugmalar { justify-content: flex-start; }
     .oq-hero .ajratish { margin-left: 0; margin-right: 0; }
