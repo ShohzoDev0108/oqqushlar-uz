@@ -433,7 +433,8 @@ siljish bilan bir xil tezlikda o'zgaradi.
        ko'zga ko'rinadigan masofa yozilganidan kattaroq. */
     position: absolute; left: 50%; top: calc(100% + 12px);
     display: inline-flex; align-items: center; gap: 7px;
-    padding: 9px 20px; border-radius: 999px;
+    /* 9px -> 14px: tugma balandligi 32px edi, endi 44px. */
+    padding: 15px 22px; border-radius: 999px;
     border: 1px solid var(--tilla); color: var(--tilla-toq);
     background: var(--toza); text-decoration: none;
     font-size: .7rem; letter-spacing: 1.6px; text-transform: uppercase;
@@ -458,9 +459,13 @@ harakat esa "Taklifnoma yaratish" bo'lib qolishi kerak.
 {% endcomment %}
 .tel-hamma-havola {
     display: inline-flex; align-items: center; gap: 7px;
-    margin-top: 4px; color: var(--tilla-toq); text-decoration: none;
+    color: var(--tilla-toq); text-decoration: none;
     font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
-    border-bottom: 1px solid transparent; padding-bottom: 2px;
+    /* Bosiladigan maydon 15px edi — matnning o'z balandligi. Chizig'i
+       matn ostida qolishi uchun ostki bo'shliq kichikroq, ustidagi
+       kattaroq: ikkalasi birga 44px beradi. */
+    padding: 17px 12px 14px; margin-top: -8px;
+    border-bottom: 1px solid transparent;
     transition: color .2s ease, border-color .2s ease;
 }
 .tel-hamma-havola svg { width: 13px; height: 13px; flex-shrink: 0; }
@@ -597,7 +602,7 @@ ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
 
 .oq-yordam-chaqiruv {
     margin-top: 40px; padding: 28px 30px; border: 1px solid var(--chiziq); border-radius: 4px;
-    background: var(--toza) url('{% static "taklif/naqshli-fon-zich.png" %}') 0 0 / 420px repeat;
+    background: var(--toza) url('{% static "taklif/naqshli-fon-zich.webp" %}') 0 0 / 420px repeat;
     display: flex; align-items: center; justify-content: space-between;
     gap: 20px; flex-wrap: wrap;
 }
@@ -605,7 +610,7 @@ ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
 .oq-yordam-chaqiruv p strong { color: var(--tilla-toq); }
 .oq-yordam-tugma {
     flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 26px; border-radius: 2px;
+    padding: 15px 26px; border-radius: 999px;
     background: var(--tilla); color: #fff; text-decoration: none; font-size: .85rem;
     letter-spacing: .5px; transition: .2s;
 }
@@ -687,7 +692,10 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
 }
 .lenta-nuqta.faol { background: var(--tilla); transform: scale(1.4); }
 .lenta-havola {
-    display: inline-block; margin-top: 20px; color: var(--tilla-toq);
+    /* Bosiladigan maydon matnning o'z balandligi (15px) edi — barmoq
+       uchun kichik. Endi ustki-ostki bo'shliq bilan 44px. */
+    display: inline-flex; align-items: center;
+    margin-top: 8px; padding: 15px 10px; color: var(--tilla-toq);
     text-decoration: none; font-size: .78rem; letter-spacing: 2px; text-transform: uppercase;
 }
 @media (hover: hover) and (pointer: fine) { .lenta-havola:hover {color: var(--tilla);} }

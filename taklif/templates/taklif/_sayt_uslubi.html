@@ -43,8 +43,22 @@ html {
    shaklidagi flex bo'ladi, footer esa "margin-top: auto" bilan pastga
    suriladi. 100dvh (100vh emas) — mobil brauzerlarda pastdagi manzil
    paneli balandlikni o'zgartirganda ham to'g'ri ishlaydi. */
+{% comment %}
+NAQSHLI FON — PNG dan WebP ga o'tkazildi.
+
+O'lchov: bosh sahifa mobilda 3.16 MB tortardi va shundan 2.47 MB
+(78%) aynan shu ikkita rasm edi. Ular esa ko'zga deyarli
+ko'rinmasdi — naqsh chiziqlarining rangi (246,241,229) sahifa foni
+(#f6f0e2) bilan deyarli bir xil, ya'ni mijoz mobil internetdan 2.5 MB
+yuklab olib, evaziga hech narsa ko'rmasdi.
+
+Endi: 1024px PNG -> 512px WebP, alfa 2 baravar kuchaytirilgan.
+Ikkalasi jami 2465 KB -> 312 KB (87% kamayish) va naqsh biroz
+ko'rinadigan bo'ldi. 512px yetarli, chunki rasm baribir takrorlanib
+(repeat) chiziladi va "background-size" uni o'zi cho'zadi.
+{% endcomment %}
 body {
-    background: var(--oq) url('{% static "taklif/naqshli-fon-xira.png" %}') 0 0 / 620px repeat;
+    background: var(--oq) url('{% static "taklif/naqshli-fon-xira.webp" %}') 0 0 / 620px repeat;
     color: var(--siyoh); font-family: var(--sans);
     min-height: 100vh; min-height: 100dvh;
     display: flex; flex-direction: column;
@@ -113,6 +127,10 @@ ekranda bir xil toza o'qiladi.
 .oq-logo {
     display: inline-flex; flex-direction: column; align-items: flex-start; gap: 5px;
     text-decoration: none; line-height: 1;
+    /* Logotip ham bosiladigan havola: balandligi 30px edi, ustki-ostki
+       bo'shliq bilan 44px ga yetkazildi. Bo'shliq salbiy margin bilan
+       qoplanadi, ya'ni maketda hech narsa siljimaydi. */
+    padding: 8px 0; margin: -8px 0;
 }
 .oq-logo-nom {
     font-family: var(--serif); font-weight: 600;
@@ -192,7 +210,7 @@ beruvchi brend uchun bu noto'g'ri signal.
 {% endcomment %}
 
 .oq-cta {
-    display: inline-flex; align-items: center; gap: 9px; padding: 14px 28px; border: 1.5px solid var(--tilla);
+    display: inline-flex; align-items: center; gap: 9px; padding: 15px 28px; border: 1.5px solid var(--tilla);
     color: var(--tilla-toq); text-decoration: none; font-size: .76rem; letter-spacing: 2.2px;
     text-transform: uppercase; transition: transform .18s ease, box-shadow .18s ease, filter .18s, background .18s;
     background: var(--toza); cursor: pointer;
@@ -265,7 +283,7 @@ qiymatlaridan boshlanadi. Xuddi shu mantiq .oq-h2'ga ham qo'llangan.
 
 /* --- Kartalar --- */
 .oq-karta {
-    background: var(--toza) url('{% static "taklif/naqshli-fon-zich.png" %}') 0 0 / 420px repeat;
+    background: var(--toza) url('{% static "taklif/naqshli-fon-zich.webp" %}') 0 0 / 420px repeat;
     border: 1px solid var(--chiziq); border-radius: 4px;
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s;
 }
@@ -303,7 +321,19 @@ button[type="submit"] {
 .shablon-karta .karta-ustki { text-decoration: none; color: inherit; display: block; }
 .shablon-karta .karta-tugmalar { display: flex; gap: 8px; padding: 0 16px 16px; margin-top: auto; }
 .shablon-karta .karta-tugma {
-    flex: 1; text-align: center; padding: 9px 12px; border-radius: 999px;
+{% comment %}
+TEGISH NISHONLARI — 44px.
+
+O'lchov (390x844): sahifadagi asosiy tugmalar 30-32px balandlikda edi.
+Apple 44px, Android 48px tavsiya qiladi va bu did emas, jismoniy
+o'lcham masalasi: barmoq uchining o'rtacha tegish maydoni ~45px.
+30px li ikkita tugma yonma-yon turgani esa noto'g'ri bosish uchun
+tayyor sharoit.
+
+Kenglik emas, faqat BALANDLIK oshirildi (padding orqali) — maketning
+o'zi va matn o'lchamlari joyida qoladi.
+{% endcomment %}
+    flex: 1; text-align: center; padding: 13px 12px; border-radius: 999px;
     border: 1px solid var(--chiziq); color: var(--kul); background: transparent;
     text-decoration: none; font-size: .74rem; letter-spacing: .5px;
     text-transform: uppercase; transition: .2s;
@@ -313,7 +343,7 @@ button[type="submit"] {
 @media (hover: hover) and (pointer: fine) { .shablon-karta .karta-tugma.asosiy:hover {background: var(--tilla); color: var(--toza);} }
 @media (max-width: 420px) {
     .shablon-karta .karta-tugmalar { padding: 0 10px 12px; gap: 6px; }
-    .shablon-karta .karta-tugma { padding: 8px 6px; font-size: .66rem; letter-spacing: .3px; }
+    .shablon-karta .karta-tugma { padding: 15px 8px; font-size: .72rem; letter-spacing: .3px; }
 }
 .shablon-karta img.mini { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
 .shablon-karta .matn { padding: 18px 20px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -460,7 +490,7 @@ ko'rish" tugmasi ekran chetiga tushib qolardi.
     {% endcomment %}
     .oq-burger {
         display: grid; place-content: center; gap: 4.5px;
-        width: 40px; height: 36px; padding: 0; flex-shrink: 0;
+        width: 44px; height: 44px; padding: 0; flex-shrink: 0;
         border: 1px solid var(--chiziq); border-radius: var(--radius, 8px);
         background: var(--toza); cursor: pointer;
         transition: border-color .2s ease;
@@ -639,7 +669,7 @@ begona brend rangini olib kirardi. Lyuks brendlar ijtimoiy tarmoq
 ikonkalarini har doim o'z rangida beradi.
 {% endcomment %}
 .oq-footer-aloqa a {
-    width: 42px; height: 42px; border-radius: 50%;
+    width: 44px; height: 44px; border-radius: 50%;
     border: 1px solid var(--tilla); color: var(--tilla-toq);
     background: var(--toza);
     display: flex; align-items: center; justify-content: center;
@@ -674,7 +704,7 @@ ikonkalarini har doim o'z rangida beradi.
    joylashadi; ota element "position: relative" bo'lishi shart. */
 .oq-romka-burchak {
     position: absolute; width: 100px; height: 100px; pointer-events: none; z-index: 0;
-    background-image: url('{% static "taklif/hero-ramka/ramka-gul-krem-tl.png" %}');
+    background-image: url('{% static "taklif/hero-ramka/ramka-gul-krem-tl.webp" %}');
     background-repeat: no-repeat; background-size: contain; opacity: .9;
 }
 .oq-romka-burchak.orb-tl { top: 0; left: 0; }
@@ -691,7 +721,7 @@ ikonkalarini har doim o'z rangida beradi.
    bo'lim-bo'lim .oq-romka-burchak tizimidan foydalanadi. */
 .oq-burchak-tirik {
     position: fixed; top: 0; width: 200px; height: 200px; pointer-events: none; z-index: 1;
-    background-image: url('{% static "taklif/hero-ramka/ramka-gul-krem-tl.png" %}');
+    background-image: url('{% static "taklif/hero-ramka/ramka-gul-krem-tl.webp" %}');
     background-repeat: no-repeat; background-size: contain;
 }
 .oq-burchak-tirik.bt-chap { left: 0; }
