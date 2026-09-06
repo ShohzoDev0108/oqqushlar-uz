@@ -67,15 +67,29 @@ birga bo'lsa, ortiqcha va tiqilinch ko'rinadi).
             sahifaning O'Z ichida qoldi.
             {% endcomment %}
             <a class="{% if joriy_sahifa == 'narxlar' %}joriy{% endif %}" href="{% url 'taklif:narxlar' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Narxlar" %}</a>
-            <a class="{% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Taklifnomalarim" %}</a>
             <a class="{% if joriy_sahifa == 'biz_haqimizda' %}joriy{% endif %}" href="{% url 'taklif:biz_haqimizda' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Biz haqimizda" %}</a>
             <a class="{% if joriy_sahifa == 'savol_javob' %}joriy{% endif %}" href="{% url 'taklif:savol_javob' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Savol-javob" %}</a>
             <a class="{% if joriy_sahifa == 'boglanish' %}joriy{% endif %}" href="{% url 'taklif:boglanish' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Bog'lanish" %}</a>
+            {% comment %}
+            "Taklifnomalarim" ATAYLAB oxirida va ajratib qo'yilgan.
+
+            Qolgan havolalar — sotuv sahifalari, ular saytga birinchi
+            marta kirgan odam uchun. "Taklifnomalarim" esa shaxsiy
+            kabinet: u faqat allaqachon taklifnoma yaratgan odamga
+            kerak. Ilgari u ro'yxatning to'rtinchi o'rnida, "Biz
+            haqimizda" dan oldin turardi — ya'ni yangi tashrifchi uchun
+            mutlaqo keraksiz havola eng ko'zga ko'rinadigan joyni
+            egallardi.
+
+            Ajratish uchun oldiga ingichka vertikal chiziq qo'yiladi
+            (CSS: ".oq-nav-linklar a.hisob::before") — bu "boshqa
+            turdagi havola" degan xabarni so'zsiz beradi.
+            {% endcomment %}
+            <a class="hisob {% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}"><span class="oq-nav-tuk" aria-hidden="true"></span>{% trans "Taklifnomalarim" %}</a>
         </div>
         <div class="oq-nav-ong">
             {% include "taklif/_til_almashtirish.html" %}
             <a class="oq-cta kichik toliq" href="{% url 'taklif:shablon_tanlash' %}">
-                {% include "taklif/_ikonalar/yarat.svg" %}
                 {% trans "Taklifnoma yaratish" %}
             </a>
             {% comment %}Faqat mobilda ko'rinadi (CSS: _sayt_uslubi.html) —
@@ -101,10 +115,11 @@ Fon (qorayish) esa tashqarida qoladi, chunki panelning backdrop-filter'i
     <a class="{% if joriy_sahifa == 'bosh_sahifa' %}joriy{% endif %}" href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
     <a class="{% if joriy_sahifa == 'shablon_tanlash' or joriy_sahifa == 'yaratish' or joriy_sahifa == 'namuna' %}joriy{% endif %}" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Namunalar" %}</a>
     <a class="{% if joriy_sahifa == 'narxlar' %}joriy{% endif %}" href="{% url 'taklif:narxlar' %}">{% trans "Narxlar" %}</a>
-    <a class="{% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
     <a class="{% if joriy_sahifa == 'biz_haqimizda' %}joriy{% endif %}" href="{% url 'taklif:biz_haqimizda' %}">{% trans "Biz haqimizda" %}</a>
     <a class="{% if joriy_sahifa == 'savol_javob' %}joriy{% endif %}" href="{% url 'taklif:savol_javob' %}">{% trans "Savol-javob" %}</a>
     <a class="{% if joriy_sahifa == 'boglanish' %}joriy{% endif %}" href="{% url 'taklif:boglanish' %}">{% trans "Bog'lanish" %}</a>
+    {% comment %}Shaxsiy kabinet — alohida guruh (sabab yuqorida).{% endcomment %}
+    <a class="hisob {% if joriy_sahifa == 'mening_taklifnomalarim' %}joriy{% endif %}" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
     <a class="oq-menyu-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
 </nav>
 </div>
@@ -119,7 +134,7 @@ sahifadagi karusel ostidagi "Ochib ko'rish" tugmasi ochib berdi —
 u aynan shu qatorning tagida qolib ketgan edi.
 {% endcomment %}
 <style>body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }</style>
-<a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">{% include "taklif/_ikonalar/yarat.svg" %}{% trans "Taklifnoma yaratish" %}</a>
+<a class="oq-mobil-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
 {% endif %}
 
 <script>

@@ -84,7 +84,13 @@ tekshirilgan.
    CTA (74px) ham bor. Shuning uchun bu yerda faqat bo'shliqlar
    qisqartiriladi — o'lchamlar emas. */
 @media (max-width: 699px) {
-    .oq-hero { padding: 24px 0 76px; }
+    {% comment %}
+    Hero pastki bo'shlig'i 76px dan 48px ga tushirildi. O'lchov: matn
+    tugagan joydan keyingi bo'lim sarlavhasigacha 176px bo'sh joy
+    qolardi — telefonda ekranning beshdan biri. Mijoz buni "sahifa
+    tugadi" deb o'qishi mumkin.
+    {% endcomment %}
+    .oq-hero { padding: 24px 0 48px; }
     /* 22px — o'lchov bilan tanlangan eng kichik qiymat: uzun tarjimali
        tillarda (ruscha) sarlavha uch qatorga chiqadi va "Ochib ko'rish"
        tugmasi pastdagi yopishqoq CTA ostiga kirib ketardi. */
@@ -183,6 +189,17 @@ va nuri baribir joyida.
     margin: 8px 0 16px; font-weight: 500;
 }
 .oq-hero-matn .oq-matn { max-width: 560px; margin: 0 0 34px; }
+{% comment %}
+Bu qoida ATAYLAB bazaviy qoidadan KEYIN: media so'rovi kuch (spetsifiklik)
+qo'shmaydi, bir xil kuchdagi ikki qoidadan manba tartibida keyingisi
+g'olib chiqadi. Yuqorida qo'yilganda u ishlamay qolgandi (o'lchov bilan
+tekshirildi: margin baribir 34px bo'lib qolgan edi).
+
+Mazmuni: matn ostidagi 34px u yerda "Taklifnoma yaratish" tugmasi
+turgani uchun qo'yilgan. Mobilda o'sha tugma yashirilgan (pastda
+yopishqoq tugma bor), ya'ni yo'q element uchun joy saqlanardi.
+{% endcomment %}
+@media (max-width: 699px) { .oq-hero-matn .oq-matn { margin-bottom: 0; } }
 .oq-hero-tugmalar { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 .oq-hero .ajratish { height: 1px; background: var(--chiziq); width: 90px; margin: 26px auto 22px; }
 
@@ -407,7 +424,7 @@ siljish bilan bir xil tezlikda o'zgaradi.
 .tel-ochish {
     position: absolute; left: 50%; top: calc(100% + 18px);
     display: inline-flex; align-items: center; gap: 7px;
-    padding: 9px 20px; border-radius: 22px;
+    padding: 9px 20px; border-radius: 999px;
     border: 1px solid var(--tilla); color: var(--tilla-toq);
     background: var(--toza); text-decoration: none;
     font-size: .7rem; letter-spacing: 1.6px; text-transform: uppercase;
@@ -525,7 +542,7 @@ va hero'dagi kabi saxovatli. Hashamat aynan shu bo'sh joydan keladi.
 .oq-bolim { padding: 96px 0; }
 .oq-bolim-bosh { max-width: 620px; margin-bottom: 56px; }
 @media (max-width: 700px) {
-    .oq-bolim { padding: 66px 0; }
+    .oq-bolim { padding: 56px 0; }
     .oq-bolim-bosh { margin-bottom: 38px; }
 }
 
@@ -745,13 +762,12 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
                     o'tirmaydi.
                     {% endcomment %}
                     <a class="tel-ochish" href="{% url 'taklif:namuna' sl.namuna %}?marosim={{ sl.marosim }}">
-                        {% include "taklif/_ikonalar/koz.svg" %}{% trans "Ochib ko'rish" %}
+                        {% trans "Ochib ko'rish" %}
                     </a>
                 </div>
                 {% endfor %}
             </div>
             <a class="tel-hamma-havola" href="{% url 'taklif:shablon_tanlash' %}">
-                {% include "taklif/_ikonalar/koz.svg" %}
                 {% trans "Barcha dizaynlarni ko'rish" %}
             </a>
         </div>
@@ -769,7 +785,6 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
             {% endcomment %}
             <div class="oq-hero-tugmalar">
                 <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
-                    {% include "taklif/_ikonalar/yarat.svg" %}
                     {% trans "Taklifnoma yaratish" %}
                 </a>
             </div>

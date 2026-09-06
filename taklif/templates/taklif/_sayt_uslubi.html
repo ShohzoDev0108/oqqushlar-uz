@@ -149,6 +149,17 @@ ekranda bir xil toza o'qiladi.
     content: ""; position: absolute; left: 9px; right: 9px; bottom: 1px;
     height: 1px; background: var(--tilla);
 }
+
+/* "Taklifnomalarim" — shaxsiy kabinet havolasi, sotuv sahifalaridan
+   ingichka vertikal chiziq bilan ajratiladi (sabab: _sayt_nav.html
+   izohi). Chiziq havolaning O'ZIGA emas, oldidagi bo'shliqqa
+   chiziladi, shuning uchun matn joyidan siljimaydi. */
+.oq-nav-linklar a.hisob { margin-left: 12px; }
+.oq-nav-linklar a.hisob::before {
+    content: ""; position: absolute; left: -8px; top: 50%;
+    width: 1px; height: 14px; margin-top: -7px;
+    background: var(--chiziq);
+}
 .oq-menyu a.joriy { color: var(--tilla-toq); }
 .oq-nav-ong { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
@@ -158,12 +169,34 @@ ekranda bir xil toza o'qiladi.
 .oq-menyu, .oq-menyu-fon { display: none; }
 
 /* --- Tugmalar --- */
+{% comment %}
+TUGMA SHAKLI — hamma joyda bitta: to'liq yumaloq (tabletka).
+
+Bu did masalasi emas, izchillik masalasi edi: bir ekranda hero'dagi
+"Taklifnoma yaratish" 30px yumaloqlik bilan, pastdagi yopishqoq
+"Taklifnoma yaratish" esa 3px bilan turardi — bir xil so'z, bir xil
+rang, boshqa shakl.
+
+Nega aynan tabletka: TAKLIFNOMANING O'ZIDAGI tugmalar (RSVP "Albatta
+boraman", "Ulashish") allaqachon 24px tabletka. Sayt mahsulotga
+o'xshashi kerak, teskarisi emas.
+
+TUGMALARDAGI IKONKALAR ham qayta ko'rib chiqildi. Ikonka faqat so'z
+ayta olmaydigan narsani aytsa qoladi: Telegram, telefon, havola
+nusxalash — bular qaysi kanal yoki qaysi amal ekanini bildiradi.
+"Ochib ko'rish" yonidagi ko'z va "Taklifnoma yaratish" yonidagi
+yulduzcha esa bezak edi va olib tashlandi. Yulduzcha alohida sabab
+bilan: bugun "✦" belgisi hamma joyda "sun'iy intellekt" degan
+ma'noni bildiradi — qo'lda ishlangan taklifnoma qog'ozi hissini
+beruvchi brend uchun bu noto'g'ri signal.
+{% endcomment %}
+
 .oq-cta {
     display: inline-flex; align-items: center; gap: 9px; padding: 14px 28px; border: 1.5px solid var(--tilla);
     color: var(--tilla-toq); text-decoration: none; font-size: .76rem; letter-spacing: 2.2px;
     text-transform: uppercase; transition: transform .18s ease, box-shadow .18s ease, filter .18s, background .18s;
     background: var(--toza); cursor: pointer;
-    font-family: inherit; border-radius: 30px;
+    font-family: inherit; border-radius: 999px;
 }
 .oq-cta svg { width: 15px; height: 15px; flex-shrink: 0; }
 @media (hover: hover) and (pointer: fine) { .oq-cta:hover {background: var(--tilla-yumshoq);} }
@@ -246,7 +279,7 @@ input, select, textarea {
 }
 input:focus, select:focus, textarea:focus { outline: none; border-color: var(--tilla); }
 button[type="submit"] {
-    margin-top: 26px; padding: 16px 24px; border-radius: 2px; border: 1px solid var(--tilla);
+    margin-top: 26px; padding: 16px 24px; border-radius: 999px; border: 1px solid var(--tilla);
     background: var(--tilla); color: #fff; letter-spacing: 2.5px; text-transform: uppercase;
     font-size: .8rem; cursor: pointer; width: 100%; font-family: inherit; transition: .25s;
 }
@@ -270,7 +303,7 @@ button[type="submit"] {
 .shablon-karta .karta-ustki { text-decoration: none; color: inherit; display: block; }
 .shablon-karta .karta-tugmalar { display: flex; gap: 8px; padding: 0 16px 16px; margin-top: auto; }
 .shablon-karta .karta-tugma {
-    flex: 1; text-align: center; padding: 9px 12px; border-radius: 22px;
+    flex: 1; text-align: center; padding: 9px 12px; border-radius: 999px;
     border: 1px solid var(--chiziq); color: var(--kul); background: transparent;
     text-decoration: none; font-size: .74rem; letter-spacing: .5px;
     text-transform: uppercase; transition: .2s;
@@ -460,8 +493,15 @@ yubiley — olxo'ri.
         transition: background .15s ease, color .15s ease;
     }
     @media (hover: hover) and (pointer: fine) { .oq-menyu a:hover {background: var(--tilla-yumshoq); color: var(--tilla-toq);} }
+    /* Shaxsiy kabinet — ro'yxatning oxirida, kengroq bo'shliq bilan
+       ajratilgan alohida guruh (sabab: _sayt_nav.html izohi). */
+    .oq-menyu a.hisob {
+        margin-top: 14px; padding-top: 18px;
+        border-top: 1px solid var(--chiziq);
+        color: var(--kul);
+    }
     .oq-menyu a.oq-menyu-cta {
-        margin-top: 8px; border: 0; text-align: center; border-radius: 3px;
+        margin-top: 8px; border: 0; text-align: center; border-radius: 999px;
         background: var(--tilla); color: #fff; padding: 13px 10px; letter-spacing: 1.8px;
     }
     @media (hover: hover) and (pointer: fine) { .oq-menyu a.oq-menyu-cta:hover {background: var(--tilla-toq); color: #fff;} }
@@ -511,7 +551,7 @@ yubiley — olxo'ri.
         position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 60;
         text-align: center; padding: 17px 10px; background: var(--tilla); color: #fff;
         letter-spacing: 2.5px; text-transform: uppercase; font-size: .78rem;
-        text-decoration: none; border-radius: 3px;
+        text-decoration: none; border-radius: 999px;
         box-shadow: 0 10px 30px rgba(124,92,28,.4);
         transform: translateY(0);
         transition: transform .3s cubic-bezier(.32,0,.18,1), opacity .3s ease;
@@ -549,7 +589,7 @@ yubiley — olxo'ri.
    bilan margin birga ishlamaydi, padding esa ikkala holatda ham
    saqlanadi. */
 .oq-footer {
-    border-top: 1px solid var(--chiziq); margin-top: auto; padding: 76px 0 50px;
+    border-top: 1px solid var(--chiziq); margin-top: auto; padding: 76px 0 0;
     position: relative; overflow: hidden;
 }
 .oq-footer-ich { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; position: relative; z-index: 1; }
@@ -574,14 +614,39 @@ yubiley — olxo'ri.
    Mobilda havolalar ro'yxati yashiriladi, LEKIN aloqa ikonkalari qoladi:
    telefonda odam aynan "qo'ng'iroq qilish" tugmasini qidiradi. */
 .oq-footer-aloqa { display: flex; gap: 10px; align-items: center; }
+{% comment %}
+Aloqa ikonkalari — oltin, kulrang emas.
+
+TAFTISH: doira chegarasi "--chiziq" rangida edi va u fon bilan atigi
+1.2 kontrast berardi — ya'ni doira ko'zga umuman ko'rinmasdi, ikonka
+esa yolg'iz kulrang dog' bo'lib qolardi. Endi chegara "--tilla" (3.15)
+va ikonka "--tilla-toq" (5.43) — ikkalasi ham brend rangida.
+
+Instagram va Telegramning O'Z ranglari (pushti gradient, ko'k)
+ATAYLAB ishlatilmadi: ular saytning oltin-krem palitrasiga uchta
+begona brend rangini olib kirardi. Lyuks brendlar ijtimoiy tarmoq
+ikonkalarini har doim o'z rangida beradi.
+{% endcomment %}
 .oq-footer-aloqa a {
-    width: 38px; height: 38px; border-radius: 50%;
-    border: 1px solid var(--chiziq); color: var(--kul);
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 1px solid var(--tilla); color: var(--tilla-toq);
+    background: var(--toza);
     display: flex; align-items: center; justify-content: center;
-    transition: color .18s ease, border-color .18s ease;
+    transition: color .18s ease, border-color .18s ease, background .18s ease;
 }
-@media (hover: hover) and (pointer: fine) { .oq-footer-aloqa a:hover {color: var(--tilla-toq); border-color: var(--tilla);} }
-.oq-footer-aloqa svg { width: 17px; height: 17px; display: block; }
+@media (hover: hover) and (pointer: fine) { .oq-footer-aloqa a:hover {background: var(--tilla); color: var(--toza);} }
+.oq-footer-aloqa svg { width: 18px; height: 18px; display: block; }
+
+/* Footerning pastki qatori — mayda huquq yozuvi. Yuqoridagi qismdan
+   ingichka chiziq bilan ajratiladi. Footer "padding: 76px 0 50px" edi;
+   endi pastki bo'shliq shu qatorning o'zida, shuning uchun footer
+   pastki padding'i nolga tushiriladi (pastda). */
+.oq-footer-past {
+    margin-top: 34px; border-top: 1px solid var(--chiziq);
+    padding: 16px 0 22px;
+    font-size: .7rem; letter-spacing: .6px; color: var(--kul);
+    text-align: center;
+}
 
 @media (max-width: 700px) {
     .oq-footer { padding: 36px 0 32px; }

@@ -49,12 +49,10 @@ kuchliroq bo'lgani uchun _sayt_uslubi.html'dagi markazlashtirilgan
     <div class="yaratish-katta">
         {% if taklifnomalar %}
         <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
-            {% include "taklif/_ikonalar/yarat.svg" %}
             {% trans "Yana bitta yaratish" %}
         </a>
         {% else %}
         <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
-            {% include "taklif/_ikonalar/yarat.svg" %}
             {% trans "Birinchi taklifnomangizni yarating" %}
         </a>
         {% endif %}
