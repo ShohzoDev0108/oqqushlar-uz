@@ -37,6 +37,22 @@ bezaklari saqlanib qoldi — ular kontent bilan urishmaydi.
 }
 
 {% comment %}
+SARLAVHA O'LCHAMLARI — telefon uchun bir pog'ona pasaytirildi.
+
+Sabab o'lchov: sayt sakkiz tilda ishlaydi va kirill yozuvidagi
+tarjimalar o'zbekchadan sezilarli uzun. 390px kenglikda bir xil
+o'lchamda bosh sarlavha o'zbekchada 2 qator, ruschada 3 qator
+bo'lardi.
+
+Ikkinchi sabab — pog'onalar bir-biriga juda yaqin edi: h2 24px,
+karta sarlavhalari 21.6px, kichik sarlavha 20.8px. Uch xil daraja
+atigi 3px bilan farq qilsa, ko'z ularni bir xil deb qabul qiladi va
+sahifada "nima muhimroq" degan tartib yo'qoladi.
+
+Yangi pog'onalar (telefonda): 25.6 / 22 / 19.2 / 16.5 / 15.2 px.
+Katta ekranlardagi qiymatlar o'zgarmadi — u yerda joy yetarli.
+{% endcomment %}
+{% comment %}
 Hero tartibi (mobil): GERB va SARLAVHA → KARUSEL → qolgan matn.
 
 TAFTISH: ilgari karusel butun matn blokining ostida edi — ya'ni mijoz
@@ -76,7 +92,7 @@ tekshirilgan.
     /* Gerb va sarlavha o'lchamlari pastda, ".oq-hero-belgi" bazaviy
        qoidasidan KEYIN berilgan — bir xil kuchdagi selektorda manba
        tartibi hal qiladi, media so'rovi kuch qo'shmaydi. */
-    .oq-hero-bosh .oq-h1 { font-size: 1.75rem; margin: 8px 0 0; }
+    .oq-hero-bosh .oq-h1 { font-size: 1.6rem; margin: 8px 0 0; }
 }
 {% comment %}
 Brend gerbi — sarlavha ustida. Bu to'liq, naqshli belgi: uni faqat
@@ -163,7 +179,7 @@ va nuri baribir joyida.
 @media (min-width: 700px) { .oq-hero-belgi { width: 200px; height: 200px; margin-bottom: 24px; } }
 @media (min-width: 1000px) { .oq-hero-belgi { width: 220px; height: 220px; } }
 .oq-kichik-sarlavha {
-    font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+    font-family: var(--serif); font-size: clamp(1.15rem, 2.4vw, 1.8rem);
     margin: 8px 0 16px; font-weight: 500;
 }
 .oq-hero-matn .oq-matn { max-width: 560px; margin: 0 0 34px; }
@@ -229,6 +245,28 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
         0 calc(var(--tb) * .055) calc(var(--tb) * .13) rgba(23,19,15,.34),
         0 calc(var(--tb) * .012) calc(var(--tb) * .03) rgba(23,19,15,.20),
         inset 0 0 0 1px rgba(255,255,255,.16);
+    transition: box-shadow .62s cubic-bezier(.32, 0, .18, 1);
+}
+{% comment %}
+Yon kartalarning soyasi — markazdagisinikidan ANCHA yengil.
+
+TAFTISH: almashinuv paytida soya "sakrab" ko'rinib qolardi. Sabab
+transform emas, QATLAM tartibi: kartalar o'rin almashganda "z-index"
+bir zumda o'zgaradi (uni animatsiya qilib bo'lmaydi), transform esa
+0.62 soniya davomida sekin siljiydi. Ya'ni yarim yo'lda turgan
+kartaning to'liq quyuqlikdagi soyasi birdan qo'shnisining ustiga
+tushardi.
+
+Soyani butunlay olib tashlash yechim emas: aynan u kartalarga chuqurlik
+beradi, usiz maket yassi stikerga o'xshab qoladi. Shuning uchun soya
+FAQAT markazdagi kartada to'liq, yonlarida esa uch baravar yengil —
+qatlam almashganda ko'z sezadigan farq qolmaydi. Soyaning o'zi ham
+siljish bilan bir xil tezlikda o'zgaradi.
+{% endcomment %}
+.tel-karta:not(.faol) .oq-telefon {
+    box-shadow:
+        0 calc(var(--tb) * .03) calc(var(--tb) * .07) rgba(23,19,15,.14),
+        inset 0 0 0 1px rgba(255,255,255,.12);
 }
 /* Yon tugmalar — maketga "haqiqiy qurilma" hissi beradi */
 .oq-telefon .tel-tugma {
@@ -498,7 +536,7 @@ va hero'dagi kabi saxovatli. Hashamat aynan shu bo'sh joydan keladi.
     font-family: var(--serif); color: var(--tilla); font-size: 1rem; letter-spacing: 2px;
     display: block; margin-bottom: 14px;
 }
-.oq-qadam h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin: 0 0 10px; }
+.oq-qadam h3 { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; margin: 0 0 10px; }
 .oq-qadam p { color: var(--kul); line-height: 1.75; font-size: .95rem; margin: 0; }
 
 /* Nega Oqqushlar? (afzalliklar) — .oq-qadam bilan bir xil vizual tilda,
@@ -519,7 +557,7 @@ ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
     font-family: var(--serif); color: var(--tilla); font-size: .78rem; letter-spacing: 2px;
     text-transform: uppercase; display: block; margin-bottom: 14px;
 }
-.oq-afzallik h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin: 0 0 10px; }
+.oq-afzallik h3 { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; margin: 0 0 10px; }
 .oq-afzallik p { color: var(--kul); line-height: 1.75; font-size: .95rem; margin: 0; }
 
 .oq-yordam-chaqiruv {
@@ -573,7 +611,7 @@ ko'rinardi. Uch ustun — o'qish uchun ham qulay, ko'z uchun ham tinch.
 .oq-savol summary {
     cursor: pointer; list-style: none; padding: 22px 4px; display: flex;
     justify-content: space-between; align-items: center; gap: 20px;
-    font-family: var(--serif); font-size: 1.12rem; color: var(--siyoh); font-weight: 500;
+    font-family: var(--serif); font-size: 1.04rem; color: var(--siyoh); font-weight: 500;
 }
 .oq-savol summary::-webkit-details-marker { display: none; }
 .oq-savol summary::after {
@@ -1068,10 +1106,8 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
     bo'lib qoladi va maket "sakrayotgandek" ko'rinadi.
     {% endcomment %}
     var ORALIQ = 3200;     // slaydlar orasidagi vaqt
-    var TIKLANISH = 7000;  // mijoz tekkanidan keyin qancha kutib, yana yurish
     var joriy = 0;
     var taymer = null;
-    var tiklashTaymeri = null;
     var korinadi = true;
     var kamHarakat = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var n = kartalar.length;
@@ -1100,26 +1136,51 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
     }
     function tur() { if (taymer) { clearInterval(taymer); taymer = null; } }
 
-    // MUHIM: aylanish hech qachon BUTUNLAY to'xtamaydi.
-    //
-    // TAFTISH: ilgari barmoq bilan tegilganda u umrbod to'xtardi —
-    // mijoz tasodifan tekkanida ham maket qotib qolardi va sahifa
-    // "buzilgan"dek ko'rinardi. Endi teginish faqat vaqtincha
-    // to'xtatadi: mijoz qarab turgan bo'lsa xalaqit bermaymiz, lekin
-    // bir necha soniyadan keyin sikl o'zi davom etadi.
-    function vaqtinchaTur() {
+    {% comment %}
+    TEGINISH AYLANISHNI TO'XTATMAYDI.
+
+    Bu yerda uchta bosqich bo'ldi:
+      1) avval teginganda aylanish UMRBOD to'xtardi — mijoz tasodifan
+         tekkanida maket qotib qolar, sahifa "buzilgan"dek ko'rinardi;
+      2) keyin teginish 7 soniyaga to'xtatadigan qilindi;
+      3) endi umuman to'xtatmaydi.
+
+    Sabab: telefonda sahifani aylantirish uchun barmoq baribir ekranga
+    tegadi, ya'ni "teginish" bu yerda niyat emas, tasodif. Har safar
+    tasodifiy tegishdan keyin maketning qotib qolishi mijozga sayt
+    ishlamayotgandek tuyuladi.
+
+    Sichqoncha boshqacha: kursorni maket ustiga ATAYLAB olib boradilar
+    (o'qish uchun), shuning uchun desktopda hover'da to'xtatish qoladi.
+    {% endcomment %}
+    function taymerniQaytaBoshla() {
+        // To'xtatish emas — sanoqni noldan boshlash. Mijoz tanlagan
+        // karta darhol almashib ketmasligi uchun kerak.
         tur();
-        clearTimeout(tiklashTaymeri);
-        tiklashTaymeri = setTimeout(yur, TIKLANISH);
+        yur();
     }
 
-    karusel.addEventListener('mouseenter', tur);
-    karusel.addEventListener('mouseleave', function () {
-        clearTimeout(tiklashTaymeri);
-        yur();
+    {% comment %}
+    Sichqoncha ustiga kelganda to'xtatish — LEKIN faqat HAQIQIY
+    sichqoncha bo'lsa.
+
+    TAFTISH: bu yerda "mouseenter" ishlatilardi va aynan shu teginish
+    muammosining haqiqiy sababi edi. Brauzer barmoq bilan bosilganda ham
+    moslik uchun sichqoncha hodisalarini yuboradi ("mouseenter", "click"
+    va h.k.) — ya'ni telefonda ekranga tekkanda "mouseenter" ishga
+    tushib, aylanishni to'xtatardi. "mouseleave" esa hech qachon
+    kelmasdi: barmoq ketgani bilan virtual kursor o'sha joyda qolaveradi.
+    Natijada karusel bitta tegishdan keyin butunlay qotib qolardi.
+
+    "pointerenter" hodisasi qurilma turini o'zi aytib beradi ("mouse",
+    "touch", "pen"), shuning uchun shart aniq: faqat sichqoncha.
+    {% endcomment %}
+    karusel.addEventListener('pointerenter', function (e) {
+        if (e.pointerType === 'mouse') { tur(); }
     });
-    karusel.addEventListener('touchstart', vaqtinchaTur, { passive: true });
-    karusel.addEventListener('focusin', vaqtinchaTur);
+    karusel.addEventListener('pointerleave', function (e) {
+        if (e.pointerType === 'mouse') { yur(); }
+    });
 
     // Yon kartani bosish — o'sha markazga keladi.
     karusel.addEventListener('click', function (e) {
@@ -1128,7 +1189,7 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
         if (e.target.closest('.tel-ochish')) { return; }
         e.preventDefault();
         korsat(kartalar.indexOf(karta));
-        vaqtinchaTur();
+        taymerniQaytaBoshla();
     });
 
     // Ekrandan chiqib ketganda to'xtaydi, qaytganda o'zi davom etadi —
@@ -1158,6 +1219,34 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
     shart darhol teskarisiga o'zgarib, tugma miltillay boshlardi.
     {% endcomment %}
     var mobilCta = document.querySelector('.oq-mobil-cta');
+    {% comment %}
+    TAFTISH — tugma bir ko'rinib, keyin yo'qolib qolardi.
+
+    Sabab: sahifa ochilganda tugma ko'rinadi, keyin sarlavha SHRIFTI
+    (Cormorant Garamond, tashqi fayl) yuklanadi. Shrift almashishi bilan
+    sarlavhaning balandligi o'zgaradi, karusel pastga siljiydi va endi
+    "Ochib ko'rish" bilan kesishadi — tugma esa yarim soniyalik
+    animatsiya bilan pastga sirg'alib ketadi. Mijoz buni "tugma paydo
+    bo'ldi-yu, qochib qoldi" deb ko'radi.
+
+    Yechim ikki qismli:
+      1) sahifa "joylashib olguncha" (shrift yuklanishi, rasmlar,
+         birinchi skroll) holat ANIMATSIYASIZ qo'llanadi — ya'ni tugma
+         boshidanoq to'g'ri holatda turadi, ko'z hech qanday harakat
+         ko'rmaydi;
+      2) shrift yuklangach va sahifa to'liq yuklangach qayta o'lchanadi.
+    {% endcomment %}
+    var joylashmoqda = true;
+    function animatsiyasiz(ish) {
+        if (!mobilCta) { ish(); return; }
+        var eski = mobilCta.style.transition;
+        mobilCta.style.transition = 'none';
+        ish();
+        // Brauzer yangi holatni chizib bo'lgach animatsiyani qaytaramiz.
+        mobilCta.offsetHeight;  // majburiy qayta hisoblash
+        mobilCta.style.transition = eski;
+    }
+
     function kesishishniTekshir() {
         // Sayt sahifalari o'rtasida o'tilganda <body> butunlay
         // almashtiriladi (_sayt_musiqa.html), window'dagi kuzatuvchilar esa
@@ -1176,8 +1265,15 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
         var r = ochish.getBoundingClientRect();
         var ctaTepasi = window.innerHeight - (14 + mobilCta.offsetHeight);
         var ekranda = r.bottom > 0 && r.top < window.innerHeight;
-        mobilCta.classList.toggle('chetga-surilgan',
-            ekranda && r.bottom > ctaTepasi - 8);
+        var kesishadi = ekranda && r.bottom > ctaTepasi - 8;
+        if (mobilCta.classList.contains('chetga-surilgan') === kesishadi) { return; }
+        if (joylashmoqda) {
+            animatsiyasiz(function () {
+                mobilCta.classList.toggle('chetga-surilgan', kesishadi);
+            });
+        } else {
+            mobilCta.classList.toggle('chetga-surilgan', kesishadi);
+        }
     }
 
     var kadrKutmoqda = false;
@@ -1196,6 +1292,16 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
     chiz();
     yur();
     kesishishniTekshir();
+
+    // Sahifa joylashib olishi: shrift yuklanishi va to'liq yuklanish —
+    // ikkalasi ham maketni siljitadi, shuning uchun ikkalasidan keyin ham
+    // qayta o'lchaymiz. Shundan keyingina animatsiya yoqiladi.
+    function qaytaOlcha() { if (document.body.contains(karusel)) { kesishishniTekshir(); } }
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(qaytaOlcha).catch(function () {});
+    }
+    window.addEventListener('load', qaytaOlcha);
+    setTimeout(function () { qaytaOlcha(); joylashmoqda = false; }, 1200);
 })();
 </script>
 {% endblock %}
