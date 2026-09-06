@@ -271,11 +271,24 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
    katalogni titkilab o'tirmaydi. */
 .tel-karusel {
     position: relative; width: 100%;
-    height: calc(var(--tb) + 118px);
+    /* Tepada marosim nomi, pastda "Ochib ko'rish" uchun joy. */
+    height: calc(var(--tb) + 128px);
 }
+/* MUHIM: kartaning KENGLIGI faqat telefondan kelib chiqadi.
+
+   TAFTISH: ilgari karta oddiy ustun (flex column) edi va uning kengligi
+   ichidagi eng keng elementga — marosim NOMIGA qarab o'zgarardi. Yon
+   kartalar esa foizli siljish bilan qo'yiladi ("translateX(-122%)"),
+   ya'ni foiz ham o'sha kenglikdan hisoblanadi. Natijada uzun nomli
+   tilda (masalan ruscha "Празднование обрезания") kartalar bir-biridan
+   uzoqlashib ketardi va kompozitsiya buzilardi.
+
+   Endi nom ham, tugma ham OQIMDAN CHIQARILGAN (position: absolute) —
+   ular kartaning o'lchamiga umuman ta'sir qilmaydi. Shu bois maket
+   sakkiz tilning qaysi birida ochilishidan qat'i nazar bir xil turadi. */
 .tel-karta {
-    position: absolute; left: 50%; top: 0;
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    position: absolute; left: 50%; top: 52px;
+    width: calc(var(--tb) * 9 / 19.5);
     transform: translateX(-50%) scale(.56);
     opacity: 0; visibility: hidden; z-index: 1; pointer-events: none;
     transition: transform .62s cubic-bezier(.32, 0, .18, 1),
@@ -286,29 +299,37 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
 .tel-karta.faol  { transform: translateX(-50%) scale(1);   opacity: 1;   visibility: visible; z-index: 3; pointer-events: auto; }
 .tel-karta.chap:hover, .tel-karta.ong:hover { opacity: .68; }
 
-/* Marosim nomi — telefon TEPASIDA. Markazdagisida kattaroq va to'q,
-   yonlaridagida kichik: ko'z darrov qaysi biri "hozirgi" ekanini
-   tushunadi. */
+/* Marosim nomi — telefon TEPASIDA va FAQAT markazdagi kartada.
+
+   Nega yon kartalarda ko'rsatmaymiz: ular 70% o'lchamda va 45%
+   xiralikda turadi — u yerdagi yozuv baribir o'qilmaydi, ya'ni
+   ma'lumot emas, shovqin qo'shadi. Ko'z bitta nomni ko'radi va
+   qaysi biri "hozirgi" ekani shubhasiz bo'ladi. Ayni paytda bu
+   uzun tarjimalar muammosini ham butunlay yopadi. */
 .tel-marosim-nom {
-    font-family: var(--serif); font-size: 1.34rem; line-height: 1.2;
-    color: var(--siyoh); text-align: center; white-space: nowrap;
-    transition: font-size .5s ease, color .5s ease;
+    position: absolute; left: 50%; bottom: calc(100% + 14px);
+    transform: translateX(-50%);
+    font-family: var(--serif); font-size: 1.34rem; line-height: 1.25;
+    color: var(--siyoh); text-align: center;
+    width: max-content; max-width: min(340px, 84vw);
+    opacity: 0; transition: opacity .45s ease;
 }
-.tel-karta:not(.faol) .tel-marosim-nom { font-size: 1.05rem; color: var(--kul); }
+.tel-karta.faol .tel-marosim-nom { opacity: 1; }
 
 /* "Ochib ko'rish" faqat markazdagi kartada — yonlarida u o'qilmas
    bo'lib, faqat shovqin qo'shardi. */
 .tel-ochish {
+    position: absolute; left: 50%; top: calc(100% + 18px);
     display: inline-flex; align-items: center; gap: 7px;
     padding: 9px 20px; border-radius: 22px;
     border: 1px solid var(--tilla); color: var(--tilla-toq);
     background: var(--toza); text-decoration: none;
     font-size: .7rem; letter-spacing: 1.6px; text-transform: uppercase;
     white-space: nowrap;
-    opacity: 0; transform: translateY(6px); pointer-events: none;
+    opacity: 0; transform: translateX(-50%) translateY(6px); pointer-events: none;
     transition: opacity .45s ease .1s, transform .45s ease .1s, background .2s, color .2s;
 }
-.tel-karta.faol .tel-ochish { opacity: 1; transform: none; pointer-events: auto; }
+.tel-karta.faol .tel-ochish { opacity: 1; transform: translateX(-50%); pointer-events: auto; }
 .tel-ochish:hover { background: var(--tilla); color: var(--toza); }
 
 /* Ekran ichidagi kontent */
@@ -338,15 +359,10 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
     100%    { background-position: -50% 0; }
 }
 
-/* Nuqtalar — nechta marosim borligini va qaysi biri turganini aytadi.
-   Bosish SHART emas (o'zi aylanadi), lekin mumkin. */
-.tel-nuqtalar { display: flex; justify-content: center; gap: 7px; margin-top: 10px; }
-.tel-nuqta {
-    width: 6px; height: 6px; padding: 0; border: none; border-radius: 50%;
-    background: var(--chiziq); cursor: pointer;
-    transition: background .25s ease, transform .25s ease;
-}
-.tel-nuqta.faol { background: var(--tilla); transform: scale(1.45); }
+/* Nuqtalar olib tashlandi: ular hech qanday yangi ma'lumot bermasdi
+   (aylanmaning o'zi ko'rinib turibdi) va maketning ostiga ortiqcha
+   boshqaruv qatorini qo'shardi. Kerak bo'lsa yon telefonni bosish
+   yetadi. */
 @media (prefers-reduced-motion: reduce) {
     .tel-karta { transition: none; }
     .tel-karta.faol .oq-telefon-ekran::after { animation: none; }
@@ -544,7 +560,7 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
     <div class="oq-romka-burchak orb-br"></div>
     <div class="oq-ichki oq-hero-ich">
         <div class="oq-telefon-blok">
-            <div class="tel-karusel" id="tel-karusel">
+            <div class="tel-karusel" id="tel-karusel" aria-label="{% trans "Marosim turlari" %}">
                 {% for sl in bosh_slaydlar %}
                 <div class="tel-karta{% if forloop.first %} faol{% endif %}">
                     <div class="tel-marosim-nom">{{ sl.nomi }}</div>
@@ -599,13 +615,6 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
                         {% include "taklif/_ikonalar/koz.svg" %}{% trans "Ochib ko'rish" %}
                     </a>
                 </div>
-                {% endfor %}
-            </div>
-            <div class="tel-nuqtalar" id="tel-nuqtalar" role="tablist" aria-label="{% trans "Marosim turlari" %}">
-                {% for sl in bosh_slaydlar %}
-                <button type="button" class="tel-nuqta{% if forloop.first %} faol{% endif %}"
-                        role="tab" aria-label="{{ sl.nomi }}"
-                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
                 {% endfor %}
             </div>
         </div>
@@ -924,21 +933,19 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
 (function () {
     // Marosim karuseli: markazda asosiy telefon, ikki yonida qo'shnilari.
     var karusel = document.getElementById('tel-karusel');
-    var nuqtalarBlok = document.getElementById('tel-nuqtalar');
     if (!karusel) { return; }
     var kartalar = Array.prototype.slice.call(karusel.querySelectorAll('.tel-karta'));
-    var nuqtalar = nuqtalarBlok ? Array.prototype.slice.call(nuqtalarBlok.querySelectorAll('.tel-nuqta')) : [];
     if (kartalar.length < 2) { return; }
 
-    var ORALIQ = 4600;
+    var ORALIQ = 4600;     // slaydlar orasidagi vaqt
+    var TIKLANISH = 7000;  // mijoz tekkanidan keyin qancha kutib, yana yurish
     var joriy = 0;
     var taymer = null;
-    var toxtatilgan = false;
+    var tiklashTaymeri = null;
     var korinadi = true;
     var kamHarakat = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var n = kartalar.length;
 
-    // Rasm faqat kerak bo'lganda: joriy va uning ikki qo'shnisi.
     function rasmYukla(i) {
         var img = kartalar[(i + n) % n].querySelector('.tel-chizma');
         if (img && !img.getAttribute('src') && img.dataset.src) {
@@ -954,47 +961,48 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
             else if (i === (joriy + 1) % n) { k.classList.add('ong'); }
         });
         [0, -1, 1, 2].forEach(function (d) { rasmYukla(joriy + d); });
-        nuqtalar.forEach(function (nu, i) {
-            nu.classList.toggle('faol', i === joriy);
-            nu.setAttribute('aria-selected', i === joriy ? 'true' : 'false');
-        });
     }
-
     function korsat(i) { joriy = (i + n) % n; chiz(); }
 
     function yur() {
-        if (taymer || toxtatilgan || !korinadi || kamHarakat) { return; }
+        if (taymer || !korinadi || kamHarakat) { return; }
         taymer = setInterval(function () { korsat(joriy + 1); }, ORALIQ);
     }
     function tur() { if (taymer) { clearInterval(taymer); taymer = null; } }
+
+    // MUHIM: aylanish hech qachon BUTUNLAY to'xtamaydi.
+    //
+    // TAFTISH: ilgari barmoq bilan tegilganda u umrbod to'xtardi —
+    // mijoz tasodifan tekkanida ham maket qotib qolardi va sahifa
+    // "buzilgan"dek ko'rinardi. Endi teginish faqat vaqtincha
+    // to'xtatadi: mijoz qarab turgan bo'lsa xalaqit bermaymiz, lekin
+    // bir necha soniyadan keyin sikl o'zi davom etadi.
+    function vaqtinchaTur() {
+        tur();
+        clearTimeout(tiklashTaymeri);
+        tiklashTaymeri = setTimeout(yur, TIKLANISH);
+    }
+
+    karusel.addEventListener('mouseenter', tur);
+    karusel.addEventListener('mouseleave', function () {
+        clearTimeout(tiklashTaymeri);
+        yur();
+    });
+    karusel.addEventListener('touchstart', vaqtinchaTur, { passive: true });
+    karusel.addEventListener('focusin', vaqtinchaTur);
 
     // Yon kartani bosish — o'sha markazga keladi.
     karusel.addEventListener('click', function (e) {
         var karta = e.target.closest('.tel-karta');
         if (!karta || karta.classList.contains('faol')) { return; }
-        // "Ochib ko'rish" havolasi o'z ishini qilsin
         if (e.target.closest('.tel-ochish')) { return; }
         e.preventDefault();
         korsat(kartalar.indexOf(karta));
+        vaqtinchaTur();
     });
 
-    // Mijoz tegsa to'xtaydi; sichqoncha ketsa yana yuradi.
-    karusel.addEventListener('mouseenter', function () { toxtatilgan = true; tur(); });
-    karusel.addEventListener('mouseleave', function () { toxtatilgan = false; yur(); });
-    karusel.addEventListener('touchstart', function () { toxtatilgan = true; tur(); }, { passive: true });
-    karusel.addEventListener('focusin', function () { toxtatilgan = true; tur(); });
-
-    if (nuqtalarBlok) {
-        nuqtalarBlok.addEventListener('click', function (e) {
-            var nu = e.target.closest('.tel-nuqta');
-            if (!nu) { return; }
-            toxtatilgan = true; tur();
-            korsat(nuqtalar.indexOf(nu));
-        });
-    }
-
-    // Ekrandan chiqib ketganda to'xtaydi — ko'rinmayotgan animatsiya
-    // bekorga batareya yeydi.
+    // Ekrandan chiqib ketganda to'xtaydi, qaytganda o'zi davom etadi —
+    // ko'rinmayotgan animatsiya bekorga batareya yeydi.
     if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (yozuvlar) {
             korinadi = yozuvlar[0].isIntersecting;
