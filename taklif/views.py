@@ -243,11 +243,16 @@ def _sessiyaga_qoshish(request, slug):
 
 
 def _sayt_musiqasi():
-    """Joriy interfeys tiliga mos sayt fon musiqasini tanlaydi.
+    """Joriy interfeys tiliga mos musiqa variantini tanlaydi.
 
-    Mehmon sahifa tilini almashtirsa, keyingi sahifa yuklanishida shu til
-    uchun yuklangan musiqa yangraydi. O'sha tilda musiqa bo'lmasa —
-    o'zbekchasiga, u ham bo'lmasa istalgan faol variantga tushamiz.
+    O'sha tilda musiqa bo'lmasa — o'zbekchasiga, u ham bo'lmasa istalgan
+    faol variantga tushamiz.
+
+    TAFTISH: bu funksiya ilgari HAR BIR sayt sahifasiga fon musiqasi
+    berardi. Sayt musiqasi olib tashlangach (sabab: _sayt_musiqa.html
+    izohi) u faqat BITTA joyda qoldi — namuna taklifnomasi uchun. Namuna
+    haqiqiy taklifnomaga to'liq o'xshashi kerak, taklifnomada esa musiqa
+    bor.
     """
     til = (get_language() or "uz").split("-")[0]
     faollar = MusiqaVariant.objects.filter(faol=True)
@@ -317,7 +322,6 @@ def bosh_sahifa(request):
         {
             "taklifnomalar": taklifnomalar,
             "shablonlar": shablonlar,
-            "sayt_musiqa": _sayt_musiqasi(),
             "admin_telegram": _admin_telegram(),
             "bosh_slaydlar": _bosh_slaydlar(),
         },
@@ -347,7 +351,6 @@ def shablon_tanlash(request):
         "taklif/shablon_tanlash.html",
         {
             "shablonlar": shablonlar,
-            "sayt_musiqa": _sayt_musiqasi(),
             "marosim_turlari": list(MAROSIM_TURLARI),
             "millatlar": MILLATLAR,
         },
@@ -361,7 +364,6 @@ def biz_haqimizda(request):
         "taklif/biz_haqimizda.html",
         {
             "admin_telegram": _admin_telegram(),
-            "sayt_musiqa": _sayt_musiqasi(),
         },
     )
 
@@ -373,11 +375,7 @@ def savol_javob(request):
     shu ro'yxat bosh sahifada ham ko'rsatiladi, ya'ni javoblar bir joyda
     saqlanadi va ikki nusxaga bo'linib ketmaydi.
     """
-    return render(
-        request,
-        "taklif/savol_javob.html",
-        {"sayt_musiqa": _sayt_musiqasi()},
-    )
+    return render(request, "taklif/savol_javob.html")
 
 
 
@@ -394,7 +392,6 @@ def narxlar(request):
         {
             "shablonlar": Shablon.objects.filter(ommaviy=True),
             "admin_telegram": _admin_telegram(),
-            "sayt_musiqa": _sayt_musiqasi(),
         },
     )
 
@@ -410,7 +407,6 @@ def boglanish(request):
         "taklif/boglanish.html",
         {
             "admin_telegram": _admin_telegram(),
-            "sayt_musiqa": _sayt_musiqasi(),
         },
     )
 
@@ -552,7 +548,6 @@ def yaratish(request, shablon_kod):
             "maksimal_rasmlar_soni": MAKSIMAL_RASMLAR_SONI,
             "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
             "musiqa_variantlar": MusiqaVariant.objects.filter(faol=True),
-            "sayt_musiqa": _sayt_musiqasi(),
             "eski_taklifnoma": eski_taklifnoma,
             "admin_telegram": _admin_telegram(),
         },
@@ -571,7 +566,6 @@ def yaratildi(request, slug):
     context = {
         "taklifnoma": taklifnoma,
         "admin_telegram": _admin_telegram(),
-        "sayt_musiqa": _sayt_musiqasi(),
     }
     return render(request, "taklif/yaratildi.html", context)
 
@@ -874,7 +868,7 @@ def mening_taklifnomalarim(request):
     return render(
         request,
         "taklif/mening_taklifnomalarim.html",
-        {"taklifnomalar": taklifnomalar, "sayt_musiqa": _sayt_musiqasi()},
+        {"taklifnomalar": taklifnomalar},
     )
 
 

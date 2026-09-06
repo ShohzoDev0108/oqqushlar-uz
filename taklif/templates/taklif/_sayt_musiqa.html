@@ -1,134 +1,29 @@
-{% load i18n %}
-{% if sayt_musiqa %}
 {% comment %}
-Sayt fon musiqasi — joriy interfeys tiliga mos variant (views._sayt_musiqasi).
-Sahifadan-sahifaga o'tilganda musiqa qayerda to'xtagan bo'lsa, o'sha joydan
-davom etadi (sessionStorage orqali). Til almashtirilsa — src o'zgaradi va
-yangi til musiqasi boshidan yangraydi. Brauzer avtomatik ijroni bloklasa,
-pastdagi tugma pulsatsiya bilan ko'rinib turadi — bir marta bosish kifoya.
-{% endcomment %}
-<audio id="sayt-musiqa" src="{{ sayt_musiqa.fayl.url }}" loop preload="auto"></audio>
-<button id="sayt-musiqa-tugma" type="button" title="{% trans "Musiqani yoqish/o'chirish" %}">
-    <svg class="km-tinch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M4 9v6h4l5 4V5L8 9H4z"/>
-        <path d="M23 9l-5 5M18 9l5 5" opacity=".75"/>
-    </svg>
-    <span class="km-ekval" aria-hidden="true"><span></span><span></span><span></span></span>
-</button>
-<style>
-#sayt-musiqa-tugma {
-    position: fixed; bottom: 20px; right: 20px; z-index: 45;
-    width: 50px; height: 50px; border-radius: 50%; border: 1px solid #c9a227;
-    background: #0f2027; color: #c9a227; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,.3); transition: box-shadow .2s, transform .2s;
-}
-#sayt-musiqa-tugma:hover { box-shadow: 0 6px 20px rgba(0,0,0,.4); }
-#sayt-musiqa-tugma .km-tinch { width: 20px; height: 20px; display: block; }
-#sayt-musiqa-tugma .km-ekval { display: none; align-items: flex-end; gap: 3px; height: 16px; }
-#sayt-musiqa-tugma .km-ekval span { width: 3px; background: currentColor; border-radius: 1px; animation: sayt-musiqa-bar 1s ease-in-out infinite; }
-#sayt-musiqa-tugma .km-ekval span:nth-child(1) { height: 40%; animation-delay: -.3s; }
-#sayt-musiqa-tugma .km-ekval span:nth-child(2) { height: 100%; animation-delay: -.1s; }
-#sayt-musiqa-tugma .km-ekval span:nth-child(3) { height: 60%; animation-delay: -.5s; }
-@keyframes sayt-musiqa-bar { 0%, 100% { transform: scaleY(.4); } 50% { transform: scaleY(1); } }
-/* Ijro paytida: tinch (o'chirilgan) ikonka o'rniga ekvalayzer chiziqlari
-   ko'rinadi va tugma atrofida yumshoq halqa pulsatsiya qiladi. */
-#sayt-musiqa-tugma.ijroda .km-tinch { display: none; }
-#sayt-musiqa-tugma.ijroda .km-ekval { display: flex; }
-#sayt-musiqa-tugma.ijroda::before {
-    content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid #c9a227;
-    opacity: 0; animation: sayt-musiqa-halqa 2s ease-out infinite; pointer-events: none;
-}
-@keyframes sayt-musiqa-halqa {
-    0% { opacity: .55; transform: scale(.85); }
-    100% { opacity: 0; transform: scale(1.35); }
-}
-#sayt-musiqa-tugma.bloklangan { animation: sayt-musiqa-puls 2s ease infinite; }
-@keyframes sayt-musiqa-puls {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(201,162,39,.45); }
-    50% { box-shadow: 0 0 0 12px rgba(201,162,39,0); }
-}
-</style>
-<script>
-(function () {
-    var audio = document.getElementById('sayt-musiqa');
-    var tugma = document.getElementById('sayt-musiqa-tugma');
-    if (!audio || !tugma) { return; }
+SAYT SAHIFALARI ORASIDA YUMSHOQ NAVIGATSIYA.
 
-    var KALIT = 'sayt_musiqa_holati';
-    var src = audio.getAttribute('src');
+TAFTISH — fon musiqasi bu fayldan OLIB TASHLANDI.
 
-    var holat = null;
-    try { holat = JSON.parse(sessionStorage.getItem(KALIT) || 'null'); } catch (e) {}
+Sabab o'lchov emas, brauzer qoidasi: hech bir zamonaviy brauzer birinchi
+tashrifda tovushli avtomatik ijroga ruxsat bermaydi. Ya'ni saytga
+birinchi marta kirgan mijoz musiqani ESHITMASDI — u faqat o'ng pastki
+burchakda nima uchunligi tushunarsiz pulsatsiya qilayotgan tugmani
+ko'rardi. Foydasi nol, chalg'itishi esa bor edi: tugma mobil ekranda
+"Taklifnoma yaratish" tugmasi bilan bir joyda turardi.
 
-    // Xuddi shu musiqa (til o'zgarmagan) — to'xtagan joyidan davom etamiz.
-    // Til o'zgargan bo'lsa src boshqa bo'ladi va musiqa boshidan boshlanadi.
-    var davomEtish = holat && holat.src === src;
-    if (davomEtish && holat.vaqt) {
-        try { audio.currentTime = holat.vaqt; } catch (e) {}
-    }
-    // Foydalanuvchi o'zi o'chirgan bo'lsa, majburlab qayta yoqmaymiz.
-    var foydalanuvchiOchirgan = davomEtish && holat.ochirilgan;
+TAKLIFNOMADAGI musiqa saqlanib qoldi (_mijoz_qismi.html, "fon-musiqa"):
+u yerda musiqa mazmunga xizmat qiladi va mehmon uni O'ZI bosib yoqadi.
 
-    function saqla() {
-        try {
-            sessionStorage.setItem(KALIT, JSON.stringify({
-                src: src,
-                vaqt: audio.currentTime || 0,
-                ochirilgan: audio.paused
-            }));
-        } catch (e) {}
-    }
-    setInterval(saqla, 1000);
-    window.addEventListener('pagehide', saqla);
+Pastdagi mexanizm esa saqlanadi va faylning nomi ham o'zgarmadi (u 9 ta
+shablonga ulangan). Ilgari u aynan musiqa uzilmasligi uchun yozilgan
+edi, lekin bugun u boshqa, kattaroq foyda beryapti: sayt sahifalari
+orasida o'tish deyarli bir zumda bo'ladi, chunki har safar butun sahifa
+qaytadan yuklanmaydi — faqat <body> almashadi.
 
-    function ijroEt() {
-        var p = audio.play();
-        if (p && p.catch) {
-            p.catch(function () {
-                // Brauzer birinchi tashrifda avtomatik ijroni bloklaydi —
-                // tugma pulsatsiya qilib turadi, bir bosishda musiqa ketadi.
-                tugma.classList.add('bloklangan');
-                tugma.classList.remove('ijroda');
-            });
-        }
-    }
-
-    audio.addEventListener('play', function () {
-        tugma.classList.add('ijroda');
-        tugma.classList.remove('bloklangan');
-        // Aksincha holat: mijoz namunaviy musiqani tinglab turgan paytda
-        // fon musiqasini qayta yoqsa, ikkalasi aralashib qolmasligi uchun
-        // namunani to'xtatamiz (musiqa tanlash sahifasida mavjud bo'lsa).
-        var namunaAudio = document.getElementById('musiqa-onaqi-audio');
-        if (namunaAudio && !namunaAudio.paused) { namunaAudio.pause(); }
-    });
-    audio.addEventListener('pause', function () { tugma.classList.remove('ijroda'); });
-
-    tugma.addEventListener('click', function () {
-        if (audio.paused) { ijroEt(); } else { audio.pause(); }
-        saqla();
-    });
-
-    if (!foydalanuvchiOchirgan) {
-        ijroEt();
-    }
-})();
-</script>
-{% endif %}
-
-{% comment %}
-Taftish topilmasi: sayt sahifalari orasida (bosh sahifa, dizaynlar,
-yaratish, mening taklifnomalarim, tayyor) o'tilganda har safar butun
-sahifa qayta yuklanardi — bu <audio> elementini yo'q qilib, yangisini
-yaratardi, shu sababli fon musiqasi bir necha soniyaga uzilib qolardi
-(qayta bufer yig'ish kerak bo'lgani uchun). Quyidagi skript shu 5 ta
-"asosiy" sahifa orasidagi ICHKI havolalarni fetch() orqali orqa fondan
-yuklab, faqat <body>'ni (va sahifaga xos <style>'ni) almashtiradi —
-JONLI <audio> elementi esa YANGI sahifaga TUGATILMASDAN ko'chiriladi,
-shuning uchun musiqa umuman uzilmaydi. Boshqa barcha havolalar (taklifnoma
-ko'rish, statistika, admin, tashqi Telegram va h.k.) — bu mexanizmga
-umuman tegmaydi, oddiy to'liq sahifa yuklanishi bilan ochiladi.
+Ishlashi: quyidagi skript "asosiy" sahifalar orasidagi ICHKI havolalarni
+fetch() orqali orqa fondan yuklaydi va faqat <body>'ni (va sahifaga xos
+<style>'ni) almashtiradi. Boshqa barcha havolalar (taklifnoma ko'rish,
+statistika, admin, tashqi Telegram va h.k.) — bu mexanizmga umuman
+tegmaydi, oddiy to'liq sahifa yuklanishi bilan ochiladi.
 {% endcomment %}
 <script>
 (function () {
@@ -179,18 +74,10 @@ umuman tegmaydi, oddiy to'liq sahifa yuklanishi bilan ochiladi.
                 var yangiUslub = yangiHujjat.getElementById('oq-uslub');
                 if (eskiUslub && yangiUslub) { eskiUslub.textContent = yangiUslub.textContent; }
 
-                // Musiqa uzilmasligi uchun — JONLI <audio> elementini yangi
-                // tanaga TUGATMASDAN ko'chiramiz (yangi nusxasi bilan almashtirish
-                // o'rniga, uni xuddi shu joyga qo'yamiz).
-                var jonliAudio = document.getElementById('sayt-musiqa');
+                // Bu yerda ilgari jonli <audio> elementi eski tanadan yangisiga
+                // ko'chirilardi (musiqa uzilmasligi uchun). Sayt musiqasi olib
+                // tashlangach, ko'chiriladigan narsa qolmadi.
                 var yangiTana = document.adoptNode(yangiHujjat.body);
-                if (jonliAudio) {
-                    var yangiAudioJoyi = yangiTana.querySelector('#sayt-musiqa');
-                    if (yangiAudioJoyi) {
-                        yangiAudioJoyi.parentNode.replaceChild(jonliAudio, yangiAudioJoyi);
-                    }
-                }
-
                 document.body.parentNode.replaceChild(yangiTana, document.body);
 
                 {% comment %}

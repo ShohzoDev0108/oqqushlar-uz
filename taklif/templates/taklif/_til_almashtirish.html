@@ -689,7 +689,10 @@ oltin fon bilan ajratib ko'rsatiladi.
 
         if (tilForma && !shablonSahifaTili) {
             haqiqiySelect.addEventListener('change', function () {
-                window.oqTilSwap(tilForma, { audioId: 'sayt-musiqa' });
+                // "audioId" bu yerda kerak emas: sayt sahifalarida endi fon
+                // musiqasi yo'q. Taklifnoma sahifasi (_skript.html) esa uni
+                // o'zi, "fon-musiqa" id'si bilan uzatadi.
+                window.oqTilSwap(tilForma);
             });
         }
 

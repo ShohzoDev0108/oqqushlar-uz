@@ -903,10 +903,9 @@ maxsus belgilar (masalan tirnoq) bo'lsa ham JS sintaksisini buzmaydi.
                 return;
             }
             if (joriyTugma && joriyTugma !== t) { joriyTugma.textContent = '▶'; }
-            // Fondagi (saytning o'z) musiqasi bilan aralashib ketmasligi
-            // uchun — namunani tinglashni boshlashdan oldin uni to'xtatamiz.
-            var fonMusiqasi = document.getElementById('sayt-musiqa');
-            if (fonMusiqasi && !fonMusiqasi.paused) { fonMusiqasi.pause(); }
+            // Bu yerda ilgari saytning fon musiqasi to'xtatilardi — endi
+            // sayt sahifalarida fon musiqasi yo'q, ya'ni aralashib
+            // ketadigan ikkinchi tovush ham qolmadi.
             audio.src = t.dataset.src;
             audio.currentTime = 0;
             audio.play().catch(function () {});

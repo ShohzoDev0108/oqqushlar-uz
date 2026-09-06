@@ -21,37 +21,60 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
    ekranda ularga birorta ishora yo'q edi. Bu kichik narsa emas:
    RSVP ni ko'rmagan mehmon javob ham bermaydi.
 
-   TAFTISH: birinchi variant och fonli (--karta-fon) va och matnli
+   TAFTISH 1: birinchi variant och fonli (--karta-fon) va och matnli
    (--ikkinchi) edi — ya'ni och sahifada oq ustiga oq bo'lib, ba'zi
-   shablonlarda deyarli ko'rinmasdi. Endi u TO'LDIRILGAN tabletka:
-   foni --asos, matni --asos-matn. Bu juftlik har bir shablonda
-   tugmalar uchun ishlatiladi va kontrasti allaqachon AA ga
-   keltirilgan, ya'ni ishora hech qayerda yo'qolmaydi.
+   shablonlarda deyarli ko'rinmasdi. Fon TO'LDIRILGAN qilindi: --asos /
+   --asos-matn juftligi har bir shablonda tugmalar uchun ishlatiladi va
+   kontrasti allaqachon AA ga keltirilgan.
 
-   Ikkita element o'rniga bitta: yozuv va strelka bir tabletka
-   ichida — ixchamroq va ko'zga bir butun bo'lib tushadi. */
+   TAFTISH 2: keyingi variant "PASTGA SURING" yozuvli tabletka edi.
+   Ikki muammosi bor edi. Birinchisi — o'lcham: yozuv tufayli u ~150px
+   keladigan qalqon bo'lib, taklifnomaning eng nafis joyini to'sardi.
+   Ikkinchisi — TIL: sayt sakkiz tilda ishlaydi ("Прокрутите вниз" bir
+   yarim baravar uzun), ya'ni bu element har tilda boshqa o'lchamda
+   turardi.
+
+   Endi yozuv umuman yo'q — faqat pastga qaragan strelka. Pastga
+   qaragan strelkani hech kim noto'g'ri tushunmaydi, ammo u sakkiz
+   tilda ham bir xil o'lchamda qoladi va ekranda deyarli joy
+   egallamaydi.
+
+   Juftlik marosimlarida (nikoh, fotiha, yubiley) doira o'rniga YURAK
+   ishlatiladi. Bu bezak uchun emas: aynan shu shakl o'sha
+   taklifnomalarning ochilish kartasida va kalendarida allaqachon bor,
+   ya'ni ishora sahifaning o'z tilida gapiradi. Shart "juftlik_marosimi"
+   xususiyatidan olinadi — shakl bir joyda boshqariladi. */
 .pastga-ishora {
-    position: fixed; left: 50%; bottom: 20px; z-index: 30;
-    transform: translateX(-50%) translateY(12px);
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 17px 9px 19px; border-radius: 999px;
-    background: var(--asos); color: var(--asos-matn);
-    font-size: .7rem; letter-spacing: 1.7px; text-transform: uppercase;
-    white-space: nowrap;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, .24);
+    position: fixed; left: 50%; bottom: 22px; z-index: 30;
+    transform: translateX(-50%) translateY(10px);
     opacity: 0; pointer-events: none;
+    /* Soya "filter" orqali — "box-shadow" yurak shaklida kesilib
+       ketardi (clip-path elementning soyasini ham kesadi). */
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .28));
     transition: opacity .5s ease, transform .5s ease;
 }
 .pastga-ishora.korinadi { opacity: 1; transform: translateX(-50%); }
-.pastga-ishora .pi-strelka {
-    width: 15px; height: 15px; flex: none;
+.pastga-ishora .pi-shakl {
+    display: flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--asos); color: var(--asos-matn);
     animation: pi-sakra 1.9s ease-in-out infinite;
 }
-@keyframes pi-sakra {
-    0%, 100% { transform: translateY(-1px); opacity: .75; }
-    50%      { transform: translateY(3px); opacity: 1; }
+.pastga-ishora .pi-strelka { display: block; width: 18px; height: 18px; }
+/* Yurak varianti. Shakl "_bolimlar.html" oxiridagi umumiy
+   "#yurak-shakli" kesimidan olinadi — yangi SVG qo'shilmaydi.
+   Strelka yurakning eng keng joyiga tushishi uchun sal yuqoriroqda. */
+.pastga-ishora.yurakli .pi-shakl {
+    width: 50px; height: 46px; border-radius: 0;
+    -webkit-clip-path: url(#yurak-shakli);
+            clip-path: url(#yurak-shakli);
+    align-items: flex-start; padding-top: 13px;
 }
-@media (prefers-reduced-motion: reduce) { .pastga-ishora .pi-strelka { animation: none; } }
+@keyframes pi-sakra {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(5px); }
+}
+@media (prefers-reduced-motion: reduce) { .pastga-ishora .pi-shakl { animation: none; } }
 .hero-burchak {
     position: absolute; width: 42px; height: 42px; color: var(--asos);
     opacity: .5; pointer-events: none; z-index: 0;
@@ -374,12 +397,13 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 }
 </style>
 
-<div class="pastga-ishora" id="pastga-ishora" aria-hidden="true">
-    <span>{% trans "Pastga suring" %}</span>
-    <svg class="pi-strelka" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 9l6 6 6-6"/>
-    </svg>
+<div class="pastga-ishora{% if taklifnoma.juftlik_marosimi %} yurakli{% endif %}" id="pastga-ishora" aria-hidden="true">
+    <span class="pi-shakl">
+        <svg class="pi-strelka" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </span>
 </div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">

@@ -245,17 +245,10 @@ button[type="submit"] {
 }
 button[type="submit"]:hover { background: var(--tilla-toq); border-color: var(--tilla-toq); }
 
-/* --- Sayt musiqa tugmasi (oq uslub) --- */
-#sayt-musiqa-tugma {
-    background: var(--toza) !important; border-color: var(--tilla) !important;
-    color: var(--tilla-toq) !important; box-shadow: 0 4px 16px rgba(23,19,15,.16) !important;
-}
-#sayt-musiqa-tugma.ijroda::before { border-color: var(--tilla) !important; }
-#sayt-musiqa-tugma.bloklangan { animation-name: sayt-musiqa-puls-oq !important; }
-@keyframes sayt-musiqa-puls-oq {
-    0%, 100% { box-shadow: 0 0 0 0 var(--tilla-yumshoq); }
-    50% { box-shadow: 0 0 0 12px rgba(169,129,46,0); }
-}
+/* Sayt fon musiqasi tugmasining uslublari shu yerda edi — musiqaning
+   o'zi olib tashlangach, ular ham keraksiz qoldi (sabab:
+   _sayt_musiqa.html izohi). Taklifnomadagi musiqa tugmasi boshqa
+   element ("#musiqa-tugma", _mijoz_qismi.html) va u joyida turibdi. */
 
 /* --- Dizayn galereyasi (bosh sahifa + shablon tanlash uchun umumiy) --- */
 .dizayn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }

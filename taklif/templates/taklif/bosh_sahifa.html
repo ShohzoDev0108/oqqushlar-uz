@@ -23,7 +23,6 @@ bezaklari saqlanib qoldi — ular kontent bilan urishmaydi.
 
 @media (max-width: 700px) {
     body { padding-bottom: 74px; } /* yopishqoq CTA joyi */
-    #sayt-musiqa-tugma { bottom: 88px !important; }
     {% comment %}
     Mobilda ekranning pastida "Taklifnoma yaratish" yopishqoq tugmasi
     DOIM turadi (_sayt_nav.html, mobil_cta=True). Hero ichida yana
@@ -37,13 +36,48 @@ bezaklari saqlanib qoldi — ular kontent bilan urishmaydi.
     .oq-hero-tugmalar .oq-cta.toliq { display: none; }
 }
 
-/* --- Hero: avval oqqushlar surati (nav ostida), keyin matn --- */
+{% comment %}
+Hero tartibi (mobil): GERB va SARLAVHA → KARUSEL → qolgan matn.
+
+TAFTISH: ilgari karusel butun matn blokining ostida edi — ya'ni mijoz
+telefonida birinchi ekranda faqat yozuvlarni ko'rardi, mahsulotning
+o'zini esa uch-to'rt marta surgandan keyin. Endi u sarlavhaning
+bevosita ostida: brend (gerb) tanishtiriladi, keyin darhol mahsulot
+ko'rsatiladi.
+
+Karuselni gerbdan ham TEPAGA chiqarish ataylab qilinmadi: mijoz
+birinchi ekranda avval KIMNING sayti ekanini bilishi kerak, aks holda
+u chiroyli rasmlarni ko'radi-yu, brend esda qolmaydi.
+
+Birinchi ekranga sig'ishi uchun mobilda gerb va sarlavha atrofidagi
+bo'shliqlar qisqartirildi (pastdagi @media qoidalari) — o'lchov bilan
+tekshirilgan.
+{% endcomment %}
 .oq-hero { padding: 44px 0 90px; }
-.oq-hero-ich { display: flex; flex-direction: column; align-items: center; gap: 44px; }
-.oq-hero-matn { order: 1; }
+.oq-hero-ich { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.oq-hero-bosh    { order: 1; }
 .oq-telefon-blok { order: 2; }
-.oq-hero-matn { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.oq-hero-matn    { order: 3; }
+.oq-hero-bosh, .oq-hero-matn {
+    text-align: center; display: flex; flex-direction: column; align-items: center;
+}
 .oq-hero-matn .oq-yorliq { display: block; margin-bottom: 4px; }
+
+/* Mobilda birinchi ekran budjeti juda tor: gerb + sarlavha + karusel
+   844px balandlikdagi telefonga sig'ishi kerak, ustiga pastda yopishqoq
+   CTA (74px) ham bor. Shuning uchun bu yerda faqat bo'shliqlar
+   qisqartiriladi — o'lchamlar emas. */
+@media (max-width: 699px) {
+    .oq-hero { padding: 24px 0 76px; }
+    /* 22px — o'lchov bilan tanlangan eng kichik qiymat: uzun tarjimali
+       tillarda (ruscha) sarlavha uch qatorga chiqadi va "Ochib ko'rish"
+       tugmasi pastdagi yopishqoq CTA ostiga kirib ketardi. */
+    .oq-hero-ich { gap: 22px; }
+    /* Gerb va sarlavha o'lchamlari pastda, ".oq-hero-belgi" bazaviy
+       qoidasidan KEYIN berilgan — bir xil kuchdagi selektorda manba
+       tartibi hal qiladi, media so'rovi kuch qo'shmaydi. */
+    .oq-hero-bosh .oq-h1 { font-size: 1.75rem; margin: 8px 0 0; }
+}
 {% comment %}
 Brend gerbi — sarlavha ustida. Bu to'liq, naqshli belgi: uni faqat
 KATTA o'lchamda ishlatamiz (panel va favicon uchun soddalashtirilgan
@@ -117,6 +151,15 @@ va nuri baribir joyida.
     .oq-hero-gerb { animation: none; }
     .oq-hero-belgi::after { animation: none; opacity: 0; }
 }
+/* Telefonda gerb kichrayadi — u endi karuselning USTIDA turibdi va
+   ikkalasi birinchi ekranga sig'ishi kerak (o'lchandi: 390x844). */
+/* "15vh" cheklovi past ekranlar uchun (masalan 360x640 li eski
+   telefonlar): u yerda 124px li gerb birinchi ekranning beshdan birini
+   yeb qo'yardi va karuselga joy qolmasdi. Baland ekranlarda cheklov
+   ishlamaydi — 844px da 15vh = 126px, ya'ni 124px o'zi kichikroq. */
+@media (max-width: 699px) {
+    .oq-hero-belgi { width: min(124px, 15vh); height: min(124px, 15vh); margin-bottom: 10px; }
+}
 @media (min-width: 700px) { .oq-hero-belgi { width: 200px; height: 200px; margin-bottom: 24px; } }
 @media (min-width: 1000px) { .oq-hero-belgi { width: 220px; height: 220px; } }
 .oq-kichik-sarlavha {
@@ -141,6 +184,8 @@ yeb qo'yardi. Bu variant esa istalgan ekranda tiniq va deyarli vaznsiz.
 {% endcomment %}
 .oq-telefon-blok {
     position: relative; width: 100%;
+    /* Karusel va uning ostidagi "Barcha dizaynlar" havolasi. */
+    display: flex; flex-direction: column; align-items: center;
     /* Maketning butun o'lchami shu bitta o'zgaruvchidan kelib chiqadi.
        Ilgari u ".oq-telefon" da edi; endi karusel ham (balandligi,
        yon kartalarning siljishi) shu qiymatga tayanadi. */
@@ -151,7 +196,10 @@ yeb qo'yardi. Bu variant esa istalgan ekranda tiniq va deyarli vaznsiz.
    (o'lchandi: 11 piksel ustma-ust tushardi). Maketni sal kichraytirib,
    ostiga joy qoldiramiz. */
 @media (max-width: 999px) {
-    .oq-telefon-blok { --tb: min(360px, 43vh); margin-bottom: 30px; }
+    /* Maket balandligi shu yerda cheklanadi: karusel + sarlavha + gerb
+       birgalikda 844px li ekranga, yopishqoq CTA (74px) dan yuqorida
+       sig'ishi kerak. Sakkiz tilning eng uzunida ham tekshirilgan. */
+    .oq-telefon-blok { --tb: min(330px, 40vh); margin-bottom: 30px; }
 }
 {% comment %}
 Telefon maketi.
@@ -332,6 +380,28 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
 .tel-karta.faol .tel-ochish { opacity: 1; transform: translateX(-50%); pointer-events: auto; }
 .tel-ochish:hover { background: var(--tilla); color: var(--toza); }
 
+{% comment %}
+"Barcha dizaynlar" havolasi — karuselning OSTIDA.
+
+TAFTISH: bu havola ilgari hero tugmalari orasida, ya'ni karuseldan
+YUQORIDA turardi. Mantiqan teskari edi: mijozga avval mahsulot
+ko'rsatiladi, keyin "hammasini ko'rish" taklif qilinadi.
+
+Ataylab tugma EMAS, oddiy havola: uning ustida allaqachon "Ochib
+ko'rish" tugmasi turibdi va ikkita bir xil ko'rinishdagi tugma
+ustma-ust bo'lsa, ko'z qaysi biri asosiysini ajrata olmaydi. Asosiy
+harakat esa "Taklifnoma yaratish" bo'lib qolishi kerak.
+{% endcomment %}
+.tel-hamma-havola {
+    display: inline-flex; align-items: center; gap: 7px;
+    margin-top: 4px; color: var(--tilla-toq); text-decoration: none;
+    font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
+    border-bottom: 1px solid transparent; padding-bottom: 2px;
+    transition: color .2s ease, border-color .2s ease;
+}
+.tel-hamma-havola svg { width: 13px; height: 13px; flex-shrink: 0; }
+.tel-hamma-havola:hover { color: var(--tilla); border-bottom-color: var(--tilla); }
+
 /* Ekran ichidagi kontent */
 .tel-ekran-ich {
     position: absolute; left: 0; right: 0; top: 0; bottom: calc(var(--tb) * .20);
@@ -382,14 +452,28 @@ quvvat tugmalari, korpus chetida titan metall yaltirashi.
    ham birinchi ekranga sig'adi. */
 @media (min-width: 1000px) {
     .oq-hero { padding: 40px 0 66px; }
-    .oq-hero-ich { flex-direction: row; align-items: center; gap: 54px; }
-    .oq-hero-matn {
-        order: 1; flex: 1 1 46%; text-align: left; align-items: flex-start;
+    {% comment %}
+    Kengroq ekranda hero endi ikki ustunli TO'R (grid): chap ustunda
+    sarlavha bloki va uning ostida qolgan matn, o'ng ustunda esa
+    karusel — u ikkala qatorni ham egallaydi.
+
+    Nega flex emas: mobilda uchala blok bitta ustunda ketma-ket turadi
+    (gerb → karusel → matn), desktopda esa gerb va matn BIRGA, karusel
+    esa ularning yonida bo'lishi kerak. Flex'da buning uchun qo'shimcha
+    o'rovchi <div> kerak bo'lardi va u mobil tartibni buzardi; grid'da
+    esa markup umuman o'zgarmaydi.
+    {% endcomment %}
+    .oq-hero-ich {
+        display: grid; align-items: center; gap: 20px 54px;
+        grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
+        grid-template-areas: "bosh tel" "matn tel";
     }
+    .oq-hero-bosh { grid-area: bosh; text-align: left; align-items: flex-start; }
+    .oq-hero-matn { grid-area: matn; text-align: left; align-items: flex-start; }
+    .oq-telefon-blok { grid-area: tel; --tb: min(560px, 62vh); }
     .oq-hero-matn .oq-matn { margin-bottom: 30px; }
     .oq-hero-tugmalar { justify-content: flex-start; }
     .oq-hero .ajratish { margin-left: 0; margin-right: 0; }
-    .oq-telefon-blok { order: 2; flex: 1 1 46%; --tb: min(560px, 62vh); }
 }
 
 /* --- Bo'limlar --- */
@@ -559,6 +643,17 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
     <div class="oq-romka-burchak orb-bl"></div>
     <div class="oq-romka-burchak orb-br"></div>
     <div class="oq-ichki oq-hero-ich">
+        {% comment %}
+        Hero uchga bo'lingan: sarlavha bloki, karusel, qolgan matn.
+        Mobilda ular shu tartibda ustma-ust turadi (CSS "order"),
+        desktopda esa sarlavha va matn chapda, karusel o'ngda (grid).
+        {% endcomment %}
+        <div class="oq-hero-bosh">
+            <span class="oq-hero-belgi">
+                <img class="oq-hero-gerb" src="{% static 'taklif/gerb.svg' %}" alt="Oqqushlar" width="220" height="220">
+            </span>
+            <h1 class="oq-h1">{% trans "Eng go'zal kuningiz uchun" %}<br><em>{% trans "raqamli taklifnoma" %}</em></h1>
+        </div>
         <div class="oq-telefon-blok">
             <div class="tel-karusel" id="tel-karusel" aria-label="{% trans "Marosim turlari" %}">
                 {% for sl in bosh_slaydlar %}
@@ -617,31 +712,27 @@ raqam, nima kirishi ro'yxati va "avval bepul ko'ring" kafolati.
                 </div>
                 {% endfor %}
             </div>
+            <a class="tel-hamma-havola" href="{% url 'taklif:shablon_tanlash' %}">
+                {% include "taklif/_ikonalar/koz.svg" %}
+                {% trans "Barcha dizaynlarni ko'rish" %}
+            </a>
         </div>
         <div class="oq-hero-matn">
-            <span class="oq-hero-belgi">
-                <img class="oq-hero-gerb" src="{% static 'taklif/gerb.svg' %}" alt="Oqqushlar" width="220" height="220">
-            </span>
-            <h1 class="oq-h1">{% trans "Eng go'zal kuningiz uchun" %}<br><em>{% trans "raqamli taklifnoma" %}</em></h1>
             <div class="ajratish"></div>
             <span class="oq-yorliq">{% trans "Tez va oson" %}</span>
             <div class="oq-kichik-sarlavha">{% trans "Telefonda o'zingiz yarating" %}</div>
             <p class="oq-matn">
                 {% trans "Dizaynni tanlang, ma'lumotlaringizni kiriting va tayyor taklifnomani shu zahoti ko'ring — bor-yo'g'i 5 daqiqada, ro'yxatdan o'tmasdan. To'lov — faqat yoqqanidan keyin." %}
             </p>
+            {% comment %}
+            "Barcha dizaynlarni ko'rish" bu yerdan olib tashlandi — u endi
+            karuselning ostida turibdi. Hero'da bitta asosiy harakat
+            qoladi, ya'ni mijoz uchun yo'l bir xil o'qiladi.
+            {% endcomment %}
             <div class="oq-hero-tugmalar">
                 <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">
                     {% include "taklif/_ikonalar/yarat.svg" %}
                     {% trans "Taklifnoma yaratish" %}
-                </a>
-                {% comment %}
-                Ilgari bu havola shu sahifadagi namunalar lentasiga
-                ("#dizaynlar") olib borardi — mijoz esa to'liq katalogni
-                kutadi. Endi to'g'ridan-to'g'ri Dizaynlar sahifasiga.
-                {% endcomment %}
-                <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">
-                    {% include "taklif/_ikonalar/koz.svg" %}
-                    {% trans "Barcha dizaynlarni ko'rish" %}
                 </a>
             </div>
         </div>
@@ -937,7 +1028,13 @@ va h.k.) — o'ylab topilgan raqam yoki va'da yo'q.
     var kartalar = Array.prototype.slice.call(karusel.querySelectorAll('.tel-karta'));
     if (kartalar.length < 2) { return; }
 
-    var ORALIQ = 4600;     // slaydlar orasidagi vaqt
+    {% comment %}
+    Almashinuv animatsiyasining o'zi 0.62 s. 3200 ms'da karta o'rtada
+    ~2.6 s qimirlamay turadi — marosim nomini o'qishga yetadi. Bundan
+    pastga tushirish tavsiya etilmaydi: 2000 ms'da tinch payt 1.4 s
+    bo'lib qoladi va maket "sakrayotgandek" ko'rinadi.
+    {% endcomment %}
+    var ORALIQ = 3200;     // slaydlar orasidagi vaqt
     var TIKLANISH = 7000;  // mijoz tekkanidan keyin qancha kutib, yana yurish
     var joriy = 0;
     var taymer = null;
