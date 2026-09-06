@@ -309,7 +309,7 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 .xarita-tugmalar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .soni-stepper { display: flex; align-items: center; gap: 14px; }
 .soni-tugma { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--chegara); background: var(--input-fon); color: var(--matn); font-size: 1.2rem; cursor: pointer; }
-@media (hover: hover) { .soni-tugma:hover {border-color: var(--asos); color: var(--asos);} }
+@media (hover: hover) and (pointer: fine) { .soni-tugma:hover {border-color: var(--asos); color: var(--asos);} }
 .soni-korsatkich { min-width: 34px; text-align: center; font-size: 1.15rem; font-weight: bold; }
 .soni-izoh { color: var(--ikkinchi); font-size: .75rem; margin-top: 5px; }
 .keladi-tugmalar { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -317,7 +317,7 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 .keladi-tugma.faol { background: var(--asos); border-color: var(--asos); color: var(--asos-matn); }
 .ulashish-tugmalar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .ulashish-tugma { display: inline-block; padding: 11px 22px; border-radius: 24px; border: 1px solid var(--asos); color: var(--asos); background: var(--karta-fon); text-decoration: none; font-size: .9rem; cursor: pointer; font-family: inherit; }
-@media (hover: hover) { .ulashish-tugma:hover {background: var(--asos); color: var(--asos-matn);} }
+@media (hover: hover) and (pointer: fine) { .ulashish-tugma:hover {background: var(--asos); color: var(--asos-matn);} }
 .tilak-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
 .tilak-karta { background: var(--karta-fon); border: 1px solid var(--chegara); border-radius: var(--radius); padding: 16px 18px; }
 .tilak-ism { font-weight: bold; margin-bottom: 4px; }
@@ -370,7 +370,7 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
     content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 30px; height: 3px; border-radius: 0 0 4px 4px; background: var(--asos); opacity: .6;
 }
-@media (hover: hover) { .tafsilot-karta:hover {transform: translateY(-3px); box-shadow: 0 18px 30px -18px rgba(0,0,0,.5);} }
+@media (hover: hover) and (pointer: fine) { .tafsilot-karta:hover {transform: translateY(-3px); box-shadow: 0 18px 30px -18px rgba(0,0,0,.5);} }
 .tafsilot-karta .belgi-halqa {
     width: 50px; height: 50px; margin: 0 auto 12px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -757,3 +757,21 @@ bo'limni alohida siqish imkonini beradi.
         </div>
     </div>
 </div>
+
+{% comment %}
+Klaviatura fokusi — taklifnoma sahifalari uchun. Sabab va mantiq
+_sayt_uslubi.html'dagi bilan bir xil: hover endi faqat sichqonchali
+qurilmalarda ishlaydi, klaviatura bilan yuruvchi mehmonga esa alohida,
+ko'rinadigan belgi kerak. Rang shablonning o'z palitrasidan olinadi.
+{% endcomment %}
+<style>
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--asos);
+    outline-offset: 3px;
+}
+</style>

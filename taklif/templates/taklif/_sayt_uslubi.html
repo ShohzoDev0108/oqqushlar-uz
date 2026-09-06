@@ -125,7 +125,7 @@ ekranda bir xil toza o'qiladi.
     font-family: var(--sans); font-size: .46rem; letter-spacing: 3px;
     color: var(--kul); white-space: nowrap; text-transform: uppercase;
 }
-@media (hover: hover) { .oq-logo:hover .oq-logo-nom {color: var(--tilla-toq);} }
+@media (hover: hover) and (pointer: fine) { .oq-logo:hover .oq-logo-nom {color: var(--tilla-toq);} }
 .oq-footer .oq-logo-nom { font-size: 1.2rem; letter-spacing: 3.6px; }
 .oq-nav-linklar { display: flex; gap: 6px 2px; flex-wrap: wrap; }
 .oq-nav-linklar a {
@@ -137,8 +137,8 @@ ekranda bir xil toza o'qiladi.
 .oq-nav-linklar a .oq-nav-tuk {
     width: 5px; height: 5px; border-radius: 50%; background: var(--tilla); opacity: 0; transition: opacity .2s;
 }
-@media (hover: hover) { .oq-nav-linklar a:hover {background: var(--tilla-yumshoq); color: var(--tilla-toq);} }
-@media (hover: hover) { .oq-nav-linklar a:hover .oq-nav-tuk {opacity: 1;} }
+@media (hover: hover) and (pointer: fine) { .oq-nav-linklar a:hover {background: var(--tilla-yumshoq); color: var(--tilla-toq);} }
+@media (hover: hover) and (pointer: fine) { .oq-nav-linklar a:hover .oq-nav-tuk {opacity: 1;} }
 
 /* Joriy bo'lim — oltin rang, yonida nuqta va ostida nozik chiziq.
    To'ldirilgan "tabletka" emas: u hover holati bilan chalkashardi va
@@ -166,13 +166,13 @@ ekranda bir xil toza o'qiladi.
     font-family: inherit; border-radius: 30px;
 }
 .oq-cta svg { width: 15px; height: 15px; flex-shrink: 0; }
-@media (hover: hover) { .oq-cta:hover {background: var(--tilla-yumshoq);} }
+@media (hover: hover) and (pointer: fine) { .oq-cta:hover {background: var(--tilla-yumshoq);} }
 .oq-cta.toliq {
     border: none; color: #fff;
     background: linear-gradient(155deg, var(--tilla), var(--tilla-toq));
     box-shadow: 0 6px 18px rgba(124,92,28,.35);
 }
-@media (hover: hover) { .oq-cta.toliq:hover {transform: translateY(-2px) scale(1.015); box-shadow: 0 10px 26px rgba(124,92,28,.45);} }
+@media (hover: hover) and (pointer: fine) { .oq-cta.toliq:hover {transform: translateY(-2px) scale(1.015); box-shadow: 0 10px 26px rgba(124,92,28,.45);} }
 .oq-cta.kichik { padding: 10px 20px; font-size: .7rem; gap: 7px; }
 .oq-cta.kichik svg { width: 13px; height: 13px; }
 {% comment %}
@@ -188,7 +188,7 @@ aniq belgilaymiz.
     background: linear-gradient(155deg, #c25a5a, var(--xavf));
     box-shadow: 0 6px 18px rgba(161,61,61,.32);
 }
-@media (hover: hover) { .oq-cta.xavfli:hover {transform: translateY(-2px) scale(1.015); box-shadow: 0 10px 26px rgba(161,61,61,.42);} }
+@media (hover: hover) and (pointer: fine) { .oq-cta.xavfli:hover {transform: translateY(-2px) scale(1.015); box-shadow: 0 10px 26px rgba(161,61,61,.42);} }
 
 /* --- Breadcrumb (yo'l izlari) --- */
 .oq-izlar {
@@ -196,7 +196,7 @@ aniq belgilaymiz.
     letter-spacing: 2.5px; text-transform: uppercase; color: var(--kul); flex-wrap: wrap;
 }
 .oq-izlar a { color: var(--kul); text-decoration: none; transition: .2s; }
-@media (hover: hover) { .oq-izlar a:hover {color: var(--tilla-toq);} }
+@media (hover: hover) and (pointer: fine) { .oq-izlar a:hover {color: var(--tilla-toq);} }
 .oq-izlar .joriy { color: var(--tilla-toq); }
 
 /* --- Sarlavha ierarxiyasi --- */
@@ -229,7 +229,7 @@ qiymatlaridan boshlanadi. Xuddi shu mantiq .oq-h2'ga ham qo'llangan.
     border: 1px solid var(--chiziq); border-radius: 4px;
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s;
 }
-@media (hover: hover) { .oq-karta:hover {transform: translateY(-4px); box-shadow: 0 14px 34px rgba(23,19,15,.1); border-color: rgba(169,129,46,.45);} }
+@media (hover: hover) and (pointer: fine) { .oq-karta:hover {transform: translateY(-4px); box-shadow: 0 14px 34px rgba(23,19,15,.1); border-color: rgba(169,129,46,.45);} }
 
 /* --- Forma elementlari --- */
 label { display: block; margin: 18px 0 6px; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--kul); }
@@ -243,7 +243,7 @@ button[type="submit"] {
     background: var(--tilla); color: #fff; letter-spacing: 2.5px; text-transform: uppercase;
     font-size: .8rem; cursor: pointer; width: 100%; font-family: inherit; transition: .25s;
 }
-@media (hover: hover) { button[type="submit"]:hover {background: var(--tilla-toq); border-color: var(--tilla-toq);} }
+@media (hover: hover) and (pointer: fine) { button[type="submit"]:hover {background: var(--tilla-toq); border-color: var(--tilla-toq);} }
 
 /* Sayt fon musiqasi tugmasining uslublari shu yerda edi — musiqaning
    o'zi olib tashlangach, ular ham keraksiz qoldi (sabab:
@@ -268,9 +268,9 @@ button[type="submit"] {
     text-decoration: none; font-size: .74rem; letter-spacing: .5px;
     text-transform: uppercase; transition: .2s;
 }
-@media (hover: hover) { .shablon-karta .karta-tugma:hover {border-color: var(--tilla); color: var(--tilla-toq);} }
+@media (hover: hover) and (pointer: fine) { .shablon-karta .karta-tugma:hover {border-color: var(--tilla); color: var(--tilla-toq);} }
 .shablon-karta .karta-tugma.asosiy { border-color: var(--tilla); color: var(--tilla-toq); background: var(--tilla-yumshoq); }
-@media (hover: hover) { .shablon-karta .karta-tugma.asosiy:hover {background: var(--tilla); color: var(--toza);} }
+@media (hover: hover) and (pointer: fine) { .shablon-karta .karta-tugma.asosiy:hover {background: var(--tilla); color: var(--toza);} }
 @media (max-width: 420px) {
     .shablon-karta .karta-tugmalar { padding: 0 10px 12px; gap: 6px; }
     .shablon-karta .karta-tugma { padding: 8px 6px; font-size: .66rem; letter-spacing: .3px; }
@@ -314,7 +314,7 @@ ketardi.
     background: linear-gradient(105deg, transparent, rgba(255,255,255,.4), transparent);
     transform: skewX(-16deg); transition: left .65s ease; pointer-events: none; z-index: 3;
 }
-@media (hover: hover) { .shablon-karta:hover .shablon-mini::before {left: 130%;} }
+@media (hover: hover) and (pointer: fine) { .shablon-karta:hover .shablon-mini::before {left: 130%;} }
 
 /* Tekis rang o'rniga nafis fotosurat orqasiga yashiringan mini-namuna
    (Shablon.rasm to'ldirilgan bo'lsa) — matn/bezak ustida qolishi uchun
@@ -326,7 +326,7 @@ ketardi.
 }
 .shablon-mini.mini-surat > * { position: relative; z-index: 2; }
 .shablon-mini.mini-surat .m-ramka { border-color: rgba(255,255,255,.6); }
-@media (hover: hover) { .shablon-karta:hover .shablon-mini .m-ramka {opacity: .75;} }
+@media (hover: hover) and (pointer: fine) { .shablon-karta:hover .shablon-mini .m-ramka {opacity: .75;} }
 
 /* Har bir shablonning rang olami */
 .mini-suzani { background: radial-gradient(circle at 30% 30%, rgba(179,50,59,.18), transparent 55%), #f8f0e0; color: #a12d33; }
@@ -377,7 +377,7 @@ yubiley — olxo'ri.
     color: var(--kul); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
     cursor: pointer; transition: .2s; font-family: inherit; border-radius: 2px;
 }
-@media (hover: hover) { .turkum-tugma:hover {color: var(--tilla-toq); border-color: var(--tilla);} }
+@media (hover: hover) and (pointer: fine) { .turkum-tugma:hover {color: var(--tilla-toq); border-color: var(--tilla);} }
 .turkum-tugma.faol { color: var(--tilla-toq); border-color: var(--tilla); background: var(--tilla-yumshoq); }
 
 /* --- Navigatsiya: qachon ☰ ga o'tadi ---
@@ -414,7 +414,7 @@ yubiley — olxo'ri.
         background: var(--toza); cursor: pointer;
         transition: border-color .2s ease;
     }
-    @media (hover: hover) { .oq-burger:hover {border-color: var(--tilla);} }
+    @media (hover: hover) and (pointer: fine) { .oq-burger:hover {border-color: var(--tilla);} }
     .oq-burger span {
         display: block; width: 18px; height: 1.5px; border-radius: 1px;
         background: var(--tilla-toq);
@@ -452,12 +452,12 @@ yubiley — olxo'ri.
         font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
         transition: background .15s ease, color .15s ease;
     }
-    @media (hover: hover) { .oq-menyu a:hover {background: var(--tilla-yumshoq); color: var(--tilla-toq);} }
+    @media (hover: hover) and (pointer: fine) { .oq-menyu a:hover {background: var(--tilla-yumshoq); color: var(--tilla-toq);} }
     .oq-menyu a.oq-menyu-cta {
         margin-top: 8px; border: 0; text-align: center; border-radius: 3px;
         background: var(--tilla); color: #fff; padding: 13px 10px; letter-spacing: 1.8px;
     }
-    @media (hover: hover) { .oq-menyu a.oq-menyu-cta:hover {background: var(--tilla-toq); color: #fff;} }
+    @media (hover: hover) and (pointer: fine) { .oq-menyu a.oq-menyu-cta:hover {background: var(--tilla-toq); color: #fff;} }
 }
 
 /* --- Mobil (95% mijozlar telefonda) --- */
@@ -552,7 +552,7 @@ yubiley — olxo'ri.
     color: var(--kul); text-decoration: none; font-size: .72rem;
     letter-spacing: 2px; text-transform: uppercase;
 }
-@media (hover: hover) { .oq-footer-linklar a:hover {color: var(--tilla-toq);} }
+@media (hover: hover) and (pointer: fine) { .oq-footer-linklar a:hover {color: var(--tilla-toq);} }
 
 /* Mobil footer: faqat logotip, chapga tekislangan (headerdagi kabi).
    Havolalar (Bosh sahifa, Dizaynlar va h.k.) ataylab OLIB TASHLANGAN —
@@ -573,7 +573,7 @@ yubiley — olxo'ri.
     display: flex; align-items: center; justify-content: center;
     transition: color .18s ease, border-color .18s ease;
 }
-@media (hover: hover) { .oq-footer-aloqa a:hover {color: var(--tilla-toq); border-color: var(--tilla);} }
+@media (hover: hover) and (pointer: fine) { .oq-footer-aloqa a:hover {color: var(--tilla-toq); border-color: var(--tilla);} }
 .oq-footer-aloqa svg { width: 17px; height: 17px; display: block; }
 
 @media (max-width: 700px) {
@@ -650,4 +650,29 @@ yubiley — olxo'ri.
 @media (max-width: 700px) {
     .oq-narx-karta { padding: 36px 24px; }
     .oq-narx-royxat { display: block; }
+}
+
+{% comment %}
+KLAVIATURA FOKUSI.
+
+Hover holati endi FAQAT sichqonchali qurilmalarda qo'llanadi
+("@media (hover: hover) and (pointer: fine)"). Sabab: teginish
+ekranida brauzer barmoq tekkan elementni "hover ostida" deb hisoblab,
+uni o'sha holatda ushlab qolardi — tugma bosilgandan keyin rangi
+o'zgargancha turib qolardi.
+
+Lekin hover hech qachon klaviatura bilan yuruvchi odamga yordam
+bermagan: u Tab bosadi, sichqoncha esa qimirlamaydi. Ilgari bu
+sezilmasdi, chunki ko'p tugmaning o'z fokus belgisi yo'q edi. Endi
+umumiy qoida bor — u faqat KLAVIATURADAN kelgan fokusda chiqadi
+(":focus-visible"), sichqoncha bilan bosilganda emas.
+{% endcomment %}
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--tilla);
+    outline-offset: 3px;
 }
