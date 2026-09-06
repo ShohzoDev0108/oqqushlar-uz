@@ -103,18 +103,30 @@ To'liq til nomlari yo'qolmadi: ular ochilgan ro'yxatda ko'rinadi, ya'ni
 qisqartma hech qachon yagona ma'lumot manbai emas. Joriy til ro'yxatda
 oltin fon bilan ajratib ko'rsatiladi.
 {% endcomment %}
+{% comment %}
+TAFTISH 3 — tugma TO'LDIRILGAN edi, endi CHEGARALI.
+
+Muammo: oltin gradient fon, oq qalin matn va soya bilan bu tugma
+panelning eng baland ovozli elementiga aylangandi — logotipdan ham
+ko'zga tashlanardi. Til almashtirgich esa ikkinchi darajali boshqaruv:
+u topilishi kerak, lekin diqqatni o'ziga tortmasligi kerak.
+
+Ikkinchi sabab — izchillik. Yonida turgan ☰ tugmasi chegarali va
+yengil; saytdagi ikkinchi darajali tugmalar ("Barcha dizaynlar",
+"Ochib ko'rish") ham shunday. Taklifnoma sahifalarida esa yonida
+musiqa tugmasi turadi va u ham aynan shu ko'rinishda (chegara
+--asos, fon --karta-fon). Ya'ni to'ldirilgan variant hamma joyda
+yolg'iz istisno edi.
+{% endcomment %}
 .til-tugma {
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 52px; padding: 9px 13px;
-    border: 1px solid var(--til-border); border-radius: 999px;
-    background: var(--til-bg); color: var(--til-accent-matn);
-    background: linear-gradient(155deg, var(--til-accent), color-mix(in srgb, var(--til-accent) 72%, #000));
-    border-color: transparent;
-    font: inherit; font-size: .72rem; font-weight: 700; letter-spacing: 1.4px;
-    cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, filter .18s;
-    box-shadow: 0 4px 12px color-mix(in srgb, var(--til-accent) 32%, transparent);
+    border: 1px solid var(--til-accent); border-radius: 999px;
+    background: var(--til-bg); color: var(--til-accent);
+    font: inherit; font-size: .72rem; font-weight: 600; letter-spacing: 1.4px;
+    cursor: pointer; transition: background .18s ease, color .18s ease;
 }
-@media (hover: hover) and (pointer: fine) { .til-tugma:hover {transform: translateY(-1px); filter: brightness(1.06);} }
+@media (hover: hover) and (pointer: fine) { .til-tugma:hover {background: var(--til-accent); color: var(--til-accent-matn);} }
 .til-tugma:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--til-accent) 30%, transparent); }
 .til-tugma { gap: 6px; }
 .til-tugma .til-joriy { white-space: nowrap; }

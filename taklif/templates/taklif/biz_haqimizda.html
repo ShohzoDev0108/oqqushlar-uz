@@ -12,11 +12,33 @@
 .bh-matn p { color: var(--kul); line-height: 1.85; margin: 0 0 18px; }
 .bh-matn p strong { color: var(--siyoh); font-weight: 600; }
 
-.bh-royxat { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 20px; }
 @media (min-width: 760px) { .bh-royxat { grid-template-columns: 1fr 1fr; gap: 24px 34px; } }
 .bh-royxat li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
+{% comment %}
+Ro'yxat belgisi — BRENDNING O'Z belgisi (ikki oqqush bo'yni yurak
+hosil qiladi, "_ikonalar/belgi.svg" bilan bir xil chizma).
+
+Nega har bir band uchun alohida ikonka EMAS: bu belgi bandning
+MAZMUNINI bildirmaydi, u bandning BOSHLANISHINI bildiradi — ya'ni
+ro'yxat markeri, ikonka emas. To'rt xil ikonka qo'yilsa, ro'yxat
+"ikonkalar to'plami"ga aylanadi va har qanday SaaS sayti bilan bir xil
+ko'rinadi: globus, o'chirilgan odam, zanjir, ko'z. Brend belgisi esa
+o'sha joyda "bu — Oqqushlar" deb turadi.
+
+Nega SHRIFT belgisi emas, SVG: ilgari bu yerda "❦" (U+2766) harfi
+turardi. U Android'ning asosiy shriftida yo'q va zaxira shriftga
+tushadi — har qurilmada boshqa o'lchamda va boshqa qalinlikda
+chiqardi, ba'zilarida esa bo'sh kvadrat bo'lib qolishi mumkin edi.
+{% endcomment %}
 .bh-royxat li::before {
-    content: "❦"; color: var(--tilla); font-size: .9rem; line-height: 1.7;
+    content: ""; width: 15px; height: 15px; margin-top: 5px;
+    background-color: var(--tilla);
+    -webkit-mask: var(--bh-fleuron) center / contain no-repeat;
+            mask: var(--bh-fleuron) center / contain no-repeat;
+}
+.bh-royxat {
+    --bh-fleuron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='4.2'%3E%3Cpath d='M32 48 C24 42 17.5 34.5 20 27 C22.2 20.5 29 20.5 32 27'/%3E%3Cpath d='M32 48 C40 42 46.5 34.5 44 27 C41.8 20.5 35 20.5 32 27'/%3E%3Cpath d='M14 40 C16 50 25 55 32 49.5'/%3E%3Cpath d='M50 40 C48 50 39 55 32 49.5'/%3E%3C/g%3E%3C/svg%3E");
+    list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 20px;
 }
 .bh-royxat b { display: block; font-family: var(--serif); font-size: 1.08rem; font-weight: 500; margin-bottom: 4px; }
 .bh-royxat span { color: var(--kul); font-size: .93rem; line-height: 1.75; }
