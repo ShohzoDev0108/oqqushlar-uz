@@ -2833,3 +2833,7 @@ msgstr "Ашық түстер"
 #: taklif/templates/taklif/shablonlar/_bolimlar.html
 msgid "Pastga suring"
 msgstr "Төмен сырғытыңыз"
+
+#: taklif/templates/taklif/_sayt_footer.html
+msgid "Barcha huquqlar himoyalangan"
+msgstr "Барлық құқықтар қорғалған"

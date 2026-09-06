@@ -2837,3 +2837,7 @@ msgstr "Светлые тона"
 #: taklif/templates/taklif/shablonlar/_bolimlar.html
 msgid "Pastga suring"
 msgstr "Пролистайте вниз"
+
+#: taklif/templates/taklif/_sayt_footer.html
+msgid "Barcha huquqlar himoyalangan"
+msgstr "Все права защищены"

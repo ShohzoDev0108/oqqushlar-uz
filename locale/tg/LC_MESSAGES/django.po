@@ -2846,3 +2846,7 @@ msgstr "Рангҳои равшан"
 #: taklif/templates/taklif/shablonlar/_bolimlar.html
 msgid "Pastga suring"
 msgstr "Ба поён ғелонед"
+
+#: taklif/templates/taklif/_sayt_footer.html
+msgid "Barcha huquqlar himoyalangan"
+msgstr "Ҳамаи ҳуқуқҳо ҳифз шудаанд"

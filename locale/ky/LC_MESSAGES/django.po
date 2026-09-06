@@ -2835,3 +2835,7 @@ msgstr "Ачык түстөр"
 #: taklif/templates/taklif/shablonlar/_bolimlar.html
 msgid "Pastga suring"
 msgstr "Ылдый жылдырыңыз"
+
+#: taklif/templates/taklif/_sayt_footer.html
+msgid "Barcha huquqlar himoyalangan"
+msgstr "Бардык укуктар корголгон"

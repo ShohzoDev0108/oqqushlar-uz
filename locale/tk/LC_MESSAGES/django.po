@@ -2831,3 +2831,7 @@ msgstr "Açyk reňkler"
 #: taklif/templates/taklif/shablonlar/_bolimlar.html
 msgid "Pastga suring"
 msgstr "Aşak süýşüriň"
+
+#: taklif/templates/taklif/_sayt_footer.html
+msgid "Barcha huquqlar himoyalangan"
+msgstr "Ähli hukuklar goralýar"

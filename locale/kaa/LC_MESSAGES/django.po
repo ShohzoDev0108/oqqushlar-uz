@@ -2836,3 +2836,7 @@ msgstr "Ashıq reńler"
 #: taklif/templates/taklif/shablonlar/_bolimlar.html
 msgid "Pastga suring"
 msgstr "Tómenge súyriń"
+
+#: taklif/templates/taklif/_sayt_footer.html
+msgid "Barcha huquqlar himoyalangan"
+msgstr "Barlıq huqıqlar qorǵalǵan"
