@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.files.base import ContentFile
 from django.db.models import F
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
@@ -49,6 +50,7 @@ from .namuna import (
     sessiyaga_tilak_yoz,
     tayyor_tilaklar,
 )
+from .ulashish import kartochka
 
 _logger = logging.getLogger("django.request")
 
@@ -663,6 +665,35 @@ def mehmon_korish(request, slug, mehmon_slug):
     )
     mehmon = get_object_or_404(Mehmon, taklifnoma=taklifnoma, slug=mehmon_slug)
     return _taklifnoma_sahifasi(request, taklifnoma, mehmon=mehmon)
+
+
+def ulashish_kartochkasi(request, slug):
+    """Taklifnoma havolasi ulashilganda chiqadigan oldindan ko'rinish rasmi.
+
+    Bu manzilga MEHMON emas, ijtimoiy tarmoqning O'ZI (Telegram, WhatsApp,
+    Facebook robotlari) kiradi — sahifadagi "og:image" shu yerni ko'rsatadi.
+    Shu sababli:
+
+      * til so'rovdagi "?t=" dan olinadi. Robotda mehmonning sessiyasi ham,
+        cookie'si ham yo'q, ya'ni LocaleMiddleware to'g'ri tilni aniqlay
+        olmaydi — sahifa qaysi tilda chizilgan bo'lsa, o'sha til manzilga
+        yozib yuboriladi (base.html'ga qarang);
+      * javob uzoq muddatga keshlanadi — bitta havola yuzlab marta
+        ulashiladi;
+      * "faol"/"tolangan" bo'yicha filtr YO'Q: taklifnoma hali
+        faollashtirilmagan bo'lsa ham mijoz havolani ulashib ko'rishi
+        mumkin va oldindan ko'rinish ishlashi kerak (sahifaning o'zida
+        to'lov haqidagi banner baribir chiqadi).
+    """
+    taklifnoma = get_object_or_404(
+        Taklifnoma.objects.select_related("shablon"), slug=slug
+    )
+    til = request.GET.get("t", "")
+    if til not in dict(settings.LANGUAGES):
+        til = settings.LANGUAGE_CODE
+    javob = HttpResponse(kartochka(taklifnoma, til), content_type="image/jpeg")
+    javob["Cache-Control"] = "public, max-age=86400"
+    return javob
 
 
 def _namuna_manzili(shablon_kod, marosim_turi=""):

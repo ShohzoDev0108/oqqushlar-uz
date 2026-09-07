@@ -85,7 +85,11 @@ class MezbonTiliStandartTest(TestCase):
 
     def test_ruscha_brauzer_bilan_mening_taklifnomalarim_ozbekcha_chiqadi(self):
         r = Client().get("/mening-taklifnomalarim/", HTTP_ACCEPT_LANGUAGE="ru")
-        self.assertContains(r, "Mening taklifnomalarim")
+        # Sarlavha ilgari "Mening taklifnomalarim" edi; menyuda joyi torlik
+        # qilgani uchun "Taklifnomalarim" ga qisqartirilgan, test esa eski
+        # matnni izlab qolgan edi. Bu testning maqsadi matnning o'zi emas —
+        # sahifa RUSCHA emas, O'ZBEKCHA chiqishini tekshirish.
+        self.assertContains(r, "Taklifnomalarim")
         self.assertNotContains(r, "Мои приглашения")
 
     def test_aniq_til_tanlansa_statistika_sahifasida_ham_saqlanadi(self):

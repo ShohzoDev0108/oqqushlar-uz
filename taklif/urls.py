@@ -59,6 +59,16 @@ urlpatterns = [
         views.taklifnoma_ochirish,
         name="taklifnoma_ochirish",
     ),
+    # Ulashish kartochkasi (og:image) — havola Telegram/WhatsApp'ga
+    # tashlanganda ko'rinadigan rasm. Umumiy "<slug:slug>/" qoidasidan
+    # OLDIN turishi shart, aks holda "ulashish" taklifnoma havolasi deb
+    # tushunilardi. Manzil oxiridagi ".jpg" — ba'zi robotlar rasmni
+    # kengaytmasiga qarab tanigani uchun.
+    path(
+        "ulashish/<slug:slug>.jpg",
+        views.ulashish_kartochkasi,
+        name="ulashish_kartochkasi",
+    ),
     path("<slug:slug>/rsvp/", views.rsvp_submit, name="rsvp_submit"),
     path("<slug:slug>/yoqdi/", views.yoqdi, name="yoqdi"),
     # Mehmon uchun shaxsiy link — "rsvp/"/"yoqdi/" literal manzillaridan keyin,

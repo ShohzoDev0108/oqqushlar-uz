@@ -46,8 +46,31 @@
     o'zi kanonik hisoblanadi.
     {% endcomment %}
     <meta property="og:url" content="{% if namuna %}{{ request.build_absolute_uri }}{% else %}{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}{% endif %}">
-    {% if rasmlar.0 %}
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ rasmlar.0.rasm.url }}">
+    {% comment %}
+    ULASHISH KARTOCHKASI.
+
+    TAFTISH: ilgari bu yerda yo mijozning birinchi fotosi, yo bizning
+    umumiy "og-rasm.png" logotipimiz turardi. Ikkalasi ham yomon edi:
+    logotip bo'lsa — mehmon Telegramda taklifnoma emas, REKLAMA ko'rardi
+    (ismlar ham, sana ham yo'q); xom foto bo'lsa — Telegram uni o'z
+    nisbatida qirqib tashlardi va baribir hech qanday ma'lumot bermasdi.
+    Endi rasm serverda chiziladi: marosim turi, ismlar, sana va o'sha
+    dizaynning ranglari bilan (mijoz foto yuklagan bo'lsa — foto fon
+    bo'ladi). Qarang: taklif/ulashish.py.
+
+    "?t=" — sahifa qaysi tilda ochilgan bo'lsa, rasm ham shu tilda
+    chizilsin uchun: rasmni mehmon emas, ijtimoiy tarmoq roboti alohida
+    so'rov bilan oladi va unda sessiya/cookie bo'lmaydi.
+
+    Namuna sahifasida taklifnoma bazada yo'q (slug'i ham yo'q), shuning
+    uchun u yerda avvalgidek umumiy rasm qoladi.
+    {% endcomment %}
+    {% if taklifnoma.pk %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% url 'taklif:ulashish_kartochkasi' slug=taklifnoma.slug %}?t={{ LANGUAGE_CODE }}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ taklifnoma.sarlavha }}">
     {% else %}
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/og-rasm.png' %}">
     {% endif %}
