@@ -599,7 +599,15 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
             # mavjud bo'lsa uning sarlavhasini (mijoz ismini) avtomatik
             # chiqarib yuboradi. Hali ruxsat berilmagan tashrifchiga hatto
             # meta teglar orqali ham mijoz ismini oshkor qilmaymiz.
-            return render(request, "taklif/faollashtirilmagan.html")
+            #
+            # "shablonlar" esa beriladi: bu taklifnomaga umuman aloqasi
+            # yo'q, ochiq katalog ma'lumoti. Sahifa ular bilan nima
+            # qilishi — faollashtirilmagan.html boshidagi izohda.
+            return render(
+                request,
+                "taklif/faollashtirilmagan.html",
+                {"shablonlar": Shablon.objects.filter(ommaviy=True).order_by("?")[:3]},
+            )
 
     # Ko'rishlar sonini race-condition'siz oshirish — LEKIN faqat shu
     # brauzer/sessiya bu taklifnomani BIRINCHI marta ko'rganda. Aks holda

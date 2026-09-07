@@ -1,67 +1,181 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static oq_filtrlar %}
 
 {% block title %}{% trans "Taklifnoma hali faollashtirilmagan" %}{% endblock %}
 
 {% comment %}
-TAFTISH: bu sahifa "yopiq eshik" edi — ikki qator matn, boshqa hech
-narsa. Havolani ochgan odam nima bo'lganini ham, bu qanaqa sayt ekanini
-ham bilmasdi va shu yerda yo'qolardi.
+TAFTISH: bu sahifa "yopiq eshik" edi — to'q fonda ikki qator matn va til
+tugmasi, boshqa hech narsa. U saytning qolgan qismiga (krem fon, oltin
+urg'u, naqsh, serif sarlavhalar) umuman o'xshamasdi va ochgan odam bu
+qanaqa sayt ekanini ham bilmasdi.
 
-Vaziyatning o'zi esa aslida biz uchun QULAY: mijoz taklifnomasini
-to'lovdan oldin sinab ko'rish uchun havolani do'stiga yoki o'ziga
-yuboradi — ya'ni bu sahifaga bizning mahsulotimizni umuman bilmaydigan
-odam kirib keladi. Shuning uchun bu yerda vaziyat tushuntiriladi va
-saytga taklif qilinadi.
+Vaziyatning o'zi esa aslida biz uchun QULAY. Bu yerga ikki xil odam
+tushadi:
+
+  1) MIJOZNING O'ZI — taklifnomasini to'lovdan oldin sinab ko'rmoqchi;
+  2) MEHMON — mijoz havolani faollashtirishdan oldin unga yuborgan.
+
+Ikkinchisi biz uchun eng qimmatli tashrifchi: u taklifnoma KO'RISH
+niyatida keldi, ya'ni mahsulotimizga aynan hozir qiziq. O'sha odamga
+"bog'laning" deb yo'l berib yuborish — bekor ketgan imkoniyat. Shuning
+uchun sahifa endi vaziyatni ochiq tushuntiradi va darhol ISHLAYDIGAN
+namuna taklif qiladi: u nima ko'rmoqchi bo'lgan bo'lsa, o'shani
+ko'rsatamiz.
+
+Sahifa saytning o'z qismlaridan (nav, uslub, dizayn kartalari, footer)
+yig'ilgan — ya'ni alohida "xato sahifasi" emas, saytning to'liq huquqli
+sahifasi. Til tugmasi ham endi navigatsiya ichida (avval bu yerda
+alohida, qo'lda ranglangan blok edi).
 
 MUHIM: mijozning ismi ham, sanasi ham bu sahifada CHIQMAYDI — sababi
-views.py'dagi "_taklifnoma_sahifasi" ichidagi izohda. Oldindan
-ko'rinish (og:image) ham shu sababdan umumiy brend kartochkasi.
+views.py'dagi "_taklifnoma_sahifasi" ichidagi izohda. Oldindan ko'rinish
+(og:image) ham shu sababdan umumiy brend kartochkasi.
+
+BARCHA MATNLAR ATAYLAB MAVJUD TARJIMA SATRLARIDAN olindi (bosh sahifa va
+shu sahifaning o'zidan) — yangi bironta ham satr qo'shilmadi, ya'ni
+yettala til darhol to'liq ishlaydi va ".po" fayllarga tegilmadi.
 {% endcomment %}
 {% block og_title %}{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}{% endblock %}
 {% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% url 'taklif:ulashish_reklama' %}?t={{ LANGUAGE_CODE }}{% endblock %}
 
 {% block extra_style %}
-.markaz { text-align: center; margin-top: 15vh; padding: 0 20px 60px; }
-h1 { font-size: 1.6rem; }
-.markaz p { max-width: 460px; margin: 12px auto 0; line-height: 1.6; opacity: .85; }
+{% include "taklif/_sayt_uslubi.html" %}
 
-.ajratgich {
-    display: block; width: 54px; height: 1px; border: 0;
-    background: #c9a24a; opacity: .5; margin: 36px auto;
+/* --- Sarlavha bloki --- */
+.fe-bosh { text-align: center; padding: 64px 0 8px; }
+.fe-belgi {
+    display: inline-flex; color: var(--tilla); margin-bottom: 22px;
 }
-.shior { font-size: 1.05rem; opacity: .95; }
-.reklama-tugma {
-    display: inline-block; margin-top: 20px; padding: 15px 28px;
-    border: 1px solid #c9a24a; border-radius: 999px;
-    color: #c9a24a; text-decoration: none;
-    font-size: .82rem; letter-spacing: 1.4px; text-transform: uppercase;
-    transition: background .25s ease, color .25s ease;
+.fe-belgi svg { width: 58px; height: 58px; display: block; }
+.fe-bosh .oq-h1 { margin: 0 0 18px; }
+.fe-yetak {
+    max-width: 46ch; margin: 0 auto; color: var(--kul);
+    line-height: 1.85; font-size: 1.02rem;
 }
-@media (hover: hover) and (pointer: fine) {
-    .reklama-tugma:hover { background: #c9a24a; color: #1a1208; }
+
+{% comment %}
+Bo'limlar orasidagi nafas. ".oq-bolim" ning asosiy to'ldirmasi umumiy
+uslubda EMAS, bosh sahifaning o'z faylida turadi (u yerda 96px) —
+umumiy uslubda esa faqat mobil qoidasi bor. Shu sabab bu yerda ham
+o'zi belgilanadi, aks holda sarlavha bloki bilan namunalar bo'limi
+bir-biriga yopishib qolardi.
+{% endcomment %}
+.oq-bolim { padding: 96px 0; }
+@media (max-width: 700px) { .oq-bolim { padding: 56px 0; } }
+
+@media (max-width: 700px) {
+    .fe-bosh { padding: 40px 0 4px; }
+    .fe-belgi svg { width: 46px; height: 46px; }
+    .fe-belgi { margin-bottom: 16px; }
+    .fe-yetak { font-size: .96rem; }
 }
-.til-qatori {
-    display: flex; justify-content: center; margin-top: 40px;
-    /* Bu sahifa base.html'ning standart to'q fonida ochiladi (o'zining
-       yorug' mavzusi yo'q) — shu uchun til-dropdown komponentiga mos
-       to'q ranglarni shu yerda beramiz. */
-    --karta-fon: #0f2027; --matn: #f5efe0; --asos: #c9a24a; --asos-matn: #1a1208;
-    --chegara: rgba(255,255,255,.2); --radius: 6px;
+
+/* --- Namunalar bo'limi ---
+   Kartalar bosh sahifadagi bilan bir xil qismlardan (".shablon-karta",
+   ".shablon-mini") yig'ilgan, uslubi esa _sayt_uslubi.html'da — shu
+   sabab bu yerda faqat bo'lim sarlavhasi va lenta havolasi kerak
+   (ular bosh sahifaning o'z faylida qolgan). */
+.fe-bolim-bosh { max-width: 620px; margin: 0 auto 46px; text-align: center; }
+.fe-bolim-bosh .oq-h2 { margin: 12px 0 0; }
+.fe-havola {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 26px;
+    padding: 15px 10px; color: var(--tilla-toq);
+    font-size: .84rem; letter-spacing: 1.2px; text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) { .fe-havola:hover { color: var(--tilla); } }
+.fe-markaz { text-align: center; }
+
+/* --- Yakuniy chorlov ---
+   Bo'lim ustki to'ldirmasi olib tashlangan: undan yuqorida "Barcha
+   namunalar" havolasi turadi va ikkita 96px yonma-yon tushib, o'rtada
+   bo'sh chiziq hosil qilardi. */
+.fe-chorlov-bolim { padding-top: 0; }
+.fe-chorlov {
+    max-width: 640px; margin: 0 auto; text-align: center;
+    border: 1px solid var(--chiziq); border-radius: 4px;
+    background: rgba(255,255,255,.45); padding: 44px 28px;
+}
+.fe-chorlov .nomi {
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 500;
+    color: var(--siyoh); margin: 0 0 14px;
+}
+.fe-chorlov p { color: var(--kul); line-height: 1.8; margin: 0 auto 26px; max-width: 42ch; }
+@media (max-width: 700px) {
+    .fe-chorlov { padding: 34px 20px; }
+    .fe-chorlov .nomi { font-size: 1.3rem; }
 }
 {% endblock %}
 
 {% block content %}
-<div class="markaz">
-    <h1>{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}</h1>
-    <p>{% trans "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan bog'laning." %}</p>
+{% include "taklif/_sayt_nav.html" %}
+{% include "taklif/_sayt_musiqa.html" %}
 
-    <hr class="ajratgich">
-
-    <p class="shior">{% trans "Oqqushlar — chiroyli elektron taklifnomalar" %}</p>
-    <p>{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}</p>
-    <a class="reklama-tugma" href="{% url 'taklif:bosh_sahifa' %}">{% trans "Taklifnoma yaratish" %}</a>
-
-    <div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+<div class="oq-sahifa-bosh-tashqi">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki fe-bosh">
+        <span class="fe-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
+        <h1 class="oq-h1">{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}</h1>
+        <p class="fe-yetak">{% trans "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan bog'laning." %}</p>
+    </div>
 </div>
+
+{% if shablonlar %}
+{% comment %}
+Bu bo'lim — sahifaning butun ma'nosi. Tashrifchi taklifnoma ko'rish
+niyatida kelgan; unga aynan shuni beramiz. Kartalar bosh sahifadagi
+bilan bir xil, ya'ni "Ochib ko'rish" tugmasi HAQIQIY, to'liq ishlaydigan
+namunani ochadi (parda ochiladi, sanoq yuradi, RSVP javob beradi).
+{% endcomment %}
+<section class="oq-bolim">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+    <div class="oq-ichki">
+        <div class="fe-bolim-bosh">
+            <span class="oq-yorliq">{% trans "Namunalar" %}</span>
+            <h2 class="oq-h2">{% trans "Avval ochib ko'ring, keyin o'zingiznikini yarating" %}</h2>
+        </div>
+
+        <div class="dizayn-grid">
+            {% for s in shablonlar %}
+            <div class="shablon-karta oq-karta">
+                <a class="karta-ustki" href="{% url 'taklif:namuna' s.kod %}">
+                    <div class="shablon-mini mini-{{ s.kod }}">
+                        <span class="m-ramka"></span>
+                        <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
+                        <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
+                        <span class="m-chiziq"></span>
+                        <span class="m-sana">21 · 06 · 2026</span>
+                    </div>
+                    <div class="matn">
+                        <div class="nomi">{{ s.nomi }}</div>
+                        <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
+                    </div>
+                </a>
+                <div class="karta-tugmalar">
+                    <a class="karta-tugma asosiy" href="{% url 'taklif:namuna' s.kod %}">{% trans "Ochib ko'rish" %}</a>
+                    <a class="karta-tugma" href="{% url 'taklif:yaratish' s.kod %}">{% trans "Tanlash" %}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="fe-markaz">
+            <a class="fe-havola" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha namunalar" %} &rarr;</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="oq-bolim fe-chorlov-bolim">
+    <div class="oq-ichki">
+        <div class="fe-chorlov">
+            <p class="nomi">{% trans "Oqqushlar — chiroyli elektron taklifnomalar" %}</p>
+            <p>{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}</p>
+            <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
+        </div>
+    </div>
+</section>
+
+{% include "taklif/_sayt_footer.html" %}
 {% endblock %}
