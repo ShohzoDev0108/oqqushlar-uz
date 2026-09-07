@@ -695,13 +695,23 @@ yolg'iz istisno edi.
         var haqiqiySelect = dropdown.querySelector('select');
         var joriySpan = dropdown.querySelector('.til-joriy');
         var tilForma = dropdown.closest('form.til-forma');
-        // ".til-qatori" ichidagi forma — bu taklifnoma shablon (preview)
-        // sahifasi, uni _skript.html o'zi AJAX bilan boshqaradi. Shu yerda
-        // qayta ishlov berilsa, ikkalasi bir vaqtda ishga tushib qoladi.
-        var shablonSahifaTili = !!dropdown.closest('.til-qatori');
 
-        if (tilForma && !shablonSahifaTili) {
+        if (tilForma) {
             haqiqiySelect.addEventListener('change', function () {
+                // TAFTISH: bu ulanish ilgari ".til-qatori" CSS klassi
+                // bo'yicha o'tkazib yuborilardi — "bu klass bor ekan,
+                // demak taklifnoma sahifasi va uni _skript.html
+                // boshqaradi" degan taxmin bilan. Taxmin noto'g'ri edi:
+                // o'sha klass ODDIY LAYOUT klassi sifatida _skript.html
+                // umuman qo'shilmaydigan 11 ta sahifada ham ishlatilardi
+                // (404, "muddati tugagan", "faollashtirilmagan" va
+                // eskiroq 8 ta dizayn shabloni). O'sha sahifalarda til
+                // tugmasi ochilardi, tanlangan til ko'rinardi — lekin
+                // forma hech qachon jo'natilmasdi va til o'zgarmasdi.
+                //
+                // Endi taxmin yo'q: kim formani boshqarayotganini
+                // _skript.html o'zi belgilab ketadi.
+                if (tilForma.dataset.tilBoshqaruvi === 'skript') { return; }
                 // "audioId" bu yerda kerak emas: sayt sahifalarida endi fon
                 // musiqasi yo'q. Taklifnoma sahifasi (_skript.html) esa uni
                 // o'zi, "fon-musiqa" id'si bilan uzatadi.

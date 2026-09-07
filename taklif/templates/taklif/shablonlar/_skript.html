@@ -105,6 +105,12 @@ elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
     if (tilForma) {
         var tilSelect = tilForma.querySelector('select');
         tilSelect.removeAttribute('onchange');
+        // Formani "men boshqaraman" deb belgilaymiz. _til_almashtirish.html
+        // ham shu formaga o'z ulanishini qo'yadi (u sayt sahifalari uchun
+        // kerak) — shu belgi orqali u aralashmaydi va til ikki marta
+        // almashmaydi. Sabab: CSS klassiga ("til-qatori") qarab hukm
+        // qilish ishonchsiz bo'lib chiqdi (pastdagi izohga qarang).
+        tilForma.dataset.tilBoshqaruvi = 'skript';
         tilSelect.addEventListener('change', function () {
             if (!window.oqTilSwap) { tilForma.submit(); return; }
             window.oqTilSwap(tilForma, {
