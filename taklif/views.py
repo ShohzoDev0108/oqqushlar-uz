@@ -50,7 +50,7 @@ from .namuna import (
     sessiyaga_tilak_yoz,
     tayyor_tilaklar,
 )
-from .ulashish import kartochka
+from .ulashish import kartochka, reklama_kartochkasi
 
 _logger = logging.getLogger("django.request")
 
@@ -680,18 +680,52 @@ def ulashish_kartochkasi(request, slug):
         yozib yuboriladi (base.html'ga qarang);
       * javob uzoq muddatga keshlanadi — bitta havola yuzlab marta
         ulashiladi;
-      * "faol"/"tolangan" bo'yicha filtr YO'Q: taklifnoma hali
-        faollashtirilmagan bo'lsa ham mijoz havolani ulashib ko'rishi
-        mumkin va oldindan ko'rinish ishlashi kerak (sahifaning o'zida
-        to'lov haqidagi banner baribir chiqadi).
+      * to'lov tasdiqlanmagan taklifnomada ISMLAR CHIQMAYDI — uning
+        o'rniga brend kartochkasi qaytadi (pastdagi izohga qarang).
     """
     taklifnoma = get_object_or_404(
         Taklifnoma.objects.select_related("shablon"), slug=slug
     )
+    til = _ulashish_tili(request)
+
+    # Sahifadagi himoyaning AYNAN o'zi (yuqoridagi "_taklifnoma_sahifasi"ga
+    # qarang): to'lov tasdiqlanmagan taklifnomaning ismi/sanasi begonaga
+    # ko'rinmasligi kerak, va u yerda bu hatto meta teglar darajasida ham
+    # berkitilgan. Kartochka esa o'sha ma'lumotning O'ZI — ya'ni bu yerda
+    # ham xuddi shu shart bo'lishi shart, aks holda slugni bilgan odam
+    # sahifada berkitilgan ismni rasmdan o'qib olardi.
+    #
+    # Xato (404) emas, BREND kartochkasi qaytariladi: bunday havola
+    # baribir kimgadir yuboriladi, va o'sha daqiqada Telegramda "bu
+    # taklifnoma hali faol emas" degan tushuntirish bilan saytning o'zi
+    # ko'ringani — chalkashlikni ham yo'qotadi, biz uchun reklama ham
+    # bo'ladi. Mijozning o'zi (sessiyasida shu slug bor) haqiqiy
+    # kartochkani ko'radi — u o'z taklifnomasini oldindan sinab ko'rishi
+    # kerak.
+    if not taklifnoma.tolangan:
+        if taklifnoma.slug not in request.session.get(SESSIYA_KALITI, []):
+            return _rasm_javobi(reklama_kartochkasi(til))
+
+    return _rasm_javobi(kartochka(taklifnoma, til))
+
+
+def ulashish_reklama(request):
+    """Faollashtirilmagan taklifnoma sahifasining oldindan ko'rinishi.
+
+    Barcha shunday havolalar uchun bitta rasm — shu sabab slug'siz,
+    alohida manzil (aks holda har bir faollashtirilmagan taklifnoma
+    uchun alohida kesh yozuvi paydo bo'lardi, mazmuni esa bir xil).
+    """
+    return _rasm_javobi(reklama_kartochkasi(_ulashish_tili(request)))
+
+
+def _ulashish_tili(request):
     til = request.GET.get("t", "")
-    if til not in dict(settings.LANGUAGES):
-        til = settings.LANGUAGE_CODE
-    javob = HttpResponse(kartochka(taklifnoma, til), content_type="image/jpeg")
+    return til if til in dict(settings.LANGUAGES) else settings.LANGUAGE_CODE
+
+
+def _rasm_javobi(baytlar):
+    javob = HttpResponse(baytlar, content_type="image/jpeg")
     javob["Cache-Control"] = "public, max-age=86400"
     return javob
 

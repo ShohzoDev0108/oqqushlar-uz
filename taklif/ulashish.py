@@ -26,6 +26,7 @@ import io
 from django.core.cache import cache
 from django.utils import timezone, translation
 from django.utils.formats import date_format
+from django.utils.translation import gettext
 from PIL import Image, ImageDraw, ImageFilter
 
 from .shriftlar import shrift
@@ -298,6 +299,78 @@ def _ajratgich(chiz, y, markaz, p, kenglik=250):
     )
 
 
+def _yonlama_chiziqli_yozuv(chiz, markaz, y, matn, shr, matn_rangi, chiziq_rangi, oraliq=5):
+    """Ikki yonida ingichka chiziq bo'lgan kichik yozuv.
+
+    Saytning yuqori panelidagi logotip aynan shu shaklda ("OQQUSHLAR",
+    ostida chiziq-yozuv-chiziq) — reklama kartochkasi brendni o'sha
+    tanish ko'rinishda takrorlaydi.
+    """
+    matn_kengligi = _kenglik(shr, matn, oraliq)
+    _yoz(chiz, markaz - matn_kengligi / 2, y, matn, shr, matn_rangi, oraliq)
+    chiziq_uzunligi = 96
+    bosh = markaz - matn_kengligi / 2 - 22
+    oxir = markaz + matn_kengligi / 2 + 22
+    chiz.line((bosh - chiziq_uzunligi, y - 6, bosh, y - 6), fill=chiziq_rangi, width=1)
+    chiz.line((oxir, y - 6, oxir + chiziq_uzunligi, y - 6), fill=chiziq_rangi, width=1)
+
+
+def _reklama_chiz(til):
+    """Faollashtirilmagan taklifnoma uchun kartochka — brend kartochkasi.
+
+    NEGA ISMLAR YO'Q. To'lov tasdiqlanmagan taklifnomaning sahifasi
+    begona odamga ismni ham, sanani ham ko'rsatmaydi (views.py'dagi
+    "_taklifnoma_sahifasi" ichidagi izohga qarang) — o'sha ma'lumot
+    kartochkada chiqib ketsa, himoyaning ma'nosi qolmasdi.
+
+    NEGA BO'SH RASM EMAS. Bunday havola baribir kimgadir yuboriladi
+    (mijoz o'zi sinab ko'radi, do'stiga tashlaydi). O'sha daqiqada
+    Telegramda umumiy logotip emas, "bu taklifnoma hali faol emas"
+    degan tushuntirish va saytning o'zi haqidagi qisqa ma'lumot
+    ko'rinsa — chalkashlik ham yo'qoladi, biz uchun esa bu bepul
+    reklama bo'ladi.
+    """
+    p = STANDART
+    tasvir = _naqshli_fon(p)
+    chiz = ImageDraw.Draw(tasvir)
+    _romka(chiz, p)
+    markaz = OLCHAM[0] // 2
+
+    with translation.override(til or "uz"):
+        # Ikkala matn ham loyihada allaqachon mavjud va yettala tilga
+        # tarjima qilingan — shu sabab bu kartochka uchun bironta yangi
+        # tarjima satri qo'shilmadi.
+        yorliq = str(gettext("Taklifnoma hali faollashtirilmagan")).upper()
+        shior = str(gettext("chiroyli raqamli taklifnomalar")).upper()
+
+    yorliq_shr = shrift("manrope", 24)
+    y_oraliq = 6
+    while _kenglik(yorliq_shr, yorliq, y_oraliq) > OLCHAM[0] - 260 and y_oraliq > 2:
+        y_oraliq -= 1
+    y_kengligi = _kenglik(yorliq_shr, yorliq, y_oraliq)
+    _yoz(chiz, markaz - y_kengligi / 2, 202, yorliq, yorliq_shr, _rang(p["matn"], 0.6), y_oraliq)
+
+    nom_shr = shrift("cormorant", 92)
+    nom = "OQQUSHLAR"
+    nom_oraliq = 14
+    nom_kengligi = _kenglik(nom_shr, nom, nom_oraliq)
+    _yoz(chiz, markaz - nom_kengligi / 2, 364, nom, nom_shr, _rang(p["sarlavha"]), nom_oraliq)
+
+    shior_shr = shrift("manrope", 20)
+    s_oraliq = 5
+    while _kenglik(shior_shr, shior, s_oraliq) > OLCHAM[0] - 460 and s_oraliq > 2:
+        s_oraliq -= 1
+    _yonlama_chiziqli_yozuv(chiz, markaz, 420, shior, shior_shr,
+                            _rang(p["asos"], 0.95), _rang(p["asos"], 0.5), s_oraliq)
+
+    brend_shr = shrift("manrope", 19)
+    brend = "OQQUSHLAR.UZ"
+    b_kengligi = _kenglik(brend_shr, brend, 5)
+    _yoz(chiz, markaz - b_kengligi / 2, 556, brend, brend_shr, _rang(p["asos"], 0.6), 5)
+
+    return tasvir.convert("RGB")
+
+
 # --- Asosiy chizuvchi ---------------------------------------------------
 
 def _ism_bolaklari(taklifnoma):
@@ -457,18 +530,36 @@ def kesh_kaliti(taklifnoma, til):
     return "ulashish:" + hashlib.md5(xom.encode("utf-8")).hexdigest()
 
 
-def kartochka(taklifnoma, til="uz"):
-    """PNG baytlarini qaytaradi (keshdan yoki yangi chizib)."""
-    kalit = kesh_kaliti(taklifnoma, til)
-    tayyor = cache.get(kalit)
-    if tayyor:
-        return tayyor
-    tasvir = _chiz(taklifnoma, til, _foto_fayli(taklifnoma))
+def _baytlar(tasvir):
     xotira = io.BytesIO()
     # PNG emas, JPEG: kartochkada fotosurat va yumshoq gradientlar bor,
     # bunday tasvirda JPEG bir necha barobar kichik chiqadi (Telegram
     # preview'ni tezroq oladi), sifat farqi esa ko'rinmaydi.
     tasvir.save(xotira, "JPEG", quality=88, optimize=True, progressive=True)
-    baytlar = xotira.getvalue()
+    return xotira.getvalue()
+
+
+def kartochka(taklifnoma, til="uz"):
+    """Taklifnoma kartochkasining JPEG baytlari (keshdan yoki yangi chizib)."""
+    kalit = kesh_kaliti(taklifnoma, til)
+    tayyor = cache.get(kalit)
+    if tayyor:
+        return tayyor
+    baytlar = _baytlar(_chiz(taklifnoma, til, _foto_fayli(taklifnoma)))
+    cache.set(kalit, baytlar, KESH_MUDDATI)
+    return baytlar
+
+
+def reklama_kartochkasi(til="uz"):
+    """Faollashtirilmagan taklifnoma uchun brend kartochkasining baytlari.
+
+    Bu rasm barcha shunday havolalar uchun BIR XIL — ya'ni tilga bitta
+    kesh yozuvi yetarli va u amalda doim keshdan chiqadi.
+    """
+    kalit = f"ulashish:reklama:{til or 'uz'}"
+    tayyor = cache.get(kalit)
+    if tayyor:
+        return tayyor
+    baytlar = _baytlar(_reklama_chiz(til))
     cache.set(kalit, baytlar, KESH_MUDDATI)
     return baytlar

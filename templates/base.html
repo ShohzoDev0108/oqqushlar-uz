@@ -79,8 +79,12 @@
     {% else %}
     <meta property="og:type" content="website">
     <meta property="og:title" content="{% block og_title %}{% trans "Oqqushlar — chiroyli elektron taklifnomalar" %}{% endblock %}">
-    <meta property="og:description" content="{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}">
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/og-rasm.png' %}">
+    <meta property="og:description" content="{% block og_description %}{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}{% endblock %}">
+    {% comment %}
+    Rasm blok sifatida — faollashtirilmagan taklifnoma sahifasi uni o'z
+    kartochkasiga almashtiradi (faollashtirilmagan.html'ga qarang).
+    {% endcomment %}
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/og-rasm.png' %}{% endblock %}">
     <meta name="twitter:card" content="summary_large_image">
     {% endif %}
     <link rel="preconnect" href="https://fonts.googleapis.com">

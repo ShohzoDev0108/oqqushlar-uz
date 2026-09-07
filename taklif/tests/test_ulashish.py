@@ -43,14 +43,48 @@ class UlashishKartochkasiTest(TestCase):
     def test_yoq_taklifnoma_404(self):
         self.assertEqual(Client().get("/ulashish/bunday-yoq.jpg").status_code, 404)
 
-    def test_faollashtirilmagan_taklifnomada_ham_ishlaydi(self):
-        # Mijoz to'lovdan oldin havolani ulashib ko'rishi mumkin —
-        # oldindan ko'rinish o'shanda ham chiqishi kerak.
+    def test_tolanmagan_taklifnoma_ismlarni_oshkor_qilmaydi(self):
+        """Eng muhim test.
+
+        Sahifaning o'zi to'lov tasdiqlanmaguncha mijoz ismini hatto meta
+        teglarda ham ko'rsatmaydi. Kartochka esa o'sha ma'lumotning o'zi —
+        agar u ochiq qolsa, sahifadagi himoyaning ma'nosi qolmaydi.
+        Begonaga umumiy brend kartochkasi qaytadi, mijozning o'ziga esa
+        (sessiyasida shu slug bor) haqiqiysi.
+        """
+        from taklif.ulashish import reklama_kartochkasi
+        from taklif.views import SESSIYA_KALITI
+
         self.taklifnoma.tolangan = False
         self.taklifnoma.save()
-        self.assertEqual(
-            Client().get(f"/ulashish/{self.taklifnoma.slug}.jpg").status_code, 200
-        )
+
+        begona = Client().get(f"/ulashish/{self.taklifnoma.slug}.jpg")
+        self.assertEqual(begona.status_code, 200)
+        self.assertEqual(begona.content, reklama_kartochkasi("uz"))
+
+        egasi = Client()
+        sessiya = egasi.session
+        sessiya[SESSIYA_KALITI] = [self.taklifnoma.slug]
+        sessiya.save()
+        oz_javobi = egasi.get(f"/ulashish/{self.taklifnoma.slug}.jpg")
+        self.assertEqual(oz_javobi.status_code, 200)
+        self.assertNotEqual(oz_javobi.content, reklama_kartochkasi("uz"))
+
+    def test_reklama_kartochkasi_ochiq_manzilda_bor(self):
+        javob = Client().get("/ulashish/faol-emas.jpg")
+        self.assertEqual(javob.status_code, 200)
+        self.assertEqual(javob["Content-Type"], "image/jpeg")
+        self.assertTrue(javob.content.startswith(b"\xff\xd8\xff"))
+
+    def test_faollashtirilmagan_sahifa_reklama_kartochkasini_korsatadi(self):
+        self.taklifnoma.tolangan = False
+        self.taklifnoma.save()
+        h = Client().get(f"/{self.taklifnoma.slug}/").content.decode()
+        self.assertIn("/ulashish/faol-emas.jpg?t=", h)
+        # Mijoz ismi bu sahifada hech qayerda — meta teglarda ham —
+        # chiqmasligi kerak.
+        self.assertNotIn(self.taklifnoma.ism_1, h)
+        self.assertNotIn(f"/ulashish/{self.taklifnoma.slug}.jpg", h)
 
     def test_sahifada_og_image_kartochkaga_ishora_qiladi(self):
         h = Client().get(f"/{self.taklifnoma.slug}/").content.decode()

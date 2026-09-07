@@ -3,11 +3,46 @@
 
 {% block title %}{% trans "Taklifnoma hali faollashtirilmagan" %}{% endblock %}
 
+{% comment %}
+TAFTISH: bu sahifa "yopiq eshik" edi — ikki qator matn, boshqa hech
+narsa. Havolani ochgan odam nima bo'lganini ham, bu qanaqa sayt ekanini
+ham bilmasdi va shu yerda yo'qolardi.
+
+Vaziyatning o'zi esa aslida biz uchun QULAY: mijoz taklifnomasini
+to'lovdan oldin sinab ko'rish uchun havolani do'stiga yoki o'ziga
+yuboradi — ya'ni bu sahifaga bizning mahsulotimizni umuman bilmaydigan
+odam kirib keladi. Shuning uchun bu yerda vaziyat tushuntiriladi va
+saytga taklif qilinadi.
+
+MUHIM: mijozning ismi ham, sanasi ham bu sahifada CHIQMAYDI — sababi
+views.py'dagi "_taklifnoma_sahifasi" ichidagi izohda. Oldindan
+ko'rinish (og:image) ham shu sababdan umumiy brend kartochkasi.
+{% endcomment %}
+{% block og_title %}{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% url 'taklif:ulashish_reklama' %}?t={{ LANGUAGE_CODE }}{% endblock %}
+
 {% block extra_style %}
-.markaz { text-align: center; margin-top: 20vh; }
+.markaz { text-align: center; margin-top: 15vh; padding: 0 20px 60px; }
 h1 { font-size: 1.6rem; }
+.markaz p { max-width: 460px; margin: 12px auto 0; line-height: 1.6; opacity: .85; }
+
+.ajratgich {
+    display: block; width: 54px; height: 1px; border: 0;
+    background: #c9a24a; opacity: .5; margin: 36px auto;
+}
+.shior { font-size: 1.05rem; opacity: .95; }
+.reklama-tugma {
+    display: inline-block; margin-top: 20px; padding: 15px 28px;
+    border: 1px solid #c9a24a; border-radius: 999px;
+    color: #c9a24a; text-decoration: none;
+    font-size: .82rem; letter-spacing: 1.4px; text-transform: uppercase;
+    transition: background .25s ease, color .25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+    .reklama-tugma:hover { background: #c9a24a; color: #1a1208; }
+}
 .til-qatori {
-    display: flex; justify-content: center; margin-top: 16px;
+    display: flex; justify-content: center; margin-top: 40px;
     /* Bu sahifa base.html'ning standart to'q fonida ochiladi (o'zining
        yorug' mavzusi yo'q) — shu uchun til-dropdown komponentiga mos
        to'q ranglarni shu yerda beramiz. */
@@ -20,6 +55,13 @@ h1 { font-size: 1.6rem; }
 <div class="markaz">
     <h1>{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}</h1>
     <p>{% trans "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan bog'laning." %}</p>
+
+    <hr class="ajratgich">
+
+    <p class="shior">{% trans "Oqqushlar — chiroyli elektron taklifnomalar" %}</p>
+    <p>{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}</p>
+    <a class="reklama-tugma" href="{% url 'taklif:bosh_sahifa' %}">{% trans "Taklifnoma yaratish" %}</a>
+
     <div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
 </div>
 {% endblock %}

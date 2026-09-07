@@ -64,6 +64,10 @@ urlpatterns = [
     # OLDIN turishi shart, aks holda "ulashish" taklifnoma havolasi deb
     # tushunilardi. Manzil oxiridagi ".jpg" — ba'zi robotlar rasmni
     # kengaytmasiga qarab tanigani uchun.
+    # Faollashtirilmagan taklifnomalar uchun umumiy brend kartochkasi.
+    # "<slug:slug>.jpg" dan OLDIN turishi shart — aks holda "faol-emas"
+    # taklifnoma slug'i deb tushunilardi.
+    path("ulashish/faol-emas.jpg", views.ulashish_reklama, name="ulashish_reklama"),
     path(
         "ulashish/<slug:slug>.jpg",
         views.ulashish_kartochkasi,
