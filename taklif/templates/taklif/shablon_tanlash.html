@@ -181,8 +181,29 @@ sarlavha balandligidan oshib ketishdan saqlaydi.
     {% endcomment %}
     <div class="shablon-karta oq-karta" data-turkum="{{ s.turkum }}" data-marosim="{{ s.marosim_turlari|join:' ' }}" data-millat="{{ s.millat }}" data-asosiy-havola="{% url 'taklif:yaratish' s.kod %}" data-namuna-havola="{% url 'taklif:namuna' s.kod %}">
         <a class="karta-ustki" href="{% url 'taklif:namuna' s.kod %}">
-            <div class="shablon-mini {% if s.rasm %}mini-surat{% else %}mini-{{ s.kod }}{% endif %}"
-                 {% if s.rasm %}style="background-image:url('{{ s.rasm.url }}');"{% endif %}>
+            {% comment %}
+            KARTA MINIATYURASI — har doim dizaynning O'ZI, surat emas.
+            
+            TAFTISH: ilgari shablonda surat bo'lsa ("Shablon.rasm"), karta o'sha
+            suratni ko'rsatardi. Natijada katalog ikkiga bo'linib qolgandi: 20 ta
+            kartadan 8 tasi stok fotosuratlar (kelin, uzuklar, natyurmort), 12
+            tasi esa CSS bilan chizilgan miniatyura. Yonma-yon turganda bu bir
+            sahifada ikki xil mahsulotga o'xshardi — suratlarning nisbatlari ham
+            har xil edi (0.67, 1.78, 0.91), kayfiyati ham.
+            
+            Ikkinchi va muhimroq sabab: mijoz bu sahifada TAKLIFNOMA qanday
+            ko'rinishini tanlaydi. Boshqa odamlarning to'y fotosi bu savolga
+            javob bermaydi; miniatyura esa aynan shu dizaynning palitrasi,
+            ramkasi va shriftini ko'rsatadi.
+            
+            Tekshirilgan: surati bor sakkizala dizaynning ("anor", "chinni",
+            "kristall", "qandil", "ravoq", "sadaf", "suzani", "tojik") o'z
+            "mini-<kod>" uslubi mavjud, ya'ni bo'sh karta qolmaydi.
+            
+            "Shablon.rasm" maydoni modelda qoldi (boshqa maqsadda kerak bo'lishi
+            mumkin), lekin endi hech qayerda ishlatilmaydi.
+            {% endcomment %}
+            <div class="shablon-mini mini-{{ s.kod }}">
                 <span class="m-ramka"></span>
                 <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
                 <span class="m-ism">Aziz <em>&amp;</em> Malika</span>

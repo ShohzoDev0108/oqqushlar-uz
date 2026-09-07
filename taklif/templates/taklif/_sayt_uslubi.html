@@ -399,13 +399,33 @@ ketardi.
 @media (hover: hover) and (pointer: fine) { .shablon-karta:hover .shablon-mini .m-ramka {opacity: .75;} }
 
 /* Har bir shablonning rang olami */
-.mini-suzani { background: radial-gradient(circle at 30% 30%, rgba(179,50,59,.18), transparent 55%), #f8f0e0; color: #a12d33; }
+{% comment %}
+KARTA MINIATYURALARI — har biriga o'z naqshi.
+
+TAFTISH: katalogdagi suratlar olib tashlangach (sabab: shablon_tanlash.html
+izohi) yigirmala karta miniatyuraga o'tdi va shunda yangi muammo
+ko'rindi: to'qqiztasi faqat juda xira radial yorug'likdan iborat edi
+(15-22% shaffoflik), ya'ni kichik o'lchamda ular bir xil och
+to'rtburchakka aylanardi — mijoz Anor'ni Beshik'dan, Fotiha'ni
+Suzani'dan ajrata olmasdi.
+
+Endi har birida o'z motivi bor va u dizaynning nomidan kelib chiqadi:
+anor — urug'lar, suzani — kashta gullari, tojik chakan — chatishgan
+chok, beshik — belanchak yoyi, fotiha — ikki uzuk, qiz uzatish —
+sandiq qopqog'i, ravoq — ravoq kamari, qozoq "oyu" — halqalar,
+yubiley — gulchambar halqasi.
+
+Hammasi sof CSS: yangi rasm qo'shilmaydi, ya'ni katalog og'irlashmaydi.
+Shaffoflik 20-34% oralig'ida — motiv ko'rinadi, lekin ustidagi ismlar
+o'qilishiga xalaqit bermaydi.
+{% endcomment %}
+.mini-suzani { background: radial-gradient(circle at 50% 50%, rgba(179,50,59,.16) 0 2.6px, transparent 3.6px, transparent 8px, rgba(168,132,44,.10) 8px 9px, transparent 10px) 0 0 / 42px 42px, #f8f0e0; color: #a12d33; }
 .mini-zardoz { background: radial-gradient(circle at 50% 20%, rgba(217,180,91,.25), transparent 60%), #21102e; color: #e9c268; }
 .mini-chinni { background: radial-gradient(circle at 50% 45%, rgba(29,78,137,.1) 0 40%, transparent 41%), #fdfdfa; color: #1d4e89; }
-.mini-qozoq { background: radial-gradient(circle at 50% 35%, rgba(11,134,200,.16), transparent 55%), #eef6fb; color: #0b6aa9; }
+.mini-qozoq { background: repeating-radial-gradient(circle at 50% 46%, transparent 0 13px, rgba(11,134,200,.13) 13px 14.5px, transparent 15px 28px), #eef6fb; color: #0b6aa9; }
 .mini-qirgiz { background: radial-gradient(circle at 50% 35%, rgba(255,204,0,.3), transparent 55%), #9e111f; color: #ffe9a8; }
 .mini-turkman { background: radial-gradient(circle at 50% 35%, rgba(217,169,96,.28), transparent 55%), #6f1a1d; color: #f0d9a8; }
-.mini-tojik { background: radial-gradient(circle at 30% 25%, rgba(194,43,51,.16), transparent 55%), #fffaf2; color: #c22b33; }
+.mini-tojik { background: repeating-linear-gradient(45deg, rgba(194,43,51,.11) 0 1.5px, transparent 1.5px 17px), repeating-linear-gradient(-45deg, rgba(194,43,51,.11) 0 1.5px, transparent 1.5px 17px), #fffaf2; color: #c22b33; }
 .mini-aurora { background: radial-gradient(circle at 20% 20%, rgba(139,92,246,.45), transparent 55%), radial-gradient(circle at 80% 30%, rgba(34,211,238,.4), transparent 55%), radial-gradient(circle at 55% 85%, rgba(244,114,182,.35), transparent 55%), #05060f; color: #f2effc; }
 .mini-kristall { background: radial-gradient(circle at 50% 35%, rgba(255,158,207,.35), transparent 55%), radial-gradient(circle at 30% 65%, rgba(167,139,250,.4), transparent 55%), radial-gradient(circle at 70% 70%, rgba(125,211,252,.35), transparent 55%), #050510; color: #f0ecfd; }
 .mini-zarhal { background: conic-gradient(from 0deg, rgba(212,175,55,.35), transparent 60deg, transparent 300deg, rgba(212,175,55,.35)), #0b0b0d; color: #f3e3b3; }
@@ -424,16 +444,16 @@ beshik — yashil-krem, xatna — to'q ko'k va oy, qiz uzatish — lilak,
 nahor oshi — kahrabo, fotiha — atirgul, tug'ilgan kun — sharlar,
 yubiley — olxo'ri.
 {% endcomment %}
-.mini-beshik { background: radial-gradient(circle at 28% 22%, rgba(107,142,90,.20), transparent 52%), radial-gradient(circle at 78% 82%, rgba(168,128,45,.12), transparent 48%), #f5f3e9; color: #4f6b40; border: 1px solid rgba(107,142,90,.35); }
+.mini-beshik { background: radial-gradient(150% 46% at 50% 104%, transparent 0 58%, rgba(107,142,90,.34) 58% 60.5%, transparent 61.5%), radial-gradient(150% 46% at 50% 112%, transparent 0 58%, rgba(107,142,90,.20) 58% 60%, transparent 61%), #f5f3e9; color: #4f6b40; border: 1px solid rgba(107,142,90,.35); }
 .mini-xatna { background: radial-gradient(circle at 50% 14%, rgba(35,75,122,.22) 0 13px, transparent 22px), linear-gradient(160deg, rgba(35,75,122,.10), transparent 60%), #f3f2e9; color: #1f3a5f; border: 1px solid rgba(35,75,122,.35); }
-.mini-qizuzatish { background: radial-gradient(circle at 72% 26%, rgba(138,106,143,.22), transparent 50%), radial-gradient(circle at 22% 80%, rgba(138,106,143,.14), transparent 46%), #f7f1f5; color: #6b4f70; border: 1px solid rgba(138,106,143,.35); }
+.mini-qizuzatish { background: linear-gradient(180deg, transparent 0 24%, rgba(138,106,143,.30) 24% 25.6%, transparent 25.6%), linear-gradient(180deg, transparent 0 20%, rgba(138,106,143,.12) 20% 74%, transparent 74%), linear-gradient(90deg, transparent 0 22%, rgba(138,106,143,.26) 22% 23.4%, transparent 23.4% 76.6%, rgba(138,106,143,.26) 76.6% 78%, transparent 78%), #f7f1f5; color: #6b4f70; border: 1px solid rgba(138,106,143,.35); }
 .mini-nahoroshi { background: linear-gradient(150deg, rgba(181,101,29,.18) 0 22%, transparent 22%), radial-gradient(circle at 76% 78%, rgba(181,101,29,.14), transparent 46%), #f8f0e2; color: #8a4a12; border: 1px solid rgba(181,101,29,.35); }
-.mini-fotiha { background: radial-gradient(circle at 26% 24%, rgba(199,107,122,.20), transparent 50%), radial-gradient(circle at 80% 78%, rgba(199,107,122,.14), transparent 46%), #fbf1ee; color: #a14f5d; border: 1px solid rgba(199,107,122,.35); }
+.mini-fotiha { background: radial-gradient(circle at 42% 26%, transparent 0 15px, rgba(199,107,122,.34) 15px 17px, transparent 18px), radial-gradient(circle at 58% 26%, transparent 0 15px, rgba(199,107,122,.34) 15px 17px, transparent 18px), #fbf1ee; color: #a14f5d; border: 1px solid rgba(199,107,122,.35); }
 .mini-tugilgankun { background: radial-gradient(circle at 24% 20%, rgba(209,101,47,.24) 0 10px, transparent 18px), radial-gradient(circle at 74% 30%, rgba(209,101,47,.18) 0 8px, transparent 15px), radial-gradient(circle at 52% 80%, rgba(209,101,47,.20) 0 12px, transparent 20px), #fbf1e6; color: #a84a1f; border: 1px solid rgba(209,101,47,.35); }
-.mini-yubiley { background: conic-gradient(from 210deg at 50% 50%, rgba(107,61,99,.20), transparent 90deg, transparent 270deg, rgba(107,61,99,.20)), #f6f0f3; color: #4f2c49; border: 1px solid rgba(107,61,99,.35); }
+.mini-yubiley { background: radial-gradient(circle at 50% 42%, transparent 0 26px, rgba(107,61,99,.30) 26px 28px, transparent 29px), conic-gradient(from 210deg at 50% 42%, rgba(107,61,99,.18), transparent 90deg, transparent 270deg, rgba(107,61,99,.18)), #f6f0f3; color: #4f2c49; border: 1px solid rgba(107,61,99,.35); }
 .mini-shoyi { background: radial-gradient(120% 60% at 110% 10%, rgba(117,144,181,.45), transparent 55%), radial-gradient(130% 60% at -10% 90%, rgba(232,224,206,.9), transparent 60%), #eef0f3; color: #5a749b; }
-.mini-anor { background: radial-gradient(circle at 80% 15%, rgba(140,180,130,.22), transparent 45%), radial-gradient(circle at 15% 85%, rgba(168,132,44,.14), transparent 45%), #eef4ec; color: #b3323b; }
-.mini-ravoq { background: radial-gradient(80% 60% at 50% 0%, rgba(255,250,240,.95), transparent 60%), #efe9e2; color: #8a6a1f; }
+.mini-anor { background: radial-gradient(circle at 50% 50%, rgba(179,50,59,.30) 0 2.6px, transparent 3.4px) 0 0 / 26px 26px, radial-gradient(circle at 50% 50%, rgba(179,50,59,.18) 0 2px, transparent 2.8px) 13px 13px / 26px 26px, radial-gradient(circle at 80% 15%, rgba(140,180,130,.20), transparent 45%), #eef4ec; color: #b3323b; }
+.mini-ravoq { background: linear-gradient(90deg, transparent 0 26%, rgba(168,132,44,.30) 26% 27.5%, transparent 27.5% 72.5%, rgba(168,132,44,.30) 72.5% 74%, transparent 74%) 0 46% / 100% 54% no-repeat, radial-gradient(circle at 50% 46%, transparent 0 45px, rgba(168,132,44,.30) 45px 47px, transparent 48px) 0 0 / 100% 46% no-repeat, #efe9e2; color: #8a6a1f; }
 .mini-kumush { background: radial-gradient(circle at 25% 25%, rgba(169,172,179,.25), transparent 50%), #f5f4f1; color: #75787f; }
 .mini-qandil { background: linear-gradient(90deg, rgba(217,201,172,.55) 0 12%, transparent 12% 88%, rgba(217,201,172,.55) 88%), #efe6d8; color: #9c7c3c; }
 .mini-adras { background: repeating-conic-gradient(from 45deg at 50% 50%, rgba(57,105,156,.3) 0deg 90deg, transparent 90deg 180deg), #f3f1e8; background-size: 34px 34px; color: #2b5a8a; }
