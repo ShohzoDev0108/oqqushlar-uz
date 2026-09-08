@@ -382,7 +382,7 @@ msgstr "Той по случаю обрезания: %(ismlar)s"
 #: taklif/models.py:438
 #, python-format
 msgid "%(ismlar)sning xatna to'ylari"
-msgstr "Тои по случаю обрезания: %(ismlar)s"
+msgstr "Той по случаю обрезания: %(ismlar)s"
 
 #: taklif/templates/taklif/_savol_javob_royxati.html:4
 msgid "To'lovni qanday amalga oshiraman?"
@@ -610,7 +610,7 @@ msgid ""
 "ochadi, manzilni xaritada ko'radi va \"kelaman\" deb javob beradi."
 msgstr ""
 "<strong>Oqqushlar</strong> — сервис по созданию цифровых приглашений на "
-"свадьбу, фотиху, бешик-той и другие семейные торжества. В отличие от "
+"свадьбу, фотиху, бешик-туй и другие семейные торжества. В отличие от "
 "бумажного приглашения, ваше приглашение — это обычная ссылка, которой вы "
 "делитесь в Telegram или где угодно: гость открывает её на телефоне, видит "
 "адрес на карте и отвечает «приду»."
@@ -801,8 +801,8 @@ msgid ""
 "yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
 msgstr ""
 "Без регистрации и без оплаты вы полностью создадите приглашение и увидите "
-"его своими глазами. Оплатите только если оно вам понравится — чтобы "
-"активировать."
+"его своими глазами. Оплатите и активируйте, только если оно вам "
+"понравится."
 
 #: taklif/templates/taklif/bosh_sahifa.html:582
 msgid "Har bir marosimga moslashgan"
@@ -817,7 +817,7 @@ msgid ""
 "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
 "savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
-"Свадьба, обрезание или день рождения — вопросы формы и примеры текста "
+"Свадьба, той по случаю обрезания или день рождения — вопросы формы и примеры текста "
 "меняются именно под ваше мероприятие."
 
 #: taklif/templates/taklif/bosh_sahifa.html:587
@@ -1502,7 +1502,7 @@ msgstr "Открыть приглашение"
 #: taklif/templates/taklif/shablonlar/yulduz.html:143
 #: taklif/templates/taklif/shablonlar/zumrad.html:140
 msgid "Bu — sizning shaxsiy oldindan ko'rish havolangiz, hali ommaviy emas."
-msgstr "Это ваша личная предпросмотровая ссылка, она ещё не опубликована."
+msgstr "Это ваша личная ссылка для предпросмотра, она ещё не опубликована."
 
 #: taklif/templates/taklif/shablonlar/_mijoz_qismi.html:88
 #: taklif/templates/taklif/shablonlar/atlas.html:159
@@ -2368,7 +2368,7 @@ msgstr "Instagram"
 
 #: taklif/templates/taklif/boglanish.html
 msgid "Yozishni yoqtirmasangiz — qo'ng'iroq qiling, jonli gaplashamiz."
-msgstr "Не любите переписку — позвоните, поговорим живьём."
+msgstr "Не любите переписку — позвоните — поговорим лично."
 
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
@@ -2536,7 +2536,7 @@ msgstr "Самый счастливый день нашей жизни мы хо
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Ikkalangizga ham sabr, ham baxt tilayman. Qutlug' bo'lsin!"
-msgstr "Желаю вам обоим и терпения, и счастья. Пусть будет благословенно!"
+msgstr "Желаю вам обоим и терпения, и счастья. Совет да любовь!"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Ikki oila nomidan"
@@ -2648,7 +2648,7 @@ msgstr "Нашему сыну исполняется семь лет. Мы хо�
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "O'n bir yillik yo'limiz yakuniga yetdi. Shu unutilmas kechani birga o'tkazaylik."
-msgstr "Наш одиннадцатилетний путь подошёл к концу. Давайте проведём этот незабываемый вечер вместе."
+msgstr "Наш одиннадцатилетний путь завершён. Давайте проведём этот незабываемый вечер вместе."
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Ochib ko'rish"
@@ -2748,7 +2748,7 @@ msgstr "Подробности"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Taklifnoma sahifasidagi \"Yoqdi\" tugmasi sizni Telegram'dagi adminimiz bilan bog'laydi. To'lov tasdiqlangach, havola mehmonlarga ochiladi."
-msgstr "Кнопка «Yoqdi» на странице приглашения свяжет вас с нашим администратором в Telegram. После подтверждения оплаты ссылка откроется для гостей."
+msgstr "Кнопка «Нравится» на странице приглашения свяжет вас с нашим администратором в Telegram. После подтверждения оплаты ссылка откроется для гостей."
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Tanlagan dizayningiz to'liq holda, hech qanday cheklovsiz"
@@ -2860,7 +2860,7 @@ msgstr "До активации они увидят только обложку 
 
 #: taklif/templates/taklif/
 msgid "Nikoh, fotiha, beshik va boshqa marosimlar uchun elektron taklifnoma. 20 ta dizayn, mehmonlar javobini kuzatish, 8 ta til. Ro'yxatdan o'tmasdan yarating."
-msgstr "Электронные приглашения на свадьбу, фотиху, бешик той и другие торжества. 20 дизайнов, учёт ответов гостей, 8 языков. Без регистрации."
+msgstr "Электронные приглашения на свадьбу, фотиху, бешик-туй и другие торжества. 20 дизайнов, учёт ответов гостей, 8 языков. Без регистрации."
 
 #: taklif/templates/taklif/
 msgid "Milliy, zamonaviy va islomiy uslubdagi 20 ta tayyor dizayn. Marosim turi bo'yicha tanlang va har birini to'lovdan oldin to'liq ochib ko'ring."
