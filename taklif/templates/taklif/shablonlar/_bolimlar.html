@@ -503,7 +503,7 @@ har qanday marosimga to'g'ri keladigan umumiy taklif matni ishlatiladi.
         {% endif %}
         <div class="nafis-chiziq" aria-hidden="true"><i></i></div>
         <div class="murojaat-matn">
-            {% if taklifnoma.matn %}{{ taklifnoma.matn|linebreaksbr }}{% else %}{% blocktrans with sana=taklifnoma.sana|date:"DATE_FORMAT" %}Sizni {{ sana }} kuni bo'lib o'tadigan xursandchiligimizga chin dildan taklif qilamiz. Kelib, quvonchimizga sherik bo'lsangiz — biz uchun katta baxt bo'ladi.{% endblocktrans %}{% endif %}
+            {% if taklifnoma.matn %}{{ taklifnoma.matn|linebreaksbr }}{% else %}{% blocktrans with sana=taklifnoma.sana_uzun %}Sizni {{ sana }} kuni bo'lib o'tadigan xursandchiligimizga chin dildan taklif qilamiz. Kelib, quvonchimizga sherik bo'lsangiz — biz uchun katta baxt bo'ladi.{% endblocktrans %}{% endif %}
         </div>
         {% comment %}
         Imzo. O'zbek marosimida taklifnoma an'anaviy ravishda AILA nomidan
@@ -527,7 +527,7 @@ har qanday marosimga to'g'ri keladigan umumiy taklif matni ishlatiladi.
         <div class="tafsilot-karta">
             <div class="belgi-halqa"><svg class="ikon"><use href="#ikon-kalendar"></use></svg></div>
             <span class="label">{% trans "Sana" %}</span>
-            <div class="qiymat">{{ taklifnoma.sana|date:"DATE_FORMAT" }}</div>
+            <div class="qiymat">{{ taklifnoma.sana_uzun }}</div>
         </div>
         <div class="tafsilot-karta">
             <div class="belgi-halqa"><svg class="ikon"><use href="#ikon-soat"></use></svg></div>

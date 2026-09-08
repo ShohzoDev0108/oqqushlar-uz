@@ -29,6 +29,7 @@ from django.utils.formats import date_format
 from django.utils.translation import gettext
 from PIL import Image, ImageDraw, ImageFilter
 
+from .sana import uzun_sana
 from .shriftlar import shrift
 
 OLCHAM = (1200, 630)
@@ -414,11 +415,10 @@ def _matnlar(taklifnoma, til):
         return {
             "yorliq": str(taklifnoma.marosim_turi_matni).upper(),
             "bolaklar": _ism_bolaklari(taklifnoma),
-            # "j E Y" — "d-F, Y" emas. "F" oyni bosh kelishikda beradi va
-            # ruschada "12-Октябрь, 2026" degan g'aliz matn chiqadi; "E"
-            # esa tilning o'z sana shakli ("12 октября 2026"), o'zbekcha
-            # va boshqa tillarda farqi yo'q.
-            "sana": date_format(sana, "DATE_FORMAT"),
+            # Sana sahifadagi bilan AYNAN bir xil shaklda bo'lishi kerak —
+            # shuning uchun bu yerda ham "taklif/sana.py" ishlatiladi,
+            # Django'ning format qatori emas (sabablari o'sha faylda).
+            "sana": uzun_sana(sana),
             "vaqt": date_format(sana, "H:i"),
             "joy": (taklifnoma.toyxona or "").strip(),
         }

@@ -492,6 +492,24 @@ class Taklifnoma(models.Model):
     def get_absolute_url(self):
         return reverse("taklif:korish", kwargs={"slug": self.slug})
 
+    @property
+    def sana_uzun(self):
+        """Marosim sanasi joriy tilning o'z qoidasi bo'yicha yozilgan holda.
+
+        Shablonlarda `{{ taklifnoma.sana_uzun }}` deb ishlatiladi. Nega
+        oddiy `date` filtri emasligi "taklif/sana.py" boshida tushuntirilgan
+        — qisqasi, turkman, qirg'iz va tojik tillarida sana ichida oyga
+        qo'shimcha qo'shiladi, buni format qatori bilan yozib bo'lmaydi.
+
+        Import funksiya ichida: modul yuklanish tartibida aylanma bog'liqlik
+        bo'lmasligi uchun.
+        """
+        from django.utils import timezone
+
+        from .sana import uzun_sana
+
+        return uzun_sana(timezone.localtime(self.sana))
+
     def get_statistika_url(self):
         return reverse("taklif:statistika", kwargs={"token": self.statistika_token})
 
