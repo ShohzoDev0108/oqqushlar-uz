@@ -137,9 +137,28 @@
     <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'taklif/og-rasm.png' %}{% endblock %}">
     <meta name="twitter:card" content="summary_large_image">
     {% endif %}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    {% comment %}
+    SHRIFTLAR — o'z serverimizdan, Google Fonts'dan emas.
+
+    TAFTISH: ilgari bu yerda uchta qator turardi — ikkita "preconnect"
+    va Google Fonts'ning CSS havolasi. Ya'ni sahifa ochilishi uchun
+    brauzer avval fonts.googleapis.com ga borib CSS olishi, keyin
+    fonts.gstatic.com dan fayllarni olishi kerak edi: ikkita begona
+    domen, ikkita DNS + TLS qo'l berish, va ikkalasi ham matn
+    ko'rinishidan OLDIN. O'zbekistondagi mobil internetda bu sezilarli
+    kechikish beradi. Endi shriftlar o'z domenimizdan, Cloudflare
+    keshidan keladi.
+
+    Ikkita eng kerakli fayl oldindan so'raladi ("preload"): matn va
+    sarlavha shriftining lotin qismi — ular istisnosiz har bir sahifada
+    ishlatiladi. Qolganlarini brauzer sahifadagi harflarga qarab o'zi
+    tanlaydi ("unicode-range", shriftlar.css'ga qarang).
+    {% endcomment %}
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'taklif/shriftlar/manrope-latin.woff2' %}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'taklif/shriftlar/cormorant-latin.woff2' %}">
+    <link rel="stylesheet" href="{% static 'taklif/shriftlar/shriftlar.css' %}">
     <style id="oq-uslub">
         * { box-sizing: border-box; }
         {% comment %}
@@ -160,8 +179,30 @@
         serif — internet sekin bo'lsa ham sahifa qiyofasini yo'qotmaydi.
         {% endcomment %}
         :root {
-            --oq-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --oq-serif: 'Cormorant Garamond', Georgia, serif;
             --oq-sans: 'Manrope', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        {% comment %}
+        QOZOQ, QIRG'IZ, TOJIK va QORAQALPOQ tillari matn shrifti — Inter.
+
+        Sabab: Manrope'da bu tillarning harflari YO'Q. Kirill tomonda
+        Ғ, Қ, Ң, Ұ, Ҳ, Ҷ, Ә, ӣ, ӯ; qoraqalpoqchada esa juda ko'p
+        uchraydigan "ǵ" ("maǵlıwmat", "qonaqlarǵa"). Brauzer yo'q harfni
+        boshqa shriftdan olib qo'yadi, natijada so'z ICHIDA shrift
+        almashib qoladi — "Қазан" yoki "maǵlıwmat" so'zining bitta harfi
+        qolganlaridan boshqacha ko'rinadi. Katta o'lchamda bu darrov
+        ko'zga tashlanadi.
+
+        Shuning uchun bu to'rt tilda BUTUN matn Inter'ga o'tadi — u
+        saytdagi sakkiz tilning hammasini to'liq qoplaydi. Rus, ingliz
+        va turkman tillari bu ro'yxatda YO'Q: Manrope ularni to'liq
+        qoplaydi, ya'ni ular o'z shriftida qoladi.
+
+        Sarlavhalar (Cormorant) hamma tilda bir xil — unda bu harflar
+        bor, faqat qoraqalpoqcha "ǵ" istisno (shriftlar.css'ga qarang).
+        {% endcomment %}
+        :root:lang(kk), :root:lang(ky), :root:lang(tg), :root:lang(kaa) {
+            --oq-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
         body {
             margin: 0;

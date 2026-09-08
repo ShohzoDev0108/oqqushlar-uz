@@ -12,8 +12,12 @@ qiladi, xuddi shu block'lar bilan).
 {% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block extrastyle %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+{% comment %}
+Shriftlar saytnikidan olinadi — Google Fonts'ga murojaat yo'q (sabablari
+"templates/base.html"da). Ilgari bu yerda Playfair Display so'ralardi;
+endi sarlavhalar sayt bilan bir xil Cormorant Garamond'da.
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'taklif/shriftlar/shriftlar.css' %}">
 <link rel="stylesheet" href="{% static 'taklif/admin/oqqushlar_admin.css' %}">
 {% endblock %}
 
