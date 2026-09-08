@@ -3,6 +3,7 @@ import io
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
+from django.utils import timezone
 
 from taklif.models import MUSIQA_MAKS_HAJM_MB, RASM_MAKS_HAJM_MB, Taklifnoma
 from taklif.tests.yordamchi import ASOSIY_FORMA_MAYDONLARI, shablon_yarat
@@ -205,3 +206,37 @@ class NamunaRasmKosmetikTest(TestCase):
         r = Client().get(f"/yaratish/{self.shablon.kod}/")
         self.assertContains(r, '<script id="ikki-ismli-turlar-data" type="application/json">')
         self.assertContains(r, '"toy"')
+
+
+@override_settings(ALLOWED_HOSTS=["testserver"])
+class TayyorSahifasiMaxfiyligiTest(TestCase):
+    """Taftish topilmasi: "/tayyor/<slug>/" hech qanday tekshiruvsiz
+    ochilardi, lekin unda MAXFIY statistika havolasi (tokenli manzil)
+    bor. Slug esa maxfiy emas — u mehmonlarga yuboriladigan havolaning
+    o'zi. Ya'ni istalgan mehmon manzilni qo'lda o'zgartirib, mijozning
+    mehmonlar ro'yxatiga va RSVP javoblariga kira olardi."""
+
+    def setUp(self):
+        self.shablon = shablon_yarat()
+        self.taklifnoma = Taklifnoma.objects.create(
+            slug="tayyor-maxfiy", ism_1="Maxfiy", shablon=self.shablon,
+            sana=timezone.now(), faol=True, tolangan=True,
+        )
+
+    def test_begona_tayyor_sahifasini_ocholmaydi(self):
+        r = Client().get(f"/tayyor/{self.taklifnoma.slug}/")
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.url, f"/{self.taklifnoma.slug}/")
+
+    def test_begonaga_statistika_tokeni_korinmaydi(self):
+        r = Client().get(f"/tayyor/{self.taklifnoma.slug}/", follow=True)
+        self.assertNotContains(r, self.taklifnoma.statistika_token)
+
+    def test_yaratuvchining_ozi_koradi(self):
+        c = Client()
+        sessiya = c.session
+        sessiya[SESSIYA_KALITI] = [self.taklifnoma.slug]
+        sessiya.save()
+        r = c.get(f"/tayyor/{self.taklifnoma.slug}/")
+        self.assertEqual(r.status_code, 200)
+        self.assertContains(r, self.taklifnoma.get_statistika_url())

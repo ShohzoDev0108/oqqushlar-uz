@@ -601,8 +601,28 @@ def _admin_telegram():
 
 
 def yaratildi(request, slug):
-    """Forma yuborilgach ko'rsatiladigan tasdiq sahifasi — to'lov bo'yicha yo'riqnoma."""
+    """Forma yuborilgach ko'rsatiladigan tasdiq sahifasi — to'lov bo'yicha yo'riqnoma.
+
+    FAQAT taklifnomani yaratgan kishi ko'radi (sessiya orqali — "Mening
+    taklifnomalarim" bilan bir xil model).
+
+    TAFTISH — bu jiddiy edi. Ilgari sahifa hech qanday tekshiruvsiz
+    ochilardi, lekin u MAXFIY STATISTIKA HAVOLASINI o'z ichiga oladi
+    (get_statistika_url — tokenli manzil, uni bilgan odam mehmonlar
+    ro'yxatini, RSVP javoblarini va tilaklarni ko'radi). Taklifnoma
+    slug'i esa maxfiy emas: u aynan mehmonlarga yuboriladigan havola.
+
+    Ya'ni istalgan mehmon o'zidagi "sayt.uz/<slug>/" havolasini
+    "sayt.uz/tayyor/<slug>/" ga o'zgartirsa, mijozning statistika
+    tokenini o'qib olib, butun mehmonlar ro'yxatiga kira olardi.
+    Productionda tekshirib tasdiqlandi.
+
+    Begonaga 404 emas, taklifnomaning O'ZI ko'rsatiladi: manzilni qo'lda
+    o'zgartirgan mehmon aslida taklifnomani izlayotgan bo'ladi.
+    """
     taklifnoma = get_object_or_404(Taklifnoma, slug=slug)
+    if slug not in request.session.get(SESSIYA_KALITI, []):
+        return redirect("taklif:korish", slug=slug)
     context = {
         "taklifnoma": taklifnoma,
         "admin_telegram": _admin_telegram(),
