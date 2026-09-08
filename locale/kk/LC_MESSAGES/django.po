@@ -313,7 +313,7 @@ msgstr "Бесік той"
 
 #: taklif/models.py:52
 msgid "Nahor oshi"
-msgstr "Таңғы палау (наҳор оши)"
+msgstr "Таңғы палау (наһор оши)"
 
 #: taklif/models.py:53
 msgid "Yubiley"
