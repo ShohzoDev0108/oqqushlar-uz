@@ -675,6 +675,25 @@ def mehmon_korish(request, slug, mehmon_slug):
     return _taklifnoma_sahifasi(request, taklifnoma, mehmon=mehmon)
 
 
+# Ulashish kartochkasi javobining brauzer/CDN keshi.
+#
+# Odatiy holat — bir kun: taklifnoma kartochkasi mazmuni o'zgarmaguncha
+# bir xil bo'lib qolaveradi.
+#
+# FAOL_EMAS_KESH_SONIYA esa ATAYLAB qisqa. Sabab amalda ko'rindi: sayt
+# Cloudflare orqali ishlaydi va u "public, max-age=86400" ni ko'rib
+# rasmni O'Z chekkasida bir kunga saqlab qo'yadi. Faollashtirilmagan
+# taklifnoma uchun manzil bir xil bo'lib qoladi ("/ulashish/<slug>.jpg"),
+# faqat JAVOB o'zgaradi — to'lov tasdiqlangach reklama kartochkasi
+# o'rniga haqiqiysi qaytishi kerak. Uzoq muddat bilan Cloudflare
+# to'lovdan keyin ham bir kungacha eski (reklama) rasmni tarqatib
+# turardi — ya'ni mijoz havolani mehmonlarga tarqatayotgan aynan o'sha
+# daqiqada. Besh daqiqa bu oynani amalda yopadi; haqiqiy kartochkaga
+# o'tgach yana to'liq muddat ishlaydi.
+KESH_SONIYA = 60 * 60 * 24
+FAOL_EMAS_KESH_SONIYA = 60 * 5
+
+
 def ulashish_kartochkasi(request, slug):
     """Taklifnoma havolasi ulashilganda chiqadigan oldindan ko'rinish rasmi.
 
@@ -712,7 +731,7 @@ def ulashish_kartochkasi(request, slug):
     # kerak.
     if not taklifnoma.tolangan:
         if taklifnoma.slug not in request.session.get(SESSIYA_KALITI, []):
-            return _rasm_javobi(reklama_kartochkasi(til))
+            return _rasm_javobi(reklama_kartochkasi(til), FAOL_EMAS_KESH_SONIYA)
 
     return _rasm_javobi(kartochka(taklifnoma, til))
 
@@ -732,9 +751,9 @@ def _ulashish_tili(request):
     return til if til in dict(settings.LANGUAGES) else settings.LANGUAGE_CODE
 
 
-def _rasm_javobi(baytlar):
+def _rasm_javobi(baytlar, muddat=KESH_SONIYA):
     javob = HttpResponse(baytlar, content_type="image/jpeg")
-    javob["Cache-Control"] = "public, max-age=86400"
+    javob["Cache-Control"] = f"public, max-age={muddat}"
     return javob
 
 

@@ -61,6 +61,10 @@ class UlashishKartochkasiTest(TestCase):
         begona = Client().get(f"/ulashish/{self.taklifnoma.slug}.jpg")
         self.assertEqual(begona.status_code, 200)
         self.assertEqual(begona.content, reklama_kartochkasi("uz"))
+        # Kesh muddati qisqa bo'lishi SHART: manzil o'zgarmaydi, javob esa
+        # to'lov tasdiqlangach o'zgaradi. Uzun muddat bilan Cloudflare
+        # to'lovdan keyin ham eski (reklama) rasmni tarqatib turardi.
+        self.assertIn("max-age=300", begona["Cache-Control"])
 
         egasi = Client()
         sessiya = egasi.session
