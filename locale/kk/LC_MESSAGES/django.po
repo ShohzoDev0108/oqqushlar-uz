@@ -2837,3 +2837,19 @@ msgstr "Төмен сырғытыңыз"
 #: taklif/templates/taklif/_sayt_footer.html
 msgid "Barcha huquqlar himoyalangan"
 msgstr "Барлық құқықтар қорғалған"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Bir qadam qoldi — faollashtirish"
+msgstr "Бір қадам қалды — белсендіру"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilgach mehmonlarga shu havolani yuborasiz:"
+msgstr "Белсендірілгеннен кейін осы сілтемені қонақтарға жібересіз:"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Yaqinlaringizga ko'rsatish"
+msgstr "Жақындарыңызға көрсету"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
+msgstr "Белсендірілгенге дейін олар шақырудың тек мұқабасын көреді."

@@ -2840,3 +2840,19 @@ msgstr "Scroll down"
 #: taklif/templates/taklif/_sayt_footer.html
 msgid "Barcha huquqlar himoyalangan"
 msgstr "All rights reserved"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Bir qadam qoldi — faollashtirish"
+msgstr "One step left — activation"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilgach mehmonlarga shu havolani yuborasiz:"
+msgstr "Once activated, you will send this link to your guests:"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Yaqinlaringizga ko'rsatish"
+msgstr "Show it to your family"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
+msgstr "Until it is activated they will only see the invitation's cover."

@@ -1,19 +1,72 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n oq_filtrlar %}
 
 {% block title %}{% trans "Tayyor!" %} — {{ taklifnoma.sarlavha }}{% endblock %}
+
+{% comment %}
+Forma to'ldirilib bo'lgandan keyingi sahifa — mijozning eng qiziqqan,
+eng tayyor daqiqasi. Shu sabab bu yerda BITTA asosiy harakat bo'lishi
+kerak, va u to'lovning o'zi.
+
+TAFTISH: ilgari sahifa buning aksini qilardi. Eng ko'zga tashlanadigan
+ikki element — "Mehmonlaringizga shuni yuborasiz" degan havola bloki va
+"Mehmonlarga yuborish" tugmasi — mijozni hali FAOLLASHTIRILMAGAN
+havolani mehmonlarga tarqatishga chorlardi. Mehmonlar esa qulflangan
+sahifaga tushardi: mijoz buni faqat kimdir "havolang ochilmayapti" deb
+yozgandan keyin bilardi. To'lov haqidagi yagona ko'rsatma esa raqamli
+ro'yxatning ikkinchi bandida, matn ichida turardi — ya'ni pul keladigan
+harakat butun sahifada YAGONA tugmasiz harakat edi.
+
+Endi tartib teskari: avval faollashtirish (narxi bilan), keyin qolgani.
+
+ULASHISH TUGMASI OLIB TASHLANMADI — nomi rostini aytadigan qilindi.
+To'lovgacha u "Yaqinlaringizga ko'rsatish" bo'ladi va ostida qabul
+qiluvchi nima ko'rishi aytiladi. Sabablari:
+
+  * havolani tasodifan olgan odam baribir qulflangan telefon maketini
+    ko'radi va bu biz uchun reklama bo'lib qolaveradi — bu kanal
+    yopilmaydi, biz shunchaki mijozni unga ITARMAYMIZ;
+  * mijozning jahli chiqishiga tugmaning o'zi emas, VA'DASI sabab
+    bo'lardi: "Mehmonlarga yuborish" deb yozilgan tugmani bosgan odam
+    haqiqiy taklifnoma ketadi deb o'ylaydi. Tugma rostini aytsa,
+    turmush o'rtog'iga ko'rsatmoqchi bo'lgan mijoz bilib turib
+    yuboradi va umidsizlik qolmaydi.
+
+To'lov tasdiqlangach o'sha tugma to'liq ovozda — "Mehmonlarga
+yuborish" — bo'lib qaytadi (pastdagi shart).
+{% endcomment %}
 
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
 
 .markaz { text-align: center; max-width: 620px; margin: 0 auto; padding: 50px 0 20px; }
 .markaz .oq-h1 { font-size: clamp(2rem, 4.5vw, 3rem); }
-.link-izoh { color: var(--kul); font-size: .85rem; margin-top: 22px; margin-bottom: 0; }
-.yaratildi-ulash { margin: 18px 0 6px; }
+
+/* --- To'lov bloki: sahifadagi yagona asosiy harakat --- */
+.ty-tolov {
+    margin: 32px auto 0; max-width: 460px; padding: 28px 24px;
+    border: 1px solid var(--tilla); border-radius: 4px;
+    background: var(--tilla-yumshoq);
+}
+.ty-tolov .sarlavha {
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 500;
+    color: var(--siyoh); margin: 0 0 8px;
+}
+.ty-narx {
+    font-family: var(--serif); font-size: 2rem; color: var(--tilla-toq);
+    margin: 0 0 20px; line-height: 1.2;
+}
+.ty-narx span {
+    font-family: var(--sans); font-size: .78rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--kul); margin-left: 7px;
+}
+.ty-korish { display: inline-block; margin-top: 18px; }
+
+.link-izoh { color: var(--kul); font-size: .85rem; margin-top: 34px; margin-bottom: 0; }
 .link-blok {
     display: flex; align-items: center; gap: 12px;
     background: var(--toza); border: 1px dashed var(--tilla); border-radius: 2px;
-    padding: 14px 14px 14px 18px; margin: 10px auto 26px; max-width: 460px;
+    padding: 14px 14px 14px 18px; margin: 10px auto 0; max-width: 460px;
 }
 .link-blok .link-matni {
     flex: 1; word-break: break-all; text-align: left;
@@ -27,16 +80,32 @@
 }
 @media (hover: hover) and (pointer: fine) { .link-nusxa-tugma:hover {background: var(--tilla-toq);} }
 .link-nusxa-tugma svg { width: 13px; height: 13px; flex-shrink: 0; }
-.qadamlar { text-align: left; max-width: 480px; margin: 30px auto; padding-left: 20px; }
+
+.yaratildi-ulash { margin: 16px 0 0; }
+/* Ulashish tugmasi ostidagi ogohlantirish — tugmaning va'dasi bilan
+   haqiqat orasidagi farqni yopadigan yagona qator. */
+.ty-ulash-izoh {
+    margin: 8px auto 0; max-width: 42ch;
+    color: var(--kul); font-size: .8rem; line-height: 1.6;
+}
+
+.qadamlar { text-align: left; max-width: 480px; margin: 34px auto 0; padding-left: 20px; }
 .qadamlar li { margin-bottom: 12px; color: var(--kul); line-height: 1.7; }
 .qadamlar li::marker { color: var(--tilla); font-family: var(--serif); }
-.tugmalar-qatori { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+.ty-eslatma { max-width: 480px; margin: 34px auto 0; color: var(--kul); line-height: 1.75; }
+.tugmalar-qatori { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
 .esdalik-blok {
     margin: 34px auto 0; max-width: 520px; padding: 20px 24px; text-align: left;
     background: var(--toza); border-left: 3px solid var(--tilla); border-radius: 2px;
 }
 .esdalik-blok p { margin: 0; color: var(--siyoh); line-height: 1.75; font-size: .92rem; }
 .esdalik-blok p + p { margin-top: 10px; }
+
+@media (max-width: 700px) {
+    .markaz { padding: 34px 0 20px; }
+    .ty-tolov { padding: 24px 18px; }
+    .ty-narx { font-size: 1.7rem; }
+}
 {% endblock %}
 
 {% block content %}
@@ -48,7 +117,26 @@
         <span class="oq-yorliq">{{ taklifnoma.sarlavha }}</span>
         <h1 class="oq-h1">{% trans "Taklifnomangiz tayyor!" %}</h1>
 
+        {% if not taklifnoma.tolangan %}
+        {% comment %}
+        Narx ATAYLAB shu yerda takrorlanadi. Mijoz uni katalogda bir marta
+        ko'rgan, keyin uzun formani to'ldirgan — to'lash paytida summani
+        eslay olmasa, so'rashga majbur bo'ladi va bu pul oldidagi
+        oxirgi, keraksiz to'siq bo'lardi.
+        {% endcomment %}
+        <div class="ty-tolov">
+            <p class="sarlavha">{% trans "Bir qadam qoldi — faollashtirish" %}</p>
+            <div class="ty-narx">{{ taklifnoma.shablon.narx|narx_ajrat }}<span>{% trans "so'm" %}</span></div>
+            <a class="oq-cta toliq" href="{% url 'taklif:yoqdi' taklifnoma.slug %}">{% trans "Telegram orqali yozish" %}</a>
+        </div>
+
+        <a class="oq-cta ty-korish" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>
+
+        <p class="link-izoh">{% trans "Faollashtirilgach mehmonlarga shu havolani yuborasiz:" %}</p>
+        {% else %}
         <p class="link-izoh">{% trans "Bu — sizning shaxsiy havolangiz. Mehmonlaringizga shuni yuborasiz:" %}</p>
+        {% endif %}
+
         <div class="link-blok">
             <span class="link-matni" id="shaxsiy-havola">{{ request.scheme }}://{{ request.get_host }}{{ taklifnoma.get_absolute_url }}</span>
             {% comment %}
@@ -62,28 +150,54 @@
             </button>
         </div>
 
-        {% comment %}
-        Ulashish tugmasi havolaning O'ZI yonida turadi: mijoz aynan shu
-        yerda "endi buni qanday yuboraman?" degan savolga duch keladi.
-        Nusxalash tugmasi ham qoldi — kimdir havolani boshqa joyga
-        (masalan hujjatga) qo'yishni istashi mumkin.
-        {% endcomment %}
         {% blocktrans with sarlavha=taklifnoma.sarlavha asvar YARATILDI_MATN %}Sizni marosimimizga taklif qilamiz — {{ sarlavha }}:{% endblocktrans %}
+        {% if taklifnoma.tolangan %}
         {% trans "Mehmonlarga yuborish" as YARATILDI_YORLIQ %}
+        {% else %}
+        {% trans "Yaqinlaringizga ko'rsatish" as YARATILDI_YORLIQ %}
+        {% endif %}
         <p class="yaratildi-ulash">
             {% include "taklif/_ulashish_tugma.html" with ulash_yol=taklifnoma.get_absolute_url ulash_matn=YARATILDI_MATN ulash_yorliq=YARATILDI_YORLIQ %}
         </p>
+        {% if not taklifnoma.tolangan %}
+        <p class="ty-ulash-izoh">{% trans "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi." %}</p>
+        {% endif %}
 
-        <a class="oq-cta toliq" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>
+        {% if taklifnoma.tolangan %}
+        <a class="oq-cta ty-korish" href="{{ taklifnoma.get_absolute_url }}">{% trans "Taklifnomani ko'rish" %}</a>
+        {% endif %}
 
+        {% comment %}
+        Yo'riqnoma faqat TO'LOVGACHA ma'noga ega: uning birinchi ikki
+        bandi "ko'rib chiqing" va "to'lov tasdiqlangach..." deydi.
+        Faollashtirilgan taklifnomada ular allaqachon o'tib ketgan
+        bosqichlar bo'lib qoladi va sahifani eskirgan ko'rsatma bilan
+        to'ldirardi — shu sabab u yerda faqat oxirgi, hamon amal
+        qiladigan band qoladi.
+        {% endcomment %}
+        {% if not taklifnoma.tolangan %}
         <ol class="qadamlar">
             <li>{% trans "Yuqoridagi tugma orqali taklifnomangizni ko'rib, hammasi to'g'ri ekanligiga ishonch hosil qiling." %}</li>
-            <li>{% blocktrans with admin=admin_telegram %}Yoqsa — taklifnoma sahifasidagi <strong>"Yoqdi"</strong> tugmasini bosing, shu orqali to'g'ridan-to'g'ri Telegram orqali <strong>{{ admin }}</strong> bilan bog'lanib to'lovni amalga oshirasiz.{% endblocktrans %}</li>
             <li>{% trans "To'lov tasdiqlangach, taklifnomangiz faollashtiriladi va uni mehmonlaringizga (Telegram, Instagram va h.k.) yuborishingiz mumkin bo'ladi." %}</li>
             <li>{% trans "Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz, yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan kuzatishingiz mumkin." %}</li>
         </ol>
+        {% else %}
+        <p class="ty-eslatma">{% trans "Marosim kunigacha xohlagan vaqt qaytib kirib, ma'lumotlarni tekshirishingiz, yangi mehmon qo'shishingiz yoki kim javob berganini statistika sahifasidan kuzatishingiz mumkin." %}</p>
+        {% endif %}
 
         <div class="tugmalar-qatori">
+            {% comment %}
+            "Statistikani ko'rish" HAR IKKALA holatda ham qoladi.
+
+            Uni to'lovgacha yashirib ko'rgandim — "sahifa baribir bo'sh"
+            degan mulohaza bilan. Bu xato bo'lardi: statistika havolasi
+            maxfiy token bilan ochiladi va mijoz uni aynan shu yerdan
+            bilib oladi (test_yaratish.py'dagi
+            "test_yaratildi_sahifasida_statistika_linki_bor" — o'z
+            vaqtida topilgan kamchilikning tuzatmasi). Asosiy harakat
+            bilan raqobat ham yo'q: bu qator sahifaning ancha pastida,
+            to'lov blokidan keyin turadi.
+            {% endcomment %}
             <a class="oq-cta" href="{{ taklifnoma.get_statistika_url }}">{% trans "Statistikani ko'rish" %}</a>
             <a class="oq-cta" href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
             <a class="oq-cta" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Yana bitta yaratish" %}</a>

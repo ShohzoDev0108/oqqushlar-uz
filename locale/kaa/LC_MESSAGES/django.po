@@ -2840,3 +2840,19 @@ msgstr "Tómenge súyriń"
 #: taklif/templates/taklif/_sayt_footer.html
 msgid "Barcha huquqlar himoyalangan"
 msgstr "Barlıq huqıqlar qorǵalǵan"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Bir qadam qoldi — faollashtirish"
+msgstr "Bir qádem qaldı — belsendiriw"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilgach mehmonlarga shu havolani yuborasiz:"
+msgstr "Belsendirilgennen keyin usı siltemeni miymanlarǵa jiberesiz:"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Yaqinlaringizga ko'rsatish"
+msgstr "Jaqınlarıńızǵa kórsetiw"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
+msgstr "Belsendirilgenshe olar shaqırıwdıń tek muqabasın kóredi."

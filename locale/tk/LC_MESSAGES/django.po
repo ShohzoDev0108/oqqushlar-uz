@@ -2835,3 +2835,19 @@ msgstr "Aşak süýşüriň"
 #: taklif/templates/taklif/_sayt_footer.html
 msgid "Barcha huquqlar himoyalangan"
 msgstr "Ähli hukuklar goralýar"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Bir qadam qoldi — faollashtirish"
+msgstr "Bir ädim galdy — işjeňleşdirmek"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilgach mehmonlarga shu havolani yuborasiz:"
+msgstr "Işjeňleşdirilenden soň şu salgyny myhmanlara ibermeli:"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Yaqinlaringizga ko'rsatish"
+msgstr "Ýakynlaryňyza görkezmek"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
+msgstr "Işjeňleşdirilýänçä olar diňe çakylygyň daş ýüzüni görerler."

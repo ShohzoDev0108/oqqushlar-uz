@@ -2839,3 +2839,19 @@ msgstr "Ылдый жылдырыңыз"
 #: taklif/templates/taklif/_sayt_footer.html
 msgid "Barcha huquqlar himoyalangan"
 msgstr "Бардык укуктар корголгон"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Bir qadam qoldi — faollashtirish"
+msgstr "Бир кадам калды — активдештирүү"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilgach mehmonlarga shu havolani yuborasiz:"
+msgstr "Активдештирилгенден кийин бул шилтемени конокторго жөнөтөсүз:"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Yaqinlaringizga ko'rsatish"
+msgstr "Жакындарыңызга көрсөтүү"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
+msgstr "Активдештирилгенге чейин алар чакыруунун мукабасын гана көрүшөт."

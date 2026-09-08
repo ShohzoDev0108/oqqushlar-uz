@@ -2850,3 +2850,19 @@ msgstr "Ба поён ғелонед"
 #: taklif/templates/taklif/_sayt_footer.html
 msgid "Barcha huquqlar himoyalangan"
 msgstr "Ҳамаи ҳуқуқҳо ҳифз шудаанд"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Bir qadam qoldi — faollashtirish"
+msgstr "Як қадам мондааст — фаъолсозӣ"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilgach mehmonlarga shu havolani yuborasiz:"
+msgstr "Пас аз фаъолсозӣ шумо ин пайвандро ба меҳмонон мефиристед:"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Yaqinlaringizga ko'rsatish"
+msgstr "Ба наздикони худ нишон додан"
+
+#: taklif/templates/taklif/yaratildi.html
+msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
+msgstr "То фаъолсозӣ онҳо танҳо муқоваи даъватномаро мебинанд."
