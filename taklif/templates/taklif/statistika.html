@@ -128,7 +128,7 @@ button.mini-tugma {
                     <span class="jk-holat {% if j.keladi %}ha{% else %}yoq{% endif %}">{% if j.keladi %}<svg class="stat-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4.5,12.6 9.5,17.5 19.5,6.5"/></svg> {% trans "Keladi" %}{% else %}<svg class="stat-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> {% trans "Kelmaydi" %}{% endif %}</span>
                 </div>
                 <div class="jk-tafsilot">
-                    <span>{% blocktrans with soni=j.mehmonlar_soni %}{{ soni }} kishi{% endblocktrans %}</span>
+                    <span>{% blocktrans count soni=j.mehmonlar_soni %}{{ soni }} kishi{% plural %}{{ soni }} kishi{% endblocktrans %}</span>
                     <span>{{ j.yaratilgan|date:"d.m.Y H:i" }}</span>
                 </div>
                 {% if j.tilak %}

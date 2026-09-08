@@ -18,9 +18,42 @@ elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
         var d = (c && c.dataset) || {};
         return {
             baxtli: d.baxtli || '', yil: d.yil || '', oy: d.oy || '',
-            kun: d.kun || '', boldi: d.boldi || '',
+            kun: d.kun || '', soat: d.soat || '', minut: d.minut || '',
+            sekund: d.sekund || '', boldi: d.boldi || '',
             marosimgacha: d.marosimgacha || '', bugun: d.bugun || ''
         };
+    }
+
+    // KO'PLIK. "kun", "soat" kabi yorliqlar data-atributda uchta shakl
+    // bo'lib keladi, "|" bilan ajratilgan: 1 uchun, 2-4 uchun, 5 va
+    // undan ko'p uchun (sabablari _bolimlar.html'dagi izohda).
+    //
+    // Rus tilida uchalasi ham boshqacha: 1 день, 2 дня, 5 дней. Qoida
+    // oxirgi raqamga qarab ishlaydi, lekin 11-14 istisno — ular har doim
+    // uchinchi shaklni oladi ("11 дней", "1 день" emas).
+    //
+    // Ingliz tilida ikki shakl bor (1 day / 2 days), qolgan tillarimizda
+    // esa bitta — u yerda uchala qiymat bir xil bo'ladi va tanlov hech
+    // narsani o'zgartirmaydi.
+    function koplik(son, shakllar) {
+        var q = String(shakllar || '').split('|');
+        if (q.length < 3) { return q[0] || ''; }
+        var n = Math.abs(Math.floor(son));
+        if ((document.documentElement.lang || '').slice(0, 2) === 'ru') {
+            var oxirgi = n % 10, ikkitalik = n % 100;
+            if (oxirgi === 1 && ikkitalik !== 11) { return q[0]; }
+            if (oxirgi >= 2 && oxirgi <= 4 && (ikkitalik < 12 || ikkitalik > 14)) { return q[1]; }
+            return q[2];
+        }
+        return n === 1 ? q[0] : q[2];
+    }
+
+    // Raqamni ham, yonidagi yorliqni ham birga yozadi.
+    function sanoqYoz(id, son, shakllar) {
+        var raqam = document.getElementById(id);
+        var yorliq = document.getElementById(id + '-yorliq');
+        if (raqam) { raqam.textContent = son; }
+        if (yorliq) { yorliq.textContent = koplik(son, shakllar); }
     }
 
     // 3D konvert-ochilish pardasi va musiqa.
@@ -261,9 +294,9 @@ elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
                 matnEl.textContent = SO.bugun;
             } else {
                 var qismlar = [];
-                if (f.yil > 0) { qismlar.push(f.yil + ' ' + SO.yil); }
-                if (f.oy > 0) { qismlar.push(f.oy + ' ' + SO.oy); }
-                if (f.kun > 0) { qismlar.push(f.kun + ' ' + SO.kun); }
+                if (f.yil > 0) { qismlar.push(f.yil + ' ' + koplik(f.yil, SO.yil)); }
+                if (f.oy > 0) { qismlar.push(f.oy + ' ' + koplik(f.oy, SO.oy)); }
+                if (f.kun > 0) { qismlar.push(f.kun + ' ' + koplik(f.kun, SO.kun)); }
                 matnEl.textContent = SO.baxtli + ': ' + qismlar.join(' ') + ' ' + SO.boldi;
             }
             matnEl.classList.add('baxtli');
@@ -272,10 +305,10 @@ elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
             return;
         }
 
-        document.getElementById('kun').textContent = Math.floor(farq / 86400000);
-        document.getElementById('soat').textContent = Math.floor((farq % 86400000) / 3600000);
-        document.getElementById('minut').textContent = Math.floor((farq % 3600000) / 60000);
-        document.getElementById('sekund').textContent = Math.floor((farq % 60000) / 1000);
+        sanoqYoz('kun', Math.floor(farq / 86400000), SO.kun);
+        sanoqYoz('soat', Math.floor((farq % 86400000) / 3600000), SO.soat);
+        sanoqYoz('minut', Math.floor((farq % 3600000) / 60000), SO.minut);
+        sanoqYoz('sekund', Math.floor((farq % 60000) / 1000), SO.sekund);
         matnEl.textContent = SO.marosimgacha;
     }
     tick();

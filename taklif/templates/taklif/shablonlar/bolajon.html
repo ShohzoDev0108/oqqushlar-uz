@@ -317,17 +317,6 @@ footer { text-align: center; padding: 30px 24px; color: #a79fc0; font-size: .85r
     </div>
 </div>
 
-<div class="bolim" data-anim>
-    <h2>{% trans "Mehmonlar" %}</h2>
-    <p class="mehmonlar-jami">{% blocktrans with soni=mehmonlar_jami %}Hozircha <strong>{{ soni }}</strong> kishi kelishini tasdiqladi{% endblocktrans %}</p>
-    {% if mehmonlar %}
-    <ul class="mehmon-list">
-        {% for m in mehmonlar %}
-        <li>{{ m.ism }} <span class="soni">({% blocktrans with soni=m.mehmonlar_soni %}{{ soni }} kishi{% endblocktrans %})</span></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
 
 {% if taklifnoma.telegram_link %}
 <div class="bolim" data-anim>

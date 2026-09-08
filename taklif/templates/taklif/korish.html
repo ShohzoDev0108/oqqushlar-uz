@@ -187,17 +187,6 @@ footer { text-align: center; padding: 30px 24px; opacity: .5; font-size: .8rem; 
     </div>
 </div>
 
-<div class="bolim" data-anim>
-    <h2>Mehmonlar</h2>
-    <p class="mehmonlar-jami">Hozircha <strong>{{ mehmonlar_jami }}</strong> kishi kelishini tasdiqladi</p>
-    {% if mehmonlar %}
-    <ul class="mehmon-list">
-        {% for m in mehmonlar %}
-        <li>{{ m.ism }} <span class="soni">({{ m.mehmonlar_soni }} kishi)</span></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
 
 {% if taklifnoma.telegram_link %}
 <div class="bolim" data-anim>

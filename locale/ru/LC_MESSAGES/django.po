@@ -1705,29 +1705,7 @@ msgstr "Комментарий (необязательно)"
 msgid "Mehmonlar"
 msgstr "Гости"
 
-#: taklif/templates/taklif/shablonlar/atlas.html:304
-#: taklif/templates/taklif/shablonlar/bolajon.html:305
-#: taklif/templates/taklif/shablonlar/gulbarg.html:291
-#: taklif/templates/taklif/shablonlar/marmar.html:280
-#: taklif/templates/taklif/shablonlar/registon.html:263
-#: taklif/templates/taklif/shablonlar/sodda.html:224
-#: taklif/templates/taklif/shablonlar/yulduz.html:289
-#: taklif/templates/taklif/shablonlar/zumrad.html:287
-#, python-format
-msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
-msgstr "Пока <strong>%(soni)s</strong> человек подтвердили участие"
 
-#: taklif/templates/taklif/shablonlar/atlas.html:308
-#: taklif/templates/taklif/shablonlar/bolajon.html:309
-#: taklif/templates/taklif/shablonlar/gulbarg.html:295
-#: taklif/templates/taklif/shablonlar/marmar.html:284
-#: taklif/templates/taklif/shablonlar/registon.html:267
-#: taklif/templates/taklif/shablonlar/yulduz.html:293
-#: taklif/templates/taklif/shablonlar/zumrad.html:291
-#: taklif/templates/taklif/statistika.html:110
-#, python-format
-msgid "%(soni)s kishi"
-msgstr "%(soni)s человек"
 
 #: taklif/templates/taklif/shablonlar/bolajon.html:167
 #: taklif/templates/taklif/shablonlar/gulbarg.html:152
@@ -1747,10 +1725,6 @@ msgstr "Уважаемый(ая) %(ism)s"
 msgid "Agar tabrik sovg'a qoldirmoqchi bo'lsangiz:"
 msgstr "Если хотите оставить подарок:"
 
-#: taklif/templates/taklif/shablonlar/sodda.html:228
-#, python-format
-msgid "%(ism)s — %(soni)s kishi"
-msgstr "%(ism)s — %(soni)s человек"
 
 #: taklif/templates/taklif/shablonlar/sodda.html:237
 msgid "Yangiliklar uchun Telegram guruhimizga qo'shiling"
@@ -2889,3 +2863,101 @@ msgstr "Заполните имена, дату, место и программ�
 #: taklif/templates/taklif/
 msgid "Shu brauzerda yaratgan taklifnomalaringiz: har birining holati, mehmonlar statistikasi va shaxsiy havolasi."
 msgstr "Приглашения, созданные в этом браузере: статус каждого, статистика гостей и личная ссылка."
+
+#. Sanoq yorliqlari — ko'plik shakllari.
+#. Kontekst: "1" bitta uchun, "2-4" ikki-to'rt uchun,
+#. "5+" beshta va undan ko'p uchun. Sabablari
+#. _bolimlar.html'dagi izohda.
+
+msgctxt "1"
+msgid "kun"
+msgstr "день"
+
+msgctxt "2-4"
+msgid "kun"
+msgstr "дня"
+
+msgctxt "5+"
+msgid "kun"
+msgstr "дней"
+
+msgctxt "1"
+msgid "soat"
+msgstr "час"
+
+msgctxt "2-4"
+msgid "soat"
+msgstr "часа"
+
+msgctxt "5+"
+msgid "soat"
+msgstr "часов"
+
+msgctxt "1"
+msgid "minut"
+msgstr "минута"
+
+msgctxt "2-4"
+msgid "minut"
+msgstr "минуты"
+
+msgctxt "5+"
+msgid "minut"
+msgstr "минут"
+
+msgctxt "1"
+msgid "sekund"
+msgstr "секунда"
+
+msgctxt "2-4"
+msgid "sekund"
+msgstr "секунды"
+
+msgctxt "5+"
+msgid "sekund"
+msgstr "секунд"
+
+msgctxt "1"
+msgid "yil"
+msgstr "год"
+
+msgctxt "2-4"
+msgid "yil"
+msgstr "года"
+
+msgctxt "5+"
+msgid "yil"
+msgstr "лет"
+
+msgctxt "1"
+msgid "oy"
+msgstr "месяц"
+
+msgctxt "2-4"
+msgid "oy"
+msgstr "месяца"
+
+msgctxt "5+"
+msgid "oy"
+msgstr "месяцев"
+
+msgid "%(soni)s kishi"
+msgid_plural "%(soni)s kishi"
+msgstr[0] "%(soni)s человек"
+msgstr[1] "%(soni)s человека"
+msgstr[2] "%(soni)s человек"
+msgstr[3] "%(soni)s человека"
+
+msgid "%(ism)s — %(soni)s kishi"
+msgid_plural "%(ism)s — %(soni)s kishi"
+msgstr[0] "%(ism)s — %(soni)s человек"
+msgstr[1] "%(ism)s — %(soni)s человека"
+msgstr[2] "%(ism)s — %(soni)s человек"
+msgstr[3] "%(ism)s — %(soni)s человека"
+
+msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgid_plural "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgstr[0] "Пока <strong>%(soni)s</strong> человек подтвердил участие"
+msgstr[1] "Пока <strong>%(soni)s</strong> человека подтвердили участие"
+msgstr[2] "Пока <strong>%(soni)s</strong> человек подтвердили участие"
+msgstr[3] "Пока <strong>%(soni)s</strong> человека подтвердили участие"

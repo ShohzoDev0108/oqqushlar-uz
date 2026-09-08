@@ -615,18 +615,40 @@ bo'limni alohida siqish imkonini beradi.
     Data-atribut esa yamash paytida yangilanadi va sanoq keyingi
     soniyadayoq yangi tilda gapiradi.
     {% endcomment %}
+    {% comment %}
+    KO'PLIK SHAKLLARI. Sanoq raqamini JS chizadi, yorliqni esa ("kun",
+    "soat") ilgari shablon bir marta yozib qo'yardi. Rus tilida bu xato
+    edi: son bilan kelgan so'z uch shaklga kiradi — 1 день, 2 дня,
+    5 дней — bizda esa har doim "дней" turardi. To'ydan bir kun oldin,
+    ya'ni mijoz eng ko'p qaraydigan payt, sanoq "1 дней" deb turardi.
+    Ingliz tilida ham shunday: "1 days".
+
+    Endi har bir so'zning uchala shakli data-atributda, "|" bilan
+    ajratilgan holda turadi, JS esa raqamga qarab to'g'risini tanlaydi
+    (_skript.html'dagi "koplik" funksiyasi). Qozoq, qirg'iz, turkman,
+    tojik, qoraqalpoq va o'zbek tillarida uchala shakl bir xil — bu
+    tillarda sondan keyin so'z o'zgarmaydi, ya'ni ular hech nima
+    yo'qotmaydi.
+
+    Yorliqlarda "data-jonli" bor: ichidagi matnni JS chizadi, shuning
+    uchun til almashganda ular yamalmasligi kerak (yamalsa, keyingi
+    soniyada JS baribir qayta yozadi va matn bir lahzaga sakrab ketardi).
+    {% endcomment %}
     <div id="countdown" class="countdown" data-sana="{{ taklifnoma.sana|date:'c' }}"
          data-baxtli="{% trans "Baxtli oilamizga" %}"
-         data-yil="{% trans "yil" %}"
-         data-oy="{% trans "oy" %}"
-         data-kun="{% trans "kun" %}"
+         data-yil="{% trans "yil" context "1" %}|{% trans "yil" context "2-4" %}|{% trans "yil" context "5+" %}"
+         data-oy="{% trans "oy" context "1" %}|{% trans "oy" context "2-4" %}|{% trans "oy" context "5+" %}"
+         data-kun="{% trans "kun" context "1" %}|{% trans "kun" context "2-4" %}|{% trans "kun" context "5+" %}"
+         data-soat="{% trans "soat" context "1" %}|{% trans "soat" context "2-4" %}|{% trans "soat" context "5+" %}"
+         data-minut="{% trans "minut" context "1" %}|{% trans "minut" context "2-4" %}|{% trans "minut" context "5+" %}"
+         data-sekund="{% trans "sekund" context "1" %}|{% trans "sekund" context "2-4" %}|{% trans "sekund" context "5+" %}"
          data-boldi="{% trans "bo'ldi" %}"
          data-marosimgacha="{% trans "Marosimgacha" %}"
          data-bugun="{% trans "Bugun — bizning eng baxtli kunimiz" %}">
-        <div><div class="son" id="kun" data-jonli>--</div><div>{% trans "kun" %}</div></div>
-        <div><div class="son" id="soat" data-jonli>--</div><div>{% trans "soat" %}</div></div>
-        <div><div class="son" id="minut" data-jonli>--</div><div>{% trans "minut" %}</div></div>
-        <div><div class="son" id="sekund" data-jonli>--</div><div>{% trans "sekund" %}</div></div>
+        <div><div class="son" id="kun" data-jonli>--</div><div id="kun-yorliq" data-jonli>{% trans "kun" context "5+" %}</div></div>
+        <div><div class="son" id="soat" data-jonli>--</div><div id="soat-yorliq" data-jonli>{% trans "soat" context "5+" %}</div></div>
+        <div><div class="son" id="minut" data-jonli>--</div><div id="minut-yorliq" data-jonli>{% trans "minut" context "5+" %}</div></div>
+        <div><div class="son" id="sekund" data-jonli>--</div><div id="sekund-yorliq" data-jonli>{% trans "sekund" context "5+" %}</div></div>
     </div>
     <p id="countdown-matn" class="countdown-matn" data-jonli></p>
 </div>

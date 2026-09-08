@@ -746,9 +746,6 @@ msgstr ""
 msgid "Kelmaydi"
 msgstr ""
 
-#, python-format
-msgid "%(soni)s kishi"
-msgstr ""
 
 msgid "Hammaga ko'rinmoqda — yashirish"
 msgstr ""
@@ -1794,3 +1791,92 @@ msgstr[0] ""
 #: taklif/templates/taklif/_sayt_nav.html
 msgid "Narxlar"
 msgstr ""
+
+#. Sanoq yorliqlari — ko'plik shakllari.
+#. Kontekst: "1" bitta uchun, "2-4" ikki-to'rt uchun,
+#. "5+" beshta va undan ko'p uchun. Sabablari
+#. _bolimlar.html'dagi izohda.
+
+msgctxt "1"
+msgid "kun"
+msgstr "kun"
+
+msgctxt "2-4"
+msgid "kun"
+msgstr "kun"
+
+msgctxt "5+"
+msgid "kun"
+msgstr "kun"
+
+msgctxt "1"
+msgid "soat"
+msgstr "soat"
+
+msgctxt "2-4"
+msgid "soat"
+msgstr "soat"
+
+msgctxt "5+"
+msgid "soat"
+msgstr "soat"
+
+msgctxt "1"
+msgid "minut"
+msgstr "minut"
+
+msgctxt "2-4"
+msgid "minut"
+msgstr "minut"
+
+msgctxt "5+"
+msgid "minut"
+msgstr "minut"
+
+msgctxt "1"
+msgid "sekund"
+msgstr "sekund"
+
+msgctxt "2-4"
+msgid "sekund"
+msgstr "sekund"
+
+msgctxt "5+"
+msgid "sekund"
+msgstr "sekund"
+
+msgctxt "1"
+msgid "yil"
+msgstr "yil"
+
+msgctxt "2-4"
+msgid "yil"
+msgstr "yil"
+
+msgctxt "5+"
+msgid "yil"
+msgstr "yil"
+
+msgctxt "1"
+msgid "oy"
+msgstr "oy"
+
+msgctxt "2-4"
+msgid "oy"
+msgstr "oy"
+
+msgctxt "5+"
+msgid "oy"
+msgstr "oy"
+
+msgid "%(soni)s kishi"
+msgid_plural "%(soni)s kishi"
+msgstr[0] "%(soni)s kishi"
+
+msgid "%(ism)s — %(soni)s kishi"
+msgid_plural "%(ism)s — %(soni)s kishi"
+msgstr[0] "%(ism)s — %(soni)s kishi"
+
+msgid "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgid_plural "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
+msgstr[0] "Hozircha <strong>%(soni)s</strong> kishi kelishini tasdiqladi"
