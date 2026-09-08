@@ -2,6 +2,10 @@
 {% load i18n %}
 
 {% block title %}{% trans "Taklifnoma yopilgan" %}{% endblock %}
+{% comment %}
+Mijozning ismi ko'rinadigan sahifa — qidiruvga tushmaydi.
+{% endcomment %}
+{% block robots %}<meta name="robots" content="noindex, follow">{% endblock %}
 
 {% block extra_style %}
 .markaz { text-align: center; margin-top: 20vh; }

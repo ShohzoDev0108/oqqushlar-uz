@@ -2,6 +2,12 @@
 {% load i18n static %}
 
 {% block title %}{% trans "Taklifnoma hali faollashtirilmagan" %}{% endblock %}
+{% comment %}
+Bu sahifada telefon maketi ichida mijozning ismi va sanasi bor —
+shuning uchun u ham qidiruvga tushmaydi. "taklifnoma" context'ga
+berilmagani uchun base.html'dagi umumiy shart bu yerda ishlamaydi.
+{% endcomment %}
+{% block robots %}<meta name="robots" content="noindex, follow">{% endblock %}
 
 {% comment %}
 Faollashtirilmagan taklifnoma havolasini ochgan odam ko'radigan sahifa.

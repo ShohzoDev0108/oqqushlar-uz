@@ -70,3 +70,40 @@ class RobotsTest(TestCase):
         h = Client().get("/robots.txt").content.decode()
         for bolim in ["/statistika/", "/tayyor/", "/mening-taklifnomalarim/"]:
             self.assertIn(f"Disallow: {bolim}", h)
+
+
+@override_settings(ALLOWED_HOSTS=["testserver"])
+class NoindexTest(TestCase):
+    """Mijoz taklifnomalari Google'ga tushmasligi kerak (sabablari
+    base.html'dagi izohda). Namuna sahifalari esa AKSINCHA — ular aynan
+    indekslanishi kerak, shuning uchun ikkalasi ham tekshiriladi."""
+
+    NOINDEX = 'content="noindex, follow"'
+
+    def setUp(self):
+        self.shablon = shablon_yarat()
+        Shablon.objects.filter(pk=self.shablon.pk).update(ommaviy=True)
+        self.taklifnoma = Taklifnoma.objects.create(
+            slug="noindex-sinov", ism_1="Sardor", ism_2="Malika",
+            shablon=self.shablon, sana=timezone.now() + timedelta(days=20),
+            faol=True, tolangan=True,
+        )
+
+    def test_taklifnoma_sahifasi_indekslanmaydi(self):
+        h = Client().get(f"/{self.taklifnoma.slug}/").content.decode()
+        self.assertIn(self.NOINDEX, h)
+
+    def test_faollashtirilmagan_sahifa_indekslanmaydi(self):
+        self.taklifnoma.tolangan = False
+        self.taklifnoma.save()
+        h = Client().get(f"/{self.taklifnoma.slug}/").content.decode()
+        self.assertIn(self.NOINDEX, h)
+
+    def test_namuna_sahifasi_INDEKSLANADI(self):
+        h = Client().get(f"/namuna/{self.shablon.kod}/").content.decode()
+        self.assertNotIn(self.NOINDEX, h)
+
+    def test_sayt_sahifalari_INDEKSLANADI(self):
+        for yol in ["/", "/dizaynlar/", "/narxlar/", "/savol-javob/"]:
+            h = Client().get(yol).content.decode()
+            self.assertNotIn(self.NOINDEX, h, f"{yol} yopilib qolgan")

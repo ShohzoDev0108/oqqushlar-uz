@@ -3,6 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %}
+    QIDIRUV TIZIMIGA KO'RSATMA.
+
+    Mijozlarning taklifnoma sahifalari Google'ga TUSHMAYDI. Sabablari:
+
+      * sahifada mijozning ismi, aniq sana, to'yxona, manzil va kun
+        tartibi bor — bularning hammasi qidiruvda doimiy qolib ketardi
+        (havola esa ataylab abadiy ishlaydi);
+      * u yerda mehmonlarning TILAKLARI ham ism bilan chiqadi, ya'ni
+        uchinchi shaxslarning ma'lumoti;
+      * va bu bizning o'z SEO'mizga qarshi ishlardi: yuzlab bir xil
+        shablondan yasalgan sahifa "takroriy mazmun" bo'lib ko'rinadi va
+        biz indekslashni XOHLAGAN yigirmata namuna sahifasi bilan bir xil
+        so'rovlar uchun raqobat qilardi. Qidiruvdan kelgan odam bizning
+        katalogimizga emas, begonaning to'y sahifasiga tushardi.
+
+    "follow" qoldirildi: sahifani indekslamasa ham, undagi havolalar
+    (footerdagi sayt bo'limlari) bo'ylab yurishi mumkin.
+
+    NAMUNA sahifalari bundan MUSTASNO — ular aynan indekslanishi kerak
+    bo'lgan sahifalar, shuning uchun shart "namuna emas"ni ham tekshiradi.
+
+    Shaxsiy bo'limlar (statistika, "Tayyor", "Taklifnomalarim") bu yerda
+    emas, robots.txt orqali yopilgan — u yerda Google sahifani umuman
+    ochmaydi, ya'ni meta teg baribir o'qilmasdi.
+    {% endcomment %}
+    {% block robots %}{% if taklifnoma and not namuna %}<meta name="robots" content="noindex, follow">{% endif %}{% endblock %}
     <title>{% block title %}Taklifnoma{% endblock %}</title>
     {% comment %}
     Favicon: zamonaviy brauzerlar SVG'ni oladi (istalgan o'lchamda tiniq,
