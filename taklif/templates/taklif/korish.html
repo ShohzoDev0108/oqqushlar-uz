@@ -92,7 +92,7 @@ footer { text-align: center; padding: 30px 24px; opacity: .5; font-size: .8rem; 
 <div class="hero">
     <div class="kichik">To'y taklifnomasi</div>
     <h1>{{ taklifnoma.kuyov }}<span class="va">&</span>{{ taklifnoma.kelin }}</h1>
-    <div class="sana-matn">{{ taklifnoma.sana|date:"d-F, Y" }}</div>
+    <div class="sana-matn">{{ taklifnoma.sana|date:"DATE_FORMAT" }}</div>
 </div>
 
 <div class="ichki">

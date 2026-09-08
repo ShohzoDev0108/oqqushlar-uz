@@ -232,6 +232,12 @@ LANGUAGES = [
 
 LOCALE_PATHS = [BASE_DIR / "locale"]
 
+# Sana formati har bir til uchun alohida belgilanadi — sabablari va format
+# belgilarining ma'nosi "config/formats/__init__.py" faylida tushuntirilgan.
+# Qisqacha: shablonlarda `date:"DATE_FORMAT"` yozamiz, Django esa mehmon
+# tanlagan tilga qarab shu papkadan to'g'ri formatni oladi.
+FORMAT_MODULE_PATH = ["config.formats"]
+
 TIME_ZONE = "Asia/Tashkent"
 
 USE_I18N = True

@@ -342,7 +342,7 @@ body #parda.marosim-qizlar_bazmi .parda-yurak-ichi { background: rgba(255,253,24
     {% else %}
     <h1>{{ taklifnoma.ism_1 }}</h1>
     {% endif %}
-    <div class="sana-matn">{{ taklifnoma.sana|date:"d-F, Y" }}</div>
+    <div class="sana-matn">{{ taklifnoma.sana|date:"DATE_FORMAT" }}</div>
 </div>
 
 <div class="ichki">

@@ -418,7 +418,7 @@ def _matnlar(taklifnoma, til):
             # ruschada "12-Октябрь, 2026" degan g'aliz matn chiqadi; "E"
             # esa tilning o'z sana shakli ("12 октября 2026"), o'zbekcha
             # va boshqa tillarda farqi yo'q.
-            "sana": date_format(sana, "j E Y"),
+            "sana": date_format(sana, "DATE_FORMAT"),
             "vaqt": date_format(sana, "H:i"),
             "joy": (taklifnoma.toyxona or "").strip(),
         }

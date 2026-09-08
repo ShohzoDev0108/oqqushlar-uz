@@ -208,7 +208,7 @@ footer { text-align: center; padding: 30px 24px; color: #9a927f; font-size: .8re
     {% else %}
     <h1>{{ taklifnoma.ism_1 }}</h1>
     {% endif %}
-    <div><span class="sana-matn">{{ taklifnoma.sana|date:"d-F, Y" }}</span></div>
+    <div><span class="sana-matn">{{ taklifnoma.sana|date:"DATE_FORMAT" }}</span></div>
 </div>
 
 <div class="ichki">
