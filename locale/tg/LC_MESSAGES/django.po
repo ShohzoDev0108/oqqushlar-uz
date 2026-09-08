@@ -2866,3 +2866,35 @@ msgstr "Ба наздикони худ нишон додан"
 #: taklif/templates/taklif/yaratildi.html
 msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
 msgstr "То фаъолсозӣ онҳо танҳо муқоваи даъватномаро мебинанд."
+
+#: taklif/templates/taklif/
+msgid "Nikoh, fotiha, beshik va boshqa marosimlar uchun elektron taklifnoma. 20 ta dizayn, mehmonlar javobini kuzatish, 8 ta til. Ro'yxatdan o'tmasdan yarating."
+msgstr "Даъватномаи электронӣ барои тӯй, фотиҳа, гаҳворабандон ва дигар маросимҳо. 20 тарҳ, пайгирии ҷавоби меҳмонон, 8 забон. Бидуни сабтином."
+
+#: taklif/templates/taklif/
+msgid "Milliy, zamonaviy va islomiy uslubdagi 20 ta tayyor dizayn. Marosim turi bo'yicha tanlang va har birini to'lovdan oldin to'liq ochib ko'ring."
+msgstr "20 тарҳи тайёр дар услуби миллӣ, муосир ва исломӣ. Аз рӯи навъи маросим интихоб кунед ва ҳар яке пеш аз пардохт пурра бинед."
+
+#: taklif/templates/taklif/
+msgid "Bir marta to'lov — obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q. Narx dizaynga qarab. Avval taklifnomangizni ko'rasiz, keyin to'laysiz."
+msgstr "Пардохти яквақта — бидуни обуна, пардохти моҳона ва иловаҳои пинҳонӣ. Нарх аз тарҳ вобаста аст. Аввал мебинед, баъд пардохт мекунед."
+
+#: taklif/templates/taklif/
+msgid "Oqqushlar — O'zbekiston marosimlari uchun elektron taklifnomalar xizmati. Raqamli taklifnoma qog'ozdan nimasi bilan farq qiladi va u nimalarni uddalaydi."
+msgstr "Oqqushlar — хидмати даъватномаҳои электронӣ барои маросимҳои Ӯзбекистон. Даъватномаи рақамӣ аз коғазӣ чӣ фарқ дорад."
+
+#: taklif/templates/taklif/
+msgid "To'lov, mehmonlar javobi, havolaning muddati, tahrirlash va tillar — elektron taklifnoma haqida eng ko'p so'raladigan savollarga aniq javoblar."
+msgstr "Пардохт, ҷавоби меҳмонон, мӯҳлати пайванд, таҳрир ва забонҳо — ҷавобҳои аниқ ба саволҳои бештар додашуда."
+
+#: taklif/templates/taklif/
+msgid "Dizayn tanlash, taklifnomani tahrirlash yoki to'lov bo'yicha savolingiz bormi? Telegram yoki telefon orqali bog'laning — tez javob beramiz."
+msgstr "Оид ба интихоби тарҳ, таҳрири даъватнома ё пардохт савол доред? Дар Telegram нависед ё занг занед — зуд ҷавоб медиҳем."
+
+#: taklif/templates/taklif/
+msgid "Ismlar, sana, to'yxona va kun tartibini to'ldiring — taklifnomangiz bir necha daqiqada tayyor bo'ladi. Ro'yxatdan o'tish, email yoki parol kerak emas."
+msgstr "Номҳо, сана, ҷои маросим ва барномаи рӯзро пур кунед — даъватнома дар чанд дақиқа тайёр мешавад. Бидуни сабтиному парол."
+
+#: taklif/templates/taklif/
+msgid "Shu brauzerda yaratgan taklifnomalaringiz: har birining holati, mehmonlar statistikasi va shaxsiy havolasi."
+msgstr "Даъватномаҳое, ки дар ин браузер сохтаед: вазъи ҳар яке, омори меҳмонон ва пайванди шахсӣ."

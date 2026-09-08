@@ -37,6 +37,14 @@
     qo'shish shart emas.
     {% endcomment %}
     {% if taklifnoma %}
+    {% comment %}
+    Taklifnoma sahifasida qidiruv tizimi uchun tavsif (meta description)
+    ijtimoiy tarmoqlar uchunidagi bilan bir xil: taklifnomaning o'z matni,
+    u bo'lmasa umumiy taklif jumlasi. Ikkala teg ham kerak — "description"
+    ni Google, "og:description" ni Telegram/WhatsApp o'qiydi va biri
+    ikkinchisining o'rnini bosmaydi.
+    {% endcomment %}
+    <meta name="description" content="{% if taklifnoma.matn %}{{ taklifnoma.matn|truncatechars:160 }}{% else %}{% blocktrans with sana=taklifnoma.sana|date:"d.m.Y" %}Sizni {{ sana }} kunidagi marosimimizga taklif qilamiz{% endblocktrans %}{% endif %}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ taklifnoma.sarlavha }}">
     <meta property="og:description" content="{% if taklifnoma.matn %}{{ taklifnoma.matn|truncatechars:160 }}{% else %}{% blocktrans with sana=taklifnoma.sana|date:"d.m.Y" %}Sizni {{ sana }} kunidagi marosimimizga taklif qilamiz{% endblocktrans %}{% endif %}">
@@ -78,6 +86,21 @@
     <meta name="twitter:title" content="{{ taklifnoma.sarlavha }}">
     {% else %}
     <meta property="og:type" content="website">
+    {% comment %}
+    QIDIRUV TIZIMI UCHUN TAVSIF.
+
+    TAFTISH: butun saytda birorta "description" tegi yo'q edi — faqat
+    "og:description" (u Telegram/WhatsApp uchun). Natijada Google
+    qidiruv natijasida sayt ostidagi tavsif matnini O'ZI to'qib chiqarardi:
+    odatda sahifadan tasodifiy olingan bir necha so'z. Bu qidiruvdan
+    keladigan odamning bosish qaroriga to'g'ridan-to'g'ri ta'sir qiladi.
+
+    Har bir sahifa o'z tavsifini "meta_description" bloki orqali beradi
+    (pastdagi standart matn faqat tavsif berilmagan sahifalar uchun).
+    Uzunligi ~150 belgi atrofida tanlangan: Google shu chegaradan
+    keyingisini kesib tashlaydi.
+    {% endcomment %}
+    <meta name="description" content="{% block meta_description %}{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}{% endblock %}">
     <meta property="og:title" content="{% block og_title %}{% trans "Oqqushlar — chiroyli elektron taklifnomalar" %}{% endblock %}">
     <meta property="og:description" content="{% block og_description %}{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}{% endblock %}">
     {% comment %}

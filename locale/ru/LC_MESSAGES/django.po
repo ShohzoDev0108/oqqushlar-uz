@@ -2857,3 +2857,35 @@ msgstr "Показать близким"
 #: taklif/templates/taklif/yaratildi.html
 msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
 msgstr "До активации они увидят только обложку приглашения."
+
+#: taklif/templates/taklif/
+msgid "Nikoh, fotiha, beshik va boshqa marosimlar uchun elektron taklifnoma. 20 ta dizayn, mehmonlar javobini kuzatish, 8 ta til. Ro'yxatdan o'tmasdan yarating."
+msgstr "Электронные приглашения на свадьбу, фотиху, бешик той и другие торжества. 20 дизайнов, учёт ответов гостей, 8 языков. Без регистрации."
+
+#: taklif/templates/taklif/
+msgid "Milliy, zamonaviy va islomiy uslubdagi 20 ta tayyor dizayn. Marosim turi bo'yicha tanlang va har birini to'lovdan oldin to'liq ochib ko'ring."
+msgstr "20 готовых дизайнов в национальном, современном и исламском стиле. Выбирайте по виду торжества и открывайте каждый целиком ещё до оплаты."
+
+#: taklif/templates/taklif/
+msgid "Bir marta to'lov — obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q. Narx dizaynga qarab. Avval taklifnomangizni ko'rasiz, keyin to'laysiz."
+msgstr "Разовая оплата — без подписки, без ежемесячных платежей и скрытых доплат. Цена зависит от дизайна. Сначала смотрите приглашение, потом платите."
+
+#: taklif/templates/taklif/
+msgid "Oqqushlar — O'zbekiston marosimlari uchun elektron taklifnomalar xizmati. Raqamli taklifnoma qog'ozdan nimasi bilan farq qiladi va u nimalarni uddalaydi."
+msgstr "Oqqushlar — сервис электронных приглашений для торжеств в Узбекистане. Чем цифровое приглашение отличается от бумажного и что оно умеет."
+
+#: taklif/templates/taklif/
+msgid "To'lov, mehmonlar javobi, havolaning muddati, tahrirlash va tillar — elektron taklifnoma haqida eng ko'p so'raladigan savollarga aniq javoblar."
+msgstr "Оплата, ответы гостей, срок действия ссылки, редактирование и языки — точные ответы на частые вопросы об электронном приглашении."
+
+#: taklif/templates/taklif/
+msgid "Dizayn tanlash, taklifnomani tahrirlash yoki to'lov bo'yicha savolingiz bormi? Telegram yoki telefon orqali bog'laning — tez javob beramiz."
+msgstr "Вопрос по выбору дизайна, редактированию приглашения или оплате? Напишите в Telegram или позвоните — отвечаем быстро."
+
+#: taklif/templates/taklif/
+msgid "Ismlar, sana, to'yxona va kun tartibini to'ldiring — taklifnomangiz bir necha daqiqada tayyor bo'ladi. Ro'yxatdan o'tish, email yoki parol kerak emas."
+msgstr "Заполните имена, дату, место и программу дня — приглашение будет готово за несколько минут. Без регистрации, email и пароля."
+
+#: taklif/templates/taklif/
+msgid "Shu brauzerda yaratgan taklifnomalaringiz: har birining holati, mehmonlar statistikasi va shaxsiy havolasi."
+msgstr "Приглашения, созданные в этом браузере: статус каждого, статистика гостей и личная ссылка."

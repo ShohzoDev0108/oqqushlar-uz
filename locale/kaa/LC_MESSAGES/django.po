@@ -2856,3 +2856,35 @@ msgstr "Jaqınlarıńızǵa kórsetiw"
 #: taklif/templates/taklif/yaratildi.html
 msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
 msgstr "Belsendirilgenshe olar shaqırıwdıń tek muqabasın kóredi."
+
+#: taklif/templates/taklif/
+msgid "Nikoh, fotiha, beshik va boshqa marosimlar uchun elektron taklifnoma. 20 ta dizayn, mehmonlar javobini kuzatish, 8 ta til. Ro'yxatdan o'tmasdan yarating."
+msgstr "Toy, patiya, besik toyı hám basqa da mereke ushın elektron shaqırıw. 20 dizayn, mıymanlar juwabın gózetiw, 8 til. Dizimnen ótpesten."
+
+#: taklif/templates/taklif/
+msgid "Milliy, zamonaviy va islomiy uslubdagi 20 ta tayyor dizayn. Marosim turi bo'yicha tanlang va har birini to'lovdan oldin to'liq ochib ko'ring."
+msgstr "Milliy, zamanagóy hám islamiy uslubdaǵı 20 tayın dizayn. Merekeniń túri boyınsha saylań hám hár birin tólewden aldın tolıq kóriń."
+
+#: taklif/templates/taklif/
+msgid "Bir marta to'lov — obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q. Narx dizaynga qarab. Avval taklifnomangizni ko'rasiz, keyin to'laysiz."
+msgstr "Bir mártelik tólew — jazılıw da, aylıq tólew de, jasırın qosımsha da joq. Baha dizaynǵa baylanıslı. Aldın kóresiz, keyin tóleysiz."
+
+#: taklif/templates/taklif/
+msgid "Oqqushlar — O'zbekiston marosimlari uchun elektron taklifnomalar xizmati. Raqamli taklifnoma qog'ozdan nimasi bilan farq qiladi va u nimalarni uddalaydi."
+msgstr "Oqqushlar — Ózbekstan merekeleri ushın elektron shaqırıw xizmeti. Sanlı shaqırıw qaǵazdan nesi menen parıq qıladı."
+
+#: taklif/templates/taklif/
+msgid "To'lov, mehmonlar javobi, havolaning muddati, tahrirlash va tillar — elektron taklifnoma haqida eng ko'p so'raladigan savollarga aniq javoblar."
+msgstr "Tólew, mıyman juwapları, siltemeniń múddeti, redaktorlaw hám tiller — elektron shaqırıw haqqında kóp beriletuǵın sorawlarǵa anıq juwaplar."
+
+#: taklif/templates/taklif/
+msgid "Dizayn tanlash, taklifnomani tahrirlash yoki to'lov bo'yicha savolingiz bormi? Telegram yoki telefon orqali bog'laning — tez javob beramiz."
+msgstr "Dizayn saylaw, shaqırıwdı redaktorlaw yamasa tólew boyınsha sorawıńız barma? Telegram arqalı jazıń yaki qońıraw shalıń."
+
+#: taklif/templates/taklif/
+msgid "Ismlar, sana, to'yxona va kun tartibini to'ldiring — taklifnomangiz bir necha daqiqada tayyor bo'ladi. Ro'yxatdan o'tish, email yoki parol kerak emas."
+msgstr "Atlardı, sánesin, toy ornın hám kún tártibin toltırıń — shaqırıw birneshe minutta tayın. Dizimnen ótiw, email hám parol kerek emes."
+
+#: taklif/templates/taklif/
+msgid "Shu brauzerda yaratgan taklifnomalaringiz: har birining holati, mehmonlar statistikasi va shaxsiy havolasi."
+msgstr "Usı brauzerde jaratqan shaqırıwlarıńız: hár biriniń jaǵdayı, mıyman statistikası hám jeke siltemesi."

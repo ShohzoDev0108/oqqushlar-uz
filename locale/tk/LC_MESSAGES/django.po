@@ -2851,3 +2851,35 @@ msgstr "Ýakynlaryňyza görkezmek"
 #: taklif/templates/taklif/yaratildi.html
 msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
 msgstr "Işjeňleşdirilýänçä olar diňe çakylygyň daş ýüzüni görerler."
+
+#: taklif/templates/taklif/
+msgid "Nikoh, fotiha, beshik va boshqa marosimlar uchun elektron taklifnoma. 20 ta dizayn, mehmonlar javobini kuzatish, 8 ta til. Ro'yxatdan o'tmasdan yarating."
+msgstr "Toý, fatyha, sallançak toýy we beýleki dabaralar üçin elektron çakylyk. 20 dizaýn, myhman jogaplaryny yzarlamak, 8 dil. Hasaba durmazdan."
+
+#: taklif/templates/taklif/
+msgid "Milliy, zamonaviy va islomiy uslubdagi 20 ta tayyor dizayn. Marosim turi bo'yicha tanlang va har birini to'lovdan oldin to'liq ochib ko'ring."
+msgstr "Milli, döwrebap we yslam stilinde 20 taýýar dizaýn. Dabaranyň görnüşi boýunça saýlaň we her birini tölegden öň doly görüň."
+
+#: taklif/templates/taklif/
+msgid "Bir marta to'lov — obuna ham, oylik to'lov ham, yashirin qo'shimcha ham yo'q. Narx dizaynga qarab. Avval taklifnomangizni ko'rasiz, keyin to'laysiz."
+msgstr "Bir gezeklik töleg — abuna ýazylyşyk, aýlyk töleg we gizlin goşmaça ýok. Baha dizaýna bagly. Ilki görýärsiňiz, soň töleýärsiňiz."
+
+#: taklif/templates/taklif/
+msgid "Oqqushlar — O'zbekiston marosimlari uchun elektron taklifnomalar xizmati. Raqamli taklifnoma qog'ozdan nimasi bilan farq qiladi va u nimalarni uddalaydi."
+msgstr "Oqqushlar — Özbegistandaky dabaralar üçin elektron çakylyk hyzmaty. Sanly çakylyk kagyzdan näme bilen tapawutlanýar."
+
+#: taklif/templates/taklif/
+msgid "To'lov, mehmonlar javobi, havolaning muddati, tahrirlash va tillar — elektron taklifnoma haqida eng ko'p so'raladigan savollarga aniq javoblar."
+msgstr "Töleg, myhman jogaplary, salgynyň möhleti, redaktirlemek we diller — elektron çakylyk barada iň köp berilýän soraglara anyk jogaplar."
+
+#: taklif/templates/taklif/
+msgid "Dizayn tanlash, taklifnomani tahrirlash yoki to'lov bo'yicha savolingiz bormi? Telegram yoki telefon orqali bog'laning — tez javob beramiz."
+msgstr "Dizaýn saýlamak, çakylygy redaktirlemek ýa-da töleg boýunça soragyňyz barmy? Telegramda ýazyň ýa-da jaň ediň — çalt jogap berýäris."
+
+#: taklif/templates/taklif/
+msgid "Ismlar, sana, to'yxona va kun tartibini to'ldiring — taklifnomangiz bir necha daqiqada tayyor bo'ladi. Ro'yxatdan o'tish, email yoki parol kerak emas."
+msgstr "Atlary, senäni, toý ýerini we gün tertibini dolduryň — çakylyk birnäçe minutda taýýar. Hasaba durmak, email we parol gerek däl."
+
+#: taklif/templates/taklif/
+msgid "Shu brauzerda yaratgan taklifnomalaringiz: har birining holati, mehmonlar statistikasi va shaxsiy havolasi."
+msgstr "Şu brauzerde döreden çakylyklaryňyz: her biriniň ýagdaýy, myhman statistikasy we şahsy salgysy."
