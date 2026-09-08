@@ -160,11 +160,11 @@ msgid "Avgust"
 msgstr "Avgust"
 
 #: taklif/forms.py:121
-msgid "Sentyabr"
+msgid "Sentabr"
 msgstr "Sentyabr"
 
 #: taklif/forms.py:121
-msgid "Oktyabr"
+msgid "Oktabr"
 msgstr "Oktyabr"
 
 #: taklif/forms.py:121
@@ -812,7 +812,7 @@ msgstr "Forma máresim túrińizdi túsinedi"
 #: taklif/templates/taklif/bosh_sahifa.html:584
 msgid ""
 "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
-"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+"savollar va namunaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 "Toy ma, súnnet toy ma, yáki tuwılǵan kún be — forma soraytuǵın sorawlar hám "
 "úlgi tekstler dál sol máresimge sáykes ózgeredi."
@@ -2753,7 +2753,7 @@ msgid "Toshkent shahri, Chilonzor tumani, Bunyodkor shoh ko'chasi 12"
 msgstr "Tashkent qalası, Shılanzar rayonı, Bunyodkor shah kóshesi 12"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
-msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi 108"
+msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi 108"
 msgstr "Tashkent qalası, Yunusabad rayonı, Ámir Temur shah kóshesi 108"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html

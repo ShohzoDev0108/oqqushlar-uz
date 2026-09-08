@@ -160,11 +160,11 @@ msgid "Avgust"
 msgstr "August"
 
 #: taklif/forms.py:121
-msgid "Sentyabr"
+msgid "Sentabr"
 msgstr "September"
 
 #: taklif/forms.py:121
-msgid "Oktyabr"
+msgid "Oktabr"
 msgstr "October"
 
 #: taklif/forms.py:121
@@ -800,7 +800,8 @@ msgid ""
 "yaratib, o'z ko'zingiz bilan ko'rasiz. Yoqsagina to'lab faollashtirasiz."
 msgstr ""
 "No registration, no payment needed — build your full invitation and see it "
-"with your own eyes first. Pay only once you like it, to activate it."
+"with your own eyes first. Pay only when you like it — that is what "
+"activates it."
 
 #: taklif/templates/taklif/bosh_sahifa.html:582
 msgid "Har bir marosimga moslashgan"
@@ -813,9 +814,9 @@ msgstr "The form understands your event type"
 #: taklif/templates/taklif/bosh_sahifa.html:584
 msgid ""
 "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
-"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+"savollar va namunaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
-"Wedding, circumcision ceremony, or birthday — the questions the form asks "
+"Wedding, circumcision celebration, or birthday — the questions the form asks "
 "and the example texts change to match your exact event."
 
 #: taklif/templates/taklif/bosh_sahifa.html:587
@@ -833,7 +834,7 @@ msgid ""
 "borasiz."
 msgstr ""
 "Create a separate link for each guest and track — on a page only you can see "
-"— who has seen it and who has said \"I'm coming\"."
+"— who has seen it and who has said \"I'm coming.\""
 
 #: taklif/templates/taklif/bosh_sahifa.html:592
 msgid "Bir necha tilda"
@@ -2341,7 +2342,7 @@ msgstr "Instagram"
 
 #: taklif/templates/taklif/boglanish.html
 msgid "Yozishni yoqtirmasangiz — qo'ng'iroq qiling, jonli gaplashamiz."
-msgstr "If you would rather not type, give us a call and we will talk it through."
+msgstr "If you'd rather not type, give us a call — we'll talk it through."
 
 #: taklif/templates/taklif/boglanish.html
 msgid "Yangi dizaynlar va tayyor ishlarimizni shu yerda joylab boramiz."
@@ -2469,7 +2470,7 @@ msgstr "Casual"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Ertalabki oshimizga marhamat qiling. Sizni davramizda ko'rish biz uchun katta sharaf."
-msgstr "Please join us for our morning pilaf. Having you in our circle would be a real honor."
+msgstr "Please join us for our morning plov. Having you in our circle would be a real honor."
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Faqat siz uchun noldan chiziladigan individual dizayn"
@@ -2621,7 +2622,7 @@ msgstr "Our son is turning seven. We would like to share his joy with his friend
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "O'n bir yillik yo'limiz yakuniga yetdi. Shu unutilmas kechani birga o'tkazaylik."
-msgstr "Our eleven-year journey has come to an end. Let's spend this unforgettable evening together."
+msgstr "Our eleven-year journey is complete. Let's spend this unforgettable evening together."
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Ochib ko'rish"
@@ -2721,7 +2722,7 @@ msgstr "Details"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Taklifnoma sahifasidagi \"Yoqdi\" tugmasi sizni Telegram'dagi adminimiz bilan bog'laydi. To'lov tasdiqlangach, havola mehmonlarga ochiladi."
-msgstr "The \"I like it\" button on the invitation page connects you with our admin on Telegram. Once payment is confirmed, the link opens for your guests."
+msgstr "The \"Like\" button on the invitation page connects you with our admin on Telegram. Once payment is confirmed, the link opens for your guests."
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
 msgid "Tanlagan dizayningiz to'liq holda, hech qanday cheklovsiz"
@@ -2752,7 +2753,7 @@ msgid "Toshkent shahri, Chilonzor tumani, Bunyodkor shoh ko'chasi 12"
 msgstr "12 Bunyodkor Ave, Chilonzor district, Tashkent"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
-msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi 108"
+msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi 108"
 msgstr "108 Amir Temur Ave, Yunusobod district, Tashkent"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
@@ -2829,11 +2830,11 @@ msgstr "Show it to your family"
 
 #: taklif/templates/taklif/yaratildi.html
 msgid "Faollashtirilmaguncha ular taklifnomaning faqat muqovasini ko'radi."
-msgstr "Until it is activated they will only see the invitation's cover."
+msgstr "Until it is activated, they will only see the invitation's cover."
 
 #: taklif/templates/taklif/
 msgid "Nikoh, fotiha, beshik va boshqa marosimlar uchun elektron taklifnoma. 20 ta dizayn, mehmonlar javobini kuzatish, 8 ta til. Ro'yxatdan o'tmasdan yarating."
-msgstr "Digital invitations for weddings, engagements, baby celebrations and more. 20 designs, guest RSVP tracking, 8 languages. No sign-up needed."
+msgstr "Digital invitations for weddings, engagements, cradle celebrations and more. 20 designs, guest RSVP tracking, 8 languages. No sign-up needed."
 
 #: taklif/templates/taklif/
 msgid "Milliy, zamonaviy va islomiy uslubdagi 20 ta tayyor dizayn. Marosim turi bo'yicha tanlang va har birini to'lovdan oldin to'liq ochib ko'ring."

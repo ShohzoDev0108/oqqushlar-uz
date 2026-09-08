@@ -160,11 +160,11 @@ msgid "Avgust"
 msgstr "Август"
 
 #: taklif/forms.py:121
-msgid "Sentyabr"
+msgid "Sentabr"
 msgstr "Сентябр"
 
 #: taklif/forms.py:121
-msgid "Oktyabr"
+msgid "Oktabr"
 msgstr "Октябр"
 
 #: taklif/forms.py:121
@@ -813,7 +813,7 @@ msgstr "Шакл навъи чорабинии шуморо мефаҳмад"
 #: taklif/templates/taklif/bosh_sahifa.html:584
 msgid ""
 "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
-"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+"savollar va namunaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 "Тӯйи арӯсӣ, суннат ё зодрӯз — саволҳое, ки шакл медиҳад ва матнҳои намунавӣ "
 "маҳз ба ҳамон чорабинӣ мувофиқ тағйир меёбанд."
@@ -2762,7 +2762,7 @@ msgid "Toshkent shahri, Chilonzor tumani, Bunyodkor shoh ko'chasi 12"
 msgstr "шаҳри Тошканд, ноҳияи Чилонзор, кӯчаи Бунёдкор 12"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
-msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi 108"
+msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi 108"
 msgstr "шаҳри Тошканд, ноҳияи Юнусобод, кӯчаи Амир Темур 108"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html

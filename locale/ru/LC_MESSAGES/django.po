@@ -162,11 +162,11 @@ msgid "Avgust"
 msgstr "Август"
 
 #: taklif/forms.py:121
-msgid "Sentyabr"
+msgid "Sentabr"
 msgstr "Сентябрь"
 
 #: taklif/forms.py:121
-msgid "Oktyabr"
+msgid "Oktabr"
 msgstr "Октябрь"
 
 #: taklif/forms.py:121
@@ -815,7 +815,7 @@ msgstr "Форма понимает тип вашего мероприятия"
 #: taklif/templates/taklif/bosh_sahifa.html:584
 msgid ""
 "Nikoh to'yimi, xatna to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
-"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+"savollar va namunaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 "Свадьба, той по случаю обрезания или день рождения — вопросы формы и примеры текста "
 "меняются именно под ваше мероприятие."
@@ -2753,7 +2753,7 @@ msgid "Toshkent shahri, Chilonzor tumani, Bunyodkor shoh ko'chasi 12"
 msgstr "г. Ташкент, Чиланзарский район, проспект Бунёдкор, 12"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html
-msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi 108"
+msgid "Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi 108"
 msgstr "г. Ташкент, Юнусабадский район, проспект Амира Темура, 108"
 
 #: taklif/namuna.py taklif/templates/taklif/narxlar.html

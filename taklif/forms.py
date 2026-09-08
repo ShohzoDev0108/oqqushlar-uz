@@ -43,7 +43,7 @@ REZERV_SLUGLAR = {
 # egasi)" kabi BARCHA marosim turlari uchun umumlashtirilgan yorliq
 # ko'rsatardi — masalan xatna to'yi tanlansa ham "kuyov" so'zi ko'rinib
 # turardi, bu mijozni chalg'itardi. Endi har bir marosim turi UCHUN alohida
-# yorliq + real (aylanma bo'lmagan) na'munaviy ism beriladi — forma
+# yorliq + real (aylanma bo'lmagan) namunaviy ism beriladi — forma
 # yuklanganda standart marosim turi ("toy") uchun serverda, marosim turi
 # almashtirilganda esa (yaratish.html'dagi JS orqali) mijoz tomonida
 # qo'llaniladi.
@@ -136,7 +136,7 @@ STANDART_MAROSIM_TURI = "toy"
 # emas, oddiy {% trans %} orqali) barcha 8 tilga tarjima qilinadi.
 OY_NOMLARI = [
     _("Yanvar"), _("Fevral"), _("Mart"), _("Aprel"), _("May"), _("Iyun"),
-    _("Iyul"), _("Avgust"), _("Sentyabr"), _("Oktyabr"), _("Noyabr"), _("Dekabr"),
+    _("Iyul"), _("Avgust"), _("Sentabr"), _("Oktabr"), _("Noyabr"), _("Dekabr"),
 ]
 
 

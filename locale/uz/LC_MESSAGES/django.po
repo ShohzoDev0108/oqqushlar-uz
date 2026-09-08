@@ -112,10 +112,10 @@ msgstr ""
 msgid "Avgust"
 msgstr ""
 
-msgid "Sentyabr"
+msgid "Sentabr"
 msgstr ""
 
-msgid "Oktyabr"
+msgid "Oktabr"
 msgstr ""
 
 msgid "Noyabr"
@@ -317,7 +317,7 @@ msgstr ""
 
 msgid ""
 "Nikoh to'yimi, sunnat to'yimi yoki tug'ilgan kunmi — forma so'raydigan "
-"savollar va na'munaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
+"savollar va namunaviy matnlar aynan shu marosimga mos ravishda o'zgaradi."
 msgstr ""
 
 msgid "Kim ko'rgani ma'lum"

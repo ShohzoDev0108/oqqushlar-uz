@@ -2,7 +2,7 @@
 """Har bir til uchun sana formati (FORMAT_MODULE_PATH).
 
 MUAMMO. Shablonlarda sana `date:"d-F, Y"` deb qat'iy yozilgan edi. `F` —
-oyning BOSH KELISHIKDAGI nomi ("Oktyabr"). O'zbek tilida bu to'g'ri, lekin
+oyning BOSH KELISHIKDAGI nomi ("Oktabr"). O'zbek tilida bu to'g'ri, lekin
 rus tilida sana ichida oy QARATQICH kelishigida keladi: to'g'risi
 "12 октября 2026", bizda esa "12-Октябрь, 2026" chiqardi — rus tilida
 so'zlashuvchi mehmon buni darrov xato deb ko'radi.

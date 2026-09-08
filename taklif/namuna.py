@@ -123,7 +123,7 @@ MAROSIM_NAMUNALARI = {
     "yubiley": {
         "ismlar": ("Gulchehra", "", ""),
         "toyxona": _("Zamin restorani"),
-        "manzil": _("Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi 108"),
+        "manzil": _("Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi 108"),
         "matn": _(
             "Onamizning tavallud sanasini eng yaqin insonlar davrasida "
             "nishonlamoqchimiz. Iliq so'zlaringiz bilan bu kunni "
