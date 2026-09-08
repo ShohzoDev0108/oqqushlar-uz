@@ -158,7 +158,15 @@ class TolanmaganTaklifnomaKorinishiTest(TestCase):
         r = Client().get(f"/{self.taklifnoma.slug}/")
         self.assertEqual(r.status_code, 200)
         self.assertContains(r, self.BLOKLANGAN_IBORA)
-        self.assertNotContains(r, "Tolanmagan")  # mijoz ismi ochilmaydi
+        # TAFTISH: bu yerda ilgari "mijoz ismi ham ko'rinmasin" deb
+        # tekshirilardi. Endi qoida ataylab boshqacha: bloklovchi sahifada
+        # telefon maketi bor va unda ismlar bilan OCHILISH EKRANI
+        # ko'rsatiladi (sababi faollashtirilmagan.html boshidagi izohda).
+        # Chegara ismda emas, MAROSIM MA'LUMOTIDA: to'yxona, vaqt, dastur
+        # va RSVP bu sahifaga chiqmaydi, ya'ni havola baribir ishlaydigan
+        # taklifnomaga aylanmaydi.
+        self.assertNotContains(r, self.taklifnoma.toyxona or "Anhor toyxona")
+        self.assertNotContains(r, "rsvp")
 
     def test_tolanmagan_taklifnoma_korishlar_sonini_oshirmaydi(self):
         Client().get(f"/{self.taklifnoma.slug}/")

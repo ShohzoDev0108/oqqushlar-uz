@@ -50,7 +50,8 @@ from .namuna import (
     sessiyaga_tilak_yoz,
     tayyor_tilaklar,
 )
-from .ulashish import kartochka, reklama_kartochkasi
+from .ulashish import PALITRA, STANDART, kartochka, reklama_kartochkasi
+from .ulashish import _yorugmi as _rang_yorugmi
 
 _logger = logging.getLogger("django.request")
 
@@ -293,6 +294,43 @@ BOSH_SLAYDLAR = [
     {"marosim": "yubiley", "kod": "yubiley", "namuna": "yubiley", "ism_1": "Gulchehra", "ism_2": ""},
     {"marosim": "tugilgan_kun", "kod": "tugilgankun", "namuna": "tugilgankun", "ism_1": "Diyorbek", "ism_2": ""},
 ]
+
+
+# Marosim turi -> telefon maketidagi tasvir papkasi. Ro'yxat yuqoridagi
+# BOSH_SLAYDLAR dan olinadi — ya'ni bir joyda o'zgartirilsa, ikkinchisi
+# ortda qolib ketmaydi. Nikoh to'yi va "Boshqa" da tasvir yo'q (bo'sh
+# qiymat), ularda saytning o'z belgisi chiziladi.
+MAROSIM_TASVIRI = {s["marosim"]: s["kod"] for s in BOSH_SLAYDLAR}
+
+
+def _qulflangan_korinish(taklifnoma):
+    """Faollashtirilmagan sahifadagi telefon maketi uchun MINIMAL ma'lumot.
+
+    Butun "taklifnoma" obyekti ATAYLAB berilmaydi: base.html uni ko'rsa,
+    Open Graph teglariga sarlavhani va haqiqiy ulashish kartochkasini
+    avtomatik qo'yib yuboradi. Telegramdagi oldindan ko'rinish esa
+    ataylab umumiy brend kartochkasi bo'lib qolishi kerak — aks holda
+    to'lanmagan havolaning o'zi Telegramda tayyor taklifnomaga aylanib
+    qolardi. Sahifani OCHGAN odam maketni ko'radi, havolani ko'rgan odam
+    esa yo'q: chegara aynan shu yerda.
+
+    Ichida faqat ochilish ekraniga tushadigan narsa bor — ismlar, sana
+    va dizayn ranglari. To'yxona, vaqt, dastur, RSVP bu yerga umuman
+    chiqmaydi.
+    """
+    rang = PALITRA.get(getattr(taklifnoma.shablon, "kod", ""), STANDART)
+    return {
+        "ism_1": taklifnoma.ism_1,
+        "ism_2": taklifnoma.ism_2,
+        "sana": taklifnoma.sana,
+        "tasvir": MAROSIM_TASVIRI.get(taklifnoma.marosim_turi, ""),
+        "rang": rang,
+        # To'q fonli dizaynlarda (zarhal, kristall, zardoz...) marosim
+        # tasviri ko'rinmay qoladi — u yorug' fon uchun chizilgan. Bunday
+        # holatda uning o'rniga brend belgisi qo'yiladi (u urg'u rangida
+        # chiziladi va istalgan fonda ko'rinadi).
+        "yorug": _rang_yorugmi(rang["fon"]),
+    }
 
 
 def _bosh_slaydlar():
@@ -600,13 +638,12 @@ def _taklifnoma_sahifasi(request, taklifnoma, mehmon=None):
             # chiqarib yuboradi. Hali ruxsat berilmagan tashrifchiga hatto
             # meta teglar orqali ham mijoz ismini oshkor qilmaymiz.
             #
-            # "shablonlar" esa beriladi: bu taklifnomaga umuman aloqasi
-            # yo'q, ochiq katalog ma'lumoti. Sahifa ular bilan nima
-            # qilishi — faollashtirilmagan.html boshidagi izohda.
+            # Uning o'rniga — faqat ochilish ekraniga kerak bo'lgan
+            # bo'laklar (izohi _qulflangan_korinish ichida).
             return render(
                 request,
                 "taklif/faollashtirilmagan.html",
-                {"shablonlar": Shablon.objects.filter(ommaviy=True).order_by("?")[:3]},
+                {"qulflangan": _qulflangan_korinish(taklifnoma)},
             )
 
     # Ko'rishlar sonini race-condition'siz oshirish — LEKIN faqat shu

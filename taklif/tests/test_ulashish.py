@@ -80,15 +80,35 @@ class UlashishKartochkasiTest(TestCase):
         self.assertEqual(javob["Content-Type"], "image/jpeg")
         self.assertTrue(javob.content.startswith(b"\xff\xd8\xff"))
 
-    def test_faollashtirilmagan_sahifa_reklama_kartochkasini_korsatadi(self):
+    def test_faollashtirilmagan_sahifa_faqat_ochilish_ekranini_korsatadi(self):
+        """Sahifa va uning Telegramdagi ko'rinishi ATAYLAB har xil.
+
+        Sahifani OCHGAN odam telefon maketida ismlar va sanani ko'radi —
+        u shu taklifnomani ko'rgani kelgan. Havolani CHATDA ko'rgan odam
+        esa ko'rmaydi: oldindan ko'rinish umumiy brend kartochkasi.
+        Marosim ma'lumotlari (to'yxona, vaqt, dastur, RSVP) esa ikkala
+        joyda ham yo'q — aks holda to'lanmagan havola ishlaydigan
+        taklifnomaga aylanib qolardi.
+        """
         self.taklifnoma.tolangan = False
         self.taklifnoma.save()
         h = Client().get(f"/{self.taklifnoma.slug}/").content.decode()
+
+        # Oldindan ko'rinish — umumiy kartochka, taklifnomaniki emas.
         self.assertIn("/ulashish/faol-emas.jpg?t=", h)
-        # Mijoz ismi bu sahifada hech qayerda — meta teglarda ham —
-        # chiqmasligi kerak.
-        self.assertNotIn(self.taklifnoma.ism_1, h)
         self.assertNotIn(f"/ulashish/{self.taklifnoma.slug}.jpg", h)
+
+        # Maketda ismlar bor.
+        self.assertIn(self.taklifnoma.ism_1, h)
+        self.assertIn(self.taklifnoma.ism_2, h)
+
+        # Marosim ma'lumoti esa yo'q — chegara aynan shu yerda.
+        self.assertNotIn(self.taklifnoma.toyxona, h)
+
+        # Ism meta teglarga ham tushmasligi kerak: ular chatda,
+        # sahifani ochmasdan ham ko'rinadi.
+        bosh = h.split("</head>")[0]
+        self.assertNotIn(self.taklifnoma.ism_1, bosh)
 
     def test_sahifada_og_image_kartochkaga_ishora_qiladi(self):
         h = Client().get(f"/{self.taklifnoma.slug}/").content.decode()

@@ -1,39 +1,38 @@
 {% extends "base.html" %}
-{% load i18n static oq_filtrlar %}
+{% load i18n static %}
 
 {% block title %}{% trans "Taklifnoma hali faollashtirilmagan" %}{% endblock %}
 
 {% comment %}
-TAFTISH: bu sahifa "yopiq eshik" edi — to'q fonda ikki qator matn va til
-tugmasi, boshqa hech narsa. U saytning qolgan qismiga (krem fon, oltin
-urg'u, naqsh, serif sarlavhalar) umuman o'xshamasdi va ochgan odam bu
-qanaqa sayt ekanini ham bilmasdi.
+Faollashtirilmagan taklifnoma havolasini ochgan odam ko'radigan sahifa.
 
-Vaziyatning o'zi esa aslida biz uchun QULAY. Bu yerga ikki xil odam
-tushadi:
-
-  1) MIJOZNING O'ZI — taklifnomasini to'lovdan oldin sinab ko'rmoqchi;
+BU YERGA IKKI XIL ODAM TUSHADI:
+  1) mijozning o'zi — taklifnomasini to'lovdan oldin sinab ko'rmoqchi;
   2) MEHMON — mijoz havolani faollashtirishdan oldin unga yuborgan.
 
-Ikkinchisi biz uchun eng qimmatli tashrifchi: u taklifnoma KO'RISH
-niyatida keldi, ya'ni mahsulotimizga aynan hozir qiziq. O'sha odamga
-"bog'laning" deb yo'l berib yuborish — bekor ketgan imkoniyat. Shuning
-uchun sahifa endi vaziyatni ochiq tushuntiradi va darhol ISHLAYDIGAN
-namuna taklif qiladi: u nima ko'rmoqchi bo'lgan bo'lsa, o'shani
-ko'rsatamiz.
+Ikkinchisi biz uchun eng qimmatli tashrifchi: u aynan TAKLIFNOMA
+ko'rish niyatida keldi. Shuning uchun unga taklifnomaning o'zi
+ko'rsatiladi — bosh sahifadagi telefon maketining ichida, mijozning
+haqiqiy ismlari, sanasi va tanlagan dizaynining ranglari bilan.
 
-Sahifa saytning o'z qismlaridan (nav, uslub, dizayn kartalari, footer)
-yig'ilgan — ya'ni alohida "xato sahifasi" emas, saytning to'liq huquqli
-sahifasi. Til tugmasi ham endi navigatsiya ichida (avval bu yerda
-alohida, qo'lda ranglangan blok edi).
+NIMA KO'RINADI VA NIMA KO'RINMAYDI. Maketda faqat OCHILISH EKRANI bor:
+ismlar, sana, dizayn ranglari va yopiq qulf. To'yxona, vaqt, dastur,
+xarita, RSVP — hech biri bu sahifaga umuman chiqmaydi va qulf
+ochilmaydi. Ya'ni bu ishlaydigan taklifnoma emas, uning muqovasi:
+mehmon nima kutayotganini ko'radi, lekin marosim haqidagi ma'lumotni
+olmaydi — mijozda to'lash sababi saqlanib qoladi.
 
-MUHIM: mijozning ismi ham, sanasi ham bu sahifada CHIQMAYDI — sababi
-views.py'dagi "_taklifnoma_sahifasi" ichidagi izohda. Oldindan ko'rinish
-(og:image) ham shu sababdan umumiy brend kartochkasi.
+TELEGRAMDAGI OLDINDAN KO'RINISH esa ataylab boshqacha: u umumiy brend
+kartochkasi (og:image pastda). Chegara shu yerda — sahifani OCHGAN
+odam maketni ko'radi, havolani chatda ko'rgan odam yo'q. Aks holda
+to'lanmagan havolaning o'zi Telegramda tayyor taklifnomaga aylanib
+qolardi.
 
-BARCHA MATNLAR ATAYLAB MAVJUD TARJIMA SATRLARIDAN olindi (bosh sahifa va
-shu sahifaning o'zidan) — yangi bironta ham satr qo'shilmadi, ya'ni
-yettala til darhol to'liq ishlaydi va ".po" fayllarga tegilmadi.
+MAKET NUSXASI. Telefon maketining CSS'i bosh sahifada yozilgan va u
+yerda karusel (".tel-karta") bilan chirmashib ketgan. Shu sabab bu
+yerga faqat KERAKLI qoidalar ko'chirildi — karuselsiz, bitta telefon
+uchun. Bosh sahifadagi maket o'zgarsa, bu yerni ham ko'rib chiqish
+kerak (ikkalasi bir xil sinf nomlaridan foydalanadi).
 {% endcomment %}
 {% block og_title %}{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}{% endblock %}
 {% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% url 'taklif:ulashish_reklama' %}?t={{ LANGUAGE_CODE }}{% endblock %}
@@ -41,68 +40,160 @@ yettala til darhol to'liq ishlaydi va ".po" fayllarga tegilmadi.
 {% block extra_style %}
 {% include "taklif/_sayt_uslubi.html" %}
 
-/* --- Sarlavha bloki --- */
-.fe-bosh { text-align: center; padding: 64px 0 8px; }
-.fe-belgi {
-    display: inline-flex; color: var(--tilla); margin-bottom: 22px;
-}
-.fe-belgi svg { width: 58px; height: 58px; display: block; }
-.fe-bosh .oq-h1 { margin: 0 0 18px; }
-.fe-yetak {
-    max-width: 46ch; margin: 0 auto; color: var(--kul);
-    line-height: 1.85; font-size: 1.02rem;
-}
-
 {% comment %}
-Bo'limlar orasidagi nafas. ".oq-bolim" ning asosiy to'ldirmasi umumiy
-uslubda EMAS, bosh sahifaning o'z faylida turadi (u yerda 96px) —
-umumiy uslubda esa faqat mobil qoidasi bor. Shu sabab bu yerda ham
-o'zi belgilanadi, aks holda sarlavha bloki bilan namunalar bo'limi
-bir-biriga yopishib qolardi.
+O'lchamlar shunday tanlanganki, noutbuk ekranida (900px balandlik)
+telefon maketi ham, ostidagi yozuv ham, tugma ham SKROLLSIZ ko'rinadi:
+tashrifchi sahifani ochishi bilan hammasini bir qarashda oladi.
+Hisob: navigatsiya ~72 + 40 + maket 504 (56vh) + 34 + yozuv ~90 +
+tugma 50 + 64 = ~854px.
 {% endcomment %}
-.oq-bolim { padding: 96px 0; }
-@media (max-width: 700px) { .oq-bolim { padding: 56px 0; } }
+.qf-sahna {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 20px 64px; text-align: center;
+}
+
+/* --- Telefon maketi (bosh sahifadagining karuselsiz nusxasi) --- */
+.qf-telefon-blok { position: relative; --tb: min(520px, 56vh); }
+@media (max-width: 999px) { .qf-telefon-blok { --tb: min(420px, 52vh); } }
+@media (max-width: 420px) { .qf-telefon-blok { --tb: min(360px, 50vh); } }
+
+.oq-telefon {
+    position: relative;
+    height: var(--tb);
+    width: calc(var(--tb) * 9 / 19.5);
+    padding: calc(var(--tb) * .0125);
+    border-radius: calc(var(--tb) * .105);
+    background: linear-gradient(150deg,
+        #8d8378 0%, #3b342c 14%, #161310 34%,
+        #100d0a 62%, #3f382f 84%, #7d7368 100%);
+    box-shadow:
+        0 calc(var(--tb) * .055) calc(var(--tb) * .13) rgba(23,19,15,.34),
+        0 calc(var(--tb) * .012) calc(var(--tb) * .03) rgba(23,19,15,.20),
+        inset 0 0 0 1px rgba(255,255,255,.16);
+}
+.oq-telefon .tel-tugma {
+    position: absolute; z-index: 3; border-radius: 2px;
+    width: calc(var(--tb) * .007);
+    background: linear-gradient(180deg, #6f665b, #2b241d);
+}
+.oq-telefon .tt-ovoz1 { left: calc(var(--tb) * -.006); top: calc(var(--tb) * .155); height: calc(var(--tb) * .038); }
+.oq-telefon .tt-ovoz2 { left: calc(var(--tb) * -.006); top: calc(var(--tb) * .215); height: calc(var(--tb) * .062); }
+.oq-telefon .tt-ovoz3 { left: calc(var(--tb) * -.006); top: calc(var(--tb) * .290); height: calc(var(--tb) * .062); }
+.oq-telefon .tt-quvvat { right: calc(var(--tb) * -.006); top: calc(var(--tb) * .245); height: calc(var(--tb) * .095); }
+
+.oq-telefon-ekran {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    border-radius: calc(var(--tb) * .0935);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.55);
+    font-size: calc(var(--tb) * .0285);
+    {% comment %}
+    Ekran foni — MIJOZ TANLAGAN dizaynning o'z rangi (o'zgaruvchilar
+    maketning ustiga inline berilgan). Bosh sahifada bu doim bir xil
+    krem gradient, chunki u yerda maket umumiy mahsulotni ko'rsatadi;
+    bu yerda esa aynan shu mijozning taklifnomasi.
+    {% endcomment %}
+    background:
+        radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,.34) 0%, rgba(255,255,255,0) 62%),
+        var(--q-fon);
+}
+/* Dinamik orol (kamera) */
+.oq-telefon-ekran::before {
+    content: ""; position: absolute; left: 50%; z-index: 4;
+    transform: translateX(-50%);
+    top: calc(var(--tb) * .017);
+    width: calc(var(--tb) * .118);
+    height: calc(var(--tb) * .0315);
+    border-radius: 999px; background: #080706;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+}
+/* Shishaning yorug'lik akslanishi — sekin o'tib turadi */
+.oq-telefon-ekran::after {
+    content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(122deg,
+        rgba(255,255,255,.30) 0%, rgba(255,255,255,.09) 16%,
+        rgba(255,255,255,0) 34%, rgba(255,255,255,0) 100%);
+    background-size: 260% 100%;
+    animation: qf-yaltirash 7s ease-in-out infinite;
+}
+@keyframes qf-yaltirash {
+    0%, 55% { background-position: 130% 0; }
+    100%    { background-position: -50% 0; }
+}
+
+.tel-ekran-ich {
+    position: absolute; left: 0; right: 0; top: 0; bottom: calc(var(--tb) * .15);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: calc(var(--tb) * .075) calc(var(--tb) * .04) 0;
+}
+.tel-chizma {
+    width: 84%; max-height: 46%; height: auto; object-fit: contain;
+    filter: drop-shadow(0 6px 12px rgba(90, 74, 44, .13));
+}
+.oq-taklif-yorliq {
+    font-size: .47em; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--q-matn); opacity: .66; margin-bottom: .94em;
+}
+.oq-taklif-yurak { position: relative; width: 6.3em; height: 6.3em; }
+.oq-taklif-yurak svg { width: 100%; height: 100%; color: var(--q-asos); display: block; }
+.oq-taklif-ismlar {
+    font-family: var(--serif); font-size: 1.16em; font-weight: 500;
+    color: var(--q-sarlavha); line-height: 1.3; margin-top: .82em;
+}
+.oq-taklif-ismlar .va { color: var(--q-asos); font-style: italic; margin: 0 .3em; }
+.oq-taklif-sana {
+    font-size: .54em; letter-spacing: .175em; color: var(--q-matn);
+    opacity: .8; margin-top: .47em;
+}
+.oq-taklif-sana::before {
+    content: ""; display: block; width: 2em; height: 1px;
+    background: var(--q-asos); opacity: .55; margin: 0 auto .53em;
+}
+.tel-pastki {
+    position: absolute; left: 0; right: 0; bottom: calc(var(--tb) * .075);
+    display: flex; flex-direction: column; align-items: center;
+}
+{% comment %}
+Qulf — YOPIQ va bosilmaydi. Bosh sahifada u "bosing" degan ma'noda
+pulsatsiya qiladi va ostida "Qulfcha ustiga bosing" yozuvi turadi; bu
+yerda ikkalasi ham ataylab yo'q. Bosilmaydigan tugmani "bosing" deb
+chorlash — tashrifchini aldash bo'lardi. Qulfning o'zi esa vaziyatni
+so'zsiz aytadi, ostidagi yozuv uni tasdiqlaydi.
+{% endcomment %}
+.oq-taklif-qulf {
+    width: 2.34em; height: 2.34em; border-radius: 50%;
+    border: 1px solid var(--q-asos); background: rgba(255,255,255,.42);
+    display: flex; align-items: center; justify-content: center;
+}
+.oq-taklif-qulf svg { width: 1em; height: 1em; color: var(--q-asos); }
+
+@media (prefers-reduced-motion: reduce) {
+    .oq-telefon-ekran::after { animation: none; }
+}
+
+/* --- Maket ostidagi xabar --- */
+.qf-xabar { margin-top: 34px; max-width: 44ch; }
+.qf-holat {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 9px 18px; border-radius: 999px;
+    border: 1px solid var(--chiziq); background: var(--toza);
+    color: var(--tilla-toq); font-size: .68rem;
+    letter-spacing: 2.2px; text-transform: uppercase;
+}
+.qf-holat::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--tilla); flex-shrink: 0;
+}
+.qf-xabar p {
+    margin: 18px 0 0; color: var(--kul);
+    line-height: 1.85; font-size: 1rem;
+}
+.qf-tugma { margin-top: 30px; }
 
 @media (max-width: 700px) {
-    .fe-bosh { padding: 40px 0 4px; }
-    .fe-belgi svg { width: 46px; height: 46px; }
-    .fe-belgi { margin-bottom: 16px; }
-    .fe-yetak { font-size: .96rem; }
-}
-
-/* --- Namunalar bo'limi ---
-   Kartalar bosh sahifadagi bilan bir xil qismlardan (".shablon-karta",
-   ".shablon-mini") yig'ilgan, uslubi esa _sayt_uslubi.html'da — shu
-   sabab bu yerda faqat bo'lim sarlavhasi va lenta havolasi kerak
-   (ular bosh sahifaning o'z faylida qolgan). */
-.fe-bolim-bosh { max-width: 620px; margin: 0 auto 46px; text-align: center; }
-.fe-bolim-bosh .oq-h2 { margin: 12px 0 0; }
-.fe-havola {
-    display: inline-flex; align-items: center; gap: 6px; margin-top: 26px;
-    padding: 15px 10px; color: var(--tilla-toq);
-    font-size: .84rem; letter-spacing: 1.2px; text-decoration: none;
-}
-@media (hover: hover) and (pointer: fine) { .fe-havola:hover { color: var(--tilla); } }
-.fe-markaz { text-align: center; }
-
-/* --- Yakuniy chorlov ---
-   Bo'lim ustki to'ldirmasi olib tashlangan: undan yuqorida "Barcha
-   namunalar" havolasi turadi va ikkita 96px yonma-yon tushib, o'rtada
-   bo'sh chiziq hosil qilardi. */
-.fe-chorlov-bolim { padding-top: 0; }
-.fe-chorlov {
-    max-width: 640px; margin: 0 auto; text-align: center;
-    border: 1px solid var(--chiziq); border-radius: 4px;
-    background: rgba(255,255,255,.45); padding: 44px 28px;
-}
-.fe-chorlov .nomi {
-    font-family: var(--serif); font-size: 1.5rem; font-weight: 500;
-    color: var(--siyoh); margin: 0 0 14px;
-}
-.fe-chorlov p { color: var(--kul); line-height: 1.8; margin: 0 auto 26px; max-width: 42ch; }
-@media (max-width: 700px) {
-    .fe-chorlov { padding: 34px 20px; }
-    .fe-chorlov .nomi { font-size: 1.3rem; }
+    .qf-sahna { padding: 34px 18px 70px; }
+    .qf-xabar { margin-top: 30px; }
+    .qf-xabar p { font-size: .94rem; }
 }
 {% endblock %}
 
@@ -113,69 +204,52 @@ bir-biriga yopishib qolardi.
 <div class="oq-sahifa-bosh-tashqi">
     <div class="oq-romka-burchak orb-tl"></div>
     <div class="oq-romka-burchak orb-tr"></div>
-    <div class="oq-ichki fe-bosh">
-        <span class="fe-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
-        <h1 class="oq-h1">{% trans "Bu taklifnoma sahifasi hali tayyor emas" %}</h1>
-        <p class="fe-yetak">{% trans "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan bog'laning." %}</p>
-    </div>
-</div>
 
-{% if shablonlar %}
-{% comment %}
-Bu bo'lim — sahifaning butun ma'nosi. Tashrifchi taklifnoma ko'rish
-niyatida kelgan; unga aynan shuni beramiz. Kartalar bosh sahifadagi
-bilan bir xil, ya'ni "Ochib ko'rish" tugmasi HAQIQIY, to'liq ishlaydigan
-namunani ochadi (parda ochiladi, sanoq yuradi, RSVP javob beradi).
-{% endcomment %}
-<section class="oq-bolim">
-    <div class="oq-romka-burchak orb-tl"></div>
-    <div class="oq-romka-burchak orb-tr"></div>
-    <div class="oq-ichki">
-        <div class="fe-bolim-bosh">
-            <span class="oq-yorliq">{% trans "Namunalar" %}</span>
-            <h2 class="oq-h2">{% trans "Avval ochib ko'ring, keyin o'zingiznikini yarating" %}</h2>
-        </div>
-
-        <div class="dizayn-grid">
-            {% for s in shablonlar %}
-            <div class="shablon-karta oq-karta">
-                <a class="karta-ustki" href="{% url 'taklif:namuna' s.kod %}">
-                    <div class="shablon-mini mini-{{ s.kod }}">
-                        <span class="m-ramka"></span>
-                        <span class="m-belgi">{% include "taklif/_ikonalar/belgi.svg" %}</span>
-                        <span class="m-ism">Aziz <em>&amp;</em> Malika</span>
-                        <span class="m-chiziq"></span>
-                        <span class="m-sana">21 · 06 · 2026</span>
+    <div class="qf-sahna">
+        <div class="qf-telefon-blok"
+             style="--q-fon: {{ qulflangan.rang.fon }};
+                    --q-asos: {{ qulflangan.rang.asos }};
+                    --q-sarlavha: {{ qulflangan.rang.sarlavha }};
+                    --q-matn: {{ qulflangan.rang.matn }};">
+            <div class="oq-telefon">
+                <span class="tel-tugma tt-ovoz1" aria-hidden="true"></span>
+                <span class="tel-tugma tt-ovoz2" aria-hidden="true"></span>
+                <span class="tel-tugma tt-ovoz3" aria-hidden="true"></span>
+                <span class="tel-tugma tt-quvvat" aria-hidden="true"></span>
+                <div class="oq-telefon-ekran">
+                    <div class="tel-ekran-ich">
+                        <div class="oq-taklif-yorliq">{% trans "Sizga taklifnoma keldi" %}</div>
+                        {% if qulflangan.tasvir and qulflangan.yorug %}
+                        <img class="tel-chizma" alt="" aria-hidden="true"
+                             src="{% static "taklif/"|add:qulflangan.tasvir|add:"/"|add:qulflangan.tasvir|add:"-hero.webp" %}">
+                        {% else %}
+                        <div class="oq-taklif-yurak">{% include "taklif/_ikonalar/belgi.svg" %}</div>
+                        {% endif %}
+                        <div class="oq-taklif-ismlar">{{ qulflangan.ism_1 }}{% if qulflangan.ism_2 %}<span class="va">&amp;</span>{{ qulflangan.ism_2 }}{% endif %}</div>
+                        <div class="oq-taklif-sana">{{ qulflangan.sana|date:"d · m · Y" }}</div>
                     </div>
-                    <div class="matn">
-                        <div class="nomi">{{ s.nomi }}</div>
-                        <div class="narx">{{ s.narx|narx_ajrat }} {% trans "so'm" %}</div>
+                    <div class="tel-pastki">
+                        <div class="oq-taklif-qulf" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="10.5" width="16" height="11" rx="2.5"/>
+                                <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+                                <circle cx="12" cy="15.6" r="1.3" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </div>
                     </div>
-                </a>
-                <div class="karta-tugmalar">
-                    <a class="karta-tugma asosiy" href="{% url 'taklif:namuna' s.kod %}">{% trans "Ochib ko'rish" %}</a>
-                    <a class="karta-tugma" href="{% url 'taklif:yaratish' s.kod %}">{% trans "Tanlash" %}</a>
                 </div>
             </div>
-            {% endfor %}
         </div>
 
-        <div class="fe-markaz">
-            <a class="fe-havola" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Barcha namunalar" %} &rarr;</a>
+        <div class="qf-xabar">
+            <span class="qf-holat">{% trans "Taklifnoma hali faollashtirilmagan" %}</span>
+            <p>{% trans "Bu havola hozircha faollashtirilmagan. Iltimos, taklifnoma egasi bilan bog'laning." %}</p>
+            <div class="qf-tugma">
+                <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
+            </div>
         </div>
     </div>
-</section>
-{% endif %}
-
-<section class="oq-bolim fe-chorlov-bolim">
-    <div class="oq-ichki">
-        <div class="fe-chorlov">
-            <p class="nomi">{% trans "Oqqushlar — chiroyli elektron taklifnomalar" %}</p>
-            <p>{% trans "O'zbekiston uchun eng chiroyli va zamonaviy elektron taklifnomalar. Bir necha daqiqada yarating." %}</p>
-            <a class="oq-cta toliq" href="{% url 'taklif:shablon_tanlash' %}">{% trans "Taklifnoma yaratish" %}</a>
-        </div>
-    </div>
-</section>
+</div>
 
 {% include "taklif/_sayt_footer.html" %}
 {% endblock %}
