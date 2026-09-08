@@ -1,0 +1,18 @@
+# Oqqushlar — qidiruv robotlari uchun ko'rsatma.
+#
+# Bu fayl DJANGO tomonidan beriladi (config/urls.py). Ilgari bu manzilda
+# Cloudflare'ning o'z standart fayli chiqardi va unda sayt xaritasi
+# ko'rsatilmagan edi.
+
+User-agent: *
+
+# Shaxsiy va texnik bo'limlar — bularda qidiruvdan kelgan odam uchun
+# hech narsa yo'q, ba'zilarida esa mijozning ma'lumoti bor.
+Disallow: /statistika/
+Disallow: /tayyor/
+Disallow: /mening-taklifnomalarim/
+Disallow: /yaratish/
+Disallow: /ulashish/
+Disallow: /i18n/
+
+Sitemap: https://oqqushlar.uz/sitemap.xml

@@ -18,7 +18,11 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
+from django.views.generic import TemplateView
+
+from taklif.sitemaps import SAYT_XARITALARI
 
 urlpatterns = [
     # Manzil standart "admin/" emas — settings.ADMIN_URL_YOLI orqali
@@ -28,6 +32,20 @@ urlpatterns = [
     # Til almashtirish (masalan taklifnoma sahifasidagi til tugmasi shu yerga POST qiladi).
     # taklif.urls'dagi umumiy "<slug:slug>/" kabi qoidalardan oldin turishi shart.
     path("i18n/", include("django.conf.urls.i18n")),
+    # Qidiruv tizimlari uchun. Ikkalasi ham "taklif.urls" dan OLDIN
+    # turishi shart — u yerdagi umumiy "<slug:slug>/" qoidasi bo'lmasa
+    # ham, tartib aniq bo'lgani yaxshi.
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": SAYT_XARITALARI},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+        name="robots",
+    ),
     path("", include("taklif.urls")),
 ]
 

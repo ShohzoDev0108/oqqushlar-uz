@@ -87,6 +87,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Sitemap (sayt xaritasi) — qarang: taklif/sitemaps.py.
+    # "django.contrib.sites" ATAYLAB o'rnatilmadi: usiz Django
+    # so'rovning o'z hostini ishlatadi, ya'ni qo'shimcha jadval ham,
+    # migratsiya ham, admin panelda yana bir bo'lim ham paydo bo'lmaydi.
+    "django.contrib.sitemaps",
     "storages",
     # django-axes — admin panelga (yoki boshqa Django login sahifasiga)
     # noto'g'ri parol bilan bir necha marta urinilsa, o'sha IP/foydalanuvchini
