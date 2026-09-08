@@ -27,6 +27,7 @@ from django.core.cache import cache
 from django.utils import timezone, translation
 from django.utils.formats import date_format
 from django.utils.translation import gettext
+
 from PIL import Image, ImageDraw, ImageFilter
 
 from .sana import uzun_sana
@@ -55,31 +56,26 @@ KESH_MUDDATI = 60 * 60 * 24
 # STANDART (brend) palitrasi bilan chiziladi, ya'ni xato emas, shunchaki
 # o'ziga xosligi yo'qoladi.
 #
-# Ro'yxatdagi to'rt eski dizayn (atlas, gulbarg, registon, sodda) ":root"
-# ishlatmaydi — ular CSS o'zgaruvchilaridan oldin yozilgan. Ularning
-# ranglari fayldagi eng ko'p uchraydigan qiymatlardan olingan.
+# 2026-09-08da ro'yxatdan olti yozuv olib tashlandi (atlas, gulbarg,
+# nurafshon, registon, shoyi, sodda) — o'sha dizaynlarning shablon fayli
+# ham, bazadagi yozuvi ham qolmagan edi, ya'ni ular hech qachon
+# ishlatilmasdi.
 PALITRA = {
     "adras": {"fon": "#f3f1e8", "asos": "#39699c", "sarlavha": "#2b5a8a", "matn": "#31445c"},
     "anor": {"fon": "#eef4ec", "asos": "#b3323b", "sarlavha": "#a8842c", "matn": "#3e4a3a"},
-    "atlas": {"fon": "#f6f1e7", "asos": "#d1495b", "sarlavha": "#1f6f8b", "matn": "#33302a"},
     "aurora": {"fon": "#05060f", "asos": "#8b5cf6", "sarlavha": "#ffffff", "matn": "#e7e5f5"},
     "beshik": {"fon": "#f8f4ea", "asos": "#827343", "sarlavha": "#6a5c40", "matn": "#4c4639"},
     "chinni": {"fon": "#fdfdfa", "asos": "#1d4e89", "sarlavha": "#1d4e89", "matn": "#24354a"},
     "fotiha": {"fon": "#fbf1ee", "asos": "#bb4c5e", "sarlavha": "#a14f5d", "matn": "#4a2e30"},
-    "gulbarg": {"fon": "#fdf6f0", "asos": "#b76e79", "sarlavha": "#7d4a50", "matn": "#4a3f35"},
     "kristall": {"fon": "#050510", "asos": "#a78bfa", "sarlavha": "#ffffff", "matn": "#ece9fa"},
     "kumush": {"fon": "#f5f4f1", "asos": "#8b8e96", "sarlavha": "#75787f", "matn": "#44464a"},
     "nahoroshi": {"fon": "#f8f0e2", "asos": "#a95e1b", "sarlavha": "#8a4a12", "matn": "#4a3520"},
-    "nurafshon": {"fon": "#241a10", "asos": "#d9b45b", "sarlavha": "#f0d9a8", "matn": "#f0e6d4"},
     "qandil": {"fon": "#efe6d8", "asos": "#b3924a", "sarlavha": "#9c7c3c", "matn": "#4d4234"},
     "qirgiz": {"fon": "#9e111f", "asos": "#ffcc00", "sarlavha": "#ffe9a8", "matn": "#fff3e6"},
     "qizuzatish": {"fon": "#f7f1f5", "asos": "#88688d", "sarlavha": "#6b4f70", "matn": "#453040"},
     "qozoq": {"fon": "#eef6fb", "asos": "#0b86c8", "sarlavha": "#0b6aa9", "matn": "#123a56"},
     "ravoq": {"fon": "#efe9e2", "asos": "#a8842c", "sarlavha": "#8a6a1f", "matn": "#4a443c"},
-    "registon": {"fon": "#0f2027", "asos": "#c9a227", "sarlavha": "#f2e3bb", "matn": "#e3ded2"},
     "sadaf": {"fon": "#f4f2ef", "asos": "#b39544", "sarlavha": "#8f7a3e", "matn": "#3d3a35"},
-    "shoyi": {"fon": "#eef0f3", "asos": "#7590b5", "sarlavha": "#5a749b", "matn": "#3c4250"},
-    "sodda": {"fon": "#fdfaf4", "asos": "#8a6d3b", "sarlavha": "#6f5730", "matn": "#2b2b2b"},
     "suzani": {"fon": "#f8f0e0", "asos": "#b3323b", "sarlavha": "#a12d33", "matn": "#43352a"},
     "tojik": {"fon": "#fffaf2", "asos": "#c22b33", "sarlavha": "#c22b33", "matn": "#3f3126"},
     "tugilgankun": {"fon": "#fbf1e6", "asos": "#b65728", "sarlavha": "#a84a1f", "matn": "#4a2f22"},

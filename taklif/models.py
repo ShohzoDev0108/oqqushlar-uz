@@ -223,7 +223,7 @@ class Shablon(models.Model):
     """Taklifnoma dizayn shabloni (masalan: 'Registon', 'Suzani')."""
 
     nomi = models.CharField(max_length=100)
-    kod = models.SlugField(unique=True, help_text="Shablon fayl nomi, masalan: registon")
+    kod = models.SlugField(unique=True, help_text="Shablon fayl nomi, masalan: suzani")
     turkum = models.CharField(
         max_length=20,
         choices=SHABLON_TURKUMLARI,

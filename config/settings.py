@@ -238,6 +238,13 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 # tanlagan tilga qarab shu papkadan to'g'ri formatni oladi.
 FORMAT_MODULE_PATH = ["config.formats"]
 
+# Testlar fayl yuklashni sinaydi. Standart holatda yuklangan fayl
+# loyihaning o'z "media/" papkasiga tushib, o'sha yerda qolib ketardi
+# (tasodifiy nomlar bilan: "n_HRrzR4g.jpg"). Bu ishga tushirgich test
+# paytida MEDIA_ROOT'ni vaqtinchalik papkaga ko'chiradi — batafsil
+# "config/test_runner.py" faylida.
+TEST_RUNNER = "config.test_runner.OqqushlarTestRunner"
+
 TIME_ZONE = "Asia/Tashkent"
 
 USE_I18N = True
