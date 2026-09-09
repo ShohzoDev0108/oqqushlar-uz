@@ -232,6 +232,20 @@
     </style>
 </head>
 <body>
+{% comment %}
+Fon naqshi — taklifnomaniki, u bo'sh bo'lsa shablonning asosiysi.
+
+NEGA AYNAN SHU YERDA. Qatlam "position: absolute; top: 0" bilan
+sahifaning eng tepasiga qo'yiladi, bu esa faqat uning ota elementi
+joylashtirilmagan bo'lsa ishlaydi. Ilgari u "_bolimlar.html" ichida
+edi, ya'ni ".ichki" (position: relative) ichida — natijada naqsh
+sahifa boshiga emas, hero'dan PASTGA tushib qolgan edi. Jonli saytda
+topilgan.
+
+Marketing sahifalarida "taklifnoma" kontekstda yo'q, shuning uchun
+naqsh bo'sh bo'ladi va bu blok umuman chiqmaydi.
+{% endcomment %}
+{% include "taklif/shablonlar/_naqsh.html" with naqsh=taklifnoma.naqsh|default:taklifnoma.shablon.asosiy_naqsh %}
     <div class="wrapper">
         {% if messages %}
             {% for message in messages %}

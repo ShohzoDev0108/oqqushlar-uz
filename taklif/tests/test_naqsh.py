@@ -72,6 +72,22 @@ class NaqshTanlashTest(TestCase):
         self.assertNotIn("sozana-gul", sahifa)
 
 
+    def test_qatlam_sahifaning_eng_tepasida_turadi(self):
+        """Regressiya: qatlam ".ichki" (position: relative) ichida bo'lsa,
+        "top: 0" sahifa boshini emas, o'sha blokning boshini bildiradi va
+        naqsh hero'dan pastga tushib qolardi. Shuning uchun u <body> ning
+        bevosita bolasi bo'lishi shart. Jonli saytda topilgan."""
+        n = naqsh_yarat(joylashuv="tepa")
+        self.shablon.asosiy_naqsh = n
+        self.shablon.save()
+        t = taklifnoma_yarat(self.shablon)
+        sahifa = self._sahifa(t)
+        tana = sahifa.index("<body>")
+        qatlam = sahifa.index('class="oq-naqsh"')
+        oram = sahifa.index('<div class="wrapper">')
+        self.assertLess(tana, qatlam, "qatlam <body> dan keyin turishi kerak")
+        self.assertLess(qatlam, oram, "qatlam .wrapper dan OLDIN turishi kerak")
+
 class NaqshChizilishiTest(TestCase):
     """Ikki joylashuv har xil CSS beradi."""
 
