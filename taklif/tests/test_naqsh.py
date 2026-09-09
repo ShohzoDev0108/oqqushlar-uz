@@ -221,3 +221,11 @@ class NaqshTanlashFormasiTest(TestCase):
         self.kigiz.save()
         forma = self._forma_sahifasi().context["form"]
         self.assertNotIn(self.kigiz, list(forma.fields["naqsh"].queryset))
+
+    def test_niqob_ramkani_kesib_tashlamaydi(self):
+        """Regressiya: niqob elementning O'ZIGA qo'yilganda u chegarani
+        ham kesardi — naqshli namunachalarda ramka yo'qolib, qaysi biri
+        tanlangani ko'rinmay qolgan edi. Niqob ichki qatlamda bo'lishi
+        shart."""
+        sahifa = self._forma_sahifasi().content.decode()
+        self.assertIn(".nt-tasvir.nt-rasmli::before", sahifa)

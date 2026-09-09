@@ -121,18 +121,25 @@ input paydo bo'lib qolmasligi uchun.
 .naqsh-item { position: relative; cursor: pointer; text-align: center; }
 .naqsh-item input { position: absolute; opacity: 0; pointer-events: none; }
 .nt-tasvir {
-    display: block; width: 100%; aspect-ratio: 1; border-radius: 10px;
-    border: 1px solid var(--chiziq); background-color: var(--tilla);
+    display: block; position: relative; width: 100%; aspect-ratio: 1;
+    border-radius: 10px; border: 1px solid var(--chiziq); overflow: hidden;
     transition: border-color .18s, box-shadow .18s;
 }
-.nt-tasvir.nt-rasmli {
+/* DIQQAT: niqob ELEMENTNING O'ZIGA emas, ichki qatlamga qo'yiladi.
+   Sabab: "mask" element chegarasini ham kesib tashlaydi — birinchi
+   variantda naqshli namunachalarda ramka butunlay yo'qolib, qaysi biri
+   tanlangani ko'rinmay qolgan edi. Endi ramka tashqarida, niqob esa
+   ichkarida. */
+.nt-tasvir.nt-rasmli::before {
+    content: ""; position: absolute; inset: 0;
+    background-color: var(--tilla);
     -webkit-mask: var(--nt-fayl) center / contain no-repeat;
             mask: var(--nt-fayl) center / contain no-repeat;
 }
 /* "Naqshsiz" uchun rasm yo'q — tinch, bo'sh maydon. */
 .nt-bosh { background-color: transparent; background-image:
     linear-gradient(135deg, transparent 46%, var(--chiziq) 46%, var(--chiziq) 54%, transparent 54%); }
-.naqsh-item.tanlangan .nt-tasvir { border-color: var(--tilla); box-shadow: 0 0 0 2px var(--tilla-yumshoq); }
+.naqsh-item.tanlangan .nt-tasvir { border-color: var(--tilla-toq); box-shadow: 0 0 0 2px var(--tilla-toq); }
 .nt-nomi { display: block; font-size: .72rem; color: var(--kul); margin-top: 6px; line-height: 1.3; }
 .naqsh-item.tanlangan .nt-nomi { color: var(--tilla-toq); }
 @media (hover: hover) and (pointer: fine) { .naqsh-item:hover .nt-tasvir { border-color: var(--tilla); } }
