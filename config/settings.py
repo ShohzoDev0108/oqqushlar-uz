@@ -348,6 +348,17 @@ if not DEBUG:
 # bo'yicha qo'shildi — .env'da bu ikkalasi sozlanmasa, hech narsa yubormaydi).
 # Bot @BotFather orqali yaratiladi, chat ID esa @userinfobot yoki botga
 # yozilgan xabarni getUpdates orqali ko'rib olinadi.
+# --- Zaxira nusxa (taftish bo'yicha qo'shildi) ---
+# Baza nusxasi MEDIA BILAN BIR PAQIRDA turmasligi kerak: agar ilova
+# ishlatadigan kalit zaxiralarni ham o'chira olsa, buzilgan yoki noto'g'ri
+# ishlagan kod ikkalasini birdan yo'q qiladi. Kaliti ham alohida bo'lgani
+# ma'qul — ZAXIRA_ACCESS_KEY_ID bo'sh qolsa media kaliti ishlatiladi.
+ZAXIRA_BUCKET = os.environ.get("ZAXIRA_BUCKET", "")
+ZAXIRA_PAROL = os.environ.get("ZAXIRA_PAROL", "")
+ZAXIRA_ACCESS_KEY_ID = os.environ.get("ZAXIRA_ACCESS_KEY_ID", "")
+ZAXIRA_SECRET_ACCESS_KEY = os.environ.get("ZAXIRA_SECRET_ACCESS_KEY", "")
+ZAXIRA_ENDPOINT_URL = os.environ.get("ZAXIRA_ENDPOINT_URL", "")
+
 TELEGRAM_XATOLIK_BOT_TOKEN = os.environ.get("TELEGRAM_XATOLIK_BOT_TOKEN", "")
 TELEGRAM_XATOLIK_CHAT_ID = os.environ.get("TELEGRAM_XATOLIK_CHAT_ID", "")
 
@@ -376,6 +387,14 @@ LOGGING = {
         # WARNING darajasida) yuboradi. Faqat ERROR (ya'ni haqiqiy 500)
         # darajasidagilar konsolga (server jurnaliga) va Telegram'ga boradi.
         "django.request": {
+            "handlers": ["konsol_xatolik", "telegram_xatolik"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Kechasi taymer orqali ishlaydigan zaxira buyrug'i. Uni hech kim
+        # ko'rib turmaydi, shuning uchun xatolik jimgina yo'qolmasligi
+        # kerak — xuddi 500-xatolik kabi Telegram'ga boradi.
+        "taklif.zaxira": {
             "handlers": ["konsol_xatolik", "telegram_xatolik"],
             "level": "ERROR",
             "propagate": False,

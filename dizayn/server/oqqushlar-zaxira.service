@@ -1,0 +1,28 @@
+# Bazaning shifrlangan zaxira nusxasini olib R2'ga yuboradi.
+#
+# O'RNATISH (serverda, root sifatida):
+#   cp dizayn/server/oqqushlar-zaxira.* /etc/systemd/system/
+#   systemctl daemon-reload
+#   systemctl enable --now oqqushlar-zaxira.timer
+#
+# Qo'lda ishga tushirish:  systemctl start oqqushlar-zaxira.service
+# Jurnalni ko'rish:        journalctl -u oqqushlar-zaxira -n 50
+
+[Unit]
+Description=Oqqushlar bazasining zaxira nusxasi
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/oqqushlar
+ExecStart=/opt/oqqushlar/venv/bin/python manage.py zaxira
+
+# Zaxira olish uzoq davom etishi mumkin, lekin cheksiz emas — osilib
+# qolgan jarayon keyingi kungi ishga xalaqit bermasin.
+TimeoutStartSec=1800
+
+# Nusxa vaqtinchalik faylga yoziladi; u shu xizmatga xos, alohida
+# papkada bo'lsin va ish tugashi bilan avtomatik o'chsin.
+PrivateTmp=true
+NoNewPrivileges=true

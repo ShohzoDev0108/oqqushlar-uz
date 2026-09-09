@@ -1,0 +1,19 @@
+# Har kecha soat 03:15 da (Toshkent vaqti) zaxira oladi.
+#
+# NEGA 03:15, 03:00 EMAS. Yumaloq soatlarda ko'p server bir vaqtda ish
+# boshlaydi; bir necha daqiqa siljitish yuklamani yoyadi.
+#
+# Persistent=true — server o'chib qolgan bo'lsa, yoqilgach o'tkazib
+# yuborilgan ishni bajaradi. Aks holda uzilish kunidagi nusxa umuman
+# olinmay qolardi.
+
+[Unit]
+Description=Oqqushlar zaxirasini har kecha olish
+
+[Timer]
+OnCalendar=*-*-* 03:15:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

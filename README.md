@@ -139,3 +139,46 @@ yoki WSL orqali.)
 - `db.sqlite3` va `media/` papkasi ham `.gitignore`'da — bular haqiqiy
   mijoz ma'lumotlari va yuklangan fayllarni o'z ichiga oladi, Git'ga
   qo'shilmasligi shart.
+
+## Zaxira nusxa
+
+Baza har kecha 03:15 da shifrlanib R2'ning **alohida** paqiriga yuboriladi
+(`taklif/management/commands/zaxira.py`). Media paqiri bilan bir joyda
+saqlanmaydi: bitta noto'g'ri kalit ikkalasini birdan yo'q qilmasligi kerak.
+
+`.env` da sozlanadi:
+
+    ZAXIRA_BUCKET=oqqushlar-zaxira
+    ZAXIRA_PAROL=<uzun tasodifiy parol, kamida 20 belgi>
+    ZAXIRA_ACCESS_KEY_ID=<ixtiyoriy, alohida R2 kaliti>
+    ZAXIRA_SECRET_ACCESS_KEY=<ixtiyoriy>
+    ZAXIRA_ENDPOINT_URL=<ixtiyoriy>
+
+**ZAXIRA_PAROL ni yo'qotmang.** U yo'qolsa nusxalarni ochib bo'lmaydi.
+Uni parol menejeringizda, serverdan tashqarida saqlang.
+
+Taymer:
+
+    cp dizayn/server/oqqushlar-zaxira.* /etc/systemd/system/
+    systemctl daemon-reload
+    systemctl enable --now oqqushlar-zaxira.timer
+
+Foydali buyruqlar:
+
+    venv/bin/python manage.py zaxira --royxat    # mavjud nusxalar
+    venv/bin/python manage.py zaxira --tekshir   # oxirgisi ochiladimi va o'qiladimi
+    systemctl list-timers oqqushlar-zaxira       # keyingi ishga tushish vaqti
+    journalctl -u oqqushlar-zaxira -n 50         # jurnal
+
+Saqlash muddati: oxirgi 14 kun — har kungi nusxa; keyingi 8 hafta — faqat
+yakshanbadagilar; undan eskisi o'chiriladi.
+
+### Tiklash
+
+    gpg -d oqqushlar-2026-09-09-0315.dump.gpg > tiklash.dump
+    pg_restore -d <baza_nomi> --clean --if-exists tiklash.dump
+
+Zaxira BOR bo'lishi yetarli emas — u TIKLANADIGAN bo'lishi kerak.
+`--tekshir` buni qisman avtomatlashtiradi (faylni ochib, ichidagi
+jadvallarni o'qib ko'radi), lekin yiliga bir marta haqiqiy tiklashni
+sinov bazasida bajarib ko'rgan ma'qul.
