@@ -150,6 +150,47 @@ AXES_COOLOFF_TIME = 1  # soat
 AXES_LOCKOUT_PARAMETERS = ["username", "ip_address"]
 AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = False
 
+# Sayt ishonchli proksi (bizda — Cloudflare) ortida turadimi.
+#
+# Bu FAQAT HTTPS aniqlash uchun emas: taklif/chegara.py shu bayroqqa
+# qarab X-Forwarded-For / CF-Connecting-IP sarlavhasiga ishonadi yoki
+# ishonmaydi. Sarlavhani har kim o'zi yozib yuborishi mumkin, ya'ni
+# proksisiz saytda unga ishonish chegarani chetlab o'tish yo'lini
+# ochib qo'yardi.
+ISHONCHLI_PROKSI = _env_bool("DJANGO_BEHIND_PROXY")
+
+
+# --- Kesh ---
+#
+# IKKITA kesh bor va ular ataylab har xil:
+#
+# "default" — xotirada (locmem). Bu yerda sayt sozlamalari kabi arzon,
+#   tez-tez o'qiladigan narsalar yotadi. Har bir gunicorn ishchisida
+#   alohida nusxa bo'lgani muhim emas: eng yomoni — sozlama o'zgarganda
+#   ba'zi ishchi uni bir necha soniya kech ko'radi.
+#
+# "chegara" — bazada. So'rovlar chegarasi (taklif/chegara.py) shu yerda
+#   hisoblanadi va u BARCHA ishchilar uchun UMUMIY bo'lishi SHART. Agar
+#   xotirada bo'lsa, har bir ishchining o'z hisobi bo'lardi va haqiqiy
+#   chegara ishchilar soniga ko'payib ketardi — ya'ni himoya "ishlayotgandek
+#   ko'rinib", aslida bir necha barobar bo'sh bo'lardi.
+#
+#   Redis o'rniga baza tanlandi: hajm juda kichik (bir necha yuz qator),
+#   yangi xizmatni serverda saqlab turish esa ortiqcha yuk. Jadval bir
+#   marta yaratiladi: manage.py createcachetable
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "oq-standart",
+    },
+    "chegara": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "oq_kesh",
+        "TIMEOUT": 3600,
+    },
+}
+
+
 ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
@@ -411,6 +452,11 @@ LOGGING = {
         # Kechasi taymer orqali ishlaydigan zaxira buyrug'i. Uni hech kim
         # ko'rib turmaydi, shuning uchun xatolik jimgina yo'qolmasligi
         # kerak — xuddi 500-xatolik kabi Telegram'ga boradi.
+        "taklif.chegara": {
+            "handlers": ["konsol_xatolik", "telegram_xatolik"],
+            "level": "WARNING",
+            "propagate": False,
+        },
         "taklif.zaxira": {
             "handlers": ["konsol_xatolik", "telegram_xatolik"],
             "level": "ERROR",

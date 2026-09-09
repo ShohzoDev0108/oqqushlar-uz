@@ -1975,6 +1975,18 @@ msgstr "Ваш номер телефона"
 msgid "Ommaviy oferta"
 msgstr "Публичная оферта"
 
+#: taklif/templates/taklif/juda_kop.html
+msgid "Biroz kuting"
+msgstr "Подождите немного"
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
+msgstr "Отправлено слишком много запросов. Попробуйте снова через несколько минут."
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Agar bu xato bo'lsa, bizga yozing — yordam beramiz."
+msgstr "Если это ошибка, напишите нам — мы поможем."
+
 #: taklif/huquqiy.html
 msgid "Maxfiylik siyosati"
 msgstr "Политика конфиденциальности"

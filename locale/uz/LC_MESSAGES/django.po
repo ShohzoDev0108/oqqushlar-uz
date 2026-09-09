@@ -891,6 +891,18 @@ msgstr ""
 msgid "Ommaviy oferta"
 msgstr ""
 
+#: taklif/templates/taklif/juda_kop.html
+msgid "Biroz kuting"
+msgstr ""
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
+msgstr ""
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Agar bu xato bo'lsa, bizga yozing — yordam beramiz."
+msgstr ""
+
 #: taklif/huquqiy.html
 msgid "Maxfiylik siyosati"
 msgstr ""

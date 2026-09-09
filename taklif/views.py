@@ -43,6 +43,12 @@ from .models import (
     Taklifnoma,
     TaklifnomaRasm,
 )
+from .chegara import (
+    MEHMON_CHEGARASI,
+    RSVP_CHEGARASI,
+    YARATISH_CHEGARASI,
+    chegara,
+)
 from .translit import kirilldan_lotinga
 from .namuna import (
     marosim_tanlash,
@@ -484,6 +490,7 @@ def _eskisini_ochirsa_boladimi(taklifnoma):
     return True
 
 
+@chegara("yaratish", YARATISH_CHEGARASI)
 def yaratish(request, shablon_kod):
     """Mijoz tanlagan shablon bo'yicha o'z taklifnomasini to'ldiradi (self-service).
 
@@ -1025,6 +1032,7 @@ def _postdan_kesib_olish(request, kalit, maks_uzunlik):
 
 
 @require_POST
+@chegara("rsvp", RSVP_CHEGARASI)
 def rsvp_submit(request, slug):
     """Mehmon RSVP formasini yuborishi.
 
@@ -1213,6 +1221,7 @@ def statistika(request, token):
 
 
 @require_POST
+@chegara("mehmon", MEHMON_CHEGARASI)
 def mehmon_qoshish(request, token):
     """Mijoz statistika sahifasining o'zidan turib (admin panelga kirmasdan)
     mehmon uchun shaxsiy link yaratadi.

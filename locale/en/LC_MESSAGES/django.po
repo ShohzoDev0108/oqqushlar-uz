@@ -1978,6 +1978,18 @@ msgstr "Your phone number"
 msgid "Ommaviy oferta"
 msgstr "Public offer"
 
+#: taklif/templates/taklif/juda_kop.html
+msgid "Biroz kuting"
+msgstr "Please wait a moment"
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
+msgstr "Too many requests were sent. Please try again in a few minutes."
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Agar bu xato bo'lsa, bizga yozing — yordam beramiz."
+msgstr "If this seems wrong, write to us — we will help."
+
 #: taklif/huquqiy.html
 msgid "Maxfiylik siyosati"
 msgstr "Privacy policy"

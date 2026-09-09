@@ -1973,6 +1973,18 @@ msgstr "Телефон нөміріңіз"
 msgid "Ommaviy oferta"
 msgstr "Жария оферта"
 
+#: taklif/templates/taklif/juda_kop.html
+msgid "Biroz kuting"
+msgstr "Сәл күте тұрыңыз"
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
+msgstr "Тым көп сұрау жіберілді. Бірнеше минуттан кейін қайталап көріңіз."
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Agar bu xato bo'lsa, bizga yozing — yordam beramiz."
+msgstr "Егер бұл қате болса, бізге жазыңыз — көмектесеміз."
+
 #: taklif/huquqiy.html
 msgid "Maxfiylik siyosati"
 msgstr "Құпиялылық саясаты"

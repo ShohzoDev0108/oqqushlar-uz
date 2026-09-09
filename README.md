@@ -140,6 +140,28 @@ yoki WSL orqali.)
   mijoz ma'lumotlari va yuklangan fayllarni o'z ichiga oladi, Git'ga
   qo'shilmasligi shart.
 
+### So'rovlar chegarasi (rate limiting)
+
+Mijozga ochiq POST manzillari — taklifnoma yaratish, RSVP javobi va
+mehmon qo'shish — IP bo'yicha cheklangan (`taklif/chegara.py`). Chegara
+oshsa mijozga 429 kodi bilan "Biroz kuting" sahifasi ko'rsatiladi va
+Telegram'ga ogohlantirish yuboriladi.
+
+Hisob **bazadagi kesh jadvalida** yuritiladi, chunki u barcha gunicorn
+ishchilari uchun umumiy bo'lishi shart. Jadval bir marta yaratiladi:
+
+```
+python manage.py createcachetable
+```
+
+Bu buyruq bajarilmasa, chegarani tekshirish paytida `relation "oq_kesh"
+does not exist` xatosi chiqadi.
+
+`DJANGO_BEHIND_PROXY=1` bu yerda ham muhim: usiz `CF-Connecting-IP` va
+`X-Forwarded-For` sarlavhalariga **ishonilmaydi**. Sayt Cloudflare
+ortida turgani uchun bu bayroqsiz barcha mijozlar bitta IP dan
+kelayotgandek ko'rinadi va chegara hammani birdan to'sib qo'yadi.
+
 ## Zaxira nusxa
 
 Baza har kecha 03:15 da shifrlanib R2'ning **alohida** paqiriga yuboriladi

@@ -1975,6 +1975,18 @@ msgstr "Telefon nomeriniz"
 msgid "Ommaviy oferta"
 msgstr "Jámiyetlik oferta"
 
+#: taklif/templates/taklif/juda_kop.html
+msgid "Biroz kuting"
+msgstr "Azǵana kútiń"
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
+msgstr "Júdá kóp soraw jiberildi. Bir neshe minuttan keyin qayta urinip kóriń."
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Agar bu xato bo'lsa, bizga yozing — yordam beramiz."
+msgstr "Eger bul qátelik bolsa, bizge jazıń — járdem beremiz."
+
 #: taklif/huquqiy.html
 msgid "Maxfiylik siyosati"
 msgstr "Qupıyalıq siyasatı"

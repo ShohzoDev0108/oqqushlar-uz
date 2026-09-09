@@ -1970,6 +1970,18 @@ msgstr "Telefon belgiňiz"
 msgid "Ommaviy oferta"
 msgstr "Köpçülikleýin teklip"
 
+#: taklif/templates/taklif/juda_kop.html
+msgid "Biroz kuting"
+msgstr "Biraz garaşyň"
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
+msgstr "Örän köp haýyş iberildi. Birnäçe minutdan soň täzeden synanyşyň."
+
+#: taklif/templates/taklif/juda_kop.html
+msgid "Agar bu xato bo'lsa, bizga yozing — yordam beramiz."
+msgstr "Eger bu ýalňyş bolsa, bize ýazyň — kömek ederis."
+
 #: taklif/huquqiy.html
 msgid "Maxfiylik siyosati"
 msgstr "Gizlinlik syýasaty"

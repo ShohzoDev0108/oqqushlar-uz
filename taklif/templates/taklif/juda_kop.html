@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% comment %}
+So'rovlar chegarasi oshganda ko'rsatiladigan sahifa (HTTP 429).
+
+Matn ataylab AYBLAMAYDI. Bu yerga tushadiganlarning ko'pchiligi bot
+emas, shoshib qolgan yoki tugmani ikki marta bosgan oddiy mijoz —
+"siz shubhali harakat qildingiz" degan ohang ularni qo'rqitadi.
+Shuning uchun oddiy tilda: biroz kuting va qayta urinib ko'ring.
+
+Ko'rinishi 404 sahifasi bilan bir xil naqshda — shu bilan sayt
+uzilib qolgandek emas, o'zining bir qismidek his qilinadi.
+{% endcomment %}
+
+{% block title %}{% trans "Biroz kuting" %} — Oqqushlar{% endblock %}
+
+{% block extra_style %}
+{% include "taklif/_sayt_uslubi.html" %}
+
+body { background: #0f2027; color: #f5efe0; }
+.markaz { text-align: center; margin-top: 20vh; padding: 0 20px; }
+h1 { font-size: 1.6rem; color: #f5efe0; }
+p { color: #cfc7b4; }
+.markaz .oq-cta { border-color: #c9a24a; color: #c9a24a; }
+.markaz .oq-cta:hover { background: #c9a24a; color: #1a1208; }
+.til-qatori {
+    display: flex; justify-content: center; margin-top: 22px;
+    --karta-fon: #0f2027; --matn: #f5efe0; --asos: #c9a24a; --asos-matn: #1a1208;
+    --chegara: rgba(255,255,255,.2); --radius: 6px;
+}
+{% endblock %}
+
+{% block content %}
+<div class="markaz">
+    <h1>{% trans "Biroz kuting" %}</h1>
+    <p>{% trans "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring." %}</p>
+    <p>{% trans "Agar bu xato bo'lsa, bizga yozing — yordam beramiz." %}</p>
+    <p>
+        <a class="oq-cta kichik" href="{% url 'taklif:boglanish' %}">{% trans "Bog'lanish" %}</a>
+    </p>
+    <div class="til-qatori">{% include "taklif/_til_almashtirish.html" %}</div>
+</div>
+{% endblock %}
