@@ -295,11 +295,18 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
         {% if eski_taklifnoma %}
         <div class="eski-ogohlantirish">
             <p>{% blocktrans with ism1=eski_taklifnoma.ism_1 ism2=eski_taklifnoma.ism_2 %}Sizda <strong>{{ ism1 }} {{ ism2 }}</strong> nomi bilan taklifnoma allaqachon bor (shu brauzerda avval yaratilgan).{% endblocktrans %}</p>
+            {% if eski_ochirilmaydi %}
+            <p>{% trans "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz." %}</p>
+            <div class="eski-tugmalar">
+                <button type="submit" form="yaratish-forma" name="eski_taklifnoma_harakati" value="alohida">{% trans "Alohida saqlayman" %}</button>
+            </div>
+            {% else %}
             <p>{% trans "Nima qilamiz?" %}</p>
             <div class="eski-tugmalar">
                 <button type="submit" form="yaratish-forma" name="eski_taklifnoma_harakati" value="yangilash">{% trans "Buni yangilayman (eskisi o'chadi)" %}</button>
                 <button type="submit" form="yaratish-forma" name="eski_taklifnoma_harakati" value="alohida" class="tugma-ikkinchi">{% trans "Yo'q, alohida saqlayman" %}</button>
             </div>
+            {% endif %}
         </div>
         {% endif %}
 

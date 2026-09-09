@@ -1962,6 +1962,14 @@ msgstr "Update it (the old one will be deleted)"
 msgid "Yo'q, alohida saqlayman"
 msgstr "No, keep it separate"
 
+#: taklif/templates/taklif/yaratish.html:299
+msgid "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz."
+msgstr "It is already in use — it may have been sent to guests, or replies may already have come in. So we will not delete it. We will save the new one separately."
+
+#: taklif/templates/taklif/yaratish.html:301
+msgid "Alohida saqlayman"
+msgstr "Keep it separate"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

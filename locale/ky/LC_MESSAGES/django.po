@@ -1957,6 +1957,14 @@ msgstr "Муну жаңыртам (эскиси өчөт)"
 msgid "Yo'q, alohida saqlayman"
 msgstr "Жок, өзүнчө сактайм"
 
+#: taklif/templates/taklif/yaratish.html:299
+msgid "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz."
+msgstr "Ал мурунтан колдонулуп жатат — конокторго жөнөтүлгөн же жооптор чогулган болушу мүмкүн. Ошондуктан аны өчүрбөйбүз. Жаңысын өзүнчө сактайбыз."
+
+#: taklif/templates/taklif/yaratish.html:301
+msgid "Alohida saqlayman"
+msgstr "Өзүнчө сактайм"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

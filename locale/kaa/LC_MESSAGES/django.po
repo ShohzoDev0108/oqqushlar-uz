@@ -1959,6 +1959,14 @@ msgstr "Munı jańalayman (eskisi óshedi)"
 msgid "Yo'q, alohida saqlayman"
 msgstr "Yaq, bólek saqlayman"
 
+#: taklif/templates/taklif/yaratish.html:299
+msgid "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz."
+msgstr "Ol álleqashan paydalanılıp atır — mıymanlarǵa jiberilgen yaki juwaplar jıynalǵan bolıwı múmkin. Sonlıqtan onı óshirmeymiz. Jańasın bólek saqlaymız."
+
+#: taklif/templates/taklif/yaratish.html:301
+msgid "Alohida saqlayman"
+msgstr "Bólek saqlayman"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

@@ -1959,6 +1959,14 @@ msgstr "Обновить его (старое удалится)"
 msgid "Yo'q, alohida saqlayman"
 msgstr "Нет, сохранить отдельно"
 
+#: taklif/templates/taklif/yaratish.html:299
+msgid "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz."
+msgstr "Она уже используется — возможно, её отправили гостям или по ней уже есть ответы. Поэтому мы её не удаляем. Новую сохраним отдельно."
+
+#: taklif/templates/taklif/yaratish.html:301
+msgid "Alohida saqlayman"
+msgstr "Сохранить отдельно"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

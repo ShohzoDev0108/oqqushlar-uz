@@ -1954,6 +1954,14 @@ msgstr "Muny täzelemek (könesi öçer)"
 msgid "Yo'q, alohida saqlayman"
 msgstr "Ýok, aýratyn saklaýyn"
 
+#: taklif/templates/taklif/yaratish.html:299
+msgid "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz."
+msgstr "Ol eýýäm ulanylýar — myhmanlara iberilen ýa-da jogaplar ýygnanan bolmagy mümkin. Şonuň üçin ony pozmaýarys. Täzesini aýratyn saklaýarys."
+
+#: taklif/templates/taklif/yaratish.html:301
+msgid "Alohida saqlayman"
+msgstr "Aýratyn saklaýyn"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

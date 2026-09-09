@@ -451,6 +451,35 @@ def boglanish(request):
     )
 
 
+def _eskisini_ochirsa_boladimi(taklifnoma):
+    """Yaratish formasidagi "yangilash" tugmasi shu taklifnomani butunlay
+    o'chirib yuborishi mumkinmi.
+
+    Faqat haqiqatan QORALAMA bo'lgan taklifnomani o'chirishga ruxsat beramiz.
+    Uch shartning bittasi buzilsa ham — yo'q:
+
+    — to'langan bo'lsa: mijoz pul to'lagan, taklifnoma faollashgan;
+    — mehmonlari bo'lsa: ismma-ism havolalar tarqatilgan;
+    — javoblari bo'lsa: mehmonlar allaqachon javob yozgan.
+
+    Mehmonlar va javoblar CASCADE bilan bog'langan, ya'ni taklifnoma
+    o'chsa ular ham o'chadi va tiklab bo'lmaydi. `taklifnoma_ochirish`
+    ko'rinishida bu himoya bor edi (to'langani chiqindiga tushadi), bu
+    yerda esa yo'q edi — shu tafovut tuzatildi.
+
+    Bu yerda "chiqindiga o'tkazish" ishlamaydi: yangilash aynan eski
+    HAVOLANI qayta ishlatish demak, havola esa band bo'lib qolaveradi.
+    Shuning uchun yagona to'g'ri javob — o'chirmaslik.
+    """
+    if taklifnoma.tolangan:
+        return False
+    if taklifnoma.javoblar.exists():
+        return False
+    if taklifnoma.mehmonlar.exists():
+        return False
+    return True
+
+
 def yaratish(request, shablon_kod):
     """Mijoz tanlagan shablon bo'yicha o'z taklifnomasini to'ldiradi (self-service).
 
@@ -461,6 +490,7 @@ def yaratish(request, shablon_kod):
     """
     shablon = get_object_or_404(Shablon, kod=shablon_kod, ommaviy=True)
     eski_taklifnoma = None
+    eski_ochirilmaydi = False
 
     # Mijoz shablon tanlash sahifasida marosim turini allaqachon tanlagan
     # bo'ladi va u bu yerga ?marosim=<kalit> orqali keladi
@@ -509,11 +539,25 @@ def yaratish(request, shablon_kod):
                     oldingi_sluglar = request.session.get(SESSIYA_KALITI, [])
                     ozimniki = asosiy in oldingi_sluglar
                     harakat = request.POST.get("eski_taklifnoma_harakati")
+                    ochirsa_boladi = _eskisini_ochirsa_boladimi(mavjud)
 
-                    if ozimniki and harakat == "yangilash":
+                    if ozimniki and harakat == "yangilash" and ochirsa_boladi:
                         # Mijoz tasdiqladi: eski (yoqmagan) taklifnoma o'chirilib,
                         # xuddi shu toza havolaga yangisi yaratiladi.
                         mavjud.delete()
+                    elif ozimniki and harakat == "yangilash":
+                        # TAFTISH. Ilgari bu yerda shartsiz mavjud.delete()
+                        # turardi. Mijoz to'lagan, mehmonlarga tarqatilgan va
+                        # javoblar yig'ilgan taklifnoma ham xuddi shu tugma
+                        # bilan butunlay yo'q bo'lardi (mehmonlar va RSVP
+                        # javoblari CASCADE orqali birga ketardi) — bunday
+                        # yo'qotishni qaytarib bo'lmaydi. Endi o'chirish faqat
+                        # haqiqatan qoralama bo'lgan taklifnomaga ruxsat etiladi;
+                        # qolganida savol qayta so'raladi va faqat "alohida
+                        # saqlash" taklif qilinadi.
+                        eski_taklifnoma = mavjud
+                        eski_ochirilmaydi = True
+                        yaratish_kerak = False
                     elif ozimniki and harakat == "alohida":
                         # Mijoz ikkalasini ham saqlab qolmoqchi — mijozga hech
                         # narsa bildirmasdan, orqa fondan mazmunli havola topamiz.
@@ -523,6 +567,7 @@ def yaratish(request, shablon_kod):
                         # ko'rsatmaymiz, oddiy tilda so'raymiz: yangilaymizmi yoki
                         # alohida saqlaymizmi?
                         eski_taklifnoma = mavjud
+                        eski_ochirilmaydi = not ochirsa_boladi
                         yaratish_kerak = False
                     else:
                         # Bu boshqa mijozda tasodifan bir xil ism chiqib qoldi —
@@ -589,6 +634,7 @@ def yaratish(request, shablon_kod):
             "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
             "musiqa_variantlar": MusiqaVariant.objects.filter(faol=True),
             "eski_taklifnoma": eski_taklifnoma,
+            "eski_ochirilmaydi": eski_ochirilmaydi,
             "admin_telegram": _admin_telegram(),
         },
     )

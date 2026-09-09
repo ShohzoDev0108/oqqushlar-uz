@@ -875,6 +875,14 @@ msgstr ""
 msgid "Yo'q, alohida saqlayman"
 msgstr ""
 
+#: taklif/templates/taklif/yaratish.html:299
+msgid "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz."
+msgstr ""
+
+#: taklif/templates/taklif/yaratish.html:301
+msgid "Alohida saqlayman"
+msgstr ""
+
 msgid "Sanani va soatni tanlang"
 msgstr ""
 

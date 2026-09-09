@@ -1963,6 +1963,14 @@ msgstr "Инро навсозӣ мекунам (кӯҳнааш нест меша
 msgid "Yo'q, alohida saqlayman"
 msgstr "Не, алоҳида нигоҳ медорам"
 
+#: taklif/templates/taklif/yaratish.html:299
+msgid "U allaqachon ishlatilyapti — mehmonlarga yuborilgan yoki javoblar yig'ilgan bo'lishi mumkin. Shuning uchun uni o'chirib yubormaymiz. Yangisini alohida saqlaymiz."
+msgstr "Он аллакай истифода мешавад — мумкин аст ба меҳмонон фиристода шуда бошад ё ҷавобҳо ҷамъ шуда бошанд. Бинобар ин мо онро нест намекунем. Навашро алоҳида нигоҳ медорем."
+
+#: taklif/templates/taklif/yaratish.html:301
+msgid "Alohida saqlayman"
+msgstr "Алоҳида нигоҳ медорам"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"
