@@ -55,3 +55,8 @@ Thumbs.db
 # tashlanib turardi.
 Claude outputs/
 sinov_sozlamalari.py
+
+# Terminal chiqishi yozib olinadigan vaqtinchalik fayllar.
+# Ular xatolikni tekshirish uchun yaratiladi va repozitoriyga
+# tushmasligi kerak (bir marta tasodifan tushib qolgan).
+xato.txt
