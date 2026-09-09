@@ -487,17 +487,6 @@ class Taklifnoma(models.Model):
     shablon = models.ForeignKey(
         Shablon, on_delete=models.PROTECT, related_name="taklifnomalar"
     )
-    naqsh = models.ForeignKey(
-        Naqsh,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        related_name="taklifnomalar",
-        help_text=(
-            "Fon naqshi. Bo'sh qoldirilsa — shablonning o'z asosiy naqshi "
-            "ishlatiladi. Shu sababdan mavjud taklifnomalar o'zgarmaydi."
-        ),
-    )
     sana = models.DateTimeField(help_text="Tadbir sanasi va vaqti")
     toyxona = models.CharField(max_length=200, blank=True)
     manzil = models.CharField(max_length=300, blank=True)
