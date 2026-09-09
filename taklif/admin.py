@@ -8,6 +8,7 @@ from .models import (
     MAROSIM_TURLARI,
     Mehmon,
     MusiqaVariant,
+    Naqsh,
     NamunaRasm,
     SaytSozlamalari,
     Shablon,
@@ -99,6 +100,22 @@ class ShablonAdminForm(MarosimTurlariFormMixin):
     class Meta:
         model = Shablon
         fields = "__all__"
+
+
+@admin.register(Naqsh)
+class NaqshAdmin(admin.ModelAdmin):
+    """Fon naqshlari katalogi.
+
+    Fayl bu yerdan YUKLANMAYDI — u loyiha bilan birga keladi va
+    "taklif/static/taklif/naqshlar/<kalit>.webp" yo'lida turadi. Bu
+    yerda faqat naqshning kim ekani va qanday ko'rsatilishi yoziladi.
+    """
+
+    list_display = ("nomi", "millat", "joylashuv", "shaffoflik", "tartib", "faol")
+    list_filter = ("millat", "joylashuv", "faol")
+    list_editable = ("tartib", "faol")
+    search_fields = ("nomi", "kalit", "izoh")
+    prepopulated_fields = {"kalit": ("nomi",)}
 
 
 @admin.register(Shablon)

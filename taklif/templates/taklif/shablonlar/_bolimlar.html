@@ -6,6 +6,12 @@ har bir shablonning o'z CSS'i orqali beriladi; ikkinchi darajali matnlar
 ".muted" klassi bilan belgilanadi.
 {% endcomment %}
 
+{% comment %}
+Fon naqshi — taklifnomaniki, u bo'sh bo'lsa shablonning asosiysi.
+Ikkalasi ham bo'sh bo'lsa hech narsa chiqmaydi.
+{% endcomment %}
+{% include "taklif/shablonlar/_naqsh.html" with naqsh=taklifnoma.naqsh|default:taklifnoma.shablon.asosiy_naqsh %}
+
 <style>
 /* Hero atrofidagi original burchak romka bezagi — barcha shablonlarda umumiy
    (rangi har bir shablonning o'z --asos o'zgaruvchisidan olinadi, shuning

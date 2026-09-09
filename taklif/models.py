@@ -1,4 +1,5 @@
 import secrets
+from decimal import Decimal
 
 from django.conf import settings
 from django.core.cache import cache
@@ -219,6 +220,99 @@ MILLATLAR = [
 ]
 
 
+class Naqsh(models.Model):
+    """Taklifnoma fonidagi milliy naqsh.
+
+    NEGA ALOHIDA MODEL, SHABLONNING QISMI EMAS. Agar har bir naqsh uchun
+    yangi shablon ochsak, 7 millat x 4 naqsh = 28 ta shablon bo'lardi va
+    namunalar sahifasi bir-biridan faqat foni bilan farq qiladigan
+    kartochkalar bilan to'lib ketardi. Naqsh alohida o'lcham bo'lgani
+    uchun mijoz avval dizaynni tanlaydi, keyin fonni almashtiradi.
+
+    NEGA FAYL BIR RANGLI. Naqsh o'z rangini olib kelmaydi — fayl faqat
+    SHAKLNI beradi (niqob), rangni esa shablon beradi. Shu sababdan
+    bitta naqsh istalgan shablonda o'sha shablonning rangini oladi va
+    hech qachon palitra bilan urishmaydi. Xuddi ".hrb-rangli" burchak
+    bezagida qilinganidek.
+
+    NEGA STATIC, MEDIA EMAS. Naqshlar mijoz yuklaydigan fayl emas —
+    ular biz tayyorlaydigan, tekshiriladigan va loyiha bilan birga
+    keladigan aktivlar. Static bo'lgani uchun ular hashlanadi, brauzerda
+    abadiy keshlanadi va R2'ga bog'liq bo'lmaydi.
+    """
+
+    JOYLASHUVLAR = [
+        ("tepa", "Tepada, takrorlanmaydi"),
+        ("maydon", "Butun sahifa bo'ylab, takrorlanadi"),
+    ]
+
+    nomi = models.CharField(max_length=100, help_text="Masalan: So'zana guli")
+    kalit = models.SlugField(
+        unique=True,
+        help_text=(
+            "Fayl nomi (kengaytmasiz). Fayl shu yerda turishi shart: "
+            "taklif/static/taklif/naqshlar/<kalit>.webp"
+        ),
+    )
+    millat = models.CharField(
+        max_length=20,
+        choices=MILLATLAR,
+        blank=True,
+        default="",
+        help_text=(
+            "Mijozga naqsh tanlashda shu millat ostida ko'rsatiladi. "
+            "Bo'sh qoldirilsa — har qanday millatda ko'rinadi."
+        ),
+    )
+    joylashuv = models.CharField(
+        max_length=10,
+        choices=JOYLASHUVLAR,
+        default="tepa",
+        help_text=(
+            "\"Tepada\" — naqsh bir marta sahifa boshida turadi va pastga "
+            "so'nadi. \"Maydon\" — butun sahifa bo'ylab takrorlanadi "
+            "(fayl choksiz plita bo'lishi shart)."
+        ),
+    )
+    olcham = models.PositiveSmallIntegerField(
+        default=220,
+        help_text="Faqat \"Maydon\" uchun: plita kengligi (px)",
+    )
+    shaffoflik = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        default=Decimal("0.16"),
+        help_text=(
+            "0.00 dan 1.00 gacha. Fon matndan kuchli bo'lmasligi kerak — "
+            "maydon uchun 0.12-0.20, tepa uchun 0.25-0.35 mos keladi."
+        ),
+    )
+    izoh = models.CharField(
+        max_length=300,
+        blank=True,
+        help_text=(
+            "Naqsh nimadan olingan — mato turi, joyi, sanasi. "
+            "Mijozga ko'rinmaydi, lekin keyin manbani aniqlashda kerak bo'ladi."
+        ),
+    )
+    tartib = models.PositiveSmallIntegerField(
+        default=0, help_text="Kichik raqam yuqorida turadi"
+    )
+    faol = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Naqsh"
+        verbose_name_plural = "Naqshlar"
+        ordering = ["tartib", "nomi"]
+
+    def __str__(self):
+        return self.nomi
+
+    @property
+    def fayl_yoli(self):
+        return f"taklif/naqshlar/{self.kalit}.webp"
+
+
 class Shablon(models.Model):
     """Taklifnoma dizayn shabloni (masalan: 'Registon', 'Suzani')."""
 
@@ -251,6 +345,18 @@ class Shablon(models.Model):
     ommaviy = models.BooleanField(
         default=True,
         help_text="False bo'lsa — individual/maxfiy shablon, faqat admin biriktira oladi",
+    )
+    asosiy_naqsh = models.ForeignKey(
+        Naqsh,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="asosiy_shablonlar",
+        help_text=(
+            "Shu dizayn uchun sukut bo'yicha fon naqshi. Mijozlarning "
+            "ko'pchiligi fonni almashtirmaydi, shuning uchun bu yerda "
+            "turgan naqsh eng ko'p ko'riladigan variant bo'ladi."
+        ),
     )
 
     class Meta:
@@ -380,6 +486,17 @@ class Taklifnoma(models.Model):
     )
     shablon = models.ForeignKey(
         Shablon, on_delete=models.PROTECT, related_name="taklifnomalar"
+    )
+    naqsh = models.ForeignKey(
+        Naqsh,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="taklifnomalar",
+        help_text=(
+            "Fon naqshi. Bo'sh qoldirilsa — shablonning o'z asosiy naqshi "
+            "ishlatiladi. Shu sababdan mavjud taklifnomalar o'zgarmaydi."
+        ),
     )
     sana = models.DateTimeField(help_text="Tadbir sanasi va vaqti")
     toyxona = models.CharField(max_length=200, blank=True)

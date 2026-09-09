@@ -1,0 +1,61 @@
+{% load static %}
+{% comment %}
+Taklifnoma fonidagi milliy naqsh.
+
+QAYERDAN KELADI. Avval taklifnomaning o'z naqshi (mijoz tanlagani),
+u bo'sh bo'lsa shablonning asosiy naqshi. Ikkalasi ham bo'sh bo'lsa
+bu blok umuman chiqmaydi va sahifa avvalgidek qoladi — shu sababdan
+mavjud taklifnomalar o'zgarmaydi.
+
+NEGA NIQOB, FON RASMI EMAS. Fayl kulrang: unda faqat SHAKL bor,
+rang yo'q. Rangni CSS beradi (--naqsh-rang). Shu tufayli bitta fayl
+19 ta shablonning har birida o'sha shablonning o'z rangida chiqadi
+va hech qachon palitra bilan urishmaydi. Xuddi shu usul allaqachon
+".hrb-rangli" burchak bezagida ishlatilgan.
+
+IKKI JOYLASHUV. "tepa" — naqsh bir marta sahifa boshida turadi va
+pastga tomon so'nadi; chok muammosi umuman tug'ilmaydi va naqsh
+matnning ustiga chiqmaydi. "maydon" — butun sahifa bo'ylab
+takrorlanadi; bunda fayl choksiz plita bo'lishi shart.
+
+QATLAM z-index: 0 da, ".ichki" esa z-index: 1 da — ya'ni naqsh
+doim kontentning ORQASIDA qoladi. "pointer-events: none" bosishni
+o'tkazib yuboradi, aks holda u butun sahifani to'sib qo'yardi.
+{% endcomment %}
+{% if naqsh %}
+<style>
+:root { --naqsh-fayl: url('{% static naqsh.fayl_yoli %}'); }
+.oq-naqsh {
+    pointer-events: none; z-index: 0;
+    background-color: var(--naqsh-rang, var(--asos));
+    opacity: {{ naqsh.shaffoflik }};
+}
+{% if naqsh.joylashuv == "tepa" %}
+/* Sahifa boshida turadi va kontent bilan birga yuqoriga surilib ketadi. */
+.oq-naqsh {
+    position: absolute; left: 0; right: 0; top: 0;
+    height: 78vh; max-height: 620px;
+    -webkit-mask-image: var(--naqsh-fayl); mask-image: var(--naqsh-fayl);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: top center; mask-position: top center;
+    -webkit-mask-size: 120% auto; mask-size: 120% auto;
+}
+/* Pastki chekkasi keskin kesilmasin — fon rangi bilan asta qo'shilib
+   ketsin. Niqob ustiga ikkinchi niqob qo'yish o'rniga oddiy gradient
+   parda ishlatiladi: u yengilroq va hamma brauzerda bir xil ishlaydi. */
+.oq-naqsh::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, var(--fon) 76%);
+}
+{% else %}
+/* Ekranga mahkamlanadi — uzun sahifada naqsh pastda tugab qolmaydi va
+   qayta-qayta chizilmaydi. */
+.oq-naqsh {
+    position: fixed; inset: 0;
+    -webkit-mask-image: var(--naqsh-fayl); mask-image: var(--naqsh-fayl);
+    -webkit-mask-size: {{ naqsh.olcham }}px auto; mask-size: {{ naqsh.olcham }}px auto;
+}
+{% endif %}
+</style>
+<div class="oq-naqsh" aria-hidden="true"></div>
+{% endif %}
