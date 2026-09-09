@@ -1,4 +1,4 @@
-{% load static %}
+{% load l10n static %}
 {% comment %}
 Taklifnoma fonidagi milliy naqsh.
 
@@ -18,6 +18,11 @@ pastga tomon so'nadi; chok muammosi umuman tug'ilmaydi va naqsh
 matnning ustiga chiqmaydi. "maydon" — butun sahifa bo'ylab
 takrorlanadi; bunda fayl choksiz plita bo'lishi shart.
 
+SON FORMATI. "|unlocalize" filtri shart: sayt o'zbek tilida ishlaganda
+Django o'nlik kasrni vergul bilan yozadi ("0,30"), CSS esa buni
+tushunmaydi va butun qoidani tashlab yuboradi — natijada shaffoflik
+1 bo'lib, naqsh matnni bosib ketadi. Bu xato jonli saytda topilgan.
+
 QATLAM z-index: 0 da, ".ichki" esa z-index: 1 da — ya'ni naqsh
 doim kontentning ORQASIDA qoladi. "pointer-events: none" bosishni
 o'tkazib yuboradi, aks holda u butun sahifani to'sib qo'yardi.
@@ -28,7 +33,7 @@ o'tkazib yuboradi, aks holda u butun sahifani to'sib qo'yardi.
 .oq-naqsh {
     pointer-events: none; z-index: 0;
     background-color: var(--naqsh-rang, var(--asos));
-    opacity: {{ naqsh.shaffoflik }};
+    opacity: {{ naqsh.shaffoflik|unlocalize }};
 }
 {% if naqsh.joylashuv == "tepa" %}
 /* Sahifa boshida turadi va kontent bilan birga yuqoriga surilib ketadi. */
@@ -53,7 +58,7 @@ o'tkazib yuboradi, aks holda u butun sahifani to'sib qo'yardi.
 .oq-naqsh {
     position: fixed; inset: 0;
     -webkit-mask-image: var(--naqsh-fayl); mask-image: var(--naqsh-fayl);
-    -webkit-mask-size: {{ naqsh.olcham }}px auto; mask-size: {{ naqsh.olcham }}px auto;
+    -webkit-mask-size: {{ naqsh.olcham|unlocalize }}px auto; mask-size: {{ naqsh.olcham|unlocalize }}px auto;
 }
 {% endif %}
 </style>

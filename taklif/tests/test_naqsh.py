@@ -100,6 +100,19 @@ class NaqshChizilishiTest(TestCase):
         sahifa = self._sahifa(naqsh_yarat(shaffoflik=Decimal("0.22")))
         self.assertIn("opacity: 0.22", sahifa)
 
+    def test_ozbek_tilida_ham_nuqtali_kasr_chiqadi(self):
+        """Regressiya: o'zbek tilida Django kasrni vergul bilan yozardi
+        ("0,30"), CSS esa qoidani tashlab yuborib naqshni to'liq
+        ko'rinadigan qilib qo'yardi. Jonli saytda topilgan."""
+        from django.utils import translation
+
+        with translation.override("uz"):
+            sahifa = self._sahifa(naqsh_yarat(shaffoflik=Decimal("0.30"), olcham=250,
+                                              joylashuv="maydon"))
+        self.assertIn("opacity: 0.30", sahifa)
+        self.assertNotIn("0,30", sahifa)
+        self.assertIn("mask-size: 250px auto", sahifa)
+
     def test_rang_shablondan_olinadi(self):
         """Naqsh o'z rangini olib kelmaydi — rang CSS o'zgaruvchisidan."""
         sahifa = self._sahifa(naqsh_yarat())
