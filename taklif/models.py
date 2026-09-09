@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import get_language, gettext_lazy as _, pgettext_lazy
 
+from .translit import kirilldan_lotinga
 from .validators import FaylHajmiValidator
 
 # Mijoz o'zi yuklaydigan musiqa fayli uchun ruxsat etilgan kengaytmalar va
@@ -789,7 +790,9 @@ class Mehmon(models.Model):
             # qismni suffiks uchun joy qoldirib, oldindan qisqartiramiz.
             max_uzunlik = self._meta.get_field("slug").max_length
             zaxira_joy = 10  # "-mehmon" yoki "-999" kabi qo'shimchalar uchun
-            asosiy = slugify(self.ism)[: max_uzunlik - zaxira_joy] or "mehmon"
+            # Kirillda yozilgan ism ham o'z havolasini olsin — aks holda
+            # mehmon o'z ismini emas, "mehmon-3" ni ko'rardi.
+            asosiy = slugify(kirilldan_lotinga(self.ism))[: max_uzunlik - zaxira_joy] or "mehmon"
             if asosiy in MEHMON_REZERV_SLUGLAR:
                 asosiy = f"{asosiy}-mehmon"
             slug = asosiy[:max_uzunlik]

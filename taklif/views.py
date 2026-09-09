@@ -43,6 +43,7 @@ from .models import (
     Taklifnoma,
     TaklifnomaRasm,
 )
+from .translit import kirilldan_lotinga
 from .namuna import (
     marosim_tanlash,
     namuna_taklifnomasi,
@@ -84,7 +85,10 @@ def _asosiy_slug(ism_1, ism_2, ism_3=""):
     """Mijoz ismlaridan toza havola (slug) yasaydi — mijoz buni ko'rmaydi/tahrirlamaydi."""
     ismlar = [ism for ism in (ism_1, ism_2, ism_3) if ism]
     manba = "-".join(ismlar)
-    slug = slugify(manba) or "taklifnoma"
+    # Kirill harflarini AVVAL lotinga o'giramiz: slugify() ularni
+    # shunchaki tashlab yuboradi va butun havola "taklifnoma" bo'lib
+    # qolardi (batafsil: translit.py).
+    slug = slugify(kirilldan_lotinga(manba)) or "taklifnoma"
     return slug[:_SLUG_ASOSIY_MAX].rstrip("-") or "taklifnoma"
 
 
@@ -113,7 +117,7 @@ def _bosh_slug_top(asosiy, sana=None, marosim_turi="", toyxona="", chetlanganlar
     if sana:
         nomzodlar.append(f"{asosiy}-{sana.day:02d}-{sana.month:02d}")
     if toyxona:
-        toyxona_slug = slugify(toyxona)[:20]
+        toyxona_slug = slugify(kirilldan_lotinga(toyxona))[:20]
         if toyxona_slug:
             nomzodlar.append(f"{asosiy}-{toyxona_slug}")
     if marosim_turi:
