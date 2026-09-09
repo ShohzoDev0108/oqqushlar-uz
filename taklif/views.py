@@ -33,8 +33,8 @@ from .models import (
     MAROSIM_TURLARI,
     MILLATLAR,
     RASM_MAKS_HAJM_MB,
-    UCHINCHI_ISM_MAROSIM_TURLARI,
     RSVP,
+    UCHINCHI_ISM_MAROSIM_TURLARI,
     Mehmon,
     MusiqaVariant,
     NamunaRasm,
@@ -480,7 +480,7 @@ def yaratish(request, shablon_kod):
         oldindan_marosim = ""
 
     if request.method == "POST":
-        form = TaklifnomaYaratishForm(request.POST, request.FILES)
+        form = TaklifnomaYaratishForm(request.POST, request.FILES, shablon=shablon)
         if form.is_valid():
             # TaklifnomaRasm to'g'ridan-to'g'ri (ModelForm orqali emas)
             # yaratiladi (pastda _taklifnoma_rasmlarini_saqlash), shuning
@@ -549,7 +549,8 @@ def yaratish(request, shablon_kod):
                     return redirect("taklif:yaratildi", slug=taklifnoma.slug)
     else:
         form = TaklifnomaYaratishForm(
-            initial={"marosim_turi": oldindan_marosim} if oldindan_marosim else None
+            initial={"marosim_turi": oldindan_marosim} if oldindan_marosim else None,
+            shablon=shablon,
         )
 
     # MAROSIM_MAYDON_MATNLARI'dagi lazy tarjima obyektlarini shu yerda,
@@ -588,6 +589,7 @@ def yaratish(request, shablon_kod):
             "maksimal_rasmlar_soni": MAKSIMAL_RASMLAR_SONI,
             "namuna_rasmlar": NamunaRasm.objects.filter(faol=True),
             "musiqa_variantlar": MusiqaVariant.objects.filter(faol=True),
+            "naqsh_variantlar": form.fields["naqsh"].queryset,
             "eski_taklifnoma": eski_taklifnoma,
             "admin_telegram": _admin_telegram(),
         },

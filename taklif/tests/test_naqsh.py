@@ -174,3 +174,50 @@ class NaqshsizSahifalarTest(TestCase):
     def test_topilmadi_sahifasi_ochiladi(self):
         javob = self.client.get("/bunday-sahifa-yoq-12345/")
         self.assertEqual(javob.status_code, 404)
+
+
+class NaqshTanlashFormasiTest(TestCase):
+    """Mijoz yaratish formasida naqsh tanlaydi."""
+
+    def setUp(self):
+        self.shablon = shablon_yarat()
+        self.sozana = naqsh_yarat(nomi="So'zana guli")
+        self.kigiz = naqsh_yarat(kalit="kigiz-romb", nomi="Kigiz rombi", millat="qozoq")
+
+    def _forma_sahifasi(self):
+        javob = self.client.get(f"/yaratish/{self.shablon.kod}/")
+        self.assertEqual(javob.status_code, 200)
+        return javob
+
+    def test_naqshlar_formada_korinadi(self):
+        # DIQQAT: Django apostrofni "&#x27;" ga aylantirib chiqaradi,
+        # shuning uchun nomni xom holda qidirib bo'lmaydi.
+        from django.utils.html import escape
+
+        sahifa = self._forma_sahifasi().content.decode()
+        self.assertIn("naqsh-tanlov", sahifa)
+        self.assertIn(escape("So'zana guli"), sahifa)
+        self.assertIn("Kigiz rombi", sahifa)
+
+    def test_naqshsiz_varianti_ham_bor(self):
+        """Naqsh bezak, majburiyat emas — mijoz uni o'chira olishi kerak."""
+        self.assertIn('value=""', self._forma_sahifasi().content.decode())
+
+    def test_shablonning_asosiy_naqshi_oldindan_belgilanadi(self):
+        self.shablon.asosiy_naqsh = self.kigiz
+        self.shablon.save()
+        forma = self._forma_sahifasi().context["form"]
+        self.assertEqual(forma.initial.get("naqsh"), self.kigiz.pk)
+
+    def test_shablon_millatiga_mos_naqsh_boshida_turadi(self):
+        self.shablon.millat = "qozoq"
+        self.shablon.save()
+        forma = self._forma_sahifasi().context["form"]
+        birinchi = list(forma.fields["naqsh"].queryset)[0]
+        self.assertEqual(birinchi, self.kigiz)
+
+    def test_faol_bolmagan_naqsh_royxatda_yoq(self):
+        self.kigiz.faol = False
+        self.kigiz.save()
+        forma = self._forma_sahifasi().context["form"]
+        self.assertNotIn(self.kigiz, list(forma.fields["naqsh"].queryset))

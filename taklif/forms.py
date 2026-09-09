@@ -2,6 +2,7 @@ import json
 import re
 
 from django import forms
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
@@ -10,6 +11,7 @@ from .models import (
     MAROSIM_TURLARI,
     UCHINCHI_ISM_MAROSIM_TURLARI,
     MusiqaVariant,
+    Naqsh,
     Taklifnoma,
 )
 
@@ -160,6 +162,17 @@ class TaklifnomaYaratishForm(forms.ModelForm):
         required=False,
         empty_label=_("Tanlanmagan"),
     )
+    # Fon naqshi — ixtiyoriy. Bo'sh qoldirilsa shablonning o'z asosiy
+    # naqshi ishlatiladi, ya'ni "tanlamaslik" ham to'g'ri natija beradi.
+    # Ro'yxat __init__'da to'ldiriladi, chunki u shablonga bog'liq.
+    naqsh = forms.ModelChoiceField(
+        label=_("Fon naqshi (ixtiyoriy)"),
+        queryset=Naqsh.objects.none(),
+        required=False,
+        empty_label=None,
+        widget=forms.RadioSelect,
+    )
+
     # Kun tartibi formaga JSON matn sifatida keladi (yaratish.html'dagi
     # qatorlar tahrirlagichi to'ldiradigan yashirin maydon). Modeldagi
     # maydon JSONField bo'lgani uchun clean_dastur() tozalangan RO'YXAT
@@ -185,6 +198,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "kiyim_kodi",
             "musiqa_variant",
             "musiqa",
+            "naqsh",
             "matn",
             "imzo",
             "dastur",
@@ -304,8 +318,31 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             ),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, shablon=None, **kwargs):
         super().__init__(*args, **kwargs)
+        # Naqshlar ro'yxati. Hammasi ko'rsatiladi, faqat shablonning
+        # millatiga mos keladiganlari BOSHIDA turadi — mijoz o'z
+        # millatini birinchi ko'radi, lekin boshqasini tanlashi ham
+        # taqiqlanmaydi (masalan zamonaviy dizayn + qozoq naqshi).
+        naqshlar = Naqsh.objects.filter(faol=True)
+        millat = getattr(shablon, "millat", "") or ""
+        if millat:
+            naqshlar = naqshlar.order_by(
+                models.Case(
+                    models.When(millat=millat, then=0),
+                    default=1,
+                    output_field=models.IntegerField(),
+                ),
+                "tartib",
+                "nomi",
+            )
+        self.fields["naqsh"].queryset = naqshlar
+        # Mijoz tanlamasa — shablonning o'z naqshi. Uni oldindan
+        # belgilab qo'yamiz, aks holda "tanlanmagan" holat "naqshsiz"
+        # degan ma'noni berardi, bu esa noto'g'ri.
+        asosiy = getattr(shablon, "asosiy_naqsh_id", None)
+        if asosiy and not self.is_bound and "naqsh" not in self.initial:
+            self.initial["naqsh"] = asosiy
         # Mavjud taklifnoma tahrirlanayotgan bo'lsa, modeldagi ro'yxatni
         # yashirin maydon kutayotgan JSON matnga aylantiramiz — aks holda
         # Python'ning repr'i (bitta tirnoqlar bilan) chiqib, JS uni o'qiy
