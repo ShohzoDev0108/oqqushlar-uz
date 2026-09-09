@@ -1983,6 +1983,14 @@ msgstr "Оферти оммавӣ"
 msgid "Biroz kuting"
 msgstr "Каме интизор шавед"
 
+#: taklif/forms.py
+msgid "Telegram guruh havolasi (ixtiyoriy)"
+msgstr "Пайванд ба гурӯҳи Telegram (ихтиёрӣ)"
+
+#: taklif/forms.py
+msgid "Mehmonlar uchun Telegram guruh yoki kanal havolasi"
+msgstr "Пайванд ба гурӯҳ ё канали Telegram барои меҳмонон"
+
 #: taklif/templates/taklif/juda_kop.html
 msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
 msgstr "Дархостҳои аз ҳад зиёд фиристода шуданд. Пас аз чанд дақиқа боз кӯшиш кунед."

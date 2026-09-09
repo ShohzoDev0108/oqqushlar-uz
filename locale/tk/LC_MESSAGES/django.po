@@ -1974,6 +1974,14 @@ msgstr "Köpçülikleýin teklip"
 msgid "Biroz kuting"
 msgstr "Biraz garaşyň"
 
+#: taklif/forms.py
+msgid "Telegram guruh havolasi (ixtiyoriy)"
+msgstr "Telegram topary salgysy (hökman däl)"
+
+#: taklif/forms.py
+msgid "Mehmonlar uchun Telegram guruh yoki kanal havolasi"
+msgstr "Myhmanlar üçin Telegram topary ýa-da kanaly salgysy"
+
 #: taklif/templates/taklif/juda_kop.html
 msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
 msgstr "Örän köp haýyş iberildi. Birnäçe minutdan soň täzeden synanyşyň."

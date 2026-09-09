@@ -1977,6 +1977,14 @@ msgstr "Жария оферта"
 msgid "Biroz kuting"
 msgstr "Сәл күте тұрыңыз"
 
+#: taklif/forms.py
+msgid "Telegram guruh havolasi (ixtiyoriy)"
+msgstr "Telegram тобына сілтеме (міндетті емес)"
+
+#: taklif/forms.py
+msgid "Mehmonlar uchun Telegram guruh yoki kanal havolasi"
+msgstr "Қонақтарға арналған Telegram тобы немесе арнасының сілтемесі"
+
 #: taklif/templates/taklif/juda_kop.html
 msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
 msgstr "Тым көп сұрау жіберілді. Бірнеше минуттан кейін қайталап көріңіз."

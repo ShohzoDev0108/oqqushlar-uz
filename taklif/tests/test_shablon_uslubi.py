@@ -84,7 +84,10 @@ class PardaRamkasiTest(TestCase):
                 w, h = im.size
                 # markazdagi kichik maydon — yurakning ichi
                 markaz = im.crop((w // 2 - 15, h // 2 - 15, w // 2 + 15, h // 2 + 15))
-                eng_katta_alfa = max(p[3] for p in markaz.getdata())
+                # getchannel("A").getextrema() — Image.getdata() Pillow 14'da
+                # olib tashlanadi; bu esa butun kanal bo'yicha eng katta
+                # qiymatni to'g'ridan-to'g'ri beradi.
+                eng_katta_alfa = markaz.getchannel("A").getextrema()[1]
                 self.assertLess(
                     eng_katta_alfa, 10,
                     f"{nom}: yurak ichi shaffof emas (alfa={eng_katta_alfa}). "

@@ -1979,6 +1979,14 @@ msgstr "Jámiyetlik oferta"
 msgid "Biroz kuting"
 msgstr "Azǵana kútiń"
 
+#: taklif/forms.py
+msgid "Telegram guruh havolasi (ixtiyoriy)"
+msgstr "Telegram toparına siltem (májbúriy emes)"
+
+#: taklif/forms.py
+msgid "Mehmonlar uchun Telegram guruh yoki kanal havolasi"
+msgstr "Mıymanlar ushın Telegram toparı yaki kanalınıń siltemi"
+
 #: taklif/templates/taklif/juda_kop.html
 msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
 msgstr "Júdá kóp soraw jiberildi. Bir neshe minuttan keyin qayta urinip kóriń."

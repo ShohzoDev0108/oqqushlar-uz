@@ -1,4 +1,8 @@
-Django==5.0.14
+# Django 5.2 — LTS. 5.0 va 5.1 qo'llab-quvvatlashdan chiqqan, ya'ni
+# ularga xavfsizlik yamog'i umuman kelmaydi. 5.2 LTS 2028-yil aprelgacha
+# yamoq oladi; 6.x ATAYLAB olinmadi — yakka ishlaydigan jonli sayt uchun
+# eng uzun tinchlik va eng kam o'zgarish shu yerda.
+Django==5.2.17
 pillow==12.2.0
 python-dotenv==1.2.2
 django-axes==8.3.1       # admin panelga brute-force (parolni ketma-ket taxmin qilish) himoyasi

@@ -1979,6 +1979,14 @@ msgstr "Публичная оферта"
 msgid "Biroz kuting"
 msgstr "Подождите немного"
 
+#: taklif/forms.py
+msgid "Telegram guruh havolasi (ixtiyoriy)"
+msgstr "Ссылка на группу в Telegram (необязательно)"
+
+#: taklif/forms.py
+msgid "Mehmonlar uchun Telegram guruh yoki kanal havolasi"
+msgstr "Ссылка на группу или канал в Telegram для гостей"
+
 #: taklif/templates/taklif/juda_kop.html
 msgid "Juda ko'p so'rov yuborildi. Bir necha daqiqadan keyin qayta urinib ko'ring."
 msgstr "Отправлено слишком много запросов. Попробуйте снова через несколько минут."

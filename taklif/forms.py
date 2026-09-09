@@ -200,6 +200,26 @@ class TaklifnomaYaratishForm(forms.ModelForm):
         required=False,
         widget=forms.HiddenInput(attrs={"id": "id_dastur"}),
     )
+    # Sxemasiz yozilgan manzil ("maps.google.com/...") uchun standart.
+    #
+    # Django 5.x da u "http://..." ga aylanardi — ya'ni mijozning xarita
+    # havolasi shifrlanmagan ulanishga ketardi. Django 6.0 da standart
+    # "https" bo'ladi; bu yerda oshkora yozib, o'sha xatti-harakatni
+    # hozirdan olamiz. (Vaqtinchalik FORMS_URLFIELD_ASSUME_HTTPS sozlamasi
+    # ATAYLAB ishlatilmadi: u 5.2 da allaqachon "deprecated" deb
+    # ogohlantiradi va 6.0 da butunlay yo'qoladi.)
+    xarita_link = forms.URLField(
+        label=_("Xarita havolasi (ixtiyoriy)"),
+        required=False,
+        assume_scheme="https",
+    )
+    telegram_link = forms.URLField(
+        label=_("Telegram guruh havolasi (ixtiyoriy)"),
+        help_text=_("Mehmonlar uchun Telegram guruh yoki kanal havolasi"),
+        required=False,
+        assume_scheme="https",
+    )
+
     # Modelda blank=True (eski yozuvlarda va admin qo'lda kiritganda bo'sh
     # bo'lishi mumkin), lekin MIJOZ uchun bu maydon majburiy: raqamsiz
     # to'lovni taklifnomaga bog'lab bo'lmaydi.
