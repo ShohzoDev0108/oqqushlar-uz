@@ -242,10 +242,14 @@ edi, ya'ni ".ichki" (position: relative) ichida — natijada naqsh
 sahifa boshiga emas, hero'dan PASTGA tushib qolgan edi. Jonli saytda
 topilgan.
 
-Marketing sahifalarida "taklifnoma" kontekstda yo'q, shuning uchun
-naqsh bo'sh bo'ladi va bu blok umuman chiqmaydi.
+Marketing sahifalarida va xatolik sahifalarida "taklifnoma"
+kontekstda umuman yo'q. Shuning uchun naqsh tanlash shu yerda emas,
+"_naqsh.html" ichida qilinadi: filtr ARGUMENTI yo'q o'zgaruvchiga
+ishora qilsa, Django uni jimgina bo'sh deb hisoblamaydi, balki
+VariableDoesNotExist ko'taradi va butun sahifa yiqiladi. Bu 404
+sahifasini ham yiqitgan edi.
 {% endcomment %}
-{% include "taklif/shablonlar/_naqsh.html" with naqsh=taklifnoma.naqsh|default:taklifnoma.shablon.asosiy_naqsh %}
+{% include "taklif/shablonlar/_naqsh.html" %}
     <div class="wrapper">
         {% if messages %}
             {% for message in messages %}

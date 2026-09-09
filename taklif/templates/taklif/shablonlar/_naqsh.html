@@ -3,7 +3,11 @@
 Taklifnoma fonidagi milliy naqsh.
 
 QAYERDAN KELADI. Avval taklifnomaning o'z naqshi (mijoz tanlagani),
-u bo'sh bo'lsa shablonning asosiy naqshi. Ikkalasi ham bo'sh bo'lsa
+u bo'sh bo'lsa shablonning asosiy naqshi. Tanlov aynan SHU YERDA,
+include'ning "with" qismida emas: "taklifnoma" yo'q sahifalarda
+(marketing, 404) filtr argumenti VariableDoesNotExist ko'taradi va
+sahifa yiqiladi. "{% templatetag openblock %} if taklifnoma {% templatetag closeblock %}" esa bunday holatni
+jimgina bo'sh deb hisoblaydi. Ikkalasi ham bo'sh bo'lsa
 bu blok umuman chiqmaydi va sahifa avvalgidek qoladi — shu sababdan
 mavjud taklifnomalar o'zgarmaydi.
 
@@ -27,6 +31,7 @@ QATLAM z-index: 0 da, ".ichki" esa z-index: 1 da — ya'ni naqsh
 doim kontentning ORQASIDA qoladi. "pointer-events: none" bosishni
 o'tkazib yuboradi, aks holda u butun sahifani to'sib qo'yardi.
 {% endcomment %}
+{% if taklifnoma %}{% with naqsh=taklifnoma.naqsh|default:taklifnoma.shablon.asosiy_naqsh %}
 {% if naqsh %}
 <style>
 :root { --naqsh-fayl: url('{% static naqsh.fayl_yoli %}'); }
@@ -64,3 +69,4 @@ o'tkazib yuboradi, aks holda u butun sahifani to'sib qo'yardi.
 </style>
 <div class="oq-naqsh" aria-hidden="true"></div>
 {% endif %}
+{% endwith %}{% endif %}

@@ -17,7 +17,11 @@ from taklif.models import Naqsh, Taklifnoma
 from .yordamchi import shablon_yarat
 
 
-def naqsh_yarat(kalit="sinov-naqsh", **qoshimcha):
+# DIQQAT: kalit HAQIQIY fayl nomi bo'lishi shart. Sayt
+# ManifestStaticFilesStorage ishlatadi — u "{% static %}" da mavjud
+# bo'lmagan faylni ko'rsa xato ko'taradi, ya'ni o'ylab topilgan
+# "sinov-naqsh" bilan sahifa umuman render bo'lmaydi.
+def naqsh_yarat(kalit="sozana-gul", **qoshimcha):
     maydonlar = {"nomi": "Sinov naqshi", "kalit": kalit}
     maydonlar.update(qoshimcha)
     return Naqsh.objects.create(**maydonlar)
@@ -53,7 +57,7 @@ class NaqshTanlashTest(TestCase):
         self.assertNotIn("oq-naqsh", self._sahifa(t))
 
     def test_shablonning_asosiy_naqshi_ishlatiladi(self):
-        n = naqsh_yarat(kalit="sozana-gul")
+        n = naqsh_yarat()
         self.shablon.asosiy_naqsh = n
         self.shablon.save()
         t = taklifnoma_yarat(self.shablon)
@@ -62,7 +66,7 @@ class NaqshTanlashTest(TestCase):
         self.assertIn("sozana-gul", sahifa)
 
     def test_taklifnomaning_ozi_shablonnikidan_ustun(self):
-        asosiy = naqsh_yarat(kalit="sozana-gul")
+        asosiy = naqsh_yarat()
         tanlangan = naqsh_yarat(kalit="kigiz-romb", nomi="Kigiz")
         self.shablon.asosiy_naqsh = asosiy
         self.shablon.save()
@@ -108,7 +112,9 @@ class NaqshChizilishiTest(TestCase):
         self.assertIn("position: absolute", sahifa)
 
     def test_maydon_plita_olchamini_ishlatadi(self):
-        sahifa = self._sahifa(naqsh_yarat(joylashuv="maydon", olcham=240))
+        sahifa = self._sahifa(
+            naqsh_yarat(kalit="sozana-novda", joylashuv="maydon", olcham=240)
+        )
         self.assertIn("mask-size: 240px auto", sahifa)
         self.assertIn("position: fixed", sahifa)
 
@@ -123,8 +129,10 @@ class NaqshChizilishiTest(TestCase):
         from django.utils import translation
 
         with translation.override("uz"):
-            sahifa = self._sahifa(naqsh_yarat(shaffoflik=Decimal("0.30"), olcham=250,
-                                              joylashuv="maydon"))
+            sahifa = self._sahifa(
+                naqsh_yarat(kalit="sozana-novda", shaffoflik=Decimal("0.30"),
+                            olcham=250, joylashuv="maydon")
+            )
         self.assertIn("opacity: 0.30", sahifa)
         self.assertNotIn("0,30", sahifa)
         self.assertIn("mask-size: 250px auto", sahifa)
@@ -150,3 +158,19 @@ class NaqshFayliTest(TestCase):
         papka = Path(settings.BASE_DIR) / "taklif" / "static" / "taklif" / "naqshlar"
         for fayl in papka.glob("*.webp"):
             self.assertTrue(fayl.stat().st_size > 0, f"bo'sh fayl: {fayl.name}")
+
+
+class NaqshsizSahifalarTest(TestCase):
+    """Regressiya: naqsh bloki "taklifnoma" yo'q sahifalarni yiqitmasin.
+
+    Filtr ARGUMENTI mavjud bo'lmagan o'zgaruvchiga ishora qilganda
+    Django uni bo'sh deb hisoblamaydi — VariableDoesNotExist ko'taradi.
+    Bir paytlar shu sabab 404 sahifasi ham, bosh sahifa ham yiqilgan edi.
+    """
+
+    def test_bosh_sahifa_ochiladi(self):
+        self.assertEqual(self.client.get("/").status_code, 200)
+
+    def test_topilmadi_sahifasi_ochiladi(self):
+        javob = self.client.get("/bunday-sahifa-yoq-12345/")
+        self.assertEqual(javob.status_code, 404)
