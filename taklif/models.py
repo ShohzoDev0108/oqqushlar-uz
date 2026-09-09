@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import get_language, gettext_lazy as _, pgettext_lazy
 
+from .rasm import NAMUNA_MAKS_TOMON, optimallashtir
 from .translit import kirilldan_lotinga
 from .validators import FaylHajmiValidator
 
@@ -417,6 +418,33 @@ class MusiqaVariant(models.Model):
         self.marosim_turlari_raw = _turlar_royxati_dan_matn(qiymat)
 
 
+
+def _rasmni_optimallashtirib_saqlash(obyekt, maydon_nomi, maks_tomon=None):
+    """ImageField'ni saqlashdan oldin WebP'ga o'girib, kichraytiradi.
+
+    NIMA UCHUN NOM BO'YICHA TEKSHIRUV. Bu funksiya har bir save()'da
+    chaqiriladi, lekin ish faqat fayl HALI ishlanmagan bo'lsa bajariladi.
+    Nomi ".webp" bilan tugagan fayl allaqachon shu yerdan o'tgan —
+    uni qayta siqish sifatni har safar biroz yo'qotardi va R2'dan
+    keraksiz yuklab olishga majbur qilardi.
+    """
+    maydon = getattr(obyekt, maydon_nomi, None)
+    if not maydon:
+        return
+    nomi = (maydon.name or "").lower()
+    if nomi.endswith(".webp"):
+        return
+
+    kalitlar = {}
+    if maks_tomon is not None:
+        kalitlar["maks_tomon"] = maks_tomon
+    yangi = optimallashtir(maydon, **kalitlar)
+    if yangi is not None:
+        # save=False — fayl obyektga biriktiriladi, bazaga yozish esa
+        # chaqiruvchi save() ning o'z ishi (aks holda ikki marta yozilardi).
+        maydon.save(yangi.name, yangi, save=False)
+
+
 class NamunaRasm(models.Model):
     """Admin oldindan yuklab qo'ygan tayyor namuna rasm — musiqaga o'xshab.
 
@@ -442,6 +470,13 @@ class NamunaRasm(models.Model):
 
     def __str__(self):
         return self.nomi or f"Namuna rasm #{self.pk}"
+
+    def save(self, *args, **kwargs):
+        # Namuna rasmlar yaratish formasida bir nechtasi birdan
+        # ko'rsatiladi — ular yig'ilib og'irlik qiladi, shuning uchun
+        # taklifnoma rasmidan kichikroq o'lchamda saqlanadi.
+        _rasmni_optimallashtirib_saqlash(self, "rasm", NAMUNA_MAKS_TOMON)
+        super().save(*args, **kwargs)
 
     @property
     def marosim_turlari(self):
@@ -897,6 +932,10 @@ class TaklifnomaRasm(models.Model):
 
     def __str__(self):
         return f"{self.taklifnoma.slug} — rasm #{self.pk}"
+
+    def save(self, *args, **kwargs):
+        _rasmni_optimallashtirib_saqlash(self, "rasm")
+        super().save(*args, **kwargs)
 
 
 class SaytSozlamalari(models.Model):
