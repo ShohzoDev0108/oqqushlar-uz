@@ -6,12 +6,17 @@
 # Persistent=true — server o'chib qolgan bo'lsa, yoqilgach o'tkazib
 # yuborilgan ishni bajaradi. Aks holda uzilish kunidagi nusxa umuman
 # olinmay qolardi.
+#
+# VAQT MINTAQASI OSHKORA YOZILGAN. Server soati UTC'da yuradi, ya'ni
+# mintaqasiz "03:15" aslida Toshkentda 08:15 — ish vaqtining o'rtasi.
+# Mintaqa nomi yozilgani uchun server sozlamasi o'zgarsa ham nusxa
+# o'sha-o'sha tunda olinaveradi.
 
 [Unit]
 Description=Oqqushlar zaxirasini har kecha olish
 
 [Timer]
-OnCalendar=*-*-* 03:15:00
+OnCalendar=*-*-* 03:15:00 Asia/Tashkent
 Persistent=true
 RandomizedDelaySec=300
 
