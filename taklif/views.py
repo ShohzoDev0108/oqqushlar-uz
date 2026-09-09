@@ -635,9 +635,66 @@ def yaratish(request, shablon_kod):
             "musiqa_variantlar": MusiqaVariant.objects.filter(faol=True),
             "eski_taklifnoma": eski_taklifnoma,
             "eski_ochirilmaydi": eski_ochirilmaydi,
+            # Rozilik katakchasidagi havolalar. Shablonda {% url %} emas,
+            # tayyor manzil — ular blocktrans ichida turadi, u yerda esa
+            # faqat oddiy o'zgaruvchi ishlaydi.
+            "oferta_manzili": reverse("taklif:ommaviy_oferta"),
+            "maxfiylik_manzili": reverse("taklif:maxfiylik_siyosati"),
             "admin_telegram": _admin_telegram(),
         },
     )
+
+
+HUQUQIY_ASOSIY_TIL = "uz"
+
+
+def _huquqiy_sahifa(request, hujjat, sarlavha):
+    """Ommaviy oferta va maxfiylik siyosati uchun umumiy ko'rinish.
+
+    NEGA MATN .po FAYLLARIDA EMAS. Bu hujjatlar bir necha ming belgilik
+    yaxlit matn. Ularni {% trans %} orqali tarjima qilish ikki sababga
+    ko'ra noto'g'ri bo'lardi:
+
+      — bitta vergul o'zgarsa msgid butunlay yangi bo'lib, sakkala
+        tildagi tarjima birdaniga "yo'qoladi";
+      — huquqiy matnni bandma-band emas, yaxlit o'qish kerak — tarjimon
+        (yoki yurist) uni bo'lak-bo'lak ko'rgan holda tekshira olmaydi.
+
+    Shuning uchun har bir til uchun ALOHIDA shablon fayli:
+    taklif/huquqiy/<hujjat>_<til>.html. Til uchun fayl bo'lmasa, o'zbekcha
+    matn ko'rsatiladi va sahifada bu haqda ochiq izoh chiqadi — jimgina
+    boshqa tilda matn berish mijozni chalg'itadi.
+    """
+    til = get_language() or HUQUQIY_ASOSIY_TIL
+    nomzodlar = [
+        f"taklif/huquqiy/{hujjat}_{til}.html",
+        f"taklif/huquqiy/{hujjat}_{HUQUQIY_ASOSIY_TIL}.html",
+    ]
+    try:
+        get_template(nomzodlar[0])
+        oz_tilida = True
+    except TemplateDoesNotExist:
+        oz_tilida = False
+
+    return render(
+        request,
+        "taklif/huquqiy.html",
+        {
+            "sarlavha": sarlavha,
+            "hujjat_shabloni": nomzodlar[0] if oz_tilida else nomzodlar[1],
+            "oz_tilida": oz_tilida,
+            "sozlamalar": SaytSozlamalari.olish(),
+            "admin_telegram": _admin_telegram(),
+        },
+    )
+
+
+def ommaviy_oferta(request):
+    return _huquqiy_sahifa(request, "oferta", _("Ommaviy oferta"))
+
+
+def maxfiylik_siyosati(request):
+    return _huquqiy_sahifa(request, "maxfiylik", _("Maxfiylik siyosati"))
 
 
 def _admin_telegram():

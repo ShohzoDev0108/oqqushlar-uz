@@ -1969,6 +1969,42 @@ msgstr "Бөлек сақтаймын"
 msgid "Telefon raqamingiz"
 msgstr "Телефон нөміріңіз"
 
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta"
+msgstr "Жария оферта"
+
+#: taklif/huquqiy.html
+msgid "Maxfiylik siyosati"
+msgstr "Құпиялылық саясаты"
+
+#: taklif/huquqiy.html
+msgid "Bu hujjat hozircha faqat o'zbek tilida mavjud. Tarjimasi tayyorlanmoqda. Har qanday holatda o'zbek tilidagi matn asosiy hisoblanadi."
+msgstr "Бұл құжат әзірге тек өзбек тілінде қолжетімді. Аудармасы дайындалуда. Кез келген жағдайда өзбек тіліндегі мәтін негізгі болып саналады."
+
+#: taklif/huquqiy.html
+msgid "Xizmat ko'rsatuvchi"
+msgstr "Қызмет көрсетуші"
+
+#: taklif/huquqiy.html
+msgid "STIR"
+msgstr "СТИР"
+
+#: taklif/huquqiy.html
+msgid "E-pochta"
+msgstr "Эл. пошта"
+
+#: taklif/huquqiy.html
+msgid "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Ommaviy oferta</a> va <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Maxfiylik siyosati</a> shartlariga roziman"
+msgstr "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Жария оферта</a> және <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Құпиялылық саясаты</a> шарттарымен келісемін"
+
+#: taklif/huquqiy.html
+msgid "Davom etish uchun oferta va maxfiylik siyosati shartlariga rozilik bildiring."
+msgstr "Жалғастыру үшін жария оферта мен құпиялылық саясатының шарттарымен келісіңіз."
+
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta va Maxfiylik siyosati shartlariga roziman"
+msgstr "Жария оферта мен Құпиялылық саясаты шарттарымен келісемін"
+
 #: taklif/forms.py
 msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
 msgstr "Төлемді растау және шақыруыңызды жоғалтып алсаңыз қалпына келтіру үшін қажет. Қонақтарға көрсетілмейді."

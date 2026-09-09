@@ -17,4 +17,7 @@ ASOSIY_FORMA_MAYDONLARI = {
     # Mijoz telefoni majburiy: to'lovni taklifnomaga bog'lash va mijoz
     # sessiyasini yo'qotganda egaligini tekshirish uchun.
     "mijoz_telefoni": "+998 90 123 45 67",
+    # Oferta va maxfiylik siyosatiga rozilik ham majburiy — belgilanmasa
+    # forma o'tmaydi.
+    "shartlarga_rozi": "on",
 }

@@ -20,6 +20,10 @@
             <a href="{% url 'taklif:boglanish' %}">{% trans "Bog'lanish" %}</a>
             {% comment %}Shaxsiy kabinet — oxirida, xuddi yuqori paneldagi kabi.{% endcomment %}
             <a href="{% url 'taklif:mening_taklifnomalarim' %}">{% trans "Taklifnomalarim" %}</a>
+            {# Huquqiy hujjatlar — footerda, chunki ular har bir sahifadan #}
+            {# bir bosishda topilishi kerak (bu qonuniy talab ham).        #}
+            <a href="{% url 'taklif:ommaviy_oferta' %}">{% trans "Ommaviy oferta" %}</a>
+            <a href="{% url 'taklif:maxfiylik_siyosati' %}">{% trans "Maxfiylik siyosati" %}</a>
             {# "Admin panel" havolasi ataylab olib tashlandi: admin manzilini      #}
             {# maxsus/yashirin qilib qo'yish (DJANGO_ADMIN_MANZILI) va uni brute-  #}
             {# force'dan himoya qilish (django-axes) ma'nosiz bo'lib qolar edi,    #}

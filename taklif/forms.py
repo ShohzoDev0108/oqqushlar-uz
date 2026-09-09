@@ -220,6 +220,21 @@ class TaklifnomaYaratishForm(forms.ModelForm):
         ),
     )
 
+    # Modelda BooleanField(default=False) — ya'ni ModelForm uni odatda
+    # ixtiyoriy checkbox qilib chizadi. Bu yerda ataylab MAJBURIY:
+    # belgilanmasa forma o'tmaydi. Aks holda rozilik "olindi" deb hisoblash
+    # mumkin bo'lmasdi.
+    shartlarga_rozi = forms.BooleanField(
+        required=True,
+        label=_("Ommaviy oferta va Maxfiylik siyosati shartlariga roziman"),
+        error_messages={
+            "required": _(
+                "Davom etish uchun oferta va maxfiylik siyosati shartlariga "
+                "rozilik bildiring."
+            )
+        },
+    )
+
     class Meta:
         model = Taklifnoma
         fields = [
@@ -241,6 +256,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "sovga_karta",
             "telegram_link",
             "mijoz_telefoni",
+            "shartlarga_rozi",
             "ommaviy_korsatishga_rozi",
         ]
         widgets = {

@@ -593,6 +593,24 @@ class Taklifnoma(models.Model):
             "Mehmonlarga ko'rsatilmaydi."
         ),
     )
+    # Mijoz ommaviy oferta va maxfiylik siyosatini qabul qilgani.
+    #
+    # Nega maydon sifatida saqlanadi: rozilikning O'ZI dalil bo'lishi kerak.
+    # Nizo chiqsa "shartlarni ko'rsatgan edik" degan gap yetarli emas —
+    # aynan shu taklifnoma yaratilganda rozilik belgilangani va qachon
+    # belgilangani (yaratilgan maydoni) ko'rinib turishi kerak.
+    #
+    # default=False: eski yozuvlarda rozilik OLINMAGAN, chunki o'sha paytda
+    # hujjatlar hali yo'q edi. Ularni True qilib qo'yish yolg'on bo'lardi.
+    shartlarga_rozi = models.BooleanField(
+        default=False,
+        verbose_name="Oferta va maxfiylik siyosatiga rozilik",
+        help_text=(
+            "Mijoz taklifnoma yaratayotganda shartlarga rozilik "
+            "belgilaganmi. Eski (hujjatlar e'lon qilingunga qadar "
+            "yaratilgan) taklifnomalarda bo'sh."
+        ),
+    )
     tolangan = models.BooleanField(
         default=True,
         help_text="Self-service oqimi uchun: mijoz to'laguncha False bo'ladi",
@@ -916,6 +934,46 @@ class SaytSozlamalari(models.Model):
         ),
     )
 
+    # ---------- Huquqiy rekvizitlar ----------
+    #
+    # Ommaviy oferta va maxfiylik siyosati sahifalarida ko'rsatiladi.
+    # Kodda emas, admin panelda turadi: YaTT/MChJ ochilganda yoki rekvizit
+    # o'zgarganda saytni qayta joylashtirish (deploy) kerak bo'lmasin.
+    #
+    # Bo'sh qoldirilsa, hujjatdagi rekvizitlar bo'limi UMUMAN ko'rsatilmaydi
+    # — "STIR: ____" ko'rinishidagi chala jadval hujjatni ishonchsiz qiladi.
+    tashkilot_nomi = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Tashkilot yoki YaTT nomi",
+        help_text=(
+            "Ommaviy oferta kim nomidan tuzilayotgani — masalan "
+            "\"Rahimov Shohzod Yakka tartibdagi tadbirkor\" yoki "
+            "\"Oqqushlar MChJ\". Bo'sh bo'lsa, hujjatda rekvizitlar "
+            "bo'limi ko'rsatilmaydi."
+        ),
+    )
+    stir = models.CharField(
+        max_length=20,
+        blank=True,
+        verbose_name="STIR (INN)",
+        help_text="Soliq to'lovchining identifikatsiya raqami.",
+    )
+    yuridik_manzil = models.CharField(
+        max_length=300,
+        blank=True,
+        verbose_name="Yuridik manzil",
+        help_text="Viloyat, tuman, ko'cha va uy raqami.",
+    )
+    huquqiy_email = models.EmailField(
+        blank=True,
+        verbose_name="Huquqiy murojaatlar uchun e-pochta",
+        help_text=(
+            "Shaxsga doir ma'lumotlarni o'chirish yoki o'zgartirish "
+            "so'rovlari shu manzilga yuboriladi."
+        ),
+    )
+
     class Meta:
         verbose_name = "Sayt sozlamalari"
         verbose_name_plural = "Sayt sozlamalari"
@@ -948,6 +1006,16 @@ class SaytSozlamalari(models.Model):
             return ""
         raqamlar = "".join(b for b in self.telefon if b.isdigit())
         return ("+" + raqamlar) if self.telefon.strip().startswith("+") else raqamlar
+
+    @property
+    def rekvizitlar_bor(self):
+        """Ommaviy oferta rekvizitlar bo'limini ko'rsatishga yetarlimi.
+
+        Eng kami — kim bilan shartnoma tuzilayotgani. Nomsiz oferta
+        huquqiy jihatdan bo'sh qog'oz, shuning uchun bo'limni yarim-yorti
+        ko'rsatgandan ko'ra umuman ko'rsatmagan ma'qul.
+        """
+        return bool(self.tashkilot_nomi.strip())
 
     @property
     def instagram_nomi(self):

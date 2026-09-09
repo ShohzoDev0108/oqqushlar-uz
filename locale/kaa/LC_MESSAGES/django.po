@@ -1971,6 +1971,42 @@ msgstr "Bólek saqlayman"
 msgid "Telefon raqamingiz"
 msgstr "Telefon nomeriniz"
 
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta"
+msgstr "Jámiyetlik oferta"
+
+#: taklif/huquqiy.html
+msgid "Maxfiylik siyosati"
+msgstr "Qupıyalıq siyasatı"
+
+#: taklif/huquqiy.html
+msgid "Bu hujjat hozircha faqat o'zbek tilida mavjud. Tarjimasi tayyorlanmoqda. Har qanday holatda o'zbek tilidagi matn asosiy hisoblanadi."
+msgstr "Bul hújjet házirshe tek ózbek tilinde qoljetimli. Awdarması tayarlanıp atır. Qanday jaǵdayda da ózbek tilindegi tekst tiykarǵı esaplanadı."
+
+#: taklif/huquqiy.html
+msgid "Xizmat ko'rsatuvchi"
+msgstr "Xızmet kórsetiwshi"
+
+#: taklif/huquqiy.html
+msgid "STIR"
+msgstr "STIR"
+
+#: taklif/huquqiy.html
+msgid "E-pochta"
+msgstr "E-pochta"
+
+#: taklif/huquqiy.html
+msgid "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Ommaviy oferta</a> va <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Maxfiylik siyosati</a> shartlariga roziman"
+msgstr "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Jámiyetlik oferta</a> hám <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Qupıyalıq siyasatı</a> shártlerine kelisemen"
+
+#: taklif/huquqiy.html
+msgid "Davom etish uchun oferta va maxfiylik siyosati shartlariga rozilik bildiring."
+msgstr "Dawam etiw ushın jámiyetlik oferta hám qupıyalıq siyasatı shártlerine kelisiń."
+
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta va Maxfiylik siyosati shartlariga roziman"
+msgstr "Jámiyetlik oferta hám Qupıyalıq siyasatı shártlerine kelisemen"
+
 #: taklif/forms.py
 msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
 msgstr "Tólemdi tastıyıqlaw hám shaqırıwıńızdı jogaltıp qoysańız qayta tiklew ushın kerek. Mıymanlarǵa kórsetilmeydi."

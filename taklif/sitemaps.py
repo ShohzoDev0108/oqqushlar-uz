@@ -47,6 +47,11 @@ class SaytSahifalari(Sitemap):
         ("taklif:savol_javob", 0.7, "monthly"),
         ("taklif:biz_haqimizda", 0.6, "monthly"),
         ("taklif:boglanish", 0.6, "monthly"),
+        # Huquqiy hujjatlar. Ustuvorligi past — mijoz ularni qidiruv
+        # orqali izlamaydi, lekin sayt jiddiy ekanining belgisi sifatida
+        # indekslanib turgani ma'qul.
+        ("taklif:ommaviy_oferta", 0.3, "yearly"),
+        ("taklif:maxfiylik_siyosati", 0.3, "yearly"),
     ]
 
     def items(self):

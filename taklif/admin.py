@@ -235,7 +235,7 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         }),
         ("Holat", {
             "fields": (
-                "faol", "tolangan", "yoqdi_bosildi", "korishlar",
+                "faol", "tolangan", "shartlarga_rozi", "yoqdi_bosildi", "korishlar",
                 "statistika_token", "statistika_link", "yaratilgan", "ochirilgan_vaqt",
             )
         }),
@@ -299,7 +299,17 @@ class SaytSozlamalariAdmin(admin.ModelAdmin):
     # qo'shilganda u admin panelda O'ZI paydo bo'lmaydi — shu yerga ham
     # qo'shish kerak. (Telefon va Instagram maydonlari aynan shu sababdan
     # bir marta ko'rinmay qolgandi.)
-    fields = ("admin_telegram", "telefon", "instagram")
+    fieldsets = (
+        ("Aloqa", {"fields": ("admin_telegram", "telefon", "instagram")}),
+        ("Huquqiy rekvizitlar", {
+            "fields": ("tashkilot_nomi", "stir", "yuridik_manzil", "huquqiy_email"),
+            "description": (
+                "Ommaviy oferta va maxfiylik siyosati sahifalarida "
+                "ko'rsatiladi. \"Tashkilot yoki YaTT nomi\" bo'sh bo'lsa, "
+                "rekvizitlar bo'limi hujjatlarda umuman chiqmaydi."
+            ),
+        }),
+    )
 
     def has_add_permission(self, request):
         # Agar allaqachon bitta yozuv bo'lsa, yana qo'shishga ruxsat bermaymiz.

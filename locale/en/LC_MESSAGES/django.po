@@ -1974,6 +1974,42 @@ msgstr "Keep it separate"
 msgid "Telefon raqamingiz"
 msgstr "Your phone number"
 
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta"
+msgstr "Public offer"
+
+#: taklif/huquqiy.html
+msgid "Maxfiylik siyosati"
+msgstr "Privacy policy"
+
+#: taklif/huquqiy.html
+msgid "Bu hujjat hozircha faqat o'zbek tilida mavjud. Tarjimasi tayyorlanmoqda. Har qanday holatda o'zbek tilidagi matn asosiy hisoblanadi."
+msgstr "This document is currently available in Uzbek only. A translation is being prepared. In any case the Uzbek text is the governing one."
+
+#: taklif/huquqiy.html
+msgid "Xizmat ko'rsatuvchi"
+msgstr "Service provider"
+
+#: taklif/huquqiy.html
+msgid "STIR"
+msgstr "Taxpayer ID (STIR)"
+
+#: taklif/huquqiy.html
+msgid "E-pochta"
+msgstr "Email"
+
+#: taklif/huquqiy.html
+msgid "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Ommaviy oferta</a> va <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Maxfiylik siyosati</a> shartlariga roziman"
+msgstr "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Public offer</a> and <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Privacy policy</a> — I accept the terms"
+
+#: taklif/huquqiy.html
+msgid "Davom etish uchun oferta va maxfiylik siyosati shartlariga rozilik bildiring."
+msgstr "To continue, please accept the terms of the public offer and the privacy policy."
+
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta va Maxfiylik siyosati shartlariga roziman"
+msgstr "I accept the terms of the Public offer and the Privacy policy"
+
 #: taklif/forms.py
 msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
 msgstr "Needed to confirm your payment and to restore your invitation if you lose it. It is never shown to guests."

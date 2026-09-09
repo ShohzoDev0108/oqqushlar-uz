@@ -887,6 +887,42 @@ msgstr ""
 msgid "Telefon raqamingiz"
 msgstr ""
 
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta"
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "Maxfiylik siyosati"
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "Bu hujjat hozircha faqat o'zbek tilida mavjud. Tarjimasi tayyorlanmoqda. Har qanday holatda o'zbek tilidagi matn asosiy hisoblanadi."
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "Xizmat ko'rsatuvchi"
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "STIR"
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "E-pochta"
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Ommaviy oferta</a> va <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Maxfiylik siyosati</a> shartlariga roziman"
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "Davom etish uchun oferta va maxfiylik siyosati shartlariga rozilik bildiring."
+msgstr ""
+
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta va Maxfiylik siyosati shartlariga roziman"
+msgstr ""
+
 #: taklif/forms.py
 msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
 msgstr ""

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% comment %}
+Ommaviy oferta va maxfiylik siyosati uchun umumiy qobiq.
+
+Matnning o'zi bu yerda emas — u tilga qarab tanlangan alohida shablondan
+keladi ({{ hujjat_shabloni }}). Sababi views.py'dagi _huquqiy_sahifa()
+izohida yozilgan.
+
+Qobiq ataylab sodda: huquqiy hujjatda bezak emas, o'qish qulayligi
+muhim. Qatorlar 68 belgidan uzun bo'lmaydi, bandlar raqamlangan —
+mijoz ham, yurist ham "3.2-band" deb aniq murojaat qila oladi.
+{% endcomment %}
+
+{% block title %}{{ sarlavha }} — Oqqushlar{% endblock %}
+{% block meta_description %}{{ sarlavha }} — Oqqushlar taklifnomalar xizmatining rasmiy shartlari.{% endblock %}
+
+{% block extra_style %}
+{% include "taklif/_sayt_uslubi.html" %}
+
+.hq-matn { max-width: 68ch; }
+.hq-matn h2 {
+    font-family: var(--serif); font-size: 1.16rem; color: var(--siyoh);
+    font-weight: 500; margin: 40px 0 14px; padding-top: 22px;
+    border-top: 1px solid var(--chiziq);
+}
+.hq-matn h2:first-of-type { margin-top: 14px; border-top: 0; padding-top: 0; }
+.hq-matn p { color: var(--kul); line-height: 1.85; margin: 0 0 14px; font-size: .96rem; }
+.hq-matn ul, .hq-matn ol { color: var(--kul); line-height: 1.85; margin: 0 0 14px; padding-left: 22px; font-size: .96rem; }
+.hq-matn li { margin-bottom: 8px; }
+.hq-matn a { color: var(--tilla-toq); }
+.hq-matn strong { color: var(--siyoh); font-weight: 500; }
+
+/* Sana va tahrir raqami — hujjatning "pasporti". */
+.hq-sana { color: var(--kul); font-size: .88rem; margin: 0 0 26px; }
+
+/* Rekvizitlar. Faqat admin panelda to'ldirilgan bo'lsa ko'rinadi. */
+.hq-rekvizit {
+    margin-top: 40px; padding: 24px 26px; border: 1px solid var(--chiziq);
+    border-radius: 4px; background: rgba(255,255,255,.4);
+}
+.hq-rekvizit dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 18px; }
+.hq-rekvizit dt { color: var(--kul); font-size: .88rem; }
+.hq-rekvizit dd { margin: 0; color: var(--siyoh); font-size: .94rem; }
+
+/* Tarjima ogohlantirishi — matn boshqa tilda ekanini yashirmaymiz. */
+.hq-tarjima-izoh {
+    margin: 0 0 26px; padding: 14px 18px; border-left: 3px solid var(--tilla);
+    background: rgba(255,255,255,.5); color: var(--kul);
+    font-size: .9rem; line-height: 1.7;
+}
+@media (max-width: 560px) {
+    .hq-rekvizit dl { grid-template-columns: 1fr; gap: 4px 0; }
+    .hq-rekvizit dd { margin-bottom: 12px; }
+}
+{% endblock %}
+
+{% block content %}
+{% include "taklif/_sayt_nav.html" %}
+{% include "taklif/_sayt_musiqa.html" %}
+
+<div class="oq-sahifa-bosh-tashqi">
+    <div class="oq-romka-burchak orb-tl"></div>
+    <div class="oq-romka-burchak orb-tr"></div>
+<div class="oq-ichki oq-sahifa-bosh">
+    <div class="oq-izlar">
+        <a href="{% url 'taklif:bosh_sahifa' %}">{% trans "Bosh sahifa" %}</a>
+        <span>›</span>
+        <span class="joriy">{{ sarlavha }}</span>
+    </div>
+    <h1 class="oq-h1">{{ sarlavha }}</h1>
+</div>
+</div>
+
+<section class="oq-bolim">
+    <div class="oq-ichki">
+        <div class="hq-matn">
+            {% if not oz_tilida %}
+            <p class="hq-tarjima-izoh">{% blocktrans %}Bu hujjat hozircha faqat o'zbek tilida mavjud. Tarjimasi tayyorlanmoqda. Har qanday holatda o'zbek tilidagi matn asosiy hisoblanadi.{% endblocktrans %}</p>
+            {% endif %}
+
+            {% include hujjat_shabloni %}
+
+            {% if sozlamalar.rekvizitlar_bor %}
+            <div class="hq-rekvizit">
+                <dl>
+                    <dt>{% trans "Xizmat ko'rsatuvchi" %}</dt>
+                    <dd>{{ sozlamalar.tashkilot_nomi }}</dd>
+                    {% if sozlamalar.stir %}
+                    <dt>{% trans "STIR" %}</dt>
+                    <dd>{{ sozlamalar.stir }}</dd>
+                    {% endif %}
+                    {% if sozlamalar.yuridik_manzil %}
+                    <dt>{% trans "Manzil" %}</dt>
+                    <dd>{{ sozlamalar.yuridik_manzil }}</dd>
+                    {% endif %}
+                    {% if sozlamalar.telefon %}
+                    <dt>{% trans "Telefon" %}</dt>
+                    <dd><a href="tel:{{ sozlamalar.telefon_raqami }}">{{ sozlamalar.telefon }}</a></dd>
+                    {% endif %}
+                    {% if sozlamalar.huquqiy_email %}
+                    <dt>{% trans "E-pochta" %}</dt>
+                    <dd><a href="mailto:{{ sozlamalar.huquqiy_email }}">{{ sozlamalar.huquqiy_email }}</a></dd>
+                    {% endif %}
+                    {% if admin_telegram %}
+                    <dt>Telegram</dt>
+                    <dd><a href="https://t.me/{{ admin_telegram|cut:'@' }}" target="_blank" rel="noopener">{{ admin_telegram }}</a></dd>
+                    {% endif %}
+                </dl>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1975,6 +1975,42 @@ msgstr "Алоҳида нигоҳ медорам"
 msgid "Telefon raqamingiz"
 msgstr "Рақами телефони шумо"
 
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta"
+msgstr "Оферти оммавӣ"
+
+#: taklif/huquqiy.html
+msgid "Maxfiylik siyosati"
+msgstr "Сиёсати махфият"
+
+#: taklif/huquqiy.html
+msgid "Bu hujjat hozircha faqat o'zbek tilida mavjud. Tarjimasi tayyorlanmoqda. Har qanday holatda o'zbek tilidagi matn asosiy hisoblanadi."
+msgstr "Ин ҳуҷҷат ҳоло танҳо ба забони ӯзбекӣ дастрас аст. Тарҷумаи он омода мешавад. Дар ҳар сурат матни ӯзбекӣ асосӣ ҳисоб мешавад."
+
+#: taklif/huquqiy.html
+msgid "Xizmat ko'rsatuvchi"
+msgstr "Иҷрокунанда"
+
+#: taklif/huquqiy.html
+msgid "STIR"
+msgstr "СТИР"
+
+#: taklif/huquqiy.html
+msgid "E-pochta"
+msgstr "Почтаи электронӣ"
+
+#: taklif/huquqiy.html
+msgid "<a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Ommaviy oferta</a> va <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Maxfiylik siyosati</a> shartlariga roziman"
+msgstr "Бо шартҳои <a href=\"%(oferta)s\" target=\"_blank\" rel=\"noopener\">Оферти оммавӣ</a> ва <a href=\"%(maxfiylik)s\" target=\"_blank\" rel=\"noopener\">Сиёсати махфият</a> розӣ ҳастам"
+
+#: taklif/huquqiy.html
+msgid "Davom etish uchun oferta va maxfiylik siyosati shartlariga rozilik bildiring."
+msgstr "Барои идома додан бо шартҳои оферти оммавӣ ва сиёсати махфият розӣ шавед."
+
+#: taklif/huquqiy.html
+msgid "Ommaviy oferta va Maxfiylik siyosati shartlariga roziman"
+msgstr "Бо шартҳои Оферти оммавӣ ва Сиёсати махфият розӣ ҳастам"
+
 #: taklif/forms.py
 msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
 msgstr "Барои тасдиқи пардохт ва барқарор кардани даъватномаатон, агар онро гум кунед, лозим аст. Ба меҳмонон нишон дода намешавад."

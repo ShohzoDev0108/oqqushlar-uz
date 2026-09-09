@@ -377,7 +377,7 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                 {% if field.help_text %}<div class="yordam">{{ field.help_text }}</div>{% endif %}
                 {% if field.errors %}<div class="xato">{{ field.errors|striptags }}</div>{% endif %}
             </div>
-            {% elif field.name != "ommaviy_korsatishga_rozi" and field.name != "dastur" %}
+            {% elif field.name != "ommaviy_korsatishga_rozi" and field.name != "shartlarga_rozi" and field.name != "dastur" %}
             {% comment %}
             "Marosim turi" mijozdan shablon tanlash sahifasida allaqachon
             so'ralgan bo'lsa (?marosim=...), bu yerda qayta so'ralmaydi:
@@ -453,6 +453,24 @@ xiraroq bo'lib, "o'tgan" ekanini yengil bildirib turadi.
                     <span>{{ form.ommaviy_korsatishga_rozi.label }}</span>
                 </label>
                 {% if form.ommaviy_korsatishga_rozi.help_text %}<div class="yordam">{{ form.ommaviy_korsatishga_rozi.help_text }}</div>{% endif %}
+            </div>
+
+            {% comment %}
+            Oferta va maxfiylik siyosatiga rozilik — MAJBURIY katakcha.
+
+            Yorlig'i shu yerda qo'lda yozilgan, forma yorlig'idan emas:
+            ichida ikkita havola bor, ular esa {{ field.label }} orqali
+            chiqmaydi (Django yorliqni matn sifatida ekranlaydi).
+
+            Havolalar yangi oynada ochiladi — mijoz to'ldirgan formasini
+            yo'qotmasin.
+            {% endcomment %}
+            <div class="rozilik-qatori">
+                <label for="{{ form.shartlarga_rozi.id_for_label }}">
+                    {{ form.shartlarga_rozi }}
+                    <span>{% blocktrans with oferta=oferta_manzili maxfiylik=maxfiylik_manzili %}<a href="{{ oferta }}" target="_blank" rel="noopener">Ommaviy oferta</a> va <a href="{{ maxfiylik }}" target="_blank" rel="noopener">Maxfiylik siyosati</a> shartlariga roziman{% endblocktrans %} *</span>
+                </label>
+                {% if form.shartlarga_rozi.errors %}<div class="xato">{{ form.shartlarga_rozi.errors|striptags }}</div>{% endif %}
             </div>
 
             {% if not eski_taklifnoma %}

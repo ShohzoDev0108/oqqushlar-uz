@@ -1,0 +1,117 @@
+{% load i18n %}
+{% comment %}
+Maxfiylik siyosati — O'ZBEKCHA ASL MATN.
+
+DIQQAT. Bu hujjat KODGA BOG'LIQ. Agar loyihada yangi maydon paydo bo'lsa
+(masalan yana bitta shaxsiy ma'lumot yig'ila boshlasa), 2-bo'limdagi
+ro'yxatni ham yangilash SHART — aks holda hujjat yolg'on bo'lib qoladi.
+
+Hozirgi ro'yxat quyidagi joylardan olingan:
+  taklif/models.py — Taklifnoma, Mehmon, RSVP
+  config/settings.py — sessiya, R2 saqlash, Telegram xabarnoma
+{% endcomment %}
+
+<p class="hq-sana">Oxirgi tahrir: 2026-yil 9-sentabr</p>
+
+<p>Ushbu siyosat oqqushlar.uz saytida shaxsga doir ma’lumotlar qanday
+yig‘ilishi, ishlatilishi va saqlanishini tushuntiradi. U O‘zbekiston
+Respublikasining “Shaxsga doir ma’lumotlar to‘g‘risida”gi qonuniga
+asoslanadi.</p>
+
+<h2>1. Kim ma’lumotlarni qayta ishlaydi</h2>
+<p>Ma’lumotlarni qayta ishlovchi — oqqushlar.uz saytining egasi. Rekvizitlar
+va aloqa kanallari sahifa oxirida keltirilgan.</p>
+
+<h2>2. Qanday ma’lumotlar yig‘iladi</h2>
+<p>2.1. <strong>Buyurtmachidan</strong> — taklifnoma yaratishda:</p>
+<ul>
+    <li>marosim egalarining ismlari;</li>
+    <li>marosim sanasi, vaqti, to‘yxona nomi va manzili;</li>
+    <li>mehmonlarga atalgan matn, imzo va kun tartibi;</li>
+    <li>yuklangan rasmlar va musiqa fayli;</li>
+    <li><strong>telefon raqami</strong> — to‘lovni tasdiqlash va taklifnomaga
+        kirish huquqini tiklash uchun;</li>
+    <li>ixtiyoriy: sovg‘a uchun karta raqami, Telegram guruh havolasi.</li>
+</ul>
+<p>2.2. <strong>Mehmonlardan</strong> — javob berishda:</p>
+<ul>
+    <li>ism (Buyurtmachi oldindan kiritgan yoki mehmonning o‘zi yozgan);</li>
+    <li>kelish-kelmasligi va hamrohlari soni;</li>
+    <li>ixtiyoriy izoh va tilak;</li>
+    <li>taklifnoma ochilgani haqidagi belgi.</li>
+</ul>
+<p>2.3. <strong>Avtomatik</strong> — texnik ma’lumotlar: sessiya
+identifikatori (cookie), tanlangan til, sahifa ko‘rishlari soni. Reklama
+kuzatuvchilari va uchinchi tomon analitika tizimlari ishlatilmaydi.</p>
+
+<h2>3. Ma’lumotlar nima uchun kerak</h2>
+<ul>
+    <li>taklifnomani yaratish va ko‘rsatish — bu xizmatning o‘zi;</li>
+    <li>Buyurtmachining o‘z taklifnomasiga egaligini aniqlash (sessiya
+        orqali) va u yo‘qolganda tiklash (telefon raqami orqali);</li>
+    <li>to‘lovni to‘g‘ri taklifnomaga bog‘lash;</li>
+    <li>mehmonlarning javoblarini Buyurtmachiga ko‘rsatish;</li>
+    <li>texnik nosozliklarni aniqlash.</li>
+</ul>
+<p>Ma’lumotlar reklama uchun ishlatilmaydi va sotilmaydi.</p>
+
+<h2>4. Kim ko‘ra oladi</h2>
+<p>4.1. Mehmonlarning javoblari va ro‘yxati — faqat Buyurtmachiga, uning
+maxfiy statistika havolasi orqali.</p>
+<p>4.2. Buyurtmachining telefon raqami mehmonlarga <strong>hech qachon
+ko‘rsatilmaydi</strong> — u faqat admin panelida ko‘rinadi.</p>
+<p>4.3. Taklifnoma sahifasi havolani bilgan har kimga ochiq. Ya’ni havolani
+kimga tarqatish — Buyurtmachining o‘z qaroriga bog‘liq.</p>
+<p>4.4. Mehmonning tilagi taklifnoma sahifasida hammaga ko‘rinadigan bo‘lishi
+mumkin, lekin <strong>faqat Buyurtmachi uni tasdiqlagandan keyin</strong>.
+Tasdiqlanmaguncha tilakni faqat Buyurtmachi ko‘radi.</p>
+<p>4.5. Taklifnoma bosh sahifada namuna sifatida faqat Buyurtmachi alohida
+rozilik bergan taqdirda ko‘rsatiladi.</p>
+
+<h2>5. Ma’lumotlar qayerda saqlanadi</h2>
+<p>5.1. Ma’lumotlar bazasi Yevropa Ittifoqi hududidagi serverda joylashgan.
+Yuklangan rasm va musiqa fayllari Cloudflare R2 xizmatida saqlanadi.</p>
+<p>5.2. Bazaning zaxira nusxasi har kuni olinadi va <strong>shifrlangan
+holda</strong> alohida joyda saqlanadi. Shifrlash kaliti serverda emas.</p>
+<p>5.3. Biometrik va genetik ma’lumotlar yig‘ilmaydi.</p>
+
+<h2>6. Qancha muddat saqlanadi</h2>
+<ul>
+    <li>taklifnoma va u bilan bog‘liq ma’lumotlar — Buyurtmachi o‘chirmaguncha;</li>
+    <li>Buyurtmachi o‘chirgan to‘langan taklifnoma — belgilangan qisqa muddat
+        ichida tiklash imkoni bilan, keyin butunlay o‘chiriladi;</li>
+    <li>zaxira nusxalar — oxirgi ikki hafta har kuni, undan oldingi ikki oy
+        haftada bir marta; eskisi avtomatik o‘chiriladi;</li>
+    <li>sessiya cookie’si — bir yil, har tashrifda yangilanadi.</li>
+</ul>
+
+<h2>7. Sizning huquqlaringiz</h2>
+<p>Siz quyidagilarga haqlisiz:</p>
+<ul>
+    <li>qanday ma’lumotlaringiz saqlanayotganini bilish;</li>
+    <li>ularni to‘g‘rilash yoki o‘chirishni talab qilish;</li>
+    <li>berilgan rozilikni qaytarib olish;</li>
+    <li>taklifnomani o‘zingiz o‘chirish — buning uchun murojaat ham shart
+        emas, “Taklifnomalarim” sahifasida tugma bor.</li>
+</ul>
+<p>Murojaatlar sahifa oxiridagi aloqa kanallari orqali qabul qilinadi va
+10 ish kuni ichida ko‘rib chiqiladi. Mehmon o‘z javobini o‘chirishni
+so‘rasa, bu ham shu tartibda bajariladi.</p>
+
+<h2>8. Cookie fayllari</h2>
+<p>Saytda faqat ishlashi uchun zarur cookie’lar ishlatiladi: sessiya
+identifikatori (taklifnomangizni sizniki deb tanish uchun), tanlangan til
+va CSRF himoyasi belgisi. Reklama yoki kuzatuv cookie’lari yo‘q.</p>
+
+<h2>9. Bolalar</h2>
+<p>Xizmat 18 yoshga to‘lgan shaxslarga mo‘ljallangan. Voyaga yetmagan
+shaxsning ma’lumotlari ota-onasi yoki qonuniy vakilining roziligi bilan
+kiritilishi mumkin.</p>
+
+<h2>10. Siyosatning o‘zgarishi</h2>
+<p>Siyosat o‘zgarsa, yangi tahrir shu sahifada e’lon qilinadi va yuqoridagi
+sana yangilanadi.</p>
+
+<h2>11. Hujjat tili</h2>
+<p>Tarjimalar o‘rtasida tafovut bo‘lsa, <strong>o‘zbek tilidagi matn</strong>
+asosiy hisoblanadi.</p>

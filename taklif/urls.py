@@ -24,6 +24,10 @@ urlpatterns = [
     # Narxlar o'z sahifasida. Ilgari u faqat bosh sahifadagi "#narx"
     # bo'limi edi — sabablari narxlar.html boshidagi izohda.
     path("narxlar/", views.narxlar, name="narxlar"),
+    # Huquqiy hujjatlar. Manzillar o'zbekcha va o'zgarmas — ular ofertaning
+    # o'zida va mijozga yuborilgan xabarlarda havola sifatida qoladi.
+    path("ommaviy-oferta/", views.ommaviy_oferta, name="ommaviy_oferta"),
+    path("maxfiylik/", views.maxfiylik_siyosati, name="maxfiylik_siyosati"),
     path("yaratish/<slug:shablon_kod>/", views.yaratish, name="yaratish"),
     # Ochib ko'rish mumkin bo'lgan namuna taklifnoma — mijoz mahsulotni
     # to'lashdan oldin to'liq, ishlaydigan holida ko'radi. Bazada hech
