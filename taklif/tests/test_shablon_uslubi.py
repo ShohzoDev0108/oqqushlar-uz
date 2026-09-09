@@ -55,3 +55,38 @@ class PardaUslubiTest(TestCase):
                     matn.index(":root {"), matn.index(UMUMIY),
                     f"{fayl.name}: include ':root' dan oldin turibdi",
                 )
+
+
+class PardaRamkasiTest(TestCase):
+    """Yurak ramkasi tasvirining ichi SHAFFOF bo'lishi shart.
+
+    NEGA TEST KERAK. "yurak-ramka-gulli.png" fayli bir marta shaffoflik
+    SHAXMAT KATAKLARI bilan birga eksport qilingan edi — ya'ni tahrirlash
+    dasturi shaffoflikni ko'rsatish uchun chizadigan kulrang kataklar
+    rasmning ichiga "pishib" qolgan. Natijada har bir mijozning
+    taklifnomasi ochilish ekranida ismlar o'rniga kulrang shaxmat
+    ko'rinardi. Ko'z bilan qarab buni "shunday bo'lishi kerak"
+    deb o'ylash oson, shuning uchun tekshiruv avtomatlashtirildi.
+    """
+
+    RAMKALAR = ["yurak-ramka.png", "yurak-ramka-gulli.png"]
+
+    def test_ramka_ichi_shaffof(self):
+        from PIL import Image
+
+        papka = Path(settings.BASE_DIR) / "taklif" / "static" / "taklif" / "parda-ikona"
+        for nom in self.RAMKALAR:
+            fayl = papka / nom
+            if not fayl.exists():
+                continue
+            with self.subTest(ramka=nom):
+                im = Image.open(fayl).convert("RGBA")
+                w, h = im.size
+                # markazdagi kichik maydon — yurakning ichi
+                markaz = im.crop((w // 2 - 15, h // 2 - 15, w // 2 + 15, h // 2 + 15))
+                eng_katta_alfa = max(p[3] for p in markaz.getdata())
+                self.assertLess(
+                    eng_katta_alfa, 10,
+                    f"{nom}: yurak ichi shaffof emas (alfa={eng_katta_alfa}). "
+                    "Ehtimol shaffoflik kataklari rasmga eksport qilingan.",
+                )
