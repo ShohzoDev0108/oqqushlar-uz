@@ -1970,6 +1970,18 @@ msgstr "It is already in use — it may have been sent to guests, or replies may
 msgid "Alohida saqlayman"
 msgstr "Keep it separate"
 
+#: taklif/forms.py
+msgid "Telefon raqamingiz"
+msgstr "Your phone number"
+
+#: taklif/forms.py
+msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+msgstr "Needed to confirm your payment and to restore your invitation if you lose it. It is never shown to guests."
+
+#: taklif/forms.py
+msgid "Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67"
+msgstr "Please enter your full phone number, for example: +998 90 123 45 67"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

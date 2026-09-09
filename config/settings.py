@@ -320,6 +320,23 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SAYT_ADMIN_TELEGRAM = os.environ.get("SAYT_ADMIN_TELEGRAM", "@taklifnoma365_admin")
 
 
+# Sessiya muddati.
+#
+# TAFTISH. Django'ning standart muddati 2 hafta. Bu bizning ish oqimimizga
+# umuman to'g'ri kelmasdi: mijoz "meniki" ekanini FAQAT sessiya cookie'si
+# bilan isbotlaydi — "Mening taklifnomalarim" ro'yxati, mehmonlar qo'shish
+# va statistika sahifasi shunga tayanadi. To'y esa odatda bir necha oy
+# oldindan tayyorlanadi. Ya'ni mijoz taklifnomasini yaratib, ikki haftadan
+# keyin qaytib kelsa, o'z taklifnomasini boshqara olmay qolardi.
+#
+# Bir yil — marosim tayyorgarligining tabiiy muddatidan uzunroq.
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365
+
+# Har so'rovda muddat yangilanadi: saytga kirib turgan mijozning sessiyasi
+# yil oxirida to'satdan tugab qolmaydi.
+SESSION_SAVE_EVERY_REQUEST = True
+
+
 # Production xavfsizlik sozlamalari
 # https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 # Bular faqat DEBUG=False bo'lganda (ya'ni haqiqiy serverda) yoqiladi —

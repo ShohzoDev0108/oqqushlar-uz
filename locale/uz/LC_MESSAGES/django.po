@@ -883,6 +883,18 @@ msgstr ""
 msgid "Alohida saqlayman"
 msgstr ""
 
+#: taklif/forms.py
+msgid "Telefon raqamingiz"
+msgstr ""
+
+#: taklif/forms.py
+msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+msgstr ""
+
+#: taklif/forms.py
+msgid "Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67"
+msgstr ""
+
 msgid "Sanani va soatni tanlang"
 msgstr ""
 

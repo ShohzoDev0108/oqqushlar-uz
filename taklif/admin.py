@@ -204,7 +204,11 @@ class TaklifnomaAdmin(admin.ModelAdmin):
         "faol", "tolangan", "marosim_turi", "yoqdi_bosildi", "shablon",
         ("ochirilgan_vaqt", admin.EmptyFieldListFilter),
     )
-    search_fields = ("ism_1", "ism_2", "ism_3", "boshqa_tadbir_nomi", "slug")
+    # Telefon ham qidiriladi: to'lov kelganda admin aynan raqam bo'yicha
+    # qidirib, qaysi taklifnomaga tegishli ekanini topadi.
+    search_fields = (
+        "ism_1", "ism_2", "ism_3", "boshqa_tadbir_nomi", "slug", "mijoz_telefoni",
+    )
     prepopulated_fields = {"slug": ("ism_1", "ism_2", "ism_3")}
     readonly_fields = (
         "statistika_token", "korishlar", "yaratilgan", "statistika_link", "yoqdi_bosildi",
@@ -225,6 +229,9 @@ class TaklifnomaAdmin(admin.ModelAdmin):
                 "musiqa_variant", "musiqa", "matn", "imzo", "dastur",
                 "sovga_karta", "telegram_link",
             )
+        }),
+        ("Mijoz (mehmonlarga ko'rinmaydi)", {
+            "fields": ("mijoz_telefoni",),
         }),
         ("Holat", {
             "fields": (

@@ -18,6 +18,37 @@ from .models import (
 # matn kelishi mumkin — shu sabab serverda ham qayta tekshiriladi.
 VAQT_QOLIPI = re.compile(r"^([01]\d|2[0-3]):[0-5]\d$")
 
+
+def telefonni_normallashtir(xom):
+    """Mijoz yozgan telefon raqamini bitta ko'rinishga keltiradi.
+
+    Mijozlar raqamni juda xilma-xil yozadi: "90 123 45 67",
+    "+998 90 123 45 67", "(90) 123-45-67", "998901234567". Bularning
+    hammasi bir xil raqam — bazada ham bir xil turishi kerak, aks holda
+    admin qidiruvi ishlamaydi.
+
+    Qaytaradi: "+998901234567" ko'rinishidagi matn, yoki raqam
+    tanilmasa None.
+    """
+    xom = (xom or "").strip()
+    raqamlar = "".join(b for b in xom if b.isdigit())
+    if not raqamlar:
+        return None
+
+    # Chet el raqami: mijoz "+" bilan boshlagan bo'lsa, o'zicha qoldiramiz.
+    # O'zbekiston qolipiga majburlab tiqishtirish noto'g'ri bo'lardi —
+    # saytdan chet eldagi mijoz ham foydalanishi mumkin.
+    if xom.startswith("+") and not raqamlar.startswith("998"):
+        return "+" + raqamlar if 10 <= len(raqamlar) <= 15 else None
+
+    if len(raqamlar) == 9:              # 90 123 45 67
+        raqamlar = "998" + raqamlar
+    elif len(raqamlar) == 12 and raqamlar.startswith("998"):
+        pass                            # 998 90 123 45 67
+    else:
+        return None
+    return "+" + raqamlar
+
 # Bu so'zlar bilan tugaydigan/mos keladigan slug'larni taqiqlaymiz,
 # chunki ular URL'da tizim sahifalari sifatida band (urls.py'ga qarang).
 REZERV_SLUGLAR = {
@@ -169,6 +200,25 @@ class TaklifnomaYaratishForm(forms.ModelForm):
         required=False,
         widget=forms.HiddenInput(attrs={"id": "id_dastur"}),
     )
+    # Modelda blank=True (eski yozuvlarda va admin qo'lda kiritganda bo'sh
+    # bo'lishi mumkin), lekin MIJOZ uchun bu maydon majburiy: raqamsiz
+    # to'lovni taklifnomaga bog'lab bo'lmaydi.
+    mijoz_telefoni = forms.CharField(
+        label=_("Telefon raqamingiz"),
+        max_length=20,
+        required=True,
+        help_text=_(
+            "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib "
+            "qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+        ),
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "+998 90 123 45 67",
+                "inputmode": "tel",
+                "autocomplete": "tel",
+            }
+        ),
+    )
 
     class Meta:
         model = Taklifnoma
@@ -190,6 +240,7 @@ class TaklifnomaYaratishForm(forms.ModelForm):
             "dastur",
             "sovga_karta",
             "telegram_link",
+            "mijoz_telefoni",
             "ommaviy_korsatishga_rozi",
         ]
         widgets = {
@@ -313,6 +364,19 @@ class TaklifnomaYaratishForm(forms.ModelForm):
         mavjud = getattr(self.instance, "dastur", None)
         if mavjud:
             self.initial["dastur"] = json.dumps(mavjud, ensure_ascii=False)
+
+    def clean_mijoz_telefoni(self):
+        """Raqamni yagona ko'rinishga keltiradi va tanilmasa xato beradi.
+
+        Xato matni mijozga NIMA kutilayotganini misol bilan aytadi — "noto'g'ri
+        format" degan quruq xabar odamni formada qamab qo'yadi.
+        """
+        raqam = telefonni_normallashtir(self.cleaned_data.get("mijoz_telefoni"))
+        if raqam is None:
+            raise forms.ValidationError(
+                _("Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67")
+            )
+        return raqam
 
     def clean_dastur(self):
         """Kun tartibini JSON matndan xavfsiz, tozalangan ro'yxatga aylantiradi.

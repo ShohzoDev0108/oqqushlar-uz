@@ -1967,6 +1967,18 @@ msgstr "Ol álleqashan paydalanılıp atır — mıymanlarǵa jiberilgen yaki ju
 msgid "Alohida saqlayman"
 msgstr "Bólek saqlayman"
 
+#: taklif/forms.py
+msgid "Telefon raqamingiz"
+msgstr "Telefon nomeriniz"
+
+#: taklif/forms.py
+msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+msgstr "Tólemdi tastıyıqlaw hám shaqırıwıńızdı jogaltıp qoysańız qayta tiklew ushın kerek. Mıymanlarǵa kórsetilmeydi."
+
+#: taklif/forms.py
+msgid "Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67"
+msgstr "Telefon nomerin tolıq jazıń, mısalı: +998 90 123 45 67"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

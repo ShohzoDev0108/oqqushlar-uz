@@ -1962,6 +1962,18 @@ msgstr "Ol eýýäm ulanylýar — myhmanlara iberilen ýa-da jogaplar ýygnanan
 msgid "Alohida saqlayman"
 msgstr "Aýratyn saklaýyn"
 
+#: taklif/forms.py
+msgid "Telefon raqamingiz"
+msgstr "Telefon belgiňiz"
+
+#: taklif/forms.py
+msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+msgstr "Tölegi tassyklamak we çakylygyňyzy ýitiren halatyňyzda dikeltmek üçin gerek. Myhmanlara görkezilmeýär."
+
+#: taklif/forms.py
+msgid "Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67"
+msgstr "Telefon belgiňizi doly ýazyň, meselem: +998 90 123 45 67"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

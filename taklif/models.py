@@ -569,6 +569,30 @@ class Taklifnoma(models.Model):
     sovga_karta = models.CharField(
         max_length=50, blank=True, help_text="Pul sovg'a uchun karta raqami"
     )
+    # DIQQAT: bu MIJOZNING (buyurtmachining) raqami, mehmonlarniki emas va
+    # saytning umumiy aloqa raqami ham emas (u SaytSozlamalari.telefon).
+    # Taklifnoma shablonlarida HECH QACHON ko'rsatilmaydi — u faqat admin
+    # panelida ko'rinadi.
+    #
+    # NEGA KERAK. Ikkita amaliy sabab bor edi, ikkalasi ham taftishda chiqdi:
+    #   1) To'lov. Mijoz taklifnomani yaratadi, keyin Telegram orqali pul
+    #      yuboradi. Admin qaysi to'lov qaysi taklifnomaga tegishli ekanini
+    #      faqat ism bo'yicha taxmin qilardi — bir xil ismlar ko'p.
+    #   2) Kirishni yo'qotish. Mijoz "meniki" ekanini faqat brauzer sessiyasi
+    #      isbotlaydi. Telefonini almashtirsa yoki brauzer ma'lumotini
+    #      tozalasa, o'z taklifnomasining statistikasiga va mehmonlar
+    #      ro'yxatiga boshqa kira olmasdi. Endi admin raqami bo'yicha topib,
+    #      egaligini tekshirib bera oladi.
+    mijoz_telefoni = models.CharField(
+        max_length=20,
+        blank=True,
+        verbose_name="Mijoz telefoni",
+        help_text=(
+            "Buyurtmachining raqami — to'lovni tasdiqlash va mijoz "
+            "taklifnomasini yo'qotib qo'yganda tiklash uchun. "
+            "Mehmonlarga ko'rsatilmaydi."
+        ),
+    )
     tolangan = models.BooleanField(
         default=True,
         help_text="Self-service oqimi uchun: mijoz to'laguncha False bo'ladi",

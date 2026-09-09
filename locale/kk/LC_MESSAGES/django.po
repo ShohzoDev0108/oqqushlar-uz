@@ -1965,6 +1965,18 @@ msgstr "Ол қазірдің өзінде қолданылып жатыр — �
 msgid "Alohida saqlayman"
 msgstr "Бөлек сақтаймын"
 
+#: taklif/forms.py
+msgid "Telefon raqamingiz"
+msgstr "Телефон нөміріңіз"
+
+#: taklif/forms.py
+msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+msgstr "Төлемді растау және шақыруыңызды жоғалтып алсаңыз қалпына келтіру үшін қажет. Қонақтарға көрсетілмейді."
+
+#: taklif/forms.py
+msgid "Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67"
+msgstr "Телефон нөмірін толық жазыңыз, мысалы: +998 90 123 45 67"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

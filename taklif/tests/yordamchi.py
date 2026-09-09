@@ -14,4 +14,7 @@ ASOSIY_FORMA_MAYDONLARI = {
     "marosim_turi": "sunnat_toy",  # IKKI_ISMLI_MAROSIM_TURLARI'ga kirmaydi -> ism_2 shart emas
     "ism_1": "Sardor",
     "sana": "2027-05-20T18:00",
+    # Mijoz telefoni majburiy: to'lovni taklifnomaga bog'lash va mijoz
+    # sessiyasini yo'qotganda egaligini tekshirish uchun.
+    "mijoz_telefoni": "+998 90 123 45 67",
 }

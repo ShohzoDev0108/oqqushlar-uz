@@ -1967,6 +1967,18 @@ msgstr "Она уже используется — возможно, её отп
 msgid "Alohida saqlayman"
 msgstr "Сохранить отдельно"
 
+#: taklif/forms.py
+msgid "Telefon raqamingiz"
+msgstr "Ваш номер телефона"
+
+#: taklif/forms.py
+msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+msgstr "Нужен для подтверждения оплаты и восстановления приглашения, если вы его потеряете. Гостям не показывается."
+
+#: taklif/forms.py
+msgid "Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67"
+msgstr "Введите номер телефона полностью, например: +998 90 123 45 67"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"

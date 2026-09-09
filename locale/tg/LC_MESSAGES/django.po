@@ -1971,6 +1971,18 @@ msgstr "Он аллакай истифода мешавад — мумкин а�
 msgid "Alohida saqlayman"
 msgstr "Алоҳида нигоҳ медорам"
 
+#: taklif/forms.py
+msgid "Telefon raqamingiz"
+msgstr "Рақами телефони шумо"
+
+#: taklif/forms.py
+msgid "To'lovni tasdiqlash uchun va taklifnomangizni yo'qotib qo'ysangiz tiklash uchun kerak. Mehmonlarga ko'rsatilmaydi."
+msgstr "Барои тасдиқи пардохт ва барқарор кардани даъватномаатон, агар онро гум кунед, лозим аст. Ба меҳмонон нишон дода намешавад."
+
+#: taklif/forms.py
+msgid "Telefon raqamini to'liq yozing, masalan: +998 90 123 45 67"
+msgstr "Рақами телефонро пурра нависед, масалан: +998 90 123 45 67"
+
 #: taklif/templates/taklif/yaratish.html:230
 #: taklif/templates/taklif/yaratish.html:552
 msgid "Sanani va soatni tanlang"
