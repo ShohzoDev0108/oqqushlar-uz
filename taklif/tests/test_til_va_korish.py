@@ -1,9 +1,10 @@
 """Ikkita mustaqil taftish topilmasi uchun testlar:
 1) Bitta brauzer/sessiya bir taklifnomani bir necha marta qayta ochsa,
    "ko'rishlar" soni faqat birinchi safar oshishi kerak.
-2) Mezbonga tegishli sahifalar (statistika va h.k.) — aniq til tanlanmagan
-   bo'lsa — brauzerning "Accept-Language"idan qat'i nazar har doim
-   o'zbekcha ko'rsatilishi kerak.
+2) Barcha sahifalar — mezbonga tegishli (statistika va h.k.) ham,
+   mehmonga ochiq taklifnoma sahifasi ham — brauzerning
+   "Accept-Language"iga qarab avtomatik tilga moslashishi kerak (aniq
+   til tanlansa, o'sha tanlov ustun turadi).
 """
 from datetime import timedelta
 
@@ -54,10 +55,13 @@ class KorishlarTakrorlanmasligiTest(TestCase):
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
-class MezbonTiliStandartTest(TestCase):
-    """Taftish topilmasi: mijoz statistika sahifasini boshqa qurilma/ilovada
-    (masalan Telegram ichki brauzerida) ochsa, u yerning "Accept-Language"
-    sarlavhasiga qarab til noto'g'ri (masalan ruscha) o'zgarib qolar edi."""
+class MezbonTiliBrauzerbopTest(TestCase):
+    """Qaror o'zgardi (2026-09-14): endi mezbonga tegishli sahifalar
+    (statistika, mening-taklifnomalarim va h.k.) ham, mehmonga ochiq
+    taklifnoma sahifasi ham — bir xil qoidaga bo'ysunadi: Accept-Language'ga
+    qarab avtomatik til tanlanadi, aniq til tanlansa (cookie orqali) shu
+    tanlov saqlanadi. Ilgarigi "mezbon sahifalari doim o'zbekcha" qoidasi
+    (SaytTiliniStandartlashMiddleware) ataylab olib tashlandi."""
 
     def setUp(self):
         self.shablon = shablon_yarat()
@@ -75,25 +79,20 @@ class MezbonTiliStandartTest(TestCase):
     OGOHLANTIRISH_UZ = "Bu sahifa faqat sizga ko'rinadi"
     OGOHLANTIRISH_RU = "Эта страница видна только вам"
 
-    def test_ruscha_brauzer_bilan_ham_statistika_ozbekcha_chiqadi(self):
+    def test_ruscha_brauzer_bilan_statistika_ruscha_chiqadi(self):
         r = Client().get(
             f"/statistika/{self.taklifnoma.statistika_token}/",
             HTTP_ACCEPT_LANGUAGE="ru",
         )
-        self.assertContains(r, self.OGOHLANTIRISH_UZ)
-        self.assertNotContains(r, self.OGOHLANTIRISH_RU)
+        self.assertContains(r, self.OGOHLANTIRISH_RU)
+        self.assertNotContains(r, self.OGOHLANTIRISH_UZ)
 
-    def test_ruscha_brauzer_bilan_mening_taklifnomalarim_ozbekcha_chiqadi(self):
+    def test_ruscha_brauzer_bilan_mening_taklifnomalarim_ruscha_chiqadi(self):
         r = Client().get("/mening-taklifnomalarim/", HTTP_ACCEPT_LANGUAGE="ru")
-        # Sarlavha ilgari "Mening taklifnomalarim" edi; menyuda joyi torlik
-        # qilgani uchun "Taklifnomalarim" ga qisqartirilgan, test esa eski
-        # matnni izlab qolgan edi. Bu testning maqsadi matnning o'zi emas —
-        # sahifa RUSCHA emas, O'ZBEKCHA chiqishini tekshirish.
-        self.assertContains(r, "Taklifnomalarim")
-        self.assertNotContains(r, "Мои приглашения")
+        self.assertContains(r, "Мои приглашения")
 
     def test_aniq_til_tanlansa_statistika_sahifasida_ham_saqlanadi(self):
-        # Avval mehmon sahifasida ruschani ANIQ tanlagan (cookie o'rnatiladi) —
+        # Mehmon/mezbon sahifasida ruschani ANIQ tanlagan (cookie o'rnatiladi) —
         # bu tanlov statistika sahifasida ham hurmat qilinishi kerak.
         c = Client()
         c.post("/i18n/setlang/", {"language": "ru", "next": "/"})
@@ -101,10 +100,9 @@ class MezbonTiliStandartTest(TestCase):
         self.assertContains(r, self.OGOHLANTIRISH_RU)
         self.assertNotContains(r, self.OGOHLANTIRISH_UZ)
 
-    def test_taklifnoma_sahifasi_ozi_bu_middlewarega_taalluqli_emas(self):
-        # Mehmonlarga ochiq taklifnoma sahifasi hali ham to'liq avtomatik
-        # ko'p tillilikdan foydalanishi kerak (Accept-Language'ga qarab) —
-        # bu middleware faqat mezbon sahifalariga taalluqli.
+    def test_taklifnoma_sahifasi_ham_brauzer_tiliga_moslashadi(self):
+        # Mehmonlarga ochiq taklifnoma sahifasi to'liq avtomatik ko'p
+        # tillilikdan foydalanadi (Accept-Language'ga qarab).
         r = Client().get(f"/{self.taklifnoma.slug}/", HTTP_ACCEPT_LANGUAGE="ru")
         self.assertEqual(r.status_code, 200)
         self.assertContains(r, "пожелание")  # "tilak" so'zining ruscha tarjimasi (RSVP formasi yorlig'ida)
