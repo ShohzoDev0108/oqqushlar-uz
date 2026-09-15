@@ -40,10 +40,10 @@ services:
       - key: DJANGO_DEBUG
         value: "False"
       # Haqiqiy domeningizni shu yerga kiritasiz, masalan:
-      #   oqqushlar.onrender.com,taklifnoma365.uz,www.taklifnoma365.uz
+      #   oqqushlar.onrender.com,oqqushlar.uz,www.oqqushlar.uz
       - key: DJANGO_ALLOWED_HOSTS
         sync: false
-      # Masalan: https://taklifnoma365.uz,https://www.taklifnoma365.uz
+      # Masalan: https://oqqushlar.uz,https://www.oqqushlar.uz
       - key: DJANGO_CSRF_TRUSTED_ORIGINS
         sync: false
       # Render o'zi HTTPS'ni tugatib, ichkariga oddiy HTTP orqali uzatadi —

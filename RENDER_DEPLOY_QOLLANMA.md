@@ -72,7 +72,7 @@ Loyihada tayyor `render.yaml` fayli bor — bu Render'ga veb-server va ma'lumotl
    ```
 3. Bir nechta shablon sahifasini ochib, rasm/dizayn to'g'ri chiqayotganini tekshiring.
 
-## 5-qadam: o'z domeningizni ulash (taklifnoma365.uz)
+## 5-qadam: o'z domeningizni ulash (oqqushlar.uz)
 
 1. Render'da veb-servisingiz sozlamalarida **Custom Domains** bo'limiga o'ting, domeningizni kiriting.
 2. Render sizga DNS yozuvi (CNAME yoki A record) beradi — buni domeningizni sotib olgan joyda (masalan domain registrar boshqaruv panelida) qo'shasiz. Bu qadamda ham yordam bera olaman — domen provayderingiz nomini ayting.

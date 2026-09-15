@@ -389,7 +389,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Self-service oqimida mijozga "to'lov qilish uchun bog'laning" deb ko'rsatiladigan
 # Telegram kontakt. .env orqali haqiqiy admin username'ga almashtirish mumkin.
-SAYT_ADMIN_TELEGRAM = os.environ.get("SAYT_ADMIN_TELEGRAM", "@taklifnoma365_admin")
+SAYT_ADMIN_TELEGRAM = os.environ.get("SAYT_ADMIN_TELEGRAM", "@oqqushlar_admin")
 
 
 # Sessiya muddati.

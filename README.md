@@ -1,4 +1,4 @@
-# Taklifnoma365 — raqamli taklifnoma platformasi
+# Oqqushlar — raqamli taklifnoma platformasi
 
 To'y, sunnat to'yi, yubiley, tug'ilgan kun va boshqa marosimlar uchun chiroyli,
 ko'p tilli raqamli taklifnomalarni bir necha daqiqada yaratish imkonini
