@@ -1,0 +1,94 @@
+{% load i18n static %}
+{% comment %}
+"Bo'shliqdan paydo bo'lish" — Oqqushlar signature ochilish ekrani. MILLATGA EMAS,
+BRENDNING O'ZIGA bog'liq, istalgan shablonda ishlatilishi mumkin. Ataylab OCH
+(qog'oz) fonda. JS ulanishi UMUMIY: ".ochilish-anim" klassi va "data-davomiylik"
+atributi orqali (_skript.html buni avtomatik topadi, qayta tegish shart emas).
+Bu partial o'zining #parda CSS'ini o'zi olib yuradi — shablon extra_style'ida
+"_uslub_parda.html" ULANMASLIGI kerak.
+
+XAVFSIZLIK MOSLASHTIRISHI: dastlabki kontseptsiya ("chiziqlar har bir harf
+ichidagi bo'shliqdan o'sadi") ism matnining dinamik uzunligi/skripti tufayli
+ishonchli umumlashtirib bo'lmaydigan geometriya talab qilardi, shuning uchun
+chiziqlar konteynerga nisbatan fiksirlangan nuqtalardan o'sadigan qilib
+moslashtirildi. Ism matni esa harf darajasidagi geometriyaga bog'lanmagan
+holda, butun blok sifatida deyarli ko'rinmas holatdan (opacity .12) to'liq
+ko'rinishga (opacity 1) o'tadi — bu istalgan uzunlik/skript uchun barqaror
+ishlaydi.
+{% endcomment %}
+<style>
+#parda {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    background: radial-gradient(120% 90% at 50% 8%, #fbf6e9, #efe2c4 78%);
+    text-align: center; padding: 40px 24px 56px;
+    transition: opacity .55s ease, visibility .55s ease;
+}
+#parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
+.bp-kelgan {
+    display: inline-block; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #7a5c30; margin: 0 0 22px; max-width: 78vw;
+}
+.bp-wrap { position: relative; width: min(240px, 74vw); aspect-ratio: 240 / 340; }
+.bp-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.bp-chiziq {
+    fill: none; stroke: var(--asos, #a9782f); stroke-width: 1.3; stroke-linecap: round; opacity: .55;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.3s cubic-bezier(.3,.6,.25,1);
+}
+.bp-wrap.is-open .bp-chiziq { stroke-dashoffset: 0; }
+.bp-wrap.is-open .bp-chiziq--dan { transition-delay: .12s; }
+.bp-gul {
+    position: absolute; width: 8px; height: 8px; margin: -4px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #fff, #e7c3cc 55%, var(--bp-gul-rang, #c48a9a) 100%);
+    box-shadow: 0 0 5px rgba(196,138,154,.55);
+    opacity: 0; transform: scale(.2);
+    transition: opacity .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.bp-wrap.is-open .bp-gul { opacity: 1; transform: scale(1); }
+.bp-gul--1 { left: 16.6%; top: 73.5%; transition-delay: .55s; }
+.bp-gul--2 { left: 83.4%; top: 55.9%; transition-delay: .75s; }
+.bp-gul--3 { left: 29.2%; top: 29.4%; transition-delay: .9s; }
+.bp-ism {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); text-align: center; z-index: 5;
+    width: 82%;
+    opacity: .12;
+    transition: opacity 1s ease .3s;
+}
+.bp-wrap.is-open .bp-ism { opacity: 1; }
+.bp-ism .va { color: var(--sarlavha, #7c3f30); font-style: italic; font-size: .85em; margin: 0 5px; }
+.bp-ism strong { font-weight: normal; color: #3a2c16; font-size: 1.14rem; line-height: 1.4; }
+#ochish-tugma.bp-tugma {
+    margin-top: 20px; position: relative; width: auto; height: auto;
+    padding: 11px 26px; border-radius: 999px; border: 1px solid #8a5f22;
+    background: transparent; color: #8a5f22; font-size: .85rem; letter-spacing: 1px;
+    cursor: pointer; transition: background .3s, color .3s, opacity .4s ease;
+}
+@media (hover: hover) and (pointer: fine) { #ochish-tugma.bp-tugma:hover { background: #8a5f22; color: #fdf8ec; } }
+#ochish-tugma.bp-tugma.yashirin { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+    .bp-chiziq, .bp-ism, .bp-gul { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+<div id="parda">
+    <p class="bp-kelgan">
+        {% if mehmon %}{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}{% else %}{% trans "Sizga taklifnoma keldi" %}{% endif %}
+    </p>
+    <div class="bp-wrap ochilish-anim" data-davomiylik="1400">
+        <svg viewBox="0 0 240 340" aria-hidden="true">
+            <path class="bp-chiziq bp-chiziq--chap" pathLength="1" d="M40 250 C 60 200, 50 150, 70 100"/>
+            <path class="bp-chiziq bp-chiziq--dan" pathLength="1" d="M200 250 C 180 200, 190 150, 170 100"/>
+        </svg>
+        <div class="bp-gul bp-gul--1"></div>
+        <div class="bp-gul bp-gul--2"></div>
+        <div class="bp-gul bp-gul--3"></div>
+        <div class="bp-ism">
+            {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}<strong>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</strong>
+            {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}<strong>{{ taklifnoma.boshqa_tadbir_nomi }}</strong>
+            {% elif taklifnoma.ism_2 %}<strong>{{ taklifnoma.ism_1 }}</strong><span class="va">&amp;</span><strong>{{ taklifnoma.ism_2 }}</strong>
+            {% else %}<strong>{{ taklifnoma.ism_1 }}</strong>
+            {% endif %}
+        </div>
+    </div>
+    <button id="ochish-tugma" class="bp-tugma" type="button">{% trans "Ochish" %}</button>
+</div>

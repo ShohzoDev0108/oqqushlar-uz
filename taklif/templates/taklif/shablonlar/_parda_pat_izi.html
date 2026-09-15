@@ -1,0 +1,122 @@
+{% load i18n static %}
+{% comment %}
+"Patning izi" — Oqqushlar signature ochilish ekrani. Tunduk/gilam
+medalyoni/qor kristali/qulf-kalit mexanizmlaridan farqli, bu MILLATGA
+EMAS, BRENDNING O'ZIGA (Oqqushlar — oqqush) bog'liq va istalgan shablonda
+ishlatilishi mumkin.
+
+Ataylab OCH (qog'oz) fonda — qolgan mexanizmlar "tungi" pardada.
+Ikkalasi ikki alohida kayfiyat: milliy dizaynlar tungi osmon ostida,
+signature esa kunduzgi qog'ozda ochiladi.
+
+Texnika: CSS offset-path (patning egri parvozi) + SVG stroke-dashoffset
+(iz chizig'i, pathLength="1" bilan normallashtirilgan) + uchta gulning
+navbat bilan ochilishi. JS ulanishi UMUMIY: ".ochilish-anim" klassi va
+"data-davomiylik" atributi orqali (_skript.html'dagi #ochish-tugma
+handleri buni avtomatik topadi) — boshqa signature mexanizmlar ham shu
+konventsiyani ishlatadi, _skript.html'ga qayta tegish shart emas.
+
+Diqqat: bu partial O'ZINING #parda CSS'ini o'zi olib yuradi (konvert
+uslubi kabi) — shuning uchun buni ulagan shablon extra_style'ida
+"_uslub_parda.html" ULANMASLIGI kerak (u yurak/ravoq shakliga mo'ljallangan
+boshqa #parda qoidalarini beradi va bu bilan to'qnashadi). Hozircha
+HECH BIR shablonga ulanmagan — qaysi shablon(lar)ga ulash kerakligi
+hali hal qilinmagan.
+{% endcomment %}
+<style>
+#parda {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    background: radial-gradient(120% 90% at 50% 8%, #fbf6e9, #efe2c4 78%);
+    text-align: center; padding: 40px 24px 56px;
+    transition: opacity .55s ease, visibility .55s ease;
+}
+#parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.pi-kelgan {
+    display: inline-block; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #7a5c30; margin: 0 0 22px; max-width: 78vw;
+}
+.pi-wrap { position: relative; width: min(230px, 72vw); aspect-ratio: 200 / 340; }
+.pi-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.pi-iz {
+    fill: none; stroke: var(--asos, #a9782f); stroke-width: 1.3; stroke-linecap: round; opacity: .6;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.15s cubic-bezier(.3,.6,.25,1);
+}
+.pi-wrap.is-open .pi-iz { stroke-dashoffset: 0; }
+
+.pi-gul {
+    position: absolute; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #fff, #e7c3cc 55%, var(--pi-gul-rang, #c48a9a) 100%);
+    box-shadow: 0 0 5px rgba(196,138,154,.55);
+    opacity: 0; transform: scale(.2);
+    transition: opacity .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.pi-wrap.is-open .pi-gul { opacity: 1; transform: scale(1); }
+.pi-gul--1 { left: 67.5%; top: 66%; transition-delay: .28s; }
+.pi-gul--2 { left: 47.5%; top: 44%; transition-delay: .55s; }
+.pi-gul--3 { left: 20%; top: 19%; transition-delay: .82s; }
+
+.pi-pat-langar { position: absolute; left: 80%; top: 76%; width: 24px; height: 36px; margin: -18px -12px; animation: pi-bob 2.6s ease-in-out infinite; }
+@keyframes pi-bob { 0%,100% { transform: translateY(0) rotate(112deg); } 50% { transform: translateY(-4px) rotate(116deg); } }
+.pi-pat {
+    position: absolute; left: 0; top: 0; width: 24px; height: 36px;
+    offset-path: path("M160 260 C 130 220, 140 160, 90 130 C 60 112, 45 75, 15 30");
+    offset-distance: 0%; offset-rotate: auto;
+    transition: offset-distance 1.15s cubic-bezier(.3,.6,.25,1), opacity .4s ease .75s;
+}
+.pi-wrap.is-open .pi-pat { offset-distance: 100%; opacity: 0; }
+.pi-wrap.is-open .pi-pat-langar { animation: none; }
+.pi-pat::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(160deg, #fffdf6, #e6dcc0);
+    clip-path: polygon(50% 0%, 78% 14%, 90% 42%, 76% 74%, 50% 100%, 24% 74%, 10% 42%, 22% 14%);
+    box-shadow: 0 2px 6px rgba(90,65,25,.28);
+}
+.pi-pat::after { content: ""; position: absolute; left: 50%; top: 6%; bottom: 8%; width: 1.4px; background: rgba(120,95,50,.45); transform: translateX(-50%); }
+
+.pi-ism {
+    position: absolute; left: 50%; top: 64%; transform: translate(-50%,-50%); text-align: center; z-index: 5;
+    opacity: .38; filter: blur(1.5px);
+    transition: opacity 1s ease .35s, filter 1s ease .35s, transform 1s ease .35s;
+}
+.pi-wrap.is-open .pi-ism { opacity: 1; filter: blur(0); transform: translate(-50%,-58%); }
+.pi-ism .va { color: var(--sarlavha, #7c3f30); font-style: italic; font-size: .85em; margin: 0 5px; }
+.pi-ism strong { font-weight: normal; color: #3a2c16; font-size: 1.14rem; line-height: 1.4; }
+
+#ochish-tugma.pi-tugma {
+    margin-top: 20px; position: relative; width: auto; height: auto;
+    padding: 11px 26px; border-radius: 999px; border: 1px solid #8a5f22;
+    background: transparent; color: #8a5f22; font-size: .85rem; letter-spacing: 1px;
+    cursor: pointer; transition: background .3s, color .3s, opacity .4s ease;
+}
+@media (hover: hover) and (pointer: fine) { #ochish-tugma.pi-tugma:hover { background: #8a5f22; color: #fdf8ec; } }
+#ochish-tugma.pi-tugma.yashirin { opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pi-pat, .pi-iz, .pi-ism, .pi-gul, .pi-pat-langar { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+<div id="parda">
+    <p class="pi-kelgan">
+        {% if mehmon %}{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}{% else %}{% trans "Sizga taklifnoma keldi" %}{% endif %}
+    </p>
+    <div class="pi-wrap ochilish-anim" data-davomiylik="1150" style="--pi-gul-rang: var(--asos, #c48a9a);">
+        <svg viewBox="0 0 200 340" aria-hidden="true">
+            <path class="pi-iz" pathLength="1" d="M160 260 C 130 220, 140 160, 90 130 C 60 112, 45 75, 15 30"/>
+        </svg>
+        <div class="pi-gul pi-gul--1"></div>
+        <div class="pi-gul pi-gul--2"></div>
+        <div class="pi-gul pi-gul--3"></div>
+        <div class="pi-pat-langar"><div class="pi-pat"></div></div>
+        <div class="pi-ism">
+            {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}<strong>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</strong>
+            {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}<strong>{{ taklifnoma.boshqa_tadbir_nomi }}</strong>
+            {% elif taklifnoma.ism_2 %}<strong>{{ taklifnoma.ism_1 }}</strong><span class="va">&amp;</span><strong>{{ taklifnoma.ism_2 }}</strong>
+            {% else %}<strong>{{ taklifnoma.ism_1 }}</strong>
+            {% endif %}
+        </div>
+    </div>
+    <button id="ochish-tugma" class="pi-tugma" type="button">{% trans "Ochish" %}</button>
+</div>

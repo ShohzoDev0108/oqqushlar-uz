@@ -1,0 +1,153 @@
+{% load i18n static %}
+{% comment %}
+"Ipak izi" — Oqqushlar signature ochilish ekrani. Boshqa signature
+mexanizmlar (patning izi va h.k.) kabi bu ham MILLATGA EMAS, BRENDNING
+O'ZIGA bog'liq va istalgan shablonda ishlatilishi mumkin.
+
+G'oya: ipak yo'lidagi bog' motividan ilhomlanib, ikkita o'simlik ipi
+(bir-birining ko'zgu aksi) pardaning ikki pastki burchagidan boshlab
+yuqoriga, markazga qarab o'sadi. Barglar yo'l-yo'lakay ochiladi, uchta
+gul turli nuqtalarda gullaydi — eng so'nggisi ikki ip uchrashgan
+markaziy nuqtada, ikki tomonning "birlashuvi" sifatida. Ism esa shu
+ochiq markaziy bo'shliqda, xiralikdan tiniqlikka o'tib namoyon bo'ladi.
+
+Ataylab OCH (kremrang ipak qog'ozi) fonda.
+
+Texnika: ikkita SVG chiziq (bitta <path> ta'rifi, o'ng tomon
+"scale(-1,1) translate(-W,0)" ko'zgu texnikasi bilan olinadi — kod
+takrorlanmaydi) + har bir tomonda "fon ip" (doim xira, statik) va
+"motiv ip" (pathLength="1" + stroke-dashoffset bilan chizilib boruvchi)
+qatlamlari. Barglar va gullar — sof CSS (radial-gradient, border-radius,
+transform) orqali ketma-ket ochiladi, offset-path yoki JS talab
+qilinmaydi. JS ulanishi UMUMIY: ".ochilish-anim" klassi va
+"data-davomiylik" atributi orqali (_skript.html'dagi #ochish-tugma
+handleri buni avtomatik topadi) — bu faylga alohida JS yozish shart
+emas, _skript.html'ga ham tegish shart emas.
+
+Diqqat: bu partial O'ZINING #parda CSS'ini o'zi olib yuradi (boshqa
+signature partiallar kabi) — shuning uchun buni ulagan shablon
+extra_style'ida "_uslub_parda.html" ULANMASLIGI kerak (u boshqa shakl
+uchun mo'ljallangan #parda qoidalarini beradi va bu bilan to'qnashadi).
+Hozircha HECH BIR shablonga ulanmagan — qaysi shablon(lar)ga ulash
+kerakligi hali hal qilinmagan.
+{% endcomment %}
+<style>
+#parda {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    background: radial-gradient(130% 95% at 50% 10%, #fffaf0, #f2e8d4 62%, #e7d7b8 100%);
+    text-align: center; padding: 40px 24px 56px;
+    transition: opacity .55s ease, visibility .55s ease;
+}
+#parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.ii-kelgan {
+    display: inline-block; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #6b5a3a; margin: 0 0 22px; max-width: 78vw;
+}
+
+.ii-wrap { position: relative; width: min(280px, 82vw); aspect-ratio: 220 / 240; }
+.ii-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+.ii-ip-fon {
+    fill: none; stroke: var(--asos, #8a9b6e); stroke-width: 1; stroke-linecap: round;
+    opacity: .16; stroke-dasharray: 1; stroke-dashoffset: 0;
+}
+.ii-ip-motiv {
+    fill: none; stroke: var(--asos, #5f7a45); stroke-width: 1.3; stroke-linecap: round;
+    opacity: .72; stroke-dasharray: 1; stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1s cubic-bezier(.3,.6,.25,1) .25s;
+}
+.ii-yon--ong .ii-ip-motiv { transition-delay: .32s; }
+.ii-wrap.is-open .ii-ip-motiv { stroke-dashoffset: 0; }
+
+.ii-barg {
+    position: absolute; width: 11px; height: 7px; margin: -3.5px -5.5px;
+    border-radius: 0 70% 0 70%; transform-origin: 0% 50%;
+    background: linear-gradient(135deg, #9db67e, #4f6b3a);
+    box-shadow: 0 1px 2px rgba(60,70,35,.25);
+    opacity: 0; transform: scale(.25) rotate(var(--rot, 0deg));
+    transition: opacity .45s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.ii-wrap.is-open .ii-barg { opacity: .92; transform: scale(1) rotate(var(--rot, 0deg)); }
+.ii-barg--ong { border-radius: 70% 0 70% 0; transform-origin: 100% 50%; }
+.ii-barg--1 { left: 16%; top: 69%; --rot: -18deg; transition-delay: .4s; }
+.ii-barg--2 { left: 30%; top: 36%; --rot: 12deg; transition-delay: .7s; }
+.ii-barg--3 { left: 84%; top: 69%; --rot: 18deg; transition-delay: .45s; }
+.ii-barg--4 { left: 70%; top: 36%; --rot: -12deg; transition-delay: .75s; }
+
+.ii-gul {
+    position: absolute; width: 10px; height: 10px; margin: -5px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #fff, #f6e2c9 55%, var(--ii-gul-rang, #d69a6b) 100%);
+    box-shadow: 0 0 6px rgba(214,154,107,.5);
+    opacity: 0; transform: scale(.2);
+    transition: opacity .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.ii-wrap.is-open .ii-gul { opacity: 1; transform: scale(1); }
+.ii-gul--1 { left: 24%; top: 52%; transition-delay: .5s; }
+.ii-gul--2 { left: 76%; top: 52%; transition-delay: .75s; }
+.ii-gul--3 {
+    left: 50%; top: 11%; width: 14px; height: 14px; margin: -7px;
+    box-shadow: 0 0 8px rgba(214,154,107,.6);
+    transition-delay: .85s;
+}
+
+.ii-ism {
+    position: absolute; left: 50%; top: 58%; transform: translate(-50%,-46%); text-align: center; z-index: 5;
+    width: 84%;
+    opacity: .35; filter: blur(1.5px);
+    transition: opacity .9s ease .4s, filter .9s ease .4s, transform .9s ease .4s;
+}
+.ii-wrap.is-open .ii-ism { opacity: 1; filter: blur(0); transform: translate(-50%,-50%); }
+.ii-ism .ii-va { color: var(--sarlavha, #8a6a3a); font-style: italic; font-size: .85em; margin: 0 5px; }
+.ii-ism strong { font-weight: normal; color: #3c331e; font-size: 1.14rem; line-height: 1.4; }
+
+#ochish-tugma.ii-tugma {
+    margin-top: 20px; position: relative; width: auto; height: auto;
+    padding: 11px 26px; border-radius: 999px; border: 1px solid #9c7a3f;
+    background: transparent; color: #9c7a3f; font-size: .85rem; letter-spacing: 1px;
+    cursor: pointer; transition: background .3s, color .3s, opacity .4s ease;
+}
+@media (hover: hover) and (pointer: fine) { #ochish-tugma.ii-tugma:hover { background: #9c7a3f; color: #fffaf0; } }
+#ochish-tugma.ii-tugma.yashirin { opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .ii-ip-motiv, .ii-barg, .ii-gul, .ii-ism { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+<div id="parda">
+    <p class="ii-kelgan">
+        {% if mehmon %}{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}{% else %}{% trans "Sizga taklifnoma keldi" %}{% endif %}
+    </p>
+    <div class="ii-wrap ochilish-anim" data-davomiylik="1350" style="--ii-gul-rang: var(--sarlavha, #d69a6b);">
+        <svg viewBox="0 0 220 240" aria-hidden="true">
+            <defs>
+                <path id="ii-ip-d" pathLength="1" d="M18 225 C 40 190, 26 150, 50 118 C 68 92, 60 60, 104 30"/>
+            </defs>
+            <g class="ii-yon ii-yon--chap">
+                <use href="#ii-ip-d" class="ii-ip-fon"/>
+                <use href="#ii-ip-d" class="ii-ip-motiv"/>
+            </g>
+            <g class="ii-yon ii-yon--ong" transform="scale(-1,1) translate(-220,0)">
+                <use href="#ii-ip-d" class="ii-ip-fon"/>
+                <use href="#ii-ip-d" class="ii-ip-motiv"/>
+            </g>
+        </svg>
+        <div class="ii-barg ii-barg--1"></div>
+        <div class="ii-barg ii-barg--2"></div>
+        <div class="ii-barg ii-barg--ong ii-barg--3"></div>
+        <div class="ii-barg ii-barg--ong ii-barg--4"></div>
+        <div class="ii-gul ii-gul--1"></div>
+        <div class="ii-gul ii-gul--2"></div>
+        <div class="ii-gul ii-gul--3"></div>
+        <div class="ii-ism">
+            {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}<strong>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</strong>
+            {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}<strong>{{ taklifnoma.boshqa_tadbir_nomi }}</strong>
+            {% elif taklifnoma.ism_2 %}<strong>{{ taklifnoma.ism_1 }}</strong><span class="ii-va">&amp;</span><strong>{{ taklifnoma.ism_2 }}</strong>
+            {% else %}<strong>{{ taklifnoma.ism_1 }}</strong>
+            {% endif %}
+        </div>
+    </div>
+    <button id="ochish-tugma" class="ii-tugma" type="button">{% trans "Ochish" %}</button>
+</div>

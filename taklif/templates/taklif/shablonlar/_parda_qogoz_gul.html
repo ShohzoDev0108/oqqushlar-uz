@@ -1,0 +1,103 @@
+{% load i18n static %}
+{% comment %}
+"Qog'ozdagi gul" — Oqqushlar minimal/monoxrom ochilish ekrani. Ataylab
+tiyiq, siyoh-jigarrang chiziq san'ati — oltin emas. Bosh sahifadagi
+qog'oz varag'iga chizilgan botanik gul kabi tuyulishi kerak. JS
+ulanishi UMUMIY: ".ochilish-anim" klassi va "data-davomiylik" atributi
+orqali (_skript.html buni avtomatik topadi, qayta tegish shart emas).
+Bu partial o'zining #parda CSS'ini o'zi olib yuradi — shablon
+extra_style'ida "_uslub_parda.html" ULANMASLIGI kerak.
+{% endcomment %}
+<style>
+#parda {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    background: radial-gradient(125% 90% at 50% 8%, #fffdf9, #f5efe2 85%);
+    text-align: center; padding: 40px 24px 56px;
+    transition: opacity .55s ease, visibility .55s ease;
+    overflow: hidden;
+}
+#parda::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='qgn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23qgn)'/%3E%3C/svg%3E");
+    opacity: .05;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+#parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
+.qg-kelgan {
+    display: inline-block; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #5c5044; margin: 0 0 22px; max-width: 78vw; position: relative; z-index: 2;
+}
+.qg-wrap { position: relative; width: min(210px, 70vw); aspect-ratio: 200 / 340; z-index: 2; }
+.qg-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.qg-iz {
+    fill: none; stroke: var(--asos, #2e2620); stroke-width: 1.1; stroke-linecap: round; opacity: .55;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.1s cubic-bezier(.3,.6,.25,1);
+}
+.qg-wrap.is-open .qg-iz { stroke-dashoffset: 0; }
+.qg-nuqta {
+    opacity: 0; transform: scale(.4); transform-origin: 100px 300px;
+    transition: opacity .5s ease, transform .5s ease;
+}
+.qg-wrap.is-open .qg-nuqta { opacity: .8; transform: scale(1); }
+.qg-belgi {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: radial-gradient(circle, var(--asos, #2e2620) 0%, rgba(46,38,32,0) 72%);
+    opacity: 0; transform: scale(.3);
+    transition: opacity .6s ease, transform .6s ease;
+}
+.qg-belgi.b1 { top: 22%; left: 30%; transition-delay: .5s; }
+.qg-belgi.b2 { top: 14%; left: 62%; transition-delay: .62s; }
+.qg-belgi.b3 { top: 34%; left: 68%; transition-delay: .74s; }
+.qg-wrap.is-open .qg-belgi { opacity: .5; transform: scale(1); }
+.qg-ism {
+    position: absolute; left: 50%; top: 64%; transform: translate(-50%,-50%); text-align: center; z-index: 5;
+    opacity: 0; filter: blur(1.5px);
+    transition: opacity .7s ease .8s, filter .7s ease .8s, transform .7s ease .8s;
+}
+.qg-wrap.is-open .qg-ism { opacity: 1; filter: blur(0); transform: translate(-50%,-58%); }
+.qg-ism .va { color: var(--sarlavha, #4a4038); font-style: italic; font-size: .85em; margin: 0 5px; }
+.qg-ism strong { font-weight: normal; color: var(--asos, #2e2620); font-size: 1.14rem; line-height: 1.4; }
+#ochish-tugma.qg-tugma {
+    margin-top: 20px; position: relative; width: auto; height: auto; z-index: 2;
+    padding: 11px 26px; border-radius: 999px; border: 1px solid #5c5044;
+    background: transparent; color: #5c5044; font-size: .85rem; letter-spacing: 1px;
+    cursor: pointer; transition: background .3s, color .3s, opacity .4s ease;
+}
+@media (hover: hover) and (pointer: fine) { #ochish-tugma.qg-tugma:hover { background: #5c5044; color: #fffdf9; } }
+#ochish-tugma.qg-tugma.yashirin { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+    .qg-iz, .qg-nuqta, .qg-belgi, .qg-ism { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+<div id="parda">
+    <p class="qg-kelgan">
+        {% if mehmon %}{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}{% else %}{% trans "Sizga taklifnoma keldi" %}{% endif %}
+    </p>
+    <div class="qg-wrap ochilish-anim" data-davomiylik="1500">
+        <svg viewBox="0 0 200 340" aria-hidden="true">
+            <defs>
+                <radialGradient id="qg-nuqta-grad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="var(--asos, #2e2620)" stop-opacity=".9"/>
+                    <stop offset="100%" stop-color="var(--asos, #2e2620)" stop-opacity="0"/>
+                </radialGradient>
+            </defs>
+            <circle class="qg-nuqta" cx="100" cy="300" r="5" fill="url(#qg-nuqta-grad)"/>
+            <path class="qg-iz" pathLength="1" d="M100 300 C 94 268, 106 244, 99 214 C 93 186, 107 168, 100 140 C 94 118, 104 104, 92 84 C 82 68, 86 50, 70 34 C 58 22, 60 10, 46 2"/>
+            <circle class="qg-belgi b1" cx="70" cy="70" r="0"/>
+            <circle class="qg-belgi b2" cx="120" cy="46" r="0"/>
+            <circle class="qg-belgi b3" cx="132" cy="112" r="0"/>
+        </svg>
+        <div class="qg-ism">
+            {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}<strong>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</strong>
+            {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}<strong>{{ taklifnoma.boshqa_tadbir_nomi }}</strong>
+            {% elif taklifnoma.ism_2 %}<strong>{{ taklifnoma.ism_1 }}</strong><span class="va">&amp;</span><strong>{{ taklifnoma.ism_2 }}</strong>
+            {% else %}<strong>{{ taklifnoma.ism_1 }}</strong>
+            {% endif %}
+        </div>
+    </div>
+    <button id="ochish-tugma" class="qg-tugma" type="button">{% trans "Ochish" %}</button>
+</div>

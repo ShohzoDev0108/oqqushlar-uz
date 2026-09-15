@@ -1,0 +1,109 @@
+{% load i18n static %}
+{% comment %}
+"Ipak pardasi" aksi — Oqqushlar ochilish ekrani, ENG ARZON/ENGIL variant:
+SVG YO'Q, faqat ikkita ipak-teksturali panel + ularning uchrashuv nuqtasida
+paydo bo'ladigan romb bezak. Yopiq holatda panellar chetga surilgan,
+ochilganda markazga siljib uchrashadi, so'ng birga so'nib ismni ochadi.
+MILLATGA EMAS, BRENDGA bog'liq, istalgan shablonda ishlatilishi mumkin.
+JS ulanishi UMUMIY: ".ochilish-anim" klassi va "data-davomiylik" atributi
+orqali (_skript.html buni avtomatik topadi, qayta tegish shart emas — u
+kerakli vaqtda ".ipa-wrap" ustiga "is-open" klassini qo'shadi va
+"#parda" ga "yopilgan" klassini qo'shib pardani yopadi). Bu partial
+o'zining #parda CSS'ini o'zi olib yuradi — shablon extra_style'ida
+"_uslub_parda.html" ULANMASLIGI kerak.
+{% endcomment %}
+<style>
+#parda {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    background: radial-gradient(125% 90% at 50% 10%, #fdf8ec, #f0e2c8 75%);
+    text-align: center; padding: 40px 24px 56px;
+    transition: opacity .55s ease, visibility .55s ease;
+}
+#parda.yopilgan { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.ipa-kelgan {
+    display: inline-block; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #7a5c30; margin: 0 0 24px; max-width: 78vw;
+}
+
+.ipa-wrap {
+    position: relative; width: min(240px, 74vw); aspect-ratio: 200 / 340;
+    overflow: hidden; border-radius: 2px;
+}
+
+/* ipak teksturali panellar */
+.ipa-panel {
+    position: absolute; top: 0; bottom: 0; width: 52%; z-index: 5;
+    background:
+        repeating-linear-gradient(112deg, rgba(255,255,255,.55) 0px, rgba(255,255,255,.55) 2px, transparent 2px, transparent 7px),
+        linear-gradient(160deg, #fbf3df 0%, #ecd8a6 55%, #e2c789 100%);
+    box-shadow: 0 0 18px rgba(122, 92, 48, .18);
+    transition: transform 1.05s cubic-bezier(.65, 0, .35, 1), opacity .8s ease;
+}
+.ipa-panel--chap { left: 0; transform: translateX(-62%); transform-origin: left center; }
+.ipa-panel--ong  { right: 0; transform: translateX(62%);  transform-origin: right center; }
+
+/* markazda uchrashadigan romb bezak */
+.ipa-panel::before {
+    content: ""; position: absolute; top: 50%; width: 22px; height: 22px;
+    background: var(--sarlavha, #7c3f30); opacity: .82;
+    transform: translateY(-50%) rotate(45deg) scale(.35);
+    transition: transform 1.05s cubic-bezier(.65, 0, .35, 1) .05s, opacity .5s ease;
+}
+.ipa-panel--chap::before { right: -11px; }
+.ipa-panel--ong::before  { left: -11px; }
+
+/* ochilgan holat: panellar markazga siljib uchrashadi, romb kattalashadi,
+   so'ng ikkalasi ham birgalikda so'nib ismni ochadi (delay bilan) */
+.ipa-wrap.is-open .ipa-panel {
+    transform: translateX(0);
+    transition: transform 1.05s cubic-bezier(.65, 0, .35, 1), opacity .8s ease .5s;
+    opacity: 0; pointer-events: none;
+}
+.ipa-wrap.is-open .ipa-panel::before {
+    transform: translateY(-50%) rotate(45deg) scale(1);
+}
+
+.ipa-ism {
+    position: absolute; left: 50%; top: 50%; width: 100%; z-index: 2;
+    transform: translate(-50%, -50%); text-align: center; padding: 0 10px;
+    opacity: 0; filter: blur(2px);
+    transition: opacity .65s ease .7s, filter .65s ease .7s;
+}
+.ipa-wrap.is-open .ipa-ism { opacity: 1; filter: blur(0); }
+.ipa-ism .va { color: var(--sarlavha, #7c3f30); font-style: italic; font-size: .85em; margin: 0 5px; }
+.ipa-ism strong { font-weight: normal; color: var(--asos, #3a2c16); font-size: 1.14rem; line-height: 1.4; }
+
+#ochish-tugma.ipa-tugma {
+    margin-top: 22px; position: relative; width: auto; height: auto;
+    padding: 11px 26px; border-radius: 999px; border: 1px solid #8a5f22;
+    background: transparent; color: #8a5f22; font-size: .85rem; letter-spacing: 1px;
+    cursor: pointer; transition: background .3s, color .3s, opacity .4s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+    #ochish-tugma.ipa-tugma:hover { background: #8a5f22; color: #fdf8ec; }
+}
+#ochish-tugma.ipa-tugma.yashirin { opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .ipa-panel, .ipa-panel::before, .ipa-ism { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+<div id="parda">
+    <p class="ipa-kelgan">
+        {% if mehmon %}{% blocktrans with ism=mehmon.ism %}Hurmatli {{ ism }}, sizga taklifnoma keldi{% endblocktrans %}{% else %}{% trans "Sizga taklifnoma keldi" %}{% endif %}
+    </p>
+    <div class="ipa-wrap ochilish-anim" data-davomiylik="1400">
+        <div class="ipa-panel ipa-panel--chap"></div>
+        <div class="ipa-panel ipa-panel--ong"></div>
+        <div class="ipa-ism">
+            {% if taklifnoma.sunnat_toy_qoshma_sarlavha %}<strong>{{ taklifnoma.sunnat_toy_qoshma_sarlavha }}</strong>
+            {% elif taklifnoma.marosim_turi == "boshqa" and taklifnoma.boshqa_tadbir_nomi %}<strong>{{ taklifnoma.boshqa_tadbir_nomi }}</strong>
+            {% elif taklifnoma.ism_2 %}<strong>{{ taklifnoma.ism_1 }}</strong><span class="va">&amp;</span><strong>{{ taklifnoma.ism_2 }}</strong>
+            {% else %}<strong>{{ taklifnoma.ism_1 }}</strong>
+            {% endif %}
+        </div>
+    </div>
+    <button id="ochish-tugma" class="ipa-tugma" type="button">{% trans "Ochish" %}</button>
+</div>

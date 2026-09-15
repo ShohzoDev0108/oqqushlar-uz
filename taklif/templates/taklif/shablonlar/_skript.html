@@ -231,10 +231,20 @@ elementining data-atributlarida turadi — sababi o'sha yerda izohlangan.
             // ravishda uchib/tushib ketadi (CSS: .parda-kabutarlar.yashirin).
             var kabutarlar = document.querySelector('.parda-kabutarlar');
             if (kabutarlar) { kabutarlar.classList.add('yashirin'); }
+            // Signature ochilish animatsiyalari (patning izi, ipak izi va
+            // h.k.) — har biri ".ochilish-anim" klassi va o'z davomiyligini
+            // "data-davomiylik" (millisekundda) orqali e'lon qiladi, shu
+            // bilan yangi mexanizm qo'shilganda bu yerga tegish shart emas.
+            var maxsusAnim = document.querySelector('.ochilish-anim');
+            var maxsusVaqt = 0;
+            if (maxsusAnim) {
+                maxsusAnim.classList.add('is-open');
+                maxsusVaqt = parseInt(maxsusAnim.dataset.davomiylik, 10) || 0;
+            }
             setTimeout(function () {
                 parda.classList.add('yopilgan');
                 pastgaIshora();
-            }, konvert ? 1500 : 0);
+            }, konvert ? 1500 : maxsusVaqt);
             try { sessionStorage.setItem(OCHILDI_KALITI, '1'); } catch (e) {}
             if (musiqa && musiqaTugma) {
                 musiqaTugma.classList.add('korinadi');
