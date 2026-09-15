@@ -10,13 +10,16 @@ xotirjamlikning oldini oladi: paqir media bilan bir xil bo'lsa yoki
 parol yo'q bo'lsa, buyruq jimgina ishlashi MUMKIN EMAS.
 """
 import datetime
+from unittest.mock import MagicMock, patch
 
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import SimpleTestCase, override_settings
 
 from taklif.management.commands.zaxira import (
+    Command,
     HAFTALIK_SAQLASH_KUNI,
+    HAJM_PASAYISH_CHEGARASI,
     KUNDALIK_SAQLASH_KUNI,
     NOM_NAQSHI,
     saqlanadimi,
@@ -87,6 +90,51 @@ class SaqlashMuddatiTest(SimpleTestCase):
         yo'qolib qolishi mumkin — shuning uchun chegara kuni ham qoladi."""
         sana = self.BUGUN - datetime.timedelta(days=KUNDALIK_SAQLASH_KUNI)
         self.assertTrue(saqlanadimi(sana, self.BUGUN))
+
+
+class HajmPasayishiTest(SimpleTestCase):
+    """TAFTISH TOPILMASI (2026-09-14): yangi nusxa oldingi eng so'nggisidan
+    shubhali darajada kichraysa, admin xabardor bo'lishi kerak (lekin
+    zaxira olish to'xtatilmaydi — sabab: docstring, zaxira.py)."""
+
+    def setUp(self):
+        self.buyruq = Command()
+
+    def test_oldingi_nusxa_bolmasa_hech_narsa_qilinmaydi(self):
+        with self.assertNoLogs("taklif.zaxira", level="ERROR"):
+            self.buyruq._hajm_pasayishini_tekshir(100, [])
+
+    def test_kichik_pasayish_ogohlantirmaydi(self):
+        # 90% — chegaradan (50%) yuqori, oddiy tebranish.
+        oldingi = [("k", datetime.date(2026, 9, 1), 1000)]
+        with self.assertNoLogs("taklif.zaxira", level="ERROR"):
+            self.buyruq._hajm_pasayishini_tekshir(900, oldingi)
+
+    def test_shubhali_pasayish_ogohlantiradi(self):
+        oldingi = [("k", datetime.date(2026, 9, 1), 1000)]
+        yangi_hajm = int(1000 * HAJM_PASAYISH_CHEGARASI) - 1
+        with self.assertLogs("taklif.zaxira", level="ERROR") as jurnal:
+            self.buyruq._hajm_pasayishini_tekshir(yangi_hajm, oldingi)
+        self.assertTrue(any("shubhali" in x for x in jurnal.output))
+
+
+class YuborishTekshiruviTest(SimpleTestCase):
+    """TAFTISH TOPILMASI (2026-09-14): hajm mos kelmasa (nomos yuklama),
+    R2'da qolib ketmasligi kerak — o'chirishga urinilishi shart."""
+
+    def test_hajm_mos_kelmasa_nomos_fayl_ochiriladi(self):
+        buyruq = Command()
+        soxta_mijoz = MagicMock()
+        soxta_mijoz.head_object.return_value = {"ContentLength": 5}
+
+        with patch.object(Command, "_mijoz", return_value=soxta_mijoz), \
+             patch("builtins.open", MagicMock()):
+            with self.assertRaises(CommandError):
+                buyruq._yuborish("paqir", "nom.gpg", "/soxta/yol", 999)
+
+        soxta_mijoz.delete_object.assert_called_once_with(
+            Bucket="paqir", Key="nom.gpg"
+        )
 
 
 class FaylNomiTest(SimpleTestCase):

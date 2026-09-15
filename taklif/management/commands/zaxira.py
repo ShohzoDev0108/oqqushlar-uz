@@ -49,6 +49,7 @@ import os
 import re
 import subprocess
 import tempfile
+import threading
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
@@ -66,6 +67,15 @@ NOM_NAQSHI = re.compile(r"^zaxira/oqqushlar-(\d{4})-(\d{2})-(\d{2})-\d{4}\.dump\
 # batafsil, uzoq o'tmish siyrak.
 KUNDALIK_SAQLASH_KUNI = 14
 HAFTALIK_SAQLASH_KUNI = 56
+
+# TAFTISH TOPILMASI (2026-09-14): yangi nusxa oldingi eng so'nggisidan shu
+# nisbatdan KICHIKROQ chiqsa (masalan yarmidan ko'proq kichraysa), bu
+# "texnik jihatdan muvaffaqiyatli, lekin mazmunan shubhali" holat deb
+# hisoblanadi — pg_dump xatosiz tugashi mumkin, lekin baza kutilmaganda
+# deyarli bo'shab qolgan bo'lsa (masalan noto'g'ri ulanish yoki adashib
+# bosilgan ommaviy o'chirish), bu "hajm juda kichik" tekshiruvidan
+# (mutlaq chegara — pastda) o'tib ketadi. Qarang: _hajm_pasayishini_tekshir.
+HAJM_PASAYISH_CHEGARASI = 0.5
 
 
 def saqlanadimi(sana, bugun):
@@ -132,10 +142,16 @@ class Command(BaseCommand):
             self._eskilarni_tozalash(paqir, sinov=True)
             return
 
+        # Solishtirish uchun OLDINGI ro'yxat, yuborishdan OLDIN olinadi —
+        # aks holda yangi nusxaning o'zi ro'yxatga kirib, "oldingi eng
+        # so'nggisi" bilan o'zini solishtirib qo'yardi.
+        oldingi_nusxalar = self._nusxalar(paqir)
+
         with tempfile.TemporaryDirectory(prefix="oqqushlar-zaxira-") as papka:
             yol = os.path.join(papka, "zaxira.gpg")
             hajm = self._dump_va_shifrla(yol, parol)
             self.stdout.write(f"Nusxa yasaldi: {self._olcham(hajm)}")
+            self._hajm_pasayishini_tekshir(hajm, oldingi_nusxalar)
             self._yuborish(paqir, nom, yol, hajm)
 
         self.stdout.write(self.style.SUCCESS(f"Yuborildi: {paqir}/{nom}"))
@@ -176,6 +192,20 @@ class Command(BaseCommand):
             "--output", yol,
         ]
 
+        # TAFTISH TOPILMASI (2026-09-14): ilgari har ikkala jarayonning
+        # stderr'i FAQAT pastdagi ko'chirish sikli tugagach o'qilardi.
+        # Operatsion tizimning quvur bufferi cheklangan (odatda ~64KB) —
+        # agar pg_dump yoki gpg shu ko'chirish davomida ko'p miqdorda
+        # ogohlantirish/xato yozib yuborsa (aynan xatolik yuz berganda bu
+        # eng ehtimolli payt!), stderr bufferi to'lib, o'sha jarayon
+        # yozishni davom ettira olmay TO'XTAB QOLARDI — asosiy oqim esa
+        # hali stdout->stdin ko'chirish bilan band, stderr'ni o'qishga
+        # yetib ulgurmagan bo'lardi. Ikkalasi bir-birini abadiy kutib
+        # QOTIB QOLISHI (deadlock) mumkin edi. Endi ikkala stderr alohida
+        # ipda (thread) ko'chirish bilan BIR VAQTDA to'liq o'qib olinadi.
+        def _oqimni_toliq_oqi(oqim, natija):
+            natija.append(oqim.read())
+
         with open(os.devnull, "wb") as bekor:
             dump = subprocess.Popen(
                 dump_buyrugi, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=muhit
@@ -183,6 +213,18 @@ class Command(BaseCommand):
             gpg = subprocess.Popen(
                 gpg_buyrugi, stdin=subprocess.PIPE, stdout=bekor, stderr=subprocess.PIPE
             )
+
+            dump_xato_natija = []
+            gpg_xato_natija = []
+            dump_stderr_ipi = threading.Thread(
+                target=_oqimni_toliq_oqi, args=(dump.stderr, dump_xato_natija)
+            )
+            gpg_stderr_ipi = threading.Thread(
+                target=_oqimni_toliq_oqi, args=(gpg.stderr, gpg_xato_natija)
+            )
+            dump_stderr_ipi.start()
+            gpg_stderr_ipi.start()
+
             # Parolni birinchi qatorda beramiz, keyin dump oqimini uzatamiz.
             gpg.stdin.write((parol + "\n").encode())
             gpg.stdin.flush()
@@ -190,10 +232,13 @@ class Command(BaseCommand):
                 gpg.stdin.write(bolak)
             gpg.stdin.close()
             dump.stdout.close()
-            gpg_xato = gpg.stderr.read()
+
             gpg.wait()
-            dump_xato = dump.stderr.read()
             dump.wait()
+            dump_stderr_ipi.join()
+            gpg_stderr_ipi.join()
+            dump_xato = dump_xato_natija[0]
+            gpg_xato = gpg_xato_natija[0]
 
         if dump.returncode != 0:
             raise CommandError(f"pg_dump xatolik berdi: {dump_xato.decode(errors='replace')[:500]}")
@@ -207,6 +252,33 @@ class Command(BaseCommand):
         if hajm < 1024:
             raise CommandError(f"Zaxira fayli juda kichik ({hajm} bayt) — nosozlik.")
         return hajm
+
+    def _hajm_pasayishini_tekshir(self, yangi_hajm, oldingi_nusxalar):
+        """Yangi nusxa oldingi eng so'nggisidan shubhali darajada kichik
+        bo'lsa, ogohlantiradi — lekin zaxira olishni TO'XTATMAYDI.
+
+        ATAYLAB xato (CommandError) emas: baza haqiqatan kichraygan
+        bo'lishi mumkin (masalan eski_chiqindilarni_tozalash ishlagandan
+        keyin) — bunday holatda bitta kechalik zaxirani BUTUNLAY
+        o'tkazib yuborish, shubhani sukut bilan o'tkazib yuborishdan
+        battar bo'lardi. Shuning uchun faqat ERROR darajasida jurnalga
+        (demak — settings.LOGGING orqali Telegram'ga ham) xabar beriladi,
+        admin o'zi tekshirib ko'radi.
+        """
+        if not oldingi_nusxalar:
+            return  # birinchi nusxa — solishtiradigan hech narsa yo'q
+        _kalit, _sana, oldingi_hajm = oldingi_nusxalar[0]
+        if oldingi_hajm <= 0:
+            return
+        nisbat = yangi_hajm / oldingi_hajm
+        if nisbat < HAJM_PASAYISH_CHEGARASI:
+            jurnal.error(
+                "Zaxira hajmi shubhali darajada kichraydi: %s -> %s "
+                "(oldingisining %.0f%%i) — baza kutilmaganda bo'shab "
+                "qolgan bo'lishi mumkin, tekshiring.",
+                self._olcham(oldingi_hajm), self._olcham(yangi_hajm),
+                nisbat * 100,
+            )
 
     # ---------- R2 ----------
 
@@ -238,8 +310,27 @@ class Command(BaseCommand):
         # lekin fayl yetib bormasligi ham mumkin — hajmni solishtiramiz.
         javob = mijoz.head_object(Bucket=paqir, Key=nom)
         if javob["ContentLength"] != hajm:
+            # TAFTISH TOPILMASI (2026-09-14): ilgari bu yerda faqat xato
+            # ko'tarilardi — R2'da NOMOS (qisqa/buzuq) fayl ABADIY qolib
+            # ketardi. Keyingi safar --royxat/--tekshir buni "eng oxirgi
+            # nusxa" deb noto'g'ri qabul qilishi (yoki hech bo'lmasa
+            # bekorga joy egallashi) mumkin edi. Endi bunday holda nomos
+            # fayl DARHOL R2'dan o'chiriladi — xato baribir ko'tariladi
+            # (Telegram'ga xabar boradi), lekin R2'da faqat HAQIQIY
+            # nusxalar qoladi.
+            try:
+                mijoz.delete_object(Bucket=paqir, Key=nom)
+            except Exception:
+                # taklif.zaxira logeri faqat ERROR darajasini Telegram'ga
+                # yuboradi (settings.LOGGING) — bu ikkilamchi muvaffaqiyat-
+                # sizlik ham ko'rinmasdan qolmasligi kerak.
+                jurnal.error(
+                    "Nomos yuklangan zaxira faylini R2'dan o'chirib bo'lmadi: "
+                    "%s/%s", paqir, nom, exc_info=True,
+                )
             raise CommandError(
-                f"Yuborilgan fayl hajmi mos emas: {javob['ContentLength']} != {hajm}"
+                f"Yuborilgan fayl hajmi mos emas: {javob['ContentLength']} != "
+                f"{hajm} — nomos fayl R2'dan o'chirishga urinildi."
             )
 
     def _nusxalar(self, paqir):

@@ -13,10 +13,12 @@ Mijozga ochiq POST manzillari esa butunlay cheklovsiz edi:
 Testlarda kesh HAR SAFAR tozalanadi: aks holda bir test ikkinchisining
 hisobini meros qilib olardi va natijalar tartibga bog'liq bo'lib qolardi.
 """
+from unittest.mock import MagicMock, patch
+
 from django.core.cache import caches
 from django.test import Client, RequestFactory, TestCase, override_settings
 
-from taklif.chegara import YARATISH_CHEGARASI, mijoz_ip
+from taklif.chegara import YARATISH_CHEGARASI, _bir_vaqtda_faqat_bitta, mijoz_ip
 from taklif.models import RSVP, Taklifnoma
 from taklif.tests.yordamchi import ASOSIY_FORMA_MAYDONLARI, shablon_yarat
 
@@ -107,6 +109,47 @@ class YaratishChegarasiTest(TestCase):
 
         javob = self._yarat("Oxirgi")
         self.assertContains(javob, "Biroz kuting", status_code=429)
+
+
+class BirVaqtdaFaqatBittaTest(TestCase):
+    """TAFTISH TOPILMASI (2026-09-14): "o'qi -> tekshir -> yoz" ketma-ketligi
+    atomik emas edi — endi PostgreSQL'da pg_advisory_xact_lock bilan
+    o'raladi. Mahalliy test muhiti SQLite ishlatgani uchun haqiqiy
+    parallellikni sinab bo'lmaydi (bitta jarayon, bitta ulanish) — shu
+    bois bu yerda ikkita narsa tekshiriladi: (1) SQLite'da qulf shunchaki
+    chetlab o'tilishi (no-op, xatosiz); (2) PostgreSQL vendor'i bilan
+    to'g'ri SQL chaqirilishi (haqiqiy Postgres serversiz, mock orqali)."""
+
+    def test_sqlite_da_qulf_shunchaki_otkazib_yuboriladi(self):
+        # Mahalliy/test muhiti SQLite bo'lgani uchun bu shart haqiqiy
+        # ishlaydi (mock shart emas) — qulfsiz, xatosiz o'tishi kerak.
+        bajarildi = False
+        with _bir_vaqtda_faqat_bitta("sinov-kaliti"):
+            bajarildi = True
+        self.assertTrue(bajarildi)
+
+    def test_postgresqlda_advisory_lock_chaqiriladi(self):
+        soxta_kursor = MagicMock()
+        soxta_ulanish = MagicMock()
+        soxta_ulanish.vendor = "postgresql"
+        soxta_ulanish.cursor.return_value.__enter__.return_value = soxta_kursor
+
+        with patch("taklif.chegara.db_ulanish", soxta_ulanish), \
+             patch("taklif.chegara.transaction.atomic") as atomic_mock:
+            atomic_mock.return_value.__enter__.return_value = None
+            atomic_mock.return_value.__exit__.return_value = False
+            bajarildi = False
+            with _bir_vaqtda_faqat_bitta("chegara:yaratish:1.2.3.4"):
+                bajarildi = True
+
+        self.assertTrue(bajarildi)
+        soxta_kursor.execute.assert_called_once()
+        sorov, parametrlar = soxta_kursor.execute.call_args[0]
+        self.assertIn("pg_advisory_xact_lock", sorov)
+        # Xesh raqami — CRC32, 32-bitli musbat butun son bo'lishi shart.
+        self.assertEqual(len(parametrlar), 1)
+        self.assertGreaterEqual(parametrlar[0], 0)
+        self.assertLess(parametrlar[0], 2**32)
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"], ISHONCHLI_PROKSI=False)

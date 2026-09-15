@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import get_language, gettext_lazy as _, pgettext_lazy
 
-from .rasm import NAMUNA_MAKS_TOMON, optimallashtir
+from .rasm import NAMUNA_MAKS_TOMON, RasmXatosi, optimallashtir
 from .translit import kirilldan_lotinga
 from .validators import FaylHajmiValidator
 
@@ -439,10 +439,22 @@ def _rasmni_optimallashtirib_saqlash(obyekt, maydon_nomi, maks_tomon=None):
     if maks_tomon is not None:
         kalitlar["maks_tomon"] = maks_tomon
     yangi = optimallashtir(maydon, **kalitlar)
-    if yangi is not None:
-        # save=False — fayl obyektga biriktiriladi, bazaga yozish esa
-        # chaqiruvchi save() ning o'z ishi (aks holda ikki marta yozilardi).
-        maydon.save(yangi.name, yangi, save=False)
+    if yangi is None:
+        # TAFTISH TOPILMASI (2026-09-14): ilgari shu yerda hech narsa
+        # qilinmasdi — "maydon" ASL (siqilmagan, EXIF/GPS metama'lumoti
+        # o'chirilmagan) fayl bilan o'zgarishsiz qolib, shu holda bazaga
+        # yozilardi. Bu rasm.py boshidagi izohda aytilgan ikkala asosiy
+        # maqsadni ham (og'irlik VA maxfiylik) aynan xato holatda buzardi.
+        # Endi bunday holatda saqlash to'xtatiladi — chaqiruvchi
+        # (TaklifnomaRasm/NamunaRasm.save()) bu xatoni ushlab, mijozga
+        # tushunarli javob berishi kerak (qarang: RasmXatosi — rasm.py).
+        raise RasmXatosi(
+            "Rasmni xavfsiz qayta ishlab bo'lmadi (buzuq fayl, "
+            "qo'llab-quvvatlanmaydigan format yoki juda katta o'lcham)."
+        )
+    # save=False — fayl obyektga biriktiriladi, bazaga yozish esa
+    # chaqiruvchi save() ning o'z ishi (aks holda ikki marta yozilardi).
+    maydon.save(yangi.name, yangi, save=False)
 
 
 class NamunaRasm(models.Model):
@@ -693,6 +705,22 @@ class Taklifnoma(models.Model):
         from .sana import uzun_sana
 
         return uzun_sana(timezone.localtime(self.sana))
+
+    @property
+    def oy_yil(self):
+        """Marosim oyi va yili (kunsiz), joriy tilning o'z qoidasi bo'yicha.
+
+        Shablonlarda `{{ taklifnoma.oy_yil }}` deb ishlatiladi — "Marosim
+        kalendari" bo'limi sarlavhasida ("Oktabr 2026" kabi). TAFTISH
+        TOPILMASI (2026-09-14): ilgari bu yerda oddiy Django `date:"F Y"`
+        filtri ishlatilgan, u esa "sana_uzun" xossasi hal qilgan xuddi
+        shu muammoga duchor edi (qarang: "taklif/sana.py" boshidagi izoh).
+        """
+        from django.utils import timezone
+
+        from .sana import oy_yil
+
+        return oy_yil(timezone.localtime(self.sana))
 
     def get_statistika_url(self):
         return reverse("taklif:statistika", kwargs={"token": self.statistika_token})

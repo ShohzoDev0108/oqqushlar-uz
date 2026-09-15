@@ -69,10 +69,33 @@ class OptimallashtirishTest(TestCase):
         self.assertLess(len(natija.read()), asl_hajm)
 
     def test_buzuq_fayl_sorovni_qulatmaydi(self):
-        """Rasm optimallashmasa ham mijozning taklifnomasi yaratilishi
-        kerak — buzuq fayl uchun butun so'rovni qulatish nomutanosib."""
+        """`optimallashtir()`ning o'zi buzuq fayl uchun istisno (exception)
+        ko'tarmasligi kerak — sof funksiya sifatida jimgina None qaytaradi.
+
+        DIQQAT (2026-09-14 yangilandi): bu "None qaytarish" endi so'rovni
+        MUVAFFAQIYATLI davom ettirish degani EMAS — chaqiruvchi tomon
+        (`_rasmni_optimallashtirib_saqlash`, models.py) buni RasmXatosi
+        sifatida ko'taradi, `taklif/views.py`dagi yaratish oqimi esa bunday
+        faylni taklifnoma yaratilishidan OLDIN rad etadi (qarang:
+        test_yaratish.py -> test_buzuq_rasm_rad_etiladi_va_hech_narsa_saqlanmaydi).
+        Bu test faqat quyi darajadagi funksiyaning o'zi qulamasligini
+        tekshiradi."""
         buzuq = SimpleUploadedFile("buzuq.jpg", b"bu rasm emas", content_type="image/jpeg")
         self.assertIsNone(optimallashtir(buzuq))
+
+    def test_piksel_chegarasidan_katta_rasm_rad_etiladi(self):
+        """"Dekompressiya bombasi"dan himoya (MAKS_PIKSEL — rasm.py).
+
+        Haqiqiy bombani sinovda hosil qilish (masalan o'n minglab x o'n
+        minglab piksel) test muhitida ham xotira sarflaydi — shuning uchun
+        chegaraning o'zini vaqtincha pasaytirib, oddiy kichik rasm bilan
+        tekshiramiz.
+        """
+        from unittest.mock import patch
+
+        with patch("taklif.rasm.MAKS_PIKSEL", 100):
+            natija = optimallashtir(_yuklangan(kenglik=400, balandlik=300))
+        self.assertIsNone(natija)
 
 
 class ExifMaxfiyligiTest(TestCase):
@@ -136,3 +159,18 @@ class ModelSaqlashTest(TestCase):
         obyekt.save()
 
         self.assertEqual(obyekt.rasm.name, birinchi_nom)
+
+    def test_buzuq_rasm_saqlanmaydi(self):
+        """TAFTISH TOPILMASI (2026-09-14): ilgari buzuq fayl optimallashmay
+        qolsa ham, ASL (EXIF/GPS'li) fayl bilan baribir saqlanardi. Endi
+        umuman saqlanmaydi — RasmXatosi ko'tariladi."""
+        from taklif.rasm import RasmXatosi
+
+        with self.assertRaises(RasmXatosi):
+            TaklifnomaRasm.objects.create(
+                taklifnoma=self.taklifnoma,
+                rasm=SimpleUploadedFile(
+                    "buzuq.jpg", b"bu rasm emas", content_type="image/jpeg"
+                ),
+            )
+        self.assertEqual(self.taklifnoma.rasmlar.count(), 0)

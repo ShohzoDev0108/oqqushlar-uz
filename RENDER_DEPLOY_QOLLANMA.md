@@ -1,5 +1,9 @@
 # Oqqushlar — Render'ga deploy qilish qo'llanmasi
 
+> **ESKIRGAN (2026-09-14):** loyiha endi Render.com'da EMAS — Hetzner
+> VPS'da (systemd + gunicorn + nginx) ishlaydi. Bu qo'llanma faqat tarixiy
+> murojaat uchun saqlanmoqda, joriy deploy jarayoni uchun ishlatmang.
+
 Bu hujjat loyihani Render'da (PostgreSQL + rasmlar uchun Cloudflare R2 bilan) birinchi marta ishga tushirish uchun qadam-baqadam yo'riqnoma. Har bir qadamda men (Claude) yordam bera olaman — qayerda qotib qolsangiz, shu yerdagi qadam raqamini ayting.
 
 Boshlashdan oldin: loyiha kodi tayyor (PostgreSQL va tashqi rasm-xotira qo'llab-quvvatlanadi, render.yaml fayli bor). Sizga qolgan ish — ikkita xizmatda (Cloudflare, Render) hisob ochish va ularni bir-biriga ulash.

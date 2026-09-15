@@ -1,3 +1,9 @@
+# ESKIRGAN (2026-09-14): loyiha endi Render.com'da EMAS, Hetzner VPS'da
+# systemd + gunicorn + nginx orqali ishlaydi (dizayn/server/ papkasiga
+# qarang). Bu fayl Render'ga hech qachon avtomatik qayta ulanmagan —
+# Render'ni ATAYLAB tanlamaslik qaroridan keyin ham shu yerda faqat tarixiy
+# murojaat uchun qolmoqda, xavfsiz o'chirish mumkin.
+#
 # Render.com uchun "Blueprint" fayli.
 #
 # Bu fayl orqali Render'da veb-server va PostgreSQL ma'lumotlar bazasini

@@ -176,6 +176,98 @@ OY_EN = {
 }
 
 
+# ---------------------------------------------------------------------------
+# OY + YIL (kun ko'rsatilmagan holat)
+# ---------------------------------------------------------------------------
+# TAFTISH TOPILMASI (2026-09-14): "Marosim kalendari" bo'limining sarlavhasida
+# ("Oktabr 2026" kabi) ilgari oddiy Django `date:"F Y"` filtri ishlatilgan —
+# bu esa Django'ning o'z oy-nomi katalogiga tayanadi. O'sha katalog
+# qoraqalpoq tili uchun umuman yo'q (jimgina o'zbekchaga qaytib, xato shaklda
+# ko'rsatadi) va boshqa tillar bilan ham yuqorida tushuntirilgan sabablarga
+# ko'ra mos kelmaydi.
+#
+# Bu yerdagi shakllar kun bilan birga kelmagani uchun YUQORIDAGI jadvallardan
+# farq qiladi: ruscha, qirg'izcha va tojikcha oy nomlari kunga bog'liq
+# kelishik/izofa qo'shimchasini OLMAYDI — mustaqil holda BOSH kelishikda
+# turadi ("12 октября" emas, faqat "Октябрь"; "12-уми октябри" emas, faqat
+# "Октябр"). O'zbek, qoraqalpoq va qozoqchada oy shakli kundan qat'i nazar
+# o'zgarmagani uchun yuqoridagi jadvaldan to'g'ridan-to'g'ri foydalaniladi.
+OY_RU_MUSTAQIL = {
+    1: "Январь", 2: "Февраль", 3: "Март", 4: "Апрель", 5: "Май",
+    6: "Июнь", 7: "Июль", 8: "Август", 9: "Сентябрь", 10: "Октябрь",
+    11: "Ноябрь", 12: "Декабрь",
+}
+
+OY_TG_MUSTAQIL = {
+    1: "Январ", 2: "Феврал", 3: "Март", 4: "Апрел", 5: "Май",
+    6: "Июн", 7: "Июл", 8: "Август", 9: "Сентябр", 10: "Октябр",
+    11: "Ноябр", 12: "Декабр",
+}
+
+OY_KY_MUSTAQIL = {
+    1: "Январь", 2: "Февраль", 3: "Март", 4: "Апрель", 5: "Май",
+    6: "Июнь", 7: "Июль", 8: "Август", 9: "Сентябрь", 10: "Октябрь",
+    11: "Ноябрь", 12: "Декабрь",
+}
+
+OY_TK_MUSTAQIL = {
+    1: "Ýanwar", 2: "Fewral", 3: "Mart", 4: "Aprel", 5: "Maý",
+    6: "Iýun", 7: "Iýul", 8: "Awgust", 9: "Sentýabr", 10: "Oktýabr",
+    11: "Noýabr", 12: "Dekabr",
+}
+
+
+def _oy_yil_uz(s):
+    return f"{OY_UZ[s.month].capitalize()} {s.year}"
+
+
+def _oy_yil_kaa(s):
+    return f"{OY_KAA[s.month].capitalize()} {s.year}"
+
+
+def _oy_yil_ru(s):
+    return f"{OY_RU_MUSTAQIL[s.month]} {s.year}"
+
+
+def _oy_yil_tg(s):
+    return f"{OY_TG_MUSTAQIL[s.month]} {s.year}"
+
+
+def _oy_yil_kk(s):
+    return f"{OY_KK[s.month].capitalize()} {s.year}"
+
+
+def _oy_yil_ky(s):
+    return f"{OY_KY_MUSTAQIL[s.month]} {s.year}"
+
+
+def _oy_yil_tk(s):
+    return f"{OY_TK_MUSTAQIL[s.month]} {s.year}"
+
+
+def _oy_yil_en(s):
+    return f"{OY_EN[s.month]} {s.year}"
+
+
+OY_YIL_QURUVCHILAR = {
+    "uz": _oy_yil_uz, "kaa": _oy_yil_kaa, "ru": _oy_yil_ru, "tg": _oy_yil_tg,
+    "kk": _oy_yil_kk, "ky": _oy_yil_ky, "tk": _oy_yil_tk, "en": _oy_yil_en,
+}
+
+
+def oy_yil(sana, til=None):
+    """Faqat oy va yilni (kunsiz) joriy tilning o'z qoidasi bo'yicha yozadi.
+
+    Masalan taklifnoma sahifasidagi "Marosim kalendari" bo'limi sarlavhasida
+    ishlatiladi ("Oktabr 2026" kabi). `uzun_sana`'dan farqi — bu yerda kun
+    yo'q, shuning uchun oy nomi HAR DOIM mustaqil (bosh kelishik) shaklda.
+    """
+    if til is None:
+        til = translation.get_language() or "uz"
+    til = til.split("-")[0]
+    return OY_YIL_QURUVCHILAR.get(til, _oy_yil_en)(sana)
+
+
 def _turkman_tartib(son):
     """Turkman tartib son qo'shimchasi: "-nji" yoki "-njy".
 

@@ -7,6 +7,7 @@ from urllib.parse import quote
 from django.conf import settings
 from django.contrib import messages
 from django.core.files.base import ContentFile
+from django.db import IntegrityError
 from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -25,6 +26,7 @@ from .forms import (
     STANDART_MAROSIM_TURI,
     TaklifnomaYaratishForm,
 )
+from .rasm import RasmXatosi, optimallashtir
 from .models import (
     CHIQINDI_SAQLASH_KUNLARI,
     DASTUR_MAKS_BAND,
@@ -163,7 +165,8 @@ KORISH_SESSIYA_KALITI = "korilgan_taklifnoma_sluglari"
 
 
 def _rasmlar_xatosini_tekshir(request):
-    """Mijoz o'zi yuklagan (tayyor namuna emas) fotolarning hajmini tekshiradi.
+    """Mijoz o'zi yuklagan (tayyor namuna emas) fotolarning hajmini va
+    haqiqatan rasm ekanini tekshiradi.
 
     TaklifnomaRasm ModelForm orqali emas, to'g'ridan-to'g'ri yaratilgani
     uchun (pastdagi _taklifnoma_rasmlarini_saqlash) modeldagi
@@ -181,6 +184,23 @@ def _rasmlar_xatosini_tekshir(request):
                 "hajm": fayl.size / (1024 * 1024),
                 "maks": RASM_MAKS_HAJM_MB,
             }
+
+    # TAFTISH TOPILMASI (2026-09-14): fayl hajmi to'g'ri bo'lsa ham, ichki
+    # mazmuni buzuq, tanilmaydigan format yoki piksel jihatidan haddan
+    # tashqari katta bo'lishi mumkin (rasm.py'dagi MAKS_PIKSEL/RasmXatosi
+    # izohiga qarang). Bunday holni taklifnoma allaqachon yaratilib
+    # bo'lgach (TaklifnomaRasm.save() ichida) emas, ALDINDAN — hali hech
+    # narsa bazaga yozilmasdan — ushlab, mijozga tushunarli xabar berish
+    # uchun shu yerda ham (bir martalik, arzon) tekshiruv qilinadi.
+    for fayl in request.FILES.getlist("rasmlar"):
+        fayl.seek(0)
+        sinov = optimallashtir(fayl)
+        fayl.seek(0)
+        if sinov is None:
+            return _(
+                "\"%(nomi)s\" faylini rasm sifatida ochib bo'lmadi. "
+                "Boshqa fayl tanlang (JPG, PNG yoki WebP)."
+            ) % {"nomi": fayl.name}
     return None
 
 
@@ -234,15 +254,47 @@ def _taklifnoma_rasmlarini_saqlash(taklifnoma, request):
                     exc_info=True,
                 )
                 continue
-            TaklifnomaRasm.objects.create(
-                taklifnoma=taklifnoma, rasm=nusxa, tartib=tartib
-            )
+            try:
+                TaklifnomaRasm.objects.create(
+                    taklifnoma=taklifnoma, rasm=nusxa, tartib=tartib
+                )
+            except RasmXatosi:
+                # Nazariy jihatdan deyarli imkonsiz (namuna rasm admin
+                # tomonidan yuklangan va allaqachon R2'da saqlangan), lekin
+                # himoya sifatida: bitta buzuq namuna butun so'rovni
+                # qulatmasin — jimgina o'tkazib yuboramiz, xato jurnalga
+                # (va Telegram'ga) yoziladi.
+                _logger.error(
+                    "Namuna rasm nusxasini optimallashtirib bo'lmadi "
+                    "(namuna_id=%s) — o'tkazib yuborildi",
+                    namuna.id,
+                    exc_info=True,
+                )
+                continue
             tartib += 1
 
     for rasm in request.FILES.getlist("rasmlar"):
         if tartib >= MAKSIMAL_RASMLAR_SONI:
             break
-        TaklifnomaRasm.objects.create(taklifnoma=taklifnoma, rasm=rasm, tartib=tartib)
+        try:
+            TaklifnomaRasm.objects.create(taklifnoma=taklifnoma, rasm=rasm, tartib=tartib)
+        except RasmXatosi:
+            # TAFTISH TOPILMASI (2026-09-14): bu holat odatda yuqoridagi
+            # _rasmlar_xatosini_tekshir() tomonidan ALDINDAN ushlanadi
+            # (mijoz forma xatosi ko'radi, taklifnoma yaratilmaydi). Bu
+            # yerdagi try/except — ikkinchi himoya qatlami: agar shu
+            # ikkalasi orasida fayl holati (masalan diskdan qayta o'qishda)
+            # o'zgarib qolsa ham, mijozning BUTUN taklifnoma yaratish
+            # so'rovi 500-xato bilan qulab tushmaydi — shunchaki shu bitta
+            # rasm o'tkazib yuboriladi, xato esa jurnalga yoziladi.
+            _logger.error(
+                "Mijoz yuklagan rasmni optimallashtirib bo'lmadi "
+                "(taklifnoma=%s, fayl=%s) — o'tkazib yuborildi",
+                taklifnoma.slug,
+                getattr(rasm, "name", None),
+                exc_info=True,
+            )
+            continue
         tartib += 1
 
 
@@ -596,7 +648,26 @@ def yaratish(request, shablon_kod):
                     # (bosh sahifa ro'yxati) chiqmaydi.
                     taklifnoma.tolangan = False
                     taklifnoma.faol = True
-                    taklifnoma.save()
+                    # TAFTISH TOPILMASI (2026-09-14): yuqoridagi slug
+                    # band-emasligi tekshiruvi (_band_emasligini_tekshir /
+                    # _bosh_slug_top) va shu yerdagi .save() orasida oz
+                    # bo'lsa-da vaqt oralig'i bor — agar aynan shu daqiqada
+                    # boshqa so'rov xuddi shu slug'ni band qilib ulgurgan
+                    # bo'lsa (masalan ikkita bir xil ismli mijoz bir vaqtda
+                    # "Yaratish"ni bossa), bazadagi UniqueConstraint
+                    # IntegrityError tashlab, mijoz 500-xato bilan qolib
+                    # ketardi. Endi shunday holatda bitta marta yangi
+                    # (mazmunli) slug qidirib qayta urinamiz — bu amalda
+                    # deyarli imkonsiz holat, shuning uchun ikkinchi marta
+                    # ham to'qnashsa, xato oddiy tartibda yuqoriga chiqadi.
+                    try:
+                        taklifnoma.save()
+                    except IntegrityError:
+                        taklifnoma.slug = _bosh_slug_top(
+                            asosiy, sana, marosim_turi, toyxona,
+                            chetlanganlar=(slug,),
+                        )
+                        taklifnoma.save()
 
                     _taklifnoma_rasmlarini_saqlash(taklifnoma, request)
 
@@ -886,6 +957,17 @@ def ulashish_kartochkasi(request, slug):
     )
     til = _ulashish_tili(request)
 
+    # TAFTISH TOPILMASI (2026-09-14): mijoz o'chirgan ("chiqindilar"ga
+    # o'tkazilgan — faol=False, lekin tolangan=True qolgan) taklifnomaning
+    # HAQIQIY kartochkasi (ismlar bilan) bu yerda hech qanday tekshiruvsiz
+    # chiqib turardi, chunki pastdagi shart faqat "tolangan"ni tekshirardi.
+    # `korish`dagi kabi — o'chirilgan taklifnoma ham begonaga (shu jumladan
+    # ijtimoiy tarmoq oldindan ko'rish botiga) haqiqiy ma'lumot
+    # ko'rsatmasligi kerak, shuning uchun bu yerda ham (mijozning o'zi
+    # bo'lsa ham) doim brend kartochkasi qaytariladi.
+    if not taklifnoma.faol:
+        return _rasm_javobi(reklama_kartochkasi(til), FAOL_EMAS_KESH_SONIYA)
+
     # Sahifadagi himoyaning AYNAN o'zi (yuqoridagi "_taklifnoma_sahifasi"ga
     # qarang): to'lov tasdiqlanmagan taklifnomaning ismi/sanasi begonaga
     # ko'rinmasligi kerak, va u yerda bu hatto meta teglar darajasida ham
@@ -1047,8 +1129,30 @@ def rsvp_submit(request, slug):
     yo'q — shu brauzer sessiyasi orqali "eng oxirgi javobim shu edi" deb
     eslab qolamiz, shunda oddiy qayta yuborish (masalan tugmani ikki marta
     bosish) baribir bitta yozuvni yangilaydi, ikkinchi yozuv qo'shilmaydi.
+
+    TAFTISH TOPILMASI (2026-09-14): shaxsiy linksiz javob uchun dedup
+    FAQAT sessiyaga tayanardi — bazada hech qanday zaxira (backstop) yo'q
+    edi. Sessiya esa yo'qolishi mumkin: mehmon cookie'larini tozalasa,
+    boshqa brauzer/qurilmadan kirsa yoki shunchaki sessiya muddati o'tsa
+    (SESSION_COOKIE_AGE — hozir 1 yil, lekin cheksiz emas), oldingi
+    tekshiruv butunlay ishlamay qolardi va xohlagancha yangi qator qo'sha
+    olardi — mehmonlar/keladiganlar soni haqiqiydan ko'p bo'lib chiqardi.
+    Endi sessiya topilmasa, BAZADAN ham tekshiriladi: shu taklifnomada
+    bir xil ism bilan (katta-kichik harfga qaramay) allaqachon shaxsiy
+    linksiz javob bo'lsa, o'sha yangilanadi. Bu mukammal emas — ikki
+    XILDA mehmon bir xil ism bilan yuborsa (masalan ikkita "Aziz"),
+    ikkinchisi birinchisining ustiga yozadi — lekin sukut bo'yicha
+    cheksiz duplikatdan ko'ra ancha xavfsizroq, ayniqsa RSVP_CHEGARASI
+    (bir IP'dan soatiga 40 ta) bilan birga ishlaganda.
+
+    TAFTISH TOPILMASI (2026-09-14): `tolangan=True` tekshiruvi yo'q edi —
+    ya'ni hali to'lanmagan (faollashtirilmagan) taklifnomaga ham RSVP
+    yuborish mumkin bo'lib qolardi, holbuki sahifaning o'zi (`korish`)
+    bunday holatda ismlarni ham begonadan berkitadi — mehmonga hali
+    umuman yuborilmagan havolaga RSVP yozilishi ma'nosiz va keraksiz
+    ma'lumot to'planishiga olib keladi.
     """
-    taklifnoma = get_object_or_404(Taklifnoma, slug=slug, faol=True)
+    taklifnoma = get_object_or_404(Taklifnoma, slug=slug, faol=True, tolangan=True)
 
     ism = _postdan_kesib_olish(request, "ism", 100)
     keladi = request.POST.get("keladi") == "ha"
@@ -1086,6 +1190,12 @@ def rsvp_submit(request, slug):
                 if eski_id
                 else None
             )
+            if eski_yozuv is None:
+                # Sessiya yo'q yoki mos kelmadi — bazadagi zaxira tekshiruv
+                # (yuqoridagi funksiya docstring'iga qarang).
+                eski_yozuv = RSVP.objects.filter(
+                    taklifnoma=taklifnoma, mehmon__isnull=True, ism__iexact=ism
+                ).first()
 
         # Tilak matni yangi yoki o'zgargan bo'lsa — qayta tasdiqlash talab
         # qilinadi. Aks holda: mezbon bir marta bitta matnni tasdiqlagan
@@ -1103,12 +1213,18 @@ def rsvp_submit(request, slug):
                 taklifnoma=taklifnoma, mehmon=mehmon, defaults=qiymatlar
             )
         else:
-            # Shaxsiy linksiz — sessiyada saqlangan oxirgi javob yozuvini
-            # yangilaymiz (agar bo'lsa), aks holda yangisini yaratamiz.
+            # Shaxsiy linksiz — sessiyada saqlangan (yoki ism bo'yicha
+            # bazadan topilgan) oxirgi javob yozuvini yangilaymiz (agar
+            # bo'lsa), aks holda yangisini yaratamiz.
             if eski_yozuv is not None:
                 for maydon, qiymat in qiymatlar.items():
                     setattr(eski_yozuv, maydon, qiymat)
                 eski_yozuv.save()
+                # Sessiya bo'yicha emas, ism bo'yicha topilgan bo'lsa ham —
+                # sessiyani shu yozuvga yangilab qo'yamiz, keyingi safar
+                # bazani qidirmasdan to'g'ridan-to'g'ri topilsin.
+                request.session[sessiya_kaliti] = eski_yozuv.pk
+                request.session.modified = True
             else:
                 yangi_yozuv = RSVP.objects.create(taklifnoma=taklifnoma, mehmon=None, **qiymatlar)
                 request.session[sessiya_kaliti] = yangi_yozuv.pk
@@ -1207,15 +1323,34 @@ def yoqdi(request, slug):
 def statistika(request, token):
     """Faqat mijoz ko'radigan maxfiy statistika sahifasi (token orqali)."""
     taklifnoma = get_object_or_404(Taklifnoma, statistika_token=token)
-    javoblar = taklifnoma.javoblar.all().order_by("-yaratilgan")
-    mehmonlar = taklifnoma.mehmonlar.all().order_by("ism")
+    # TAFTISH TOPILMASI (2026-09-14): ilgari `javoblar` shablonga lazy
+    # QuerySet sifatida berilardi, `Taklifnoma.keladiganlar_soni` va
+    # `.kelmaydiganlar_soni` xossalari esa (models.py) HAR BIRI o'zining
+    # ALOHIDA `self.javoblar.filter(...)` so'rovini yuborardi, shablondagi
+    # `{{ javoblar.count }}` esa TO'RTINCHI so'rov qo'shardi (QuerySet
+    # keshlangan bo'lsa ham `.count()` doim yangi SQL yuboradi). Natijada
+    # bir xil "javoblar" jadvaliga 4 marta murojaat qilinardi. Endi
+    # ro'yxat bir marta `list()` bilan olinadi, qolgan ikkita son shu
+    # ro'yxatdan Python'da hisoblanadi (shablondagi `.count()` ham
+    # `|length`ga almashtirildi — qarang: statistika.html).
+    javoblar = list(taklifnoma.javoblar.all().order_by("-yaratilgan"))
+    # `select_related("taklifnoma")`: shablonda har bir mehmon kartochkasi
+    # uchun `m.get_absolute_url()` chaqiriladi (Mehmon.get_absolute_url —
+    # `self.taklifnoma.slug`dan foydalanadi). Bu bog'lanish oldindan
+    # yuklanmasa, HAR BIR mehmon uchun alohida so'rov ketardi (N+1) —
+    # taklifnoma esa allaqachon xotirada, shuning uchun JOIN orqali bitta
+    # so'rovda olib qo'yiladi.
+    mehmonlar = taklifnoma.mehmonlar.select_related("taklifnoma").order_by("ism")
+
+    keladiganlar_soni = sum(j.mehmonlar_soni for j in javoblar if j.keladi)
+    kelmaydiganlar_soni = sum(1 for j in javoblar if not j.keladi)
 
     context = {
         "taklifnoma": taklifnoma,
         "javoblar": javoblar,
         "mehmonlar": mehmonlar,
-        "keladiganlar_soni": taklifnoma.keladiganlar_soni,
-        "kelmaydiganlar_soni": taklifnoma.kelmaydiganlar_soni,
+        "keladiganlar_soni": keladiganlar_soni,
+        "kelmaydiganlar_soni": kelmaydiganlar_soni,
     }
     return render(request, "taklif/statistika.html", context)
 

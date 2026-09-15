@@ -25,9 +25,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 
+def _env(nomi, standart=None):
+    """Muhit o'zgaruvchisini o'qiydi.
+
+    TAFTISH TOPILMASI (2026-09-14): oddiy `os.environ.get(nomi, standart)`
+    faqat o'zgaruvchi .env faylida UMUMAN YO'Q bo'lgan holatda standart
+    qiymatni qaytaradi — agar u BOR, lekin bo'sh qatorli bo'lsa (".env"da
+    "NOM=" deb qoldirilsa), `os.environ.get` bo'sh qatorning o'zini
+    qaytaradi, standart emas. Aynan shu sabab bilan DJANGO_ADMIN_MANZILI
+    bo'sh qoldirilganda boshqaruv paneli butunlay ishlamay qolgan edi. Bu
+    funksiya ikkala holatni ("yo'q" va "bor-lekin-bo'sh") bir xil — "qiymat
+    berilmagan" — deb hisoblaydi, xatoning boshqa joylarda qaytarilishini
+    oldini oladi.
+    """
+    qiymat = os.environ.get(nomi)
+    if qiymat is None or qiymat.strip() == "":
+        return standart
+    return qiymat
+
+
 def _env_bool(nomi, standart=False):
     """Muhit o'zgaruvchisini True/False'ga aylantiradi (masalan "1"/"true"/"yes")."""
-    qiymat = os.environ.get(nomi)
+    qiymat = _env(nomi)
     if qiymat is None:
         return standart
     return qiymat.strip().lower() in ("1", "true", "yes", "on")
@@ -48,7 +67,7 @@ def _env_list(nomi, standart=None):
 # Haqiqiy qiymat .env faylida DJANGO_SECRET_KEY sifatida beriladi (README'ga qarang).
 # Bu yerdagi standart qiymat FAQAT lokal sinov uchun — production'da hech qachon
 # ishlatilmasligi kerak (DEBUG=False bo'lganda quyida majburiy tekshiriladi).
-SECRET_KEY = os.environ.get(
+SECRET_KEY = _env(
     "DJANGO_SECRET_KEY",
     "django-insecure-faqat-lokal-test-uchun-buni-almashtiring",
 )
@@ -62,13 +81,24 @@ if DEBUG and not ALLOWED_HOSTS:
     # domenlar/IP ko'rsatilishi shart.
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
+if not DEBUG and not ALLOWED_HOSTS:
+    # Taftish topilmasi: bo'sh ALLOWED_HOSTS bilan production'da Django
+    # BARCHA so'rovlarni "DisallowedHost" bilan rad etadi — bu xato faqat
+    # jonli 500-loglarda ko'rinardi. Sabab darhol, ishga tushish
+    # bosqichidayoq aniq bo'lishi uchun ochiq tekshiruv qo'shildi.
+    raise RuntimeError(
+        "DJANGO_DEBUG=False bo'lganda .env faylida DJANGO_ALLOWED_HOSTS "
+        "aniq ko'rsatilishi shart (masalan 'oqqushlar.uz,www.oqqushlar.uz') "
+        "— bo'sh qoldirilsa, sayt HAR BIR so'rovni rad etadi."
+    )
+
 CSRF_TRUSTED_ORIGINS = _env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
 # Admin panelning manzili (standart "admin/" o'rniga) — .env faylida
 # DJANGO_ADMIN_MANZILI orqali o'zgartirish mumkin. Standart "/admin/" juda
 # ko'p botlar avtomatik sinaydigan manzil bo'lgani uchun, taxmin qilish
 # qiyinroq bo'lgan o'ziga xos manzilga ko'chirilgan (config/urls.py'ga qarang).
-ADMIN_URL_YOLI = os.environ.get("DJANGO_ADMIN_MANZILI", "boshqaruv-oqqushlar").strip("/") + "/"
+ADMIN_URL_YOLI = _env("DJANGO_ADMIN_MANZILI", "boshqaruv-oqqushlar").strip("/") + "/"
 
 if not DEBUG and SECRET_KEY.startswith("django-insecure-"):
     raise RuntimeError(
@@ -220,11 +250,17 @@ WSGI_APPLICATION = "config.wsgi.application"
 # buni avtomatik beradi). Agar DATABASE_URL berilmagan bo'lsa (mahalliy
 # kompyuterda ishlaganda odatiy holat), oddiy SQLite fayliga tushib qoladi —
 # lokal ishlash uchun hech narsa sozlash shart emas.
+#
+# Taftish topilmasi: `dj_database_url.config(default=...)`ning o'zi ham
+# ADMIN_URL_YOLI'dagi bilan bir xil xatoga ega — `.env`da "DATABASE_URL="
+# (bo'sh) qoldirilsa, kutubxona buni "bo'sh qiymat berilgan" deb o'qib,
+# standartga (SQLite'ga) TUSHMAYDI, aksincha bo'sh lug'at qaytaradi va sayt
+# "ENGINE" xatosi bilan umuman ko'tarilmaydi — aynan `.env.example`
+# tavsiya qilgan "bo'sh qoldiring" yo'lini buzadi. Shuning uchun qiymat
+# avval o'zimiz (bo'sh-qiymatga chidamli `_env` bilan) o'qiladi.
+_DATABASE_URL = _env("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-    )
+    "default": dj_database_url.parse(_DATABASE_URL, conn_max_age=600)
 }
 
 
@@ -384,7 +420,7 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = "DENY"
-    SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_HSTS_SECONDS", "31536000"))
+    SECURE_HSTS_SECONDS = int(_env("DJANGO_HSTS_SECONDS", "31536000"))
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
@@ -453,6 +489,25 @@ LOGGING = {
             "propagate": False,
         },
         "taklif.zaxira": {
+            "handlers": ["konsol_xatolik", "telegram_xatolik"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # TAFTISH TOPILMASI (2026-09-14): rasm.py'dagi "optimallashtir()"
+        # funksiyasi buzuq/katta rasm uchun faqat shu logerga WARNING
+        # yozardi — bu logerga hech qanday handler ulanmagani uchun
+        # ogohlantirish amalda HECH QAYERGA ko'rinmasdi (na konsolga, na
+        # Telegram'ga). Endi qolgan xato logerlar bilan bir xil tartibda
+        # ulandi — mijozning rasmi rad etilsa, admin buni bilib qoladi.
+        "taklif.rasm": {
+            "handlers": ["konsol_xatolik", "telegram_xatolik"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        # TAFTISH TOPILMASI (2026-09-14): kunlik systemd taymer orqali,
+        # hech kim ko'rmasdan ishlaydigan yana bir buyruq (zaxira.py
+        # kabi) — bazadagi xatolik jimgina o'tib ketmasligi uchun.
+        "taklif.eski_chiqindilarni_tozalash": {
             "handlers": ["konsol_xatolik", "telegram_xatolik"],
             "level": "ERROR",
             "propagate": False,

@@ -656,7 +656,7 @@ bo'limni alohida siqish imkonini beradi.
 <div class="bolim" data-anim>
     <h2>{% trans "Marosim kalendari" %}</h2>
     <div class="blok">
-        <div class="kalendar-oy">{{ taklifnoma.sana|date:"F Y" }}</div>
+        <div class="kalendar-oy">{{ taklifnoma.oy_yil }}</div>
         <div class="kalendar-grid{% if taklifnoma.juftlik_marosimi %} k-yurakli{% endif %}" id="kalendar-grid" data-jonli
              data-sana="{{ taklifnoma.sana|date:'c' }}"
              data-hafta="{% trans 'Du Se Ch Pa Ju Sh Ya' %}"></div>

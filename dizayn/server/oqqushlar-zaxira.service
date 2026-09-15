@@ -7,6 +7,20 @@
 #
 # Qo'lda ishga tushirish:  systemctl start oqqushlar-zaxira.service
 # Jurnalni ko'rish:        journalctl -u oqqushlar-zaxira -n 50
+#
+# TAFTISH TOPILMASI (2026-09-14): bu xizmat ilgari ROOT sifatida ishlardi,
+# lekin zaxira buyrug'ining o'ziga root huquqi umuman kerak emas — bazaga
+# parol bilan TCP orqali ulanadi, R2'ga tarmoq orqali yuboradi, natija esa
+# faqat pastdagi PrivateTmp papkasiga yoziladi. Endi ALOHIDA, imtiyozsiz
+# foydalanuvchi ostida ishlaydi. Bu foydalanuvchi xizmatni joylashtirishdan
+# OLDIN, serverda BIR MARTA (root sifatida) shunday yaratiladi:
+#
+#   useradd --system --no-create-home --shell /usr/sbin/nologin oqqushlar-zaxira
+#   setfacl -R -m u:oqqushlar-zaxira:rX /opt/oqqushlar
+#   setfacl -R -d -m u:oqqushlar-zaxira:rX /opt/oqqushlar
+#
+# ACL orqali FAQAT o'qish va papkalarga kirish huquqi beriladi — yozish
+# huquqi yo'q, chunki bu foydalanuvchiga umuman kerak emas.
 
 [Unit]
 Description=Oqqushlar bazasining zaxira nusxasi
@@ -15,6 +29,8 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
+User=oqqushlar-zaxira
+Group=oqqushlar-zaxira
 WorkingDirectory=/opt/oqqushlar
 ExecStart=/opt/oqqushlar/venv/bin/python manage.py zaxira
 

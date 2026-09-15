@@ -47,16 +47,51 @@ SIFAT = 82
 # ko'rsatiladi, ya'ni ular yig'ilib og'irlik qiladi — biroz kichikroq.
 NAMUNA_MAKS_TOMON = 1200
 
+# TAFTISH TOPILMASI (2026-09-14): eng katta ruxsat etilgan piksel soni
+# (kenglik x balandlik). Bu "dekompressiya bombasi" turidagi buzuq
+# fayllardan himoya qiladi — masalan bir necha kilobaytli, lekin sarlavhasida
+# o'n minglab x o'n minglab piksel deb yozilgan PNG/rasm, uni to'liq
+# dekodlashga urinish xotirani (va CPU'ni) bir zumda tugatib qo'yishi
+# mumkin. Tekshiruv `Image.open()`dan KEYIN, lekin piksel MA'LUMOTINI
+# o'qishdan (masalan exif_transpose/thumbnail) OLDIN bajariladi — chunki
+# `Image.open()` faylning faqat sarlavhasini o'qiydi, haqiqiy dekodlash
+# birinchi piksel-darajasidagi amalda boshlanadi.
+#
+# 40 million piksel — hatto eng yangi flagman telefonlarning eng katta
+# fotosidan (odatda 12-50 MP) ham keng chegara bilan katta, shuning
+# uchun haqiqiy mijoz fotosi bu yerda hech qachon rad etilmaydi.
+MAKS_PIKSEL = 40_000_000
+
+
+class RasmXatosi(Exception):
+    """Rasmni xavfsiz optimallashtirib bo'lmadi.
+
+    TAFTISH TOPILMASI (2026-09-14): ilgari optimallashtirish
+    muvaffaqiyatsiz bo'lganda chaqiruvchi (models.py'dagi
+    "_rasmni_optimallashtirib_saqlash") ASL — siqilmagan, EXIF/GPS
+    metama'lumoti hali o'chirilmagan — faylni o'zgarishsiz saqlab
+    qo'yardi. Bu modul boshidagi izohda aytilgan ikkala asosiy maqsadni
+    ham (og'irlikni kamaytirish VA GPS/metama'lumotni tozalash)
+    yo'qqa chiqarardi — aynan xato/buzuq holatlarda, ya'ni himoya eng
+    kerak bo'lgan paytda. Endi bunday holatda fayl umuman SAQLANMAYDI —
+    shu xato ko'tariladi, chaqiruvchi tomon buni ushlab, mijozga
+    tushunarli xabar ko'rsatishi yoki so'rovni rad etishi kerak.
+    """
+
 
 def optimallashtir(fayl, maks_tomon=MAKS_TOMON, sifat=SIFAT):
     """Rasmni WebP'ga o'giradi, kichraytiradi va metama'lumotini tashlaydi.
 
-    Qaytaradi: yangi ContentFile, yoki ishlov bermay bo'lmasa — None
-    (chaqiruvchi bunday holda asl faylni o'zgarishsiz saqlaydi).
+    Qaytaradi: yangi ContentFile, yoki ishlov bermay bo'lmasa — None.
 
-    Xato yutib yuborilishi ATAYLAB: rasm optimallashmasa ham mijozning
-    taklifnomasi yaratilishi kerak. Buzuq fayl uchun butun so'rovni
-    qulatish mutlaqo nomutanosib javob bo'lardi.
+    TAFTISH TOPILMASI (2026-09-14): bu funksiyaning o'zi hech qachon
+    istisno (exception) ko'tarmaydi — ichkarida yuz bergan xato shu
+    yerda "yutib yuboriladi" va faqat None qaytariladi. Bu ATAYLAB: bir
+    dona buzuq/g'alati fayl butun so'rovni 500-xato bilan qulatmasligi
+    kerak. LEKIN None qaytganda asl faylni o'zgarishsiz saqlab qolish —
+    bu funksiyaning ISHI EMAS: qaytadan qarang RasmXatosi izohiga
+    ("_rasmni_optimallashtirib_saqlash" — models.py) — ASL fayl endi
+    hech qachon saqlanmaydi, shu javobgarlik chaqiruvchida.
     """
     try:
         from PIL import Image, ImageOps
@@ -67,6 +102,29 @@ def optimallashtir(fayl, maks_tomon=MAKS_TOMON, sifat=SIFAT):
     try:
         fayl.seek(0)
         rasm = Image.open(fayl)
+
+        # Piksel-bombasi tekshiruvi — modul boshidagi MAKS_PIKSEL izohiga
+        # qarang. `rasm.size` faqat sarlavhadan o'qiladi, hali to'liq
+        # dekodlashga OLIB KELMAYDI — shuning uchun bu tekshiruv buzuq
+        # fayl uchun ham xavfsiz va arzon.
+        kenglik, balandlik = rasm.size
+        if kenglik * balandlik > MAKS_PIKSEL:
+            jurnal.warning(
+                "Rasm juda katta (%sx%s = %s piksel, chegara %s) — "
+                "optimallashtirilmadi",
+                kenglik, balandlik, kenglik * balandlik, MAKS_PIKSEL,
+            )
+            return None
+
+        # JPEG uchun tezlashtirilgan dekodlash: libjpeg faylni to'liq
+        # o'lchamda dekodlab, KEYIN kichraytirish o'rniga, DCT darajasida
+        # to'g'ridan-to'g'ri kerakli o'lchamga YAQIN holda o'qiydi — katta
+        # telefon fotolarida dekodlash vaqti va xotira sarfini sezilarli
+        # kamaytiradi. Boshqa formatlar uchun Pillow bu chaqiruvni
+        # jimgina e'tiborsiz qoldiradi (faqat JPEG/MPO'da ishlaydi), va
+        # u albatta piksel ma'lumotini o'qishdan (masalan quyidagi
+        # exif_transpose) OLDIN chaqirilishi kerak.
+        rasm.draft("RGB", (maks_tomon, maks_tomon))
 
         # EXIF'dagi burilish belgisini HAQIQIY burilishga aylantiradi.
         # Shundan keyin belgining o'zi keraksiz bo'ladi.

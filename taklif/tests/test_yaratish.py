@@ -132,6 +132,21 @@ class FaylCheklovlariTest(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertFalse(Taklifnoma.objects.exists())  # chala taklifnoma qolib ketmasligi kerak
 
+    def test_buzuq_rasm_rad_etiladi_va_hech_narsa_saqlanmaydi(self):
+        # TAFTISH TOPILMASI (2026-09-14): ilgari fayl hajmi to'g'ri bo'lsa,
+        # lekin ICHKI mazmuni buzuq (yoki umuman rasm bo'lmagan) bo'lsa —
+        # taklifnoma baribir yaratilardi, faqat rasmi "optimallashtirilmagan"
+        # holda (asl, ehtimol EXIF/GPS'li) saqlanardi. Endi bunday fayl
+        # hech narsa yaratilmasdan ALDINDAN rad etiladi (katta rasm bilan
+        # bir xil himoya darajasi).
+        buzuq = SimpleUploadedFile("buzuq.jpg", b"bu rasm emas", content_type="image/jpeg")
+        r = self.client.post(
+            f"/yaratish/{self.shablon.kod}/",
+            {**ASOSIY_FORMA_MAYDONLARI, "rasmlar": [buzuq]},
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertFalse(Taklifnoma.objects.exists())
+
     def test_togri_hajmdagi_rasm_biriktiriladi(self):
         r = self.client.post(
             f"/yaratish/{self.shablon.kod}/",

@@ -1,9 +1,12 @@
+import logging
 from datetime import timedelta
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from taklif.models import CHIQINDI_SAQLASH_KUNLARI, Taklifnoma
+
+jurnal = logging.getLogger("taklif.eski_chiqindilarni_tozalash")
 
 
 class Command(BaseCommand):
@@ -32,6 +35,21 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        try:
+            self._tozala(**options)
+        except CommandError:
+            raise
+        except Exception as xato:
+            # Bu buyruq VPS'da kunlik systemd taymer orqali, hech kim
+            # ko'rmasdan ishga tushadi (docstring'ga qarang) — xuddi
+            # zaxira.py'dagidek, xatolik jimgina yo'qolmasligi, admin
+            # Telegram orqali ertalab bilib qolishi kerak (settings.LOGGING).
+            jurnal.error(
+                "Eski chiqindilarni tozalashda xatolik: %s", xato, exc_info=True
+            )
+            raise CommandError(f"Chiqindilar tozalanmadi: {xato}") from xato
+
+    def _tozala(self, **options):
         chegara = timezone.now() - timedelta(days=CHIQINDI_SAQLASH_KUNLARI)
         eskilar = Taklifnoma.objects.filter(
             ochirilgan_vaqt__isnull=False, ochirilgan_vaqt__lt=chegara

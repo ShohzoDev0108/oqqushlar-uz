@@ -51,6 +51,23 @@ class RsvpTakrorlanishTest(TestCase):
         c2.post(f"/{self.taklifnoma.slug}/rsvp/", {"ism": "Ikkinchi", "keladi": "ha", "mehmonlar_soni": 1})
         self.assertEqual(RSVP.objects.filter(taklifnoma=self.taklifnoma, mehmon__isnull=True).count(), 2)
 
+    def test_shaxsiy_linksiz_sessiya_yoqolsa_ham_ism_boyicha_yangilanadi(self):
+        """TAFTISH TOPILMASI (2026-09-14): oldin sessiya yagona zaxira edi —
+        cookie tozalansa/boshqa brauzerdan kirsa, xohlagancha yangi qator
+        qo'sha olardi. Endi bir xil ism bo'yicha bazadan ham tekshiriladi."""
+        birinchi, ikkinchi = Client(), Client()  # ikkita MUSTAQIL sessiya
+        birinchi.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "Bir Xil Ism", "keladi": "ha", "mehmonlar_soni": 3,
+        })
+        # Katta-kichik harf va sessiya farqiga qaramay — bitta yozuv qoladi,
+        # eskisi yangilanadi (soni endi 1 ga o'zgargan bo'lishi kerak).
+        ikkinchi.post(f"/{self.taklifnoma.slug}/rsvp/", {
+            "ism": "bir xil ism", "keladi": "ha", "mehmonlar_soni": 1,
+        })
+        self.assertEqual(RSVP.objects.filter(taklifnoma=self.taklifnoma, mehmon__isnull=True).count(), 1)
+        yozuv = RSVP.objects.get(taklifnoma=self.taklifnoma, mehmon__isnull=True)
+        self.assertEqual(yozuv.mehmonlar_soni, 1)
+
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class RsvpUzunMatnTest(TestCase):

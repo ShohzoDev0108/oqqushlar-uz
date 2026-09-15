@@ -162,6 +162,34 @@ does not exist` xatosi chiqadi.
 ortida turgani uchun bu bayroqsiz barcha mijozlar bitta IP dan
 kelayotgandek ko'rinadi va chegara hammani birdan to'sib qo'yadi.
 
+## Production xizmatlari (gunicorn + nginx)
+
+Serverda ishlab turgan haqiqiy konfiguratsiyaning nusxasi `dizayn/server/`
+papkasida saqlanadi — serverni noldan tiklash yoki yangi VPS'ga ko'chirish
+kerak bo'lganda shu fayllardan foydalaniladi:
+
+- `oqqushlar-gunicorn.service` — Django ilovasini `127.0.0.1:8000`da
+  ishga tushiradigan systemd xizmati (WSGI, 3 ishchi jarayon).
+- `oqqushlar-nginx.conf` — teskari-proksi: statik/media fayllarni
+  to'g'ridan-to'g'ri beradi, qolganini gunicorn'ga uzatadi; SSL qismi
+  Certbot tomonidan avtomatik boshqariladi.
+
+O'rnatish tartibi (serverda, root sifatida):
+
+    cp dizayn/server/oqqushlar-gunicorn.service /etc/systemd/system/oqqushlar.service
+    systemctl daemon-reload
+    systemctl enable --now oqqushlar.service
+
+    cp dizayn/server/oqqushlar-nginx.conf /etc/nginx/sites-available/oqqushlar
+    ln -s /etc/nginx/sites-available/oqqushlar /etc/nginx/sites-enabled/oqqushlar
+    nginx -t
+    systemctl reload nginx
+
+Yangi serverda SSL sertifikati hali yo'q bo'lsa, avval `oqqushlar-nginx.conf`
+faylining faqat `listen 80` qismi bilan (SSL qatorlarisiz) qo'yiladi, keyin
+`certbot --nginx -d oqqushlar.uz -d www.oqqushlar.uz` ishga tushiriladi — u
+SSL qatorlarini avtomatik qo'shib, faylni joriy ko'rinishga keltiradi.
+
 ## Zaxira nusxa
 
 Baza har kecha 03:15 da shifrlanib R2'ning **alohida** paqiriga yuboriladi
@@ -178,6 +206,19 @@ saqlanmaydi: bitta noto'g'ri kalit ikkalasini birdan yo'q qilmasligi kerak.
 
 **ZAXIRA_PAROL ni yo'qotmang.** U yo'qolsa nusxalarni ochib bo'lmaydi.
 Uni parol menejeringizda, serverdan tashqarida saqlang.
+
+Xizmat ROOT emas, alohida imtiyozsiz foydalanuvchi ostida ishlaydi —
+shuning uchun taymer o'rnatishdan OLDIN, serverda BIR MARTA (root
+sifatida) shu foydalanuvchi yaratiladi:
+
+    useradd --system --no-create-home --shell /usr/sbin/nologin oqqushlar-zaxira
+    setfacl -R -m u:oqqushlar-zaxira:rX /opt/oqqushlar
+    setfacl -R -d -m u:oqqushlar-zaxira:rX /opt/oqqushlar
+
+(`setfacl` topilmasa: `apt install -y acl`.) Bu foydalanuvchiga loyiha
+papkasini FAQAT o'qish huquqi beriladi — yozish huquqi yo'q, chunki
+zaxira buyrug'iga umuman kerak emas (natija to'g'ridan-to'g'ri R2'ga
+ketadi, diskka yozilmaydi).
 
 Taymer:
 

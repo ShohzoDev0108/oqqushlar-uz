@@ -2,6 +2,7 @@ import json
 import re
 
 from django import forms
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
@@ -454,6 +455,27 @@ class TaklifnomaYaratishForm(forms.ModelForm):
                 }
             )
         return natija
+
+    def clean_sana(self):
+        """Marosim sanasi o'tmishda bo'lmasligini serverda ham tekshiradi.
+
+        TAFTISH TOPILMASI (2026-09-14): bu tekshiruv ilgari FAQAT brauzer
+        tomonida (yaratish.html'dagi JS kalendar/soat tanlagichi) bo'lgan —
+        ya'ni JS'ni chetlab o'tib (masalan formani to'g'ridan-to'g'ri POST
+        qilib) o'tmish sanali taklifnoma yaratish mumkin edi. Bu forma
+        faqat YANGI taklifnoma yaratishda ishlatiladi (tahrirlashda emas —
+        views.py'dagi "yaratish" funksiyasiga qarang), shuning uchun bu
+        shart har doim to'g'ri.
+        """
+        sana = self.cleaned_data.get("sana")
+        if sana and sana < timezone.now():
+            raise forms.ValidationError(
+                _(
+                    "Marosim sanasi o'tmishda bo'lishi mumkin emas — "
+                    "kelajakdagi bir sanani tanlang."
+                )
+            )
+        return sana
 
     def clean(self):
         cleaned_data = super().clean()

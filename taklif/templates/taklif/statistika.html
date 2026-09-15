@@ -114,7 +114,7 @@ button.mini-tugma {
 
         <div class="karta-blok">
             <div class="karta"><div class="son">{{ taklifnoma.korishlar }}</div><div class="yorliq">{% trans "ko'rishlar" %}</div></div>
-            <div class="karta"><div class="son">{{ javoblar.count }}</div><div class="yorliq">{% trans "javoblar" %}</div></div>
+            <div class="karta"><div class="son">{{ javoblar|length }}</div><div class="yorliq">{% trans "javoblar" %}</div></div>
             <div class="karta"><div class="son ha">{{ keladiganlar_soni }}</div><div class="yorliq">{% trans "keladi (mehmon)" %}</div></div>
             <div class="karta"><div class="son yoq">{{ kelmaydiganlar_soni }}</div><div class="yorliq">{% trans "kelmaydi" %}</div></div>
         </div>

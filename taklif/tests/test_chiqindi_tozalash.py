@@ -1,11 +1,14 @@
 """`eski_chiqindilarni_tozalash` boshqaruv buyrug'i uchun testlar."""
 from datetime import timedelta
 from io import StringIO
+from unittest.mock import patch
 
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.test import TestCase
 from django.utils import timezone
 
+from taklif.management.commands.eski_chiqindilarni_tozalash import Command
 from taklif.models import CHIQINDI_SAQLASH_KUNLARI, Taklifnoma
 from taklif.tests.yordamchi import shablon_yarat
 
@@ -45,3 +48,22 @@ class EskiChiqindilarniTozalashTest(TestCase):
         call_command("eski_chiqindilarni_tozalash", "--sinov", stdout=out)
         self.assertTrue(Taklifnoma.objects.filter(pk=eski.pk).exists())
         self.assertIn("SINOV", out.getvalue())
+
+
+class XatolikJurnaliTest(TestCase):
+    """TAFTISH TOPILMASI (2026-09-14): bu buyruq ham zaxira.py kabi
+    kechasi hech kim ko'rmasdan ishlaydi — ichkarida kutilmagan xatolik
+    yuz bersa, jimgina yo'qolmasdan Telegram'ga (taklif.eski_chiqindilarni_tozalash
+    logeri orqali) yetib borishi kerak."""
+
+    def test_kutilmagan_xatolik_jurnalga_yoziladi_va_commanderror_kotariladi(self):
+        buyruq = Command()
+        with patch.object(
+            Command, "_tozala", side_effect=RuntimeError("bazaga ulanib bo'lmadi")
+        ):
+            with self.assertLogs(
+                "taklif.eski_chiqindilarni_tozalash", level="ERROR"
+            ) as jurnal:
+                with self.assertRaises(CommandError):
+                    buyruq.handle(sinov=False)
+        self.assertTrue(any("bazaga ulanib bo'lmadi" in x for x in jurnal.output))
