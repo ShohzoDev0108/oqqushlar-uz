@@ -173,6 +173,9 @@ kerak bo'lganda shu fayllardan foydalaniladi:
 - `oqqushlar-nginx.conf` — teskari-proksi: statik/media fayllarni
   to'g'ridan-to'g'ri beradi, qolganini gunicorn'ga uzatadi; SSL qismi
   Certbot tomonidan avtomatik boshqariladi.
+- `oqqushlar-logrotate.conf` — gunicorn jurnal faylini (`gunicorn.log`)
+  haftalik aylantiradi (8 hafta saqlanadi, eskilari siqiladi) — bu
+  bo'lmasa fayl cheksiz o'sadi.
 
 O'rnatish tartibi (serverda, root sifatida):
 
@@ -184,6 +187,8 @@ O'rnatish tartibi (serverda, root sifatida):
     ln -s /etc/nginx/sites-available/oqqushlar /etc/nginx/sites-enabled/oqqushlar
     nginx -t
     systemctl reload nginx
+
+    cp dizayn/server/oqqushlar-logrotate.conf /etc/logrotate.d/oqqushlar
 
 Yangi serverda SSL sertifikati hali yo'q bo'lsa, avval `oqqushlar-nginx.conf`
 faylining faqat `listen 80` qismi bilan (SSL qatorlarisiz) qo'yiladi, keyin
